@@ -1,0 +1,16 @@
+version: '2'
+services: 
+  web:
+    restart: always
+    image: ehz/game/server/zone
+    environment:
+      VIRTUAL_HOST: server-zone-001.demo.projecteventhorizon.com
+      LETSENCRYPT_HOST: server-zone-001.demo.projecteventhorizon.com
+      LETSENCRYPT_EMAIL: cody.anhorn@hotmail.com
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://*:5000
+    ports:
+      - 5000
+    volumes:
+      - ~/Configs/Game/Server/Zone/appsettings.Production.json:/app/appsettings.Production.json
+    network_mode: "bridge"
