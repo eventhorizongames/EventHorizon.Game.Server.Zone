@@ -32,12 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
             _serverProperty = serverProperty;
         }
 
-        public Task Handle(UnregisterWithCoreServerEvent notification, CancellationToken cancellationToken)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task Handle(RegisterWithCoreServerEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(UnregisterWithCoreServerEvent notification, CancellationToken cancellationToken)
         {
             await UnregisterWithCoreServer(
                 _coreSettings.Server,
