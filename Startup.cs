@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.Factory;
 using EventHorizon.Game.Server.Zone.Core.Factory.Impl;
+using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +58,13 @@ namespace EventHorizon.Game.Server.Zone
             services.AddZoneCore(Configuration);
             services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
             services.AddSingleton<IServerProperty, ServerProperty>();
+
+            services.AddSingleton<IScheduledTask, PingCoreServerScheduledTask>();
+            services.AddScheduler((sender, args) =>
+            {
+                Console.WriteLine(args.Exception.Message);
+                args.SetObserved();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
