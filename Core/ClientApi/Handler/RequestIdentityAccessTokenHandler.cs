@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
-using EventHorizon.Game.Server.Zone.Core.Factory;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;

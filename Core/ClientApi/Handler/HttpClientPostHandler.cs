@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
-using EventHorizon.Game.Server.Zone.Core.Factory;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -22,7 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Core.ClientApi.Handler
         }
         public async Task<HttpResponseMessage> Handle(HttpClientPostEvent message, CancellationToken cancellationToken)
         {
-            var client = _httpClientFactory.Client();
+            var client = _httpClientFactory.CreateClient();
             // call api
             client.SetBearerToken(message.AccessToken);
             var jsonString = JsonConvert.SerializeObject(message.Content);

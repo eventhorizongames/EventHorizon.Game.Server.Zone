@@ -6,11 +6,13 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core;
-using EventHorizon.Game.Server.Zone.Core.Factory;
-using EventHorizon.Game.Server.Zone.Core.Factory.Impl;
 using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Game.Server.Zone.Loop;
+using EventHorizon.Game.Server.Zone.Player;
+using EventHorizon.Game.Server.Zone.Player.State;
+using EventHorizon.Game.Server.Zone.Player.State.Impl;
 using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -41,7 +43,8 @@ namespace EventHorizon.Game.Server.Zone
                 // Enabled TLS 1.2
                 System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
             }
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
+            services.AddHttpClient();
+            services.AddMediatR();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -54,12 +57,19 @@ namespace EventHorizon.Game.Server.Zone
             {
                 // options.Filters.Add(typeof(JsonExceptionFilter));
             });
+            services.AddSignalR();
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+            builder =>
+            {
+                builder.AllowAnyMethod().AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowCredentials();
+            }));
 
+            services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
-            services.AddSingleton<IHttpClientFactory, HttpClientFactory>();
-            services.AddSingleton<IServerProperty, ServerProperty>();
+            services.AddLoop(Configuration);
 
-            services.AddSingleton<IScheduledTask, PingCoreServerScheduledTask>();
             services.AddScheduler((sender, args) =>
             {
                 Console.WriteLine(args.Exception.Message);
@@ -68,7 +78,7 @@ namespace EventHorizon.Game.Server.Zone
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -76,9 +86,15 @@ namespace EventHorizon.Game.Server.Zone
             }
 
             app.UseZoneCore();
+            app.UseLoop();
 
             app.UseAuthentication();
-
+            app.UseCors("CorsPolicy");
+            app.UseStaticFiles();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<PlayerHub>("/playerHub");
+            });
             app.UseMvc();
         }
     }

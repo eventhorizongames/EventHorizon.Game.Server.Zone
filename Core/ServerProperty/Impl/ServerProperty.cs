@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 
 namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl
 {
-    public class ServerProperty : IServerProperty
+    public class ServerPropertyImpl : IServerProperty
     {
         private static ConcurrentDictionary<string, object> PROPERTIES = new ConcurrentDictionary<string, object>();
 

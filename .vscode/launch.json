@@ -10,11 +10,11 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.0/EventHorizon.Game.Server.Zone.dll",
+            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
-            "externalConsole": true,
+            "externalConsole": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
                 "enabled": false,

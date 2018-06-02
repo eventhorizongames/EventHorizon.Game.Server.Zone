@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.ClientApi;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
 using EventHorizon.Game.Server.Zone.Core.Model;
+using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.Register.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -19,15 +21,18 @@ namespace EventHorizon.Game.Server.Zone.Core.Ping.Handler
 {
     public class PingCoreServerHandler : INotificationHandler<PingCoreServerEvent>
     {
+        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly CoreSettings _coreSettings;
         private readonly IServerProperty _serverProperty;
 
-        public PingCoreServerHandler(IMediator mediator,
+        public PingCoreServerHandler(ILogger<PingCoreServerHandler> logger,
+            IMediator mediator,
             IOptions<ZoneSettings> zoneSettings,
             IOptions<CoreSettings> coreSettings,
             IServerProperty serverProperty)
         {
+            _logger = logger;
             _mediator = mediator;
             _coreSettings = coreSettings.Value;
             _serverProperty = serverProperty;
@@ -50,6 +55,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Ping.Handler
             });
             if (!response.IsSuccessStatusCode)
             {
+                await _mediator.Publish(new RegisterWithCoreServerEvent());
                 throw new UnableToPingCoreServerException("Invalid response from Zone Ping request. ZoneId: " + zoneId);
             }
         }

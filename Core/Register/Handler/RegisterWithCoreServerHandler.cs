@@ -12,6 +12,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
@@ -19,16 +20,19 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
 {
     public class RegisterWithCoreServerHandler : INotificationHandler<RegisterWithCoreServerEvent>
     {
+        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly ZoneSettings _zoneSettings;
         private readonly CoreSettings _coreSettings;
         private readonly IServerProperty _serverProperty;
 
-        public RegisterWithCoreServerHandler(IMediator mediator,
+        public RegisterWithCoreServerHandler(ILogger<RegisterWithCoreServerHandler> logger,
+            IMediator mediator,
             IOptions<ZoneSettings> zoneSettings,
             IOptions<CoreSettings> coreSettings,
             IServerProperty serverProperty)
         {
+            _logger = logger;
             _mediator = mediator;
             _zoneSettings = zoneSettings.Value;
             _coreSettings = coreSettings.Value;
@@ -43,6 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
                 _zoneSettings.Tags
             );
             _serverProperty.Set(ServerPropertyKeys.SERVER_ID, response.Id);
+            _logger.LogInformation("Registered with Core Server: {0}", response.Id);
         }
         private async Task<ZoneRegisteredResponse> RegisterWithCoreServer(string coreServerAddress, string host, IList<string> tags)
         {

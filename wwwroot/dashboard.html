@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Server Zone - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/dashboard.css" />
+</head>
+
+<body>
+    <input id="access-token" type="text" /> <button id="start-connection">Start Connection</button>
+    <hr />
+    <textarea id="send-data"></textarea>
+    <br />
+    <button id="send-action">Send Action</button>
+    <hr />
+    <pre id="zone-info"></pre>
+    <hr />
+    <ul id="action-received"></ul>
+
+    <script src="lib/signalr/signalr.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+
+</html>
