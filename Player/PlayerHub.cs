@@ -18,13 +18,10 @@ namespace EventHorizon.Game.Server.Zone.Player
         }
         public override async Task OnConnectedAsync()
         {
-            var playerConnectionId = Context.ConnectionId;
-            var playerId = Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value;
-
             await _mediator.Publish(new PlayerConnectedEvent
             {
-                Id = playerId,
-                ConnectionId = playerConnectionId,
+                Id = Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value,
+                ConnectionId = Context.ConnectionId,
             });
         }
 
