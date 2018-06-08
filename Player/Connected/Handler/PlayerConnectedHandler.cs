@@ -1,3 +1,4 @@
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Player.State;
@@ -24,6 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 player = new Model.PlayerEntity
                 {
                     Id = notification.Id,
+                    Position = Vector3.Zero,
                 };
             }
 

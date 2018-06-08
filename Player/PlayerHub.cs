@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Player.Action;
 using EventHorizon.Game.Server.Zone.Player.Connected;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,16 @@ namespace EventHorizon.Game.Server.Zone.Player
         public override async Task OnDisconnectedAsync(Exception exception)
         {
 
+        }
+
+        public async Task PlayerAction(string actionName, dynamic actionData)
+        {
+            await _mediator.Publish(new PlayerActionEvent
+            {
+                PlayerId = Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value,
+                Action = actionName,
+                Data = actionData,
+            });
         }
     }
 }
