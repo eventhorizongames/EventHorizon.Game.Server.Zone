@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
@@ -14,7 +15,9 @@ using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
 using EventHorizon.Schedule;
+using IdentityModel.AspNetCore.OAuth2Introspection;
 using MediatR;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -53,9 +56,8 @@ namespace EventHorizon.Game.Server.Zone
                     options.RequireHttpsMetadata = HostingEnvironment.IsProduction() || HostingEnvironment.IsStaging();
                     options.Authority = Configuration["Auth:Authority"];
                     options.ApiName = Configuration["Auth:ApiName"];
-                    options.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = context =>
+                    options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
+                    options.JwtBearerEvents.OnMessageReceived = async context =>
                         {
                             var accessToken = context.Request.Query["access_token"];
 
@@ -63,10 +65,11 @@ namespace EventHorizon.Game.Server.Zone
                                 (context.HttpContext.WebSockets.IsWebSocketRequest || context.Request.Headers["Accept"] == "text/event-stream"))
                             {
                                 context.Token = context.Request.Query["access_token"];
+                                context.HttpContext.Request.Headers["Authorization"] = "Bearer " + context.Token;
+                                var result = await context.HttpContext.AuthenticateAsync();
+                                var user = context.HttpContext.User;
                             }
-                            return Task.CompletedTask;
-                        }
-                    };
+                        };
                 });
             services.AddMvc(options =>
             {
@@ -101,11 +104,11 @@ namespace EventHorizon.Game.Server.Zone
             }
 
             app.UseCors("CorsPolicy");
+            app.UseAuthentication();
 
             app.UseZoneCore();
             app.UseLoop();
 
-            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSignalR(routes =>
             {
