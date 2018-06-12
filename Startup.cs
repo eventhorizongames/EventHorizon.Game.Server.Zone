@@ -15,6 +15,7 @@ using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
 using EventHorizon.Schedule;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -52,6 +53,20 @@ namespace EventHorizon.Game.Server.Zone
                     options.RequireHttpsMetadata = HostingEnvironment.IsProduction() || HostingEnvironment.IsStaging();
                     options.Authority = Configuration["Auth:Authority"];
                     options.ApiName = Configuration["Auth:ApiName"];
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (context.HttpContext.WebSockets.IsWebSocketRequest || context.Request.Headers["Accept"] == "text/event-stream"))
+                            {
+                                context.Token = context.Request.Query["access_token"];
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
             services.AddMvc(options =>
             {
@@ -86,7 +101,7 @@ namespace EventHorizon.Game.Server.Zone
             }
 
             app.UseCors("CorsPolicy");
-            
+
             app.UseZoneCore();
             app.UseLoop();
 
