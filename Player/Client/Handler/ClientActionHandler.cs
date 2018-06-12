@@ -10,20 +10,18 @@ namespace EventHorizon.Game.Server.Zone.Player.Client.Handler
     {
         readonly IPlayerRepository _playerRepository;
         readonly IHubContext<PlayerHub> _hubContext;
-        public ClientActionHandler(IPlayerRepository playerRepository)
+        public ClientActionHandler(IPlayerRepository playerRepository, IHubContext<PlayerHub> hubContext)
         {
             _playerRepository = playerRepository;
+            _hubContext = hubContext;
         }
 
         public async Task Handle(ClientActionEvent notification, CancellationToken cancellationToken)
         {
             var player = await _playerRepository.FindById(notification.PlayerId);
 
-            await _hubContext.Clients.Client(player.ConnectionId).SendAsync("ClientAction", new
-            {
-                Action = notification.Action,
-                Data = notification.Data,
-            });
+            await _hubContext.Clients.Client(player.ConnectionId)
+                .SendAsync("ClientAction", notification.Action, notification.Data);
         }
     }
 }

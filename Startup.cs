@@ -85,11 +85,12 @@ namespace EventHorizon.Game.Server.Zone
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("CorsPolicy");
+            
             app.UseZoneCore();
             app.UseLoop();
 
             app.UseAuthentication();
-            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
             app.UseSignalR(routes =>
             {

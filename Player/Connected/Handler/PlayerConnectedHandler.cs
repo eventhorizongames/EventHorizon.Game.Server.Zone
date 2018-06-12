@@ -1,6 +1,9 @@
+using System;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Player.Actions;
+using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Zone;
 using MediatR;
@@ -25,7 +28,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 player = new Model.PlayerEntity
                 {
                     Id = notification.Id,
-                    Position = Vector3.Zero,
+                    Position = new Model.PositionState{
+                        CurrentPosition = Vector3.Zero,
+                        NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
+                        MoveToPosition = Vector3.Zero,
+                    },
                 };
             }
 

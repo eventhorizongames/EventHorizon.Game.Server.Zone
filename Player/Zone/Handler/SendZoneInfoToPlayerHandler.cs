@@ -20,12 +20,17 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         {
             var zoneInfo = new
             {
-                Player = request.Player,
+                Player = new ClientPlayer
+                {
+                    Id = request.Player.Id,
+                    Position = request.Player.Position.CurrentPosition,
+                    ConnectionId = request.Player.ConnectionId,
+                },
                 MapMesh = new // TODO: Read this configuration from DB or something simliar, make dynamic
                 {
                     HeightMapUrl = "/Game/Level/Home/Assets/HomeLevel.png",
-                    Width = 256,
-                    Height = 256,
+                    Width = 128,
+                    Height = 128,
                     Subdivisions = 200,
                     MinHeight = 0,
                     MaxHeight = 15,

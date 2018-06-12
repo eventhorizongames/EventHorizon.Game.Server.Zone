@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Loop.State;
 using EventHorizon.Game.Server.Zone.Map;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
@@ -14,10 +17,12 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
     {
         readonly ZoneSettings _zoneSettings;
         readonly IServerState _serverState;
-        public CreateMapHandler(IOptions<ZoneSettings> zoneSettings, IServerState serverState)
+        readonly ILogger _logger;
+        public CreateMapHandler(IOptions<ZoneSettings> zoneSettings, ILogger<CreateMapHandler> logger, IServerState serverState)
         {
             _zoneSettings = zoneSettings.Value;
             _serverState = serverState;
+            _logger = logger;
         }
 
         public async Task Handle(CreateMapEvent notification, CancellationToken cancellationToken)
@@ -39,8 +44,11 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
             // Create Graph Nodes
             var indexMap = new List<int>();
             var key = 0;
+            Stopwatch stopWatch = new Stopwatch();
+
             for (var i = 0; i < zoneHeight; i++)
             {
+                stopWatch.Restart();
                 for (var j = 0; j < zoneWidth; j++)
                 {
                     float xPos = (i * tileDimension) + (tileDimension / 2);
@@ -49,20 +57,19 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
                     zPos = (height / 2) - (height - zPos);
                     var position = new Vector3(xPos, 0, zPos);
                     // Add node to graph
-                    var navNode = new MapNode
-                    {
-                        Position = position
-                    };
+                    var navNode = new MapNode(position);
                     mapGraph.AddNode(navNode);
                     indexMap.Add(navNode.Index);
                     key++;
                 }
+                _logger.LogInformation("Node {} : {}", i, stopWatch.ElapsedMilliseconds);
             }
 
             var currentNodeIndex = 0;
             // Setup edges for graph
             for (var i = 0; i < zoneHeight; i++)
             {
+                stopWatch.Restart();
                 for (var j = 0; j < zoneWidth; j++)
                 {
                     var navNodeIndex = indexMap[currentNodeIndex];
@@ -109,6 +116,7 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
 
                     ++currentNodeIndex;
                 }
+                _logger.LogInformation("Edge {} : {}", i, stopWatch.ElapsedMilliseconds);
             }
             await _serverState.SetMap(mapGraph);
         }

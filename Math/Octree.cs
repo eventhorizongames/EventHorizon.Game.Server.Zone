@@ -35,6 +35,10 @@ namespace EventHorizon.Game.Server.Zone.Math
         }
         public T FindNearestPoint(Vector3 p, IOctreeOptions options)
         {
+            if (options == null)
+            {
+                options = new IOctreeOptions();
+            }
             return this.root.FindNearestPoint(p, options);
         }
         public IList<T> FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options)

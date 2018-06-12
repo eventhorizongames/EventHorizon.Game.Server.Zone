@@ -53,7 +53,12 @@ namespace EventHorizon.Game.Server.Zone.Map
         public IList<MapNode> GetClosestNodes(Vector3 position, float distance)
         {
             return this.octree
-                .FindNearbyPoints(this.octree.FindNearestPoint(position, null).Position, distance, null);
+                .FindNearbyPoints(GetClosestNode(position).Position, distance, null);
+        }
+
+        public MapNode GetClosestNode(Vector3 position)
+        {
+            return this.octree.FindNearestPoint(position, null);
         }
 
         public MapEdge GetEdge(int from, int to)
@@ -66,7 +71,7 @@ namespace EventHorizon.Game.Server.Zone.Map
                     return edge;
                 }
             }
-            return null;
+            return default(MapEdge);
         }
 
         public int AddNode(MapNode node)
