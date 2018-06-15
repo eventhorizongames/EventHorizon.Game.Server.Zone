@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.State;
@@ -14,10 +15,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
     {
         readonly IMediator _mediator;
         readonly IPlayerRepository _player;
-        public PlayerConnectedHandler(IMediator mediator, IPlayerRepository player)
+        readonly IIdPool _idPool;
+
+        public PlayerConnectedHandler(IMediator mediator, IIdPool idPool, IPlayerRepository player)
         {
             _mediator = mediator;
             _player = player;
+            _idPool = idPool;
         }
         public async Task Handle(PlayerConnectedEvent notification, CancellationToken cancellationToken)
         {
@@ -28,7 +32,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 player = new Model.PlayerEntity
                 {
                     Id = notification.Id,
-                    Position = new Model.PositionState{
+                    EntityId = _idPool.NextId(),
+                    Position = new Model.PositionState
+                    {
                         CurrentPosition = Vector3.Zero,
                         NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                         MoveToPosition = Vector3.Zero,
@@ -39,7 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             // Update players ConnectionId
             player.ConnectionId = notification.ConnectionId;
             await _player.Update(player);
-            
+
             await _mediator.Send(new SendZoneInfoToPlayerEvent
             {
                 Player = player

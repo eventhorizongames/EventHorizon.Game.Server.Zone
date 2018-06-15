@@ -26,10 +26,9 @@ namespace EventHorizon.Game.Server.Zone.Player
             });
         }
 
-        public override async Task OnDisconnectedAsync(Exception exception)
-        {
-
-        }
+        // public override async Task OnDisconnectedAsync(Exception exception)
+        // {
+        // }
 
         public async Task PlayerAction(string actionName, dynamic actionData)
         {

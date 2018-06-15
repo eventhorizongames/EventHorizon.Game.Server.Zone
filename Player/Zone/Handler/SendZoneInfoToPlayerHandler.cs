@@ -23,6 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
                 Player = new ClientPlayer
                 {
                     Id = request.Player.Id,
+                    EntityId = request.Player.EntityId,
                     Position = request.Player.Position.CurrentPosition,
                     ConnectionId = request.Player.ConnectionId,
                 },

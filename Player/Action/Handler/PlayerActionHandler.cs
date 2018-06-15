@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.Player.Client;
 using EventHorizon.Game.Server.Zone.Player.State;
 using MediatR;
 

@@ -1,3 +1,5 @@
+using EventHorizon.Game.Server.Zone.Core.IdPool;
+using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
 using EventHorizon.Game.Server.Zone.Core.Lifetime;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register;
@@ -14,6 +16,7 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<IIdPool, IdPoolImpl>();
             services.AddSingleton<IServerProperty, ServerPropertyImpl>();
             services.Configure<AuthSettings>(configuration.GetSection("Auth"));
             services.Configure<CoreSettings>(configuration.GetSection("Core"));

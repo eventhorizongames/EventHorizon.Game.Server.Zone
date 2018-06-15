@@ -3,9 +3,9 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Loop.Map;
-using EventHorizon.Game.Server.Zone.Player.Client;
 using MediatR;
 using Microsoft.Extensions.Options;
 
@@ -35,37 +35,40 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             {
                 Position = player.Position.CurrentPosition,
             });
-            var movePlayerTo = player.Position.MoveToPosition;
+            var moveTo = player.Position.MoveToPosition;
 
             switch (direction)
             {
                 case MoveDirections.Left:
-                    movePlayerTo = Vector3.Add(playerMapNode.Position, new Vector3(-_zoneSettings.TileDimension, 0, 0));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(-_zoneSettings.TileDimension, 0, 0));
                     break;
                 case MoveDirections.Right:
-                    movePlayerTo = Vector3.Add(playerMapNode.Position, new Vector3(_zoneSettings.TileDimension, 0, 0));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(_zoneSettings.TileDimension, 0, 0));
                     break;
                 case MoveDirections.Backwards:
-                    movePlayerTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, -_zoneSettings.TileDimension));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, -_zoneSettings.TileDimension));
                     break;
                 case MoveDirections.Forward:
-                    movePlayerTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, _zoneSettings.TileDimension));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, _zoneSettings.TileDimension));
                     break;
                 default:
-                    movePlayerTo = player.Position.MoveToPosition;
+                    moveTo = player.Position.MoveToPosition;
                     break;
             }
-            player.Position.MoveToPosition = movePlayerTo;
+            player.Position.MoveToPosition = moveTo;
             player.Position.NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND);
 
             await _mediator.Publish(new ClientActionEvent
             {
-                PlayerId = request.Player.Id,
-                Action = "PlayerClientMove",
-                Data = movePlayerTo,
+                Action = "EntityClientMove",
+                Data = new
+                {
+                    entityId = request.Player.EntityId,
+                    moveTo
+                },
             });
 
-            return movePlayerTo;
+            return moveTo;
         }
     }
 }
