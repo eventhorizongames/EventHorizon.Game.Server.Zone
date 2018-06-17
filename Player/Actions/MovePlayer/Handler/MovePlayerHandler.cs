@@ -5,7 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
+using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Loop.Map;
+using EventHorizon.Game.Server.Zone.Player.State;
 using MediatR;
 using Microsoft.Extensions.Options;
 
@@ -15,11 +17,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
     {
         readonly IMediator _mediator;
         readonly ZoneSettings _zoneSettings;
+        readonly IPlayerRepository _playerRepository;
 
-        public MovePlayerHandler(IMediator mediator, IOptions<ZoneSettings> zoneSettings)
+        public MovePlayerHandler(IMediator mediator, IOptions<ZoneSettings> zoneSettings, IPlayerRepository playerRepository)
         {
             _mediator = mediator;
             _zoneSettings = zoneSettings.Value;
+            _playerRepository = playerRepository;
         }
 
         public async Task<Vector3> Handle(MovePlayerEvent request, CancellationToken cancellationToken)
@@ -29,11 +33,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             {
                 return player.Position.MoveToPosition;
             }
-            player.Position.CurrentPosition = player.Position.MoveToPosition;
+            var currentPosition = player.Position.MoveToPosition;
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
             {
-                Position = player.Position.CurrentPosition,
+                Position = player.Position.MoveToPosition,
             });
             var moveTo = player.Position.MoveToPosition;
 
@@ -55,15 +59,20 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                     moveTo = player.Position.MoveToPosition;
                     break;
             }
-            player.Position.MoveToPosition = moveTo;
-            player.Position.NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND);
+            player.Position = new PositionState
+            {
+                CurrentPosition = player.Position.MoveToPosition,
+                MoveToPosition = moveTo,
+                NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
+            };
+            await _playerRepository.Update(player);
 
             await _mediator.Publish(new ClientActionEvent
             {
                 Action = "EntityClientMove",
                 Data = new
                 {
-                    entityId = request.Player.EntityId,
+                    entityId = request.Player.Id,
                     moveTo
                 },
             });

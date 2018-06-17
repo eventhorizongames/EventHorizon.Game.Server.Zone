@@ -1,9 +1,9 @@
 using System;
 using System.Numerics;
 
-namespace EventHorizon.Game.Server.Zone.Player.Model
+namespace EventHorizon.Game.Server.Zone.Entity.Model
 {
-    public class PositionState
+    public struct PositionState
     {
         public Vector3 CurrentPosition { get; set; }
         public DateTime NextMoveRequest { get; set; }

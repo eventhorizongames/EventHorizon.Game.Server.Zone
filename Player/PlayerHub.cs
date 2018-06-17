@@ -26,9 +26,13 @@ namespace EventHorizon.Game.Server.Zone.Player
             });
         }
 
-        // public override async Task OnDisconnectedAsync(Exception exception)
-        // {
-        // }
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await _mediator.Publish(new PlayerDisconnectedEvent
+            {
+                Id = Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value,
+            });
+        }
 
         public async Task PlayerAction(string actionName, dynamic actionData)
         {

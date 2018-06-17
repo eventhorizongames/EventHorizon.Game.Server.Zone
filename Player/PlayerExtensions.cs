@@ -7,7 +7,6 @@ namespace EventHorizon.Game.Server.Zone.Player
 {
     public static class PlayerExtensions
     {
-        
         public static void AddPlayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IPlayerRepository, PlayerRepository>();

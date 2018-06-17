@@ -7,5 +7,6 @@ namespace EventHorizon.Game.Server.Zone.Player.State
     {
         Task<PlayerEntity> FindById(string id);
         Task Update(PlayerEntity player);
+        Task Remove(PlayerEntity player);
     }
 }

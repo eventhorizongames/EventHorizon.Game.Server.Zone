@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Loop;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
@@ -87,6 +88,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
             services.AddLoop(Configuration);
+            services.AddEntity();
 
             services.AddScheduler((sender, args) =>
             {
