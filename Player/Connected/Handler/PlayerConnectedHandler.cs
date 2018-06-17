@@ -27,7 +27,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         }
         public async Task Handle(PlayerConnectedEvent notification, CancellationToken cancellationToken)
         {
-            var player = await _player.FindById(notification.Id);
+            // Check for player on this zone server
+            var player = await _player.FindById(notification.Id); 
             if (player.Equals(PlayerEntity.NULL))
             {
                 var position = new PositionState
