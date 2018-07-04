@@ -58,19 +58,6 @@ namespace EventHorizon.Game.Server.Zone
                     options.Authority = Configuration["Auth:Authority"];
                     options.ApiName = Configuration["Auth:ApiName"];
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
-                    options.JwtBearerEvents.OnMessageReceived = async context =>
-                        {
-                            var accessToken = context.Request.Query["access_token"];
-
-                            if (!string.IsNullOrEmpty(accessToken) &&
-                                (context.HttpContext.WebSockets.IsWebSocketRequest || context.Request.Headers["Accept"] == "text/event-stream"))
-                            {
-                                context.Token = context.Request.Query["access_token"];
-                                context.HttpContext.Request.Headers["Authorization"] = "Bearer " + context.Token;
-                                var result = await context.HttpContext.AuthenticateAsync();
-                                var user = context.HttpContext.User;
-                            }
-                        };
                 });
             services.AddMvc(options =>
             {
