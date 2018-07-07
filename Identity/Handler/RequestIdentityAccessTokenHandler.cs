@@ -4,13 +4,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.Exceptions;
+using EventHorizon.Identity.Exceptions;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace EventHorizon.Game.Server.Zone.Core.ClientApi.Handler
+namespace EventHorizon.Identity.Handler
 {
     public class RequestIdentityAccessTokenHandler : IRequestHandler<RequestIdentityAccessTokenEvent, string>
     {
@@ -33,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Core.ClientApi.Handler
 
             if (tokenResponse.IsError)
             {
-                throw new UnableToRegisterWithCoreServerException("Error requesting token.");
+                throw new IdentityServerRequestException("Error requesting token.");
             }
 
             return tokenResponse.AccessToken;

@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Loop.Map;
 using EventHorizon.Game.Server.Zone.Player.State;
+using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using Microsoft.Extensions.Options;
 
@@ -64,8 +65,14 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 CurrentPosition = player.Position.MoveToPosition,
                 MoveToPosition = moveTo,
                 NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
+                CurrentZone = player.Position.CurrentZone,
+                ZoneTag = player.Position.ZoneTag,
             };
             await _playerRepository.Update(player);
+            await _mediator.Publish(new PlayerGlobalUpdateEvent
+            {
+                Player = player,
+            });
 
             await _mediator.Publish(new ClientActionEvent
             {

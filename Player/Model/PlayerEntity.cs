@@ -1,4 +1,5 @@
 using System.Numerics;
+using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.Model
@@ -13,16 +14,5 @@ namespace EventHorizon.Game.Server.Zone.Player.Model
         public string ConnectionId { get; set; }
         public EntityType Type { get; set; }
         public object Data { get; set; }
-
-        public PlayerEntity(string playerId, string connectionId, PositionState positionState)
-        {
-            this.PlayerId = playerId;
-            this.Position = positionState;
-            this.ConnectionId = connectionId;
-            
-            this.Id = -1;
-            this.Type = EntityType.PLAYER;
-            this.Data = new { };
-        }
     }
 }

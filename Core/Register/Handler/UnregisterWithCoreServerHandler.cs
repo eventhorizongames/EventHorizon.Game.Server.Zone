@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.ClientApi;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
+using EventHorizon.Identity;
 using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;

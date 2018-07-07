@@ -1,3 +1,5 @@
+using EventHorizon.Game.Server.Zone.Core.Model;
+
 namespace EventHorizon.Game.Server.Zone.Entity.Model
 {
     public interface IObjectEntity

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Core.ClientApi
+namespace EventHorizon.Identity
 {
     public class RequestIdentityAccessTokenEvent : IRequest<string>
     {
