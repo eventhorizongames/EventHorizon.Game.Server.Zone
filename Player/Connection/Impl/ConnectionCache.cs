@@ -43,7 +43,7 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Error connecting", ex);
+                    _logger.LogError(ex, "Error connecting");
                     _connection = null;
                     throw ex;
                 }

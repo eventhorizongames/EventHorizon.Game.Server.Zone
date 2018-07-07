@@ -42,6 +42,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             {
                 try
                 {
+                    _logger.LogInformation(notification.Id);
                     var globalPlayer = await _mediator.Send(new PlayerGetDetailsEvent
                     {
                         Id = notification.Id
