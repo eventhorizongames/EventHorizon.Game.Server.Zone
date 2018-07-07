@@ -21,7 +21,9 @@ namespace EventHorizon.Game.Player.Events.Details.Handler
         {
             _logger.LogInformation("RequestId: " + request.Id);
             var connection = await _connectionFactory.GetConnection();
+            _logger.LogInformation("Connection: " + connection.ToString());
             var response = await connection.SendAction<PlayerDetails>("GetPlayer", request.Id);
+            _logger.LogInformation("Response Id: " + response.Id);
             return response;
         }
     }
