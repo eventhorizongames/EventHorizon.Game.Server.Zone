@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Player.Events.Details.Handler
 
         public async Task<PlayerDetails> Handle(PlayerGetDetailsEvent request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("RequestId: ", request.Id);
+            _logger.LogInformation("RequestId: " + request.Id);
             var connection = await _connectionFactory.GetConnection();
             var response = await connection.SendAction<PlayerDetails>("GetPlayer", request.Id);
             return response;

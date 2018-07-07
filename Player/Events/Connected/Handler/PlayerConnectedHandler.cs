@@ -60,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Error", ex);
+                    _logger.LogError(ex, "Error");
                     throw ex;
                 }
             }
