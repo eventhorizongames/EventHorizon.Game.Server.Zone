@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Handler
 
         public Task Handle(FillServerPropertiesEvent notification, CancellationToken cancellationToken)
         {
-            _serverProperty.Set(ServerPropertyKeys.HOST, _configuration["VIRTUAL_HOST"]);
+            _serverProperty.Set(ServerPropertyKeys.HOST, _configuration["HOST"]);
             return Task.CompletedTask;
         }
     }

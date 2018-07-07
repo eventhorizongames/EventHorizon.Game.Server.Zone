@@ -4,6 +4,7 @@ services:
     restart: always
     image: ehz/game/server/zone
     environment:
+      HOST: https://server-zone-001.demo.projecteventhorizon.com
       VIRTUAL_HOST: server-zone-001.demo.projecteventhorizon.com
       LETSENCRYPT_HOST: server-zone-001.demo.projecteventhorizon.com
       LETSENCRYPT_EMAIL: cody.anhorn@hotmail.com
