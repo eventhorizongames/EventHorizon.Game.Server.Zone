@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Player.Events.Details.Handler
         readonly IPlayerConnectionFactory _connectionFactory;
         public PlayerGetDetailsHandler(ILogger<PlayerGetDetailsHandler> logger, IPlayerConnectionFactory connectionFactory)
         {
+            _logger = logger;
             _connectionFactory = connectionFactory;
         }
 

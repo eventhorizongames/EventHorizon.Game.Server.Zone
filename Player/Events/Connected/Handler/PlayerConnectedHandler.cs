@@ -42,7 +42,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             {
                 try
                 {
-
                     var globalPlayer = await _mediator.Send(new PlayerGetDetailsEvent
                     {
                         Id = notification.Id
@@ -62,6 +61,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 catch (Exception ex)
                 {
                     _logger.LogError("Error", ex);
+                    throw ex;
                 }
             }
 
