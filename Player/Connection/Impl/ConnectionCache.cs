@@ -29,15 +29,24 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl
         {
             if (_connection == null)
             {
-                _connection = new HubConnectionBuilder()
-                    .WithUrl(url, configureHttpConnection)
-                    .Build();
-                _connection.Closed += (ex) =>
+                try
                 {
+                    _connection = new HubConnectionBuilder()
+                        .WithUrl(url, configureHttpConnection)
+                        .Build();
+                    _connection.Closed += (ex) =>
+                    {
+                        _connection = null;
+                        return Task.FromResult(0);
+                    };
+                    await _connection.StartAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Error connecting", ex);
                     _connection = null;
-                    return Task.FromResult(0);
-                };
-                await _connection.StartAsync();
+                    throw ex;
+                }
             }
             return _connection;
         }
