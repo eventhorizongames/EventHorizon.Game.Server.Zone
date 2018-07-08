@@ -22,14 +22,12 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
 {
     public class PlayerConnectedHandler : INotificationHandler<PlayerConnectedEvent>
     {
-        readonly ILogger _logger;
         readonly IServerProperty _serverProperty;
         readonly IMediator _mediator;
         readonly IPlayerRepository _player;
 
-        public PlayerConnectedHandler(ILogger<PlayerConnectedHandler> logger, IServerProperty serverProperty, IMediator mediator, IEntityRepository entityRepository, IPlayerRepository player)
+        public PlayerConnectedHandler(IServerProperty serverProperty, IMediator mediator, IEntityRepository entityRepository, IPlayerRepository player)
         {
-            _logger = logger;
             _serverProperty = serverProperty;
             _mediator = mediator;
             _player = player;
@@ -40,30 +38,21 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             var player = await _player.FindById(notification.Id);
             if (player.Equals(PlayerEntity.NULL))
             {
-                try
+                var globalPlayer = await _mediator.Send(new PlayerGetDetailsEvent
                 {
-                    _logger.LogInformation(notification.Id);
-                    var globalPlayer = await _mediator.Send(new PlayerGetDetailsEvent
-                    {
-                        Id = notification.Id
-                    });
-                    if (!globalPlayer.Position
-                        .CurrentZone.Equals(_serverProperty.Get<string>(ServerPropertyKeys.SERVER_ID)))
-                    {
-                        throw new Exception("Player is not part of this server.");
-                    }
-                    // Create new Player
-                    globalPlayer.Data.ConnectionId = notification.ConnectionId;
-                    player = (Model.PlayerEntity)await _mediator.Send(new RegisterEntityEvent
-                    {
-                        Entity = PlayerFromDetailsToEntity.MapToNew(globalPlayer),
-                    });
-                }
-                catch (Exception ex)
+                    Id = notification.Id
+                });
+                if (!globalPlayer.Position
+                    .CurrentZone.Equals(_serverProperty.Get<string>(ServerPropertyKeys.SERVER_ID)))
                 {
-                    _logger.LogError(ex, "Error");
-                    throw ex;
+                    throw new Exception("Player is not part of this server.");
                 }
+                // Create new Player
+                globalPlayer.Data.ConnectionId = notification.ConnectionId;
+                player = (Model.PlayerEntity)await _mediator.Send(new RegisterEntityEvent
+                {
+                    Entity = PlayerFromDetailsToEntity.MapToNew(globalPlayer),
+                });
             }
 
             // Update players ConnectionId

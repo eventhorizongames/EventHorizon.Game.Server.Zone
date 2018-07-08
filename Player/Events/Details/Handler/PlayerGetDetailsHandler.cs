@@ -9,21 +9,16 @@ namespace EventHorizon.Game.Player.Events.Details.Handler
 {
     public class PlayerGetDetailsHandler : IRequestHandler<PlayerGetDetailsEvent, PlayerDetails>
     {
-        readonly ILogger _logger;
         readonly IPlayerConnectionFactory _connectionFactory;
-        public PlayerGetDetailsHandler(ILogger<PlayerGetDetailsHandler> logger, IPlayerConnectionFactory connectionFactory)
+        public PlayerGetDetailsHandler(IPlayerConnectionFactory connectionFactory)
         {
-            _logger = logger;
             _connectionFactory = connectionFactory;
         }
 
         public async Task<PlayerDetails> Handle(PlayerGetDetailsEvent request, CancellationToken cancellationToken)
         {
-            _logger.LogInformation("RequestId: " + request.Id);
             var connection = await _connectionFactory.GetConnection();
-            _logger.LogInformation("Connection: " + connection.ToString());
             var response = await connection.SendAction<PlayerDetails>("GetPlayer", request.Id);
-            _logger.LogInformation("Response Id: " + response.Id);
             return response;
         }
     }
