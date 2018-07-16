@@ -9,6 +9,7 @@ using EventHorizon.Game.Server.Zone.Core.Exceptions;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
+using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Identity;
 using IdentityModel.Client;
 using MediatR;
@@ -23,19 +24,19 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly ZoneSettings _zoneSettings;
+        private readonly IZoneSettings _zoneSettings;
         private readonly CoreSettings _coreSettings;
         private readonly IServerProperty _serverProperty;
 
         public RegisterWithCoreServerHandler(ILogger<RegisterWithCoreServerHandler> logger,
             IMediator mediator,
-            IOptions<ZoneSettings> zoneSettings,
+            IZoneSettingsFactory zoneSettingsFactory,
             IOptions<CoreSettings> coreSettings,
             IServerProperty serverProperty)
         {
             _logger = logger;
             _mediator = mediator;
-            _zoneSettings = zoneSettings.Value;
+            _zoneSettings = zoneSettingsFactory.Settings;
             _coreSettings = coreSettings.Value;
             _serverProperty = serverProperty;
         }

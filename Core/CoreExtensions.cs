@@ -20,7 +20,6 @@ namespace EventHorizon.Game.Server.Zone.Core
             services.AddSingleton<IServerProperty, ServerPropertyImpl>();
             services.Configure<AuthSettings>(configuration.GetSection("Auth"));
             services.Configure<CoreSettings>(configuration.GetSection("Core"));
-            services.Configure<ZoneSettings>(configuration.GetSection("Zone"));
         }
         public static void UseZoneCore(this IApplicationBuilder app)
         {

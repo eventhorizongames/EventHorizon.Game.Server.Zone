@@ -72,6 +72,7 @@ namespace EventHorizon.Game.Server.Zone
                     .AllowCredentials();
             }));
 
+            services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
             services.AddLoop(Configuration);
@@ -87,6 +88,8 @@ namespace EventHorizon.Game.Server.Zone
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseLoad();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

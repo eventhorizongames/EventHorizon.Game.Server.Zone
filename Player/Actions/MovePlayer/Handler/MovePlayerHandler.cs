@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Loop.Map;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
@@ -17,13 +18,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
     public class MovePlayerHandler : IRequestHandler<MovePlayerEvent, Vector3>
     {
         readonly IMediator _mediator;
-        readonly ZoneSettings _zoneSettings;
+        readonly IZoneSettings _zoneSettings;
         readonly IPlayerRepository _playerRepository;
 
-        public MovePlayerHandler(IMediator mediator, IOptions<ZoneSettings> zoneSettings, IPlayerRepository playerRepository)
+        public MovePlayerHandler(IMediator mediator, IZoneSettingsFactory zoneSettingsFactory, IPlayerRepository playerRepository)
         {
             _mediator = mediator;
-            _zoneSettings = zoneSettings.Value;
+            _zoneSettings = zoneSettingsFactory.Settings;
             _playerRepository = playerRepository;
         }
 

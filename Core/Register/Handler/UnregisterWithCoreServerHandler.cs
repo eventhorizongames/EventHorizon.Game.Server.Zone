@@ -24,7 +24,6 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
         private readonly IServerProperty _serverProperty;
 
         public UnregisterWithCoreServerHandler(IMediator mediator,
-            IOptions<ZoneSettings> zoneSettings,
             IOptions<CoreSettings> coreSettings,
             IServerProperty serverProperty)
         {

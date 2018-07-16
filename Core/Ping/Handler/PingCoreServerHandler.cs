@@ -29,7 +29,6 @@ namespace EventHorizon.Game.Server.Zone.Core.Ping.Handler
 
         public PingCoreServerHandler(ILogger<PingCoreServerHandler> logger,
             IMediator mediator,
-            IOptions<ZoneSettings> zoneSettings,
             IOptions<CoreSettings> coreSettings,
             IServerProperty serverProperty)
         {
