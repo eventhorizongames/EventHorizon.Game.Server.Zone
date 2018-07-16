@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Load;
+using EventHorizon.Game.Server.Zone.Load.Model;
 using EventHorizon.Game.Server.Zone.Loop.State;
 using EventHorizon.Game.Server.Zone.Map;
 using MediatR;
@@ -16,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
 {
     public class CreateMapHandler : INotificationHandler<CreateMapEvent>
     {
-        readonly IZoneSettings _zoneSettings;
+        readonly ZoneSettings _zoneSettings;
         readonly IServerState _serverState;
         readonly ILogger _logger;
         public CreateMapHandler(IZoneSettingsFactory zoneSettingsFactory, ILogger<CreateMapHandler> logger, IServerState serverState)
@@ -28,8 +29,8 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
 
         public async Task Handle(CreateMapEvent notification, CancellationToken cancellationToken)
         {
-            var dim = _zoneSettings.MapDimensions;
-            var tileDim = _zoneSettings.TileDimension;
+            var dim = _zoneSettings.Map.Dimensions;
+            var tileDim = _zoneSettings.Map.TileDimensions;
             var dimensions = new Vector2(dim, dim);
             var tileDimension = tileDim;
             var zoneWidth = dimensions.X;

@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Load;
+using EventHorizon.Game.Server.Zone.Load.Model;
 using EventHorizon.Identity;
 using IdentityModel.Client;
 using MediatR;
@@ -24,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly IZoneSettings _zoneSettings;
+        private readonly ZoneSettings _zoneSettings;
         private readonly CoreSettings _coreSettings;
         private readonly IServerProperty _serverProperty;
 

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Load.Model;
 
 namespace EventHorizon.Game.Server.Zone.Load
 {
     public interface IZoneSettingsFactory
     {
-        IZoneSettings Settings { get; }
+        ZoneSettings Settings { get; }
     }
 }

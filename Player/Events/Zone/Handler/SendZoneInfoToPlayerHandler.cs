@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.Load;
+using EventHorizon.Game.Server.Zone.Load.Model;
 using EventHorizon.Game.Server.Zone.Loop.State;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using MediatR;
@@ -10,11 +12,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
     public class SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
+        readonly ZoneSettings _zoneSettings;
         readonly IServerState _serverState;
         readonly IEntityRepository _entityRepository;
         readonly IHubContext<PlayerHub> _hubContext;
-        public SendZoneInfoToPlayerHandler(IServerState serverState, IEntityRepository entityRepository, IHubContext<PlayerHub> hubContext)
+        public SendZoneInfoToPlayerHandler(IZoneSettingsFactory zoneSettingsFactory, IServerState serverState, IEntityRepository entityRepository, IHubContext<PlayerHub> hubContext)
         {
+            _zoneSettings = zoneSettingsFactory.Settings;
             _serverState = serverState;
             _entityRepository = entityRepository;
             _hubContext = hubContext;
@@ -24,16 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
             var zoneInfo = new
             {
                 Player = request.Player,
-                MapMesh = new // TODO: Read this configuration from DB or something simliar, make dynamic
-                {
-                    HeightMapUrl = "/Game/Level/Home/Assets/HomeLevel.png",
-                    Width = 128,
-                    Height = 128,
-                    Subdivisions = 200,
-                    MinHeight = 0,
-                    MaxHeight = 15,
-                    Updatable = true,
-                },
+                MapMesh = _zoneSettings.Map.Mesh,
                 Map = await _serverState.Map(),
                 EntityList = await _entityRepository.All()
             };

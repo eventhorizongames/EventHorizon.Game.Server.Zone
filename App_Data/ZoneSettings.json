@@ -1,5 +1,16 @@
 ﻿{
   "Tags": ["testing"],
-  "MapDimensions": 12,
-  "TileDimension": 3
+  "Map": {
+    "Dimensions": 12,
+    "TileDimensions": 3,
+    "Mesh": {
+      "HeightMapUrl": "/Game/Level/Home/Assets/HomeLevel.png",
+      "Width": 128,
+      "Height": 128,
+      "Subdivisions": 200,
+      "MinHeight": 0,
+      "MaxHeight": 15,
+      "Updatable": true
+    }
+  }
 }
