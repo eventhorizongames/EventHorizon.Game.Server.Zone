@@ -14,4 +14,5 @@ services:
       - 5000
     volumes:
       - ~/Configs/Game/Server/Zone/appsettings.Production.json:/app/appsettings.Production.json
+      - ~/Configs/Game/Server/Zone/ZoneSettings.json:/app/App_Data/ZoneSettings.json
     network_mode: "bridge"
