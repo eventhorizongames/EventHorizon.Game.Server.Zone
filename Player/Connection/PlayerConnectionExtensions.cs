@@ -11,9 +11,5 @@ namespace EventHorizon.Game.Server.Zone.Player.Connection
             await connection.SendAction("UpdatePlayer", player);
             return connection;
         }
-        public static async Task<PlayerDetails> UpdatePlayer(this IPlayerConnection connection, string playerId)
-        {
-            return await connection.SendAction<PlayerDetails>("GetPlayer", playerId);
-        }
     }
 }
