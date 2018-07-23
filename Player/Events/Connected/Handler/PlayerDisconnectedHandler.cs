@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         public async Task Handle(PlayerDisconnectedEvent notification, CancellationToken cancellationToken)
         {
             var player = await _player.FindById(notification.Id);
-            if (!player.Equals(PlayerEntity.NULL))
+            if (player.IsFound())
             {
                 await _mediator.Publish(new UnregisterEntityEvent
                 {

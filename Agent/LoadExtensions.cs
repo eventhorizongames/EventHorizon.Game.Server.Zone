@@ -1,3 +1,7 @@
+using EventHorizon.Game.Server.Zone.Agent.Move;
+using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
+using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
+using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
@@ -10,27 +14,29 @@ using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Load.Events.Settings;
 using EventHorizon.Game.Server.Zone.Load.Factory;
 using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone.Core
+namespace EventHorizon.Game.Server.Zone.Agent
 {
-    public static class LoadExtensions
+    public static class AgentExtensions
     {
-        public static void AddLoad(this IServiceCollection services, IConfiguration configuration)
+        public static void AddAgent(this IServiceCollection services, IConfiguration configuration)
         {
-            var zoneSettingsFactory = new ZoneSettingsFactory();
-            services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
-            services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);
+            services.AddSingleton<IAgentRepository, AgentRepository>();
+            services.AddSingleton<IMoveAgentRepository, MoveAgentRepository>();
+            services.AddSingleton<IMoveRegisteredAgentsTimer, MoveRegisteredAgentsTimer>();
         }
-        public static void UseLoad(this IApplicationBuilder app)
+        public static void UseAgent(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                mediator.Publish(new LoadZoneSettingsEvent()).GetAwaiter().GetResult();
+                mediator.Send(new LoadZoneAgentStateEvent()).GetAwaiter().GetResult();
+                mediator.Publish(new StartMoveRegisteredAgentsTimerEvent()).GetAwaiter().GetResult();
             }
         }
     }

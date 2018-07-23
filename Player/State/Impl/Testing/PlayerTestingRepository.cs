@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Player.State.Impl.Testing
                 .FindAll(a => a.Type == EntityType.PLAYER)
                 .Cast<PlayerEntity>()
                 .FirstOrDefault(a => a.PlayerId == id);
-            if (entity.Equals(PlayerEntity.NULL))
+            if (!entity.IsFound())
             {
                 entity = (PlayerEntity)(await _entityRepository.Add(this.CreateNewTestEntity(id)));
             }

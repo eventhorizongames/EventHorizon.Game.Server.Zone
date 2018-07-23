@@ -36,7 +36,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         {
             // Check for player on this zone server
             var player = await _player.FindById(notification.Id);
-            if (player.Equals(PlayerEntity.NULL))
+            if (!player.IsFound())
             {
                 var globalPlayer = await _mediator.Send(new PlayerGetDetailsEvent
                 {

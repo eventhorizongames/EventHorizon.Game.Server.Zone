@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.Ping;
@@ -15,6 +16,8 @@ using EventHorizon.Game.Server.Zone.Loop;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
+using EventHorizon.Performance;
+using EventHorizon.Performance.Impl;
 using EventHorizon.Schedule;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using MediatR;
@@ -72,11 +75,13 @@ namespace EventHorizon.Game.Server.Zone
                     .AllowCredentials();
             }));
 
+            services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
             services.AddLoop(Configuration);
             services.AddEntity();
+            services.AddAgent(Configuration);
 
             services.AddScheduler((sender, args) =>
             {
@@ -100,6 +105,8 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseZoneCore();
             app.UseLoop();
+
+            app.UseAgent();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>

@@ -74,18 +74,18 @@ namespace EventHorizon.Game.Server.Zone.Map
             return default(MapEdge);
         }
 
-        public int AddNode(MapNode node)
+        public MapNode AddNode(MapNode node)
         {
             if (this.ContainsNode(node.Index))
             {
-                return node.Index;
+                return node;
             }
 
             this.nextNodeIndex++;
             node.Index = this.nextNodeIndex;
             this._nodes.Add(node);
             this.octree.Add(node);
-            return this.nextNodeIndex;
+            return node;
         }
         public void AddEdge(MapEdge edge)
         {

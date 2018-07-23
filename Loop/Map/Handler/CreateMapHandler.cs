@@ -60,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
                     var position = new Vector3(xPos, 0, zPos);
                     // Add node to graph
                     var navNode = new MapNode(position);
-                    mapGraph.AddNode(navNode);
+                    navNode = mapGraph.AddNode(navNode);
                     indexMap.Add(navNode.Index);
                     key++;
                 }

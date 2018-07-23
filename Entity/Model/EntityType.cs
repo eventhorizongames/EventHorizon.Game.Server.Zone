@@ -4,5 +4,6 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
     {
         OTHER = 0,
         PLAYER = 1,
+        AGENT = 2,
     }
 }

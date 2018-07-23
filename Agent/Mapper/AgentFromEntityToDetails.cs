@@ -1,0 +1,19 @@
+using EventHorizon.Game.Server.Core.Player.Model;
+using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Game.Server.Zone.Player.Model;
+
+namespace EventHorizon.Game.Server.Zone.Agent.Mapper
+{
+    public class AgentFromEntityToDetails
+    {
+        public static AgentDetails Map(AgentEntity entity)
+        {
+            return new AgentDetails
+            {
+                Position = entity.Position,
+                Data = entity.Data,
+                Speed = entity.Speed,
+            };
+        }
+    }
+}
