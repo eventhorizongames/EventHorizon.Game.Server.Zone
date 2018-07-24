@@ -1,6 +1,7 @@
+using EventHorizon.Game.Server.Zone.Core.Connection;
+using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
-using EventHorizon.Game.Server.Zone.Core.Lifetime;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
@@ -16,10 +17,12 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IIdPool, IdPoolImpl>();
-            services.AddSingleton<IServerProperty, ServerPropertyImpl>();
-            services.Configure<AuthSettings>(configuration.GetSection("Auth"));
-            services.Configure<CoreSettings>(configuration.GetSection("Core"));
+            services.AddSingleton<IIdPool, IdPoolImpl>()
+                .AddSingleton<IServerProperty, ServerPropertyImpl>()
+                .Configure<AuthSettings>(configuration.GetSection("Auth"))
+                .Configure<CoreSettings>(configuration.GetSection("Core"))
+                .AddSingleton<ICoreConnectionCache, CoreConnectionCache>()
+                .AddTransient<ICoreConnectionFactory, CoreConnectionFactory>();
         }
         public static void UseZoneCore(this IApplicationBuilder app)
         {
@@ -27,7 +30,6 @@ namespace EventHorizon.Game.Server.Zone.Core
             {
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new FillServerPropertiesEvent()).GetAwaiter().GetResult();
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new RegisterWithCoreServerEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new RegisterZoneServerShutdownEvent()).GetAwaiter().GetResult();
             }
         }
     }

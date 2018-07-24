@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ClientApi;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
 using EventHorizon.Game.Server.Zone.Core.Register.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;

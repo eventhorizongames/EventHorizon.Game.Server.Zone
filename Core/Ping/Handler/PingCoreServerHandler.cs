@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ClientApi;
+using EventHorizon.Game.Server.Zone.Core.Connection;
+using EventHorizon.Game.Server.Zone.Core.Connection.Stop;
 using EventHorizon.Game.Server.Zone.Core.Exceptions;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register;
@@ -24,39 +26,30 @@ namespace EventHorizon.Game.Server.Zone.Core.Ping.Handler
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly CoreSettings _coreSettings;
-        private readonly IServerProperty _serverProperty;
+        private readonly ICoreConnectionFactory _connectionFactory;
 
         public PingCoreServerHandler(ILogger<PingCoreServerHandler> logger,
             IMediator mediator,
-            IOptions<CoreSettings> coreSettings,
-            IServerProperty serverProperty)
+            ICoreConnectionFactory connectionFactory)
         {
             _logger = logger;
             _mediator = mediator;
-            _coreSettings = coreSettings.Value;
-            _serverProperty = serverProperty;
+            _connectionFactory = connectionFactory;
         }
 
         public async Task Handle(PingCoreServerEvent notification, CancellationToken cancellationToken)
         {
-            await PingCoreServer(
-                _coreSettings.Server,
-                _serverProperty.Get<string>(ServerPropertyKeys.SERVER_ID)
-            );
-        }
-        private async Task PingCoreServer(string coreServerAddress, string zoneId)
-        {
-            var response = await _mediator.Send(new HttpClientPostEvent
+            try
             {
-                Uri = $"{coreServerAddress}/api/Zone/{zoneId}/Ping",
-                AccessToken = await _mediator.Send(new RequestIdentityAccessTokenEvent()),
-                Content = ""
-            });
-            if (!response.IsSuccessStatusCode)
+                var connection = await _connectionFactory.GetConnection();
+                await connection.Ping();
+                _logger.LogWarning("Zone Core Server Ping.");
+            }
+            catch (Exception ex)
             {
+                _logger.LogError("Zone Core Server Ping failed", ex);
+                await _mediator.Publish(new StopZoneCoreConnectionEvent());
                 await _mediator.Publish(new RegisterWithCoreServerEvent());
-                throw new UnableToPingCoreServerException("Invalid response from Zone Ping request. ZoneId: " + zoneId);
             }
         }
     }

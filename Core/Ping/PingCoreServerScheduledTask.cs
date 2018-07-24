@@ -9,7 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Ping
 {
     public class PingCoreServerScheduledTask : IScheduledTask
     {
-        public string Schedule => "*/13 * * * * *";
+        public string Schedule => "*/30 * * * * *";
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public PingCoreServerScheduledTask(IServiceScopeFactory serviceScopeFactory)
