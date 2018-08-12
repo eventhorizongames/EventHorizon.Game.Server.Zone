@@ -11,6 +11,7 @@ using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Loop;
 using EventHorizon.Game.Server.Zone.Player;
@@ -112,6 +113,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSignalR(routes =>
             {
                 routes.MapHub<PlayerHub>("/playerHub");
+                routes.MapHub<EditorHub>("/editor");
             });
             app.UseMvc();
         }

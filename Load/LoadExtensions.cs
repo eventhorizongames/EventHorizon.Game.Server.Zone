@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Load.Events.Settings;
 using EventHorizon.Game.Server.Zone.Load.Factory;
+using EventHorizon.Game.Server.Zone.Load.JSON;
 using EventHorizon.Game.Server.Zone.Load.Model;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             var zoneSettingsFactory = new ZoneSettingsFactory();
             services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
             services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);
+            services.AddTransient<IJsonFileLoader, JsonFileLoader>();
         }
         public static void UseLoad(this IApplicationBuilder app)
         {
