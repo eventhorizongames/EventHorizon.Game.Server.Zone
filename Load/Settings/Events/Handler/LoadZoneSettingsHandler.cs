@@ -1,13 +1,14 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Game.Server.Zone.Load.Settings.Model;
+using EventHorizon.Game.Server.Zone.Settings.Load;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 
-namespace EventHorizon.Game.Server.Zone.Load.Events.Settings.Handler
+namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
 {
     public class LoadZoneSettingsHandler : INotificationHandler<LoadZoneSettingsEvent>
     {

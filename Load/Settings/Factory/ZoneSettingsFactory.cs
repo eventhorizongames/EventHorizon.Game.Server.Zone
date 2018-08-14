@@ -1,7 +1,9 @@
-using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Load.Model;
 
-namespace EventHorizon.Game.Server.Zone.Load.Factory
+using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Load.Settings.Model;
+using EventHorizon.Game.Server.Zone.Settings.Load;
+
+namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
 {
     public class ZoneSettingsFactory : IZoneSettingsFactory, IZoneSettingsSetter
     {

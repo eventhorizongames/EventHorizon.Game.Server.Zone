@@ -6,10 +6,13 @@ using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Load;
-using EventHorizon.Game.Server.Zone.Load.Events.Settings;
-using EventHorizon.Game.Server.Zone.Load.Factory;
 using EventHorizon.Game.Server.Zone.Load.JSON;
-using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Game.Server.Zone.Load.Map;
+using EventHorizon.Game.Server.Zone.Load.Map.Events;
+using EventHorizon.Game.Server.Zone.Load.Map.Factory;
+using EventHorizon.Game.Server.Zone.Load.Settings.Events;
+using EventHorizon.Game.Server.Zone.Load.Settings.Factory;
+using EventHorizon.Game.Server.Zone.Settings.Load;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -21,10 +24,14 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddLoad(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddTransient<IJsonFileLoader, JsonFileLoader>();
             var zoneSettingsFactory = new ZoneSettingsFactory();
             services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
             services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);
-            services.AddTransient<IJsonFileLoader, JsonFileLoader>();
+
+            var zoneMapFactory = new ZoneMapFactory();
+            services.AddSingleton<IZoneMapFactory>(zoneMapFactory);
+            services.AddSingleton<IZoneMapSetter>(zoneMapFactory);
         }
         public static void UseLoad(this IApplicationBuilder app)
         {
@@ -32,6 +39,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             {
                 var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
                 mediator.Publish(new LoadZoneSettingsEvent()).GetAwaiter().GetResult();
+                mediator.Publish(new LoadZoneMapEvent()).GetAwaiter().GetResult();
             }
         }
     }

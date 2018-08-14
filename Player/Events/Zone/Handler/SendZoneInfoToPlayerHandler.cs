@@ -2,7 +2,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Load;
-using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Game.Server.Zone.Load.Map;
+using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Loop.State;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using MediatR;
@@ -12,13 +13,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
     public class SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
-        readonly ZoneSettings _zoneSettings;
+        readonly ZoneMap _zoneMap;
         readonly IServerState _serverState;
         readonly IEntityRepository _entityRepository;
         readonly IHubContext<PlayerHub> _hubContext;
-        public SendZoneInfoToPlayerHandler(IZoneSettingsFactory zoneSettingsFactory, IServerState serverState, IEntityRepository entityRepository, IHubContext<PlayerHub> hubContext)
+        public SendZoneInfoToPlayerHandler(IZoneMapFactory zoneMapFactory, IServerState serverState, IEntityRepository entityRepository, IHubContext<PlayerHub> hubContext)
         {
-            _zoneSettings = zoneSettingsFactory.Settings;
+            _zoneMap = zoneMapFactory.Map;
             _serverState = serverState;
             _entityRepository = entityRepository;
             _hubContext = hubContext;
@@ -28,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
             var zoneInfo = new
             {
                 Player = request.Player,
-                MapMesh = _zoneSettings.Map.Mesh,
+                MapMesh = _zoneMap.Mesh,
                 Map = await _serverState.Map(),
                 EntityList = await _entityRepository.All()
             };

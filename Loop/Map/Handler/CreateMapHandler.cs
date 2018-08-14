@@ -1,36 +1,34 @@
-using System;
+
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.Model;
-using EventHorizon.Game.Server.Zone.Load;
-using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Game.Server.Zone.Load.Map;
+using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Loop.State;
 using EventHorizon.Game.Server.Zone.Map;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
 {
     public class CreateMapHandler : INotificationHandler<CreateMapEvent>
     {
-        readonly ZoneSettings _zoneSettings;
+        readonly ZoneMap _zoneMap;
         readonly IServerState _serverState;
         readonly ILogger _logger;
-        public CreateMapHandler(IZoneSettingsFactory zoneSettingsFactory, ILogger<CreateMapHandler> logger, IServerState serverState)
+        public CreateMapHandler(IZoneMapFactory zoneMapFactory, ILogger<CreateMapHandler> logger, IServerState serverState)
         {
-            _zoneSettings = zoneSettingsFactory.Settings;
+            _zoneMap = zoneMapFactory.Map;
             _serverState = serverState;
             _logger = logger;
         }
 
         public async Task Handle(CreateMapEvent notification, CancellationToken cancellationToken)
         {
-            var dim = _zoneSettings.Map.Dimensions;
-            var tileDim = _zoneSettings.Map.TileDimensions;
+            var dim = _zoneMap.Dimensions;
+            var tileDim = _zoneMap.TileDimensions;
             var dimensions = new Vector2(dim, dim);
             var tileDimension = tileDim;
             var zoneWidth = dimensions.X;

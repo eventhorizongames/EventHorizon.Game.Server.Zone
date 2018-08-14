@@ -7,7 +7,8 @@ using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Load;
-using EventHorizon.Game.Server.Zone.Load.Model;
+using EventHorizon.Game.Server.Zone.Load.Map;
+using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Loop.Map;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
@@ -19,13 +20,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
     public class MovePlayerHandler : IRequestHandler<MovePlayerEvent, Vector3>
     {
         readonly IMediator _mediator;
-        readonly ZoneSettings _zoneSettings;
+        readonly ZoneMap _zoneMap;
         readonly IPlayerRepository _playerRepository;
 
-        public MovePlayerHandler(IMediator mediator, IZoneSettingsFactory zoneSettingsFactory, IPlayerRepository playerRepository)
+        public MovePlayerHandler(IMediator mediator, IZoneMapFactory zoneMapFactory, IPlayerRepository playerRepository)
         {
             _mediator = mediator;
-            _zoneSettings = zoneSettingsFactory.Settings;
+            _zoneMap = zoneMapFactory.Map;
             _playerRepository = playerRepository;
         }
 
@@ -47,16 +48,16 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             switch (direction)
             {
                 case MoveDirections.Left:
-                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(-_zoneSettings.Map.TileDimensions, 0, 0));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(-_zoneMap.TileDimensions, 0, 0));
                     break;
                 case MoveDirections.Right:
-                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(_zoneSettings.Map.TileDimensions, 0, 0));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(_zoneMap.TileDimensions, 0, 0));
                     break;
                 case MoveDirections.Backwards:
-                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, -_zoneSettings.Map.TileDimensions));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, -_zoneMap.TileDimensions));
                     break;
                 case MoveDirections.Forward:
-                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, _zoneSettings.Map.TileDimensions));
+                    moveTo = Vector3.Add(playerMapNode.Position, new Vector3(0, 0, _zoneMap.TileDimensions));
                     break;
                 default:
                     moveTo = player.Position.MoveToPosition;
