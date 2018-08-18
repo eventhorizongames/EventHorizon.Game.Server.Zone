@@ -19,6 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Editor.State.Get.Handler
         {
             return new EditorState
             {
+                Map = await _mediator.Send(new LoadEditorZoneMapEvent()),
                 AssetList = await _mediator.Send(new LoadEditorAssetListEvent()),
                 EntityList = await _mediator.Send(new LoadEditorEntityListEvent()),
                 ScriptList = await _mediator.Send(new LoadEditorScriptListEvent()),
