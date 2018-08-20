@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.State.Repository;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl
+namespace EventHorizon.Game.Server.Zone.Agent.State.Impl
 {
     public class AgentRepository : IAgentRepository
     {

@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
+using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.Logging;

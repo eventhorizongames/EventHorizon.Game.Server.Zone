@@ -4,6 +4,8 @@ using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
+using EventHorizon.Game.Server.Zone.Agent.State.Impl;
+using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
