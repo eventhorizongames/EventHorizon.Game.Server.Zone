@@ -1,3 +1,4 @@
+using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Model
@@ -7,7 +8,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public string Name { get; set; }
         public PositionState Position { get; set; }
 
-        public object Data { get; set; }
         public int Speed { get; set; }
+        public AgentAiDetails Ai { get; set; }
+        public dynamic Data { get; set; }
     }
 }

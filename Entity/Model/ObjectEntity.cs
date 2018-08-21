@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
         long Id { get; set; }
         EntityType Type { get; }
         PositionState Position { get; set; }
-        object Data { get; set; }
+        dynamic Data { get; set; }
 
         bool IsFound();
     }

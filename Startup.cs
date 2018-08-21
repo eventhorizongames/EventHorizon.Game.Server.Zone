@@ -114,6 +114,7 @@ namespace EventHorizon.Game.Server.Zone
             {
                 routes.MapHub<PlayerHub>("/playerHub");
                 routes.MapHub<EditorHub>("/editor");
+                routes.MapHub<AgentHub>("/agent");
             });
             app.UseMvc();
         }

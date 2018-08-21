@@ -12,6 +12,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
     {
         public static AgentEntity MapToNew(AgentDetails details)
         {
+            // TODO: Add validation to details.
             return new AgentEntity
             {
                 Id = -1,
@@ -25,7 +26,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                     NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.CurrentPosition,
                 },
-                Data = new { },
+                Data = details.Data,
+                Ai = details.Ai,
                 Speed = details.Speed,
             };
         }

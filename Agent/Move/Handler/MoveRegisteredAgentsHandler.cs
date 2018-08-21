@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
@@ -51,7 +52,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         Queue<Vector3> path = agent.Path;
                         if (path == null)
                         {
-                            _moveRepository.Remove(entityId);
+                            await RemoveAgent(entityId);
                             return;
                         }
                         if (agent.Position.NextMoveRequest.CompareTo(DateTime.Now) >= 0)
@@ -62,7 +63,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         Vector3 moveTo = agent.Position.CurrentPosition;
                         if (!path.TryDequeue(out moveTo))
                         {
-                            _moveRepository.Remove(entityId);
+                            await RemoveAgent(entityId);
                             return;
                         }
                         agent.Position = new PositionState
@@ -86,12 +87,20 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         });
                         if (path.Count == 0)
                         {
-                            _moveRepository.Remove(entityId);
+                            await RemoveAgent(entityId);
                         }
                     });
                 }
             }
             return Task.CompletedTask;
+        }
+        private async Task RemoveAgent(long agentId)
+        {
+            _moveRepository.Remove(agentId);
+            await _mediator.Publish(new AgentRoutineFinishedEvent
+            {
+                AgentId = agentId
+            });
         }
     }
 }

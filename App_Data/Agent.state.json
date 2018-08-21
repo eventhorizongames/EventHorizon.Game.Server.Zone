@@ -1,6 +1,6 @@
 {
     "agentList": [{
-        "Name": "First Ever NPC",
+        "Name": "AI based NPC",
         "Position": {
             "CurrentZone": "...",
             "ZoneTag": "testing",
@@ -10,9 +10,12 @@
                 "Z": 3.0
             }
         },
-        "Data": {
-            "Subroutine": "WANDER"
+        "Speed": 1,
+        "Ai": {
+            "DefaultRoutine": "IDLE"
         },
-        "Speed": 1
+        "Data": {
+            "Routine": "IDLE"
+        }
     }]
 }

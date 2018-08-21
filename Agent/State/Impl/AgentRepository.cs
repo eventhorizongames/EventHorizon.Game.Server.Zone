@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
@@ -14,6 +15,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.State.Impl
         public AgentRepository(IEntityRepository entityRepository)
         {
             _entityRepository = entityRepository;
+        }
+
+        public async Task<IEnumerable<AgentEntity>> All()
+        {
+            var entityList = await _entityRepository.All();
+            return entityList
+                .FindAll(a => a.Type == EntityType.AGENT)
+                .Cast<AgentEntity>();
         }
 
         public async Task<AgentEntity> FindById(long id)

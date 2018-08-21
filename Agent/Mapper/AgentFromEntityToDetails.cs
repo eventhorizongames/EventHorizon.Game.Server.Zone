@@ -8,11 +8,13 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
     {
         public static AgentDetails Map(AgentEntity entity)
         {
+            // TODO: Add validation to Entity.
             return new AgentDetails
             {
                 Position = entity.Position,
                 Data = entity.Data,
                 Speed = entity.Speed,
+                Ai = entity.Ai,
             };
         }
     }
