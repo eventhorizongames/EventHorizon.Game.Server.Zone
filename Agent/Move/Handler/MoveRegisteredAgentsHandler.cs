@@ -70,7 +70,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         {
                             CurrentPosition = agent.Position.MoveToPosition,
                             MoveToPosition = moveTo,
-                            NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND * agent.Speed),
+                            NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND / agent.Speed),
                             CurrentZone = agent.Position.CurrentZone,
                             ZoneTag = agent.Position.ZoneTag,
                         };

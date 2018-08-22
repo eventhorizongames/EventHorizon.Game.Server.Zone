@@ -8,7 +8,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public string Name { get; set; }
         public PositionState Position { get; set; }
 
-        public int Speed { get; set; }
+        public float Speed { get; set; }
         public AgentAiDetails Ai { get; set; }
         public dynamic Data { get; set; }
     }

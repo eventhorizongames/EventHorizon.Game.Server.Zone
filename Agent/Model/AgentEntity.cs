@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public AgentData TypedData { get; private set; }
         public Queue<Vector3> Path { get; set; }
         public AgentAiDetails Ai { get; set; }
-        public int Speed { get; set; }
+        public float Speed { get; set; }
         
         public dynamic Data
         {

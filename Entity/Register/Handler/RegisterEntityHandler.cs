@@ -19,6 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.Register.Handler
 
         public async Task<IObjectEntity> Handle(RegisterEntityEvent notification, CancellationToken cancellationToken)
         {
+            // TODO: Add a validation of Registered Entity
             var entity = await _entityRepository.Add(notification.Entity);
             await _mediator.Publish(new EntityRegisteredEvent
             {

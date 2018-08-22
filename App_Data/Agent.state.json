@@ -10,7 +10,7 @@
                 "Z": 3.0
             }
         },
-        "Speed": 1,
+        "Speed": 0.5,
         "Ai": {
             "DefaultRoutine": "IDLEas"
         },
