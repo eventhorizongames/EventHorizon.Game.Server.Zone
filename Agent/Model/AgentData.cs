@@ -1,3 +1,5 @@
+using EventHorizon.Game.Server.Zone.Agent.Ai;
+
 namespace EventHorizon.Game.Server.Zone.Agent.Model
 {
     public class AgentData : object
@@ -7,7 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         {
             _data = data;
         }
-        public string Routine
+        public AiRoutine Routine
         {
             get
             {

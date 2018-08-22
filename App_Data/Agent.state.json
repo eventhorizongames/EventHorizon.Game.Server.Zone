@@ -12,7 +12,7 @@
         },
         "Speed": 1,
         "Ai": {
-            "DefaultRoutine": "IDLE"
+            "DefaultRoutine": "IDLEas"
         },
         "Data": {
             "Routine": "IDLE"

@@ -9,18 +9,19 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
 {
     public class RegisterAgentMovePathHandler : INotificationHandler<RegisterAgentMovePathEvent>
     {
+        readonly IMediator _mediator;
         readonly IAgentRepository _agentRepository;
         readonly IMoveAgentRepository _moveRepository;
-        public RegisterAgentMovePathHandler(IAgentRepository agentRepository, IMoveAgentRepository moveRepository)
+        public RegisterAgentMovePathHandler(IMediator mediator, IAgentRepository agentRepository, IMoveAgentRepository moveRepository)
         {
+            _mediator = mediator;
             _agentRepository = agentRepository;
             _moveRepository = moveRepository;
         }
         public async Task Handle(RegisterAgentMovePathEvent notification, CancellationToken cancellationToken)
         {
-            var agent = await _agentRepository.FindById(notification.EntityId);
+            var agent = await _agentRepository.FindById(notification.AgentId);
             agent.Path = notification.Path;
-            agent.TypedData.Routine = AiRoutines.MOVE;
             await _agentRepository.Update(agent);
             _moveRepository.Add(agent.Id);
         }

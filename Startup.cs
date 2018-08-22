@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
+using EventHorizon.Game.Server.Zone.Core.JsonConverter;
 using EventHorizon.Game.Server.Zone.Core.Ping;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
@@ -30,6 +31,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -67,7 +70,18 @@ namespace EventHorizon.Game.Server.Zone
             {
                 // options.Filters.Add(typeof(JsonExceptionFilter));
             });
-            services.AddSignalR();
+            services.AddSignalR()
+                .AddJsonProtocol(config =>
+                {
+                    config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    config.PayloadSerializerSettings.Converters.Add(new DefaultStringEnumConverter(0));
+                });
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Converters = { new DefaultStringEnumConverter(0) },
+            };
+
             services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {

@@ -6,7 +6,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move
 {
     public class RegisterAgentMovePathEvent : INotification
     {
-        public long EntityId { get; set; }
+        public long AgentId { get; set; }
         public Queue<Vector3> Path { get; set; }
     }
 }

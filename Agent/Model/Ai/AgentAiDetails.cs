@@ -1,7 +1,9 @@
+using EventHorizon.Game.Server.Zone.Agent.Ai;
+
 namespace EventHorizon.Game.Server.Zone.Agent.Model.Ai
 {
     public struct AgentAiDetails
     {
-        public string DefaultRoutine { get; set; }
+        public AiRoutine DefaultRoutine { get; set; }
     }
 }

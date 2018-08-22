@@ -31,7 +31,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity.Handle
             // Register Path for Agent entity
             await _mediator.Publish(new RegisterAgentMovePathEvent
             {
-                EntityId = notification.EntityId,
+                AgentId = notification.EntityId,
                 Path = path
             });
         }
