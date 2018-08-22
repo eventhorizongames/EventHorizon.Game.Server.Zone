@@ -97,9 +97,9 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         private async Task RemoveAgent(long agentId)
         {
             _moveRepository.Remove(agentId);
-            await _mediator.Publish(new AgentRoutineFinishedEvent
+            await _mediator.Publish(new AgentFinishedMoveEvent
             {
-                AgentId = agentId
+                AgentId = agentId,
             });
         }
     }

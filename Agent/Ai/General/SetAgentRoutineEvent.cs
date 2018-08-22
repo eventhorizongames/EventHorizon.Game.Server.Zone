@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Ai
+namespace EventHorizon.Game.Server.Zone.Agent.Ai.General
 {
     public class SetAgentRoutineEvent : INotification
     {

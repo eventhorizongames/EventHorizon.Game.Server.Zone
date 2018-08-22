@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Entity.Find;
@@ -17,22 +18,10 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity.Handle
         }
         public async Task Handle(MoveEntityToPositionEvent notification, CancellationToken cancellationToken)
         {
-            // Get entity position
-            var entity = await _mediator.Send(new GetEntityByIdEvent
-            {
-                EntityId = notification.EntityId,
-            });
-            // Get Path to node
-            var path = await _mediator.Send(new FindPathEvent
-            {
-                From = entity.Position.CurrentPosition,
-                To = notification.Position
-            });
-            // Register Path for Agent entity
-            await _mediator.Publish(new RegisterAgentMovePathEvent
+            await _mediator.Publish(new StartAgentMoveRoutineEvent
             {
                 AgentId = notification.EntityId,
-                Path = path
+                ToPosition = notification.Position
             });
         }
     }

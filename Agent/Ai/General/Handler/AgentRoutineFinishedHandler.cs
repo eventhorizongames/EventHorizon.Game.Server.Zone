@@ -4,7 +4,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Ai.Handler
+namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
 {
     public class AgentRoutineFinishedHandler : INotificationHandler<AgentRoutineFinishedEvent>
     {

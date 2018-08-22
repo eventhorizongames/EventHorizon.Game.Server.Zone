@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
+using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using MediatR;
 

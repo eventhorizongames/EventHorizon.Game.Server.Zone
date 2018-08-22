@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Ai.Handler
+namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
 {
     public class SetAgentRoutineHandler : INotificationHandler<SetAgentRoutineEvent>
     {
