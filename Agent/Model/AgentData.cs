@@ -1,4 +1,5 @@
 using EventHorizon.Game.Server.Zone.Agent.Ai;
+using EventHorizon.Game.Server.Zone.Agent.Model.Data;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Model
 {
@@ -8,6 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public AgentData(dynamic data)
         {
             _data = data;
+            Wander = new AgentWanderData(data.Wander);
         }
         public AiRoutine Routine
         {
@@ -20,5 +22,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
                 _data.Routine = value;
             }
         }
+
+        public AgentWanderData Wander { get; }
     }
 }

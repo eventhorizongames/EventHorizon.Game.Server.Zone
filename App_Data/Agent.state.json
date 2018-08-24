@@ -12,10 +12,13 @@
         },
         "Speed": 0.5,
         "Ai": {
-            "DefaultRoutine": "IDLEas"
+            "DefaultRoutine": "WANDER"
         },
         "Data": {
-            "Routine": "IDLE"
+            "Routine": "IDLE",
+            "Wander": {
+                "LookDistance": 5
+            }
         }
     }]
 }

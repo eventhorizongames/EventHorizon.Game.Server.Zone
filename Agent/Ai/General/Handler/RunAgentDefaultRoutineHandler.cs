@@ -7,9 +7,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
 {
     public class RunAgentDefaultRoutineHandler : INotificationHandler<RunAgentDefaultRoutineEvent>
     {
+        readonly IMediator _mediator;
         readonly IAgentRepository _agentRepository;
-        public RunAgentDefaultRoutineHandler(IAgentRepository agentRepository)
+        public RunAgentDefaultRoutineHandler(IMediator mediator, IAgentRepository agentRepository)
         {
+            _mediator = mediator;
             _agentRepository = agentRepository;
         }
         public async Task Handle(RunAgentDefaultRoutineEvent notification, CancellationToken cancellationToken)
@@ -18,6 +20,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
             if (agent.IsFound())
             {
                 agent.TypedData.Routine = agent.Ai.DefaultRoutine;
+                await _mediator.Send(new StartAgentRoutineEvent
+                {
+                    AgentId = agent.Id,
+                    Routine = agent.TypedData.Routine
+                });
             }
         }
     }

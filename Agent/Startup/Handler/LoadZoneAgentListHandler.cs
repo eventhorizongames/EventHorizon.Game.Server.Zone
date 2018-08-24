@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
 using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
 using MediatR;
@@ -31,9 +32,9 @@ namespace EventHorizon.Game.Server.Zone.Agent.Startup.Handler
 
                     foreach (var agent in agentState.AgentList)
                     {
-                        await _mediator.Send(new RegisterEntityEvent
+                        await _mediator.Send(new RegisterAgentEvent
                         {
-                            Entity = AgentFromDetailsToEntity.MapToNew(agent),
+                            Agent = AgentFromDetailsToEntity.MapToNew(agent),
                         });
                     }
                 }
