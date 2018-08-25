@@ -6,7 +6,7 @@ using EventHorizon.Game.Server.Zone.Editor.Model;
 using MediatR;
 using Newtonsoft.Json;
 
-namespace EventHorizon.Game.Server.Zone.Load.JSON
+namespace EventHorizon.Game.Server.Zone.Core.Json.Impl
 {
     public class JsonFileLoader : IJsonFileLoader
     {

@@ -16,11 +16,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public PositionState Position { get; set; }
         public EntityType Type { get; set; }
 
-        public AgentData TypedData { get; private set; }
-        public Queue<Vector3> Path { get; set; }
-        public AgentAiDetails Ai { get; set; }
+        public string Name { get; set; }
         public float Speed { get; set; }
-        
+        public AgentAiDetails Ai { get; set; }
+        public AgentData TypedData { get; private set; }
         public dynamic Data
         {
             get
@@ -33,6 +32,9 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
                 TypedData = new AgentData(_data);
             }
         }
+        
+        // Volatile Entity Data
+        public Queue<Vector3> Path { get; set; }
 
         public bool IsFound()
         {

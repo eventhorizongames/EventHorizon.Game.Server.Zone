@@ -20,6 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Update.Handler
         }
         public async Task Handle(PlayerGlobalUpdateEvent notification, CancellationToken cancellationToken)
         {
+            // TODO: Add palyer to a future to be updated queue, right now is currently setup to run synchronize when who called it.
             var connection = await _connectionFactory.GetConnection();
             await connection.UpdatePlayer(
                 PlayerFromEntityToDetails.Map(notification.Player)

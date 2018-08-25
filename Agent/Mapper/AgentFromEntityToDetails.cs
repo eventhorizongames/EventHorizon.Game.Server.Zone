@@ -11,6 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
             // TODO: Add validation to Entity.
             return new AgentDetails
             {
+                Name = entity.Name,
                 Position = entity.Position,
                 Data = entity.Data,
                 Speed = entity.Speed,

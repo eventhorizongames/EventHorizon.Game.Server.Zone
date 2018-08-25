@@ -2,6 +2,8 @@ using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
+using EventHorizon.Game.Server.Zone.Core.Json;
+using EventHorizon.Game.Server.Zone.Core.Json.Impl;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl;
@@ -19,7 +21,9 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IIdPool, IdPoolImpl>()
+            services.AddTransient<IJsonFileLoader, JsonFileLoader>()
+                .AddTransient<IJsonFileSaver, JsonFileSaver>()
+                .AddSingleton<IIdPool, IdPoolImpl>()
                 .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()
                 .AddSingleton<IServerProperty, ServerPropertyImpl>()
                 .Configure<AuthSettings>(configuration.GetSection("Auth"))

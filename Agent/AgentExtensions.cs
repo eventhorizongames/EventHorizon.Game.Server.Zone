@@ -3,9 +3,11 @@ using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
+using EventHorizon.Game.Server.Zone.Agent.Save;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Agent.State.Impl;
 using EventHorizon.Game.Server.Zone.State.Repository;
+using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -17,9 +19,10 @@ namespace EventHorizon.Game.Server.Zone.Agent
     {
         public static void AddAgent(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IAgentRepository, AgentRepository>();
-            services.AddSingleton<IMoveAgentRepository, MoveAgentRepository>();
-            services.AddSingleton<IMoveRegisteredAgentsTimer, MoveRegisteredAgentsTimer>();
+            services.AddSingleton<IAgentRepository, AgentRepository>()
+                .AddSingleton<IMoveAgentRepository, MoveAgentRepository>()
+                .AddSingleton<IMoveRegisteredAgentsTimer, MoveRegisteredAgentsTimer>()
+                .AddSingleton<IScheduledTask, SaveAgentStateScheduledTask>();
         }
         public static void UseAgent(this IApplicationBuilder app)
         {

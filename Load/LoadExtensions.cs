@@ -6,7 +6,6 @@ using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Load;
-using EventHorizon.Game.Server.Zone.Load.JSON;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Events;
 using EventHorizon.Game.Server.Zone.Load.Map.Factory;
@@ -24,7 +23,6 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddLoad(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IJsonFileLoader, JsonFileLoader>();
             var zoneSettingsFactory = new ZoneSettingsFactory();
             services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
             services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);

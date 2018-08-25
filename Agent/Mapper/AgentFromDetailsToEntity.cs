@@ -17,6 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
             {
                 Id = -1,
                 Type = EntityType.AGENT,
+                Name = details.Name,
                 Position = new PositionState
                 {
                     CurrentPosition = details.Position.CurrentPosition,
