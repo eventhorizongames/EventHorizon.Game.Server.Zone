@@ -12,6 +12,7 @@ using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
@@ -19,22 +20,20 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
     public class MoveRegisteredAgentsHandler : INotificationHandler<MoveRegisteredAgentsEvent>
     {
         readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly IAgentRepository _agentRepository;
         readonly IMoveAgentRepository _moveRepository;
         readonly IPerformanceTracker _performanceTracker;
+        readonly IServiceScopeFactory _serviceScopeFactory;
         public MoveRegisteredAgentsHandler(
             ILogger<MoveRegisteredAgentsHandler> logger,
-            IMediator mediator,
-            IAgentRepository agentRepository,
             IMoveAgentRepository moveRepository,
-            IPerformanceTracker performanceTracker)
+            IPerformanceTracker performanceTracker,
+            IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
-            _mediator = mediator;
-            _agentRepository = agentRepository;
             _moveRepository = moveRepository;
             _performanceTracker = performanceTracker;
+
+            _serviceScopeFactory = serviceScopeFactory;
         }
         public Task Handle(MoveRegisteredAgentsEvent notification, CancellationToken cancellationToken)
         {
@@ -48,59 +47,16 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 {
                     Parallel.ForEach(entityIdList, async (entityId) =>
                     {
-                        var agent = await _agentRepository.FindById(entityId);
-                        Queue<Vector3> path = agent.Path;
-                        if (path == null)
+                        using (var serviceScope = _serviceScopeFactory.CreateScope())
                         {
-                            await RemoveAgent(entityId);
-                            return;
-                        }
-                        if (agent.Position.NextMoveRequest.CompareTo(DateTime.Now) >= 0)
-                        {
-                            return;
-                        }
-                        _logger.LogInformation("Agent Path Count: {}", path.Count);
-                        Vector3 moveTo = agent.Position.CurrentPosition;
-                        if (!path.TryDequeue(out moveTo))
-                        {
-                            await RemoveAgent(entityId);
-                            return;
-                        }
-                        agent.Position = new PositionState
-                        {
-                            CurrentPosition = agent.Position.MoveToPosition,
-                            MoveToPosition = moveTo,
-                            NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND / agent.Speed),
-                            CurrentZone = agent.Position.CurrentZone,
-                            ZoneTag = agent.Position.ZoneTag,
-                        };
-                        await _agentRepository.Update(agent);
-                        // Send update to Client for Entity
-                        await _mediator.Publish(new ClientActionEvent
-                        {
-                            Action = "EntityClientMove",
-                            Data = new
-                            {
-                                entityId = entityId,
-                                moveTo
-                            },
-                        });
-                        if (path.Count == 0)
-                        {
-                            await RemoveAgent(entityId);
+                            await serviceScope.ServiceProvider.GetService<IMediator>().Publish(new MoveRegisteredAgentEvent{
+                                AgentId = entityId
+                            });
                         }
                     });
                 }
             }
             return Task.CompletedTask;
-        }
-        private async Task RemoveAgent(long agentId)
-        {
-            _moveRepository.Remove(agentId);
-            await _mediator.Publish(new AgentFinishedMoveEvent
-            {
-                AgentId = agentId,
-            });
         }
     }
 }
