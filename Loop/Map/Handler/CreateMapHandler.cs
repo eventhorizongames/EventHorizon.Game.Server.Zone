@@ -15,14 +15,19 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
 {
     public class CreateMapHandler : INotificationHandler<CreateMapEvent>
     {
+        readonly ILogger _logger;
+        readonly IMediator _mediator;
         readonly ZoneMap _zoneMap;
         readonly IServerState _serverState;
-        readonly ILogger _logger;
-        public CreateMapHandler(IZoneMapFactory zoneMapFactory, ILogger<CreateMapHandler> logger, IServerState serverState)
+        public CreateMapHandler(ILogger<CreateMapHandler> logger,
+            IMediator mediator,
+            IZoneMapFactory zoneMapFactory,
+            IServerState serverState)
         {
+            _logger = logger;
+            _mediator = mediator;
             _zoneMap = zoneMapFactory.Map;
             _serverState = serverState;
-            _logger = logger;
         }
 
         public async Task Handle(CreateMapEvent notification, CancellationToken cancellationToken)
@@ -119,6 +124,7 @@ namespace EventHorizon.Game.Server.Zone.Loop.Map.Handler
                 _logger.LogInformation("Edge {} : {}", i, stopWatch.ElapsedMilliseconds);
             }
             await _serverState.SetMap(mapGraph);
+            await _mediator.Publish(new MapCreatedEvent());
         }
         private int GetTopIndex(int cHeight, int cWidth, float maxHeight)
         {

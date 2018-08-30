@@ -19,8 +19,8 @@ namespace EventHorizon.Game.Server.Zone.Agent
     {
         public static void AddAgent(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IAgentRepository, AgentRepository>()
-                .AddSingleton<IMoveAgentRepository, MoveAgentRepository>()
+            services.AddTransient<IAgentRepository, AgentRepository>()
+                .AddTransient<IMoveAgentRepository, MoveAgentRepository>()
                 .AddSingleton<IMoveRegisteredAgentsTimer, MoveRegisteredAgentsTimer>()
                 .AddSingleton<IScheduledTask, SaveAgentStateScheduledTask>();
         }

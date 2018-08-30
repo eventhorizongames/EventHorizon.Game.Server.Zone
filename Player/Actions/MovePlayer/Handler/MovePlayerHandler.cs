@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Loop.Map;
+using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
@@ -71,7 +72,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 CurrentZone = player.Position.CurrentZone,
                 ZoneTag = player.Position.ZoneTag,
             };
-            await _playerRepository.Update(player);
+            await _playerRepository.Update(PlayerAction.POSITION, player);
             await _mediator.Publish(new PlayerGlobalUpdateEvent
             {
                 Player = player,

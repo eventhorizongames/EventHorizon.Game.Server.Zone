@@ -35,6 +35,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         public async Task Handle(PlayerConnectedEvent notification, CancellationToken cancellationToken)
         {
             // Check for player on this zone server
+            var playerAction = PlayerAction.CONNECTION_ID;
             var player = await _player.FindById(notification.Id);
             if (!player.IsFound())
             {
@@ -53,11 +54,12 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 {
                     Entity = PlayerFromDetailsToEntity.MapToNew(globalPlayer),
                 });
+                playerAction = PlayerAction.REGISTERED;
             }
 
             // Update players ConnectionId
             player.ConnectionId = notification.ConnectionId;
-            await _player.Update(player);
+            await _player.Update(playerAction, player);
             await _mediator.Publish(new PlayerGlobalUpdateEvent
             {
                 Player = player,

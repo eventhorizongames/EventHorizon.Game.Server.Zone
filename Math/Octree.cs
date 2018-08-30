@@ -29,9 +29,17 @@ namespace EventHorizon.Game.Server.Zone.Math
         {
             this.root.Add(point);
         }
+        public void Remove(T point)
+        {
+            this.root.Remove(point);
+        }
         public bool Has(T point)
         {
             return this.root.Has(point);
+        }
+        public List<T> All()
+        {
+            return this.root.All(new List<T>());
         }
         public T FindNearestPoint(Vector3 p, IOctreeOptions options)
         {

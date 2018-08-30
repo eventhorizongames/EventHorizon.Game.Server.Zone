@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Core.Model;
+using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
@@ -65,7 +66,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 CurrentZone = agent.Position.CurrentZone,
                 ZoneTag = agent.Position.ZoneTag,
             };
-            await _agentRepository.Update(agent);
+            await _agentRepository.Update(EntityAction.POSITION, agent);
             // Send update to Client for Entity
             await _mediator.Publish(new ClientActionEvent
             {

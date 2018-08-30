@@ -1,19 +1,17 @@
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Math;
 
-namespace EventHorizon.Game.Server.Zone.Map
+namespace EventHorizon.Game.Server.Zone.Entity.Model
 {
-    public struct MapNode : IOctreeEntity
+    public struct SearchEntity : IOctreeEntity
     {
-        public int Index { get; set; }
-        public Vector3 Position { get; set; }
-        public dynamic Info { get; set; }
+        public Vector3 Position { get; }
+        public long EntityId { get; }
 
-        public MapNode(Vector3 position)
+        public SearchEntity(long entityId, Vector3 position)
         {
-            Index = -1;
+            EntityId = entityId;
             Position = position;
-            Info = new { };
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace EventHorizon.Game.Server.Zone.Map
                 return false;
             }
 
-            return Index.Equals(obj);
+            return EntityId.Equals(((SearchEntity)obj).EntityId);
         }
 
         /// <summary>
@@ -37,7 +35,7 @@ namespace EventHorizon.Game.Server.Zone.Map
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return Index.GetHashCode();
+            return EntityId.GetHashCode();
         }
     }
 }

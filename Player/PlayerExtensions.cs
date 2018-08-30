@@ -15,14 +15,14 @@ namespace EventHorizon.Game.Server.Zone.Player
     {
         public static IServiceCollection AddPlayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IPlayerRepository, PlayerRepository>()
+            services.AddTransient<IPlayerRepository, PlayerRepository>()
                 .Configure<PlayerSettings>(configuration.GetSection("Player"))
                 .AddSingleton<IConnectionCache, ConnectionCache>()
                 .AddTransient<IPlayerConnectionFactory, PlayerConnectionFactory>();
 
             if (configuration.GetValue<bool>("EnableTestingMode"))
             {
-                services.AddSingleton<IPlayerRepository, PlayerTestingRepository>()
+                services.AddTransient<IPlayerRepository, PlayerTestingRepository>()
                     .AddTransient<IPlayerConnectionFactory, PlayerTestingConnectionFactory>();
             }
 

@@ -8,7 +8,8 @@ namespace EventHorizon.Game.Server.Zone.Entity
     {
         public static void AddEntity(this IServiceCollection services)
         {
-            services.AddSingleton<IEntityRepository, EntityRepository>();
+            services.AddTransient<IEntityRepository, EntityRepository>()
+                .AddTransient<IEntitySearchTree, EntitySearchTree>();
         }
     }
 }

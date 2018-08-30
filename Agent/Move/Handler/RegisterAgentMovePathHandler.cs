@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
+using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
@@ -22,7 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         {
             var agent = await _agentRepository.FindById(notification.AgentId);
             agent.Path = notification.Path;
-            await _agentRepository.Update(agent);
+            await _agentRepository.Update(AgentAction.PATH, agent);
             _moveRepository.Add(agent.Id);
         }
     }

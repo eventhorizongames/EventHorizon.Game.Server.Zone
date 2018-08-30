@@ -34,9 +34,9 @@ namespace EventHorizon.Game.Server.Zone.Agent.State.Impl
                 .FirstOrDefault(a => a.Id == id);
         }
 
-        public Task Update(AgentEntity agent)
+        public Task Update(EntityAction action, AgentEntity agent)
         {
-            return _entityRepository.Update(agent);
+            return _entityRepository.Update(action, agent);
         }
     }
 }

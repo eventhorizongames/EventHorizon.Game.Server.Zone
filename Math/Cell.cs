@@ -1,14 +1,20 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Numerics;
+using System;
+using System.Collections.Concurrent;
 
 namespace EventHorizon.Game.Server.Zone.Math
 {
+    /// <summary>
+    /// TODO: Look at getting a better implementation of an Octree.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Cell<T> where T : IOctreeEntity
     {
         public int Level { get; }
-        public IList<T> Points { get; }
-        public IList<Cell<T>> Children { get; }
+        public ConcurrentBag<T> Points { get; }
+        public ConcurrentBag<Cell<T>> Children { get; }
 
         Vector3 Position { get; }
         Octree<T> _tree;
@@ -21,8 +27,8 @@ namespace EventHorizon.Game.Server.Zone.Math
             Size = size;
             Level = level;
 
-            Points = new List<T>();
-            Children = new List<Cell<T>>();
+            Points = new ConcurrentBag<T>();
+            Children = new ConcurrentBag<Cell<T>>();
         }
 
         public bool Has(T point)
@@ -33,9 +39,9 @@ namespace EventHorizon.Game.Server.Zone.Math
             }
             if (this.Children.Count > 0)
             {
-                for (var i = 0; i < this.Children.Count; i++)
+                foreach (var child in Children)
                 {
-                    var duplicate = this.Children[i].Has(point);
+                    var duplicate = child.Has(point);
                     if (duplicate)
                     {
                         return duplicate;
@@ -46,18 +52,31 @@ namespace EventHorizon.Game.Server.Zone.Math
             else
             {
                 var minDistSqrt = this._tree.Accuracy * this._tree.Accuracy;
-                for (var i = 0; i < this.Points.Count; i++)
+                foreach (var otherPoint in Points)
                 {
-                    var o = this.Points[i];
-                    var distSq = Vector3.DistanceSquared(o.Position, point.Position);
+                    var distSq = Vector3.DistanceSquared(otherPoint.Position, point.Position);
                     if (distSq <= minDistSqrt)
                     {
-                        return o != null;
+                        return otherPoint != null;
                     }
                 }
                 return false;
             }
         }
+
+        public List<T> All(List<T> list)
+        {
+            list.AddRange(Points.Select(a => a));
+            if (Children.Count > 0)
+            {
+                foreach (var child in Children)
+                {
+                    list = child.All(list);
+                }
+            }
+            return list;
+        }
+
         public bool Contains(T point)
         {
             return point.Position.X >= this.Position.X - this._tree.Accuracy
@@ -69,6 +88,7 @@ namespace EventHorizon.Game.Server.Zone.Math
         }
         public void Add(T point)
         {
+            // TODO: see if we can remove points from cell when moving into Children.
             this.Points.Add(point);
             if (this.Children.Count > 0)
             {
@@ -82,13 +102,72 @@ namespace EventHorizon.Game.Server.Zone.Math
                 }
             }
         }
+        public bool Remove(T pointToRemove)
+        {
+            var removed = false;
+            foreach (var point in Points)
+            {
+                if (point.Equals(pointToRemove))
+                {
+                    removed = true;
+                    break;
+                }
+            }
+            if (!removed)
+            {
+                foreach (var child in Children)
+                {
+                    removed = child.Remove(pointToRemove);
+                    if (removed)
+                    {
+                        break;
+                    }
+                }
+            }
+            if (removed && Children.Count > 0)
+            {
+                if (ShouldMerge())
+                {
+                    Merge();
+                }
+            }
+            return removed;
+        }
+
+        private bool ShouldMerge()
+        {
+            var totalPoints = Points.Count;
+            if (Children.Count > 0)
+            {
+                foreach (var child in Children)
+                {
+                    if (child.Children.Count > 0)
+                    {
+                        return false;
+                    }
+                    totalPoints += child.Children.Count;
+                }
+            }
+            return totalPoints <= Octree<T>.MAX_LEVEL;
+        }
+        private void Merge()
+        {
+            foreach (var child in Children)
+            {
+                foreach (var point in child.Points)
+                {
+                    this.Points.Add(point);
+                }
+            }
+            this.Children.Clear();
+        }
         public void AddToChildren(T point)
         {
-            for (var i = 0; i < this.Children.Count; i++)
+            foreach (var child in Children)
             {
-                if (this.Children[i].Contains(point))
+                if (child.Contains(point))
                 {
-                    this.Children[i].Add(point);
+                    child.Add(point);
                     break;
                 }
             }
@@ -165,10 +244,11 @@ namespace EventHorizon.Game.Server.Zone.Math
                     this.Level + 1
                 )
             );
-            for (var i = 0; i < this.Points.Count; i++)
+            foreach (var point in Points)
             {
-                this.AddToChildren(this.Points[i]);
+                this.AddToChildren(point);
             }
+            // this.Points.Clear();
         }
 
 
@@ -187,9 +267,9 @@ namespace EventHorizon.Game.Server.Zone.Math
 
             if (this.Points.Count > 0 && this.Children.Count == 0)
             {
-                for (var i = 0; i < this.Points.Count; i++)
+                foreach (var point in Points)
                 {
-                    var dist = Vector3.Distance(position, this.Points[i].Position); // TODO: Might need to flip this.
+                    var dist = Vector3.Distance(position, point.Position); // TODO: Might need to flip this.
                     if (dist <= bestDist)
                     {
                         if (dist == 0 && options.NotSelf)
@@ -197,7 +277,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                             continue;
                         }
                         bestDist = dist;
-                        nearest = this.Points[i];
+                        nearest = point;
                     }
                 }
             }
@@ -245,35 +325,22 @@ namespace EventHorizon.Game.Server.Zone.Math
         {
             if (this.Points.Count > 0 && this.Children.Count == 0)
             {
-                for (var i = 0; i < this.Points.Count; i++)
+                foreach (var point in Points)
                 {
-                    var dist = Vector3.Distance(position, this.Points[i].Position); // TODO: Might need to flip this
+                    var dist = Vector3.Distance(position, point.Position); // TODO: Might need to flip this
                     if (dist <= radius)
                     {
                         if (dist == 0 && options.NotSelf)
                         {
                             continue;
                         }
-                        result.Add(this.Points[i]);
+                        result.Add(point);
                     }
                 }
             }
             foreach (var child in this.Children)
             {
-                if (child.Points.Count > 0)
-                {
-                    if (position.X < child.Position.X - radius
-                        || position.X > child.Position.X + child.Size.X + radius
-                        || position.Y < child.Position.Y - radius
-                        || position.Y > child.Position.Y + child.Size.Y + radius
-                        || position.Z < child.Position.Z - radius
-                        || position.Z > child.Position.Z + child.Size.Z + radius
-                    )
-                    {
-                        continue;
-                    }
-                    child.FindNearbyPoints(position, radius, options, ref result);
-                }
+                child.FindNearbyPoints(position, radius, options, ref result);
             }
         }
     }

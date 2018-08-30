@@ -9,7 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State
         Task<List<IObjectEntity>> All();
         Task<IObjectEntity> FindById(long id);
         Task<IObjectEntity> Add(IObjectEntity entity);
-        Task Update(IObjectEntity entity);
+        Task Update(EntityAction action, IObjectEntity entity);
         Task Remove(long id);
     }
 }

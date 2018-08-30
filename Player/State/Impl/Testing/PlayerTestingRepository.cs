@@ -40,9 +40,9 @@ namespace EventHorizon.Game.Server.Zone.Player.State.Impl.Testing
             return _entityRepository.Remove(player.Id);
         }
 
-        public Task Update(PlayerEntity player)
+        public Task Update(EntityAction action, PlayerEntity player)
         {
-            return _entityRepository.Update(player);
+            return _entityRepository.Update(action, player);
         }
 
         private PlayerEntity CreateNewTestEntity(string id)

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 
@@ -16,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
         {
             var agent = await _agentRepository.FindById(notification.AgentId);
             agent.TypedData.Routine = notification.Routine;
-            await _agentRepository.Update(agent);
+            await _agentRepository.Update(AgentAction.ROUTINE, agent);
         }
     }
 }
