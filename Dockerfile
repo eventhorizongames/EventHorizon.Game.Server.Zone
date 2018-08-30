@@ -1,18 +1,31 @@
-# Sample contents of Dockerfile
-# Stage 1
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /source
 
-# caches restore result by copying csproj file separately
-COPY *.csproj .
+# copy csproj and restore as distinct layers
+COPY *.sln .
+COPY src/EventHorizon.Game.Server.Zone.csproj ./src/EventHorizon.Game.Server.Zone.csproj
+COPY test/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests.csproj
 RUN dotnet restore
 
-# copies the rest of your code
-COPY . .
-RUN dotnet publish --output /app/ --configuration Release
- 
-# Stage 2
+# copy and build everything else
+COPY src/. ./src/
+COPY test/. ./test/
+
+RUN dotnet build
+
+FROM build AS testrunner
+WORKDIR /source/test
+ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+
+FROM build AS test
+WORKDIR /source/test
+RUN dotnet test
+
+FROM build AS publish
+WORKDIR /source
+RUN dotnet publish --output bin/publish --configuration Release
+
 FROM microsoft/dotnet:2.1.1-aspnetcore-runtime AS runtime
 WORKDIR /app
-COPY --from=build /app .
+COPY --from=publish /source/src/bin/publish ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]
