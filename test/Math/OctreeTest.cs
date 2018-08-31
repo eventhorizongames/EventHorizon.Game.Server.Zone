@@ -41,6 +41,22 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             Assert.Equal(expectedAdded, octree.All().Count);
         }
+        [Fact]
+        public void TestFindNearestPoint()
+        {
+            var octree = new Octree<NodeEntity>(Vector3.Zero, new Vector3(100), 0);
+
+            for (int i = 0; i < 160; i++)
+            {
+                octree.Add(new NodeEntity(GetRandomPoint(100)));
+            }
+
+            var expectedPoint = GetRandomPoint(100);
+            var expectedNodeEntity = new NodeEntity(expectedPoint);
+            octree.Add(expectedNodeEntity);
+
+            Assert.Equal(expectedNodeEntity, octree.FindNearestPoint(expectedPoint));
+        }
 
         Random random = new Random();
         private Vector3 GetRandomPoint(int v)
@@ -55,6 +71,24 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             public NodeEntity(Vector3 position)
             {
                 Position = position;
+            }
+            public override bool Equals(object obj)
+            {
+                if (obj == null || GetType() != obj.GetType())
+                {
+                    return false;
+                }
+
+                return Position.Equals(((NodeEntity)obj).Position);
+            }
+
+            public override int GetHashCode()
+            {
+                return Position.GetHashCode();
+            }
+            public override string ToString()
+            {
+                return Position.ToString();
             }
         }
     }

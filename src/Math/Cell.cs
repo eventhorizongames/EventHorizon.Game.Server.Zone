@@ -41,11 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 foreach (var child in Children)
                 {
-                    var duplicate = child.Has(point);
-                    if (duplicate)
-                    {
-                        return duplicate;
-                    }
+                    return child.Has(point);
                 }
                 return false;
             }
@@ -293,29 +289,26 @@ namespace EventHorizon.Game.Server.Zone.Math
 
             foreach (var child in children)
             {
-                if (child.Points.Count > 0)
+                if (position.X < child.Position.X - bestDist
+                    || position.X > child.Position.X + child.Size.X + bestDist
+                    || position.Y < child.Position.Y - bestDist
+                    || position.Y > child.Position.Y + child.Size.Y + bestDist
+                    || position.Z < child.Position.Z - bestDist
+                    || position.Z > child.Position.Z + child.Size.Z + bestDist
+                )
                 {
-                    if (position.X < child.Position.X - bestDist
-                        || position.X > child.Position.X + child.Size.X + bestDist
-                        || position.Y < child.Position.Y - bestDist
-                        || position.Y > child.Position.Y + child.Size.Y + bestDist
-                        || position.Z < child.Position.Z - bestDist
-                        || position.Z > child.Position.Z + child.Size.Z + bestDist
-                    )
-                    {
-                        continue;
-                    }
-                    var childNearest = child.FindNearestPoint(position, options);
-                    if (childNearest == null)
-                    {
-                        continue;
-                    }
-                    var childNearestDist = Vector3.Distance(childNearest.Position, position);
-                    if (childNearestDist < bestDist)
-                    {
-                        nearest = childNearest;
-                        bestDist = childNearestDist;
-                    }
+                    continue;
+                }
+                var childNearest = child.FindNearestPoint(position, options);
+                if (childNearest == null)
+                {
+                    continue;
+                }
+                var childNearestDist = Vector3.Distance(childNearest.Position, position);
+                if (childNearestDist < bestDist)
+                {
+                    nearest = childNearest;
+                    bestDist = childNearestDist;
                 }
             }
             return nearest;

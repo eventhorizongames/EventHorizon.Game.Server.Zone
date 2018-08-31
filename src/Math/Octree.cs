@@ -41,22 +41,14 @@ namespace EventHorizon.Game.Server.Zone.Math
         {
             return this.root.All(new List<T>());
         }
-        public T FindNearestPoint(Vector3 p, IOctreeOptions options)
+        public T FindNearestPoint(Vector3 p, IOctreeOptions options = null)
         {
-            if (options == null)
-            {
-                options = new IOctreeOptions();
-            }
-            return this.root.FindNearestPoint(p, options);
+            return this.root.FindNearestPoint(p, options ?? IOctreeOptions.DEFAULT);
         }
-        public IList<T> FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options)
+        public IList<T> FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options = null)
         {
-            if (options == null)
-            {
-                options = new IOctreeOptions();
-            }
             var result = new List<T>();
-            this.root.FindNearbyPoints(position, radius, options, ref result);
+            this.root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
             return result;
         }
         public void GetAllCellsAtLevel(Cell<T> cell, int level, ref IList<Cell<T>> result)
@@ -83,7 +75,14 @@ namespace EventHorizon.Game.Server.Zone.Math
     }
     public class IOctreeOptions
     {
-        public float MaxDist { get; internal set; } = float.MaxValue;
-        public bool NotSelf { get; internal set; } = false;
+        public static readonly IOctreeOptions DEFAULT = new IOctreeOptions(float.MaxValue, false);
+        public float MaxDist { get; }
+        public bool NotSelf { get; }
+
+        public IOctreeOptions(float maxDist, bool notSelf)
+        {
+            MaxDist = float.MaxValue;
+            NotSelf = false;
+        }
     }
 }
