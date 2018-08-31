@@ -8,47 +8,45 @@ namespace EventHorizon.Game.Server.Zone.Math
     {
         public static int MAX_LEVEL = 8;
         private float _maxDistance;
-        private Cell<T> root;
+        private Cell<T> _root;
         public int Accuracy { get; internal set; } = 0;
 
         public Octree(Vector3 position, Vector3 size, int accuracy)
         {
-            this._maxDistance = System.Math.Max(size.X, System.Math.Max(size.Y, size.Z));
-            this.Accuracy = 0;
-            this.root = new Cell<T>(this, position, size, 0);
+            this.Reset(position, size, accuracy);
         }
 
         public void Reset(Vector3 position, Vector3 size, int accuracy)
         {
             this._maxDistance = System.Math.Max(size.X, System.Math.Max(size.Y, size.Z));
             this.Accuracy = 0;
-            this.root = new Cell<T>(this, position, size, 0);
+            this._root = new Cell<T>(accuracy, position, size, 0);
         }
 
         public void Add(T point)
         {
-            this.root.Add(point);
+            this._root.Add(point);
         }
         public void Remove(T point)
         {
-            this.root.Remove(point);
+            this._root.Remove(point);
         }
         public bool Has(T point)
         {
-            return this.root.Has(point);
+            return this._root.Has(point);
         }
         public List<T> All()
         {
-            return this.root.All(new List<T>());
+            return this._root.All(new List<T>());
         }
         public T FindNearestPoint(Vector3 p, IOctreeOptions options = null)
         {
-            return this.root.FindNearestPoint(p, options ?? IOctreeOptions.DEFAULT);
+            return this._root.FindNearestPoint(p, options ?? IOctreeOptions.DEFAULT);
         }
         public IList<T> FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options = null)
         {
             var result = new List<T>();
-            this.root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
+            this._root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
             return result;
         }
         public void GetAllCellsAtLevel(Cell<T> cell, int level, ref IList<Cell<T>> result)

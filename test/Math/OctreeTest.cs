@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Math;
+using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Math
@@ -20,11 +21,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             var expectedAdded = 5;
             var octree = new Octree<NodeEntity>(Vector3.Zero, new Vector3(10, 10, 10), 0);
 
-            octree.Add(new NodeEntity(Vector3.Zero));
-            octree.Add(new NodeEntity(Vector3.Zero));
-            octree.Add(new NodeEntity(Vector3.Zero));
-            octree.Add(new NodeEntity(Vector3.Zero));
-            octree.Add(new NodeEntity(Vector3.Zero));
+            octree.Add(new NodeEntity(new Vector3(1)));
+            octree.Add(new NodeEntity(new Vector3(2)));
+            octree.Add(new NodeEntity(new Vector3(3)));
+            octree.Add(new NodeEntity(new Vector3(4)));
+            octree.Add(new NodeEntity(new Vector3(5)));
 
             Assert.Equal(expectedAdded, octree.All().Count);
         }
@@ -36,7 +37,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             for (int i = 0; i < 160; i++)
             {
-                octree.Add(new NodeEntity(GetRandomPoint(100)));
+                octree.Add(new NodeEntity(PointGenerator.GetRandomPoint(100)));
             }
 
             Assert.Equal(expectedAdded, octree.All().Count);
@@ -48,20 +49,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             for (int i = 0; i < 160; i++)
             {
-                octree.Add(new NodeEntity(GetRandomPoint(100)));
+                octree.Add(new NodeEntity(PointGenerator.GetRandomPoint(100)));
             }
 
-            var expectedPoint = GetRandomPoint(100);
+            var expectedPoint = PointGenerator.GetRandomPoint(100);
             var expectedNodeEntity = new NodeEntity(expectedPoint);
             octree.Add(expectedNodeEntity);
 
             Assert.Equal(expectedNodeEntity, octree.FindNearestPoint(expectedPoint));
-        }
-
-        Random random = new Random();
-        private Vector3 GetRandomPoint(int v)
-        {
-            return new Vector3(random.Next(0, v), random.Next(0, v), random.Next(0, v));
         }
 
         public struct NodeEntity : IOctreeEntity

@@ -12,22 +12,22 @@ namespace EventHorizon.Game.Server.Zone.Math
     /// <typeparam name="T"></typeparam>
     public class Cell<T> where T : IOctreeEntity
     {
-        public int Level { get; }
-        public ConcurrentBag<T> Points { get; }
+        public ConcurrentDictionary<long, T> Points { get; }
         public ConcurrentBag<Cell<T>> Children { get; }
+        public Vector3 Position { get; }
+        public Vector3 Size { get; }
+        public int Level { get; }
 
-        Vector3 Position { get; }
-        Octree<T> _tree;
-        Vector3 Size { get; }
+        private int _accuracy;
 
-        public Cell(Octree<T> tree, Vector3 position, Vector3 size, int level)
+        public Cell(int accuracy, Vector3 position, Vector3 size, int level)
         {
-            _tree = tree;
+            _accuracy = accuracy;
             Position = position;
             Size = size;
             Level = level;
 
-            Points = new ConcurrentBag<T>();
+            Points = new ConcurrentDictionary<long, T>();
             Children = new ConcurrentBag<Cell<T>>();
         }
 
@@ -37,32 +37,28 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 return false;
             }
-            if (this.Children.Count > 0)
+            foreach (var child in Children)
             {
-                foreach (var child in Children)
+                if (child.Has(point)) 
                 {
-                    return child.Has(point);
+                    return true;
                 }
-                return false;
             }
-            else
+            var minDistSqrt = this._accuracy * this._accuracy;
+            foreach (var otherPoint in Points)
             {
-                var minDistSqrt = this._tree.Accuracy * this._tree.Accuracy;
-                foreach (var otherPoint in Points)
+                var distSq = Vector3.DistanceSquared(otherPoint.Value.Position, point.Position);
+                if (distSq <= minDistSqrt)
                 {
-                    var distSq = Vector3.DistanceSquared(otherPoint.Position, point.Position);
-                    if (distSq <= minDistSqrt)
-                    {
-                        return otherPoint != null;
-                    }
+                    return true;
                 }
-                return false;
             }
+            return false;
         }
 
         public List<T> All(List<T> list)
         {
-            list.AddRange(Points.Select(a => a));
+            list.AddRange(Points.Select(a => a.Value));
             if (Children.Count > 0)
             {
                 foreach (var child in Children)
@@ -75,12 +71,12 @@ namespace EventHorizon.Game.Server.Zone.Math
 
         public bool Contains(T point)
         {
-            return point.Position.X >= this.Position.X - this._tree.Accuracy
-                && point.Position.Y >= this.Position.Y - this._tree.Accuracy
-                && point.Position.Z >= this.Position.Z - this._tree.Accuracy
-                && point.Position.X < this.Position.X + this.Size.X + this._tree.Accuracy
-                && point.Position.Y < this.Position.Y + this.Size.Y + this._tree.Accuracy
-                && point.Position.Z < this.Position.Z + this.Size.Z + this._tree.Accuracy;
+            return point.Position.X >= this.Position.X - this._accuracy
+                && point.Position.Y >= this.Position.Y - this._accuracy
+                && point.Position.Z >= this.Position.Z - this._accuracy
+                && point.Position.X < this.Position.X + this.Size.X + this._accuracy
+                && point.Position.Y < this.Position.Y + this.Size.Y + this._accuracy
+                && point.Position.Z < this.Position.Z + this.Size.Z + this._accuracy;
         }
         public void Add(T point)
         {
@@ -91,7 +87,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             }
             else
             {
-                this.Points.Add(point);
+                this.Points.AddOrUpdate(point.GetHashCode(), point, (key, oldPoint) => point);
                 if (this.Points.Count > 1 && this.Level < Octree<T>.MAX_LEVEL)
                 {
                     this.Split();
@@ -103,9 +99,10 @@ namespace EventHorizon.Game.Server.Zone.Math
             var removed = false;
             foreach (var point in Points)
             {
-                if (point.Equals(pointToRemove))
+                if (point.Value.Equals(pointToRemove))
                 {
-                    removed = true;
+                    var removedValue = default(T);
+                    removed = Points.TryRemove(point.Value.GetHashCode(), out removedValue);
                     break;
                 }
             }
@@ -152,7 +149,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 foreach (var point in child.Points)
                 {
-                    this.Points.Add(point);
+                    this.Points.AddOrUpdate(point.Value.GetHashCode(), point.Value, (key, currentPoint) => point.Value);
                 }
             }
             this.Children.Clear();
@@ -178,7 +175,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             var d2 = this.Size.Z / 2;
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x, y, z),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -186,7 +183,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x + w2, y, z),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -194,7 +191,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x, y, z + d2),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -202,7 +199,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x + w2, y, z + d2),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -210,7 +207,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x, y + h2, z),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -218,7 +215,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x + w2, y + h2, z),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -226,7 +223,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x, y + h2, z + d2),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -234,7 +231,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             this.Children.Add(
                 new Cell<T>(
-                    this._tree,
+                    _accuracy,
                     new Vector3(x + w2, y + h2, z + d2),
                     new Vector3(w2, h2, d2),
                     this.Level + 1
@@ -242,7 +239,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             );
             foreach (var point in Points)
             {
-                this.AddToChildren(point);
+                this.AddToChildren(point.Value);
             }
             this.Points.Clear();
         }
@@ -265,7 +262,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 foreach (var point in Points)
                 {
-                    var dist = Vector3.Distance(position, point.Position); // TODO: Might need to flip this.
+                    var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this.
                     if (dist <= bestDist)
                     {
                         if (dist == 0 && options.NotSelf)
@@ -273,7 +270,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                             continue;
                         }
                         bestDist = dist;
-                        nearest = point;
+                        nearest = point.Value;
                     }
                 }
             }
@@ -320,14 +317,14 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 foreach (var point in Points)
                 {
-                    var dist = Vector3.Distance(position, point.Position); // TODO: Might need to flip this
+                    var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this
                     if (dist <= radius)
                     {
                         if (dist == 0 && options.NotSelf)
                         {
                             continue;
                         }
-                        result.Add(point);
+                        result.Add(point.Value);
                     }
                 }
             }
