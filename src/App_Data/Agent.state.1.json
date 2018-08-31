@@ -1,18 +1,30 @@
 {
-    "agentList": [{
+    "AgentList": [{
         "Name": "First Ever NPC",
         "Position": {
-            "CurrentZone": "...",
-            "ZoneTag": "testing",
             "CurrentPosition": {
-                "X": 0.0,
+                "X": -44.0,
                 "Y": 0.0,
-                "Z": 3.0
-            }
+                "Z": -12.0
+            },
+            "NextMoveRequest": "2018-08-28T23:49:35.7493733-05:00",
+            "MoveToPosition": {
+                "X": -44.0,
+                "Y": 0.0,
+                "Z": -8.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "Speed": 0.5,
+        "Ai": {
+            "DefaultRoutine": "WANDER"
         },
         "Data": {
-            "Subroutine": "WANDER"
-        },
-        "Speed": 1
+            "Routine": "MOVE",
+            "Wander": {
+                "LookDistance": 25
+            }
+        }
     }]
 }
