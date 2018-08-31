@@ -13,9 +13,10 @@ COPY test/. ./test/
 
 RUN dotnet build
 
+# Details on how to use: https://github.com/dotnet/dotnet-docker-samples/tree/master/dotnetapp-dev
 FROM build AS testrunner
 WORKDIR /source/test
-ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+ENTRYPOINT ["dotnet", "test", "--logger:trx", "/p:CollectCoverage=true", "/p:CoverletOutputFormat=lcov", "/p:CoverletOutput=./TestResults//lcov.info", "./EventHorizon.Game.Server.Zone.Tests.csproj"]
 
 FROM build AS test
 WORKDIR /source/test

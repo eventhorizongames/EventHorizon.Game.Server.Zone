@@ -89,13 +89,13 @@ namespace EventHorizon.Game.Server.Zone.Math
         public void Add(T point)
         {
             // TODO: see if we can remove points from cell when moving into Children.
-            this.Points.Add(point);
             if (this.Children.Count > 0)
             {
                 this.AddToChildren(point);
             }
             else
             {
+                this.Points.Add(point);
                 if (this.Points.Count > 1 && this.Level < Octree<T>.MAX_LEVEL)
                 {
                     this.Split();
@@ -248,7 +248,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 this.AddToChildren(point);
             }
-            // this.Points.Clear();
+            this.Points.Clear();
         }
 
 

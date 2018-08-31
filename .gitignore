@@ -248,3 +248,5 @@ dist/
 appsettings.*.json
 
 data/*.json
+
+lcov.info
