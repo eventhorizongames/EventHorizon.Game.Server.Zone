@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace EventHorizon.Game.Server.Zone.Math
 {
-    public class Octree<T> where T : IOctreeEntity
+    public class Octree<T> where T : struct, IOctreeEntity
     {
         public static int MAX_LEVEL = 8;
         private float _maxDistance;
@@ -49,23 +49,6 @@ namespace EventHorizon.Game.Server.Zone.Math
             this._root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
             return result;
         }
-        public void GetAllCellsAtLevel(Cell<T> cell, int level, ref IList<Cell<T>> result)
-        {
-            if (cell.Level == level)
-            {
-                if (cell.Points.Count > 0)
-                {
-                    result.Add(cell);
-                }
-            }
-            else
-            {
-                foreach (var child in cell.Children)
-                {
-                    this.GetAllCellsAtLevel(child, level, ref result);
-                }
-            }
-        }
     }
     public interface IOctreeEntity
     {
@@ -80,7 +63,7 @@ namespace EventHorizon.Game.Server.Zone.Math
         public IOctreeOptions(float maxDist, bool notSelf)
         {
             MaxDist = float.MaxValue;
-            NotSelf = false;
+            NotSelf = notSelf;
         }
     }
 }

@@ -7,11 +7,12 @@ using System.Collections.Concurrent;
 namespace EventHorizon.Game.Server.Zone.Math
 {
     /// <summary>
-    /// TODO: Look at getting a better implementation of an Octree.
+    ///     
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Cell<T> where T : IOctreeEntity
+    public class Cell<T> where T : struct, IOctreeEntity
     {
+        private static int ALLOWED_POINTS = 8;
         public ConcurrentDictionary<long, T> Points { get; }
         public ConcurrentBag<Cell<T>> Children { get; }
         public Vector3 Position { get; }
@@ -39,7 +40,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             }
             foreach (var child in Children)
             {
-                if (child.Has(point)) 
+                if (child.Has(point))
                 {
                     return true;
                 }
@@ -88,7 +89,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             else
             {
                 this.Points.AddOrUpdate(point.GetHashCode(), point, (key, oldPoint) => point);
-                if (this.Points.Count > 1 && this.Level < Octree<T>.MAX_LEVEL)
+                if (this.Points.Count > ALLOWED_POINTS && this.Level < Octree<T>.MAX_LEVEL)
                 {
                     this.Split();
                 }
@@ -130,18 +131,15 @@ namespace EventHorizon.Game.Server.Zone.Math
         private bool ShouldMerge()
         {
             var totalPoints = Points.Count;
-            if (Children.Count > 0)
+            foreach (var child in Children)
             {
-                foreach (var child in Children)
+                if (child.Children.Count > 0)
                 {
-                    if (child.Children.Count > 0)
-                    {
-                        return false;
-                    }
-                    totalPoints += child.Children.Count;
+                    return false;
                 }
+                totalPoints += child.Points.Count;
             }
-            return totalPoints <= Octree<T>.MAX_LEVEL;
+            return totalPoints <= ALLOWED_POINTS;
         }
         private void Merge()
         {
@@ -297,7 +295,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                     continue;
                 }
                 var childNearest = child.FindNearestPoint(position, options);
-                if (childNearest == null)
+                if (childNearest.Equals(default(T)))
                 {
                     continue;
                 }
