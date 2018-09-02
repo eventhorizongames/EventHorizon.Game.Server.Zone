@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Loop.Map
 {
-    public class GetMapNodesAroundPositionEvent : IRequest<IList<MapNode>>
+    public struct GetMapNodesAroundPositionEvent : IRequest<IList<MapNode>>
     {
         public Vector3 Position { get; set; }   
         public int Distance { get; set; }

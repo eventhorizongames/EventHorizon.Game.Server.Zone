@@ -9,7 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public AgentData(dynamic data)
         {
             _data = data;
-            Wander = new AgentWanderData(data.Wander);
+            Wander = new AgentWanderData(data?.Wander);
         }
         public AiRoutine Routine
         {

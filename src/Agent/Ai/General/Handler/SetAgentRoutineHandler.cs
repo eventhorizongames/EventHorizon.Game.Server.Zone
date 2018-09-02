@@ -16,6 +16,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
         public async Task Handle(SetAgentRoutineEvent notification, CancellationToken cancellationToken)
         {
             var agent = await _agentRepository.FindById(notification.AgentId);
+            if (!agent.IsFound())
+            {
+                return;
+            }
             agent.TypedData.Routine = notification.Routine;
             await _agentRepository.Update(AgentAction.ROUTINE, agent);
         }

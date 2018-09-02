@@ -45,8 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
                     // Start Routine to have the Agent Wander around the area.
                     await _mediator.Publish(new StartAgentWanderRoutineEvent
                     {
-                        AgentId = agent.Id,
-                        Wander = agent.TypedData.Wander
+                        AgentId = agent.Id
                     });
                     break;
                 case AiRoutine.IDLE:

@@ -1,4 +1,5 @@
-using System.Dynamic;
+
+using EventHorizon.Game.Server.Zone.Core.Dynamic;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Model.Data
 {
@@ -7,7 +8,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model.Data
         private dynamic _data;
         public AgentWanderData(dynamic data)
         {
-            _data = data ?? new ExpandoObject();
+            _data = data ?? new NullingExpandoObject();
         }
         public int LookDistance
         {

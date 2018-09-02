@@ -31,7 +31,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
             var mapNodes = await _mediator.Send(new GetMapNodesAroundPositionEvent
             {
                 Position = agent.Position.CurrentPosition,
-                Distance = notification.Wander.LookDistance
+                Distance = agent.TypedData.Wander.LookDistance
             });
             if (mapNodes.Count == 0)
             {
