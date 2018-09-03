@@ -23,14 +23,23 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
             {
                 Entity = request.Agent,
             });
+            if (!registeredEntity.IsFound())
+            {
+                return AgentEntity.CreateNotFound();
+            }
 
+            var agent = await _agentRepository.FindById(registeredEntity.Id);
+            if (!agent.IsFound())
+            {
+                return AgentEntity.CreateNotFound();
+            }
             await _mediator.Send(new StartAgentRoutineEvent
             {
-                Routine = request.Agent.Ai.DefaultRoutine,
-                AgentId = registeredEntity.Id
+                Routine = agent.Ai.DefaultRoutine,
+                AgentId = agent.Id
             });
 
-            return await _agentRepository.FindById(registeredEntity.Id);
+            return agent;
         }
     }
 }

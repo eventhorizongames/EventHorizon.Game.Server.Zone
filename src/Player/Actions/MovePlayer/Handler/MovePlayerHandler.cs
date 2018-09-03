@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
+using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Load;
@@ -81,10 +82,10 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             await _mediator.Publish(new ClientActionEvent
             {
                 Action = "EntityClientMove",
-                Data = new
+                Data = new EntityClientMoveData
                 {
-                    entityId = request.Player.Id,
-                    moveTo
+                    EntityId = request.Player.Id,
+                    MoveTo = moveTo
                 },
             });
 

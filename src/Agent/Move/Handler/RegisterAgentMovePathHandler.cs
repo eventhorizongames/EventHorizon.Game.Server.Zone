@@ -10,12 +10,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
 {
     public class RegisterAgentMovePathHandler : INotificationHandler<RegisterAgentMovePathEvent>
     {
-        readonly IMediator _mediator;
         readonly IAgentRepository _agentRepository;
         readonly IMoveAgentRepository _moveRepository;
-        public RegisterAgentMovePathHandler(IMediator mediator, IAgentRepository agentRepository, IMoveAgentRepository moveRepository)
+        public RegisterAgentMovePathHandler(IAgentRepository agentRepository, IMoveAgentRepository moveRepository)
         {
-            _mediator = mediator;
             _agentRepository = agentRepository;
             _moveRepository = moveRepository;
         }

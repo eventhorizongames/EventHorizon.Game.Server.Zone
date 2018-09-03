@@ -17,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
     public class SetAgentRoutineHandlerTests
     {
         [Fact]
-        public async Task TestHandle()
+        public async Task TestHandle_ShouldUpdateAgent()
         {
             // Given
             var inputId = 123L;
@@ -28,13 +28,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(inputId))
                 .ReturnsAsync(inputAgent);
-            var handler = new SetAgentRoutineHandler(agentRepositoryMock.Object);
+                
             // When
+            var handler = new SetAgentRoutineHandler(agentRepositoryMock.Object);
             await handler.Handle(new SetAgentRoutineEvent
             {
                 AgentId = inputId,
                 Routine = AiRoutine.SCRIPT
             }, CancellationToken.None);
+
             // Then
             agentRepositoryMock.Verify(repository => repository.Update(
                 AgentAction.ROUTINE,
@@ -45,16 +47,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
         public async Task TestHandle_ShouldNotStartRoutineWhenAgentNotFound()
         {
             // Given
-            var mediatorMock = new Mock<IMediator>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123))
                 .ReturnsAsync(default(AgentEntity));
-            var handler = new RunAgentDefaultRoutineHandler(mediatorMock.Object, agentRepositoryMock.Object);
+
             // When
-            await handler.Handle(new RunAgentDefaultRoutineEvent
+            var handler = new SetAgentRoutineHandler(agentRepositoryMock.Object);
+            await handler.Handle(new SetAgentRoutineEvent
             {
                 AgentId = 123
             }, CancellationToken.None);
+
             // Then
             agentRepositoryMock.Verify(repository => repository.Update(
                 It.IsAny<AgentAction>(),

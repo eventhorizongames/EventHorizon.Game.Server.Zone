@@ -21,17 +21,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
     {
         readonly ILogger _logger;
         readonly IMoveAgentRepository _moveRepository;
-        readonly IPerformanceTracker _performanceTracker;
         readonly IServiceScopeFactory _serviceScopeFactory;
         public MoveRegisteredAgentsHandler(
             ILogger<MoveRegisteredAgentsHandler> logger,
             IMoveAgentRepository moveRepository,
-            IPerformanceTracker performanceTracker,
             IServiceScopeFactory serviceScopeFactory)
         {
             _logger = logger;
             _moveRepository = moveRepository;
-            _performanceTracker = performanceTracker;
 
             _serviceScopeFactory = serviceScopeFactory;
         }
@@ -43,19 +40,18 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             if (entityIdList.Count() > 0)
             {
                 _logger.LogInformation("Agent Count: {}", entityIdList.Count());
-                using (var tracker = _performanceTracker.Track("Move Registered Agents"))
+                Parallel.ForEach(entityIdList, async (entityId) =>
                 {
-                    Parallel.ForEach(entityIdList, async (entityId) =>
+                    using (var serviceScope = _serviceScopeFactory.CreateScope())
                     {
-                        using (var serviceScope = _serviceScopeFactory.CreateScope())
+                        await serviceScope.ServiceProvider.GetService<IMediator>().Publish(new MoveRegisteredAgentEvent
                         {
-                            await serviceScope.ServiceProvider.GetService<IMediator>().Publish(new MoveRegisteredAgentEvent{
-                                AgentId = entityId
-                            });
-                        }
-                    });
-                }
+                            AgentId = entityId
+                        });
+                    }
+                });
             }
+
             return Task.CompletedTask;
         }
     }

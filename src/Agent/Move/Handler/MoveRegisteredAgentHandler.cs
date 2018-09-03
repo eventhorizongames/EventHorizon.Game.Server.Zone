@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Client;
+using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
@@ -23,19 +24,16 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         readonly IMediator _mediator;
         readonly IAgentRepository _agentRepository;
         readonly IMoveAgentRepository _moveRepository;
-        readonly IPerformanceTracker _performanceTracker;
         public MoveRegisteredAgentHandler(
             ILogger<MoveRegisteredAgentHandler> logger,
             IMediator mediator,
             IAgentRepository agentRepository,
-            IMoveAgentRepository moveRepository,
-            IPerformanceTracker performanceTracker)
+            IMoveAgentRepository moveRepository)
         {
             _logger = logger;
             _mediator = mediator;
             _agentRepository = agentRepository;
             _moveRepository = moveRepository;
-            _performanceTracker = performanceTracker;
         }
         public async Task Handle(MoveRegisteredAgentEvent notification, CancellationToken cancellationToken)
         {
@@ -51,13 +49,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             {
                 return;
             }
-            _logger.LogInformation("Agent Path Count: {}", path.Count);
+            _logger.LogDebug("Agent Path Count: {}", path.Count);
             Vector3 moveTo = agent.Position.CurrentPosition;
             if (!path.TryDequeue(out moveTo))
             {
                 await RemoveAgent(agentId);
                 return;
             }
+            // TODO: Create Position update logic service
             agent.Position = new PositionState
             {
                 CurrentPosition = agent.Position.MoveToPosition,
@@ -71,10 +70,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             await _mediator.Publish(new ClientActionEvent
             {
                 Action = "EntityClientMove",
-                Data = new
+                Data = new EntityClientMoveData
                 {
-                    entityId = agentId,
-                    moveTo
+                    EntityId = agentId,
+                    MoveTo = moveTo
                 },
             });
             if (path.Count == 0)

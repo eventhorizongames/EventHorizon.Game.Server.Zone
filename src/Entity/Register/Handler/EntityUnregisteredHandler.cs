@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
+using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Player;
 using MediatR;
@@ -21,7 +22,10 @@ namespace EventHorizon.Game.Server.Zone.Entity.Registered.Handler
             await _mediator.Publish(new ClientActionEvent
             {
                 Action = "EntityUnregistered",
-                Data = notification.EntityId,
+                Data = new EntityUnregisteredData
+                {
+                    EntityId = notification.EntityId,
+                }
             });
         }
     }

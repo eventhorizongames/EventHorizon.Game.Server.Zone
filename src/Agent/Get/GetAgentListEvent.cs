@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Get
 {
-    public class GetAgentListEvent : IRequest<IEnumerable<AgentEntity>>
+    public struct GetAgentListEvent : IRequest<IEnumerable<AgentEntity>>
     {
         
     }

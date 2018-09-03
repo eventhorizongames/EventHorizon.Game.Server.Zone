@@ -10,6 +10,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
     public struct AgentEntity : IObjectEntity
     {
         private static AgentEntity NULL = default(AgentEntity);
+        public static AgentEntity CreateNotFound()
+        {
+            return default(AgentEntity);
+        }
 
         private dynamic _data;
         private AgentData _typedData;

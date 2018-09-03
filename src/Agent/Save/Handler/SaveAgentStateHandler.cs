@@ -18,7 +18,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Save.Handler
         readonly IAgentRepository _agentRepository;
         readonly IHostingEnvironment _hostingEnvironment;
         readonly IPerformanceTracker _performanceTracker;
-        public SaveAgentStateHandler(IJsonFileSaver fileSaver, IAgentRepository agentRepository, IHostingEnvironment hostingEnvironment, IPerformanceTracker performanceTracker)
+        public SaveAgentStateHandler(IJsonFileSaver fileSaver, 
+            IAgentRepository agentRepository, 
+            IHostingEnvironment hostingEnvironment, 
+            IPerformanceTracker performanceTracker)
         {
             _fileSaver = fileSaver;
             _agentRepository = agentRepository;

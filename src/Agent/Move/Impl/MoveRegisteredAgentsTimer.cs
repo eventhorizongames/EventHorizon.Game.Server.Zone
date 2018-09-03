@@ -27,7 +27,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Impl
 
         public void Stop()
         {
-            _moveRegisteredAgentsTimer.Dispose();
+            if (_moveRegisteredAgentsTimer != null)
+            {
+                _moveRegisteredAgentsTimer.Dispose();
+            }
         }
 
         public void OnMoveRegisteredAgents(object state)
@@ -42,7 +45,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Impl
             timerState.IsRunning = true;
             using (var serviceScope = _serviceScopeFactory.CreateScope())
             {
-
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new MoveRegisteredAgentsEvent()).GetAwaiter().GetResult();
             }
             timerState.IsRunning = false;
