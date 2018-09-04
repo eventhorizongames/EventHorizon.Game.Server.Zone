@@ -17,33 +17,28 @@ namespace EventHorizon.Game.Server.Zone.Agent.Save.Handler
         readonly IJsonFileSaver _fileSaver;
         readonly IAgentRepository _agentRepository;
         readonly IHostingEnvironment _hostingEnvironment;
-        readonly IPerformanceTracker _performanceTracker;
-        public SaveAgentStateHandler(IJsonFileSaver fileSaver, 
-            IAgentRepository agentRepository, 
-            IHostingEnvironment hostingEnvironment, 
-            IPerformanceTracker performanceTracker)
+
+        public SaveAgentStateHandler(IJsonFileSaver fileSaver,
+            IAgentRepository agentRepository,
+            IHostingEnvironment hostingEnvironment)
         {
             _fileSaver = fileSaver;
             _agentRepository = agentRepository;
             _hostingEnvironment = hostingEnvironment;
-            _performanceTracker = performanceTracker;
         }
         public async Task Handle(SaveAgentStateEvent notification, CancellationToken cancellationToken)
         {
-            using (var tracker = _performanceTracker.Track("Save Agents"))
+            var saveAgentList = new List<AgentDetails>();
+            foreach (var agent in await _agentRepository.All())
             {
-                var saveAgentList = new List<AgentDetails>();
-                foreach (var agent in await _agentRepository.All())
-                {
-                    saveAgentList.Add(
-                        AgentFromEntityToDetails.Map(agent)
-                    );
-                }
-                await _fileSaver.SaveToFile(GetAgentDataDirectory(), GetAgentFileName(), new AgentSaveState
-                {
-                    AgentList = saveAgentList
-                });
+                saveAgentList.Add(
+                    AgentFromEntityToDetails.Map(agent)
+                );
             }
+            await _fileSaver.SaveToFile(GetAgentDataDirectory(), GetAgentFileName(), new AgentSaveState
+            {
+                AgentList = saveAgentList
+            });
         }
         private string GetAgentDataDirectory()
         {

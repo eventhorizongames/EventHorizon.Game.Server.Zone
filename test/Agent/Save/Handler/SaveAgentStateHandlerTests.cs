@@ -35,7 +35,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var jsonFileSaverMock = new Mock<IJsonFileSaver>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
             var hostingEnvironmentMock = new Mock<IHostingEnvironment>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
 
             hostingEnvironmentMock.Setup(hostingEnvironment => hostingEnvironment.ContentRootPath).Returns(expectedContentRootPath);
             agentRepositoryMock.Setup(agentRepository => agentRepository.All()).ReturnsAsync(inputAgentList);
@@ -44,8 +43,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var saveAgentStateHandler = new SaveAgentStateHandler(
                 jsonFileSaverMock.Object,
                 agentRepositoryMock.Object,
-                hostingEnvironmentMock.Object,
-                performanceTrackerMock.Object
+                hostingEnvironmentMock.Object
             );
 
             await saveAgentStateHandler.Handle(new SaveAgentStateEvent(), CancellationToken.None);

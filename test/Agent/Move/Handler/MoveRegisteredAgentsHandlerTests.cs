@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging.Internal;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {
@@ -100,6 +101,46 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<MoveRegisteredAgentEvent>(), CancellationToken.None), Times.Never());
+        }
+        [Fact]
+        public async Task TestHandle_ShouldLogWarningWhenAgentCountListIsOver75Agents()
+        {
+            // Given
+            var agentIdList = new List<long>();
+            for (int i = 0; i < 76; i++)
+            {
+                agentIdList.Add(i);
+            }
+
+            var mediatorMock = new Mock<IMediator>();
+            var serviceScopeMock = new Mock<IServiceScope>();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+
+            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
+            serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
+
+            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
+            var moveRepositoryMock = new Mock<IMoveAgentRepository>();
+            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
+
+            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(agentIdList);
+            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
+
+            // When
+            var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
+                loggerMock.Object,
+                moveRepositoryMock.Object,
+                serviceScopeFactoryMock.Object
+            );
+            await moveRegisteredAgentsHandler.Handle(new MoveRegisteredAgentsEvent(), CancellationToken.None);
+
+            // Then
+            loggerMock.Verify(logger => logger.Log(LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<FormattedLogValues>(v => v.ToString().Contains("Agent  Movement List is over 75.")),
+                It.IsAny<Exception>(),
+                It.IsAny<Func<object, Exception, string>>()
+            ));
         }
     }
 }

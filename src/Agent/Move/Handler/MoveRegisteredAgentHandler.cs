@@ -49,7 +49,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             {
                 return;
             }
-            _logger.LogDebug("Agent Path Count: {}", path.Count);
             Vector3 moveTo = agent.Position.CurrentPosition;
             if (!path.TryDequeue(out moveTo))
             {
