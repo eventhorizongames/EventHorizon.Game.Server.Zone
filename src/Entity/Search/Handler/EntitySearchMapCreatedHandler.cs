@@ -19,13 +19,9 @@ namespace EventHorizon.Game.Server.Zone.Entity.Search.Handler
     {
         readonly ZoneMap _zoneMap;
         readonly IEntitySearchTree _searchTree;
-        readonly ILogger _logger;
 
-        public EntitySearchMapCreatedHandler(ILogger<EntitySearchMapCreatedHandler> logger,
-            IZoneMapFactory zoneMapFactory,
-            IEntitySearchTree searchTree)
+        public EntitySearchMapCreatedHandler(IZoneMapFactory zoneMapFactory, IEntitySearchTree searchTree)
         {
-            _logger = logger;
             _zoneMap = zoneMapFactory.Map;
             _searchTree = searchTree;
         }

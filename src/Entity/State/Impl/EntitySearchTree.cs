@@ -20,6 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
             {
                 newSearchOctree.Add(node);
             }
+            SEARCH_OCTREE = newSearchOctree;
         }
     }
 }
