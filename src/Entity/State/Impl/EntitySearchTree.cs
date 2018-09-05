@@ -1,4 +1,8 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Numerics;
+using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Math;
 
@@ -21,6 +25,19 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
                 newSearchOctree.Add(node);
             }
             SEARCH_OCTREE = newSearchOctree;
+        }
+
+        public Task<IList<SearchEntity>> FindEntitiesInArea(Vector3 searchPositionCenter, float searchRadius)
+        {
+            return Task.FromResult(SEARCH_OCTREE.FindNearbyPoints(searchPositionCenter, searchRadius));
+        }
+
+        public Task<IEnumerable<SearchEntity>> FindAnyEntitiesWithATagFromList(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
+        {
+            tagList = tagList ?? new List<string>();
+            return Task.FromResult(SEARCH_OCTREE
+                .FindNearbyPoints(searchPositionCenter, searchRadius)
+                .Where(entity => entity.Tags?.Any(tagList.Contains) ?? false));
         }
     }
 }

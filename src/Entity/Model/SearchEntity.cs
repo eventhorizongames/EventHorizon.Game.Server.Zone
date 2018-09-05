@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Math;
 
@@ -7,11 +8,13 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
     {
         public Vector3 Position { get; }
         public long EntityId { get; }
+        public IList<string> Tags { get; set; }
 
         public SearchEntity(long entityId, Vector3 position)
         {
             EntityId = entityId;
             Position = position;
+            Tags = new List<string>();
         }
 
         /// <summary>
