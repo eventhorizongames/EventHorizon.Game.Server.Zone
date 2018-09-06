@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
 
@@ -7,6 +8,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
     {
         public string Name { get; set; }
         public PositionState Position { get; set; }
+        public IList<string> TagList { get; set; }
 
         public float Speed { get; set; }
         public AgentAiState Ai { get; set; }

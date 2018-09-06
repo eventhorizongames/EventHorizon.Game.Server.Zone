@@ -16,6 +16,7 @@
             "CurrentZone": "...",
             "ZoneTag": "testing"
         },
+        "TagList": ["npc", "wandering", "weak"],
         "Speed": 0.5,
         "Ai": {
             "DefaultRoutine": "WANDER",

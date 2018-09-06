@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
             {
                 Name = entity.Name,
                 Position = entity.Position,
+                TagList = entity.TagList,
                 Data = entity.Data,
                 Speed = entity.Speed,
                 Ai = entity.Ai,

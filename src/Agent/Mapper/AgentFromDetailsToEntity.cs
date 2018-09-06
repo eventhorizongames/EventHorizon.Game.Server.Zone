@@ -27,6 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                     NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.CurrentPosition,
                 },
+                TagList = details.TagList,
                 Data = details.Data,
                 Ai = details.Ai,
                 Speed = details.Speed,
