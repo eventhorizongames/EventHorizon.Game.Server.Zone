@@ -37,7 +37,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
             tagList = tagList ?? new List<string>();
             return Task.FromResult(SEARCH_OCTREE
                 .FindNearbyPoints(searchPositionCenter, searchRadius)
-                .Where(entity => entity.Tags?.Any(tagList.Contains) ?? false));
+                .Where(entity => entity.TagList?.Any(tagList.Contains) ?? false));
         }
     }
 }

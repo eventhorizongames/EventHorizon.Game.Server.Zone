@@ -14,8 +14,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
         public void TestUpdate_ShouldAddExpectedSearchEntitiesToSearchTree()
         {
             // Given
-            var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero);
-            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero);
+            var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero, new List<string>());
+            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero, new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             // Given
             var inputSearchPositionCenter = new Vector3(3);
             var inputSearchDistance = 3;
-            var expectedSearchEntity = new SearchEntity(1, new Vector3(3));
+            var expectedSearchEntity = new SearchEntity(1, new Vector3(3), new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -50,11 +50,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             // Given
             var inputSearchPositionCenter = Vector3.Zero;
             var inputSearchDistance = 3f;
-            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0));
-            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0));
-            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0));
-            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0));
-            var expectedSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0));
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>());
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>());
+            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>());
+            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0), new List<string>());
+            var expectedSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0), new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -82,26 +82,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var inputSearchTagEnemyList = new List<string>() { "enemy" };
             var inputSearchTagPlayerList = new List<string>() { "player" };
             var inputSearchTagEnemyAndPlayerList = new List<string>() { "enemy", "player" };
-            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0))
-            {
-                Tags = new List<string>() { "enemy" }
-            };
-            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0))
-            {
-                Tags = new List<string>() { "enemy", "player" }
-            };
-            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0))
-            {
-                Tags = new List<string>() { "player" }
-            };
-            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0))
-            {
-                Tags = new List<string>() { "player" }
-            };
-            var inputSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0))
-            {
-                Tags = new List<string>() { "not-enemy" }
-            };
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() {"enemy"});
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() {"enemy", "player"});
+            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>() {"player"});
+            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0), new List<string>() {"player"});
+            var inputSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0), new List<string>() {"not-enemy"});
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -138,14 +123,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var inputSearchPositionCenter = Vector3.Zero;
             var inputSearchDistance = 3f;
             var inputSearchTagEnemyList = new List<string>() { "enemy" };
-            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0))
-            {
-                Tags = null
-            };
-            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0))
-            {
-                Tags = new List<string>() { "enemy" }
-            };
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), null);
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy" });
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -165,14 +144,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var inputSearchPositionCenter = Vector3.Zero;
             var inputSearchDistance = 3f;
             IList<string> inputSearchTagEnemyList = null;
-            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0))
-            {
-                Tags = new List<string>() { "enemy" }
-            };
-            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0))
-            {
-                Tags = new List<string>() { "enemy" }
-            };
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() { "enemy" });
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy" });
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -190,10 +163,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var expectedEntity1Position = new Vector3(321);
             var expectedEntity2Position = new Vector3(321);
 
-            var inputSearchEntity1 = new SearchEntity(1, expectedEntity1Position);
-            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero);
+            var inputSearchEntity1 = new SearchEntity(1, expectedEntity1Position, new List<string>());
+            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero, new List<string>());
 
-            var inputAnotherSearchEntity2 = new SearchEntity(2, expectedEntity2Position);
+            var inputAnotherSearchEntity2 = new SearchEntity(2, expectedEntity2Position, new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -213,8 +186,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             // Given
             var inputDimensions = new Vector3(100);
             var priorSearchOctree = EntitySearchTree.SEARCH_OCTREE;
-            var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero);
-            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero);
+            var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero, new List<string>());
+            var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero, new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();

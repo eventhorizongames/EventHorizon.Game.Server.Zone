@@ -8,13 +8,13 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
     {
         public Vector3 Position { get; }
         public long EntityId { get; }
-        public IList<string> Tags { get; set; }
+        public IList<string> TagList { get; }
 
-        public SearchEntity(long entityId, Vector3 position)
+        public SearchEntity(long entityId, Vector3 position, IList<string> tagList)
         {
             EntityId = entityId;
             Position = position;
-            Tags = new List<string>();
+            TagList = tagList;
         }
 
         /// <summary>

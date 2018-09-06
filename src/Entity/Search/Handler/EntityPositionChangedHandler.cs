@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Action;
@@ -19,9 +20,14 @@ namespace EventHorizon.Game.Server.Zone.Entity.Search.Handler
             if (notification.Action.Equals(EntityAction.POSITION))
             {
                 // Update the Entity Search Tree
-                _searchTree.Update(new SearchEntity(notification.Entity.Id, notification.Entity.Position.CurrentPosition));
+                SendSearchEntityUpdate(notification.Entity);
             }
             return Task.CompletedTask;
+        }
+
+        private void SendSearchEntityUpdate(IObjectEntity entity)
+        {
+            _searchTree.Update(new SearchEntity(entity.Id, entity.Position.CurrentPosition, entity.TagList));
         }
     }
 }
