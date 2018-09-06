@@ -27,15 +27,28 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
             SEARCH_OCTREE = newSearchOctree;
         }
 
-        public Task<IList<SearchEntity>> FindEntitiesInArea(Vector3 searchPositionCenter, float searchRadius)
+        /// <summary>
+        /// Search for a list of entities that are contained in the search area.
+        /// </summary>
+        /// <param name="searchPositionCenter"></param>
+        /// <param name="searchRadius"></param>
+        /// <returns></returns>
+        public Task<IList<SearchEntity>> SearchInArea(Vector3 searchPositionCenter, float searchRadius)
         {
             return Task.FromResult(SEARCH_OCTREE.FindNearbyPoints(searchPositionCenter, searchRadius));
         }
 
-        public async Task<IEnumerable<SearchEntity>> FindAnyEntitiesWithATagFromList(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
+        /// <summary>
+        /// Search for a list of entities that are contained in the search area with any one tag from the provided list. 
+        /// </summary>
+        /// <param name="searchPositionCenter"></param>
+        /// <param name="searchRadius"></param>
+        /// <param name="tagList"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SearchEntity>> SearchInAreaWithTag(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
         {
             tagList = tagList ?? new List<string>();
-            return (await FindEntitiesInArea(searchPositionCenter, searchRadius))
+            return (await SearchInArea(searchPositionCenter, searchRadius))
                 .Where(entity => entity.TagList?.Any(tagList.Contains) ?? false);
         }
     }

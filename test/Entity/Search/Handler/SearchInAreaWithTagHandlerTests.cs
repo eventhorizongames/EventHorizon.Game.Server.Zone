@@ -1,17 +1,18 @@
-using Xunit;
-using Moq;
-using EventHorizon.Game.Server.Zone.Entity.State;
+
+using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Entity.Find;
-using EventHorizon.Game.Server.Zone.Entity.Find.Handler;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Entity.Search;
+using EventHorizon.Game.Server.Zone.Entity.Search.Handler;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Entity.State;
+using Moq;
+using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.Tests.Entity.Find.Handler
+namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
 {
-    public class FindEntitiesInAreaHandlerTests
+    public class SearchInAreaWithTagHandlerTests
     {
         [Fact]
         public async Task TestHandle_ShouldCallIntoEntitySearchTreeWithEventParameters()
@@ -19,22 +20,24 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Find.Handler
             // Given
             var expectedSearchPositionCenter = new Vector3(2);
             var expectedSearchRadius = 32;
+            var expectedTagList = new List<string>() { "player" };
 
             var entitySearchTreeMock = new Mock<IEntitySearchTree>();
 
             // When
-            var findEntitiesInAreaHandler = new FindEntitiesInAreaHandler(
+            var SearchInAreaHandler = new SearchInAreaWithTagHandler(
                 entitySearchTreeMock.Object
             );
 
-            var expectedEntityList = await findEntitiesInAreaHandler.Handle(new FindEntitiesInAreaEvent
+            var expectedEntityList = await SearchInAreaHandler.Handle(new SearchInAreaWithTagEvent
             {
                 SearchPositionCenter = expectedSearchPositionCenter,
-                SearchRadius = expectedSearchRadius
+                SearchRadius = expectedSearchRadius,
+                TagList = expectedTagList
             }, CancellationToken.None);
 
             // Then
-            entitySearchTreeMock.Verify(a => a.FindEntitiesInArea(expectedSearchPositionCenter, expectedSearchRadius));
+            entitySearchTreeMock.Verify(a => a.SearchInAreaWithTag(expectedSearchPositionCenter, expectedSearchRadius, expectedTagList));
         }
         [Fact]
         public async Task TestHandle_ShouldReturnEntityIdListFromEntitySearchTree()
@@ -42,6 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Find.Handler
             // Given
             var expectedSearchPositionCenter = new Vector3(2);
             var expectedSearchRadius = 32;
+            var expectedTagList = new List<string>() { "player" };
             var expectedEntityId1 = 1;
             var expectedEntityId2 = 2;
             var expectedSearchEntityList = new List<SearchEntity>()
@@ -51,17 +55,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Find.Handler
             };
 
             var entitySearchTreeMock = new Mock<IEntitySearchTree>();
-            entitySearchTreeMock.Setup(a => a.FindEntitiesInArea(expectedSearchPositionCenter, expectedSearchRadius)).ReturnsAsync(expectedSearchEntityList);
+            entitySearchTreeMock.Setup(a => a.SearchInAreaWithTag(expectedSearchPositionCenter, expectedSearchRadius, expectedTagList)).ReturnsAsync(expectedSearchEntityList);
 
             // When
-            var findEntitiesInAreaHandler = new FindEntitiesInAreaHandler(
+            var SearchInAreaHandler = new SearchInAreaWithTagHandler(
                 entitySearchTreeMock.Object
             );
 
-            var expectedEntityList = await findEntitiesInAreaHandler.Handle(new FindEntitiesInAreaEvent
+            var expectedEntityList = await SearchInAreaHandler.Handle(new SearchInAreaWithTagEvent
             {
                 SearchPositionCenter = expectedSearchPositionCenter,
-                SearchRadius = expectedSearchRadius
+                SearchRadius = expectedSearchRadius,
+                TagList = expectedTagList
             }, CancellationToken.None);
 
             // Then

@@ -27,7 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             Assert.True(EntitySearchTree.SEARCH_OCTREE.Has(inputSearchEntity2));
         }
         [Fact]
-        public async Task TestFindEntitiesInArea_ShouldAllowForSearchingBasedOnPosition()
+        public async Task TestSearchInArea_ShouldAllowForSearchingBasedOnPosition()
         {
             // Given
             var inputSearchPositionCenter = new Vector3(3);
@@ -37,7 +37,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             // When
             var entitySearchTree = new EntitySearchTree();
             entitySearchTree.Update(expectedSearchEntity);
-            var entityList = await entitySearchTree.FindEntitiesInArea(inputSearchPositionCenter, inputSearchDistance);
+            var entityList = await entitySearchTree.SearchInArea(inputSearchPositionCenter, inputSearchDistance);
 
             // Then
             Assert.Collection(entityList,
@@ -45,7 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             );
         }
         [Fact]
-        public async Task TestFindEntitiesInArea_ShouldReturnAllWithinSearchDistance()
+        public async Task TestSearchInArea_ShouldReturnAllWithinSearchDistance()
         {
             // Given
             var inputSearchPositionCenter = Vector3.Zero;
@@ -63,7 +63,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             entitySearchTree.Update(expectedSearchEntity3);
             entitySearchTree.Update(expectedSearchEntity4);
             entitySearchTree.Update(expectedSearchEntity5);
-            var entityList = await entitySearchTree.FindEntitiesInArea(inputSearchPositionCenter, inputSearchDistance);
+            var entityList = await entitySearchTree.SearchInArea(inputSearchPositionCenter, inputSearchDistance);
 
             // Then
             Assert.Collection(entityList,
@@ -73,7 +73,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             );
         }
         [Fact]
-        public async Task TestFindEntitiesInArea_ShouldReturnAllWithinSearchDistanceAndWithSpecifiedTags()
+        public async Task TestSearchInAreaWithTag_ShouldReturnAllWithinSearchDistanceAndWithSpecifiedTags()
         {
             // Given
             var inputSearchPositionCenter = Vector3.Zero;
@@ -82,11 +82,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var inputSearchTagEnemyList = new List<string>() { "enemy" };
             var inputSearchTagPlayerList = new List<string>() { "player" };
             var inputSearchTagEnemyAndPlayerList = new List<string>() { "enemy", "player" };
-            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() {"enemy"});
-            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() {"enemy", "player"});
-            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>() {"player"});
-            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0), new List<string>() {"player"});
-            var inputSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0), new List<string>() {"not-enemy"});
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() { "enemy" });
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy", "player" });
+            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>() { "player" });
+            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0), new List<string>() { "player" });
+            var inputSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0), new List<string>() { "not-enemy" });
 
             // When
             var entitySearchTree = new EntitySearchTree();
@@ -95,9 +95,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             entitySearchTree.Update(expectedSearchEntity3);
             entitySearchTree.Update(expectedSearchEntity4);
             entitySearchTree.Update(inputSearchEntity5);
-            var entityListByEnemy = await entitySearchTree.FindAnyEntitiesWithATagFromList(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
-            var entityListByPlayer = await entitySearchTree.FindAnyEntitiesWithATagFromList(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
-            var entityListByPlayerAndEnemy = await entitySearchTree.FindAnyEntitiesWithATagFromList(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+            var entityListByPlayer = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
+            var entityListByPlayerAndEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
 
             // Then
             Assert.Collection(entityListByEnemy,
@@ -117,7 +117,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             );
         }
         [Fact]
-        public async Task TestFindEntitiesInArea_ShouldNotBeAffectedByANullEntityTagList()
+        public async Task TestSearchInAreaWithTag_ShouldNotBeAffectedByANullEntityTagList()
         {
             // Given
             var inputSearchPositionCenter = Vector3.Zero;
@@ -130,7 +130,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var entitySearchTree = new EntitySearchTree();
             entitySearchTree.Update(expectedSearchEntity1);
             entitySearchTree.Update(expectedSearchEntity2);
-            var entityListByEnemy = await entitySearchTree.FindAnyEntitiesWithATagFromList(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
             Assert.Collection(entityListByEnemy,
@@ -138,7 +138,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             );
         }
         [Fact]
-        public async Task TestFindEntitiesInArea_ShouldNotBeAffectedByANullPassedTagList()
+        public async Task TestSearchInAreaWithTag_ShouldNotBeAffectedByANullPassedTagList()
         {
             // Given
             var inputSearchPositionCenter = Vector3.Zero;
@@ -151,7 +151,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var entitySearchTree = new EntitySearchTree();
             entitySearchTree.Update(expectedSearchEntity1);
             entitySearchTree.Update(expectedSearchEntity2);
-            var entityListByEnemy = await entitySearchTree.FindAnyEntitiesWithATagFromList(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
             Assert.Empty(entityListByEnemy);
