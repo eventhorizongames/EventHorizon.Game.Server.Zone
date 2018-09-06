@@ -14,7 +14,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
         {
             EntityId = entityId;
             Position = position;
-            TagList = tagList;
+            TagList = tagList ?? new List<string>();
         }
 
         /// <summary>

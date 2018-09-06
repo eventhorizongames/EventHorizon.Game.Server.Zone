@@ -47,9 +47,31 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
         /// <returns></returns>
         public async Task<IEnumerable<SearchEntity>> SearchInAreaWithTag(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
         {
-            tagList = tagList ?? new List<string>();
+            if (tagList == null
+                || tagList.Count == 0)
+            {
+                return new List<SearchEntity>();
+            }
             return (await SearchInArea(searchPositionCenter, searchRadius))
-                .Where(entity => entity.TagList?.Any(tagList.Contains) ?? false);
+                .Where(entity => entity.TagList.Any(tagList.Contains));
+        }
+
+        /// <summary>
+        /// Search for a list of entities that are contained in the search area with any one tag from the provided list. 
+        /// </summary>
+        /// <param name="searchPositionCenter"></param>
+        /// <param name="searchRadius"></param>
+        /// <param name="tagList"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<SearchEntity>> SearchInAreaWithAllTags(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
+        {
+            if (tagList == null
+                || tagList.Count == 0)
+            {
+                return new List<SearchEntity>();
+            }
+            return (await SearchInArea(searchPositionCenter, searchRadius))
+                .Where(entity => tagList.All(entity.TagList.Contains));
         }
     }
 }

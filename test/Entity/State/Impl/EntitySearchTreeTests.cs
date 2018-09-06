@@ -82,6 +82,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var inputSearchTagEnemyList = new List<string>() { "enemy" };
             var inputSearchTagPlayerList = new List<string>() { "player" };
             var inputSearchTagEnemyAndPlayerList = new List<string>() { "enemy", "player" };
+            var inputSearchEmptyList = new List<string>() { };
             var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() { "enemy" });
             var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy", "player" });
             var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>() { "player" });
@@ -98,6 +99,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
             var entityListByPlayer = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
             var entityListByPlayerAndEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
+            var entityListEmpty = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchEmptyList);
 
             // Then
             Assert.Collection(entityListByEnemy,
@@ -115,6 +117,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
                 a => Assert.Equal(expectedSearchEntity3, a),
                 a => Assert.Equal(expectedSearchEntity4, a)
             );
+            Assert.Empty(entityListEmpty);
         }
         [Fact]
         public async Task TestSearchInAreaWithTag_ShouldNotBeAffectedByANullEntityTagList()
@@ -152,6 +155,90 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             entitySearchTree.Update(expectedSearchEntity1);
             entitySearchTree.Update(expectedSearchEntity2);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+
+            // Then
+            Assert.Empty(entityListByEnemy);
+        }
+        [Fact]
+        public async Task TestSearchInAreaWithAllTags_ShouldReturnAllWithinSearchDistanceAndWithAllSpecifiedTags()
+        {
+            // Given
+            var inputSearchPositionCenter = Vector3.Zero;
+            var inputSearchDistance = 3f;
+            var inputFarSearchDistance = 123f;
+            var inputSearchTagEnemyList = new List<string>() { "enemy" };
+            var inputSearchTagPlayerList = new List<string>() { "player" };
+            var inputSearchTagEnemyAndPlayerList = new List<string>() { "enemy", "player" };
+            var inputSearchEmptyList = new List<string>() { };
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() { "enemy" });
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy", "player" });
+            var expectedSearchEntity3 = new SearchEntity(3, new Vector3(3, 0, 0), new List<string>() { "player" });
+            var expectedSearchEntity4 = new SearchEntity(4, new Vector3(4, 0, 0), new List<string>() { "player" });
+            var inputSearchEntity5 = new SearchEntity(5, new Vector3(5, 0, 0), new List<string>() { "not-enemy" });
+
+            // When
+            var entitySearchTree = new EntitySearchTree();
+            entitySearchTree.Update(expectedSearchEntity1);
+            entitySearchTree.Update(expectedSearchEntity2);
+            entitySearchTree.Update(expectedSearchEntity3);
+            entitySearchTree.Update(expectedSearchEntity4);
+            entitySearchTree.Update(inputSearchEntity5);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+            var entityListByPlayer = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
+            var entityListByPlayerAndEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
+            var entityListEmpty = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputFarSearchDistance, inputSearchEmptyList);
+
+            // Then
+            Assert.Collection(entityListByEnemy,
+                a => Assert.Equal(expectedSearchEntity1, a),
+                a => Assert.Equal(expectedSearchEntity2, a)
+            );
+            Assert.Collection(entityListByPlayer,
+                a => Assert.Equal(expectedSearchEntity2, a),
+                a => Assert.Equal(expectedSearchEntity3, a),
+                a => Assert.Equal(expectedSearchEntity4, a)
+            );
+            Assert.Collection(entityListByPlayerAndEnemy,
+                a => Assert.Equal(expectedSearchEntity2, a)
+            );
+            Assert.Empty(entityListEmpty);
+        }
+        [Fact]
+        public async Task TestSearchInAreaWithAllTags_ShouldNotBeAffectedByANullEntityTagList()
+        {
+            // Given
+            var inputSearchPositionCenter = Vector3.Zero;
+            var inputSearchDistance = 3f;
+            var inputSearchTagEnemyList = new List<string>() { "enemy" };
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), null);
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy" });
+
+            // When
+            var entitySearchTree = new EntitySearchTree();
+            entitySearchTree.Update(expectedSearchEntity1);
+            entitySearchTree.Update(expectedSearchEntity2);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
+
+            // Then
+            Assert.Collection(entityListByEnemy,
+                a => Assert.Equal(expectedSearchEntity2, a)
+            );
+        }
+        [Fact]
+        public async Task TestSearchInAreaWithAllTags_ShouldNotBeAffectedByANullPassedTagList()
+        {
+            // Given
+            var inputSearchPositionCenter = Vector3.Zero;
+            var inputSearchDistance = 3f;
+            IList<string> inputSearchTagEnemyList = null;
+            var expectedSearchEntity1 = new SearchEntity(1, new Vector3(1, 0, 0), new List<string>() { "enemy" });
+            var expectedSearchEntity2 = new SearchEntity(2, new Vector3(2, 0, 0), new List<string>() { "enemy" });
+
+            // When
+            var entitySearchTree = new EntitySearchTree();
+            entitySearchTree.Update(expectedSearchEntity1);
+            entitySearchTree.Update(expectedSearchEntity2);
+            var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
             Assert.Empty(entityListByEnemy);
