@@ -23,7 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 ZoneTag = "test"
             };
             var expectedData = new NullingExpandoObject();
-            var expectedAi = new AgentAiDetails();
+            var expectedAi = new AgentAiState();
             var expectedSpeed = 123;
             var inputAgent = new AgentEntity
             {

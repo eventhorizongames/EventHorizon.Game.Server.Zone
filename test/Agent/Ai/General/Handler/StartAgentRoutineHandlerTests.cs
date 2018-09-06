@@ -9,7 +9,7 @@ using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Wander;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model.Data;
+using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using MediatR;
 using Moq;
@@ -162,13 +162,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             {
                 AgentId = inputId
             };
-            dynamic data = new ExpandoObject();
-            var wander = new AgentWanderData(null);
-            data.Wander = wander;
+            var wander = new AgentWanderState();
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
-                Data = data
+                Ai = new AgentAiState
+                {
+                    Wander = wander
+                }
             };
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))

@@ -25,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(new AgentEntity
             {
                 Id = 123,
-                Ai = new AgentAiDetails
+                Ai = new AgentAiState
                 {
                     DefaultRoutine = AiRoutine.WANDER
                 }

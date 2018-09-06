@@ -6,7 +6,6 @@ using EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Wander;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using System.Dynamic;
-using EventHorizon.Game.Server.Zone.Agent.Model.Data;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using System.Collections.Generic;
 using System.Numerics;
@@ -15,10 +14,11 @@ using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
 {
-    public class StartAgentWanderRoutineHandlerTest
+    public class StartAgentWanderRoutineHandlerTests
     {
         [Fact]
         public async Task TestHandle_ShouldCallExpectedEvents()
@@ -47,10 +47,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 ToPosition = inputNodePosition
             };
 
-            dynamic data = new ExpandoObject();
-            var wander = new AgentWanderData(null);
-            data.Wander = wander;
-            data.Wander.LookDistance = inputLookDistance;
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
@@ -58,7 +54,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Data = data
+                Ai = new AgentAiState
+                {
+                    Wander = new AgentWanderState
+                    {
+                        LookDistance = inputLookDistance
+                    }
+                }
             };
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
@@ -145,10 +147,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var inputNodePosition = new Vector3(30);
             var expectedMapNodes = new List<MapNode>();
 
-            dynamic data = new ExpandoObject();
-            var wander = new AgentWanderData(null);
-            data.Wander = wander;
-            data.Wander.LookDistance = inputLookDistance;
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
@@ -156,7 +154,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Data = data
+                Ai = new AgentAiState
+                {
+                    Wander = new AgentWanderState
+                    {
+                        LookDistance = inputLookDistance
+                    }
+                }
             };
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))

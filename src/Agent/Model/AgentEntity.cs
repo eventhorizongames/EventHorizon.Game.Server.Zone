@@ -25,15 +25,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
 
         public string Name { get; set; }
         public float Speed { get; set; }
-        public AgentAiDetails Ai { get; set; }
+        public AgentAiState Ai { get; set; }
         public AgentData TypedData
         {
             get
             {
-                if (_data == null)
+                if (_data == null || _typedData == null)
                 {
-                    _data = new NullingExpandoObject();
-                    _typedData = new AgentData(_data);
+                    _typedData = new AgentData(_data = _data ?? new NullingExpandoObject());
                 }
                 return _typedData;
             }

@@ -27,7 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = agentId,
-                Ai = new AgentAiDetails
+                Ai = new AgentAiState
                 {
                     DefaultRoutine = inputRoutine
                 }
