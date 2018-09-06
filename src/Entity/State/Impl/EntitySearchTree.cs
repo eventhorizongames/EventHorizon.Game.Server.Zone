@@ -32,12 +32,11 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
             return Task.FromResult(SEARCH_OCTREE.FindNearbyPoints(searchPositionCenter, searchRadius));
         }
 
-        public Task<IEnumerable<SearchEntity>> FindAnyEntitiesWithATagFromList(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
+        public async Task<IEnumerable<SearchEntity>> FindAnyEntitiesWithATagFromList(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList)
         {
             tagList = tagList ?? new List<string>();
-            return Task.FromResult(SEARCH_OCTREE
-                .FindNearbyPoints(searchPositionCenter, searchRadius)
-                .Where(entity => entity.TagList?.Any(tagList.Contains) ?? false));
+            return (await FindEntitiesInArea(searchPositionCenter, searchRadius))
+                .Where(entity => entity.TagList?.Any(tagList.Contains) ?? false);
         }
     }
 }
