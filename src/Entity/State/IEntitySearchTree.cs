@@ -12,5 +12,6 @@ namespace EventHorizon.Game.Server.Zone.Entity.State
         void Update(SearchEntity searchEntity);
         Task<IList<SearchEntity>> SearchInArea(Vector3 searchPositionCenter, float searchRadius);
         Task<IEnumerable<SearchEntity>> SearchInAreaWithTag(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList);
+        Task<IEnumerable<SearchEntity>> SearchInAreaWithAllTags(Vector3 searchPositionCenter, float searchRadius, IList<string> tagList);
     }
 }
