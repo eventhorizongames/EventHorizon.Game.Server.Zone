@@ -1,0 +1,1 @@
+dotnet watch --project ./test test --filter Category=Performance /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.performance.info 
