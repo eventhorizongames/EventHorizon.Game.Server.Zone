@@ -60,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
             );
         }
         [Fact]
-        public void TestAddAgent_ShouldSendAndPublishExpectedEvent()
+        public void TestUseAgent_ShouldSendAndPublishExpectedEvent()
         {
             // Given
             var expectedLoadZoneAgentStateEvent = new LoadZoneAgentStateEvent();
