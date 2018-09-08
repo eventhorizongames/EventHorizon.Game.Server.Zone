@@ -7,6 +7,7 @@ using System;
 using Xunit.Abstractions;
 using System.Diagnostics;
 using System.Linq;
+using EventHorizon.Game.Server.Zone.Tests.TestUtil.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
 {
@@ -17,11 +18,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
         {
             // Given
             var input = 1;
-            var expectedActionEntity1 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(1)));
-            var expectedActionEntity2 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(23)));
-            var expectedActionEntity3 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(44)));
-            var actionEntity4 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(4)));
-            var actionEntity5 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)));
+            var expectedActionEntity1 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent());
+            var expectedActionEntity2 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(23)), new TestNotificationEvent());
+            var expectedActionEntity3 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(44)), new TestNotificationEvent());
+            var actionEntity4 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(4)), new TestNotificationEvent());
+            var actionEntity5 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)), new TestNotificationEvent());
 
             // When
             var actionRepository = new ServerActionQueue();
@@ -43,11 +44,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
         {
             // Given
             var input = 10;
-            var expectedActionEntity1 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(1)));
-            var expectedActionEntity2 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(23)));
-            var expectedActionEntity3 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(44)));
-            var actionEntity4 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(4)));
-            var actionEntity5 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)));
+            var expectedActionEntity1 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent());
+            var expectedActionEntity2 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(23)), new TestNotificationEvent());
+            var expectedActionEntity3 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(44)), new TestNotificationEvent());
+            var actionEntity4 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(4)), new TestNotificationEvent());
+            var actionEntity5 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)), new TestNotificationEvent());
 
             // When
             var actionRepository = new ServerActionQueue();

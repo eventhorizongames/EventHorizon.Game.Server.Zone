@@ -48,12 +48,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.TimerService
             );
 
             await timerHostedService.StartAsync(inputCancellationTokenSource.Token);
-            inputCancellationTokenSource.Cancel();
 
-            Thread.Sleep(10);
+            Thread.Sleep(125);
 
             // Then
             mediatorMock.Verify(mediator => mediator.Publish<INotification>(It.IsAny<INotification>(), CancellationToken.None), Times.AtLeastOnce());
+            
+            await timerHostedService.StopAsync(inputCancellationTokenSource.Token);
         }
     }
 }

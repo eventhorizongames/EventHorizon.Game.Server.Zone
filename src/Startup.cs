@@ -18,9 +18,11 @@ using EventHorizon.Game.Server.Zone.Loop;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
+using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
 using EventHorizon.Schedule;
+using EventHorizon.TimerService;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -97,12 +99,14 @@ namespace EventHorizon.Game.Server.Zone
             services.AddLoop(Configuration);
             services.AddEntity();
             services.AddAgent(Configuration);
+            services.AddServerAction();
 
             services.AddScheduler((sender, args) =>
             {
                 Console.WriteLine(args.Exception.Message);
                 args.SetObserved();
             });
+            services.AddTimer();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

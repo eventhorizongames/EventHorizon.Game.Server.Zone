@@ -7,6 +7,7 @@ using System;
 using Xunit.Abstractions;
 using System.Diagnostics;
 using System.Linq;
+using EventHorizon.Game.Server.Zone.Tests.TestUtil.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
 {
@@ -27,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)))).GetAwaiter().GetResult();
+                actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent())).GetAwaiter().GetResult();
             }
             actionRepository.Take(input).GetAwaiter().GetResult();
         }
@@ -46,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1))));
+                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
             }
 
             var watch = Stopwatch.StartNew();
@@ -73,7 +74,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1))));
+                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
             }
 
             var watch = Stopwatch.StartNew();
@@ -100,7 +101,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1))));
+                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
             }
 
             var watch = Stopwatch.StartNew();
@@ -127,7 +128,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1))));
+                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
             }
 
             var watch = Stopwatch.StartNew();
@@ -154,7 +155,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1))));
+                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
             }
 
             var watch = Stopwatch.StartNew();

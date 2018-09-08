@@ -7,7 +7,7 @@ using System;
 
 namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
 {
-    public class ServerActionQueue
+    public class ServerActionQueue : IServerActionQueue
     {
         private ConcurrentBag<ServerActionEntity> _actionList = new ConcurrentBag<ServerActionEntity>();
 

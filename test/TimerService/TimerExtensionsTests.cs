@@ -9,7 +9,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.TimerService
     public class TimerExtensionsTests
     {
         [Fact]
-        public void TestAddAgent_ShouldConfigureServiceCollection()
+        public void TestAddTimer_ShouldConfigureServiceCollection()
         {
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();

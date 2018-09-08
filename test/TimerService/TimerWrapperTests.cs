@@ -11,7 +11,7 @@ using static EventHorizon.TimerService.TimerWrapper;
 
 namespace EventHorizon.Game.Server.Zone.Tests.TimerService
 {
-    public class TimerWrapperTests
+    public class TimerWrapperTests : IDisposable
     {
         TimerWrapper _timerWrapper;
 
