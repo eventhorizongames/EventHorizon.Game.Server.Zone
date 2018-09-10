@@ -67,5 +67,37 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
                 a => Assert.Equal(expectedActionEntity1, a)
             );
         }
+
+        [Fact]
+        public async Task TestTake_ShouldRemoveReturnedEntitiesFromFutureTakes()
+        {
+            // Given
+            var input = 10;
+            var expectedActionEntity1 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent());
+            var expectedActionEntity2 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(23)), new TestNotificationEvent());
+            var expectedActionEntity3 = new ServerActionEntity(DateTime.UtcNow.Subtract(TimeSpan.FromMinutes(44)), new TestNotificationEvent());
+            var actionEntity4 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(4)), new TestNotificationEvent());
+            var actionEntity5 = new ServerActionEntity(DateTime.UtcNow.Add(TimeSpan.FromMinutes(3)), new TestNotificationEvent());
+
+            // When
+            var actionRepository = new ServerActionQueue();
+            await actionRepository.Push(expectedActionEntity1);
+            await actionRepository.Push(expectedActionEntity2);
+            await actionRepository.Push(expectedActionEntity3);
+            await actionRepository.Push(actionEntity4);
+            await actionRepository.Push(actionEntity5);
+
+            var actualFirstCall = await actionRepository.Take(input);
+            var actualSecondCall = await actionRepository.Take(input);
+
+            // Then
+            Assert.Collection(actualFirstCall,
+                a => Assert.Equal(expectedActionEntity3, a),
+                a => Assert.Equal(expectedActionEntity2, a),
+                a => Assert.Equal(expectedActionEntity1, a)
+            );
+
+            Assert.Empty(actualSecondCall);
+        }
     }
 }

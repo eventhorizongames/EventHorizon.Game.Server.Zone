@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
+using EventHorizon.Game.Server.Zone.Agent.Ai.Flee;
 using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
@@ -184,6 +185,35 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(
                 It.IsAny<StartAgentWanderRoutineEvent>(),
+                It.IsAny<CancellationToken>()
+            ));
+        }
+        [Fact]
+        public async Task TestHandle_ShouldCallAgentWanderRoutineEventWhenRoutineIsFlee()
+        {
+            // Given
+            var inputId = 123L;
+            var inputGetAgentEvent = new GetAgentEvent
+            {
+                AgentId = inputId
+            };
+            var expectedAgent = new AgentEntity
+            {
+                Id = inputId
+            };
+            var mediatorMock = new Mock<IMediator>();
+            mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
+                .ReturnsAsync(expectedAgent);
+            var handler = new StartAgentRoutineHandler(mediatorMock.Object);
+            // When
+            await handler.Handle(new StartAgentRoutineEvent
+            {
+                AgentId = inputId,
+                Routine = AiRoutine.FLEE
+            }, CancellationToken.None);
+            // Then
+            mediatorMock.Verify(mediator => mediator.Publish(
+                It.IsAny<StartAgentFleeRoutineEvent>(),
                 It.IsAny<CancellationToken>()
             ));
         }

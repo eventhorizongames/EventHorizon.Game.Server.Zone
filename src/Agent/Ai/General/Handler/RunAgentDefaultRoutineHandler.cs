@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
             if (agent.IsFound())
             {
                 agent.TypedData.Routine = agent.Ai.DefaultRoutine;
-                await _mediator.Send(new StartAgentRoutineEvent
+                await _mediator.Publish(new StartAgentRoutineEvent
                 {
                     AgentId = agent.Id,
                     Routine = agent.TypedData.Routine

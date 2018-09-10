@@ -63,7 +63,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             mediatorMock.Verify(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None));
             agentRepositoryMock.Verify(agentRepository => agentRepository.FindById(agentId));
-            mediatorMock.Verify(mediator => mediator.Send(expectedStartAgentRoutineEvent, CancellationToken.None));
+            mediatorMock.Verify(mediator => mediator.Publish(expectedStartAgentRoutineEvent, CancellationToken.None));
         }
         [Fact]
         public async Task TestHandle_ShouldReturnNotFoundAgentWhenRegisterEntityEventFailed()
@@ -87,7 +87,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             // Then
             Assert.False(actual.IsFound());
-            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
         }
         [Fact]
         public async Task TestHandle_ShouldReturnNotFoundAgentWhenAgentEntityIsNotFoundInRepository()
@@ -122,7 +122,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             // Then
             Assert.False(actual.IsFound());
-            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
         }
     }
 }

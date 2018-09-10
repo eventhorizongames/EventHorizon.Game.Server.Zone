@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
             await this.Remove(returnList);
             return returnList;
         }
-        
+
         private Task<IEnumerable<ServerActionEntity>> Pop(int take)
         {
             var now = DateTime.UtcNow;
@@ -44,7 +44,7 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
         }
         private Task Remove(IEnumerable<ServerActionEntity> deleteList)
         {
-            _actionList = new ConcurrentBag<ServerActionEntity>(deleteList);
+            _actionList = new ConcurrentBag<ServerActionEntity>(_actionList.Except(deleteList));
             return Task.CompletedTask;
         }
     }
