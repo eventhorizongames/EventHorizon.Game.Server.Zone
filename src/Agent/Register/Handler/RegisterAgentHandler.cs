@@ -33,6 +33,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
             {
                 return AgentEntity.CreateNotFound();
             }
+            agent.TypedData.Routine = agent.Ai.DefaultRoutine;
+            await _agentRepository.Update(AgentAction.ROUTINE, agent);
             await _mediator.Publish(new StartAgentRoutineEvent
             {
                 Routine = agent.Ai.DefaultRoutine,

@@ -11,6 +11,7 @@ using EventHorizon.Game.Server.Zone.State.Repository;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
+using System.Dynamic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -32,6 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                     DefaultRoutine = inputRoutine
                 }
             };
+            expectedAgent.TypedData.Routine = inputRoutine;
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {
                 Entity = inputAgent
