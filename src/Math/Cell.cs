@@ -12,9 +12,12 @@ namespace EventHorizon.Game.Server.Zone.Math
     /// <typeparam name="T"></typeparam>
     public class Cell<T> where T : struct, IOctreeEntity
     {
+        private static readonly object UPDATE_LOCK = new object();
         private static int ALLOWED_POINTS = 8;
-        public ConcurrentDictionary<long, T> Points { get; }
-        public ConcurrentBag<Cell<T>> Children { get; }
+        public IDictionary<long, T> Points { get; }
+        public IList<Cell<T>> Children { get; }
+        public ConcurrentDictionary<long, T> Search_Points { get; private set; }
+        public ConcurrentBag<Cell<T>> Search_Children { get; private set; }
         public Vector3 Position { get; }
         public Vector3 Size { get; }
         public int Level { get; }
@@ -28,8 +31,11 @@ namespace EventHorizon.Game.Server.Zone.Math
             Size = size;
             Level = level;
 
-            Points = new ConcurrentDictionary<long, T>();
-            Children = new ConcurrentBag<Cell<T>>();
+            Points = new Dictionary<long, T>();
+            Children = new List<Cell<T>>();
+
+            Search_Points = new ConcurrentDictionary<long, T>();
+            Search_Children = new ConcurrentBag<Cell<T>>();
         }
 
         public bool Has(T point)
@@ -38,7 +44,7 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 return false;
             }
-            foreach (var child in Children)
+            foreach (var child in Search_Children)
             {
                 if (child.Has(point))
                 {
@@ -46,7 +52,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                 }
             }
             var minDistSqrt = this._accuracy * this._accuracy;
-            foreach (var otherPoint in Points)
+            foreach (var otherPoint in Search_Points)
             {
                 var distSq = Vector3.DistanceSquared(otherPoint.Value.Position, point.Position);
                 if (distSq <= minDistSqrt)
@@ -59,10 +65,10 @@ namespace EventHorizon.Game.Server.Zone.Math
 
         public List<T> All(List<T> list)
         {
-            list.AddRange(Points.Select(a => a.Value));
+            list.AddRange(Search_Points.Select(a => a.Value));
             if (Children.Count > 0)
             {
-                foreach (var child in Children)
+                foreach (var child in Search_Children)
                 {
                     list = child.All(list);
                 }
@@ -81,51 +87,62 @@ namespace EventHorizon.Game.Server.Zone.Math
         }
         public void Add(T point)
         {
-            // TODO: see if we can remove points from cell when moving into Children.
-            if (this.Children.Count > 0)
+            lock (UPDATE_LOCK)
             {
-                this.AddToChildren(point);
-            }
-            else
-            {
-                this.Points.AddOrUpdate(point.GetHashCode(), point, (key, oldPoint) => point);
-                if (this.Points.Count > ALLOWED_POINTS && this.Level < Octree<T>.MAX_LEVEL)
+                // TODO: see if we can remove points from cell when moving into Children.
+                if (this.Children.Count > 0)
                 {
-                    this.Split();
+                    this.AddToChildren(point);
                 }
+                else
+                {
+                    this.Points.Remove(point.GetHashCode());
+                    this.Points.Add(point.GetHashCode(), point);
+                    if (this.Points.Count > ALLOWED_POINTS && this.Level < Octree<T>.MAX_LEVEL)
+                    {
+                        this.Split();
+                    }
+                }
+                this.Search_Points = new ConcurrentDictionary<long, T>(this.Points);
+                this.Search_Children = new ConcurrentBag<Cell<T>>(this.Children);
             }
         }
         public bool Remove(T pointToRemove)
         {
-            var removed = false;
-            foreach (var point in Points)
+            lock (UPDATE_LOCK)
             {
-                if (point.Value.Equals(pointToRemove))
+                var removed = false;
+                foreach (var point in Points)
                 {
-                    var removedValue = default(T);
-                    removed = Points.TryRemove(point.Value.GetHashCode(), out removedValue);
-                    break;
-                }
-            }
-            if (!removed)
-            {
-                foreach (var child in Children)
-                {
-                    removed = child.Remove(pointToRemove);
-                    if (removed)
+                    if (point.Value.Equals(pointToRemove))
                     {
+                        var removedValue = default(T);
+                        removed = Points.Remove(point.Value.GetHashCode(), out removedValue);
                         break;
                     }
                 }
-            }
-            if (removed && Children.Count > 0)
-            {
-                if (ShouldMerge())
+                if (!removed)
                 {
-                    Merge();
+                    foreach (var child in Children)
+                    {
+                        removed = child.Remove(pointToRemove);
+                        if (removed)
+                        {
+                            break;
+                        }
+                    }
                 }
+                if (removed && Children.Count > 0)
+                {
+                    if (ShouldMerge())
+                    {
+                        Merge();
+                    }
+                }
+                this.Search_Points = new ConcurrentDictionary<long, T>(this.Points);
+                this.Search_Children = new ConcurrentBag<Cell<T>>(this.Children);
+                return removed;
             }
-            return removed;
         }
 
         private bool ShouldMerge()
@@ -147,12 +164,12 @@ namespace EventHorizon.Game.Server.Zone.Math
             {
                 foreach (var point in child.Points)
                 {
-                    this.Points.AddOrUpdate(point.Value.GetHashCode(), point.Value, (key, currentPoint) => point.Value);
+                    this.Points.Add(point.Value.GetHashCode(), point.Value);
                 }
             }
             this.Children.Clear();
         }
-        public void AddToChildren(T point)
+        private void AddToChildren(T point)
         {
             foreach (var child in Children)
             {
@@ -163,7 +180,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                 }
             }
         }
-        public void Split()
+        private void Split()
         {
             var x = this.Position.X;
             var y = this.Position.Y;
@@ -243,7 +260,7 @@ namespace EventHorizon.Game.Server.Zone.Math
         }
 
 
-        public float SquareDistanceToCenter(Vector3 point)
+        private float SquareDistanceToCenter(Vector3 point)
         {
             var dx = point.X - (this.Position.X + this.Size.X / 2);
             var dy = point.Y - (this.Position.Y + this.Size.Y / 2);
@@ -256,9 +273,9 @@ namespace EventHorizon.Game.Server.Zone.Math
             T nearest = default(T);
             var bestDist = options.MaxDist;
 
-            if (this.Points.Count > 0 && this.Children.Count == 0)
+            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
             {
-                foreach (var point in Points)
+                foreach (var point in Search_Points)
                 {
                     var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this.
                     if (dist <= bestDist)
@@ -273,7 +290,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                 }
             }
 
-            var children = this.Children
+            var children = this.Search_Children
                 .Select((child) => new
                 {
                     child = child,
@@ -311,9 +328,9 @@ namespace EventHorizon.Game.Server.Zone.Math
 
         public void FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options, ref List<T> result)
         {
-            if (this.Points.Count > 0 && this.Children.Count == 0)
+            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
             {
-                foreach (var point in Points)
+                foreach (var point in Search_Points)
                 {
                     var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this
                     if (dist <= radius)
@@ -326,7 +343,7 @@ namespace EventHorizon.Game.Server.Zone.Math
                     }
                 }
             }
-            foreach (var child in this.Children)
+            foreach (var child in this.Search_Children)
             {
                 child.FindNearbyPoints(position, radius, options, ref result);
             }

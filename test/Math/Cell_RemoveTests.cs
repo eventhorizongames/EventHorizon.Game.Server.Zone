@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Math;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
@@ -15,11 +16,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             cell.Add(new NodeEntity(new Vector3(3)));
 
-            Assert.NotEmpty(cell.Points);
+            Assert.NotEmpty(cell.Search_Points);
 
             cell.Remove(new NodeEntity(new Vector3(3)));
 
-            Assert.Empty(cell.Points);
+            Assert.Empty(cell.Search_Points);
         }
         [Fact]
         public void TestRemove_ShouldRemoveWhenCellHasChildren()
@@ -38,15 +39,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             cell.Add(new NodeEntity(new Vector3(7, 8, 7)));
             cell.Add(new NodeEntity(new Vector3(7, 9, 7)));
 
-            Assert.Collection(cell.Children,
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.NotEmpty(child.Points));
+            Assert.Collection(cell.Search_Children,
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points));
 
             var pointToRemove = new Vector3(1);
             cell.Add(new NodeEntity(pointToRemove));
@@ -74,20 +75,20 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             cell.Add(new NodeEntity(new Vector3(7, 8, 7)));
             cell.Add(new NodeEntity(positionToRemove));
 
-            Assert.Collection(cell.Children,
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.NotEmpty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.Empty(child.Points),
-                child => Assert.NotEmpty(child.Points));
+            Assert.Collection(cell.Search_Children,
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.Empty(child.Search_Points),
+                child => Assert.NotEmpty(child.Search_Points));
 
             cell.Remove(new NodeEntity(positionToRemove));
 
-            Assert.Empty(cell.Children);
-            Assert.NotEmpty(cell.Points);
+            Assert.Empty(cell.Search_Children);
+            Assert.NotEmpty(cell.Search_Points);
         }
         [Fact]
         public void TestRemove_ShouldNotMergePointsIntoCellWhenAChildHasChildren()
@@ -109,7 +110,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             cell.Add(new NodeEntity(new Vector3(8, 8, 8)));
 
-            Assert.Collection(cell.Children,
+            Assert.Collection(cell.Search_Children,
                 ValidateEmptyNode,
                 ValidateEmptyNode,
                 ValidateEmptyNode,
@@ -119,8 +120,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                 ValidateEmptyNode,
                 child =>
                 {
-                    Assert.NotEmpty(child.Children);
-                    Assert.Collection(child.Children,
+                    Assert.NotEmpty(child.Search_Children);
+                    Assert.Collection(child.Search_Children,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
@@ -130,8 +131,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         ValidateEmptyNode,
                         childChild =>
                         {
-                            Assert.NotEmpty(childChild.Children);
-                            Assert.Collection(childChild.Children,
+                            Assert.NotEmpty(childChild.Search_Children);
+                            Assert.Collection(childChild.Search_Children,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
@@ -141,13 +142,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                 ValidateEmptyNode,
                                 childChildChild =>
                                 {
-                                    Assert.NotEmpty(childChildChild.Children);
-                                    Assert.Collection(childChildChild.Children,
+                                    Assert.NotEmpty(childChildChild.Search_Children);
+                                    Assert.Collection(childChildChild.Search_Children,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Children);
-                                            Assert.NotEmpty(childChildChildChild.Points);
-                                            Assert.Collection(childChildChildChild.Points,
+                                            Assert.Empty(childChildChildChild.Search_Children);
+                                            Assert.NotEmpty(childChildChildChild.Search_Points);
+                                            Assert.Collection(childChildChildChild.Search_Points,
                                                 point => Assert.Equal(new NodeEntity(new Vector3(7, 9, 7)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(7, 7, 7)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(7, 8, 7)), point.Value),
@@ -162,9 +163,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                         ValidateEmptyNode,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Children);
-                                            Assert.NotEmpty(childChildChildChild.Points);
-                                            Assert.Collection(childChildChildChild.Points,
+                                            Assert.Empty(childChildChildChild.Search_Children);
+                                            Assert.NotEmpty(childChildChildChild.Search_Points);
+                                            Assert.Collection(childChildChildChild.Search_Points,
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 6, 3)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 4, 3)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 5, 3)), point.Value),
@@ -182,7 +183,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             cell.Remove(new NodeEntity(positionToRemove));
 
-            Assert.Collection(cell.Children,
+            Assert.Collection(cell.Search_Children,
                 ValidateEmptyNode,
                 ValidateEmptyNode,
                 ValidateEmptyNode,
@@ -192,8 +193,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                 ValidateEmptyNode,
                 child =>
                 {
-                    Assert.NotEmpty(child.Children);
-                    Assert.Collection(child.Children,
+                    Assert.NotEmpty(child.Search_Children);
+                    Assert.Collection(child.Search_Children,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
@@ -203,8 +204,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         ValidateEmptyNode,
                         childChild =>
                         {
-                            Assert.NotEmpty(childChild.Children);
-                            Assert.Collection(childChild.Children,
+                            Assert.NotEmpty(childChild.Search_Children);
+                            Assert.Collection(childChild.Search_Children,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
@@ -214,13 +215,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                 ValidateEmptyNode,
                                 childChildChild =>
                                 {
-                                    Assert.NotEmpty(childChildChild.Children);
-                                    Assert.Collection(childChildChild.Children,
+                                    Assert.NotEmpty(childChildChild.Search_Children);
+                                    Assert.Collection(childChildChild.Search_Children,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Children);
-                                            Assert.NotEmpty(childChildChildChild.Points);
-                                            Assert.Collection(childChildChildChild.Points,
+                                            Assert.Empty(childChildChildChild.Search_Children);
+                                            Assert.NotEmpty(childChildChildChild.Search_Points);
+                                            Assert.Collection(childChildChildChild.Search_Points,
                                                 point => Assert.Equal(new NodeEntity(new Vector3(7, 7, 7)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(7, 8, 7)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(8, 8, 8)), point.Value)
@@ -234,9 +235,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                         ValidateEmptyNode,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Children);
-                                            Assert.NotEmpty(childChildChildChild.Points);
-                                            Assert.Collection(childChildChildChild.Points,
+                                            Assert.Empty(childChildChildChild.Search_Children);
+                                            Assert.NotEmpty(childChildChildChild.Search_Points);
+                                            Assert.Collection(childChildChildChild.Search_Points,
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 6, 3)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 4, 3)), point.Value),
                                                 point => Assert.Equal(new NodeEntity(new Vector3(3, 5, 3)), point.Value),
@@ -255,8 +256,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
         private void ValidateEmptyNode(Cell<NodeEntity> cell)
         {
-            Assert.Empty(cell.Children);
-            Assert.Empty(cell.Points);
+            Assert.Empty(cell.Search_Children);
+            Assert.Empty(cell.Search_Points);
         }
     }
 }

@@ -19,8 +19,8 @@ namespace EventHorizon.Game.Server.Zone.Math
         public void Reset(Vector3 position, Vector3 size, int accuracy)
         {
             this._maxDistance = System.Math.Max(size.X, System.Math.Max(size.Y, size.Z));
-            this.Accuracy = 0;
-            this._root = new Cell<T>(accuracy, position, size, 0);
+            this.Accuracy = accuracy;
+            this._root = new Cell<T>(accuracy, position, size, accuracy);
         }
 
         public void Add(T point)
