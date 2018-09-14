@@ -65,6 +65,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             mediatorMock.Verify(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None));
             agentRepositoryMock.Verify(agentRepository => agentRepository.FindById(agentId));
+            agentRepositoryMock.Verify(agentRepository => agentRepository.Update(AgentAction.ROUTINE, expectedAgent));
             mediatorMock.Verify(mediator => mediator.Publish(expectedStartAgentRoutineEvent, CancellationToken.None));
         }
         [Fact]
@@ -89,6 +90,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             // Then
             Assert.False(actual.IsFound());
+            agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
             mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
         }
         [Fact]
@@ -124,6 +126,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 
             // Then
             Assert.False(actual.IsFound());
+            agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
             mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
         }
     }
