@@ -1,6 +1,5 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.Loop.Map;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Wander;
@@ -15,6 +14,7 @@ using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
+using EventHorizon.Game.Server.Zone.Map.Model;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
 {

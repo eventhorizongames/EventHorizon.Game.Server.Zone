@@ -6,5 +6,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model.Ai
     {
         public AiRoutine DefaultRoutine { get; set; }
         public AgentWanderState Wander { get; set; }
+        public AgentFleeState Flee { get; set; }
     }
 }

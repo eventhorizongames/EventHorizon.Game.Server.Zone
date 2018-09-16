@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -61,6 +62,7 @@ namespace EventHorizon.Game.Server.Zone.Player.State.Impl.Testing
                     CurrentZone = "",
                     ZoneTag = "testing",
                 },
+                TagList = new List<string> { "player" },
                 Data = new { },
             };
         }

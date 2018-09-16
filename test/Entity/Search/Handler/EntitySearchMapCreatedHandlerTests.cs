@@ -4,7 +4,7 @@ using System.Numerics;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Entity.Search.Handler;
-using EventHorizon.Game.Server.Zone.Loop.Map;
+using EventHorizon.Game.Server.Zone.Map.Create;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;

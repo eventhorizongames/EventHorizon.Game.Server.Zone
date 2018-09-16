@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Map;
+using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Map.State;
 using EventHorizon.Game.Server.Zone.Math;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Xunit;

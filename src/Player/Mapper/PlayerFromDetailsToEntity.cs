@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
@@ -27,6 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
                     ZoneTag = details.Position.ZoneTag,
                 },
                 Data = details.Data,
+                TagList = new List<string> { "player" }
             };
         }
     }

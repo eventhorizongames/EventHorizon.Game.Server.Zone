@@ -90,7 +90,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
         {
             // Given
             var inputId = 123;
-            var expectedEntity = default(IObjectEntity);
+            var expectedEntity = default(DefaultEntity);
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IIdPool>();
@@ -148,6 +148,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
             {
                 Id = expectedEntityId
             };
+            var expectedNotFoundEntity = default(DefaultEntity);
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IIdPool>();
@@ -170,7 +171,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
                 Entity = expectedEntity
             }, CancellationToken.None));
             var actualEntity = await entityRepository.FindById(expectedEntityId);
-            Assert.Equal(default(IObjectEntity), actualEntity);
+            Assert.Equal(expectedNotFoundEntity, actualEntity);
         }
     }
 }

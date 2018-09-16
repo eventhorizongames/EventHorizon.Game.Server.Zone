@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber;
-using EventHorizon.Game.Server.Zone.Loop.Map;
+using EventHorizon.Game.Server.Zone.Map;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler

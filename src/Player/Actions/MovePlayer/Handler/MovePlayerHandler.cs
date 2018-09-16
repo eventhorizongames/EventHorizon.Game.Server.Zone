@@ -7,10 +7,10 @@ using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
-using EventHorizon.Game.Server.Zone.Loop.Map;
+using EventHorizon.Game.Server.Zone.Map;
+using EventHorizon.Game.Server.Zone.Map.Model;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
@@ -43,7 +43,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
             {
-                Position = player.Position.MoveToPosition,
+                Position = currentPosition,
             });
             var moveTo = player.Position.MoveToPosition;
 
@@ -84,7 +84,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 Action = "EntityClientMove",
                 Data = new EntityClientMoveData
                 {
-                    EntityId = request.Player.Id,
+                    EntityId = player.Id,
                     MoveTo = moveTo
                 },
             });

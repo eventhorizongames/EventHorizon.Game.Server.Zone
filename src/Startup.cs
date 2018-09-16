@@ -14,11 +14,11 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
-using EventHorizon.Game.Server.Zone.Loop;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
 using EventHorizon.Game.Server.Zone.ServerAction;
+using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
 using EventHorizon.Schedule;
@@ -96,7 +96,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
-            services.AddLoop(Configuration);
+            services.AddServerSetup(Configuration);
             services.AddEntity();
             services.AddAgent(Configuration);
             services.AddServerAction();
@@ -123,7 +123,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseAuthentication();
 
             app.UseZoneCore();
-            app.UseLoop();
+            app.UseSetupServer();
 
             app.UseAgent();
 

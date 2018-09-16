@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Loop.Map;
 using EventHorizon.Game.Server.Zone.Map;
+using EventHorizon.Game.Server.Zone.Map.Model;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Path.Find.Handler

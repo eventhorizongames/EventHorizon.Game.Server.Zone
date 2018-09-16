@@ -15,7 +15,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai
         /// </summary>
         WANDER = 2,
         /// <summary>
-        /// The Agent is moving away from a target.
+        /// The Agent should move away from a target.
         /// </summary>
         FLEE = 3,
         /// <summary>
@@ -27,5 +27,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai
         /// The Agent is following a Script based routine.
         /// </summary>
         SCRIPT = 5,
+
+        /// <summary>
+        /// The Agent is moving away from a target.
+        /// </summary>
+        FLEEING = 6,
+
     }
 }

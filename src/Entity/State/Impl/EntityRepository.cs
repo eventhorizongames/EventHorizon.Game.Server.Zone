@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
         public Task<IObjectEntity> FindById(long id)
         {
             return Task.FromResult(
-                ENTITIES.FirstOrDefault(a => a.Key == id).Value
+                ENTITIES.FirstOrDefault(a => a.Key == id).Value ?? default(DefaultEntity)
             );
         }
 
