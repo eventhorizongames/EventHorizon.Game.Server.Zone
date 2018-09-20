@@ -17,6 +17,7 @@ using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
+using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Performance;
@@ -107,6 +108,8 @@ namespace EventHorizon.Game.Server.Zone
                 args.SetObserved();
             });
             services.AddTimer();
+
+            services.AddPlugins(HostingEnvironment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,6 +129,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSetupServer();
 
             app.UseAgent();
+            app.UsePlugins();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>
