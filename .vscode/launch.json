@@ -9,7 +9,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
+            "program": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
@@ -35,7 +35,7 @@
                 "HOST": "http://localhost:5082"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/Views"
+                "/Views": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/Views"
             }
         },
         {
@@ -44,7 +44,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
+            "program": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src",
             "stopAtEntry": false,
@@ -70,7 +70,7 @@
                 "HOST": "http://localhost:5801"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/src/Views"
+                "/Views": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/Views"
             }
         },
     ]

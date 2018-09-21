@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
-  </ItemGroup>
+  </ItemGroup> 
 
   <ItemGroup>
     <PackageReference Include="EventHorizon.Game.Server.Zone.Plugin" Version="0.1.3" />
