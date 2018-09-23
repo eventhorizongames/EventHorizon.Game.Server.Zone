@@ -2,8 +2,8 @@ using Xunit;
 using Moq;
 using System.Threading.Tasks;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Map.Model;
 using EventHorizon.Game.Server.Zone.Map.State;
+using EventHorizon.Game.Server.Zone.Model.Map;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Map
 {

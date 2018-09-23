@@ -3,6 +3,8 @@ using Moq;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Models
 {

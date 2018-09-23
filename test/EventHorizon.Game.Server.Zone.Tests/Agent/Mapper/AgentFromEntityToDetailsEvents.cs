@@ -6,6 +6,7 @@ using System.Numerics;
 using EventHorizon.Game.Server.Zone.Core.Dynamic;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {

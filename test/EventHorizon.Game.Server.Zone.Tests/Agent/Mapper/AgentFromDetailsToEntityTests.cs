@@ -8,6 +8,8 @@ using System;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Dynamic;
+using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {

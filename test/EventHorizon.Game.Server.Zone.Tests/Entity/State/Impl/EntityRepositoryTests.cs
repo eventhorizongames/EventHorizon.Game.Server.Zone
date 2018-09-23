@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil.Models;
 using EventHorizon.Game.Server.Zone.Entity.Action;
 using System.Threading;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 {

@@ -1,5 +1,5 @@
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Map;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Map

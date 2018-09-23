@@ -33,15 +33,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             actionRepository.Take(input).GetAwaiter().GetResult();
         }
 
-        [Fact]
+        [Theory]
         [Trait("Category", "Performance")]
-        public async Task TestTake_ShouldRemoveExpectedEntityList()
+        [InlineData(100, 1_000, 100_000)]
+        [InlineData(5, 100, 10_000)]
+        [InlineData(2, 10, 1_000)]
+        [InlineData(1, 1, 1)]
+        [InlineData(1, 100, 100)]
+        public async Task TestTake_ShouldBeWithInLimitOfPassedInLimits(int expectedLessThan, int input, int entitiesToCreate)
         {
             // Given
-            var expectedLessThan = 15;
-            var input = 1_000;
-            var entitiesToCreate = 1_000_000;
-
             // When
             var actionRepository = new ServerActionQueue();
             var now = DateTime.UtcNow;
@@ -55,116 +56,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
 
             // Then
             var elapsed = watch.ElapsedMilliseconds;
+            _testOutputHelper.WriteLine("{0} | {1} | {2}", expectedLessThan, input, entitiesToCreate);
             _testOutputHelper.WriteLine("Time: {0}ms", elapsed);
             _testOutputHelper.WriteLine("Count: {0}", actual.Count());
             Assert.True(elapsed <= expectedLessThan);
-        }
-
-        [Fact]
-        [Trait("Category", "Performance")]
-        public async Task TestTake_ShouldBeWithInLimit_3()
-        {
-            // Given
-            var expectedLessThan = 3;
-            var input = 100;
-            var entitiesToCreate = 100_000;
-
-            // When
-            var actionRepository = new ServerActionQueue();
-            var now = DateTime.UtcNow;
-            for (int i = 0; i < entitiesToCreate; i++)
-            {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
-            }
-
-            var watch = Stopwatch.StartNew();
-            var actual = await actionRepository.Take(input);
-
-            // Then
-            var elapsed = watch.ElapsedMilliseconds;
-            _testOutputHelper.WriteLine("Time: {0}ms", elapsed);
-            _testOutputHelper.WriteLine("Count: {0}", actual.Count());
-            Assert.True(elapsed <= expectedLessThan);
-        }
-
-        [Fact]
-        [Trait("Category", "Performance")]
-        public async Task TestTake_ShouldBeWithInLimit_2()
-        {
-            // Given
-            var expectedLessThan = 2;
-            var input = 10;
-            var entitiesToCreate = 1_000;
-
-            // When
-            var actionRepository = new ServerActionQueue();
-            var now = DateTime.UtcNow;
-            for (int i = 0; i < entitiesToCreate; i++)
-            {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
-            }
-
-            var watch = Stopwatch.StartNew();
-            var actual = await actionRepository.Take(input);
-
-            // Then
-            var elapsed = watch.ElapsedMilliseconds;
-            _testOutputHelper.WriteLine("Time: {0}ms", elapsed);
-            _testOutputHelper.WriteLine("Count: {0}", actual.Count());
-            Assert.True(elapsed <= expectedLessThan);
-        }
-
-        [Fact]
-        [Trait("Category", "Performance")]
-        public async Task TestTake_ShouldBeWithInLimit_1()
-        {
-            // Given
-            var expectedLessThan = 1;
-            var input = 1;
-            var entitiesToCreate = 1;
-
-            // When
-            var actionRepository = new ServerActionQueue();
-            var now = DateTime.UtcNow;
-            for (int i = 0; i < entitiesToCreate; i++)
-            {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
-            }
-
-            var watch = Stopwatch.StartNew();
-            var actual = await actionRepository.Take(input);
-
-            // Then
-            var elapsed = watch.ElapsedMilliseconds;
-            _testOutputHelper.WriteLine("Time: {0}ms", elapsed);
-            _testOutputHelper.WriteLine("Count: {0}", actual.Count());
-            Assert.True(elapsed <= expectedLessThan);
-        }
-
-        [Fact]
-        [Trait("Category", "Performance")]
-        public async Task TestTake_ShouldTakeAllBeWithInLimit_1()
-        {
-            // Given
-            var expectedLessThan = 1;
-            var input = 100;
-            var entitiesToCreate = 100;
-
-            // When
-            var actionRepository = new ServerActionQueue();
-            var now = DateTime.UtcNow;
-            for (int i = 0; i < entitiesToCreate; i++)
-            {
-                await actionRepository.Push(new ServerActionEntity(now.Subtract(TimeSpan.FromMinutes(1)), new TestNotificationEvent()));
-            }
-
-            var watch = Stopwatch.StartNew();
-            var actual = await actionRepository.Take(input);
-
-            // Then
-            _testOutputHelper.WriteLine("Time: {0}ms", watch.ElapsedMilliseconds);
-            _testOutputHelper.WriteLine("Count: {0}", actual.Count());
-            Assert.True(watch.ElapsedMilliseconds <= expectedLessThan);
         }
     }
 }

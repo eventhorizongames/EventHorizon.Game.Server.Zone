@@ -11,6 +11,7 @@ using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using EventHorizon.Game.Server.Zone.Entity.Find;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Search;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Path.Find;
 using EventHorizon.Game.Server.Zone.ServerAction.Add;
 using EventHorizon.Shared;

@@ -2,7 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Math;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Structure;
+using EventHorizon.Game.Server.Zone.Model.Map;
 
 namespace EventHorizon.Game.Server.Zone.Map.State
 {

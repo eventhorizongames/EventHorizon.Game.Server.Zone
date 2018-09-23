@@ -2,12 +2,17 @@ FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
+COPY NuGet.Config .
 COPY *.sln .
-COPY src/EventHorizon.Game.Server.Zone.csproj ./src/EventHorizon.Game.Server.Zone.csproj
-COPY test/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests.csproj
+COPY src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj ./src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj
+COPY src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj ./src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj
+COPY src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj ./src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj
+COPY test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj
 RUN dotnet restore
 
 # copy and build everything else
+COPY after.EventHorizon.Game.Server.Zone.sln.targets .
+COPY Directory.Build.targets .
 COPY src/. ./src/
 COPY test/. ./test/
 
@@ -15,8 +20,8 @@ RUN dotnet build
 
 # Details on how to use: https://github.com/dotnet/dotnet-docker-samples/tree/master/dotnetapp-dev
 FROM build AS testrunner
-WORKDIR /source/test
-ENTRYPOINT ["dotnet", "test", "--logger:trx", "/p:CollectCoverage=true", "/p:CoverletOutputFormat=lcov", "/p:CoverletOutput=./TestResults//lcov.info", "./EventHorizon.Game.Server.Zone.Tests.csproj"]
+WORKDIR /source
+ENTRYPOINT ["dotnet", "test", "--logger:trx", "/p:CollectCoverage=true", "/p:CoverletOutputFormat=lcov", "/p:CoverletOutput=./TestResults/lcov.info"]
 
 FROM build AS test
 WORKDIR /source/test

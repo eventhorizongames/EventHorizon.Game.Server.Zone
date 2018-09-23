@@ -11,11 +11,12 @@ using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Map;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {
@@ -28,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var expected = new Vector3(100);
             var inputPlayer = new PlayerEntity
             {
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     NextMoveRequest = DateTime.Now.AddDays(1),
                     MoveToPosition = expected
@@ -74,7 +75,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             var inputPlayer = new PlayerEntity
             {
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = currentPosition,
                     NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),
@@ -129,7 +130,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var inputPlayer = new PlayerEntity
             {
                 Id = expectedEntityId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = currentPosition,
                     NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),

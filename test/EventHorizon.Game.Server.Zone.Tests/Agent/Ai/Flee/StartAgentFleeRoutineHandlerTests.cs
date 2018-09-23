@@ -24,6 +24,8 @@ using EventHorizon.Game.Server.Zone.Entity.Search;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Find;
 using EventHorizon.Game.Server.Zone.Agent.Move;
+using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
 {
@@ -179,7 +181,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             var agent = new AgentEntity
             {
                 Id = inputId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = currentPosition
                 }
@@ -202,7 +204,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             var entityInSight = new TestObjectEntity
             {
                 Id = entityInSightId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = entityInSightCurrentPosition
                 }
@@ -406,7 +408,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             var agent = new AgentEntity
             {
                 Id = inputId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = currentPosition
                 }
@@ -428,7 +430,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             var entityInSight = new TestObjectEntity
             {
                 Id = entityInSightId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = entityInSightCurrentPosition
                 }

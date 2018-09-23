@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Map;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Map;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Path.Find.Handler

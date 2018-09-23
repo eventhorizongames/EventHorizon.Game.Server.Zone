@@ -13,6 +13,7 @@ using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using System.Collections.Generic;
 using System.Numerics;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
 {
@@ -37,7 +38,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = inputCurrentPosition
                 }

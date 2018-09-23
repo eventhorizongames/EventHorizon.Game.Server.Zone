@@ -13,6 +13,7 @@ using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Agent.Startup.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {

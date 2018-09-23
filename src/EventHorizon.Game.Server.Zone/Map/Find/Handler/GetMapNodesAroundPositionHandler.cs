@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Map;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Map;
 using EventHorizon.Game.Server.Zone.State;
 using MediatR;
 

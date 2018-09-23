@@ -33,6 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Plugin.State.Server
         {
             _hostingEnvironment = hostingEnvironment;
             _pluginLoader = pluginLoader;
+            _services = services;
             this.LoadPluginList(this.GeneratePluginsDirectory());
         }
 

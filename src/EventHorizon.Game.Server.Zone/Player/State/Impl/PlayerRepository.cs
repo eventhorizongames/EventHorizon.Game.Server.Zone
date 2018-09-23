@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.State.Impl

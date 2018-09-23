@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Entity.Model
+namespace EventHorizon.Game.Server.Zone.Model.Entity
 {
     public enum EntityType
     {

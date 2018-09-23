@@ -9,6 +9,8 @@ using System.Threading;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
 {

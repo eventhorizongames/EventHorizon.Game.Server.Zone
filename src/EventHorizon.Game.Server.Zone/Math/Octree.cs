@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Numerics;
+using EventHorizon.Game.Server.Zone.Model.Structure;
 
 namespace EventHorizon.Game.Server.Zone.Math
 {
@@ -49,10 +50,6 @@ namespace EventHorizon.Game.Server.Zone.Math
             this._root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
             return result;
         }
-    }
-    public interface IOctreeEntity
-    {
-        Vector3 Position { get; }
     }
     public class IOctreeOptions
     {

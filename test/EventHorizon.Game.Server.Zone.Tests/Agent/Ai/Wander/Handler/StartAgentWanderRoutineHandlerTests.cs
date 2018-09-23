@@ -14,7 +14,8 @@ using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
-using EventHorizon.Game.Server.Zone.Map.Model;
+using EventHorizon.Game.Server.Zone.Model.Map;
+using EventHorizon.Game.Server.Zone.Model.Core;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
 {
@@ -50,7 +51,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = inputCurrentPosition
                 },
@@ -150,7 +151,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
-                Position = new Core.Model.PositionState
+                Position = new PositionState
                 {
                     CurrentPosition = inputCurrentPosition
                 },

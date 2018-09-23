@@ -12,6 +12,7 @@ using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
+using EventHorizon.Game.Server.Zone.Model.Core;
 using MediatR;
 using Moq;
 using Xunit;

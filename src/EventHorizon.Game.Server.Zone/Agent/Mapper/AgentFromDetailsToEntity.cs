@@ -4,6 +4,8 @@ using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Mapper

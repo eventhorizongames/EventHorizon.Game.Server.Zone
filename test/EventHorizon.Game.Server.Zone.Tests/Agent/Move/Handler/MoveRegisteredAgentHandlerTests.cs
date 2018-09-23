@@ -17,6 +17,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {

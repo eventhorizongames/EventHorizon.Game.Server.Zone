@@ -250,3 +250,5 @@ appsettings.*.json
 data/*.json
 
 lcov*.info
+
+NuGet.Config

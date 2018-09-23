@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Map.Model
+namespace EventHorizon.Game.Server.Zone.Model.Map
 {
     public struct MapEdge
     {
