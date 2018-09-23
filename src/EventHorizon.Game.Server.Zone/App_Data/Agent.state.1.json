@@ -17,16 +17,16 @@
             "ZoneTag": "testing"
         },
         "TagList": ["npc", "wandering", "weak"],
-        "Speed": 0.5,
+        "Speed": 1.0,
         "Ai": {
             "DefaultRoutine": "FLEE",
             "Wander": {
                 "LookDistance": 25
             },
             "Flee": {
-                "SightDistance": 5,
-                "DistanceToRun": 5.0,
-                "FallbackRoutine": "IDLE",
+                "SightDistance": 15,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": "WANDER",
                 "TagList": ["player"]
             }
         },
