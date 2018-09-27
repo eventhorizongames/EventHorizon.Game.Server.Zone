@@ -6,7 +6,7 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         public static readonly EntityAction ADD = new EntityAction("Entity.Add");
         public static readonly EntityAction REMOVE = new EntityAction("Entity.Remove");
 
-        public string Type { get; private set; }
+        public string Type { get; }
         protected EntityAction(string type)
         {
             Type = type;

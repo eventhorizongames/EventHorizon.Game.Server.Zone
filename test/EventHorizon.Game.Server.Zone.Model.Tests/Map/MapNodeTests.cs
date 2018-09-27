@@ -1,10 +1,9 @@
 using Xunit;
-using Moq;
 using System.Threading.Tasks;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Map;
 
-namespace EventHorizon.Game.Server.Zone.Tests.Map
+namespace EventHorizon.Game.Server.Zone.Model.Tests.Map
 {
     public class MapNodeTests
     {
@@ -80,6 +79,25 @@ namespace EventHorizon.Game.Server.Zone.Tests.Map
 
             // Then
             Assert.True(actual);
+        }
+
+        [Fact]
+        public void TestGetHashCode_ShouldReturnTheHashCodeOfTheIndex()
+        {
+            // Given
+            var inputIndex = 123;
+            var expected = inputIndex.GetHashCode();
+
+            // When
+            var entityAction = new MapNode(Vector3.Zero)
+            {
+                Index = inputIndex
+            };
+
+            var actual = entityAction.GetHashCode();
+
+            // Then
+            Assert.Equal(expected, actual);
         }
     }
 }
