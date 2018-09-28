@@ -12,6 +12,7 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
 using System.Dynamic;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -28,12 +29,24 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = agentId,
-                Ai = new AgentAiState
+                Data = new Dictionary<string, object>()
                 {
-                    DefaultRoutine = inputRoutine
+                    {
+                        "Routine",
+                        inputRoutine
+                    },
+                    {
+                        "Ai",
+                        new AgentAiState
+                        {
+                            DefaultRoutine = inputRoutine
+                        }
+                    }
                 }
             };
-            expectedAgent.TypedData.Routine = inputRoutine;
+            expectedAgent.PopulateFromTempData<AgentAiState>("Routine");
+            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {
                 Entity = inputAgent

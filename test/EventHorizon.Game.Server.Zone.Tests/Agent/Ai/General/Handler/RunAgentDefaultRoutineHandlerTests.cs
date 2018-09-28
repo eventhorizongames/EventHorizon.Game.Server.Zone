@@ -10,7 +10,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Dynamic;
-using EventHorizon.Game.Server.Zone.Core.Dynamic;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {
@@ -22,14 +22,23 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // Given
             var mediatorMock = new Mock<IMediator>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(new AgentEntity
+            var agent = new AgentEntity
             {
                 Id = 123,
-                Ai = new AgentAiState
+                Data = new Dictionary<string, object>()
                 {
-                    DefaultRoutine = AiRoutine.WANDER
+                    {
+                        "Ai", 
+                        new AgentAiState
+                        {
+                        DefaultRoutine = AiRoutine.WANDER
+                        }
+                    }
                 }
-            });
+            };
+            agent.PopulateFromTempData<AgentAiState>("Ai");
+
+            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(agent);
             var handler = new RunAgentDefaultRoutineHandler(mediatorMock.Object, agentRepositoryMock.Object);
             // When
             await handler.Handle(new RunAgentDefaultRoutineEvent

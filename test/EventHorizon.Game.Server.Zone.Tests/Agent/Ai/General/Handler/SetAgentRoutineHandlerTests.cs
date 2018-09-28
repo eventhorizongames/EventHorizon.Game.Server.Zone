@@ -10,7 +10,6 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Dynamic;
-using EventHorizon.Game.Server.Zone.Core.Dynamic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 
@@ -19,11 +20,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
             var agent = await _agentRepository.FindById(notification.AgentId);
             if (agent.IsFound())
             {
-                agent.TypedData.Routine = agent.Ai.DefaultRoutine;
+                agent.SetProperty("Routine", agent.GetProperty<AgentAiState>("Ai").DefaultRoutine);
                 await _mediator.Publish(new StartAgentRoutineEvent
                 {
                     AgentId = agent.Id,
-                    Routine = agent.TypedData.Routine
+                    Routine = agent.GetProperty<AiRoutine>("Routine")
                 });
             }
         }

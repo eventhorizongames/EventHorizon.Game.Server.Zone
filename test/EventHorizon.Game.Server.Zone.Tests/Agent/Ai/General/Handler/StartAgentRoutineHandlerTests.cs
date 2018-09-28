@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Numerics;
 using System.Threading;
@@ -168,9 +169,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
-                Ai = new AgentAiState
+                Data = new Dictionary<string, object>()
                 {
-                    Wander = wander
+                    {
+                        "Ai", 
+                        new AgentAiState
+                        {
+                            Wander = wander
+                        }
+                    }
                 }
             };
             var mediatorMock = new Mock<IMediator>();

@@ -79,13 +79,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             agentPath.Enqueue(new Vector3(2));
             agentPath.Enqueue(new Vector3(3));
             agentPath.Enqueue(new Vector3(4));
-            dynamic agentData = new ExpandoObject();
-            agentData.Routine = AiRoutine.FLEEING;
+            dynamic agentData = new Dictionary<string, object>{
+                {
+                    "Routine",
+                    AiRoutine.FLEEING
+                }
+            };
             var agent = new AgentEntity
             {
                 Path = agentPath,
                 Data = agentData,
             };
+            agent.PopulateFromTempData<AiRoutine>("Routine");
 
             var loggerMock = new Mock<ILogger<StartAgentFleeRoutineHandler>>();
             var mediatorMock = new Mock<IMediator>();
@@ -118,20 +123,30 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             {
                 AgentId = inputId
             };
+            var fallbackRoutine = AiRoutine.IDLE;
 
             var agent = new AgentEntity
             {
-                Id = inputId
-            };
-            var fallbackRoutine = AiRoutine.IDLE;
-            agent.TypedData.Routine = AiRoutine.FLEE;
-            agent.Ai = new AgentAiState
-            {
-                Flee = new AgentFleeState
-                {
-                    FallbackRoutine = fallbackRoutine
+                Id = inputId,
+                Data = new Dictionary<string, object>{
+                    {
+                        "Routine",
+                        AiRoutine.FLEE
+                    },
+                    {
+                        "Ai",
+                        new AgentAiState
+                        {
+                            Flee = new AgentFleeState
+                            {
+                                FallbackRoutine = fallbackRoutine
+                            }
+                        }
+                    }
                 }
             };
+            agent.PopulateFromTempData<AiRoutine>("Routine");
+            agent.PopulateFromTempData<AgentAiState>("Ai");
 
             var expectedStartRoutineEvent = new StartAgentRoutineEvent
             {
@@ -177,6 +192,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
             var pathLookupToPosition = new Vector3(-7, 0, 0);
             var sightDistance = 10;
             var tagList = new List<string> { "any" };
+            var fallbackRoutine = AiRoutine.IDLE;
 
             var agent = new AgentEntity
             {
@@ -184,20 +200,29 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
                 Position = new PositionState
                 {
                     CurrentPosition = currentPosition
+                },
+                Data = new Dictionary<string, object>{
+                    {
+                        "Routine",
+                        AiRoutine.FLEE
+                    },
+                    {
+                        "Ai",
+                        new AgentAiState
+                        {
+                            Flee = new AgentFleeState
+                            {
+                                FallbackRoutine = fallbackRoutine,
+                                DistanceToRun = distanceToRun,
+                                SightDistance = sightDistance,
+                                TagList = tagList,
+                            }
+                        }
+                    }
                 }
             };
-            var fallbackRoutine = AiRoutine.IDLE;
-            agent.TypedData.Routine = AiRoutine.FLEE;
-            agent.Ai = new AgentAiState
-            {
-                Flee = new AgentFleeState
-                {
-                    FallbackRoutine = fallbackRoutine,
-                    DistanceToRun = distanceToRun,
-                    SightDistance = sightDistance,
-                    TagList = tagList,
-                }
-            };
+            agent.PopulateFromTempData<AiRoutine>("Routine");
+            agent.PopulateFromTempData<AgentAiState>("Ai");
             Queue<Vector3> path = null;
 
             var entityInSightId = 321;
@@ -411,18 +436,28 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Flee
                 Position = new PositionState
                 {
                     CurrentPosition = currentPosition
+                },
+                Data = new Dictionary<string, object>{
+                    {
+                        "Routine",
+                        AiRoutine.FLEE
+                    },
+                    {
+                        "Ai",
+                        new AgentAiState
+                        {
+                            Flee = new AgentFleeState
+                            {
+                                DistanceToRun = distanceToRun,
+                                SightDistance = sightDistance,
+                                TagList = tagList,
+                            }
+                        }
+                    }
                 }
             };
-            agent.TypedData.Routine = AiRoutine.FLEE;
-            agent.Ai = new AgentAiState
-            {
-                Flee = new AgentFleeState
-                {
-                    DistanceToRun = distanceToRun,
-                    SightDistance = sightDistance,
-                    TagList = tagList,
-                }
-            };
+            agent.PopulateFromTempData<AiRoutine>("Routine");
+            agent.PopulateFromTempData<AgentAiState>("Ai");
             Queue<Vector3> path = new Queue<Vector3>();
             path.Enqueue(new Vector3(2));
 

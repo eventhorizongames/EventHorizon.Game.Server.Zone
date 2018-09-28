@@ -10,6 +10,7 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         PositionState Position { get; set; }
         IList<string> TagList { get; set; }
         dynamic Data { get; set; }
+        T GetProperty<T>(string prop);
 
         bool IsFound();
     }

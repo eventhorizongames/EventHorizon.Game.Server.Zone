@@ -55,19 +55,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Ai = new AgentAiState
+                Data = new Dictionary<string, object>()
                 {
-                    Wander = new AgentWanderState
                     {
-                        LookDistance = inputLookDistance
+                        "Ai",
+                        new AgentAiState
+                        {
+                            Wander = new AgentWanderState
+                            {
+                                LookDistance = inputLookDistance
+                            }
+                        }
                     }
                 }
             };
+            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
-                .ReturnsAsync(expectedAgent);
+                    .ReturnsAsync(expectedAgent);
             mediatorMock.Setup(mediator => mediator.Send(inputGetMapNodesAroundPositionEvent, CancellationToken.None))
-                .ReturnsAsync(expectedMapNodes);
+                    .ReturnsAsync(expectedMapNodes);
             var randomNumberGeneratorMock = new Mock<IRandomNumberGenerator>();
 
             // When
@@ -155,14 +163,21 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Ai = new AgentAiState
-                {
-                    Wander = new AgentWanderState
+                Data = new Dictionary<string, object>() {
                     {
-                        LookDistance = inputLookDistance
+                        "Ai",
+                        new AgentAiState
+                        {
+                            Wander = new AgentWanderState
+                            {
+                                LookDistance = inputLookDistance
+                            }
+                        }
                     }
                 }
             };
+            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
                 .ReturnsAsync(expectedAgent);

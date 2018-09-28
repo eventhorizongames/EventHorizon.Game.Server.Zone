@@ -13,6 +13,11 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         public IList<string> TagList { get; set; }
         public dynamic Data { get; set; }
 
+        public T GetProperty<T>(string prop)
+        {
+            return Data[prop];
+        }
+
         public bool IsFound()
         {
             return false;

@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Game.Server.Zone.Agent.Get;
+using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using EventHorizon.Game.Server.Zone.Map;
 using MediatR;
@@ -31,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
             var mapNodes = await _mediator.Send(new GetMapNodesAroundPositionEvent
             {
                 Position = agent.Position.CurrentPosition,
-                Distance = agent.Ai.Wander.LookDistance
+                Distance = agent.GetProperty<AgentAiState>("Ai").Wander.LookDistance
             });
             if (mapNodes.Count == 0)
             {

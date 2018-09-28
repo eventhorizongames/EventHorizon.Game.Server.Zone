@@ -31,7 +31,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                 },
                 TagList = details.TagList,
                 Data = details.Data,
-                Ai = details.Ai,
                 Speed = details.Speed,
             };
         }

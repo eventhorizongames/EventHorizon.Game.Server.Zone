@@ -12,7 +12,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public IList<string> TagList { get; set; }
 
         public float Speed { get; set; }
-        public AgentAiState Ai { get; set; }
         public dynamic Data { get; set; }
     }
 }

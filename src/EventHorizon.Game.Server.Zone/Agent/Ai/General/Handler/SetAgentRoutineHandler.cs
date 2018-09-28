@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler
             {
                 return;
             }
-            agent.TypedData.Routine = notification.Routine;
+            agent.SetProperty("Routine", notification.Routine);
             await _agentRepository.Update(AgentAction.ROUTINE, agent);
         }
     }

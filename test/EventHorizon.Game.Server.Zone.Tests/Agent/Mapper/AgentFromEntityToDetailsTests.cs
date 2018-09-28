@@ -3,14 +3,14 @@ using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Core.Dynamic;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
 using EventHorizon.Game.Server.Zone.Model.Core;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
-    public class AgentFromEntityToDetailsEvents
+    public class AgentFromEntityToDetailsTests
     {
         [Fact]
         public void TestMapToNew_ShouldReturnAgentDetailsFilledFromEntity()
@@ -23,23 +23,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 CurrentZone = "current-zone",
                 ZoneTag = "test"
             };
-            var expectedData = new NullingExpandoObject();
-            var expectedAi = new AgentAiState();
             var expectedSpeed = 123;
             var inputAgent = new AgentEntity
             {
                 Name = expectedName,
                 Position = expectedPosition,
-                Data = expectedData,
-                Ai = expectedAi,
                 Speed = expectedSpeed
             };
             var expectedDetails = new AgentDetails
             {
                 Name = expectedName,
                 Position = expectedPosition,
-                Data = expectedData,
-                Ai = expectedAi,
                 Speed = expectedSpeed
             };
 
@@ -47,7 +41,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var actual = AgentFromEntityToDetails.Map(inputAgent);
 
             // Then
-            Assert.Equal(expectedDetails, actual);
+            Assert.Equal(expectedName, actual.Name);
+            Assert.Equal(expectedPosition, actual.Position);
+            Assert.Equal(expectedSpeed, actual.Speed);
+            Assert.Null(actual.TagList);
+            Assert.Empty(actual.Data);
         }
     }
 }

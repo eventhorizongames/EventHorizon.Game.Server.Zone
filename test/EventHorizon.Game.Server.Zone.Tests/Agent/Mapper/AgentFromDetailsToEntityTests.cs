@@ -7,9 +7,9 @@ using EventHorizon.Game.Server.Zone.Core.Model;
 using System;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
-using EventHorizon.Game.Server.Zone.Core.Dynamic;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
@@ -28,8 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                     CurrentZone = "current-zone",
                     ZoneTag = "test"
                 },
-                Data = new NullingExpandoObject(),
-                Ai = new AgentAiState(),
+                Data = new Dictionary<string, object>(),
                 Speed = 1
             };
             var expectedId = -1;
@@ -41,7 +40,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 
             var expectedMoveToPosition = inputAgent.Position.CurrentPosition;
             var expectedData = inputAgent.Data;
-            var expectedAi = inputAgent.Ai;
             var expectedSpeed = inputAgent.Speed;
 
             // When
@@ -56,7 +54,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             Assert.Equal(expectedZoneTag, actual.Position.ZoneTag);
             Assert.Equal(expectedMoveToPosition, actual.Position.MoveToPosition);
             Assert.Equal(expectedData, actual.Data);
-            Assert.Equal(expectedAi, actual.Ai);
             Assert.Equal(expectedSpeed, actual.Speed);
         }
     }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
-using EventHorizon.Game.Server.Zone.Core.Dynamic;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using Newtonsoft.Json.Linq;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Model
 {
@@ -17,8 +17,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
             return default(AgentEntity);
         }
 
-        private dynamic _data;
-        private AgentData _typedData;
+        private Dictionary<string, object> _data;
+        private dynamic _tempData;
 
         public long Id { get; set; }
         public EntityType Type { get; set; }
@@ -27,33 +27,20 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
 
         public string Name { get; set; }
         public float Speed { get; set; }
-        public AgentAiState Ai { get; set; }
-        public AgentData TypedData
-        {
-            get
-            {
-                if (_data == null || _typedData == null)
-                {
-                    _typedData = new AgentData(_data = _data ?? new NullingExpandoObject());
-                }
-                return _typedData;
-            }
-        }
         public dynamic Data
         {
             get
             {
                 if (_data == null)
                 {
-                    _data = new NullingExpandoObject();
-                    _typedData = new AgentData(_data);
+                    _data = new Dictionary<string, object>();
                 }
                 return _data;
             }
             set
             {
-                _data = value ?? new NullingExpandoObject();
-                _typedData = new AgentData(_data);
+                _data = new Dictionary<string, object>();
+                _tempData = value;
             }
         }
 
@@ -63,6 +50,39 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public bool IsFound()
         {
             return !this.Equals(NULL);
+        }
+
+        public T GetProperty<T>(string prop)
+        {
+            object value = default(T);
+            _data.TryGetValue(prop, out value);
+            return (T)value;
+        }
+
+        public void SetProperty<T>(string prop, T value)
+        {
+            Data[prop] = value;
+        }
+        public T PopulateFromTempData<T>(string prop)
+        {
+            if (_tempData[prop] is JObject)
+            {
+                var tempProp = (JObject)_tempData[prop];
+                _data.Add(prop, tempProp.ToObject<T>());
+                return GetProperty<T>(prop);
+            }
+            if (_tempData[prop] is JToken)
+            {
+                var tempProp = (JToken)_tempData[prop];
+                _data.Add(prop, tempProp.ToObject<T>());
+                return GetProperty<T>(prop);
+            }
+            if (_tempData[prop] is T)
+            {
+                _data.Add(prop, _tempData[prop]);
+                return GetProperty<T>(prop);
+            }
+            return default(T);
         }
     }
 }
