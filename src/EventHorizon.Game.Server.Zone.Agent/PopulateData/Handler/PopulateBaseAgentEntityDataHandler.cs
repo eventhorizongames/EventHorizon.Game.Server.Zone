@@ -1,0 +1,21 @@
+using System.Threading;
+using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Model;
+using MediatR;
+
+namespace EventHorizon.Game.Server.Zone.Agent.PopulateData.Handler
+{
+    public class PopulateBaseAgentEntityDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
+    {
+        public Task Handle(PopulateAgentEntityDataEvent request, CancellationToken cancellationToken)
+        {
+            var agent = request.Agent;
+
+            // Move these to a Repository, and have them populated from plugins.
+            agent.PopulateFromTempData<AgentRoutine>("Routine");
+            agent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
+
+            return Task.CompletedTask;
+        }
+    }
+}

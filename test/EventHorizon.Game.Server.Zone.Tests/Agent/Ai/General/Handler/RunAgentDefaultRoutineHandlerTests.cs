@@ -2,8 +2,6 @@ using Xunit;
 using Moq;
 using MediatR;
 using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
@@ -11,6 +9,8 @@ using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Dynamic;
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Agent.Handlers;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {
@@ -28,29 +28,28 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
                 Data = new Dictionary<string, object>()
                 {
                     {
-                        "Ai", 
-                        new AgentAiState
-                        {
-                        DefaultRoutine = AiRoutine.WANDER
-                        }
+                        "DefaultRoutine",
+                        AgentRoutine.WANDER
                     }
                 }
             };
-            agent.PopulateFromTempData<AgentAiState>("Ai");
+            agent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
 
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(agent);
             var handler = new RunAgentDefaultRoutineHandler(mediatorMock.Object, agentRepositoryMock.Object);
+
             // When
             await handler.Handle(new RunAgentDefaultRoutineEvent
             {
                 AgentId = 123
             }, CancellationToken.None);
+            
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(
                 new StartAgentRoutineEvent
                 {
                     AgentId = 123,
-                    Routine = AiRoutine.WANDER
+                    Routine = AgentRoutine.WANDER
                 }, It.IsAny<CancellationToken>())
             );
         }

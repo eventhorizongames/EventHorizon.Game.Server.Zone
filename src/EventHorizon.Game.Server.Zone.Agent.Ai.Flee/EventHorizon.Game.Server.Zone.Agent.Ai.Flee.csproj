@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EventHorizon.Game.Server.Zone.Plugin" Version="0.1.4" />
+    <PackageReference Include="Mediatr" Version="5.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
+
+    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
+    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
+    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Events\EventHorizon.Game.Server.Zone.Events.csproj" />
+    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
+  </ItemGroup>
+
+</Project>

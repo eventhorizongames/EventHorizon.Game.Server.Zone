@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Model.Map;
 using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Game.Server.Zone.External.RandomNumber;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
 {
@@ -58,18 +60,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 Data = new Dictionary<string, object>()
                 {
                     {
-                        "Ai",
-                        new AgentAiState
+                        "Wander",
+                        new AgentWanderState
                         {
-                            Wander = new AgentWanderState
-                            {
-                                LookDistance = inputLookDistance
-                            }
+                            LookDistance = inputLookDistance
                         }
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+            expectedAgent.PopulateFromTempData<AgentWanderState>("Wander");
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
@@ -165,18 +164,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 },
                 Data = new Dictionary<string, object>() {
                     {
-                        "Ai",
-                        new AgentAiState
+                        "Wander",
+                        new AgentWanderState
                         {
-                            Wander = new AgentWanderState
-                            {
-                                LookDistance = inputLookDistance
-                            }
+                            LookDistance = inputLookDistance
                         }
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+            expectedAgent.PopulateFromTempData<AgentWanderState>("Wander");
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))

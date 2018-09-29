@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         readonly IMediator _mediator;
         readonly IPlayerRepository _player;
 
-        public PlayerDisconnectedHandler(IMediator mediator, IEntityRepository entityRepository, IPlayerRepository player)
+        public PlayerDisconnectedHandler(IMediator mediator, IPlayerRepository player)
         {
             _mediator = mediator;
             _player = player;

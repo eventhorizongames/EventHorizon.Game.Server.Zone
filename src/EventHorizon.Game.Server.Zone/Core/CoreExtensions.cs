@@ -1,3 +1,4 @@
+using System.Reflection;
 using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
@@ -10,6 +11,7 @@ using EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl;
 using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Game.Server.Zone.External.RandomNumber;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +23,8 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IJsonFileLoader, JsonFileLoader>()
+            services.AddMediatR(typeof(Agent.PluginStartup), typeof(Agent.Ai.PluginStartup))
+                .AddTransient<IJsonFileLoader, JsonFileLoader>()
                 .AddTransient<IJsonFileSaver, JsonFileSaver>()
                 .AddSingleton<IIdPool, IdPoolImpl>()
                 .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()

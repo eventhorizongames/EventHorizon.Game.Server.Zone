@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using MediatR;
+using EventHorizon.Game.Server.Zone.Events.Entity.Search;
 
 namespace EventHorizon.Game.Server.Zone.Entity.Search.Handler
 {

@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.State;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
+using EventHorizon.Game.Server.Zone.External.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {

@@ -2,11 +2,11 @@ using Xunit;
 using Moq;
 using MediatR;
 using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using System.Threading.Tasks;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Game.Server.Zone.Agent.Handlers;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {

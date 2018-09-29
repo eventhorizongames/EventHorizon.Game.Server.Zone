@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
 
@@ -12,6 +11,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public IList<string> TagList { get; set; }
 
         public float Speed { get; set; }
-        public dynamic Data { get; set; }
+        public Dictionary<string, object> Data { get; set; }
     }
 }

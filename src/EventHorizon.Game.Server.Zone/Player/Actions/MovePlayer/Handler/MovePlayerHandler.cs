@@ -17,6 +17,7 @@ using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using Microsoft.Extensions.Options;
+using EventHorizon.Game.Server.Zone.Events.Map;
 
 namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
 {

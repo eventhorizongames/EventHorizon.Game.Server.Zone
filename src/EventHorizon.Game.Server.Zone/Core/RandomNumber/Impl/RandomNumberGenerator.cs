@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography;
+using EventHorizon.Game.Server.Zone.External.RandomNumber;
 
 namespace EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl
 {

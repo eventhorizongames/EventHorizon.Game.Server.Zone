@@ -18,7 +18,8 @@
         },
         "TagList": ["npc", "wandering", "weak"],
         "Speed": 1.0,
-        "Ai": {
+        "Data": {
+            "Routine": "IDLE",
             "DefaultRoutine": "FLEE",
             "Wander": {
                 "LookDistance": 25
@@ -28,21 +29,6 @@
                 "DistanceToRun": 30.0,
                 "FallbackRoutine": "WANDER",
                 "TagList": ["player"]
-            }
-        },
-        "Data": {
-            "Routine": "IDLE",
-            "Ai": {
-                "DefaultRoutine": "FLEE",
-                "Wander": {
-                    "LookDistance": 25
-                },
-                "Flee": {
-                    "SightDistance": 15,
-                    "DistanceToRun": 30.0,
-                    "FallbackRoutine": "WANDER",
-                    "TagList": ["player"]
-                }
             }
         }
     }]

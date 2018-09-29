@@ -10,10 +10,11 @@ using EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler;
 using EventHorizon.Game.Server.Zone.Path.Find;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Events.Path;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
 {
@@ -84,7 +85,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
                 new SetAgentRoutineEvent
                 {
                     AgentId = inputId,
-                    Routine = AiRoutine.MOVE
+                    Routine = AgentRoutine.MOVE
                 },
                 It.IsAny<CancellationToken>()
             ));

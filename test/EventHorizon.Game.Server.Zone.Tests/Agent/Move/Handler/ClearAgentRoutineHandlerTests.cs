@@ -2,8 +2,8 @@ using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Agent.Move.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using System.Threading;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {

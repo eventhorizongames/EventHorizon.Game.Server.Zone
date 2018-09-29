@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.PopulateData;
@@ -21,9 +21,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
         }
         public async Task<AgentEntity> Handle(RegisterAgentEvent request, CancellationToken cancellationToken)
         {
-            var agentToRegister = await _mediator.Send(new PopulateAgentEntityDataEvent
+            var agentToRegister = request.Agent;
+            await _mediator.Publish(new PopulateAgentEntityDataEvent
             {
-                Agent = request.Agent
+                Agent = agentToRegister,
             });
             var registeredEntity = await _mediator.Send(new RegisterEntityEvent
             {
@@ -39,11 +40,16 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
             {
                 return AgentEntity.CreateNotFound();
             }
-            agent.SetProperty("Routine", agent.GetProperty<AgentAiState>("Ai").DefaultRoutine);
+            var defaultRoutine = agent.GetProperty<AgentRoutine>("DefaultRoutine");
+            agent.SetProperty("Routine", defaultRoutine);
             await _agentRepository.Update(AgentAction.ROUTINE, agent);
+            await _mediator.Publish(new ClearAgentRoutineEvent
+            {
+                AgentId = agent.Id
+            });
             await _mediator.Publish(new StartAgentRoutineEvent
             {
-                Routine = agent.GetProperty<AgentAiState>("Ai").DefaultRoutine,
+                Routine = defaultRoutine,
                 AgentId = agent.Id
             });
 

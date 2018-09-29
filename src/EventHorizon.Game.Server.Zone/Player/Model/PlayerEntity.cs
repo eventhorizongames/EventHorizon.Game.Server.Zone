@@ -17,11 +17,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Model
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
         public string ConnectionId { get; set; }
-        public dynamic Data { get; set; }
+        public Dictionary<string, object> Data { get; set; }
 
         public T GetProperty<T>(string prop)
         {
-            return Data[prop];
+            return (T)Data[prop];
         }
 
         public bool IsFound()

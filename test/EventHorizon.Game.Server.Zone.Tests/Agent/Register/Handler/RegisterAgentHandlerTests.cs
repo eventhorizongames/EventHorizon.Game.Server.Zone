@@ -4,7 +4,6 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
 using EventHorizon.Game.Server.Zone.Agent.Register.Handler;
 using MediatR;
 using EventHorizon.Game.Server.Zone.State.Repository;
@@ -13,6 +12,7 @@ using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
 using System.Dynamic;
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -23,7 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
         {
             // Given
             var agentId = 123;
-            var inputRoutine = AiRoutine.IDLE;
+            var inputRoutine = AgentRoutine.IDLE;
             var inputAgent = new AgentEntity();
 
             var expectedAgent = new AgentEntity
@@ -36,16 +36,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                         inputRoutine
                     },
                     {
-                        "Ai",
-                        new AgentAiState
-                        {
-                            DefaultRoutine = inputRoutine
-                        }
+                        "DefaultRoutine",
+                        inputRoutine
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentAiState>("Routine");
-            expectedAgent.PopulateFromTempData<AgentAiState>("Ai");
+            expectedAgent.PopulateFromTempData<AgentRoutine>("Routine");
+            expectedAgent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
 
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Game.Server.Zone.Events.Path;
 using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Game.Server.Zone.Model.Map;
 using MediatR;

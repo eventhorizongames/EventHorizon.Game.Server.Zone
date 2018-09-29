@@ -1,11 +1,11 @@
-using EventHorizon.Game.Server.Zone.Agent.Ai.General.Handler;
 using MediatR;
 using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using System.Threading.Tasks;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Ai.General;
+using EventHorizon.Game.Server.Zone.Agent.Handlers;
+using EventHorizon.Game.Server.Zone.Agent.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {
