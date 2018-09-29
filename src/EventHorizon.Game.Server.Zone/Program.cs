@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -20,6 +21,10 @@ namespace EventHorizon.Game.Server.Zone
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseSerilog((ctx, cfg) => cfg
+                    .Enrich.WithProperty("EnvironmentName", ctx.HostingEnvironment.EnvironmentName)
+                    .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
+                    .ReadFrom.Configuration(ctx.Configuration))
                 .Build();
     }
 }

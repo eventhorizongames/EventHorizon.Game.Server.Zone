@@ -42,10 +42,12 @@ namespace EventHorizon.TimerService
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
-                _logger.LogWarning("Timer found that it was already running. Check for long running loop: ??{GUID}??.");
+                _logger.LogWarning("Timer found that it was already running. Check for long running loop: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
                 return;
             }
+            timerState.Guid = Guid.NewGuid();
             timerState.IsRunning = true;
+            timerState.StartDate = DateTime.UtcNow;
             using (var serviceScope = _serviceScopeFactory.CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(
@@ -54,11 +56,14 @@ namespace EventHorizon.TimerService
                 ).GetAwaiter().GetResult();
             }
             timerState.IsRunning = false;
+            timerState.StartDate = DateTime.UtcNow;
         }
 
         public class TimerState
         {
+            public Guid Guid { get; internal set; }
             public bool IsRunning { get; set; }
+            public DateTime StartDate { get; set; }
         }
     }
 }
