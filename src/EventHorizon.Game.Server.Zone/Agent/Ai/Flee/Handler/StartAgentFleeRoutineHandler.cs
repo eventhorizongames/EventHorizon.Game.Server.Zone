@@ -51,12 +51,13 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Flee.Handler
                 await this.CheckFleeInFuture(agent);
                 return;
             }
+            var flee = agent.GetProperty<AgentAiState>("Ai").Flee;
             // Find entity in sight
             var entitiesInSight = (await _mediator.Send(new SearchInAreaWithTagEvent
             {
                 SearchPositionCenter = agent.Position.CurrentPosition,
-                SearchRadius = agent.GetProperty<AgentAiState>("Ai").Flee.SightDistance,
-                TagList = agent.GetProperty<AgentAiState>("Ai").Flee.TagList,
+                SearchRadius = flee.SightDistance,
+                TagList = flee.TagList,
             })).Where(a => a != agent.Id);
             if (entitiesInSight.IsEmpty())
             {
@@ -65,7 +66,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Flee.Handler
                     await _mediator.Publish(new StartAgentRoutineEvent
                     {
                         AgentId = agent.Id,
-                        Routine = agent.GetProperty<AgentAiState>("Ai").Flee.FallbackRoutine
+                        Routine = flee.FallbackRoutine
                     });
                 }
                 // Set Agents Routine
@@ -85,21 +86,21 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Flee.Handler
                     await _mediator.Publish(new StartAgentRoutineEvent
                     {
                         AgentId = agent.Id,
-                        Routine = agent.GetProperty<AgentAiState>("Ai").Flee.FallbackRoutine
+                        Routine = flee.FallbackRoutine
                     });
                 }
                 // Set Agents Routine
                 await this.CheckFleeInFuture(agent);
                 return;
             }
-            var away = this.GetPositionAwayFromAgentAndEntityInSight(agent, entityInSight, agent.GetProperty<AgentAiState>("Ai").Flee.DistanceToRun);
+            var away = this.GetPositionAwayFromAgentAndEntityInSight(agent, entityInSight, flee.DistanceToRun);
             // Get Path away from entity
             var path = await _mediator.Send(new FindPathEvent
             {
                 From = agent.Position.CurrentPosition,
                 To = away
             });
-            _logger.LogInformation("Found Entity: {0}, Position: {1}", entityInSight.Id, entityInSight.Position.CurrentPosition);
+            _logger.LogDebug("Found Entity: {0}, Position: {1}", entityInSight.Id, entityInSight.Position.CurrentPosition);
             if (path.IsEmpty())
             {
                 if (agent.GetProperty<AiRoutine>("Routine") == AiRoutine.FLEE)
@@ -107,7 +108,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Flee.Handler
                     await _mediator.Publish(new StartAgentRoutineEvent
                     {
                         AgentId = agent.Id,
-                        Routine = agent.GetProperty<AgentAiState>("Ai").Flee.FallbackRoutine
+                        Routine = flee.FallbackRoutine
                     });
                 }
                 // Set Agents Routine
