@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
             {
                 Id = -1,
                 PlayerId = details.Id,
-                ConnectionId = details.Data.ConnectionId,
+                ConnectionId = GetConnectionId(details),
                 Type = EntityType.PLAYER,
                 Position = new PositionState
                 {
@@ -32,6 +32,15 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
                 Data = details.Data,
                 TagList = new List<string> { "player" }
             };
+        }
+
+        private static string GetConnectionId(PlayerDetails details)
+        {
+            if (details.Data.ContainsKey("ConnectionId"))
+            {
+                return (string)details.Data["ConnectionId"];
+            }
+            return "";
         }
     }
 }

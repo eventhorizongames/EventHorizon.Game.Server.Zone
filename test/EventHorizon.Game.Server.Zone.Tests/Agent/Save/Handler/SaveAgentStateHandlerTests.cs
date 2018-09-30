@@ -23,10 +23,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var inputId1 = 123;
             var inputAgent1 = new AgentEntity
             {
-                Id = inputId1
+                Id = inputId1,
+                Data = new Dictionary<string, object>(),
             };
-            var inputAgentList = new List<AgentEntity>(){
-                inputAgent1
+            var inputAgentList = new List<AgentEntity>
+            {
+                inputAgent1,
             };
             var expectedContentRootPath = IOPath.Combine("some", "content", "path");
             var expectedDirectory = IOPath.Combine(expectedContentRootPath, "App_Data");

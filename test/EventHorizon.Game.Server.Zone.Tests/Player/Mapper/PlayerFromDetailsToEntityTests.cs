@@ -21,8 +21,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Mapper
             var expectedCurrentPosition = Vector3.Zero;
             var expectedCurrentZone = "current-zone";
             var expectedZoneTag = "zone-tag";
-            dynamic expectedData = new ExpandoObject();
-            expectedData.ConnectionId = expectedConnectionId;
+            var expectedData = new Dictionary<string, object>();
+            expectedData.Add("ConnectionId", expectedConnectionId);
 
             var expectedTag1 = "player";
             var input = new PlayerDetails

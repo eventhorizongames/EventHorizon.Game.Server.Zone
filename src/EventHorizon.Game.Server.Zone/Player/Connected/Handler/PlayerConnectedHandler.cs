@@ -49,7 +49,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                     throw new Exception("Player is not part of this server.");
                 }
                 // Create new Player
-                globalPlayer.Data.ConnectionId = notification.ConnectionId;
+                globalPlayer.Data["ConnectionId"] = notification.ConnectionId;
                 player = (Model.PlayerEntity)await _mediator.Send(new RegisterEntityEvent
                 {
                     Entity = PlayerFromDetailsToEntity.MapToNew(globalPlayer),

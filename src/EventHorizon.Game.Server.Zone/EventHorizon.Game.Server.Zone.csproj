@@ -37,8 +37,6 @@
     
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
-    
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai.Flee\EventHorizon.Game.Server.Zone.Agent.Ai.Flee.csproj" />
   </ItemGroup>
 
 </Project>

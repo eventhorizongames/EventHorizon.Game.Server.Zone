@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Dynamic;
 using EventHorizon.Game.Server.Zone.Agent.Handlers;
 using EventHorizon.Game.Server.Zone.Agent.Events;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {
@@ -22,7 +23,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var inputId = 123L;
             var inputAgent = new AgentEntity
             {
-                Id = inputId
+                Id = inputId,
+                Data = new Dictionary<string, object>()
             };
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(inputId))
