@@ -1,0 +1,1 @@
+dotnet test --filter Category!=Performance /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\
