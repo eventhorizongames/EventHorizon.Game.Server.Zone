@@ -1,6 +1,0 @@
-# Sample contents of .dockerignore file
-node_modules/
-bin/
-obj/
-!*.dll
-!bin/*/publish/*
