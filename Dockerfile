@@ -5,27 +5,22 @@ WORKDIR /source
 COPY NuGet.Config .
 COPY *.sln .
 COPY src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj ./src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj
+COPY src/EventHorizon.Game.Server.Zone.Agent/EventHorizon.Game.Server.Zone.Agent.csproj ./src/EventHorizon.Game.Server.Zone.Agent/EventHorizon.Game.Server.Zone.Agent.csproj
+COPY src/EventHorizon.Game.Server.Zone.Agent.Ai/EventHorizon.Game.Server.Zone.Agent.Ai.csproj ./src/EventHorizon.Game.Server.Zone.Agent.Ai/EventHorizon.Game.Server.Zone.Agent.Ai.csproj
 COPY src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj ./src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj
+COPY src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj ./src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj
 COPY src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj ./src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj
+
 COPY test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj
+COPY test/EventHorizon.Game.Server.Zone.Model.Tests/EventHorizon.Game.Server.Zone.Model.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Model.Tests/EventHorizon.Game.Server.Zone.Model.Tests.csproj
+
 RUN dotnet restore
 
 # copy and build everything else
-COPY after.EventHorizon.Game.Server.Zone.sln.targets .
-COPY Directory.Build.targets .
 COPY src/. ./src/
 COPY test/. ./test/
 
 RUN dotnet build
-
-# Details on how to use: https://github.com/dotnet/dotnet-docker-samples/tree/master/dotnetapp-dev
-FROM build AS testrunner
-WORKDIR /source
-ENTRYPOINT ["dotnet", "test", "--logger:trx", "/p:CollectCoverage=true", "/p:CoverletOutputFormat=lcov", "/p:CoverletOutput=./TestResults/lcov.info"]
-
-FROM build AS test
-WORKDIR /source/test
-RUN dotnet test
 
 FROM build AS publish
 WORKDIR /source
@@ -33,5 +28,5 @@ RUN dotnet publish --output bin/publish --configuration Release
 
 FROM microsoft/dotnet:2.1.3-aspnetcore-runtime AS runtime
 WORKDIR /app
-COPY --from=publish /source/src/bin/publish ./
+COPY --from=publish /source/src/EventHorizon.Game.Server.Zone/bin/publish ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]
