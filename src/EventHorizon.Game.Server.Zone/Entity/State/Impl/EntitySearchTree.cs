@@ -10,20 +10,24 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
 {
     public class EntitySearchTree : IEntitySearchTree
     {
-        public static Octree<SearchEntity> SEARCH_OCTREE = new Octree<SearchEntity>(Vector3.Zero, new Vector3(128, 128, 128), 0);
-        public void Update(SearchEntity searchEntity)
+        private Octree<SearchEntity> _searchOctree = new Octree<SearchEntity>(Vector3.Zero, new Vector3(128, 128, 128), 0);
+        public void Add(SearchEntity searchEntity)
         {
-            SEARCH_OCTREE.Add(searchEntity);
+            _searchOctree.Add(searchEntity);
+        }
+        public void Remove(SearchEntity entity)
+        {
+            _searchOctree.Remove(entity);
         }
 
         public void UpdateDimensions(Vector3 dimensions)
         {
-            var newSearchOctree = new Octree<SearchEntity>(Vector3.Zero, dimensions, 0);
-            foreach (var node in SEARCH_OCTREE.All())
+            var newSearchOctree = new Octree<SearchEntity>(new Vector3(-(dimensions.X / 2), -(dimensions.Y / 2), -(dimensions.Z / 2)), dimensions, 0);
+            foreach (var node in _searchOctree.All())
             {
                 newSearchOctree.Add(node);
             }
-            SEARCH_OCTREE = newSearchOctree;
+            _searchOctree = newSearchOctree;
         }
 
         /// <summary>
@@ -34,7 +38,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
         /// <returns></returns>
         public Task<IList<SearchEntity>> SearchInArea(Vector3 searchPositionCenter, float searchRadius)
         {
-            return Task.FromResult(SEARCH_OCTREE.FindNearbyPoints(searchPositionCenter, searchRadius));
+            return Task.FromResult(_searchOctree.FindNearbyPoints(searchPositionCenter, searchRadius));
         }
 
         /// <summary>

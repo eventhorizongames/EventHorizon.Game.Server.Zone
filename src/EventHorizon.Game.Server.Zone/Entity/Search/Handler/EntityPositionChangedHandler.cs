@@ -28,7 +28,8 @@ namespace EventHorizon.Game.Server.Zone.Entity.Search.Handler
 
         private void SendSearchEntityUpdate(IObjectEntity entity)
         {
-            _searchTree.Update(new SearchEntity(entity.Id, entity.Position.CurrentPosition, entity.TagList));
+            _searchTree.Remove(new SearchEntity(entity.Id, entity.Position.CurrentPosition, entity.TagList));
+            _searchTree.Add(new SearchEntity(entity.Id, entity.Position.CurrentPosition, entity.TagList));
         }
     }
 }

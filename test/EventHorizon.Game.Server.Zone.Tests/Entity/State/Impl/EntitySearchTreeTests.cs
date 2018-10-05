@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
     public class EntitySearchTreeTests
     {
         [Fact]
-        public void TestUpdate_ShouldAddExpectedSearchEntitiesToSearchTree()
+        public async Task TestAdd_ShouldAddExpectedSearchEntitiesToSearchTree()
         {
             // Given
             var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero, new List<string>());
@@ -19,12 +19,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(inputSearchEntity1);
-            entitySearchTree.Update(inputSearchEntity2);
+            entitySearchTree.Add(inputSearchEntity1);
+            entitySearchTree.Add(inputSearchEntity2);
+
+            var actual = await entitySearchTree.SearchInArea(Vector3.Zero, 9999);
 
             // Then
-            Assert.True(EntitySearchTree.SEARCH_OCTREE.Has(inputSearchEntity1));
-            Assert.True(EntitySearchTree.SEARCH_OCTREE.Has(inputSearchEntity2));
+            Assert.Collection(actual,
+                a => Assert.Equal(inputSearchEntity1, a),
+                a => Assert.Equal(inputSearchEntity2, a)
+            );
         }
         [Fact]
         public async Task TestSearchInArea_ShouldAllowForSearchingBasedOnPosition()
@@ -36,7 +40,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity);
+            entitySearchTree.Add(expectedSearchEntity);
             var entityList = await entitySearchTree.SearchInArea(inputSearchPositionCenter, inputSearchDistance);
 
             // Then
@@ -58,11 +62,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
-            entitySearchTree.Update(expectedSearchEntity3);
-            entitySearchTree.Update(expectedSearchEntity4);
-            entitySearchTree.Update(expectedSearchEntity5);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity3);
+            entitySearchTree.Add(expectedSearchEntity4);
+            entitySearchTree.Add(expectedSearchEntity5);
             var entityList = await entitySearchTree.SearchInArea(inputSearchPositionCenter, inputSearchDistance);
 
             // Then
@@ -91,11 +95,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
-            entitySearchTree.Update(expectedSearchEntity3);
-            entitySearchTree.Update(expectedSearchEntity4);
-            entitySearchTree.Update(inputSearchEntity5);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity3);
+            entitySearchTree.Add(expectedSearchEntity4);
+            entitySearchTree.Add(inputSearchEntity5);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
             var entityListByPlayer = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
             var entityListByPlayerAndEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
@@ -131,8 +135,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
@@ -152,8 +156,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithTag(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
@@ -178,11 +182,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
-            entitySearchTree.Update(expectedSearchEntity3);
-            entitySearchTree.Update(expectedSearchEntity4);
-            entitySearchTree.Update(inputSearchEntity5);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity3);
+            entitySearchTree.Add(expectedSearchEntity4);
+            entitySearchTree.Add(inputSearchEntity5);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
             var entityListByPlayer = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagPlayerList);
             var entityListByPlayerAndEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputFarSearchDistance, inputSearchTagEnemyAndPlayerList);
@@ -215,8 +219,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
@@ -236,15 +240,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(expectedSearchEntity1);
-            entitySearchTree.Update(expectedSearchEntity2);
+            entitySearchTree.Add(expectedSearchEntity1);
+            entitySearchTree.Add(expectedSearchEntity2);
             var entityListByEnemy = await entitySearchTree.SearchInAreaWithAllTags(inputSearchPositionCenter, inputSearchDistance, inputSearchTagEnemyList);
 
             // Then
             Assert.Empty(entityListByEnemy);
         }
         [Fact]
-        public void TestUpdate_ShouldUpdateEntityWhenCalledWithAMatchingId()
+        public async Task TestAdd_ShouldAddEntityWhenCalledWithAMatchingId()
         {
             // Given
             var expectedEntity1Position = new Vector3(321);
@@ -257,35 +261,39 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.State.Impl
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(inputSearchEntity1);
-            entitySearchTree.Update(inputSearchEntity2);
-            entitySearchTree.Update(inputAnotherSearchEntity2);
+            entitySearchTree.Add(inputSearchEntity1);
+            entitySearchTree.Add(inputSearchEntity2);
+            entitySearchTree.Add(inputAnotherSearchEntity2);
+
+            var actual = await entitySearchTree.SearchInArea(new Vector3(0), 9999);
 
             // Then
-            Assert.Collection(EntitySearchTree.SEARCH_OCTREE.All(),
+            Assert.Collection(actual,
                 a => Assert.Equal(expectedEntity1Position, a.Position),
                 a => Assert.Equal(expectedEntity2Position, a.Position)
             );
         }
         [Fact]
-        public void TestUpdateDimensions_ShouldRebuildSearchTreeWithNewDimensions()
+        public async Task TestUpdateDimensions_ShouldRebuildSearchTreeWithNewDimensions()
         {
             // Given
             var inputDimensions = new Vector3(100);
-            var priorSearchOctree = EntitySearchTree.SEARCH_OCTREE;
             var inputSearchEntity1 = new SearchEntity(1, Vector3.Zero, new List<string>());
             var inputSearchEntity2 = new SearchEntity(2, Vector3.Zero, new List<string>());
 
             // When
             var entitySearchTree = new EntitySearchTree();
-            entitySearchTree.Update(inputSearchEntity1);
-            entitySearchTree.Update(inputSearchEntity2);
+            entitySearchTree.Add(inputSearchEntity1);
+            entitySearchTree.Add(inputSearchEntity2);
             entitySearchTree.UpdateDimensions(inputDimensions);
 
+            var actual = await entitySearchTree.SearchInArea(new Vector3(0), 9999);
+
             // Then
-            Assert.True(EntitySearchTree.SEARCH_OCTREE.Has(inputSearchEntity1));
-            Assert.True(EntitySearchTree.SEARCH_OCTREE.Has(inputSearchEntity2));
-            Assert.NotEqual(priorSearchOctree, EntitySearchTree.SEARCH_OCTREE);
+            Assert.Collection(actual,
+                a => Assert.Equal(inputSearchEntity1, a),
+                a => Assert.Equal(inputSearchEntity2, a)
+            );
         }
     }
 }

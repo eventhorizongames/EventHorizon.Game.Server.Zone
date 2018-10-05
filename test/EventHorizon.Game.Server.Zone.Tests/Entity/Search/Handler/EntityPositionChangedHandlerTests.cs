@@ -17,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
     public class EntityPositionChangedHandlerTests
     {
         [Fact]
-        public async Task TestHandle_ShouldCallUpdateOnSearchTreeWhenEntityActionIsPosition()
+        public async Task TestHandle_ShouldCallAddOnSearchTreeWhenEntityActionIsPosition()
         {
             // Given
             var inputEntityAction = EntityAction.POSITION;
@@ -46,10 +46,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
             }, CancellationToken.None);
 
             // Then
-            entitySearchTreeMock.Verify(a => a.Update(new SearchEntity(expectedEntityId, expectedCurrentPosition, expectedTagList)));
+            entitySearchTreeMock.Verify(a => a.Add(new SearchEntity(expectedEntityId, expectedCurrentPosition, expectedTagList)));
         }
         [Fact]
-        public async Task TestHandle_ShouldNotCallUpdateOnSearchTreeWhenEntityActionIsNotPosition()
+        public async Task TestHandle_ShouldNotCallAddOnSearchTreeWhenEntityActionIsNotPosition()
         {
             // Given
             var inputEntityAction = EntityAction.ADD;
@@ -68,7 +68,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
             }, CancellationToken.None);
 
             // Then
-            entitySearchTreeMock.Verify(a => a.Update(It.IsAny<SearchEntity>()), Times.Never());
+            entitySearchTreeMock.Verify(a => a.Add(It.IsAny<SearchEntity>()), Times.Never());
         }
     }
 }

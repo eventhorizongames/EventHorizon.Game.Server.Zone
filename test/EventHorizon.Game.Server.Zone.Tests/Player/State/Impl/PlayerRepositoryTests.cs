@@ -9,9 +9,9 @@ using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.External.Entity;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
 
-namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
+namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
 {
-    public class PlayerTestingRepositoryTests
+    public class PlayerRepositoryTests
     {
         [Fact]
         public async Task TestFindById_ShouldReturnEntityFromRepositoryWhenFound()
@@ -32,26 +32,22 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             entityRepositoryMock.Setup(a => a.All()).ReturnsAsync(entityList);
 
             // When
-            var playerTestingRepository = new PlayerRepository(
+            var playerRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
-            var actual = await playerTestingRepository.FindById(inputPlayerId);
+            var actual = await playerRepository.FindById(inputPlayerId);
 
             // Then
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public async Task TestFindById_WhenPlayerIsNullShouldReturnNewEntityAndAddToRepository()
+        public async Task TestFindById_WhenPlayerIsNullShouldReturnDefaultEntityAndAddToRepository()
         {
             // Given
             var inputPlayerId = "123";
-            var expected = new PlayerEntity()
-            {
-                PlayerId = inputPlayerId,
-                Type = EntityType.PLAYER,
-            };
+            var expected = default(PlayerEntity);
             var entityList = new List<IObjectEntity>();
 
             var entityRepositoryMock = new Mock<IEntityRepository>();
@@ -59,15 +55,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             entityRepositoryMock.Setup(a => a.Add(It.IsAny<PlayerEntity>())).ReturnsAsync(expected);
 
             // When
-            var playerTestingRepository = new PlayerRepository(
+            var playerRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
-            var actual = await playerTestingRepository.FindById(inputPlayerId);
+            var actual = await playerRepository.FindById(inputPlayerId);
 
             // Then
             Assert.Equal(expected, actual);
-            entityRepositoryMock.Verify(a => a.Add(It.IsAny<PlayerEntity>()));
         }
 
         [Fact]
@@ -84,11 +79,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             var entityRepositoryMock = new Mock<IEntityRepository>();
 
             // When
-            var playerTestingRepository = new PlayerRepository(
+            var playerRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
-            await playerTestingRepository.Remove(input);
+            await playerRepository.Remove(input);
 
             // Then
             entityRepositoryMock.Verify(a => a.Remove(expectedId));
@@ -108,11 +103,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             var entityRepositoryMock = new Mock<IEntityRepository>();
 
             // When
-            var playerTestingRepository = new PlayerRepository(
+            var playerRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
-            await playerTestingRepository.Update(expectedAction, expected);
+            await playerRepository.Update(expectedAction, expected);
 
             // Then
             entityRepositoryMock.Verify(a => a.Update(expectedAction, expected));

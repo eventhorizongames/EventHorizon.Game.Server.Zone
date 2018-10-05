@@ -13,7 +13,7 @@ namespace EventHorizon.Game.Server.Zone.Math
     /// <typeparam name="T"></typeparam>
     public class Cell<T> where T : struct, IOctreeEntity
     {
-        private static readonly object UPDATE_LOCK = new object();
+        private readonly object UPDATE_LOCK = new object();
         private static int ALLOWED_POINTS = 8;
         public IDictionary<long, T> Points { get; }
         public IList<Cell<T>> Children { get; }
