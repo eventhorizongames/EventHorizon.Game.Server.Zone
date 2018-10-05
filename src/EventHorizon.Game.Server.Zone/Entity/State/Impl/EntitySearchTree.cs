@@ -10,7 +10,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
 {
     public class EntitySearchTree : IEntitySearchTree
     {
-        private Octree<SearchEntity> _searchOctree = new Octree<SearchEntity>(Vector3.Zero, new Vector3(128, 128, 128), 0);
+        private static Octree<SearchEntity> _searchOctree = new Octree<SearchEntity>(Vector3.Zero, new Vector3(128, 128, 128), 0);
         public void Add(SearchEntity searchEntity)
         {
             _searchOctree.Add(searchEntity);
@@ -18,6 +18,10 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
         public void Remove(SearchEntity entity)
         {
             _searchOctree.Remove(entity);
+        }
+        public void Reset()
+        {
+            _searchOctree = new Octree<SearchEntity>(Vector3.Zero, new Vector3(128, 128, 128), 0);
         }
 
         public void UpdateDimensions(Vector3 dimensions)
