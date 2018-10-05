@@ -4,7 +4,6 @@ using EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing;
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
-using EventHorizon.Game.Server.Zone.Player.State.Impl.Testing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,8 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Player
 
             if (configuration.GetValue<bool>("EnableTestingMode"))
             {
-                services.AddTransient<IPlayerRepository, PlayerTestingRepository>()
-                    .AddTransient<IPlayerConnectionFactory, PlayerTestingConnectionFactory>();
+                services.AddTransient<IPlayerConnectionFactory, PlayerTestingConnectionFactory>();
             }
 
             return services;

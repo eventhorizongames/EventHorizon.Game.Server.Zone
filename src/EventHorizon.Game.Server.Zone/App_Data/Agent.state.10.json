@@ -1,0 +1,383 @@
+{
+    "AgentList": [{
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }, {
+        "Name": "First Ever NPC",
+        "Position": {
+            "CurrentPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 52.0
+            },
+            "NextMoveRequest": "2018-10-02T21:02:55.8896873-05:00",
+            "MoveToPosition": {
+                "X": 44.0,
+                "Y": 0.0,
+                "Z": 48.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Speed": 1.0,
+        "Data": {
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
+            "Wander": {
+                "LookDistance": 25
+            },
+            "Flee": {
+                "SightDistance": 30,
+                "DistanceToRun": 30.0,
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
+                "TagList": ["player"]
+            }
+        }
+    }]
+}

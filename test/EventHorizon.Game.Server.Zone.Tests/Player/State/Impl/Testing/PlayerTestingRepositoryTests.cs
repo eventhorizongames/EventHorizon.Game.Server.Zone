@@ -5,9 +5,9 @@ using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Player.State.Impl.Testing;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.External.Entity;
+using EventHorizon.Game.Server.Zone.Player.State.Impl;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
 {
@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             entityRepositoryMock.Setup(a => a.All()).ReturnsAsync(entityList);
 
             // When
-            var playerTestingRepository = new PlayerTestingRepository(
+            var playerTestingRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
@@ -59,7 +59,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             entityRepositoryMock.Setup(a => a.Add(It.IsAny<PlayerEntity>())).ReturnsAsync(expected);
 
             // When
-            var playerTestingRepository = new PlayerTestingRepository(
+            var playerTestingRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
@@ -84,7 +84,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             var entityRepositoryMock = new Mock<IEntityRepository>();
 
             // When
-            var playerTestingRepository = new PlayerTestingRepository(
+            var playerTestingRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 
@@ -108,7 +108,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl.Testing
             var entityRepositoryMock = new Mock<IEntityRepository>();
 
             // When
-            var playerTestingRepository = new PlayerTestingRepository(
+            var playerTestingRepository = new PlayerRepository(
                 entityRepositoryMock.Object
             );
 

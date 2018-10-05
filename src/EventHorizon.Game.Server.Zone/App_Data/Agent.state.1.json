@@ -3,15 +3,15 @@
         "Name": "First Ever NPC",
         "Position": {
             "CurrentPosition": {
-                "X": 0.0,
+                "X": 48.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 40.0
             },
-            "NextMoveRequest": "2018-09-11T00:16:16.4915304-05:00",
+            "NextMoveRequest": "2018-10-02T19:18:25.193707-05:00",
             "MoveToPosition": {
-                "X": 0.0,
+                "X": 52.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 40.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -19,15 +19,21 @@
         "TagList": ["npc", "wandering", "weak"],
         "Speed": 1.0,
         "Data": {
-            "Routine": "IDLE",
-            "DefaultRoutine": "FLEE",
+            "Routine": {
+                "Type": "MOVE"
+            },
+            "DefaultRoutine": {
+                "Type": "FLEE"
+            },
             "Wander": {
                 "LookDistance": 25
             },
             "Flee": {
-                "SightDistance": 15,
+                "SightDistance": 30,
                 "DistanceToRun": 30.0,
-                "FallbackRoutine": "WANDER",
+                "FallbackRoutine": {
+                    "Type": "WANDER"
+                },
                 "TagList": ["player"]
             }
         }
