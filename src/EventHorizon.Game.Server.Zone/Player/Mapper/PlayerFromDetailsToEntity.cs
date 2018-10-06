@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
                     CurrentZone = details.Position.CurrentZone,
                     ZoneTag = details.Position.ZoneTag,
                 },
-                Data = details.Data,
+                RawData = details.Data,
                 TagList = new List<string> { "player" }
             };
         }

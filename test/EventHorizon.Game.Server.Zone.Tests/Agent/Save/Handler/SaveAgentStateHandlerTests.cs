@@ -24,7 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var inputAgent1 = new AgentEntity
             {
                 Id = inputId1,
-                Data = new Dictionary<string, object>(),
+                RawData = new Dictionary<string, object>(),
             };
             var inputAgentList = new List<AgentEntity>
             {

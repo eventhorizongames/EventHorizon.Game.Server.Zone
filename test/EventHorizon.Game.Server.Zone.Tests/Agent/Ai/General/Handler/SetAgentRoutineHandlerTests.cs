@@ -24,7 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var inputAgent = new AgentEntity
             {
                 Id = inputId,
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
             };
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(inputId))

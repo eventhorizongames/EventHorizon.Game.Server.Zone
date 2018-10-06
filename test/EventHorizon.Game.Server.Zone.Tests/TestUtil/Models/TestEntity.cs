@@ -15,11 +15,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Models
         public EntityType Type { get { return EntityType.OTHER; } }
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
-        public Dictionary<string, object> Data { get; set; }
 
-        public T GetProperty<T>(string prop)
+        private Dictionary<string, object> _data;
+        private Dictionary<string, object> _rawData;
+        public Dictionary<string, object> RawData
         {
-            return (T)Data[prop];
+            get
+            {
+                return _rawData ?? new Dictionary<string, object>();
+            }
+            set
+            {
+                _data = new Dictionary<string, object>();
+                _rawData = value;
+            }
+        }
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return _data ?? new Dictionary<string, object>();
+            }
         }
 
         public bool IsFound()

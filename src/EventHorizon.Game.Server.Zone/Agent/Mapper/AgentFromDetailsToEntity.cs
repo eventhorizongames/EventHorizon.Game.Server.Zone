@@ -30,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                     MoveToPosition = details.Position.CurrentPosition,
                 },
                 TagList = details.TagList,
-                Data = details.Data,
+                RawData = details.Data,
                 Speed = details.Speed,
             };
         }

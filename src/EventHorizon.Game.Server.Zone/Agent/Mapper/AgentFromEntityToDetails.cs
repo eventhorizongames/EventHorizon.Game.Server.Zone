@@ -1,5 +1,6 @@
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Mapper
@@ -14,7 +15,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                 Name = entity.Name,
                 Position = entity.Position,
                 TagList = entity.TagList,
-                Data = entity.Data,
+                Data = entity.AllData(),
                 Speed = entity.Speed,
             };
         }

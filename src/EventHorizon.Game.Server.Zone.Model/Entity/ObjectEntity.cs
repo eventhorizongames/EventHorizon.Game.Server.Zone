@@ -9,8 +9,8 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         EntityType Type { get; }
         PositionState Position { get; set; }
         IList<string> TagList { get; set; }
-        Dictionary<string, object> Data { get; set; }
-        T GetProperty<T>(string prop);
+        Dictionary<string, object> Data { get; }
+        Dictionary<string, object> RawData { get; set; }
 
         bool IsFound();
     }

@@ -6,6 +6,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.External.RandomNumber;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using MediatR;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
 {

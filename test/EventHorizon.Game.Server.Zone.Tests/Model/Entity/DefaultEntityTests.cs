@@ -17,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             var expectedType = EntityType.OTHER;
             var expectedPosition = default(PositionState);
             IList<string> expectedTagList = null;
-            dynamic expectedData = null;
+            Dictionary<string, object> expectedData = new Dictionary<string, object>();
 
             //When
             var actual = new DefaultEntity();
@@ -54,7 +54,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             //When
             var defaultEntity = new DefaultEntity()
             {
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
             };
             defaultEntity.Data["someProperty"] = expected;
             var actual = defaultEntity.GetProperty<string>("someProperty");
@@ -72,7 +72,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             //When
             var defaultEntity = new DefaultEntity()
             {
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
                 {
                     {
                         "SomeData",
@@ -80,6 +80,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
                     }
                 }
             };
+            defaultEntity.PopulateFromTempData<string>("SomeData");
             var model = defaultEntity.GetProperty<string>("SomeData");
             var actual = model;
 

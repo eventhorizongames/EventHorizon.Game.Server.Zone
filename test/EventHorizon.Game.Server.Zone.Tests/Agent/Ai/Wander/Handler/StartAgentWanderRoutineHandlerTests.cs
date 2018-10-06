@@ -18,6 +18,7 @@ using EventHorizon.Game.Server.Zone.Model.Map;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.External.RandomNumber;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
 {
@@ -57,7 +58,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
                 {
                     {
                         "Wander",
@@ -162,7 +163,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 {
                     CurrentPosition = inputCurrentPosition
                 },
-                Data = new Dictionary<string, object>() {
+                RawData = new Dictionary<string, object>() {
                     {
                         "Wander",
                         new AgentWanderState

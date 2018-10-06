@@ -1,4 +1,5 @@
 using EventHorizon.Game.Server.Core.Player.Model;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.Mapper
@@ -16,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
                     CurrentZone = entity.Position.CurrentZone,
                     ZoneTag = entity.Position.ZoneTag,
                 },
-                Data = entity.Data,
+                Data = entity.AllData(),
             };
         }
     }

@@ -11,6 +11,7 @@ using System.Dynamic;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Agent.Handlers;
 using EventHorizon.Game.Server.Zone.Agent.Events;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
 {
@@ -25,7 +26,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var agent = new AgentEntity
             {
                 Id = 123,
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
                 {
                     {
                         "DefaultRoutine",

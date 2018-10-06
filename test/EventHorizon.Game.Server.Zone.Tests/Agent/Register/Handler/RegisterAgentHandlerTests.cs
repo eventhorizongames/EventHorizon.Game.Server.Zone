@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Dynamic;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Agent.Events;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -29,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var expectedAgent = new AgentEntity
             {
                 Id = agentId,
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
                 {
                     {
                         "Routine",

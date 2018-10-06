@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 Name = expectedName,
                 Position = expectedPosition,
                 Speed = expectedSpeed,
-                Data = new Dictionary<string, object>()
+                RawData = new Dictionary<string, object>()
             };
             var expectedDetails = new AgentDetails
             {
