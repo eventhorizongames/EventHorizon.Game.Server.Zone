@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Map;
 
-namespace EventHorizon.Game.Server.Zone.Model.Tests.Map
+namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
 {
     public class MapNodeTests
     {

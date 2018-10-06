@@ -1,7 +1,7 @@
 using EventHorizon.Game.Server.Zone.Model.Map;
 using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.Model.Tests.Map
+namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
 {
     public class MapEdgeTests
     {
