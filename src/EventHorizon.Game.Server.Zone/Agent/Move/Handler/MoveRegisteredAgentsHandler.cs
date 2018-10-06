@@ -41,16 +41,25 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             {
                 if (agentIdList.Count() > 75)
                 {
-                    _logger.LogWarning("Agent  Movement List is over 75.");
+                    _logger.LogWarning("Agent Movement List is over 75.");
                 }
                 Parallel.ForEach(agentIdList, async (entityId) =>
                 {
                     using (var serviceScope = _serviceScopeFactory.CreateScope())
                     {
-                        await serviceScope.ServiceProvider.GetService<IMediator>().Publish(new MoveRegisteredAgentEvent
+                        var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+                        try
                         {
-                            AgentId = entityId
-                        });
+                            await mediator.Publish(new MoveRegisteredAgentEvent
+                            {
+                                AgentId = entityId
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "{EntityId} failed to Move.", entityId);
+                            _moveRepository.Remove(entityId);
+                        }
                     }
                 });
             }

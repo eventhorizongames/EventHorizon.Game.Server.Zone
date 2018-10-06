@@ -46,8 +46,6 @@ namespace EventHorizon.TimerService
                 return;
             }
 
-            // _logger.LogInformation("DELAYED: Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
-
             lock (timerState.LOCK)
             {
                 timerState.Guid = Guid.NewGuid();
