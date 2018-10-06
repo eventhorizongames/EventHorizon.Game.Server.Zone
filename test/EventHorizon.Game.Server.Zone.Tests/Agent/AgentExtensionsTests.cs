@@ -19,6 +19,7 @@ using System;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using System.Threading;
+using EventHorizon.TimerService;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {
@@ -49,7 +50,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(IMoveRegisteredAgentsTimer), service.ServiceType);
+                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
                     Assert.Equal(typeof(MoveRegisteredAgentsTimer), service.ImplementationType);
                 },
                 service =>
@@ -64,19 +65,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
         {
             // Given
             var expectedLoadZoneAgentStateEvent = new LoadZoneAgentStateEvent();
-            var expectedStartMoveRegisteredAgentsTimerEvent = new StartMoveRegisteredAgentsTimerEvent();
 
             var mediatorMock = new Mock<IMediator>();
 
             var serviceProviderMock = new Mock<IServiceProvider>();
             serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            
+
             var serviceScopeMock = new Mock<IServiceScope>();
             serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
 
             var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
             serviceScopeFactoryMock.Setup(a => a.CreateScope()).Returns(serviceScopeMock.Object);
-            
+
             var applicationServicesMock = new Mock<IServiceProvider>();
             applicationServicesMock.Setup(a => a.GetService(typeof(IServiceScopeFactory))).Returns(serviceScopeFactoryMock.Object);
 
@@ -88,7 +88,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
 
             // Then
             mediatorMock.Verify(mediator => mediator.Send(expectedLoadZoneAgentStateEvent, CancellationToken.None));
-            mediatorMock.Verify(mediator => mediator.Publish(expectedStartMoveRegisteredAgentsTimerEvent, CancellationToken.None));
         }
     }
 }

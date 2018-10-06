@@ -42,25 +42,37 @@ namespace EventHorizon.TimerService
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
-                _logger.LogWarning("Timer found that it was already running. Check for long running loop: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                _logger.LogWarning("Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
                 return;
             }
-            timerState.Guid = Guid.NewGuid();
-            timerState.IsRunning = true;
-            timerState.StartDate = DateTime.UtcNow;
-            using (var serviceScope = _serviceScopeFactory.CreateScope())
+
+            // _logger.LogInformation("DELAYED: Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+
+            lock (timerState.LOCK)
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(
-                    this._timerTask.OnRunEvent,
-                    CancellationToken.None
-                ).GetAwaiter().GetResult();
+                timerState.Guid = Guid.NewGuid();
+                timerState.IsRunning = true;
+                timerState.StartDate = DateTime.UtcNow;
+                using (var serviceScope = _serviceScopeFactory.CreateScope())
+                {
+                    serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+                        this._timerTask.OnRunEvent,
+                        CancellationToken.None
+                    ).GetAwaiter().GetResult();
+                }
+                if (DateTime.Now.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.Now.AddMilliseconds(_timerTask.Period)) > 0)
+                {
+                    _logger.LogWarning("Timer ran long; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                }
+                timerState.IsRunning = false;
+                timerState.StartDate = DateTime.UtcNow;
             }
-            timerState.IsRunning = false;
-            timerState.StartDate = DateTime.UtcNow;
         }
 
         public class TimerState
         {
+            public object LOCK { get; internal set; } = new object();
+            public string Id { get; internal set; } = Guid.NewGuid().ToString();
             public Guid Guid { get; internal set; }
             public bool IsRunning { get; set; }
             public DateTime StartDate { get; set; }

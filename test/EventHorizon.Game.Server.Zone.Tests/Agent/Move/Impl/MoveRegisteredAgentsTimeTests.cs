@@ -11,172 +11,21 @@ using static EventHorizon.Game.Server.Zone.Agent.Move.Impl.MoveRegisteredAgentsT
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Impl
 {
-    public class MoveRegisteredAgentsTimeTests : IDisposable
+    public class MoveRegisteredAgentsTimeTests
     {
-        MoveRegisteredAgentsTimer moveRegisteredAgentsTimer;
-        public void Dispose()
-        {
-            if (moveRegisteredAgentsTimer != null)
-            {
-                moveRegisteredAgentsTimer.Stop();
-            }
-        }
-
         [Fact]
         public void TestStart_ShouldPublishMoveRegisteredAgentsEventAfterSetAmountOfTime()
         {
             // Given
-            var expectedMoveRegisteredAgentsEvent = new MoveRegisteredAgentsEvent();
-
-            var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsTimer>>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.Setup(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
+            var expectedPeriod = 100;
+            var expectedEvent = new MoveRegisteredAgentsEvent();
 
             // When
-            moveRegisteredAgentsTimer = new MoveRegisteredAgentsTimer(
-                loggerMock.Object,
-                serviceScopeFactoryMock.Object
-            );
-
-            moveRegisteredAgentsTimer.Start();
-
-            // Wait 200 ms, this will allow for callback of timer to be called
-            // Callback should be ~100 ms
-            Thread.Sleep(125);
+            var actual = new MoveRegisteredAgentsTimer();
 
             // Then
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtLeast(1));
-        }
-
-        [Fact]
-        public void TestStop_ShouldStopMoveRegisteredAgentsEventAfterCalledToStop()
-        {
-            // Given
-            var expectedMoveRegisteredAgentsEvent = new MoveRegisteredAgentsEvent();
-
-            var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsTimer>>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.Setup(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
-
-            // When
-            moveRegisteredAgentsTimer = new MoveRegisteredAgentsTimer(
-                loggerMock.Object,
-                serviceScopeFactoryMock.Object
-            );
-
-            moveRegisteredAgentsTimer.Start();
-
-            // Wait 200 ms, this will allow for callback of timer to be called
-            // Callback should be ~100 ms
-            Thread.Sleep(90);
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtLeast(1));
-            Thread.Sleep(90);
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtMost(2));
-            moveRegisteredAgentsTimer.Stop(); // Call Stop
-
-            // Then
-            Thread.Sleep(125);
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtMost(2));
-            Thread.Sleep(125);
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtMost(2));
-            Thread.Sleep(125);
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtMost(2));
-        }
-
-        [Fact]
-        public void TestStop_ShouldNotThrowExceptionOnStopWhenNotStarted()
-        {
-            // Given
-            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsTimer>>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            // When
-            moveRegisteredAgentsTimer = new MoveRegisteredAgentsTimer(
-                loggerMock.Object,
-                serviceScopeFactoryMock.Object
-            );
-
-            moveRegisteredAgentsTimer.Stop();
-
-            // Then
-            Assert.True(true);
-        }
-
-        [Fact]
-        public void TestOnMoveRegisteredAgents_ShouldCallMoveRegisteredAgentsEventWhenCalled()
-        {
-            // Given
-            var inputTimerState = new TimerState();
-            var expectedMoveRegisteredAgentsEvent = new MoveRegisteredAgentsEvent();
-
-            var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsTimer>>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.Setup(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
-
-            // When
-            moveRegisteredAgentsTimer = new MoveRegisteredAgentsTimer(
-                loggerMock.Object,
-                serviceScopeFactoryMock.Object
-            );
-
-            moveRegisteredAgentsTimer.OnMoveRegisteredAgents(inputTimerState);
-
-            // Then
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.AtLeast(1));
-        }
-
-        [Fact]
-        public void TestOnMoveRegisteredAgents_ShouldLogWarningWhenTimerIsRuning()
-        {
-            // Given
-            var inputTimerState = new TimerState
-            {
-                IsRunning = true
-            };
-            var expectedMoveRegisteredAgentsEvent = new MoveRegisteredAgentsEvent();
-
-            var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsTimer>>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.Setup(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
-
-            // When
-            moveRegisteredAgentsTimer = new MoveRegisteredAgentsTimer(
-                loggerMock.Object,
-                serviceScopeFactoryMock.Object
-            );
-
-            moveRegisteredAgentsTimer.OnMoveRegisteredAgents(inputTimerState);
-
-            // Then
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentsEvent, CancellationToken.None), Times.Never());
+            Assert.Equal(expectedPeriod, actual.Period);
+            Assert.Equal(expectedEvent, actual.OnRunEvent);
         }
 
     }
