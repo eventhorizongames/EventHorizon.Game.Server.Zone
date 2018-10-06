@@ -137,7 +137,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             // Then
             loggerMock.Verify(logger => logger.Log(LogLevel.Warning,
                 It.IsAny<EventId>(),
-                It.Is<FormattedLogValues>(v => v.ToString().Contains("Agent  Movement List is over 75.")),
+                It.Is<FormattedLogValues>(v => v.ToString().Contains("Agent Movement List is over 75.")),
                 It.IsAny<Exception>(),
                 It.IsAny<Func<object, Exception, string>>()
             ));
