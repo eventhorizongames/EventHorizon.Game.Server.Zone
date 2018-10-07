@@ -13,8 +13,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.PopulateData.Handler
             var agent = request.Agent;
 
             // Move these to a Repository, and have them populated from plugins.
-            agent.PopulateFromTempData<AgentRoutine>("Routine");
-            agent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
+            agent.PopulateData<AgentRoutine>("Routine");
+            agent.PopulateData<AgentRoutine>("DefaultRoutine");
 
             return Task.CompletedTask;
         }

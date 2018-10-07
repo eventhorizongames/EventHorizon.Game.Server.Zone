@@ -34,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
                     }
                 }
             };
-            agent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
+            agent.PopulateData<AgentRoutine>("DefaultRoutine");
 
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(agent);
             var handler = new RunAgentDefaultRoutineHandler(mediatorMock.Object, agentRepositoryMock.Object);

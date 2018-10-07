@@ -42,8 +42,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentRoutine>("Routine");
-            expectedAgent.PopulateFromTempData<AgentRoutine>("DefaultRoutine");
+            expectedAgent.PopulateData<AgentRoutine>("Routine");
+            expectedAgent.PopulateData<AgentRoutine>("DefaultRoutine");
 
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {

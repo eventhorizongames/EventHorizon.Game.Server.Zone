@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Registered;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.Events.Entity.Data;
 using EventHorizon.Game.Server.Zone.External.Entity;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using MediatR;
@@ -24,6 +25,10 @@ namespace EventHorizon.Game.Server.Zone.Entity.Register.Handler
             // TODO: Add a validation of Registered Entity
             var entity = await _entityRepository.Add(notification.Entity);
             await _mediator.Publish(new EntityRegisteredEvent
+            {
+                Entity = entity,
+            });
+            await _mediator.Publish(new PopulateEntityDataEvent
             {
                 Entity = entity,
             });

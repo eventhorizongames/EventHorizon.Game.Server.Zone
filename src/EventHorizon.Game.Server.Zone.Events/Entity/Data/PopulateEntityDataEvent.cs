@@ -6,6 +6,6 @@ namespace EventHorizon.Game.Server.Zone.Events.Entity.Data
 {
     public struct PopulateEntityDataEvent : INotification
     {
-        public IObjectEntity Agent { get; set; }
+        public IObjectEntity Entity { get; set; }
     }
 }

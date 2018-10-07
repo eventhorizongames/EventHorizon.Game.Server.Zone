@@ -80,7 +80,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
                     }
                 }
             };
-            defaultEntity.PopulateFromTempData<string>("SomeData");
+            defaultEntity.PopulateData<string>("SomeData");
             var model = defaultEntity.GetProperty<string>("SomeData");
             var actual = model;
 

@@ -27,7 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         /// <param name="prop"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T PopulateFromTempData<T>(this IObjectEntity entity, string prop)
+        public static T PopulateData<T>(this IObjectEntity entity, string prop)
         {
             var rawData = entity.RawData;
             var data = entity.Data;

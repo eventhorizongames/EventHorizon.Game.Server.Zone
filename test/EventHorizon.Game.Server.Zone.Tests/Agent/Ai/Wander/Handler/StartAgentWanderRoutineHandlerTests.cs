@@ -69,7 +69,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentWanderState>("Wander");
+            expectedAgent.PopulateData<AgentWanderState>("Wander");
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
@@ -173,7 +173,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                     }
                 }
             };
-            expectedAgent.PopulateFromTempData<AgentWanderState>("Wander");
+            expectedAgent.PopulateData<AgentWanderState>("Wander");
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
