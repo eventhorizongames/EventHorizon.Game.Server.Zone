@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Editor.Model;
+using EventHorizon.Game.Server.Zone.External.Json;
 using MediatR;
 using Newtonsoft.Json;
 

@@ -1,4 +1,5 @@
 using System.Numerics;
+using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using MediatR;
 

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Editor.Model;
+using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Game.Server.Zone.Load;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;

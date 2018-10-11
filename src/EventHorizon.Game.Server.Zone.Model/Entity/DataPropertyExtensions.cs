@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
@@ -31,24 +32,29 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         {
             var rawData = entity.RawData;
             var data = entity.Data;
-            if (rawData[prop] is JObject)
+            if (!rawData.ContainsKey(prop))
+            {
+                data[prop] = default(T);
+            }
+            else if (rawData[prop] is JObject)
             {
                 var tempProp = (JObject)rawData[prop];
-                data.Add(prop, tempProp.ToObject<T>());
-                return entity.GetProperty<T>(prop);
+                data[prop] = tempProp.ToObject<T>();
             }
-            if (rawData[prop] is JToken)
+            else if (rawData[prop] is JToken)
             {
                 var tempProp = (JToken)rawData[prop];
-                data.Add(prop, tempProp.ToObject<T>());
-                return entity.GetProperty<T>(prop);
+                data[prop] = tempProp.ToObject<T>();
             }
-            if (rawData[prop] is T)
+            else if (rawData[prop] is T)
             {
-                data.Add(prop, rawData[prop]);
-                return entity.GetProperty<T>(prop);
+                data[prop] = rawData[prop];
             }
-            return default(T);
+            else
+            {
+                data[prop] = default(T);
+            }
+            return entity.GetProperty<T>(prop);
         }
 
         public static Dictionary<string, object> AllData(this IObjectEntity entity)

@@ -14,6 +14,7 @@ using EventHorizon.Game.Server.Zone.Agent.Startup.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.External.Json;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {

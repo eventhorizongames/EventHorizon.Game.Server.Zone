@@ -14,6 +14,8 @@ namespace EventHorizon.Game.Server.Zone.Plugin.State.Loader
 {
     public class ServerPluginLoader : PluginLoader
     {
+        public static readonly string EXPECTED_PLUGIN_EXT = ".dll";
+        
         readonly bool _inDebug;
         public ServerPluginLoader(
             bool inDebug)
@@ -26,7 +28,8 @@ namespace EventHorizon.Game.Server.Zone.Plugin.State.Loader
             var pluginList = new List<PluginStartupContainer>();
 
             var filePathList = Directory.GetFiles(
-                pluginDirectory);
+                pluginDirectory
+            ).Where(dir => EXPECTED_PLUGIN_EXT.Contains(IOPath.GetExtension(dir)));
 
             foreach (var filePath in filePathList)
             {

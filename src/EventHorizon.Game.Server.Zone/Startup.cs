@@ -14,6 +14,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
+using EventHorizon.Game.Server.Zone.Gui;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.State.Impl;
@@ -100,6 +101,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddServerSetup(Configuration);
             services.AddEntity();
             services.AddAgent(Configuration);
+            services.AddGui();
             services.AddServerAction();
 
             services.AddScheduler((sender, args) =>
@@ -110,6 +112,9 @@ namespace EventHorizon.Game.Server.Zone
             services.AddTimer();
 
             services.AddPlugins(HostingEnvironment);
+
+            // TODO: Remove this after done testing Combat System, move to Plugins
+            services.AddSystemCombat();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,7 +134,11 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSetupServer();
 
             app.UseAgent();
+            app.UseGui();
             app.UsePlugins();
+
+            // TODO: Remove this after done testing Combat System, move to Plugins
+            app.UseSystemCombat();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>

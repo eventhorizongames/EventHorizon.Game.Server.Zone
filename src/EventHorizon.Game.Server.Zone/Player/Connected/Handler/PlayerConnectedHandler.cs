@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
@@ -50,7 +51,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                 }
                 // Create new Player
                 globalPlayer.Data["ConnectionId"] = notification.ConnectionId;
-                player = (Model.PlayerEntity)await _mediator.Send(new RegisterEntityEvent
+                player = (PlayerEntity)await _mediator.Send(new RegisterEntityEvent
                 {
                     Entity = PlayerFromDetailsToEntity.MapToNew(globalPlayer),
                 });

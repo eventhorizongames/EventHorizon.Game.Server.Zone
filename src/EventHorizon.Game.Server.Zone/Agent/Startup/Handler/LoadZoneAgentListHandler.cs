@@ -6,6 +6,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Entity.Register;
+using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;

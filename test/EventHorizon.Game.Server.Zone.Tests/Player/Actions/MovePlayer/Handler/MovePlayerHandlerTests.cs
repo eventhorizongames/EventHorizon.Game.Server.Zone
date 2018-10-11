@@ -18,6 +18,7 @@ using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Game.Server.Zone.Model.Player;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {
