@@ -26,13 +26,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction
             Assert.Collection(serviceCollectionMock,
                 service =>
                 {
-                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
-                    Assert.Equal(typeof(RunServerActionsTimerTask), service.ImplementationType);
+                    Assert.Equal(typeof(IServerActionQueue), service.ServiceType);
+                    Assert.Equal(typeof(ServerActionQueue), service.ImplementationType);
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(IServerActionQueue), service.ServiceType);
-                    Assert.Equal(typeof(ServerActionQueue), service.ImplementationType);
+                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
+                    Assert.Equal(typeof(RunServerActionsTimerTask), service.ImplementationType);
                 }
             );
         }
