@@ -11,6 +11,9 @@ COPY src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Even
 COPY src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj ./src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj
 COPY src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj ./src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj
 
+# Embedded Plugins
+COPY src/EventHorizon.Plugin.Zone.System.Combat/EventHorizon.Plugin.Zone.System.Combat.csproj ./src/EventHorizon.Plugin.Zone.System.Combat/EventHorizon.Plugin.Zone.System.Combat.csproj
+
 COPY test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj
 
 RUN dotnet restore
