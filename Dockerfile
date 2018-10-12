@@ -12,7 +12,6 @@ COPY src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.Ex
 COPY src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj ./src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj
 
 COPY test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj
-COPY test/EventHorizon.Game.Server.Zone.Model.Tests/EventHorizon.Game.Server.Zone.Model.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Model.Tests/EventHorizon.Game.Server.Zone.Model.Tests.csproj
 
 RUN dotnet restore
 
