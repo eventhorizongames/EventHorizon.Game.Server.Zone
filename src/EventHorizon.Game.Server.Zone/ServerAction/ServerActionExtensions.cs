@@ -13,8 +13,8 @@ namespace EventHorizon.Game.Server.Zone.ServerAction
         public static void AddServerAction(this IServiceCollection services)
         {
             services
-                .AddSingleton<ITimerTask, RunServerActionsTimerTask>()
-                .AddSingleton<IServerActionQueue, ServerActionQueue>();
+                .AddSingleton<IServerActionQueue, ServerActionQueue>()
+                .AddSingleton<ITimerTask, RunServerActionsTimerTask>();
         }
     }
 }
