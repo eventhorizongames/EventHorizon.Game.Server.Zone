@@ -20,8 +20,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers
                     ControlId = "HealthBar",
                     Options = new GuiBar
                     {
-                        Percent = this.GetPercent(playerLifeState.Health, playerLifeState.MaxHealth),
-                        Text = $"{playerLifeState.Health} / {playerLifeState.MaxHealth}"
+                        Percent = this.GetPercent(playerLifeState.HealthPoints, playerLifeState.MaxHealthPoints),
+                        Text = $"{playerLifeState.HealthPoints} / {playerLifeState.MaxHealthPoints}"
                     }
                 }
             );
@@ -31,8 +31,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers
                     ControlId = "MagicBar",
                     Options = new GuiBar
                     {
-                        Percent = this.GetPercent(playerLifeState.Magic, playerLifeState.MaxMagic),
-                        Text = $"{playerLifeState.Magic} / {playerLifeState.MaxMagic}"
+                        Percent = this.GetPercent(playerLifeState.ActionPoints, playerLifeState.MaxActionPoints),
+                        Text = $"{playerLifeState.ActionPoints} / {playerLifeState.MaxActionPoints}"
                     }
                 }
             );

@@ -1,4 +1,9 @@
 using EventHorizon.Plugin.Zone.System.Combat.Events;
+using EventHorizon.Plugin.Zone.System.Combat.Life;
+using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Plugin.Zone.System.Combat.State;
+using EventHorizon.Plugin.Zone.System.Combat.Timer;
+using EventHorizon.TimerService;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -10,7 +15,11 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddSystemCombat(this IServiceCollection services)
         {
-            // services.AddMediatR(typeof(SystemCombatExtensions).Assembly);
+            services
+            .AddSingleton<IEntityQueue<UpdateEntityLife>, EntityQueue<UpdateEntityLife>>()
+            .AddTransient<ITimerTask, UpdateEntityLifeTimer>()
+            // .AddTransient<ITimerTask, UpdateEntityLevelTimer>()
+            .AddSingleton<ILifeStateChange, LifeStateChange>();
         }
         public static void UseSystemCombat(this IApplicationBuilder app)
         {
