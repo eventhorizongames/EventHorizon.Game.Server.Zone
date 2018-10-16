@@ -45,7 +45,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
             if (response.Success)
             {
                 await _mediator.Publish(
-                    new LevelStateUpdatedEvent
+                    new LevelUpSuccessfulEvent
                     {
                         EntityId = response.ChangedEntity.Id
                     }
@@ -57,6 +57,15 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
                         {
                             Details = response.ChangedEntity
                         }
+                    }
+                );
+            }
+            else
+            {
+                await _mediator.Publish(
+                    new LevelUpFailedEvent
+                    {
+                        EntityId = response.ChangedEntity.Id
                     }
                 );
             }

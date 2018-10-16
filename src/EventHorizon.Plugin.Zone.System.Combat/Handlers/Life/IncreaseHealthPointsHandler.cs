@@ -9,9 +9,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
 {
     public class IncreaseHealthPointsHandler : INotificationHandler<IncreaseHealthPointsEvent>
     {
-        readonly IEntityQueue<UpdateEntityLife> _entityQueue;
+        readonly IEntityQueue<ChangeEntityLife> _entityQueue;
         public IncreaseHealthPointsHandler(
-            IEntityQueue<UpdateEntityLife> entityQueue
+            IEntityQueue<ChangeEntityLife> entityQueue
         )
         {
             _entityQueue = entityQueue;
@@ -19,7 +19,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
 
         public async Task Handle(IncreaseHealthPointsEvent notification, CancellationToken cancellationToken)
         {
-            await _entityQueue.Enqueue(new UpdateEntityLife
+            await _entityQueue.Enqueue(new ChangeEntityLife
             {
                 EntityId = notification.EntityId,
                 Property = LifeProperty.HP,

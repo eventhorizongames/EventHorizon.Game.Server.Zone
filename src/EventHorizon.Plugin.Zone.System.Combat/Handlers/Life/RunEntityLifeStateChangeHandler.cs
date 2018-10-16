@@ -46,7 +46,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
             {
                 // Publish event Entity Life State Changed
                 await _mediator.Publish(
-                    new LifeStateUpdatedEvent
+                    new LifeStateChangedEvent
                     {
                         EntityId = response.ChangedEntity.Id
                     }

@@ -10,11 +10,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
     public class UpdateEntityLifeFromQueueHandler : INotificationHandler<UpdateEntityLifeFromQueueEvent>
     {
         readonly IMediator _mediator;
-        readonly IEntityQueue<UpdateEntityLife> _entityQueue;
+        readonly IEntityQueue<ChangeEntityLife> _entityQueue;
 
         public UpdateEntityLifeFromQueueHandler(
             IMediator mediator,
-            IEntityQueue<UpdateEntityLife> entityQueue)
+            IEntityQueue<ChangeEntityLife> entityQueue)
         {
             _mediator = mediator;
             _entityQueue = entityQueue;
@@ -23,7 +23,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
         public async Task Handle(UpdateEntityLifeFromQueueEvent notification, CancellationToken cancellationToken)
         {
             var currentEntity = await _entityQueue.Dequeue();
-            while (!currentEntity.Equals(UpdateEntityLife.NULL))
+            while (!currentEntity.Equals(ChangeEntityLife.NULL))
             {
                 await _mediator.Publish(
                     new RunEntityLifeStateChangeEvent

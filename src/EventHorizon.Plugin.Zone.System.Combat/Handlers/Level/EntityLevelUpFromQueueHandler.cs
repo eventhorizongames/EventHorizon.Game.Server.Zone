@@ -7,23 +7,23 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
 {
-    public class UpdateEntityLevelFromQueueHandler : INotificationHandler<UpdateEntityLevelFromQueueEvent>
+    public class EntityLevelUpFromQueueHandler : INotificationHandler<EntityLevelUpFromQueueEvent>
     {
         readonly IMediator _mediator;
-        readonly IEntityQueue<UpdateEntityLevel> _entityQueue;
+        readonly IEntityQueue<EntityLevelUp> _entityQueue;
 
-        public UpdateEntityLevelFromQueueHandler(
+        public EntityLevelUpFromQueueHandler(
             IMediator mediator,
-            IEntityQueue<UpdateEntityLevel> entityQueue)
+            IEntityQueue<EntityLevelUp> entityQueue)
         {
             _mediator = mediator;
             _entityQueue = entityQueue;
         }
 
-        public async Task Handle(UpdateEntityLevelFromQueueEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(EntityLevelUpFromQueueEvent notification, CancellationToken cancellationToken)
         {
             var currentEntity = await _entityQueue.Dequeue();
-            while (!currentEntity.Equals(UpdateEntityLevel.NULL))
+            while (!currentEntity.Equals(EntityLevelUp.NULL))
             {
                 await _mediator.Publish(
                     new RunLevelUpForEntityEvent

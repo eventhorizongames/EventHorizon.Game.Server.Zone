@@ -8,22 +8,22 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
 {
-    public class DecreaseHealthPointsHandler : INotificationHandler<DecreaseHealthPointsEvent>
+    public class DecreaseActionPointsHandler : INotificationHandler<DecreaseActionPointsEvent>
     {
         readonly IEntityQueue<ChangeEntityLife> _entityQueue;
-        public DecreaseHealthPointsHandler(
+        public DecreaseActionPointsHandler(
             IEntityQueue<ChangeEntityLife> entityQueue
         )
         {
             _entityQueue = entityQueue;
         }
 
-        public async Task Handle(DecreaseHealthPointsEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(DecreaseActionPointsEvent notification, CancellationToken cancellationToken)
         {
             await _entityQueue.Enqueue(new ChangeEntityLife
             {
                 EntityId = notification.EntityId,
-                Property = LifeProperty.HP,
+                Property = LifeProperty.AP,
                 // Make the points of the event negative (-)
                 Points = -notification.Points,
             });

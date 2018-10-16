@@ -1,4 +1,3 @@
-
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
@@ -8,24 +7,23 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
 {
-    public class DecreaseHealthPointsHandler : INotificationHandler<DecreaseHealthPointsEvent>
+    public class IncreaseActionPointsHandler : INotificationHandler<IncreaseActionPointsEvent>
     {
         readonly IEntityQueue<ChangeEntityLife> _entityQueue;
-        public DecreaseHealthPointsHandler(
+        public IncreaseActionPointsHandler(
             IEntityQueue<ChangeEntityLife> entityQueue
         )
         {
             _entityQueue = entityQueue;
         }
 
-        public async Task Handle(DecreaseHealthPointsEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(IncreaseActionPointsEvent notification, CancellationToken cancellationToken)
         {
             await _entityQueue.Enqueue(new ChangeEntityLife
             {
                 EntityId = notification.EntityId,
-                Property = LifeProperty.HP,
-                // Make the points of the event negative (-)
-                Points = -notification.Points,
+                Property = LifeProperty.AP,
+                Points = notification.Points,
             });
         }
     }
