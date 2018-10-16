@@ -18,6 +18,7 @@ using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using Microsoft.Extensions.Options;
 using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 
 namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
 {
@@ -81,9 +82,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 Player = player,
             });
 
-            await _mediator.Publish(new ClientActionEvent
+            await _mediator.Publish(new ClientActionEntityClientMoveEvent
             {
-                Action = "EntityClientMove",
                 Data = new EntityClientMoveData
                 {
                     EntityId = player.Id,

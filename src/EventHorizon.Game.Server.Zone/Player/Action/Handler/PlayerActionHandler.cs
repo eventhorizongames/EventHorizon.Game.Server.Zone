@@ -7,6 +7,7 @@ using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity;
 using EventHorizon.Game.Server.Zone.Player.State;
+using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
@@ -33,11 +34,28 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         MoveDirection = notification.Data
                     });
                     break;
+                // TODO: Test Action, Remove in future.
                 case PlayerActions.TESTING_PATH_ENTITY_TO_PLAYER:
                     await _mediator.Publish(new MoveEntityToPositionEvent
                     {
                         Position = player.Position.CurrentPosition,
                         EntityId = notification.Data
+                    });
+                    break;
+                // TODO: Test Action, Remove in future.
+                case PlayerActions.DECREASE_ENTITY_HP:
+                    await _mediator.Publish(new DecreaseHealthPointsEvent
+                    {
+                        EntityId = notification.Data.entityId,
+                        Points = notification.Data.points,
+                    });
+                    break;
+                // TODO: Test Action, Remove in future.
+                case PlayerActions.INCREASE_ENTITY_HP:
+                    await _mediator.Publish(new IncreaseHealthPointsEvent
+                    {
+                        EntityId = notification.Data.entityId,
+                        Points = notification.Data.points,
                     });
                     break;
             }

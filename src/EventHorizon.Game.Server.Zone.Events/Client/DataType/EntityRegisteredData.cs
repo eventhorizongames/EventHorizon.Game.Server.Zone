@@ -1,3 +1,4 @@
+using EventHorizon.Game.Server.Zone.Model.Client;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Client.DataType

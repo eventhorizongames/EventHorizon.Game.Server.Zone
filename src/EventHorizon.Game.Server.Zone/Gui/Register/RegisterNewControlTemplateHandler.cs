@@ -9,9 +9,8 @@ namespace EventHorizon.Game.Server.Zone.Gui.Register
 {
     public class RegisterNewControlTemplateHandler : INotificationHandler<RegisterControlTemplateEvent>
     {
-        readonly IMediator _mediator;
         readonly GuiState _guiState;
-        public RegisterNewControlTemplateHandler(IMediator mediator, GuiState guiState)
+        public RegisterNewControlTemplateHandler(GuiState guiState)
         {
             _guiState = guiState;
         }

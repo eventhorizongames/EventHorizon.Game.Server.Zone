@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
@@ -68,9 +69,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             };
             await _agentRepository.Update(EntityAction.POSITION, agent);
             // Send update to Client for Entity
-            await _mediator.Publish(new ClientActionEvent
+            await _mediator.Publish(new ClientActionEntityClientMoveEvent
             {
-                Action = "EntityClientMove",
                 Data = new EntityClientMoveData
                 {
                     EntityId = agentId,

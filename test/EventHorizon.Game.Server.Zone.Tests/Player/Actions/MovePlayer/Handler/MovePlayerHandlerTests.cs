@@ -19,6 +19,7 @@ using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {
@@ -186,9 +187,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             playerRepositoryMock.Verify(a => a.Update(PlayerAction.POSITION, actualUpdateEvent.Player));
 
-            mediatorMock.Verify(a => a.Publish(new ClientActionEvent
+            mediatorMock.Verify(a => a.Publish(new ClientActionEntityClientMoveEvent
             {
-                Action = "EntityClientMove",
                 Data = new EntityClientMoveData
                 {
                     EntityId = expectedEntityId,

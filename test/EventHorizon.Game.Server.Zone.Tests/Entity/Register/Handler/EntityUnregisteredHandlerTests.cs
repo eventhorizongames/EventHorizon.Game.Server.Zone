@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Entity.Registered;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
 {
@@ -32,9 +33,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
             }, CancellationToken.None);
 
             // Then
-            mediatorMock.Verify(a => a.Publish(new ClientActionEvent
+            mediatorMock.Verify(a => a.Publish(new ClientActionEntityUnregisteredEvent
             {
-                Action = "EntityUnregistered",
                 Data = new EntityUnregisteredData
                 {
                     EntityId = expectedEntityId

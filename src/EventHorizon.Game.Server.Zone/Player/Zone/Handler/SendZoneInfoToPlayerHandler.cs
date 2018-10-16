@@ -17,6 +17,7 @@ using EventHorizon.Game.Server.Zone.Gui;
 using EventHorizon.Game.Server.Zone.Gui.Get;
 using EventHorizon.Game.Server.Zone.Gui.Events;
 using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Game.Server.Zone.Player.Bus;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {

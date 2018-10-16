@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace EventHorizon.Game.Server.Zone.Player
+namespace EventHorizon.Game.Server.Zone.Player.Bus
 {
     [Authorize]
     public class PlayerHub : Hub
