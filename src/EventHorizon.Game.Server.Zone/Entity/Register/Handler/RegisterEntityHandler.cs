@@ -24,11 +24,11 @@ namespace EventHorizon.Game.Server.Zone.Entity.Register.Handler
         {
             // TODO: Add a validation of Registered Entity
             var entity = await _entityRepository.Add(notification.Entity);
-            await _mediator.Publish(new EntityRegisteredEvent
+            await _mediator.Publish(new PopulateEntityDataEvent
             {
                 Entity = entity,
             });
-            await _mediator.Publish(new PopulateEntityDataEvent
+            await _mediator.Publish(new EntityRegisteredEvent
             {
                 Entity = entity,
             });
