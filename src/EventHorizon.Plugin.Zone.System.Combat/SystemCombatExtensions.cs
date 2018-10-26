@@ -2,6 +2,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Events;
 using EventHorizon.Plugin.Zone.System.Combat.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.State;
 using EventHorizon.Plugin.Zone.System.Combat.Timer;
 using EventHorizon.TimerService;
@@ -28,6 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatSystemGuiEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatParticleSystemEvent()).GetAwaiter().GetResult();
             }
         }
     }

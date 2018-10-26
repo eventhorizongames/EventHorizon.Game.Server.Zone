@@ -18,6 +18,8 @@ using EventHorizon.Game.Server.Zone.Gui.Get;
 using EventHorizon.Game.Server.Zone.Gui.Events;
 using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
+using EventHorizon.Game.Server.Zone.Model.Particle;
+using EventHorizon.Game.Server.Zone.Particle.Fetch;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
@@ -52,7 +54,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
                 GuiLayout = await _mediator.Send(new GetGuiLayoutForPlayerEvent
                 {
                     Player = request.Player
-                })
+                }),
+                ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent())
             };
             await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
 
@@ -66,5 +69,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         public MapGraph Map { get; set; }
         public List<IObjectEntity> EntityList { get; set; }
         public GuiLayout GuiLayout { get; set; }
+        public IEnumerable<ParticleTemplate> ParticleTemplateList { get; set; }
     }
 }

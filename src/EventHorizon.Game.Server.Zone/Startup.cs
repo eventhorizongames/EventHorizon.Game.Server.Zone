@@ -15,6 +15,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Gui;
+using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Player.State;
@@ -103,6 +104,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddEntity();
             services.AddAgent(Configuration);
             services.AddGui();
+            services.AddParticle();
             services.AddServerAction();
 
             services.AddScheduler((sender, args) =>
@@ -136,6 +138,7 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseAgent();
             app.UseGui();
+            app.UseParticle();
             app.UsePlugins();
 
             // TODO: Remove this after done testing Combat System, move to Plugins
