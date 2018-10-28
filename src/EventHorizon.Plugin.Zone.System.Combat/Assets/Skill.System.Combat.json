@@ -5,50 +5,65 @@
         "type": "ACTIVE",
         "target": "ENTITY",
         "coolDown": 2000,
-        "areaOfEffect": false,
-        "minRange": 1,
-        "maxRange": 25,
-        "lineOfSight": true,
         "effectList": [{
                 "comment": "Freeze the Caster Entity. (adds a timed unfreeze event)",
                 "effect": "freeze_entity",
                 "target": "CASTER",
-                "durationType": "TIMED",
-                "data": "1000"
+                "data": {
+                    "durationType": "TIMED",
+                    "duration": 1000
+                }
             },
             {
-                "comment": "Drain the casters AP, if not enough ignore next.",
+                "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next.",
                 "effect": "modifier",
                 "target": "CASTER",
                 "validator": [{
-                    "validator": "target_not_caster",
-                    "amount": 1
+                    "validator": "target_not_caster"
                 }, {
                     "validator": "target_in_range",
-                    "amount": 1
+                    "data": {
+                        "min": 0,
+                        "max": 25
+                    }
                 }, {
-                    "validator": "target_has_cost_ap",
-                    "amount": 1
+                    "validator": "target_in_line_of_sight"
+                }, {
+                    "validator": "caster_has_cost",
+                    "data": {
+                        "propertyName": "LifeState",
+                        "valueProperty": "ActionPoints",
+                        "cost": 1
+                    }
                 }],
                 "modifier": [{
                     "modifier": "decrease_property",
-                    "modifierType": "AP",
-                    "modifierBase": 1
+                    "propertyName": "LifeState",
+                    "valueProperty": "ActionPoints",
+                    "modifierPropertyName": "LevelState",
+                    "modifierValueProperty": "ActionPointsLevel",
+                    "value": 1
                 }],
                 "next": [{
                     "comment": "Start the cast of Fire Skill animation",
                     "effect": "target_animation",
                     "target": "CASTER",
-                    "data": "fire_skill_at_target",
+                    "data": {
+                        "animation": "fire_skill_at_target"
+                    },
                     "validator": [{
                         "validator": "validate_hit",
-                        "amount": 80
+                        "data": {
+                            "amount": 80
+                        }
                     }],
                     "next": [{
                         "comment": "Create fire particle that will move from caster to target.",
                         "effect": "particle_caster_to_target",
                         "target": "TARGET",
-                        "data": "ranged_fire",
+                        "data": {
+                            "animation": "ranged_fire"
+                        },
                         "next": [{
                             "comment": "Make sure the fired particle hits target",
                             "effect": "modifier",
@@ -62,7 +77,9 @@
                                 "comment": "Set the target to hit animation.",
                                 "effect": "target_animation",
                                 "target": "TARGET",
-                                "data": "hit_for_damage"
+                                "data": {
+                                    "animation": "hit_for_damage"
+                                }
                             }]
                         }]
                     }],
@@ -74,7 +91,9 @@
                             "comment": "Create fire particle that will move from caster to target.",
                             "effect": "particle_caster_to_target",
                             "target": "TARGET",
-                            "data": "ranged_fire"
+                            "data": {
+                                "particleId": "ranged_fire"
+                            }
                         }]
                     }]
                 }]
