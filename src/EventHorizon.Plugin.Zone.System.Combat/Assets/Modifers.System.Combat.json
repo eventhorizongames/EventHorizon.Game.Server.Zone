@@ -1,0 +1,11 @@
+{
+    "modifierList": [{
+        "id": "decrease_property",
+        "state": "LifeState",
+        "property": "HP"
+    },{
+        "id": "increase_property",
+        "state": "LifeState",
+        "property": "HP"
+    }]
+}

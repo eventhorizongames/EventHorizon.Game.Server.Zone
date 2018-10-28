@@ -1,0 +1,62 @@
+{
+    "expectedSkillList": [{
+        "name": "Successful - Fire Ball",
+        "clientEvents": [{
+            "delayType": "TIMED",
+            "delay": 1000,
+            "eventType": "un_freeze_entity",
+            "data": {
+                "entityId": "<TARGET_ENTITY_ID>"
+            }
+        }, {
+            "delayType": "TIMED",
+            "delay": 0,
+            "eventType": "freeze_entity",
+            "data": {
+                "id": "<CASTER_ENTITY_ID>"
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "decrease_property_ap",
+            "data": {
+                "entityId": "<CASTER_ENTITY_ID>",
+                "amount": 1
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "start_entity_animation",
+            "data": {
+                "entityId": "<CASTER_ENTITY_ID>",
+                "animation": "fire_skill_at_target"
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "particle_to_entity",
+            "data": {
+                "startEntityId": "<CASTER_ENTITY_ID>",
+                "endingEntityId": "<TARGET_ENTITY_ID>",
+                "particleTemplateId": "ranged_fire"
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "decrease_property_hp",
+            "data": {
+                "entityId": "<TARGET_ENTITY_ID>",
+                "amount": 1
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "start_entity_animation",
+            "data": {
+                "entityId": "<TARGET_ENTITY_ID>",
+                "animation": "hit_for_damage"
+            }
+        }, {
+            "delayType": "NEXT",
+            "eventType": "un_freeze_entity",
+            "data": {
+                "entityId": "<TARGET_ENTITY_ID>"
+            }
+        }]
+    }]
+}
