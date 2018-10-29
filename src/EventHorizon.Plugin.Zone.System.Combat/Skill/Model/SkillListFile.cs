@@ -2,6 +2,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
     public struct SkillListFile
     {
-        public Skill[] SkillList { get; set; }
+        public SkillInstance[] SkillList { get; set; }
     }
 }

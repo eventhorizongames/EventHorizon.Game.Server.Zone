@@ -20,12 +20,12 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Level.Upgrade.Property
 
             return new LevelStateUpgradeResponse(true, entity);
         }
-        private bool EntityHasAvailableExperiencePointsForUpgrade(int entityExperience, int requiredExperience)
+        private bool EntityHasAvailableExperiencePointsForUpgrade(long entityExperience, long requiredExperience)
         {
             return entityExperience < requiredExperience;
         }
 
-        private int RequiredExperiencePointsForUpgrade(int level)
+        private long RequiredExperiencePointsForUpgrade(long level)
         {
             return level * 100;
         }

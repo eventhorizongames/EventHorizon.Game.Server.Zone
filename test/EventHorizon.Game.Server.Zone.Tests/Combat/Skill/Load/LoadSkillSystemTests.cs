@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Load
         {
             // Given
             var fileLoader = new JsonFileLoader();
-            var skillList = await fileLoader.GetFile<SkillListFile>(@"C:\Users\codya\Source\Repo\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Skill.System.Combat.json");
+            var skillList = await fileLoader.GetFile<SkillListFile>(@"C:\Users\codya\Source\Repo\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Combat.Skills.json");
 
             // When
             _testOutputHelper.WriteLine("Hello");

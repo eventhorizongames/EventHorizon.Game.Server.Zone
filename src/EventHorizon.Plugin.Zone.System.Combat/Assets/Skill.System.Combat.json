@@ -1,107 +1,71 @@
 {
-    "skillList": [{
-        "name": "Fire Ball",
-        "description": "Fire a flaming ball at a target.",
-        "type": "ACTIVE",
-        "target": "ENTITY",
-        "coolDown": 2000,
-        "effectList": [{
-                "comment": "Freeze the Caster Entity. (adds a timed unfreeze event)",
-                "effect": "freeze_entity",
-                "target": "CASTER",
-                "data": {
-                    "durationType": "TIMED",
-                    "duration": 1000
-                }
-            },
-            {
-                "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next.",
-                "effect": "modifier",
-                "target": "CASTER",
-                "validator": [{
-                    "validator": "target_not_caster"
-                }, {
-                    "validator": "target_in_range",
-                    "data": {
-                        "min": 0,
-                        "max": 25
-                    }
-                }, {
-                    "validator": "target_in_line_of_sight"
-                }, {
-                    "validator": "caster_has_cost",
-                    "data": {
-                        "propertyName": "LifeState",
-                        "valueProperty": "ActionPoints",
-                        "cost": 1
-                    }
-                }],
-                "modifier": [{
-                    "modifier": "decrease_property",
-                    "propertyName": "LifeState",
-                    "valueProperty": "ActionPoints",
-                    "modifierPropertyName": "LevelState",
-                    "modifierValueProperty": "ActionPointsLevel",
-                    "value": 1
-                }],
-                "next": [{
-                    "comment": "Start the cast of Fire Skill animation",
-                    "effect": "target_animation",
-                    "target": "CASTER",
-                    "data": {
-                        "animation": "fire_skill_at_target"
-                    },
-                    "validator": [{
-                        "validator": "validate_hit",
-                        "data": {
-                            "amount": 80
-                        }
-                    }],
-                    "next": [{
-                        "comment": "Create fire particle that will move from caster to target.",
-                        "effect": "particle_caster_to_target",
-                        "target": "TARGET",
-                        "data": {
-                            "animation": "ranged_fire"
-                        },
-                        "next": [{
-                            "comment": "Make sure the fired particle hits target",
-                            "effect": "modifier",
-                            "target": "TARGET",
-                            "modifier": [{
-                                "modifier": "decrease_property",
-                                "modifierType": "HP",
-                                "modifierBase": 1
-                            }],
-                            "next": [{
-                                "comment": "Set the target to hit animation.",
-                                "effect": "target_animation",
-                                "target": "TARGET",
-                                "data": {
-                                    "animation": "hit_for_damage"
-                                }
-                            }]
-                        }]
-                    }],
-                    "failed": [{
-                        "comment": "Failed to hit target, so choose a location to hit that is not target.",
-                        "effect": "fire_skill_at_target_offset",
-                        "target": "TARGET",
-                        "next": [{
-                            "comment": "Create fire particle that will move from caster to target.",
-                            "effect": "particle_caster_to_target",
-                            "target": "TARGET",
-                            "data": {
-                                "particleId": "ranged_fire"
-                            }
-                        }]
-                    }]
-                }]
-            }, {
-                "comment": "At end of skill unfreeze the movement of the caster.",
-                "effect": "un_freeze_entity",
-                "target": "CASTER"
-            }
-        ]
+    "modifierList": [{
+            "id": "decrease_property",
+            "state": "LifeState",
+            "property": "HP"
+        },
+        {
+            "id": "increase_property",
+            "state": "LifeState",
+            "property": "HP"
+        }
+    ],
+    "validatorList": [],
+    "clientScriptList": [{
+        "comment": "not_done",
+        "id": "freeze_entity",
+        "scriptFile": "ClientFreezeEntity.js"
+    }, {
+        "comment": "not_done",
+        "id": "un_freeze_entity",
+        "scriptFile": "ClientUnFreezeEntity.js"
+    }, {
+        "comment": "not_done",
+        "id": "decrease_property",
+        "scriptFile": "ClientDecreaseProperty.js"
+    }, {
+        "comment": "not_done",
+        "id": "start_entity_direction_animation",
+        "scriptFile": "ClientStartEntityDirectionAnimation.js"
+    }, {
+        "comment": "not_done",
+        "id": "particle_to_entity",
+        "scriptFile": "ClientParticleToEntity.js"
+    }, {
+        "comment": "not_done",
+        "id": "start_entity_animation",
+        "scriptFile": "ClientStartEntityAnimation.js"
+    }],
+    "effectList": [{
+        "id": "freeze_caster",
+        "serverScriptFile": "ServerFreezeCaster.csx"
+    }, {
+        "id": "delayed_un_freeze_caster",
+        "serverScriptFile": "ServerDelayedUnFreezeCaster.csx"
+    }, {
+        "id": "decrease_caster_property",
+        "serverScriptFile": "ServerDecreaseCasterProperty.csx"
+    }, {
+        "id": "validator_effect",
+        "serverScriptFile": "ServerValidatorEffect.csx"
+    }, {
+        "id": "start_animation_from_caster_to_target",
+        "serverScriptFile": "ServerStartAnimationFromCasterToTarget.csx"
+    }, {
+        "id": "un_freeze_caster",
+        "serverScriptFile": "ServerUnFreezeCaster.csx"
+    }, {
+        "id": "particle_caster_to_target",
+        "serverScriptFile": "ServerParticleCasterToTarget.csx"
+    }, {
+        "id": "decrease_target_property",
+        "serverScriptFile": "ServerDecreaseTargetProperty.csx"
+    }, {
+        "id": "start_target_animation",
+        "serverScriptFile": "ServerStartTargetAnimation.csx"
+    }, {
+        "comment": "not_done",
+        "id": "start_animation_from_caster_to_target_offset",
+        "serverScriptFile": "ServerStartAnimationFromCasterToTargetOffset.csx"
     }]
 }

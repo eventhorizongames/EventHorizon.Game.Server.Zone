@@ -1,6 +1,6 @@
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
-    public struct Skill
+    public struct SkillInstance
     {
         public string Name { get; set; }
         public string Description { get; set; }
