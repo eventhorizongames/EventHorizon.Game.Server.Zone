@@ -73,7 +73,8 @@
                             "comment": "Create fire particle that will move from caster to target.",
                             "effect": "particle_caster_to_target",
                             "data": {
-                                "particleTemplateId": "ranged_fire"
+                                "particleTemplateId": "ranged_fire",
+                                "duration": 500
                             },
                             "next": [{
                                     "comment": "Make sure the fired particle hits target",

@@ -5,7 +5,7 @@ var actionData = new
 
 var action = new ClientSkillActionEvent
 {
-    Delay = (Int64) Data["delay"],
+    Delay = (long) Data["delay"],
     Action = "un_freeze_entity",
     Data = actionData
 };

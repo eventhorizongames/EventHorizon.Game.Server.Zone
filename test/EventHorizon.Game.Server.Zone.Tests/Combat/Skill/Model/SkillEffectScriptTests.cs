@@ -35,7 +35,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             //When
             var effectScript = new SkillEffectScript
             {
-                ServerScriptFile = "ServerFreezeEntity.csx"
+                ScriptFile = "FreezeEntity.csx"
             };
             effectScript.CreateScript(
                 @"C:\Repos\EventHorizon.Game\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Scripts\Effects"

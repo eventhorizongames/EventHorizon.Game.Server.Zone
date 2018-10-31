@@ -3,12 +3,14 @@
         "name": "Successful - Fire Ball",
         "clientEvents": [{
                 "action": "freeze_entity",
+                "duration": 0,
                 "data": {
                     "id": "<CASTER_ENTITY_ID>"
                 },
                 "next": [{
-                    "delay": 1000,
                     "action": "un_freeze_entity",
+                    "delay": 500,
+                    "duration": 0,
                     "data": {
                         "id": "<CASTER_ENTITY_ID>"
                     }
@@ -16,14 +18,16 @@
             },
             {
                 "action": "decrease_property",
+                "duration": 0,
                 "data": {
                     "entityId": "<CASTER_ENTITY_ID>",
-                    "propertyName": "LifeState",
-                    "valueProperty": "ActionPoints",
+                    "propertyName": "lifeState",
+                    "valueProperty": "actionPoints",
                     "amount": 1
                 },
                 "next": [{
                         "action": "start_entity_direction_animation",
+                        "duration": 50,
                         "data": {
                             "entityId": "<CASTER_ENTITY_ID>",
                             "directionEntityId": "<TARGET_ENTITY_ID>",
@@ -31,6 +35,7 @@
                         },
                         "next": [{
                             "action": "un_freeze_entity",
+                            "duration": 0,
                             "data": {
                                 "id": "<CASTER_ENTITY_ID>"
                             }
@@ -38,6 +43,7 @@
                     },
                     {
                         "action": "particle_to_entity",
+                        "duration": 500,
                         "data": {
                             "startEntityId": "<CASTER_ENTITY_ID>",
                             "endingEntityId": "<TARGET_ENTITY_ID>",
@@ -45,6 +51,7 @@
                         },
                         "next": [{
                                 "action": "decrease_property",
+                                "duration": 0,
                                 "data": {
                                     "entityId": "<TARGET_ENTITY_ID>",
                                     "propertyName": "LifeState",
@@ -54,6 +61,7 @@
                             },
                             {
                                 "action": "start_entity_animation",
+                                "duration": 0,
                                 "data": {
                                     "entityId": "<TARGET_ENTITY_ID>",
                                     "animation": "hit_for_damage"

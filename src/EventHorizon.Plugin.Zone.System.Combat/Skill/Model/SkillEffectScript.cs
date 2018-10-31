@@ -13,7 +13,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
     public struct SkillEffectScript
     {
         public string Id { get; set; }
-        public string ServerScriptFile { get; set; }
+        public string ScriptFile { get; set; }
         public string ClientScriptFile { get; set; }
         private ScriptRunner<List<ClientSkillActionEvent>> _runner;
 
@@ -24,11 +24,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 
                 var scriptOptions = ScriptOptions
                     .Default
-                    // .WithReferences(typeof(IObjectEntity).Assembly)
-                    // .WithImports("System.Collections.Generic")
-                    // .WithReferences(typeof(IObjectEntity).Assembly)
-                    // .WithImports("EventHorizon.Game.Server.Zone.Model.Entity")
-                    // TODO: Make this a Object data based Client Action event.
                     .WithReferences(typeof(ClientSkillActionEvent).Assembly)
                     .WithImports(
                         "System",
@@ -39,17 +34,14 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 
                 _runner = CSharpScript
                     .Create<List<ClientSkillActionEvent>>(
-                        "// Skill Effect Script Generated",
+                        File.OpenText(
+                            Path.Combine(
+                                scriptFolder,
+                                ScriptFile
+                            )
+                        ).ReadToEnd(),
                         scriptOptions,
-                        globalsType : typeof(SkillEffectScriptData))
-                    // .ContinueWith<List<ClientSkillActionEvent>>("using System;")
-                    // .ContinueWith<List<ClientSkillActionEvent>>("using System.Collections.Generic;")
-                    .ContinueWith<List<ClientSkillActionEvent>>(File.OpenText(
-                        Path.Combine(
-                            scriptFolder,
-                            ServerScriptFile
-                        )
-                    ).ReadToEnd())
+                        typeof(SkillEffectScriptData))
                     .CreateDelegate();
             }
             catch (Exception ex)

@@ -11,61 +11,61 @@
         }
     ],
     "validatorList": [],
-    "clientScriptList": [{
+    "actionList": [{
         "comment": "not_done",
         "id": "freeze_entity",
-        "scriptFile": "ClientFreezeEntity.js"
+        "scriptFile": "FreezeEntity.js"
     }, {
         "comment": "not_done",
         "id": "un_freeze_entity",
-        "scriptFile": "ClientUnFreezeEntity.js"
+        "scriptFile": "UnFreezeEntity.js"
     }, {
         "comment": "not_done",
         "id": "decrease_property",
-        "scriptFile": "ClientDecreaseProperty.js"
+        "scriptFile": "DecreaseProperty.js"
     }, {
         "comment": "not_done",
         "id": "start_entity_direction_animation",
-        "scriptFile": "ClientStartEntityDirectionAnimation.js"
+        "scriptFile": "StartEntityDirectionAnimation.js"
     }, {
         "comment": "not_done",
         "id": "particle_to_entity",
-        "scriptFile": "ClientParticleToEntity.js"
+        "scriptFile": "ParticleToEntity.js"
     }, {
         "comment": "not_done",
         "id": "start_entity_animation",
-        "scriptFile": "ClientStartEntityAnimation.js"
+        "scriptFile": "StartEntityAnimation.js"
     }],
     "effectList": [{
         "id": "freeze_caster",
-        "serverScriptFile": "ServerFreezeCaster.csx"
+        "scriptFile": "FreezeCaster.csx"
     }, {
         "id": "delayed_un_freeze_caster",
-        "serverScriptFile": "ServerDelayedUnFreezeCaster.csx"
+        "scriptFile": "DelayedUnFreezeCaster.csx"
     }, {
         "id": "decrease_caster_property",
-        "serverScriptFile": "ServerDecreaseCasterProperty.csx"
+        "scriptFile": "DecreaseCasterProperty.csx"
     }, {
         "id": "validator_effect",
-        "serverScriptFile": "ServerValidatorEffect.csx"
+        "scriptFile": "ValidatorEffect.csx"
     }, {
         "id": "start_animation_from_caster_to_target",
-        "serverScriptFile": "ServerStartAnimationFromCasterToTarget.csx"
+        "scriptFile": "StartAnimationFromCasterToTarget.csx"
     }, {
         "id": "un_freeze_caster",
-        "serverScriptFile": "ServerUnFreezeCaster.csx"
+        "scriptFile": "UnFreezeCaster.csx"
     }, {
         "id": "particle_caster_to_target",
-        "serverScriptFile": "ServerParticleCasterToTarget.csx"
+        "scriptFile": "ParticleCasterToTarget.csx"
     }, {
         "id": "decrease_target_property",
-        "serverScriptFile": "ServerDecreaseTargetProperty.csx"
+        "scriptFile": "DecreaseTargetProperty.csx"
     }, {
         "id": "start_target_animation",
-        "serverScriptFile": "ServerStartTargetAnimation.csx"
+        "scriptFile": "StartTargetAnimation.csx"
     }, {
         "comment": "not_done",
         "id": "start_animation_from_caster_to_target_offset",
-        "serverScriptFile": "ServerStartAnimationFromCasterToTargetOffset.csx"
+        "scriptFile": "StartAnimationFromCasterToTargetOffset.csx"
     }]
 }
