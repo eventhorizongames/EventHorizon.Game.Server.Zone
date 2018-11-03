@@ -5,6 +5,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Life.Change
 {
     public interface IChangeLifeProperty
     {
-        LifeStateChangeResponse Change(IObjectEntity entity, int points);
+        LifeStateChangeResponse Change(IObjectEntity entity, long points);
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,11 @@ namespace EventHorizon.TimerService
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly ITimerTask _timerTask;
 
-        public TimerWrapper(ILogger logger, IServiceScopeFactory serviceScopeFactory, ITimerTask timerTask)
+        public TimerWrapper(
+            ILogger logger,
+            IServiceScopeFactory serviceScopeFactory,
+            ITimerTask timerTask
+        )
         {
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
@@ -38,7 +43,7 @@ namespace EventHorizon.TimerService
 
         public void OnRunTask(object state)
         {
-            var timerState = (TimerState)state;
+            var timerState = (TimerState) state;
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
@@ -46,19 +51,19 @@ namespace EventHorizon.TimerService
                 return;
             }
 
-            lock (timerState.LOCK)
+            lock(timerState.LOCK)
             {
                 timerState.Guid = Guid.NewGuid();
                 timerState.IsRunning = true;
                 timerState.StartDate = DateTime.UtcNow;
-                using (var serviceScope = _serviceScopeFactory.CreateScope())
+                using(var serviceScope = _serviceScopeFactory.CreateScope())
                 {
                     serviceScope.ServiceProvider.GetService<IMediator>().Publish(
                         this._timerTask.OnRunEvent,
                         CancellationToken.None
                     ).GetAwaiter().GetResult();
                 }
-                if (DateTime.Now.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.Now.AddMilliseconds(_timerTask.Period)) > 0)
+                if (DateTime.UtcNow.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.UtcNow.AddMilliseconds(_timerTask.Period)) > 0)
                 {
                     _logger.LogWarning("Timer ran long; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
                 }

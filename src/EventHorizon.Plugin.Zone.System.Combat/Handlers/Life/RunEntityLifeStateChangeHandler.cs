@@ -51,15 +51,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Life
                         EntityId = response.ChangedEntity.Id
                     }
                 );
-                await _mediator.Publish(
-                    new ClientActionEntityClientChangedEvent
-                    {
-                        Data = new EntityChangedData
-                        {
-                            Details = response.ChangedEntity
-                        }
-                    }
-                );
             }
         }
     }

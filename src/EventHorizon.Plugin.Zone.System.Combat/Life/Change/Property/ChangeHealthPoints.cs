@@ -7,7 +7,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Life.Change.Property
 {
     public class ChangeHealthPoints : IChangeLifeProperty
     {
-        public LifeStateChangeResponse Change(IObjectEntity entity, int points)
+        public LifeStateChangeResponse Change(IObjectEntity entity, long points)
         {
             var entityLifeState = entity.GetProperty<LifeState>(LifeState.PROPERTY_NAME);
 

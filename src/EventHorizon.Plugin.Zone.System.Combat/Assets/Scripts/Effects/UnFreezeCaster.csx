@@ -1,3 +1,11 @@
+// Stop the movement of the Caster Entity on the Server
+Services.Mediator.Publish(
+    new EntityCanMoveEvent
+    {
+        Id = Caster.Id
+    }
+);
+
 var freezeActionData = new
 {
     Id = Caster.Id

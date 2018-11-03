@@ -1,13 +1,11 @@
 using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Model.Client;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction
 {
-    public struct ClientSkillActionEvent
+    public struct ClientSkillActionEvent : IClientActionData
     {
-        public long Duration { get; set; }
-        public long Delay { get; set; }
         public string Action { get; set; }
         public object Data { get; set; }
-        public List<ClientSkillActionEvent> Next { get; set; }
     }
 }

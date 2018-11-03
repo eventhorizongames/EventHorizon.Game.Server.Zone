@@ -7,30 +7,38 @@ using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Map;
-using EventHorizon.Game.Server.Zone.Model.Structure;
 using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Game.Server.Zone.Model.Structure;
 using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using Microsoft.Extensions.Options;
-using EventHorizon.Game.Server.Zone.Events.Map;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 
 namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
 {
     public class MovePlayerHandler : IRequestHandler<MovePlayerEvent, Vector3>
     {
         readonly IMediator _mediator;
+        readonly IDateTimeService _dateTime;
         readonly ZoneMap _zoneMap;
         readonly IPlayerRepository _playerRepository;
 
-        public MovePlayerHandler(IMediator mediator, IZoneMapFactory zoneMapFactory, IPlayerRepository playerRepository)
+        public MovePlayerHandler(
+            IMediator mediator,
+            IDateTimeService dateTime,
+            IZoneMapFactory zoneMapFactory,
+            IPlayerRepository playerRepository
+        )
         {
             _mediator = mediator;
+            _dateTime = dateTime;
             _zoneMap = zoneMapFactory.Map;
             _playerRepository = playerRepository;
         }
@@ -38,7 +46,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
         public async Task<Vector3> Handle(MovePlayerEvent request, CancellationToken cancellationToken)
         {
             var player = request.Player;
-            if (player.Position.NextMoveRequest.CompareTo(DateTime.Now) >= 0)
+            // Player time to move has not expired or can is not set to Move, ignore request
+            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0 || player.Position.CanMove)
             {
                 return player.Position.MoveToPosition;
             }
@@ -72,7 +81,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
             {
                 CurrentPosition = player.Position.MoveToPosition,
                 MoveToPosition = moveTo,
-                NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
+                NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                 CurrentZone = player.Position.CurrentZone,
                 ZoneTag = player.Position.ZoneTag,
             };
@@ -87,7 +96,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 Data = new EntityClientMoveData
                 {
                     EntityId = player.Id,
-                    MoveTo = moveTo
+                        MoveTo = moveTo
                 },
             });
 

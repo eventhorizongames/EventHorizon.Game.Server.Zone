@@ -9,7 +9,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Life
 {
     public class LifeStateChange : ILifeStateChange
     {
-        private static IDictionary<LifeProperty, IChangeLifeProperty> _changeLifePropertyList = new Dictionary<LifeProperty, IChangeLifeProperty>()
+        private static IDictionary<string, IChangeLifeProperty> _changeLifePropertyList = new Dictionary<string, IChangeLifeProperty>()
         {
             {
                 LifeProperty.HP,
@@ -21,7 +21,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Life
             },
         };
 
-        public LifeStateChangeResponse Change(IObjectEntity entity, LifeProperty property, int points)
+        public LifeStateChangeResponse Change(IObjectEntity entity, string property, long points)
         {
             return _changeLifePropertyList[property].Change(entity, points);
         }

@@ -14,29 +14,30 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
     {
         public string Id { get; set; }
         public string ScriptFile { get; set; }
-        public string ClientScriptFile { get; set; }
         private ScriptRunner<List<ClientSkillActionEvent>> _runner;
 
-        public void CreateScript(string scriptFolder)
+        public void CreateScript(string scriptPath)
         {
             try
             {
-
                 var scriptOptions = ScriptOptions
                     .Default
                     .WithReferences(typeof(ClientSkillActionEvent).Assembly)
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
-                        "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction",
-                        "EventHorizon.Game.Server.Zone.Model.Entity"
+                        "EventHorizon.Game.Server.Zone.Model.Entity",
+                        "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
+                        // TODO: Move all subnamespace Combat Events into root Events namespace
+                        "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
+                        "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
                 _runner = CSharpScript
                     .Create<List<ClientSkillActionEvent>>(
                         File.OpenText(
                             Path.Combine(
-                                scriptFolder,
+                                scriptPath,
                                 ScriptFile
                             )
                         ).ReadToEnd(),
@@ -53,16 +54,22 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             }
         }
         public async Task<List<ClientSkillActionEvent>> Run(
+            IMediator mediator,
             IObjectEntity caster,
             IObjectEntity target,
             IDictionary<string, object> data)
         {
             try
             {
+                var services = new SkillEffectScriptServicesData
+                {
+                    Mediator = mediator
+                };
                 return await _runner(
                     new SkillEffectScriptData
                     {
-                        Caster = caster,
+                        Services = services,
+                            Caster = caster,
                             Target = target,
                             Data = data
                     });
@@ -78,9 +85,14 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 
         public class SkillEffectScriptData
         {
+            public SkillEffectScriptServicesData Services { get; set; }
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
             public IDictionary<string, object> Data { get; set; }
+        }
+        public struct SkillEffectScriptServicesData
+        {
+            public IMediator Mediator { get; set; }
         }
     }
 }

@@ -11,6 +11,7 @@ using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
@@ -25,16 +26,19 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
+        readonly IDateTimeService _dateTime;
         readonly IAgentRepository _agentRepository;
         readonly IMoveAgentRepository _moveRepository;
         public MoveRegisteredAgentHandler(
             ILogger<MoveRegisteredAgentHandler> logger,
             IMediator mediator,
+            IDateTimeService dateTime,
             IAgentRepository agentRepository,
             IMoveAgentRepository moveRepository)
         {
             _logger = logger;
             _mediator = mediator;
+            _dateTime = dateTime;
             _agentRepository = agentRepository;
             _moveRepository = moveRepository;
         }
@@ -48,7 +52,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 await RemoveAgent(agentId);
                 return;
             }
-            if (agent.Position.NextMoveRequest.CompareTo(DateTime.Now) >= 0)
+            // Agent time to move has not expired or can is not set to Move, ignore request
+            if (agent.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0 || !agent.Position.CanMove)
             {
                 return;
             }
@@ -63,7 +68,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             {
                 CurrentPosition = agent.Position.MoveToPosition,
                 MoveToPosition = moveTo,
-                NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND / agent.Speed),
+                NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND / agent.Speed),
                 CurrentZone = agent.Position.CurrentZone,
                 ZoneTag = agent.Position.ZoneTag,
             };
@@ -74,7 +79,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 Data = new EntityClientMoveData
                 {
                     EntityId = agentId,
-                    MoveTo = moveTo
+                        MoveTo = moveTo
                 },
             });
             if (path.Count == 0)

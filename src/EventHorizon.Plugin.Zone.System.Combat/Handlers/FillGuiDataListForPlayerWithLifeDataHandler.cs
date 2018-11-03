@@ -39,7 +39,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers
             return Task.CompletedTask;
         }
 
-        private int GetPercent(int numerator, int denominator)
+        private long GetPercent(long numerator, long denominator)
         {
             if (denominator == 0)
             {

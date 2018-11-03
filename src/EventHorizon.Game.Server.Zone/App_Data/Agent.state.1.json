@@ -2,16 +2,17 @@
     "AgentList": [{
         "Name": "First Ever NPC",
         "Position": {
+            "CanMove": true,
             "CurrentPosition": {
-                "X": 48.0,
+                "X": 0.0,
                 "Y": 0.0,
-                "Z": 40.0
+                "Z": 0.0
             },
-            "NextMoveRequest": "2018-10-02T19:18:25.193707-05:00",
+            "NextMoveRequest": "0001-01-01T00:00:00",
             "MoveToPosition": {
-                "X": 52.0,
+                "X": 0.0,
                 "Y": 0.0,
-                "Z": 40.0
+                "Z": 0.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -20,21 +21,33 @@
         "Speed": 1.0,
         "Data": {
             "Routine": {
-                "Type": "MOVE"
+                "Type": "IDLE"
             },
             "DefaultRoutine": {
-                "Type": "FLEE"
+                "Type": "IDLE"
             },
             "Wander": {
                 "LookDistance": 25
             },
-            "Flee": {
-                "SightDistance": 30,
-                "DistanceToRun": 30.0,
-                "FallbackRoutine": {
-                    "Type": "WANDER"
+            "Life": {
+                "Health": 0
+            },
+            "LifeState": {
+                "Condition": {
+                    "Name": "DEAD"
                 },
-                "TagList": ["player"]
+                "HealthPoints": 1000,
+                "MaxHealthPoints": 1000,
+                "ActionPoints": 10,
+                "MaxActionPoints": 10,
+                "Attack": 1
+            },
+            "LevelState": {
+                "HealthPointsLevel": 1,
+                "ActionPointsLevel": 1,
+                "AttackLevel": 1,
+                "Experience": 0,
+                "AllTimeExperience": 3
             }
         }
     }]

@@ -3,6 +3,7 @@ using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
+using EventHorizon.Game.Server.Zone.Core.Info;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Core.Json.Impl;
 using EventHorizon.Game.Server.Zone.Core.Model;
@@ -11,10 +12,10 @@ using EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl;
 using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
+using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Game.Server.Zone.External.RandomNumber;
-using EventHorizon.Game.Server.Zone.Core.Info;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -36,11 +37,12 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .Configure<AuthSettings>(configuration.GetSection("Auth"))
                 .Configure<CoreSettings>(configuration.GetSection("Core"))
                 .AddSingleton<ICoreConnectionCache, CoreConnectionCache>()
+                .AddSingleton<IDateTimeService, DateTimeService.DateTimeService>()
                 .AddTransient<ICoreConnectionFactory, CoreConnectionFactory>();
         }
         public static void UseZoneCore(this IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using(var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new FillServerPropertiesEvent()).GetAwaiter().GetResult();
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new RegisterWithCoreServerEvent()).GetAwaiter().GetResult();

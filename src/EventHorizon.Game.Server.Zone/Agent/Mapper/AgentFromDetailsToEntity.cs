@@ -22,11 +22,12 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                 Name = details.Name,
                 Position = new PositionState
                 {
+                    CanMove = true,
                     CurrentPosition = details.Position.CurrentPosition,
                     CurrentZone = details.Position.CurrentZone,
                     ZoneTag = details.Position.ZoneTag,
                     
-                    NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
+                    // NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.CurrentPosition,
                 },
                 TagList = details.TagList,

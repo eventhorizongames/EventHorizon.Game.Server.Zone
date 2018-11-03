@@ -20,6 +20,7 @@ using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.External.DateTimeService;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {
@@ -40,12 +41,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             };
 
             var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
             // When
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
+                dateTimeMock.Object,
                 zoneMapFactoryMock.Object,
                 playerRepositoryMock.Object
             );
@@ -89,6 +92,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var expected = new Vector3(expectedXPosition, 0, expectedZPosition);
 
             var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -102,6 +106,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             // When
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
+                dateTimeMock.Object,
                 zoneMapFactoryMock.Object,
                 playerRepositoryMock.Object
             );
@@ -146,6 +151,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var expectedMoveToPosition = new Vector3(0, 0, 5);
 
             var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -171,6 +177,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
+                dateTimeMock.Object,
                 zoneMapFactoryMock.Object,
                 playerRepositoryMock.Object
             );

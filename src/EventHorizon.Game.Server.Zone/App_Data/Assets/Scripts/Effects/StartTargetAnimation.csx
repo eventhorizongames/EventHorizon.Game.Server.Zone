@@ -1,12 +1,13 @@
+var animation = Data["animation"];
+
 var actionData = new
 {
-    Id = Caster.Id
+    EntityId = Target.Id,
+    Animation = animation
 };
-
 var action = new ClientSkillActionEvent
 {
-    Delay = (long) Data["delay"],
-    Action = "un_freeze_entity",
+    Action = "start_entity_animation",
     Data = actionData
 };
 

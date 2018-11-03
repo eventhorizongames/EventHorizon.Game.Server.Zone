@@ -8,13 +8,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
 
         public LifeCondition Condition { get; set; }
 
-        public int HealthPoints { get; set; }
-        public int MaxHealthPoints { get; set; }
+        public long HealthPoints { get; set; }
+        public long MaxHealthPoints { get; set; }
 
-        public int ActionPoints { get; set; }
-        public int MaxActionPoints { get; set; }
+        public long ActionPoints { get; set; }
+        public long MaxActionPoints { get; set; }
 
-        public int Attack { get; set; }
+        public long Attack { get; set; }
 
         public object this[string index]
         {

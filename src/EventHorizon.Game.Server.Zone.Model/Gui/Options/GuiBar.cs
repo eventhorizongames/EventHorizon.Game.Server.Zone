@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Model.Gui.Options
         public string BarColor { get; set; }
         public string BarDirection { get; set; }
         public string BorderColor { get; set; }
-        public int Percent { get; set; }
+        public long Percent { get; set; }
         public int BorderThickness { get; set; }
     }
 }

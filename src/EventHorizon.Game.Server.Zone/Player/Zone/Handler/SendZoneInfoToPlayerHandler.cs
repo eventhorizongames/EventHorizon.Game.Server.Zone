@@ -20,6 +20,8 @@ using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Model.Particle;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
@@ -55,7 +57,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
                 {
                     Player = request.Player
                 }),
-                ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent())
+                ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent()),
+                SkillActionScriptList = await _mediator.Send(new FetchAllSkillActionScriptListEvent())
             };
             await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
 
@@ -70,5 +73,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         public List<IObjectEntity> EntityList { get; set; }
         public GuiLayout GuiLayout { get; set; }
         public IEnumerable<ParticleTemplate> ParticleTemplateList { get; set; }
+        public IEnumerable<SkillActionScript> SkillActionScriptList { get; set; }
     }
 }

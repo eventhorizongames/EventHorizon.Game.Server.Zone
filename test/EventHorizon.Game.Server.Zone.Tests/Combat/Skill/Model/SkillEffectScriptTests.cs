@@ -31,6 +31,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             casterMock.Setup(a => a.Id).Returns(casterId);
             var targetMock = new Mock<IObjectEntity>();
             targetMock.Setup(a => a.Id).Returns(targetId);
+            var mediatorMock = new Mock<IMediator>();
 
             //When
             var effectScript = new SkillEffectScript
@@ -41,6 +42,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 @"C:\Repos\EventHorizon.Game\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Scripts\Effects"
             );
             var actual = await effectScript.Run(
+                mediatorMock.Object,
                 casterMock.Object,
                 targetMock.Object,
                 data
