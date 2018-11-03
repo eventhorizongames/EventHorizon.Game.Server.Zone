@@ -20,10 +20,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             var targetId = 2002L;
             var expectedCasterEvent = new ClientSkillActionEvent
             {
-                Action = "casterId",
+                Action = "freeze_entity",
                 Data = new
                 {
-                CasterId = casterId
+                    CasterId = casterId
                 }
             };
             var data = new Dictionary<string, object>();
@@ -36,7 +36,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             //When
             var effectScript = new SkillEffectScript
             {
-                ScriptFile = "FreezeEntity.csx"
+                ScriptFile = "FreezeCaster.csx"
             };
             effectScript.CreateScript(
                 @"C:\Repos\EventHorizon.Game\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Scripts\Effects"

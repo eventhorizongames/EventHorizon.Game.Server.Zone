@@ -38,10 +38,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Id = inputId,
                 Position = new PositionState
                 {
-                NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
-                CurrentPosition = new Vector3(4, 4, 4),
-                CurrentZone = "current-zone",
-                ZoneTag = "current-tag"
+                    CanMove = true,
+                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
+                    CurrentPosition = new Vector3(4, 4, 4),
+                    CurrentZone = "current-zone",
+                    ZoneTag = "current-tag"
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo, expectedMoveTo }),
                 Speed = 1
@@ -50,14 +51,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             {
                 Data = new EntityClientMoveData
                 {
-                EntityId = inputId,
-                MoveTo = expectedMoveTo
+                    EntityId = inputId,
+                    MoveTo = expectedMoveTo
                 }
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
@@ -135,7 +137,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Id = inputId,
                 Position = new PositionState
                 {
-                NextMoveRequest = DateTime.Now.Add(TimeSpan.FromMinutes(1)),
+                    NextMoveRequest = DateTime.Now.Add(TimeSpan.FromMinutes(1)),
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { }),
                 Speed = 1
@@ -178,7 +180,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Id = inputId,
                 Position = new PositionState
                 {
-                NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
+                    CanMove = true,
+                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { }),
                 Speed = 1
@@ -191,6 +194,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
@@ -227,10 +231,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Id = inputId,
                 Position = new PositionState
                 {
-                NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
-                CurrentPosition = new Vector3(4, 4, 4),
-                CurrentZone = "current-zone",
-                ZoneTag = "current-tag"
+                    CanMove = true,
+                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
+                    CurrentPosition = new Vector3(4, 4, 4),
+                    CurrentZone = "current-zone",
+                    ZoneTag = "current-tag"
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo }),
                 Speed = 1
@@ -239,8 +244,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             {
                 Data = new EntityClientMoveData
                 {
-                EntityId = inputId,
-                MoveTo = expectedMoveTo
+                    EntityId = inputId,
+                    MoveTo = expectedMoveTo
                 }
             };
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
@@ -251,6 +256,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();

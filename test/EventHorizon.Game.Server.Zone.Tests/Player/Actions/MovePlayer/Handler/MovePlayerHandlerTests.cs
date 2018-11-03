@@ -42,6 +42,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -93,6 +94,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -152,6 +154,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
+            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
             var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
