@@ -10,6 +10,12 @@ namespace EventHorizon.Game.Server.Zone.Entity.Movement
     public class EntityCanMoveHandler : INotificationHandler<EntityCanMoveEvent>
     {
         readonly IEntityRepository _entityRepository;
+        public EntityCanMoveHandler(
+            IEntityRepository entityRepository
+        )
+        {
+            _entityRepository = entityRepository;
+        }
         public async Task Handle(EntityCanMoveEvent notification, CancellationToken cancellationToken)
         {
             var entity = await _entityRepository.FindById(
