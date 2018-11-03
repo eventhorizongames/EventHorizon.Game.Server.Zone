@@ -39,7 +39,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 ScriptFile = "FreezeCaster.csx"
             };
             effectScript.CreateScript(
-                @"C:\Repos\EventHorizon.Game\EventHorizon.Game.Server.Zone\src\EventHorizon.Plugin.Zone.System.Combat\Assets\Scripts\Effects"
+                System.IO.Path.Combine(
+                    "Combat",
+                    "Skill",
+                    "Model"
+                )
             );
             var actual = await effectScript.Run(
                 mediatorMock.Object,

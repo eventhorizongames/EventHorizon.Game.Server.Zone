@@ -5,6 +5,10 @@
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="**\*.csx" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
