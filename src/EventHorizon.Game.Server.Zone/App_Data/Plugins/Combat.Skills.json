@@ -5,11 +5,11 @@
         "description": "Fire a flaming ball at a target.",
         "type": "ACTIVE",
         "target": "ENTITY",
-        "coolDown": 2000,
+        "coolDown": 10000,
         "effectList": [{
                 "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
                 "effect": "freeze_caster",
-                "duration": 1000,
+                "duration": 5000,
                 "next": [{
                     "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = false)",
                     "effect": "un_freeze_caster"
@@ -59,10 +59,10 @@
                     "next": [{
                             "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
                             "effect": "start_animation_from_caster_to_target",
-                            "duration": 50,
+                            "duration": 5000,
                             "data": {
                                 "animation": "fire_skill_at_direction_entity",
-                                "duration": 50
+                                "duration": 5000
                             },
                             "next": [{
                                 "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",

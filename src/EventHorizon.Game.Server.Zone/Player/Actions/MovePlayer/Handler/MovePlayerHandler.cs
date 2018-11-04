@@ -47,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
         {
             var player = request.Player;
             // Player time to move has not expired or can is not set to Move, ignore request
-            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0 || player.Position.CanMove)
+            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0 || !player.Position.CanMove)
             {
                 return player.Position.MoveToPosition;
             }
@@ -77,14 +77,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                     moveTo = player.Position.MoveToPosition;
                     break;
             }
-            player.Position = new PositionState
-            {
-                CurrentPosition = player.Position.MoveToPosition,
-                MoveToPosition = moveTo,
-                NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
-                CurrentZone = player.Position.CurrentZone,
-                ZoneTag = player.Position.ZoneTag,
-            };
+            var newPosition = player.Position;
+            newPosition.CurrentPosition = player.Position.MoveToPosition;
+            newPosition.MoveToPosition = moveTo;
+            newPosition.NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND);
+            player.Position = newPosition;
             await _playerRepository.Update(PlayerAction.POSITION, player);
             await _mediator.Publish(new PlayerGlobalUpdateEvent
             {
@@ -96,7 +93,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 Data = new EntityClientMoveData
                 {
                     EntityId = player.Id,
-                        MoveTo = moveTo
+                    MoveTo = moveTo
                 },
             });
 

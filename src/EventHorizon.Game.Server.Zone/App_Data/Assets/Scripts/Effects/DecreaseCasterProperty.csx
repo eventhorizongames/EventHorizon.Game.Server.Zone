@@ -1,3 +1,8 @@
+/// <summary>
+/// Effect Id: decrease_caster_property
+/// </summary>
+/// <returns></returns>
+
 var propertyName = (string) Data["propertyName"];
 var valueProperty = (string) Data["valueProperty"];
 // TODO: Use the modifiers to change value amount.
@@ -20,8 +25,8 @@ Services.Mediator.Publish(decreaseLifeEvent);
 var actionData = new
 {
     EntityId = Caster.Id,
-    PropertyName = propertyName,
-    ValueProperty = valueProperty,
+    PropertyName = propertyName.LowercaseFirstChar(),
+    ValueProperty = valueProperty.LowercaseFirstChar(),
     Amount = modifierBase
 };
 var action = new ClientSkillActionEvent

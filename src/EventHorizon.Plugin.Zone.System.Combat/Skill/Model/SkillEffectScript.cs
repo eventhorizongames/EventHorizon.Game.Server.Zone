@@ -26,6 +26,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
+                        "EventHorizon.Game.Server.Zone.External.Extensions",
                         "EventHorizon.Game.Server.Zone.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         // TODO: Move all subnamespace Combat Events into root Events namespace
@@ -33,17 +34,15 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
-                _runner = CSharpScript
-                    .Create<List<ClientSkillActionEvent>>(
-                        File.OpenText(
-                            Path.Combine(
-                                scriptPath,
-                                ScriptFile
-                            )
-                        ).ReadToEnd(),
-                        scriptOptions,
-                        typeof(SkillEffectScriptData))
-                    .CreateDelegate();
+                using (var file = File.OpenText(this.GetFileName(scriptPath)))
+                {
+                    _runner = CSharpScript
+                        .Create<List<ClientSkillActionEvent>>(
+                            file.ReadToEnd(),
+                            scriptOptions,
+                            typeof(SkillEffectScriptData))
+                        .CreateDelegate();
+                }
             }
             catch (Exception ex)
             {
@@ -52,6 +51,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     ex
                 );
             }
+        }
+        private string GetFileName(string scriptPath)
+        {
+            return Path.Combine(
+                scriptPath,
+                ScriptFile
+            );
         }
         public async Task<List<ClientSkillActionEvent>> Run(
             IMediator mediator,
@@ -69,9 +75,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     new SkillEffectScriptData
                     {
                         Services = services,
-                            Caster = caster,
-                            Target = target,
-                            Data = data
+                        Caster = caster,
+                        Target = target,
+                        Data = data
                     });
             }
             catch (Exception ex)

@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Admin.Bus;
 using EventHorizon.Game.Server.Zone.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
@@ -150,6 +151,7 @@ namespace EventHorizon.Game.Server.Zone
                 routes.MapHub<PlayerHub>("/playerHub");
                 routes.MapHub<EditorHub>("/editor");
                 routes.MapHub<AgentHub>("/agent");
+                routes.MapHub<AdminBus>("/admin");
             });
             app.UseMvc();
         }

@@ -24,6 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
                 Type = EntityType.PLAYER,
                 Position = new PositionState
                 {
+                    CanMove = true,
                     CurrentPosition = details.Position.Position,
                     // NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.Position,

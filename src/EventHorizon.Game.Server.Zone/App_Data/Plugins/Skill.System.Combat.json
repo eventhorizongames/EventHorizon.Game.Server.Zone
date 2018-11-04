@@ -12,15 +12,12 @@
     ],
     "validatorList": [],
     "actionList": [{
-        "comment": "not_done",
         "id": "freeze_entity",
         "scriptFile": "FreezeEntity.js"
     }, {
-        "comment": "not_done",
         "id": "un_freeze_entity",
         "scriptFile": "UnFreezeEntity.js"
     }, {
-        "comment": "not_done",
         "id": "decrease_property",
         "scriptFile": "DecreaseProperty.js"
     }, {

@@ -13,12 +13,10 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         {
             try
             {
-                this.ScriptString = File.OpenText(
-                    Path.Combine(
-                        scriptPath,
-                        ScriptFile
-                    )
-                ).ReadToEnd();
+                using (var file = File.OpenText(GetFileName(scriptPath)))
+                {
+                    this.ScriptString = file.ReadToEnd();
+                }
             }
             catch (Exception ex)
             {
@@ -27,6 +25,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     ex
                 );
             }
+        }
+        private string GetFileName(string scriptPath)
+        {
+            return Path.Combine(
+                scriptPath,
+                ScriptFile
+            );
         }
     }
 }

@@ -1,7 +1,7 @@
 // Services:
 // - EntityRepository
 // Methods:
-// - createEvent(eventName: string, data?: any)
+// - sendEvent(eventName: string, data?: any)
 // Data: 
 // - entityId: number
 // - directionEntityId: number

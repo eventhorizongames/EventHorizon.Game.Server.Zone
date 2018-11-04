@@ -25,20 +25,19 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     .WithReferences(typeof(SkillValidatorScript).Assembly)
                     .WithImports(
                         "System",
-                        "System.Collections.Generic"
+                        "System.Collections.Generic",
+                        "EventHorizon.Game.Server.Zone.External.Extensions"
                     );
 
-                _runner = CSharpScript
-                    .Create<SkillValidatorResponse>(
-                        File.OpenText(
-                            Path.Combine(
-                                scriptPath,
-                                ScriptFile
-                            )
-                        ).ReadToEnd(),
-                        scriptOptions,
-                        typeof(SkillValidatorScriptData))
-                    .CreateDelegate();
+                using (var file = File.OpenText(this.GetFileName(scriptPath)))
+                {
+                    _runner = CSharpScript
+                        .Create<SkillValidatorResponse>(
+                            file.ReadToEnd(),
+                            scriptOptions,
+                            typeof(SkillValidatorScriptData))
+                        .CreateDelegate();
+                }
             }
             catch (Exception ex)
             {
@@ -47,6 +46,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     ex
                 );
             }
+        }
+        private string GetFileName(string scriptPath)
+        {
+            return Path.Combine(
+                scriptPath,
+                ScriptFile
+            );
         }
         public async Task<SkillValidatorResponse> Run(
             IMediator mediator,
@@ -64,9 +70,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     new SkillValidatorScriptData
                     {
                         Services = services,
-                            Caster = caster,
-                            Target = target,
-                            Data = data
+                        Caster = caster,
+                        Target = target,
+                        Data = data
                     });
             }
             catch (Exception ex)
