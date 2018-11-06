@@ -34,7 +34,7 @@
             },
             "LifeState": {
                 "Condition": {
-                    "Name": "DEAD"
+                    "Name": "ALIVE"
                 },
                 "HealthPoints": 1000,
                 "MaxHealthPoints": 1000,
