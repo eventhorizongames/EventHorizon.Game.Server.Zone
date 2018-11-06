@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.Timer
         public void TestCreateOfTimerInstanceMatchesExpectedProperties()
         {
             // Given
-            var expectedPeriod = 100;
+            var expectedPeriod = 10;
             var expectedOnRunEvent = new RunPendingServerActionsEvent();
 
             // When

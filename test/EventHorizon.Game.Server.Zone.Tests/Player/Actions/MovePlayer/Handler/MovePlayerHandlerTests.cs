@@ -35,6 +35,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             {
                 Position = new PositionState
                 {
+                    CanMove = true,
                     NextMoveRequest = DateTime.Now.AddDays(1),
                     MoveToPosition = expected
                 }
@@ -84,6 +85,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             {
                 Position = new PositionState
                 {
+                    CanMove = true,
                     CurrentPosition = currentPosition,
                     NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),
                     MoveToPosition = new Vector3(0, 0, 0),
@@ -142,6 +144,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
                 Id = expectedEntityId,
                 Position = new PositionState
                 {
+                    CanMove = true,
                     CurrentPosition = currentPosition,
                     NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),
                     MoveToPosition = new Vector3(0, 0, 0),
