@@ -64,14 +64,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 return;
             }
             // TODO: Create Position update logic service
-            agent.Position = new PositionState
-            {
-                CurrentPosition = agent.Position.MoveToPosition,
-                MoveToPosition = moveTo,
-                NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND / agent.Speed),
-                CurrentZone = agent.Position.CurrentZone,
-                ZoneTag = agent.Position.ZoneTag,
-            };
+            var newPosition = agent.Position;
+            newPosition.CurrentPosition = agent.Position.MoveToPosition;
+            newPosition.MoveToPosition = moveTo;
+            newPosition.NextMoveRequest = _dateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND);
+            agent.Position = newPosition;
             await _agentRepository.Update(EntityAction.POSITION, agent);
             // Send update to Client for Entity
             await _mediator.Publish(new ClientActionEntityClientMoveEvent
