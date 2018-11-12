@@ -24,7 +24,7 @@ Services.Mediator.Publish(decreaseLifeEvent);
 
 var actionData = new
 {
-    EntityId = Caster.Id,
+    Id = Caster.Id,
     PropertyName = propertyName.LowercaseFirstChar(),
     ValueProperty = valueProperty.LowercaseFirstChar(),
     Amount = modifierBase
