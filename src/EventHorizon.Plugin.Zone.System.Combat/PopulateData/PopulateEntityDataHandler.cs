@@ -6,6 +6,7 @@ using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Model;
 using System;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.PopulateData
 {
@@ -17,6 +18,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.PopulateData
 
             entity.PopulateData<LifeState>(LifeState.PROPERTY_NAME);
             entity.PopulateData<LevelState>(LevelState.PROPERTY_NAME);
+            entity.PopulateData<SkillState>(SkillState.PROPERTY_NAME);
 
             this.ValidateLifeState(entity);
 
@@ -26,13 +28,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.PopulateData
 
         private void ValidateLifeState(IObjectEntity entity)
         {
-            var lifeState = entity.GetProperty<LifeState>(LifeState.PROPERTY_NAME);
             var levelState = entity.GetProperty<LevelState>(LevelState.PROPERTY_NAME);
 
             if (levelState.AllTimeExperience == 0)
             {
                 entity.SetProperty(LifeState.PROPERTY_NAME, LifeState.NEW);
                 entity.SetProperty(LevelState.PROPERTY_NAME, LevelState.NEW);
+                entity.SetProperty(SkillState.PROPERTY_NAME, SkillState.NEW);
             }
         }
     }

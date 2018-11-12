@@ -6,6 +6,24 @@
         "type": "ACTIVE",
         "target": "ENTITY",
         "coolDown": 500,
+        "validatorList": [{
+            "validator": "target_not_caster"
+        }, {
+            "validator": "target_in_range_of_caster",
+            "data": {
+                "min": 0,
+                "max": 25
+            }
+        }, {
+            "validator": "target_in_line_of_sight_from_caster"
+        }, {
+            "validator": "caster_has_cost",
+            "data": {
+                "propertyName": "LifeState",
+                "valueProperty": "ActionPoints",
+                "cost": 1
+            }
+        }],
         "effectList": [{
                 "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
                 "effect": "freeze_caster",
@@ -18,28 +36,6 @@
             {
                 "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next. (Server Caster.LifeState.ActionPoints -= 1) | (ClientAction ChangeEntityState)",
                 "effect": "decrease_caster_property",
-                "validator": [{
-                        "validator": "target_not_caster"
-                    },
-                    {
-                        "validator": "target_in_range",
-                        "data": {
-                            "min": 0,
-                            "max": 25
-                        }
-                    },
-                    {
-                        "validator": "target_in_line_of_sight_from_caster"
-                    },
-                    {
-                        "validator": "caster_has_cost",
-                        "data": {
-                            "propertyName": "LifeState",
-                            "valueProperty": "ActionPoints",
-                            "cost": 1
-                        }
-                    }
-                ],
                 "data": {
                     "propertyName": "LifeState",
                     "valueProperty": "ActionPoints",
@@ -47,77 +43,79 @@
                     "modifierValueProperty": "ActionPointsLevel",
                     "modifierBase": 1
                 },
+                "validatorList": [{
+                    "validator": "caster_has_cost",
+                    "data": {
+                        "propertyName": "LifeState",
+                        "valueProperty": "ActionPoints",
+                        "cost": 1
+                    }
+                }],
                 "next": [{
                     "comment": "Validate that target can be hit.",
                     "effect": "validator_effect",
-                    "validator": [{
-                        "validator": "validate_target_hit",
+                    "validatorList": [{
+                        "validator": "validate_success",
                         "data": {
-                            "amount": 80
+                            "percent": 80
                         }
                     }],
                     "next": [{
-                            "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
-                            "effect": "start_animation_from_caster_to_target",
-                            "duration": 500,
-                            "data": {
-                                "animation": "fire_skill_at_direction_entity",
-                                "duration": 500
-                            },
-                            "next": [{
-                                "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",
-                                "effect": "un_freeze_caster"
-                            }]
+                        "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
+                        "effect": "start_animation_from_caster_to_target",
+                        "duration": 50,
+                        "data": {
+                            "animation": "fire_skill_at_direction_entity",
+                            "duration": 50
                         },
-                        {
-                            "comment": "Create fire particle that will move from caster to target. (ClientAction CreateMovingParticle)",
-                            "effect": "particle_caster_to_target",
-                            "duration": 500,
-                            "data": {
-                                "particleTemplateId": "ranged_fire",
-                                "duration": 500
-                            },
-                            "next": [{
-                                    "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
-                                    "effect": "decrease_target_property",
-                                    "data": {
-                                        "propertyName": "LifeState",
-                                        "valueProperty": "HealthPoints",
-                                        "modifierPropertyName": "LevelState",
-                                        "modifierValueProperty": "Attack",
-                                        "modifierBase": 1
-                                    }
-                                },
-                                {
-                                    "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
-                                    "effect": "start_target_animation",
-                                    "target": "TARGET",
-                                    "data": {
-                                        "animation": "hit_for_damage"
-                                    }
-                                }
-                            ]
-                        }
-                    ],
-                    "failed": [{
-                            "comment": "Start the cast of Fire Skill animation",
-                            "effect": "start_animation_from_caster_to_target_offset",
-                            "data": {
-                                "animation": "fire_skill_at_direction"
-                            },
-                            "next": [{
-                                "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time.",
-                                "effect": "un_freeze_caster"
-                            }]
+                        "next": [{
+                            "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",
+                            "effect": "un_freeze_caster"
+                        }]
+                    }, {
+                        "comment": "Create fire particle that will move from caster to target. (ClientAction CreateMovingParticle)",
+                        "effect": "particle_caster_to_target",
+                        "duration": 500,
+                        "data": {
+                            "particleTemplateId": "ranged_fire",
+                            "duration": 500
                         },
-                        {
-                            "comment": "Create fire particle that will move from caster to target.",
-                            "effect": "particle_caster_to_target",
+                        "next": [{
+                            "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
+                            "effect": "decrease_target_property",
                             "data": {
-                                "particleId": "ranged_fire"
+                                "propertyName": "LifeState",
+                                "valueProperty": "HealthPoints",
+                                "modifierPropertyName": "LevelState",
+                                "modifierValueProperty": "Attack",
+                                "modifierBase": 1
                             }
+                        }, {
+                            "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
+                            "effect": "start_target_animation",
+                            "target": "TARGET",
+                            "data": {
+                                "animation": "hit_for_damage"
+                            }
+                        }]
+                    }],
+                    "failed": [{
+                        "comment": "Start the cast of Fire Skill animation",
+                        "effect": "start_animation_from_caster_to_target_offset",
+                        "data": {
+                            "animation": "fire_skill_at_direction"
+                        },
+                        "next": [{
+                            "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time.",
+                            "effect": "un_freeze_caster"
+                        }]
+                    }, {
+                        "comment": "Create fire particle that will move from caster to target.",
+                        "effect": "particle_caster_to_target",
+                        "data": {
+                            "particleId": "ranged_fire"
                         }
-                    ]
+                    }]
                 }]
             }
         ]

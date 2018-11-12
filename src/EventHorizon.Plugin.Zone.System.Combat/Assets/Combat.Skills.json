@@ -3,11 +3,13 @@
         "id": "fire_ball",
         "name": "Fire Ball",
         "description": "Fire a flaming ball at a target.",
-        "coolDown": 2000,
+        "type": "ACTIVE",
+        "target": "ENTITY",
+        "coolDown": 500,
         "validatorList": [{
             "validator": "target_not_caster"
         }, {
-            "validator": "target_in_range",
+            "validator": "target_in_range_of_caster",
             "data": {
                 "min": 0,
                 "max": 25
@@ -25,7 +27,7 @@
         "effectList": [{
                 "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
                 "effect": "freeze_caster",
-                "duration": 1000,
+                "duration": 500,
                 "next": [{
                     "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = false)",
                     "effect": "un_freeze_caster"
@@ -53,9 +55,9 @@
                     "comment": "Validate that target can be hit.",
                     "effect": "validator_effect",
                     "validatorList": [{
-                        "validator": "validate_target_hit",
+                        "validator": "validate_success",
                         "data": {
-                            "amount": 80
+                            "percent": 80
                         }
                     }],
                     "next": [{

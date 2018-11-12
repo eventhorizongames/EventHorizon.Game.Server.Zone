@@ -4,6 +4,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Load;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using EventHorizon.Plugin.Zone.System.Combat.State;
 using EventHorizon.Plugin.Zone.System.Combat.Timer;
@@ -23,15 +24,18 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<ISkillRepository, SkillRepository>()
                 .AddSingleton<ISkillEffectScriptRepository, SkillEffectScriptRepository>()
                 .AddSingleton<ISkillActionScriptRepository, SkillActionScriptRepository>()
+                .AddSingleton<ISkillValidatorScriptRepository, SkillValidatorScriptRepository>()
                 .AddSingleton<IEntityQueue<ChangeEntityLife>, EntityQueue<ChangeEntityLife>>()
                 .AddSingleton<IEntityQueue<EntityLevelUp>, EntityQueue<EntityLevelUp>>()
+                .AddSingleton<ILifeStateChange, LifeStateChange>()
+
+                .AddTransient<IScriptServices, ScriptServices>()
                 .AddTransient<ITimerTask, UpdateEntityLifeTimer>()
-                .AddTransient<ITimerTask, EntityLevelUpTimer>()
-                .AddSingleton<ILifeStateChange, LifeStateChange>();
+                .AddTransient<ITimerTask, EntityLevelUpTimer>();
         }
         public static void UseSystemCombat(this IApplicationBuilder app)
         {
-            using(var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatSystemGuiEvent()).GetAwaiter().GetResult();
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatParticleSystemEvent()).GetAwaiter().GetResult();

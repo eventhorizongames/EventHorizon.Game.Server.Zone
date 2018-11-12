@@ -10,14 +10,37 @@
             "property": "HP"
         }
     ],
-    "validatorList": [],
+    "validatorList": [{
+        "comment": "not_done",
+        "id": "target_not_caster",
+        "scriptFile": "TargetNotCaster.csx"
+    }, {
+        "comment": "not_done",
+        "id": "target_in_range_of_caster",
+        "scriptFile": "TargetInRangeOfCaster.csx"
+    }, {
+        "comment": "not_done",
+        "id": "target_in_line_of_sight_from_caster",
+        "scriptFile": "TargetInLineOfSightFromCaster.csx"
+    }, {
+        "comment": "not_done",
+        "id": "caster_has_cost",
+        "scriptFile": "CasterHasCost.csx"
+    }, {
+        "comment": "not_done",
+        "id": "validate_success",
+        "scriptFile": "ValidateSuccess.csx"
+    }],
     "actionList": [{
+        "comment": "not_done",
         "id": "freeze_entity",
         "scriptFile": "FreezeEntity.js"
     }, {
+        "comment": "not_done",
         "id": "un_freeze_entity",
         "scriptFile": "UnFreezeEntity.js"
     }, {
+        "comment": "not_done",
         "id": "decrease_property",
         "scriptFile": "DecreaseProperty.js"
     }, {

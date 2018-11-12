@@ -16,18 +16,21 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
         readonly IJsonFileLoader _fileLoader;
         readonly ISkillEffectScriptRepository _skillEffectScriptRepository;
         readonly ISkillActionScriptRepository _skillActionScriptRepository;
+        readonly ISkillValidatorScriptRepository _skillValidatorScriptRepository;
 
         public LoadSkillCombatSystemHandler(
             ServerInfo serverInfo,
             IJsonFileLoader fileLoader,
             ISkillEffectScriptRepository skillEffectScriptRepository,
-            ISkillActionScriptRepository skillActionScriptRepository
+            ISkillActionScriptRepository skillActionScriptRepository,
+            ISkillValidatorScriptRepository skillValidatorScriptRepository
         )
         {
             _serverInfo = serverInfo;
             _fileLoader = fileLoader;
             _skillEffectScriptRepository = skillEffectScriptRepository;
             _skillActionScriptRepository = skillActionScriptRepository;
+            _skillValidatorScriptRepository = skillValidatorScriptRepository;
         }
         public async Task Handle(LoadSkillCombatSystemEvent notification, CancellationToken cancellationToken)
         {
@@ -35,7 +38,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
             var skillSystemCombatFile = await _fileLoader.GetFile<SkillSystemCombatFile>(filePath);
             var scriptEffectsPath = Path.Combine(_serverInfo.AssetsPath, "Scripts", "Effects");
             var scriptActionsPath = Path.Combine(_serverInfo.AssetsPath, "Scripts", "Actions");
+            var scriptValidatorsPath = Path.Combine(_serverInfo.AssetsPath, "Scripts", "Validators");
 
+            // Load Server Effect Scripts
             foreach (var effect in skillSystemCombatFile.EffectList)
             {
                 effect.CreateScript(
@@ -46,6 +51,18 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
                 );
             }
 
+            // Load Server Validation Scripts 
+            foreach (var validator in skillSystemCombatFile.ValidatorList)
+            {
+                validator.CreateScript(
+                    scriptValidatorsPath
+                );
+                _skillValidatorScriptRepository.Add(
+                    validator
+                );
+            }
+
+            // Load Client Action Scripts
             foreach (var action in skillSystemCombatFile.ActionList)
             {
                 action.CreateScript(
@@ -61,6 +78,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
         {
             public List<SkillEffectScript> EffectList { get; set; }
             public List<SkillActionScript> ActionList { get; set; }
+            public List<SkillValidatorScript> ValidatorList { get; set; }
         }
     }
 }

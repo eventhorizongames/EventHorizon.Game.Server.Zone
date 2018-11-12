@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -26,7 +27,14 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
-                        "EventHorizon.Game.Server.Zone.External.Extensions"
+                        "System.Numerics",
+                        "EventHorizon.Game.Server.Zone.External.Extensions",
+                        "EventHorizon.Game.Server.Zone.Model.Entity",
+                        "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
+                        // TODO: Move all subnamespace Combat Events into root Events namespace
+                        "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
+                        "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
+                        "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
                 using (var file = File.OpenText(this.GetFileName(scriptPath)))
@@ -55,25 +63,23 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             );
         }
         public async Task<SkillValidatorResponse> Run(
-            IMediator mediator,
+            IScriptServices scriptServices,
             IObjectEntity caster,
             IObjectEntity target,
             IDictionary<string, object> data)
         {
             try
             {
-                var services = new SkillValidatorScriptServicesData
-                {
-                    Mediator = mediator
-                };
-                return await _runner(
+                var response = await _runner(
                     new SkillValidatorScriptData
                     {
-                        Services = services,
+                        Services = scriptServices,
                         Caster = caster,
                         Target = target,
                         Data = data
                     });
+                response.Validator = this.Id;
+                return response;
             }
             catch (Exception ex)
             {
@@ -84,16 +90,12 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             }
         }
 
-        public struct SkillValidatorScriptData
+        public class SkillValidatorScriptData
         {
-            public SkillValidatorScriptServicesData Services { get; set; }
+            public IScriptServices Services { get; set; }
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
             public IDictionary<string, object> Data { get; set; }
-        }
-        public struct SkillValidatorScriptServicesData
-        {
-            public IMediator Mediator { get; set; }
         }
     }
 }
