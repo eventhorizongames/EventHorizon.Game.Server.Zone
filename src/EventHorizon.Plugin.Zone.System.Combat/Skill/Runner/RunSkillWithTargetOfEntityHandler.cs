@@ -6,6 +6,7 @@ using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Cooldown;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Find;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
@@ -19,19 +20,16 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
-        readonly ISkillRepository _skillRepository;
         readonly IDateTimeService _dateService;
 
         public RunSkillWithTargetOfEntityHandler(
             ILogger<RunSkillWithTargetOfEntityHandler> logger,
             IMediator mediator,
-            ISkillRepository skillRepository,
             IDateTimeService dateService
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _skillRepository = skillRepository;
             _dateService = dateService;
         }
         public async Task Handle(RunSkillWithTargetOfEntityEvent notification, CancellationToken cancellationToken)
@@ -48,14 +46,26 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                     EntityId = notification.TargetId
                 }
             );
-            // TODO: Create FindSkillByIdEvent
-            var skill = _skillRepository.Find(
-                notification.SkillId
+            var skill = await _mediator.Send(
+                new FindSkillByIdEvent
+                {
+                    SkillId = notification.SkillId
+                }
             );
-            if (!caster.IsFound() || !target.IsFound())
+            if (!caster.IsFound()
+                || !target.IsFound()
+                || !skill.IsFound())
             {
-                // TODO: Throw error to Caster, Code: invalid_caster_or_target
-                _logger.LogError("Skill failed to find caster or target. {casterId} {targetId} {skillId} {@caster} {@target} {@skill}", notification.CasterId, notification.TargetId, notification.SkillId, caster, target, skill);
+                // TODO: Throw error to Caster, Code: invalid_caster_or_target_or_skill
+                _logger.LogError(
+                    "Skill failed to find caster or target. {casterId} {targetId} {skillId} {@caster} {@target} {@skill}",
+                    notification.CasterId,
+                    notification.TargetId,
+                    notification.SkillId,
+                    caster,
+                    target,
+                    skill
+                );
                 return;
             }
             var skillState = caster.GetProperty<SkillState>(SkillState.PROPERTY_NAME);
@@ -67,23 +77,34 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 return;
             }
 
-            // TODO: Validate Skill Cooldown
+            // Validate Skill Cooldown
             if (SkillNotReady(caster, skillState, skill))
             {
                 // TODO: Throw error to Caster, Code: skill_not_ready, Data: { skillId: string; }
                 return;
             }
 
-            // TODO: Run Validators on Skill
+            // Run Validators of Skill
             var validationResponse = await ValidateSkill(caster, target, skill);
             if (!validationResponse.Success)
             {
-                _logger.LogError("Failed to validate Skill. Response: {@ValidationResponse}", validationResponse);
                 // TODO: Throw error to Caster, Code: skill_validation_failed, Data: { skillId: string; }
+                _logger.LogError(
+                    "Failed to validate Skill. Response: {@ValidationResponse}",
+                    validationResponse
+                );
                 return;
             }
 
-            _logger.LogDebug("Running Skill. {casterId} {targetId} {skillId} {@caster} {@target} {@skill}", notification.CasterId, notification.TargetId, notification.SkillId, caster, target, skill);
+            _logger.LogDebug(
+                "Running Skill. {casterId} {targetId} {skillId} {@caster} {@target} {@skill}",
+                notification.CasterId,
+                notification.TargetId,
+                notification.SkillId,
+                caster,
+                target,
+                skill
+            );
 
             foreach (var skillEffect in skill.EffectList)
             {
