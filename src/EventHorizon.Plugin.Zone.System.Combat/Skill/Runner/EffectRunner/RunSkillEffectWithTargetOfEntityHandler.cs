@@ -8,21 +8,26 @@ using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Validation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
 {
     public class RunSkillEffectWithTargetOfEntityHandler : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
     {
+        readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly IDateTimeService _dateTime;
         readonly ISkillEffectScriptRepository _skillEffectScriptRepository;
         public RunSkillEffectWithTargetOfEntityHandler(
+            ILogger<RunSkillEffectWithTargetOfEntityHandler> logger,
             IMediator mediator,
             IDateTimeService dateTime,
             ISkillEffectScriptRepository skillEffectScriptRepository
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _dateTime = dateTime;
             _skillEffectScriptRepository = skillEffectScriptRepository;
@@ -34,12 +39,21 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             var caster = notification.Caster;
             var target = notification.Target;
 
-            // TODO: Run Validations Scripts
-            await RunValidationScripts(
-                effect,
-                caster,
-                target
+            // Run Validators of Skill
+            var validationResponse = await RunValidationScripts(
+                 effect,
+                 caster,
+                 target
             );
+            if (!validationResponse.Success)
+            {
+                // TODO: Throw error to Caster, Code: skill_validation_failed, Data: { skillId: string; }
+                _logger.LogError(
+                    "Failed to validate Skill. Response: {@ValidationResponse}",
+                    validationResponse
+                );
+                return;
+            }
 
             // Run Effect Script
             await RunEffectScript(
@@ -59,16 +73,40 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                         ), new RunSkillEffectWithTargetOfEntityEvent
                         {
                             SkillEffect = nextEffect,
-                                Caster = caster,
-                                Target = target
+                            Caster = caster,
+                            Target = target
                         })
                 );
             }
         }
 
-        private Task RunValidationScripts(SkillEffect effect, IObjectEntity caster, IObjectEntity target)
+        private async Task<SkillValidatorResponse> RunValidationScripts(
+            SkillEffect effect,
+            IObjectEntity caster,
+            IObjectEntity target
+        )
         {
-            return Task.CompletedTask;
+            // Run Validation scripts of Skill, return validations including errors.
+            var validationResponseList = await _mediator.Send(
+                new RunValidateForSkillEffectEvent
+                {
+                    SkillEffect = effect,
+                    Caster = caster,
+                    Target = target
+                }
+            );
+            foreach (var validationResponse in validationResponseList)
+            {
+                if (!validationResponse.Success)
+                {
+                    return validationResponse;
+                }
+            }
+
+            return new SkillValidatorResponse
+            {
+                Success = true
+            };
         }
 
         private async Task RunEffectScript(SkillEffect effect, IObjectEntity caster, IObjectEntity target)

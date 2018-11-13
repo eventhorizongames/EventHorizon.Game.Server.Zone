@@ -135,11 +135,15 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 .ContainsKey(skillId);
         }
 
-        private bool SkillNotReady(IObjectEntity caster, SkillState skillState, SkillInstance skill)
+        private bool SkillNotReady(
+            IObjectEntity caster,
+            SkillState skillState,
+            SkillInstance skill
+        )
         {
-            var casterSkill = skillState
-                .SkillList[skill.Id];
-            return _dateService.Now < casterSkill.CooldownFinishes;
+            return _dateService.Now < skillState
+                .SkillList[skill.Id]
+                .CooldownFinishes;
         }
 
         private async Task<SkillValidatorResponse> ValidateSkill(
@@ -148,7 +152,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             SkillInstance skill
         )
         {
-            // TODO: Run Validation scripts of Skill, return any error validations.
+            // Run Validation scripts of Skill, return validations including errors.
             var validationResponseList = await _mediator.Send(
                 new RunValidateForSkillEvent
                 {

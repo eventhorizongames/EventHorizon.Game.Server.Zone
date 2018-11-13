@@ -8,7 +8,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         public string Effect { get; set; }
         public long Duration { get; set; }
         public Dictionary<string, object> Data { get; set; }
-        public SkillValidator[] Validator { get; set; }
+        public SkillValidator[] ValidatorList { get; set; }
         public SkillEffect[] Next { get; set; }
     }
 }
