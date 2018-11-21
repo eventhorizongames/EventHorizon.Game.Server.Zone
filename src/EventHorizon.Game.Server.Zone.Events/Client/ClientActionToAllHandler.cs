@@ -8,10 +8,10 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.External.Client
 {
-    public class ClientActionHandler<T, J> where T : ClientActionEvent<J> where J : IClientActionData
+    public class ClientActionToAllHandler<T, J> where T : ClientActionToAllEvent<J> where J : IClientActionData
     {
         readonly IMediator _mediator;
-        public ClientActionHandler(IMediator mediator)
+        public ClientActionToAllHandler(IMediator mediator)
         {
             _mediator = mediator;
         }

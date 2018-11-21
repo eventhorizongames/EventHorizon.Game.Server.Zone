@@ -43,7 +43,7 @@ namespace EventHorizon.TimerService
 
         public void OnRunTask(object state)
         {
-            var timerState = (TimerState) state;
+            var timerState = (TimerState)state;
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
@@ -51,17 +51,24 @@ namespace EventHorizon.TimerService
                 return;
             }
 
-            lock(timerState.LOCK)
+            lock (timerState.LOCK)
             {
                 timerState.Guid = Guid.NewGuid();
                 timerState.IsRunning = true;
                 timerState.StartDate = DateTime.UtcNow;
-                using(var serviceScope = _serviceScopeFactory.CreateScope())
+                using (var serviceScope = _serviceScopeFactory.CreateScope())
                 {
-                    serviceScope.ServiceProvider.GetService<IMediator>().Publish(
-                        this._timerTask.OnRunEvent,
-                        CancellationToken.None
-                    ).GetAwaiter().GetResult();
+                    try
+                    {
+                        serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+                            this._timerTask.OnRunEvent,
+                            CancellationToken.None
+                        ).GetAwaiter().GetResult();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Timer Exception; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                    }
                 }
                 if (DateTime.UtcNow.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.UtcNow.AddMilliseconds(_timerTask.Period)) > 0)
                 {

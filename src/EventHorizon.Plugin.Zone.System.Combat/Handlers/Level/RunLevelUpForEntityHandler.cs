@@ -51,7 +51,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
                     }
                 );
                 await _mediator.Publish(
-                    new ClientActionEntityClientChangedEvent
+                    new ClientActionEntityClientChangedToAllEvent
                     {
                         Data = new EntityChangedData
                         {

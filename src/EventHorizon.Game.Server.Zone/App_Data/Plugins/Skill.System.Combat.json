@@ -37,6 +37,10 @@
         "scriptFile": "FreezeEntity.js"
     }, {
         "comment": "not_done",
+        "id": "message_client",
+        "scriptFile": "MessageClient.js"
+    }, {
+        "comment": "not_done",
         "id": "un_freeze_entity",
         "scriptFile": "UnFreezeEntity.js"
     }, {
@@ -62,6 +66,9 @@
     }, {
         "id": "decrease_caster_property",
         "scriptFile": "DecreaseCasterProperty.csx"
+    }, {
+        "id": "damage_message",
+        "scriptFile": "DamageMessage.csx"
     }, {
         "id": "validator_effect",
         "scriptFile": "ValidatorEffect.csx"

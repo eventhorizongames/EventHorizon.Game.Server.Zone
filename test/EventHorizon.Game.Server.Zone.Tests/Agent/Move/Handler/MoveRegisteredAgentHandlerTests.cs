@@ -47,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo, expectedMoveTo }),
                 Speed = 1
             };
-            var expectedClientActionEvent = new ClientActionEntityClientMoveEvent
+            var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
                 Data = new EntityClientMoveData
                 {
@@ -123,7 +123,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
             agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
             mediatorMock.Verify(mediator => mediator.Publish(expectedAgentFinishedMoveEvent, It.IsAny<CancellationToken>()));
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
             moveAgentRepositoryMock.Verify(repository => repository.Remove(inputId));
         }
 
@@ -166,7 +166,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
             agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
             mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<AgentFinishedMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
             moveAgentRepositoryMock.Verify(repository => repository.Remove(It.IsAny<long>()), Times.Never());
         }
 
@@ -217,7 +217,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             mediatorMock.Verify(mediator => mediator.Publish(expectedAgentFinishedMoveEvent, It.IsAny<CancellationToken>()));
 
             agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
         }
 
         [Fact]
@@ -240,7 +240,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo }),
                 Speed = 1
             };
-            var expectedClientActionEvent = new ClientActionEntityClientMoveEvent
+            var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
                 Data = new EntityClientMoveData
                 {

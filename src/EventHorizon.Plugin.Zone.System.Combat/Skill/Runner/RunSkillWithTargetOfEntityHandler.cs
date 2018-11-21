@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Plugin.Zone.System.Combat.Client;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Cooldown;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Find;
@@ -88,11 +90,44 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             var validationResponse = await ValidateSkill(caster, target, skill);
             if (!validationResponse.Success)
             {
-                // TODO: Throw error to Caster, Code: skill_validation_failed, Data: { skillId: string; }
                 _logger.LogError(
                     "Failed to validate Skill. Response: {@ValidationResponse}",
                     validationResponse
                 );
+                // Throw error to Caster, Code: skill_validation_failed, Data: { skillId: string; }
+                await _mediator.Publish(
+                    new SingleClientActionMessageToCombatSystemLogEvent
+                    {
+                        ConnectionId = notification.ConnectionId,
+                        Data = new MessageToCombatSystemLogData
+                        {
+                            Message = "Error validating Skill",
+                            Data = new Dictionary<string, string>
+                            {
+                                {
+                                    "code",
+                                    "skill_effect_validation_failed"
+                                },
+                                {
+                                    "validationMessage",
+                                    validationResponse.ErrorMessage
+                                },
+                                {
+                                    "skillId",
+                                    skill.Id
+                                },
+                                {
+                                    "casterId",
+                                    caster.Id.ToString()
+                                },
+                                {
+                                    "targetId",
+                                    target.Id.ToString()
+                                }
+                            }
+                        }
+                    }
+                ).ConfigureAwait(false);
                 return;
             }
 
@@ -111,6 +146,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 await _mediator.Publish(
                     new RunSkillEffectWithTargetOfEntityEvent
                     {
+                        ConnectionId = notification.ConnectionId,
                         SkillEffect = skillEffect,
                         Caster = caster,
                         Target = target

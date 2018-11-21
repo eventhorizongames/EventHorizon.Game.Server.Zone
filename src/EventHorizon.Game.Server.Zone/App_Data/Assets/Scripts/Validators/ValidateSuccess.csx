@@ -8,7 +8,8 @@
 var precent = (long)Data["percent"];
 var randomNumber = Services.Random.Next(100);
 
-if (randomNumber >= precent) {
+if (randomNumber <= precent)
+{
     return new SkillValidatorResponse
     {
         Success = true

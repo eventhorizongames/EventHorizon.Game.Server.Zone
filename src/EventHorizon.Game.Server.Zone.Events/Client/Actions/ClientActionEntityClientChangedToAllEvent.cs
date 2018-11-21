@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Client.Actions
 {
-    public class ClientActionEntityClientChangedEvent : ClientActionEvent<EntityChangedData>, INotification
+    public class ClientActionEntityClientChangedToAllEvent : ClientActionToAllEvent<EntityChangedData>, INotification
     {
         public override string Action => "EntityClientChanged";
 

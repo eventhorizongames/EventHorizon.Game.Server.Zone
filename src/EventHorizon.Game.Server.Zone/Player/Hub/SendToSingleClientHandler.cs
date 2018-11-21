@@ -1,3 +1,4 @@
+
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client.DataType;
@@ -11,10 +12,10 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Bus
 {
-    public class SendToAllClientsHandler : INotificationHandler<SendToAllClientsEvent>
+    public class SendToSingleClientHandler : INotificationHandler<SendToAllClientsEvent>
     {
         readonly IHubContext<PlayerHub> _hubContext;
-        public SendToAllClientsHandler(IHubContext<PlayerHub> hubContext)
+        public SendToSingleClientHandler(IHubContext<PlayerHub> hubContext)
         {
             _hubContext = hubContext;
         }

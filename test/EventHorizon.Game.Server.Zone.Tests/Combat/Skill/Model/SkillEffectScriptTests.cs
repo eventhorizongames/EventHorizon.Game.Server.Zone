@@ -49,11 +49,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 mediatorMock.Object,
                 casterMock.Object,
                 targetMock.Object,
-                data
+                data,
+                null
             );
 
             //Then
-            Assert.Collection(actual, a =>
+            Assert.Collection(actual.ActionList, a =>
             {
                 Assert.Equal(expectedCasterEvent.Action, a.Action);
             });

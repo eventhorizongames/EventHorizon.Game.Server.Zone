@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.ServerAction;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Plugin.Zone.System.Combat.Client;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
@@ -47,19 +48,53 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             );
             if (!validationResponse.Success)
             {
-                // TODO: Throw error to Caster, Code: skill_validation_failed, Data: { skillId: string; }
                 _logger.LogError(
                     "Failed to validate Skill. Response: {@ValidationResponse}",
                     validationResponse
                 );
+                // Send error Log to Caster, Code: skill_effect_validation_failed, Data: { skillId: string; }
+                await _mediator.Publish(
+                    new SingleClientActionMessageToCombatSystemLogEvent
+                    {
+                        ConnectionId = notification.ConnectionId,
+                        Data = new MessageToCombatSystemLogData
+                        {
+                            Message = "Error validating Skill",
+                            Data = new Dictionary<string, string>
+                            {
+                                {
+                                    "code",
+                                    "skill_effect_validation_failed"
+                                },
+                                {
+                                    "validationMessage",
+                                    validationResponse.ErrorMessage
+                                },
+                                {
+                                    "skillId",
+                                    notification.SkillEffect.Effect
+                                },
+                                {
+                                    "casterId",
+                                    notification.Caster.Id.ToString()
+                                },
+                                {
+                                    "targetId",
+                                    notification.Target.Id.ToString()
+                                }
+                            }
+                        }
+                    }
+                ).ConfigureAwait(false);
                 return;
             }
 
             // Run Effect Script
-            await RunEffectScript(
+            var state = await RunEffectScript(
                 effect,
                 caster,
-                target
+                target,
+                notification.State
             );
 
             // Queue up next effects.
@@ -72,11 +107,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                             effect.Duration
                         ), new RunSkillEffectWithTargetOfEntityEvent
                         {
+                            ConnectionId = notification.ConnectionId,
                             SkillEffect = nextEffect,
                             Caster = caster,
-                            Target = target
+                            Target = target,
+                            State = state
                         })
-                );
+                ).ConfigureAwait(false);
             }
         }
 
@@ -109,28 +146,30 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             };
         }
 
-        private async Task RunEffectScript(SkillEffect effect, IObjectEntity caster, IObjectEntity target)
+        private async Task<IDictionary<string, object>> RunEffectScript(SkillEffect effect, IObjectEntity caster, IObjectEntity target, IDictionary<string, object> state)
         {
-            var effectClientEventList =
+            var effectResponse =
                 await FindScript(
                     effect.Effect
                 ).Run(
                     _mediator,
                     caster,
                     target,
-                    effect.Data
+                    effect.Data,
+                    state
                 );
 
             // Run Client Action events
-            foreach (var clientEvent in effectClientEventList)
+            foreach (var clientEvent in effectResponse.ActionList)
             {
                 await _mediator.Publish(
                     new ClientActionRunSkillActionEvent
                     {
                         Data = clientEvent
                     }
-                );
+                ).ConfigureAwait(false);
             }
+            return effectResponse.State;
         }
 
         private SkillEffectScript FindScript(string effect)

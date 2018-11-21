@@ -71,7 +71,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             agent.Position = newPosition;
             await _agentRepository.Update(EntityAction.POSITION, agent);
             // Send update to Client for Entity
-            await _mediator.Publish(new ClientActionEntityClientMoveEvent
+            await _mediator.Publish(new ClientActionEntityClientMoveToAllEvent
             {
                 Data = new EntityClientMoveData
                 {

@@ -57,7 +57,7 @@
                     "validatorList": [{
                         "validator": "validate_success",
                         "data": {
-                            "percent": 80
+                            "percent": 100
                         }
                     }],
                     "next": [{
@@ -89,7 +89,15 @@
                                 "modifierPropertyName": "LevelState",
                                 "modifierValueProperty": "Attack",
                                 "modifierBase": 1
-                            }
+                            },
+                            "next": [{
+                                "comment": "Send all clients a message that damage was done to the Target",
+                                "effect": "damage_message",
+                                "data": {
+                                    "messageCode": "damage_target",
+                                    "messageTemplate": "(${casterName}) damaged (${targetName}) for ${damage} point."
+                                }
+                            }]
                         }, {
                             "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
                             "effect": "start_target_animation",
@@ -112,8 +120,10 @@
                     }, {
                         "comment": "Create fire particle that will move from caster to target.",
                         "effect": "particle_caster_to_target",
+                        "duration": 500,
                         "data": {
-                            "particleId": "ranged_fire"
+                            "particleId": "ranged_fire",
+                            "duration": 500
                         }
                     }]
                 }]

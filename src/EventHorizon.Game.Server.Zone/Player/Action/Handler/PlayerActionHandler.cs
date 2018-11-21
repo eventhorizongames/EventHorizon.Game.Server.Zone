@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                     await _mediator.Send(new MovePlayerEvent()
                     {
                         Player = player,
-                            MoveDirection = notification.Data
+                        MoveDirection = notification.Data
                     });
                     break;
                 case PlayerActions.RUN_SKILL:
@@ -40,17 +40,18 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         new RunSkillWithTargetOfEntityEvent
                         {
                             CasterId = player.Id,
-                                TargetId = notification.Data.targetId,
-                                SkillId = notification.Data.skillId
+                            ConnectionId = player.ConnectionId,
+                            TargetId = notification.Data.targetId,
+                            SkillId = notification.Data.skillId
                         }
                     );
                     break;
-                    // TODO: Test Action, Remove in future.
+                // TODO: Test Action, Remove in future.
                 case PlayerActions.TESTING_PATH_ENTITY_TO_PLAYER:
                     await _mediator.Publish(new MoveEntityToPositionEvent
                     {
                         Position = player.Position.CurrentPosition,
-                            EntityId = notification.Data
+                        EntityId = notification.Data
                     });
                     break;
 

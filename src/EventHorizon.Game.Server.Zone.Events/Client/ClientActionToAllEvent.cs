@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Client
 {
-    public abstract class ClientActionEvent<T> where T : IClientActionData
+    public abstract class ClientActionToAllEvent<T> where T : IClientActionData
     {
         public abstract string Action { get; }
         public abstract T Data { get; set; }
@@ -15,7 +15,7 @@ namespace EventHorizon.Game.Server.Zone.Events.Client
                 return false;
             }
 
-            var castObj = obj as ClientActionEvent<T>;
+            var castObj = obj as ClientActionToAllEvent<T>;
 
             return Action.Equals(castObj.Action)
                 && Data.Equals(castObj.Data);

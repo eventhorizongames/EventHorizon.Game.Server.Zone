@@ -9,7 +9,7 @@ using MediatR;
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction
 {
 
-    public class ClientActionRunSkillActionHandler : ClientActionHandler<ClientActionRunSkillActionEvent, ClientSkillActionEvent>, INotificationHandler<ClientActionRunSkillActionEvent>
+    public class ClientActionRunSkillActionHandler : ClientActionToAllHandler<ClientActionRunSkillActionEvent, ClientSkillActionEvent>, INotificationHandler<ClientActionRunSkillActionEvent>
     {
         public ClientActionRunSkillActionHandler(
             IMediator mediator

@@ -88,7 +88,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 Player = player,
             });
 
-            await _mediator.Publish(new ClientActionEntityClientMoveEvent
+            await _mediator.Publish(new ClientActionEntityClientMoveToAllEvent
             {
                 Data = new EntityClientMoveData
                 {

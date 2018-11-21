@@ -1,1 +1,4 @@
-return new List<ClientSkillActionEvent>();
+return new SkillEffectScriptResponse
+{
+    ActionList = new List<ClientSkillActionEvent>()
+};

@@ -33,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
             }, CancellationToken.None);
 
             // Then
-            mediatorMock.Verify(a => a.Publish(new ClientActionEntityUnregisteredEvent
+            mediatorMock.Verify(a => a.Publish(new ClientActionEntityUnregisteredToAllEvent
             {
                 Data = new EntityUnregisteredData
                 {

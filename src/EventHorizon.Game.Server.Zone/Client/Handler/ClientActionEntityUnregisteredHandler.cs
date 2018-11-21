@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Game.Server.Zone.Client.Handler
 {
-    public class ClientActionEntityUnregisteredHandler : ClientActionHandler<ClientActionEntityUnregisteredEvent, EntityUnregisteredData>, INotificationHandler<ClientActionEntityUnregisteredEvent>
+    public class ClientActionEntityUnregisteredHandler : ClientActionToAllHandler<ClientActionEntityUnregisteredToAllEvent, EntityUnregisteredData>, INotificationHandler<ClientActionEntityUnregisteredToAllEvent>
     {
         public ClientActionEntityUnregisteredHandler(
                 IMediator mediator

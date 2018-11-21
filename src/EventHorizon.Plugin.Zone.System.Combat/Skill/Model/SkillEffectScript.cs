@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
@@ -12,9 +13,10 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
     public struct SkillEffectScript
     {
+        private readonly static IDictionary<string, object> EMPTY_STATE = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
         public string Id { get; set; }
         public string ScriptFile { get; set; }
-        private ScriptRunner<List<ClientSkillActionEvent>> _runner;
+        private ScriptRunner<SkillEffectScriptResponse> _runner;
 
         public void CreateScript(string scriptPath)
         {
@@ -30,6 +32,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "EventHorizon.Game.Server.Zone.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         // TODO: Move all subnamespace Combat Events into root Events namespace
+                        "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
+                        "EventHorizon.Plugin.Zone.System.Combat.Client",
                         "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
@@ -37,7 +41,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                 using (var file = File.OpenText(this.GetFileName(scriptPath)))
                 {
                     _runner = CSharpScript
-                        .Create<List<ClientSkillActionEvent>>(
+                        .Create<SkillEffectScriptResponse>(
                             file.ReadToEnd(),
                             scriptOptions,
                             typeof(SkillEffectScriptData))
@@ -59,11 +63,12 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                 ScriptFile
             );
         }
-        public async Task<List<ClientSkillActionEvent>> Run(
+        public async Task<SkillEffectScriptResponse> Run(
             IMediator mediator,
             IObjectEntity caster,
             IObjectEntity target,
-            IDictionary<string, object> data)
+            IDictionary<string, object> data,
+            IDictionary<string, object> priorState)
         {
             try
             {
@@ -77,7 +82,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         Services = services,
                         Caster = caster,
                         Target = target,
-                        Data = data
+                        Data = data,
+                        PriorState = priorState ?? EMPTY_STATE
                     });
             }
             catch (Exception ex)
@@ -95,6 +101,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
             public IDictionary<string, object> Data { get; set; }
+            public IDictionary<string, object> PriorState { get; set; }
         }
         public struct SkillEffectScriptServicesData
         {

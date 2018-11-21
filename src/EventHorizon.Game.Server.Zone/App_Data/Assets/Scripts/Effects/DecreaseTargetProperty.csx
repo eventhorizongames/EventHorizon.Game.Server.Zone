@@ -34,7 +34,25 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new List<ClientSkillActionEvent>
+var messageActionData = new
 {
-    action
+
+    Amount = modifierBase
+};
+var messageAction = new ClientSkillActionEvent
+{
+    Action = "messsage_client",
+    Data = actionData
+};
+
+return new SkillEffectScriptResponse
+{
+    State = new Dictionary<string, object>
+    {
+        { "Damage", modifierBase }
+    },
+    ActionList = new List<ClientSkillActionEvent>
+    {
+        action
+    }
 };

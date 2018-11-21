@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction
 {
-    public class ClientActionRunSkillActionEvent : ClientActionEvent<ClientSkillActionEvent>, INotification
+    public class ClientActionRunSkillActionEvent : ClientActionToAllEvent<ClientSkillActionEvent>, INotification
     {
         public override string Action => "RunSkillAction";
 

@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Entity.Registered.Handler
 
         public async Task Handle(EntityRegisteredEvent notification, CancellationToken cancellationToken)
         {
-            await _mediator.Publish(new ClientActionEntityRegisteredEvent
+            await _mediator.Publish(new ClientActionEntityRegisteredToAllEvent
             {
                 Data = new EntityRegisteredData
                 {

@@ -200,7 +200,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             playerRepositoryMock.Verify(a => a.Update(PlayerAction.POSITION, actualUpdateEvent.Player));
 
-            mediatorMock.Verify(a => a.Publish(new ClientActionEntityClientMoveEvent
+            mediatorMock.Verify(a => a.Publish(new ClientActionEntityClientMoveToAllEvent
             {
                 Data = new EntityClientMoveData
                 {
