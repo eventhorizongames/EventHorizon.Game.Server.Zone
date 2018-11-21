@@ -1,12 +1,17 @@
-var propertyName = (string) Data["propertyName"];
-var valueProperty = (string) Data["valueProperty"];
-// TODO: Use the modifiers to change value amount.
-var modifierPropertyName = (string) Data["modifierPropertyName"];
-var modifierValueProperty = (string) Data["modifierValueProperty"];
-var modifierBase = (long) Data["modifierBase"];
+/// <summary>
+/// Effect Id: decrease_caster_property
+/// </summary>
+/// <returns></returns>
 
-var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName) [valueProperty];
-var modiferPropertyValue = Caster.GetProperty<dynamic>(modifierPropertyName) [modifierValueProperty];
+var propertyName = (string)Data["propertyName"];
+var valueProperty = (string)Data["valueProperty"];
+// TODO: Use the modifiers to change value amount.
+var modifierPropertyName = (string)Data["modifierPropertyName"];
+var modifierValueProperty = (string)Data["modifierValueProperty"];
+var modifierBase = (long)Data["modifierBase"];
+
+var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName)[valueProperty];
+var modiferPropertyValue = Caster.GetProperty<dynamic>(modifierPropertyName)[modifierValueProperty];
 
 
 var decreaseLifeEvent = new DecreaseLifePropertyEvent
@@ -19,9 +24,9 @@ Services.Mediator.Publish(decreaseLifeEvent);
 
 var actionData = new
 {
-    EntityId = Caster.Id,
-    PropertyName = propertyName,
-    ValueProperty = valueProperty,
+    Id = Caster.Id,
+    PropertyName = propertyName.LowercaseFirstChar(),
+    ValueProperty = valueProperty.LowercaseFirstChar(),
     Amount = modifierBase
 };
 var action = new ClientSkillActionEvent
@@ -30,7 +35,10 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new List<ClientSkillActionEvent>
+return new SkillEffectScriptResponse
 {
-    action
+    ActionList = new List<ClientSkillActionEvent>
+    {
+        action
+    }
 };

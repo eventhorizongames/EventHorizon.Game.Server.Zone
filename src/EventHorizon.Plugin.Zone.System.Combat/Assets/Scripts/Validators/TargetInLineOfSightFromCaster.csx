@@ -5,4 +5,7 @@
 /// </summary>
 
 // TODO: Implement this, if feel like it.
-return true;
+return new SkillValidatorResponse
+{
+    Success = true
+};

@@ -1,7 +1,7 @@
 // Services:
 // - EntityRepository
 // Data: 
-// - id: EntityId
+// - id: string
 
 const entity = Services.EntityRepository.get(
     Data.id
@@ -9,5 +9,3 @@ const entity = Services.EntityRepository.get(
 if (entity == undefined) {
     return;
 }
-const moveModule = entity.getProperty("MOVE_MODULE_NAME");
-moveModule.enabled = true;

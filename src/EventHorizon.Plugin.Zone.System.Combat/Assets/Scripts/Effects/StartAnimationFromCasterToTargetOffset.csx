@@ -12,7 +12,10 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new List<ClientSkillActionEvent>
+return new SkillEffectScriptResponse
 {
-    action
+    ActionList = new List<ClientSkillActionEvent>
+    {
+        action
+    }
 };

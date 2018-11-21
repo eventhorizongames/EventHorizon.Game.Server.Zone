@@ -1,7 +1,8 @@
+// Action Id: decrease_property
 // Services:
 // - EntityRepository
 // Methods:
-// - createEvent(eventName: string, data?: any)
+// - sendEvent(eventName: string, data?: any)
 // Data: 
 // - id: EntityId
 // - propertyName: string
@@ -16,11 +17,9 @@ if (entity == undefined) {
 }
 const property = entity.getProperty(Data.propertyName);
 property[Data.valueProperty] = property[Data.valueProperty] - Data.amount;
-entity.setProperty(Data.propertyName, property[Data.valueProperty]);
+entity.setProperty(Data.propertyName, property);
 
-Services.EntityRepository.publish(
-    Methods.createEvent(
-        "ZONE.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
-        Data.id
-    )
-)
+Methods.sendEvent(
+    "ZONE.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
+    Data.id
+);

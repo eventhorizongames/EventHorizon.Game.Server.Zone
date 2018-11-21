@@ -1,12 +1,16 @@
-var propertyName = (string) Data["propertyName"];
-var valueProperty = (string) Data["valueProperty"];
+/// <summary>
+/// Effect Id: decrease_target_property
+/// </summary>
+/// <returns></returns>
+var propertyName = (string)Data["propertyName"];
+var valueProperty = (string)Data["valueProperty"];
 // TODO: Use the modifiers to change value amount.
-var modifierPropertyName = (string) Data["modifierPropertyName"];
-var modifierValueProperty = (string) Data["modifierValueProperty"];
-var modifierBase = (long) Data["modifierBase"];
+var modifierPropertyName = (string)Data["modifierPropertyName"];
+var modifierValueProperty = (string)Data["modifierValueProperty"];
+var modifierBase = (long)Data["modifierBase"];
 
-var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName) [valueProperty];
-var modiferPropertyValue = Caster.GetProperty<dynamic>(modifierPropertyName) [modifierValueProperty];
+var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName)[valueProperty];
+var modiferPropertyValue = Caster.GetProperty<dynamic>(modifierPropertyName)[modifierValueProperty];
 
 
 var decreaseLifeEvent = new DecreaseLifePropertyEvent
@@ -19,9 +23,9 @@ Services.Mediator.Publish(decreaseLifeEvent);
 
 var actionData = new
 {
-    EntityId = Target.Id,
-    PropertyName = propertyName,
-    ValueProperty = valueProperty,
+    Id = Target.Id,
+    PropertyName = propertyName.LowercaseFirstChar(),
+    ValueProperty = valueProperty.LowercaseFirstChar(),
     Amount = modifierBase
 };
 var action = new ClientSkillActionEvent
@@ -30,7 +34,25 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new List<ClientSkillActionEvent>
+var messageActionData = new
 {
-    action
+
+    Amount = modifierBase
+};
+var messageAction = new ClientSkillActionEvent
+{
+    Action = "messsage_client",
+    Data = actionData
+};
+
+return new SkillEffectScriptResponse
+{
+    State = new Dictionary<string, object>
+    {
+        { "Damage", modifierBase }
+    },
+    ActionList = new List<ClientSkillActionEvent>
+    {
+        action
+    }
 };

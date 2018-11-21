@@ -9,4 +9,14 @@ var cost = (long)Data["cost"];
 
 var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName)[valueProperty];
 
-return casterPropertyValue >= cost;
+if (casterPropertyValue >= cost) {
+    return new SkillValidatorResponse
+    {
+        Success = true
+    };
+}
+
+return new SkillValidatorResponse
+{
+    Success = false
+};

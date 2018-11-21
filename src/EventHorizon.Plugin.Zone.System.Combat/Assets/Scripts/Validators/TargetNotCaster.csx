@@ -4,4 +4,14 @@
 /// Data: {no data}
 /// </summary>
 
-return Target.Id != Caster.Id;
+if (Target.Id != Caster.Id) {
+    return new SkillValidatorResponse
+    {
+        Success = true
+    };
+}
+
+return new SkillValidatorResponse
+{
+    Success = false
+};
