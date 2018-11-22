@@ -10,5 +10,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         public Dictionary<string, object> Data { get; set; }
         public SkillValidator[] ValidatorList { get; set; }
         public SkillEffect[] Next { get; set; }
+        public SkillEffect[] FailedList { get; set; }
     }
 }

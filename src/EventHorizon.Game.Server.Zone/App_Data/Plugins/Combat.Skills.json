@@ -24,6 +24,14 @@
                 "cost": 1
             }
         }],
+        "failedList": [{
+            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+            "effect": "skill_validation_failed",
+            "data": {
+                "messageCode": "skill_validation_failed",
+                "messageTemplate": "(${skillName}) failed because ${skillFailedReason}."
+            }
+        }],
         "effectList": [{
                 "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
                 "effect": "freeze_caster",
@@ -57,7 +65,7 @@
                     "validatorList": [{
                         "validator": "validate_success",
                         "data": {
-                            "percent": 100
+                            "percent": 20
                         }
                     }],
                     "next": [{
@@ -107,7 +115,14 @@
                             }
                         }]
                     }],
-                    "failed": [{
+                    "failedList": [{
+                        "comment": "Send all clients a message Caster missed Target.",
+                        "effect": "caster_target_message",
+                        "data": {
+                            "messageCode": "caster_missed_target",
+                            "messageTemplate": "(${casterName}) missed (${targetName})."
+                        }
+                    }, {
                         "comment": "Start the cast of Fire Skill animation",
                         "effect": "start_animation_from_caster_to_target_offset",
                         "data": {

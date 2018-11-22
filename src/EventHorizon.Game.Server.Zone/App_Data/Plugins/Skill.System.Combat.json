@@ -70,6 +70,12 @@
         "id": "damage_message",
         "scriptFile": "DamageMessage.csx"
     }, {
+        "id": "caster_target_message",
+        "scriptFile": "CasterTargetMessage.csx"
+    }, {
+        "id": "skill_validation_failed",
+        "scriptFile": "SkillValidationFailed.csx"
+    }, {
         "id": "validator_effect",
         "scriptFile": "ValidatorEffect.csx"
     }, {

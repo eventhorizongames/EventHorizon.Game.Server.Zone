@@ -13,6 +13,9 @@
 Methods.sendEvent(
     "MessageToCombatSystemLog", {
         messageCode: Data.messageCode,
-        message: Methods.resolveTemplate(Data.messageTemplate, Data.templateData)
+        message: Methods.resolveTemplate(
+            Methods.resolveTemplate(Data.messageTemplate, Data.templateData),
+            Data.templateData
+        )
     }
 );

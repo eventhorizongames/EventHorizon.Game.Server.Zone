@@ -7,6 +7,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         public string Description { get; set; }
         public SkillValidator[] ValidatorList { get; set; }
         public SkillEffect[] EffectList { get; set; }
+        public SkillEffect[] FailedList { get; set; }
 
         public bool IsFound()
         {
