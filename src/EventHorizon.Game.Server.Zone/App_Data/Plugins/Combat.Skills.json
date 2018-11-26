@@ -5,7 +5,7 @@
         "description": "Fire a flaming ball at a target.",
         "type": "ACTIVE",
         "target": "ENTITY",
-        "coolDown": 500,
+        "coolDown": 5000,
         "validatorList": [{
             "validator": "target_not_caster"
         }, {
@@ -137,7 +137,7 @@
                         "effect": "particle_caster_to_target",
                         "duration": 500,
                         "data": {
-                            "particleId": "ranged_fire",
+                            "particleTemplateId": "ranged_fire",
                             "duration": 500
                         }
                     }]

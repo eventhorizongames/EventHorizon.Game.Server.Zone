@@ -79,11 +79,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
         {
             Condition = LifeCondition.ALIVE,
 
-            HealthPoints = 10,
-            MaxHealthPoints = 10,
+            HealthPoints = 100,
+            MaxHealthPoints = 100,
 
-            ActionPoints = 10,
-            MaxActionPoints = 10,
+            ActionPoints = 100,
+            MaxActionPoints = 100,
 
             Attack = 1,
         };

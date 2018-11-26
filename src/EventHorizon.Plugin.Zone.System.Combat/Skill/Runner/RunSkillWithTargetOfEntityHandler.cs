@@ -82,7 +82,19 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             // Validate Skill Cooldown
             if (SkillNotReady(caster, skillState, skill))
             {
-                // TODO: Throw error to Caster, Code: skill_not_ready, Data: { skillId: string; }
+                // Throw error to Caster, Code: skill_not_ready
+                // TODO: Update Message to use LocalizationService
+                await _mediator.Publish(
+                    new SingleClientActionMessageToCombatSystemLogEvent
+                    {
+                        ConnectionId = notification.ConnectionId,
+                        Data = new MessageToCombatSystemLogData
+                        {
+                            MessageCode = "skill_not_ready",
+                            Message = $"{skill.Name} is not ready."
+                        }
+                    }
+                ).ConfigureAwait(false);
                 return;
             }
 
@@ -154,8 +166,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             await _mediator.Publish(
                 new SetCooldownOnSkillEvent
                 {
-                    Caster = caster.Id,
-                    SkillId = skill.Id
+                    CasterId = caster.Id,
+                    SkillId = skill.Id,
+                    CoolDown = skill.CoolDown
                 }
             ).ConfigureAwait(false);
         }
@@ -173,6 +186,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             SkillInstance skill
         )
         {
+            _logger.LogInformation("Date: {date}", skillState
+                .SkillList[skill.Id]
+                .CooldownFinishes);
+            _logger.LogInformation("Date.now: {now}", _dateService.Now);
+            _logger.LogInformation("SkillReady: {ready}", _dateService.Now < skillState
+                .SkillList[skill.Id]
+                .CooldownFinishes);
             return _dateService.Now < skillState
                 .SkillList[skill.Id]
                 .CooldownFinishes;
