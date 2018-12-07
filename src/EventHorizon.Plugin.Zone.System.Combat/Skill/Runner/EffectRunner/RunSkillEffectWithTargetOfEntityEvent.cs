@@ -11,6 +11,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
         public string ConnectionId { get; set; }
         public IObjectEntity Caster { get; internal set; }
         public IObjectEntity Target { get; internal set; }
+        public SkillInstance Skill { get; internal set; }
         public IDictionary<string, object> State { get; internal set; }
     }
 }

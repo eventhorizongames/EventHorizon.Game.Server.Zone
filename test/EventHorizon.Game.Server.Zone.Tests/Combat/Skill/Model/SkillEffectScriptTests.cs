@@ -33,6 +33,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             var targetMock = new Mock<IObjectEntity>();
             targetMock.Setup(a => a.Id).Returns(targetId);
             var scriptServicesMock = new Mock<IScriptServices>();
+            var mediatorMock = new Mock<IMediator>();
+            scriptServicesMock.Setup(a => a.Mediator).Returns(mediatorMock.Object);
+            var skill = new SkillInstance();
 
             //When
             var effectScript = new SkillEffectScript
@@ -50,6 +53,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 scriptServicesMock.Object,
                 casterMock.Object,
                 targetMock.Object,
+                skill,
                 data,
                 null
             );

@@ -1,12 +1,13 @@
 /// <summary>
-/// Caster - 
-/// Target - 
-/// Skill??? Should I just add this?
-/// Data: { message: string; messageCode: string; }
-/// PriorState: {Code: string; ValidationMessage: string; Skill: SkillInstance; }
+/// Effect Id: skill_validation_failed
+/// 
+/// Caster: { Id: string; } 
+/// Target: { Id: string; }
+/// Skill: { Name: string; }
+/// Data: { messageTemplate: string; messageCode: string; }
+/// PriorState: { ValidationMessage: string; }
 /// </summary>
 
-var skill = ((SkillInstance)PriorState["Skill"]);
 var actionData = new
 {
     MessageCode = (string)Data["messageCode"],
@@ -15,7 +16,7 @@ var actionData = new
     {
         CasterName = Caster.Id,
         TargetName = Target.Id,
-        SkillName = skill.Name,
+        SkillName = Skill.Name,
         SkillFailedReason = PriorState["ValidationMessage"]
     }
 };

@@ -1,22 +1,24 @@
 /// <summary>
 /// Effect Id: set_caster_skill_cool_down
 /// 
-/// Data: { Skill: SkillInstance; }
+/// Caster: { SkillState: ISkillState; }
+/// Target: 
+/// Skill: { Id: string; }
 /// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
-/// PriorState: {Code: string; ValidationMessage: string; Skill: SkillInstance; }
+/// Data: { coolDown: long; }
+/// PriorState: { Code: string; ValidationMessage: string; }
 /// </summary>
 /// <returns></returns>
 var coolDown = (long)Data["coolDown"];
 
-var skill = ((SkillInstance)PriorState["Skill"]);
 var casterSkillState = Caster.GetProperty<dynamic>("SkillState");
-var skillState = casterSkillState.SkillList[skill.Id];
+var skillState = casterSkillState.SkillList[Skill.Id];
 
 skillState.CooldownFinishes = Services.DateTime.Now
     .AddMilliseconds(
         coolDown
     );
-casterSkillState.SkillList[skill.Id] = skillState;
+casterSkillState.SkillList[Skill.Id] = skillState;
 
 return new SkillEffectScriptResponse
 {

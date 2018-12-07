@@ -40,9 +40,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
 
         public async Task Handle(RunSkillEffectWithTargetOfEntityEvent notification, CancellationToken cancellationToken)
         {
+            var connectionId = notification.ConnectionId;
             var effect = notification.SkillEffect;
             var caster = notification.Caster;
             var target = notification.Target;
+            var skill = notification.Skill;
 
             // Run Validators of Skill
             var validationResponse = await RunValidationScripts(
@@ -78,10 +80,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                     await _mediator.Publish(
                         new RunSkillEffectWithTargetOfEntityEvent
                         {
-                            ConnectionId = notification.ConnectionId,
+                            ConnectionId = connectionId,
                             SkillEffect = failledEffect,
                             Caster = caster,
                             Target = target,
+                            Skill = skill,
                             State = failedState
                         }
                     ).ConfigureAwait(false);
@@ -94,6 +97,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                 effect,
                 caster,
                 target,
+                skill,
                 notification.State
             );
 
@@ -107,10 +111,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                             effect.Duration
                         ), new RunSkillEffectWithTargetOfEntityEvent
                         {
-                            ConnectionId = notification.ConnectionId,
+                            ConnectionId = connectionId,
                             SkillEffect = nextEffect,
                             Caster = caster,
                             Target = target,
+                            Skill = skill,
                             State = state
                         })
                 ).ConfigureAwait(false);
@@ -146,7 +151,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             };
         }
 
-        private async Task<IDictionary<string, object>> RunEffectScript(SkillEffect effect, IObjectEntity caster, IObjectEntity target, IDictionary<string, object> state)
+        private async Task<IDictionary<string, object>> RunEffectScript(
+            SkillEffect effect,
+            IObjectEntity caster,
+            IObjectEntity target,
+            SkillInstance skill,
+            IDictionary<string, object> state
+        )
         {
             var effectResponse =
                 await FindScript(
@@ -155,6 +166,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                     _scriptServices,
                     caster,
                     target,
+                    skill,
                     effect.Data,
                     state
                 );

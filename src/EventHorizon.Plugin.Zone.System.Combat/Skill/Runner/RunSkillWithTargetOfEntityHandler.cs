@@ -96,10 +96,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                     {
                         "ValidationMessage",
                         validationResponse.ErrorMessage
-                    },
-                    {
-                        "Skill",
-                        skill
                     }
                 };
 
@@ -112,6 +108,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                             SkillEffect = failledEffect,
                             Caster = caster,
                             Target = target,
+                            Skill = skill,
                             State = state
                         }
                     ).ConfigureAwait(false);
@@ -138,13 +135,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                         SkillEffect = skillEffect,
                         Caster = caster,
                         Target = target,
-                        State = new Dictionary<string, object>
-                        {
-                            {
-                                "Skill",
-                                skill
-                            }
-                        }
+                        Skill = skill
                     }
                 ).ConfigureAwait(false);
             }
@@ -167,9 +158,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             var validationResponseList = await _mediator.Send(
                 new RunValidateForSkillEvent
                 {
-                    Skill = skill,
                     Caster = caster,
-                    Target = target
+                    Target = target,
+                    Skill = skill,
                 }
             );
             foreach (var validationResponse in validationResponseList)

@@ -68,6 +68,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             IScriptServices services,
             IObjectEntity caster,
             IObjectEntity target,
+            SkillInstance skill,
             IDictionary<string, object> data,
             IDictionary<string, object> priorState)
         {
@@ -79,6 +80,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         Services = services,
                         Caster = caster,
                         Target = target,
+                        Skill = skill,
                         Data = data,
                         PriorState = priorState ?? EMPTY_STATE
                     });
@@ -97,6 +99,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             public IScriptServices Services { get; set; }
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
+            public SkillInstance Skill { get; set; }
             public IDictionary<string, object> Data { get; set; }
             public IDictionary<string, object> PriorState { get; set; }
         }
