@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Client;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Validation;
 using MediatR;
@@ -19,17 +20,20 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
+        readonly IScriptServices _scriptServices;
         readonly IDateTimeService _dateTime;
         readonly ISkillEffectScriptRepository _skillEffectScriptRepository;
         public RunSkillEffectWithTargetOfEntityHandler(
             ILogger<RunSkillEffectWithTargetOfEntityHandler> logger,
             IMediator mediator,
+            IScriptServices scriptServices,
             IDateTimeService dateTime,
             ISkillEffectScriptRepository skillEffectScriptRepository
         )
         {
             _logger = logger;
             _mediator = mediator;
+            _scriptServices = scriptServices;
             _dateTime = dateTime;
             _skillEffectScriptRepository = skillEffectScriptRepository;
         }
@@ -148,7 +152,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                 await FindScript(
                     effect.Effect
                 ).Run(
-                    _mediator,
+                    _scriptServices,
                     caster,
                     target,
                     effect.Data,

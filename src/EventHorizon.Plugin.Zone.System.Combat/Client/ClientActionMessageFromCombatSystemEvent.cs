@@ -5,10 +5,10 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Client
 {
-    public class ClientActionMessageToCombatSystemLogEvent : ClientActionToAllEvent<MessageToCombatSystemLogData>, INotification
+    public class ClientActionMessageFromCombatSystemEvent : ClientActionToAllEvent<MessageFromCombatSystemData>, INotification
     {
         public override string Action => "MessageToCombatSystemLog";
-        public override MessageToCombatSystemLogData Data { get; set; }
+        public override MessageFromCombatSystemData Data { get; set; }
 
     }
 }

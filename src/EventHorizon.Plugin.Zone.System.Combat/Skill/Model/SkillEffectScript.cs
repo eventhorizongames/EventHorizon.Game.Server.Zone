@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -64,7 +65,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             );
         }
         public async Task<SkillEffectScriptResponse> Run(
-            IMediator mediator,
+            IScriptServices services,
             IObjectEntity caster,
             IObjectEntity target,
             IDictionary<string, object> data,
@@ -72,10 +73,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         {
             try
             {
-                var services = new SkillEffectScriptServicesData
-                {
-                    Mediator = mediator
-                };
                 return await _runner(
                     new SkillEffectScriptData
                     {
@@ -97,15 +94,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 
         public class SkillEffectScriptData
         {
-            public SkillEffectScriptServicesData Services { get; set; }
+            public IScriptServices Services { get; set; }
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
             public IDictionary<string, object> Data { get; set; }
             public IDictionary<string, object> PriorState { get; set; }
-        }
-        public struct SkillEffectScriptServicesData
-        {
-            public IMediator Mediator { get; set; }
         }
     }
 }

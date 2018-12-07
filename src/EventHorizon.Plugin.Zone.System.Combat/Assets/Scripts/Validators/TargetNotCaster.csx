@@ -1,4 +1,6 @@
 /// <summary>
+/// Id: target_not_caster
+/// 
 /// Caster - 
 /// Target - 
 /// Data: {no data}
@@ -13,5 +15,6 @@ if (Target.Id != Caster.Id) {
 
 return new SkillValidatorResponse
 {
+    ErrorMessage = $"(${{targetName}}) can not target self",
     Success = false
 };

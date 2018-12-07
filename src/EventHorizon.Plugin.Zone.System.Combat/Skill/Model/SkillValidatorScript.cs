@@ -66,6 +66,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             IScriptServices scriptServices,
             IObjectEntity caster,
             IObjectEntity target,
+            SkillInstance skill,
             IDictionary<string, object> data)
         {
             try
@@ -76,6 +77,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         Services = scriptServices,
                         Caster = caster,
                         Target = target,
+                        Skill = skill,
                         Data = data
                     });
                 response.Validator = this.Id;
@@ -95,6 +97,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             public IScriptServices Services { get; set; }
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
+            public SkillInstance Skill { get; set; }
             public IDictionary<string, object> Data { get; set; }
         }
     }

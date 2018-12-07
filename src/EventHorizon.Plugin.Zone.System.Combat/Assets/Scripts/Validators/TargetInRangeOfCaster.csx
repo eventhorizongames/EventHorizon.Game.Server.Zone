@@ -1,4 +1,6 @@
 /// <summary>
+/// Id: target_in_range_of_caster
+/// 
 /// Caster - 
 /// Target - 
 /// Data: { min: number; max: number; }
@@ -21,5 +23,6 @@ if (distance >= min && distance <= max) {
 
 return new SkillValidatorResponse
 {
+    ErrorMessage = $"(${{targetName}}) not in range",
     Success = false
 };

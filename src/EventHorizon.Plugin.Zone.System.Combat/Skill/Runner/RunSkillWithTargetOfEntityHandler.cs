@@ -6,7 +6,6 @@ using EventHorizon.Game.Server.Zone.Events.Entity.Find;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Client;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Cooldown;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Find;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
@@ -79,25 +78,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 return;
             }
 
-            // Validate Skill Cooldown
-            if (SkillNotReady(caster, skillState, skill))
-            {
-                // Throw error to Caster, Code: skill_not_ready
-                // TODO: Update Message to use LocalizationService
-                await _mediator.Publish(
-                    new SingleClientActionMessageToCombatSystemLogEvent
-                    {
-                        ConnectionId = notification.ConnectionId,
-                        Data = new MessageToCombatSystemLogData
-                        {
-                            MessageCode = "skill_not_ready",
-                            Message = $"{skill.Name} is not ready."
-                        }
-                    }
-                ).ConfigureAwait(false);
-                return;
-            }
-
             // Run Validators of Skill
             var validationResponse = await ValidateSkill(caster, target, skill);
             if (!validationResponse.Success)
@@ -157,20 +137,17 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                         ConnectionId = notification.ConnectionId,
                         SkillEffect = skillEffect,
                         Caster = caster,
-                        Target = target
+                        Target = target,
+                        State = new Dictionary<string, object>
+                        {
+                            {
+                                "Skill",
+                                skill
+                            }
+                        }
                     }
                 ).ConfigureAwait(false);
             }
-
-            // Mark Skill for cooldown
-            await _mediator.Publish(
-                new SetCooldownOnSkillEvent
-                {
-                    CasterId = caster.Id,
-                    SkillId = skill.Id,
-                    CoolDown = skill.CoolDown
-                }
-            ).ConfigureAwait(false);
         }
 
         private bool CasterDoesNotHaveSkill(SkillState skillState, string skillId)
@@ -178,24 +155,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
             return !skillState
                 .SkillList
                 .ContainsKey(skillId);
-        }
-
-        private bool SkillNotReady(
-            IObjectEntity caster,
-            SkillState skillState,
-            SkillInstance skill
-        )
-        {
-            _logger.LogInformation("Date: {date}", skillState
-                .SkillList[skill.Id]
-                .CooldownFinishes);
-            _logger.LogInformation("Date.now: {now}", _dateService.Now);
-            _logger.LogInformation("SkillReady: {ready}", _dateService.Now < skillState
-                .SkillList[skill.Id]
-                .CooldownFinishes);
-            return _dateService.Now < skillState
-                .SkillList[skill.Id]
-                .CooldownFinishes;
         }
 
         private async Task<SkillValidatorResponse> ValidateSkill(

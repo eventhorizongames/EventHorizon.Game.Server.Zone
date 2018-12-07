@@ -38,6 +38,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
                         _scriptServices,
                         request.Caster,
                         request.Target,
+                        request.Skill,
                         validator.Data
                     )
                 );

@@ -6,12 +6,12 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Client
 {
-    public class ClientActionMessageToCombatSystemLogHandler
+    public class SingleClientActionMessageFromCombatSystemHandler
         :
-        ClientActionToAllHandler<ClientActionMessageToCombatSystemLogEvent, MessageToCombatSystemLogData>,
-        INotificationHandler<ClientActionMessageToCombatSystemLogEvent>
+        ClientActionToSingleHandler<SingleClientActionMessageFromCombatSystemEvent, MessageFromCombatSystemData>,
+        INotificationHandler<SingleClientActionMessageFromCombatSystemEvent>
     {
-        public ClientActionMessageToCombatSystemLogHandler(
+        public SingleClientActionMessageFromCombatSystemHandler(
             IMediator mediator
         ) : base(mediator)
         {

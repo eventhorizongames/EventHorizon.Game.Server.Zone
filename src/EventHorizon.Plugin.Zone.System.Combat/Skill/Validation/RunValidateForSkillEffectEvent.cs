@@ -8,6 +8,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
 {
     public struct RunValidateForSkillEffectEvent : IRequest<IEnumerable<SkillValidatorResponse>>
     {
+        public SkillInstance Skill { get; set; }
         public SkillEffect SkillEffect { get; set; }
         public IObjectEntity Caster { get; set; }
         public IObjectEntity Target { get; set; }

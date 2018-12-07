@@ -12,20 +12,24 @@
     ],
     "validatorList": [{
         "comment": "not_done",
-        "id": "target_not_caster",
-        "scriptFile": "TargetNotCaster.csx"
+        "id": "caster_has_cost",
+        "scriptFile": "CasterHasCost.csx"
     }, {
         "comment": "not_done",
-        "id": "target_in_range_of_caster",
-        "scriptFile": "TargetInRangeOfCaster.csx"
+        "id": "cool_down_check",
+        "scriptFile": "CoolDownCheck.csx"
     }, {
         "comment": "not_done",
         "id": "target_in_line_of_sight_from_caster",
         "scriptFile": "TargetInLineOfSightFromCaster.csx"
     }, {
         "comment": "not_done",
-        "id": "caster_has_cost",
-        "scriptFile": "CasterHasCost.csx"
+        "id": "target_in_range_of_caster",
+        "scriptFile": "TargetInRangeOfCaster.csx"
+    }, {
+        "comment": "not_done",
+        "id": "target_not_caster",
+        "scriptFile": "TargetNotCaster.csx"
     }, {
         "comment": "not_done",
         "id": "validate_success",
@@ -63,6 +67,9 @@
     "effectList": [{
         "id": "freeze_caster",
         "scriptFile": "FreezeCaster.csx"
+    }, {
+        "id": "set_caster_skill_cool_down",
+        "scriptFile": "SetCasterSkillCoolDown.csx"
     }, {
         "id": "decrease_caster_property",
         "scriptFile": "DecreaseCasterProperty.csx"

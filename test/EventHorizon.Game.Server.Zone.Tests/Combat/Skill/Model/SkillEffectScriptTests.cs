@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
+using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using MediatR;
 using Moq;
 using Xunit;
@@ -31,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             casterMock.Setup(a => a.Id).Returns(casterId);
             var targetMock = new Mock<IObjectEntity>();
             targetMock.Setup(a => a.Id).Returns(targetId);
-            var mediatorMock = new Mock<IMediator>();
+            var scriptServicesMock = new Mock<IScriptServices>();
 
             //When
             var effectScript = new SkillEffectScript
@@ -46,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 )
             );
             var actual = await effectScript.Run(
-                mediatorMock.Object,
+                scriptServicesMock.Object,
                 casterMock.Object,
                 targetMock.Object,
                 data,

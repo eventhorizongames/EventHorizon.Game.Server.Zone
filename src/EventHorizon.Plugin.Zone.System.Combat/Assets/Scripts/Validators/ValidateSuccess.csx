@@ -1,7 +1,9 @@
 /// <summary>
+/// Id: validate_success
+/// 
 /// Caster - 
 /// Target - 
-/// Data: { percent: number }
+/// Data: { percent: number; messageTemplate: string; }
 /// Services: { Random: IRandomNumberGenerator; }
 /// </summary>
 /// 

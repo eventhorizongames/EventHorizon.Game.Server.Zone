@@ -5,7 +5,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public long CoolDown { get; set; }
         public SkillValidator[] ValidatorList { get; set; }
         public SkillEffect[] EffectList { get; set; }
         public SkillEffect[] FailedList { get; set; }
