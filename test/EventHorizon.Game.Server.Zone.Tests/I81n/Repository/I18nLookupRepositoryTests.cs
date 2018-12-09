@@ -38,6 +38,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Repository
             );
         }
         [Fact]
+        public void TestSetRepository_ShouldSetEmptyDictionaryOnNullSet()
+        {
+            //Given
+            var locale = "en_US";
+
+            //When
+            var i18nLookupRepository = new I18nLookupRepository();
+            i18nLookupRepository.SetRepository(
+                locale,
+                null
+            );
+            var actual = i18nLookupRepository.GetRepository(
+                locale
+            );
+
+            //Then
+            Assert.Empty(
+                actual
+            );
+        }
+        [Fact]
         public void TestLookup_ShouldReturnEmptyRepositoryWhenNotIsFound()
         {
             //Given
@@ -95,6 +116,33 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Repository
                 {{
                     key, expected
                 }}
+            );
+
+            var actual = i18nLookupRepository.Lookup(
+                locale,
+                key
+            );
+
+            //Then
+            Assert.Equal(
+                expected,
+                actual
+            );
+        }
+        [Fact]
+        public void TestLookup_ShouldReturnNotFoundWhenTranslationKeyIsNotFoundInLocaleList()
+        {
+            //Given
+            var expected = "[[HelloWorld (NOT_FOUND)]]";
+
+            var locale = "en_US";
+            var key = "HelloWorld";
+
+            //When
+            var i18nLookupRepository = new I18nLookupRepository();
+            i18nLookupRepository.SetRepository(
+                locale,
+                new Dictionary<string, string>()
             );
 
             var actual = i18nLookupRepository.Lookup(

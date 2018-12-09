@@ -4,7 +4,7 @@ using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.External.Client;
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Client
+namespace EventHorizon.Plugin.Zone.System.Combat.Client.Messsage
 {
     public class ClientActionMessageFromCombatSystemHandler
         :

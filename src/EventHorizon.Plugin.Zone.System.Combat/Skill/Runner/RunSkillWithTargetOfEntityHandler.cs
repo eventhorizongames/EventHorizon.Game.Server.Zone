@@ -7,7 +7,7 @@ using EventHorizon.Game.I18n.Model;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Combat.Client;
+using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Find;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;

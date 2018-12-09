@@ -1,1 +1,0 @@
-dotnet watch --project ./test/EventHorizon.Game.Server.Zone.Model.Tests test --filter Category!=Performance /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info 
