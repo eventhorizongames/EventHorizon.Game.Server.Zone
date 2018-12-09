@@ -1,0 +1,7 @@
+{
+    "locale": "default",
+    "translationList": {
+        "CasterDoesNotHaveSkill": "Failed: {casterName} does not have {skillName}.",
+        "SkillExceptionMessage": "Exception during casting of Skill."
+    }
+}

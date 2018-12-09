@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
 {
-    public struct RunValidateForSkillEvent : IRequest<IEnumerable<SkillValidatorResponse>>
+    public struct RunValidateForSkillEvent : IRequest<SkillValidatorResponse>
     {
         public SkillInstance Skill { get; set; }
         public IObjectEntity Caster { get; set; }

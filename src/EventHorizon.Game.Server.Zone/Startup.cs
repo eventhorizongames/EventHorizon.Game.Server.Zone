@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading.Tasks;
+using EventHorizon.Game.I18n;
 using EventHorizon.Game.Server.Zone.Admin.Bus;
 using EventHorizon.Game.Server.Zone.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
@@ -106,6 +107,7 @@ namespace EventHorizon.Game.Server.Zone
             }));
 
             services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
+            services.AddI18n();
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
@@ -125,7 +127,7 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddPlugins(HostingEnvironment);
 
-            // TODO: Remove this after done testing Combat System, move to Plugins
+            // TODO: Remove this after done testing Combat System, move to Plugins flow
             services.AddSystemCombat();
         }
 
@@ -142,6 +144,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
 
+            app.UseI18n();
             app.UseZoneCore();
             app.UseSetupServer();
 
@@ -150,7 +153,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseParticle();
             app.UsePlugins();
 
-            // TODO: Remove this after done testing Combat System, move to Plugins
+            // TODO: Remove this after done testing Combat System, move to Plugins flow
             app.UseSystemCombat();
 
             app.UseStaticFiles();

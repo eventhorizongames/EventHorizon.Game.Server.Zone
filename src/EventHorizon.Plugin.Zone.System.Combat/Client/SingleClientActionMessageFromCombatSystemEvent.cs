@@ -10,6 +10,5 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Client
         public override string ConnectionId { get; set; }
         public override string Action => "MessageToCombatSystemLog";
         public override MessageFromCombatSystemData Data { get; set; }
-
     }
 }

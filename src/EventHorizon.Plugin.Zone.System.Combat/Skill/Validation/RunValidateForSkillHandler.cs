@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
 {
-    public class RunValidateForSkillHandler : IRequestHandler<RunValidateForSkillEvent, IEnumerable<SkillValidatorResponse>>
+    public class RunValidateForSkillHandler : IRequestHandler<RunValidateForSkillEvent, SkillValidatorResponse>
     {
         readonly ISkillValidatorScriptRepository _validatorScriptRepository;
         readonly IScriptServices _scriptServices;
@@ -21,28 +21,33 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
             _validatorScriptRepository = validatorScriptRepository;
             _scriptServices = scriptServices;
         }
-        public async Task<IEnumerable<SkillValidatorResponse>> Handle(
+        public async Task<SkillValidatorResponse> Handle(
             RunValidateForSkillEvent request,
             CancellationToken cancellationToken
         )
         {
-            var response = new List<SkillValidatorResponse>();
             foreach (var validator in request.Skill.ValidatorList)
             {
                 var script = _validatorScriptRepository.Find(
                     validator.Validator
                 );
-                response.Add(
-                    await script.Run(
-                        _scriptServices,
-                        request.Caster,
-                        request.Target,
-                        request.Skill,
-                        validator.Data
-                    )
+                var response = await script.Run(
+                    _scriptServices,
+                    request.Caster,
+                    request.Target,
+                    request.Skill,
+                    validator.Data
                 );
+                if (!response.Success)
+                {
+                    return response;
+                }
             }
-            return response;
+
+            return new SkillValidatorResponse
+            {
+                Success = true
+            };
         }
     }
 }
