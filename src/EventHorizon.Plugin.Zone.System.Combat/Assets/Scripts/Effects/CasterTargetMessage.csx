@@ -1,14 +1,21 @@
 /// <summary>
-/// Id - caster_target_message
+/// Effect Id: caster_target_message
 /// 
-/// Caster - 
-/// Target - 
-/// Data: { message: string; messageCode: string; }
+/// Caster: 
+/// - Id: long
+/// Target: 
+/// - Id: long
+/// Data: 
+/// - messageCode: string
+/// - messageTemplateKey: string
+/// Services: 
+/// - I18n: I18nLookup
 /// </summary>
+
 var actionData = new
 {
     MessageCode = (string)Data["messageCode"],
-    MessageTemplate = (string)Data["messageTemplate"],
+    MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
     TemplateData = new
     {
         CasterName = Caster.Id,

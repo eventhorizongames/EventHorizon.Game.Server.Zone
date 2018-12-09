@@ -30,7 +30,7 @@
             "effect": "skill_validation_failed",
             "data": {
                 "messageCode": "skill_validation_failed",
-                "messageTemplate": "(${skillName}) failed because ${skillFailedReason}."
+                "messageTemplateKey": "SkillFailedForReason"
             }
         }],
         "effectList": [{
@@ -109,7 +109,7 @@
                             "effect": "damage_message",
                             "data": {
                                 "messageCode": "damage_target",
-                                "messageTemplate": "(${casterName}) damaged (${targetName}) for ${damage} point."
+                                "messageTemplateKey": "CasterDamagedTarget"
                             }
                         }]
                     }, {
@@ -126,7 +126,7 @@
                     "effect": "caster_target_message",
                     "data": {
                         "messageCode": "caster_missed_target",
-                        "messageTemplate": "(${casterName}) missed (${targetName})."
+                        "messageTemplateKey": "CasterMissedTarget"
                     }
                 }, {
                     "comment": "Start the cast of Fire Skill animation",

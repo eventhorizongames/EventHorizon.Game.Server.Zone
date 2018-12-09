@@ -6,6 +6,7 @@
 /// Data: { min: number; max: number; }
 /// Services: { Vector3: Vector3; }
 /// </summary>
+
 var min = (long)Data["min"];
 var max = (long)Data["max"];
 
@@ -23,6 +24,7 @@ if (distance >= min && distance <= max) {
 
 return new SkillValidatorResponse
 {
-    ErrorMessage = $"(${{targetName}}) not in range",
-    Success = false
+    Success = false, 
+    ErrorCode = "target_not_in_range",
+    ErrorMessageTemplateKey = "TargetNotInRange"
 };

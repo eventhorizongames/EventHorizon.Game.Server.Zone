@@ -1,23 +1,26 @@
 /// <summary>
 /// Effect Id: skill_validation_failed
 /// 
-/// Caster: { Id: string; } 
-/// Target: { Id: string; }
+/// Caster: { Id: long; } 
+/// Target: { Id: long; }
 /// Skill: { Name: string; }
 /// Data: { messageTemplate: string; messageCode: string; }
-/// PriorState: { ValidationMessage: string; }
+/// PriorState: { ValidationResponse: ValidationResponse; }
+/// Services: { I18n: I18nLookup; }
 /// </summary>
 
+var validationResponse = (SkillValidatorResponse)PriorState["ValidationResponse"];
 var actionData = new
 {
     MessageCode = (string)Data["messageCode"],
-    MessageTemplate = (string)Data["messageTemplate"],
+    MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
     TemplateData = new
     {
         CasterName = Caster.Id,
         TargetName = Target.Id,
         SkillName = Skill.Name,
-        SkillFailedReason = PriorState["ValidationMessage"]
+        SkillFailedReason = Services.I18n.Lookup("default", validationResponse.ErrorMessageTemplateKey),
+        ErrorData = validationResponse.ErrorMessageTemplateData
     }
 };
 var action = new ClientSkillActionEvent

@@ -25,5 +25,6 @@ if (skillReady)
 return new SkillValidatorResponse
 {
     Success = false,
-    ErrorMessage = "${skillName} is not ready.",
+    ErrorCode = "skill_not_ready",
+    ErrorMessageTemplateKey = "SkillNotReady",
 };

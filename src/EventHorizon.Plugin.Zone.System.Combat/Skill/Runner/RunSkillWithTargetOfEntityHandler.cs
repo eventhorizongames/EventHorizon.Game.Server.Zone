@@ -145,8 +145,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                         "skill_effect_validation_failed"
                     },
                     {
-                        "ValidationMessage",
-                        validationResponse.ErrorMessage
+                        "ValidationResponse",
+                        validationResponse
                     }
                 };
 

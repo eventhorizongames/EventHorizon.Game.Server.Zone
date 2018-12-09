@@ -23,6 +23,7 @@ if (distance >= min && distance <= max) {
 
 return new SkillValidatorResponse
 {
-    ErrorMessage = $"(${{targetName}}) not in range",
-    Success = false
+    Success = false, 
+    ErrorCode = "target_not_in_range",
+    ErrorMessageTemplateKey = "TargetNotInRange"
 };

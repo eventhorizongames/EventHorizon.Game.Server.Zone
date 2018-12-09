@@ -1,6 +1,7 @@
 using System.Reflection;
 using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
+using EventHorizon.Game.Server.Zone.Core.DirectoryService;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
 using EventHorizon.Game.Server.Zone.Core.Info;
@@ -13,6 +14,7 @@ using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Game.Server.Zone.External.DirectoryService;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Game.Server.Zone.External.RandomNumber;
@@ -28,6 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Core
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMediatR(typeof(Agent.PluginStartup), typeof(Agent.Ai.PluginStartup))
+                .AddTransient<DirectoryResolver, ServerDirectoryResolver>()
                 .AddTransient<IJsonFileLoader, JsonFileLoader>()
                 .AddTransient<IJsonFileSaver, JsonFileSaver>()
                 .AddSingleton<IIdPool, IdPoolImpl>()

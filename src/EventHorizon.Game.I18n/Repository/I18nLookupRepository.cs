@@ -47,7 +47,7 @@ namespace EventHorizon.Game.I18n.Lookup
             foreach (var tokenValue in tokenValueList)
             {
                 translation = translation.Replace(
-                    $"{{{tokenValue.Token}}}",
+                    $"${{{tokenValue.Token}}}",
                     tokenValue.Value
                 );
             }

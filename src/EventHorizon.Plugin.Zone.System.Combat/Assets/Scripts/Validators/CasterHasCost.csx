@@ -5,6 +5,7 @@
 /// Target - 
 /// Data: { propertyName: string; valueProperty: string; cost: number }
 /// </summary>
+
 var propertyName = (string)Data["propertyName"];
 var valueProperty = (string)Data["valueProperty"];
 var cost = (long)Data["cost"];
@@ -21,6 +22,12 @@ if (casterPropertyValue >= cost)
 
 return new SkillValidatorResponse
 {
-    ErrorMessage = $"(${{casterName}}) needs at least {cost} {valueProperty}",
-    Success = false
+    Success = false,
+    ErrorCode = "caster_not_enough_points",
+    ErrorMessageTemplateKey = "CasterNotEnoughPoints",
+    ErrorMessageTemplateData = new 
+    {
+        Cost = cost,
+        ValueProperty = valueProperty
+    }
 };

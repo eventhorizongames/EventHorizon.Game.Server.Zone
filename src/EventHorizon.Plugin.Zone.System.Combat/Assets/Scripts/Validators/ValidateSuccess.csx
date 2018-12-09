@@ -20,5 +20,6 @@ if (randomNumber <= precent)
 
 return new SkillValidatorResponse
 {
-    Success = false
+    Success = false,
+    ErrorCode = "skill_validation_failed"
 };

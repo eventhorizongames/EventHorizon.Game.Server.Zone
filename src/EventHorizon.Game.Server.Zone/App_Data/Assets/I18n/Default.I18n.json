@@ -2,6 +2,14 @@
     "locale": "default",
     "translationList": {
         "CasterDoesNotHaveSkill": "Failed: {casterName} does not have {skillName}.",
-        "SkillExceptionMessage": "Exception during casting of Skill."
+        "SkillExceptionMessage": "Exception during casting of Skill.",
+        "SkillFailedForReason": "(${skillName}) failed because ${skillFailedReason}.",
+        "CasterDamagedTarget": "(${casterName}) damaged (${targetName}) for ${damage} point(s).",
+        "CasterMissedTarget": "(${casterName}) missed (${targetName}).",
+        "SkillNotReady": "${skillName} is not ready",
+        "TargetNotInRange": "${targetName} not in range",
+        "CasterCanNotTargetSelf": "${casterName} cannot target self",
+        "CasterNotEnoughPoints": "(${casterName}) needs at least ${errorData.cost} ${errorData.valueProperty}",
+        "EMPTY": ""
     }
 }

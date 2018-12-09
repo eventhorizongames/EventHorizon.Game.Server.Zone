@@ -6,7 +6,7 @@
 /// Skill: { Id: string; }
 /// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
 /// Data: { coolDown: long; }
-/// PriorState: { Code: string; ValidationMessage: string; }
+/// PriorState: -
 /// </summary>
 /// <returns></returns>
 var coolDown = (long)Data["coolDown"];

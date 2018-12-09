@@ -66,8 +66,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                         "effect_validation_failed"
                     },
                     {
-                        "ValidationMessage",
-                        validationResponse.ErrorMessage
+                        "ValidationResponse",
+                        validationResponse
                     },
                     {
                         "Effect",

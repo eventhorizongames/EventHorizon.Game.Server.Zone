@@ -21,6 +21,12 @@ if (casterPropertyValue >= cost)
 
 return new SkillValidatorResponse
 {
-    ErrorMessage = $"(${{casterName}}) needs at least {cost} {valueProperty}",
-    Success = false
+    Success = false,
+    ErrorCode = "caster_not_enough_points",
+    ErrorMessageTemplateKey = "CasterNotEnoughPoints",
+    ErrorMessageTemplateData = new 
+    {
+        Cost = cost,
+        ValueProperty = valueProperty
+    }
 };

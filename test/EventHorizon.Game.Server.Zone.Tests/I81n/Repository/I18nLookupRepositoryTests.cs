@@ -176,7 +176,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Repository
                 locale,
                 new Dictionary<string, string>()
                 {{
-                    key, "{FIRST}, {second}!"
+                    key, "${FIRST}, ${second}!"
                 }}
             );
 
