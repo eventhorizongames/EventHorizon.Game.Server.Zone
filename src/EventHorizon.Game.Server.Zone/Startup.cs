@@ -92,8 +92,16 @@ namespace EventHorizon.Game.Server.Zone
             services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder =>
             {
-                builder.AllowAnyMethod().AllowAnyHeader()
-                    .AllowAnyOrigin()
+                builder.AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithOrigins(
+                        Configuration
+                            .GetSection("Cors:Hosts")
+                            .GetChildren()
+                            .AsEnumerable()
+                            .Select(a => a.Value)
+                            .ToArray()
+                    )
                     .AllowCredentials();
             }));
 
