@@ -37,7 +37,7 @@
             "comment": "Set CoolDown on Caster.",
             "effect": "set_caster_skill_cool_down",
             "data": {
-                "coolDown": 5000
+                "coolDown": 10
             }
         }, {
             "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",

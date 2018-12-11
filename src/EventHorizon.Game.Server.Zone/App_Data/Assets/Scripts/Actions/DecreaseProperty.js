@@ -1,13 +1,16 @@
-// Action Id: decrease_property
-// Services:
-// - EntityRepository
-// Methods:
-// - sendEvent(eventName: string, data?: any)
-// Data: 
-// - id: EntityId
-// - propertyName: string
-// - valueProperty: string
-// - amount: number
+/* 
+ * Action Id: decrease_property
+ * 
+ * Services:
+ * - EntityRepository
+ * Methods:
+ * - sendEvent(eventName: string, data?: any)
+ * Data: 
+ * - id: EntityId
+ * - propertyName: string
+ * - valueProperty: string
+ * - amount: number 
+ */
 
 const entity = Services.EntityRepository.get(
     Data.id
