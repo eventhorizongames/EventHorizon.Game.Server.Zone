@@ -16,8 +16,8 @@ var actionData = new
     MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
     TemplateData = new
     {
-        CasterName = Caster.Id,
-        TargetName = Target.Id,
+        CasterName = Caster.Name,
+        TargetName = Target.Name,
         SkillName = Skill.Name,
         SkillFailedReason = Services.I18n.Lookup("default", validationResponse.ErrorMessageTemplateKey),
         ErrorData = validationResponse.ErrorMessageTemplateData

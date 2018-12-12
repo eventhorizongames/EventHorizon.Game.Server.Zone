@@ -9,6 +9,7 @@
 /// PriorState: -
 /// </summary>
 /// <returns></returns>
+
 var coolDown = (long)Data["coolDown"];
 
 var casterSkillState = Caster.GetProperty<dynamic>("SkillState");

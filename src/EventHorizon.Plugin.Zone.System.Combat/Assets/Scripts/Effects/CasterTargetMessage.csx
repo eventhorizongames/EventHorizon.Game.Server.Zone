@@ -18,8 +18,8 @@ var actionData = new
     MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
     TemplateData = new
     {
-        CasterName = Caster.Id,
-        TargetName = Target.Id
+        CasterName = Caster.Name,
+        TargetName = Target.Name
     }
 };
 var action = new ClientSkillActionEvent

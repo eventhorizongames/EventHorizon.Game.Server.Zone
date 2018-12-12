@@ -2,6 +2,7 @@
 /// Effect Id: decrease_target_property
 /// </summary>
 /// <returns></returns>
+
 var propertyName = (string)Data["propertyName"];
 var valueProperty = (string)Data["valueProperty"];
 // TODO: Use the modifiers to change value amount.

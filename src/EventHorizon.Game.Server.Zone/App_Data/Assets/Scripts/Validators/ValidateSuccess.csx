@@ -6,7 +6,7 @@
 /// Data: { percent: number; messageTemplate: string; }
 /// Services: { Random: IRandomNumberGenerator; }
 /// </summary>
-/// 
+
 var precent = (long)Data["percent"];
 var randomNumber = Services.Random.Next(100);
 

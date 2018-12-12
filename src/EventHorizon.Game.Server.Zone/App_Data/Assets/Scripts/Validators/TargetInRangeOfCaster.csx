@@ -6,6 +6,7 @@
 /// Data: { min: number; max: number; }
 /// Services: { Vector3: Vector3; }
 /// </summary>
+
 var min = (long)Data["min"];
 var max = (long)Data["max"];
 

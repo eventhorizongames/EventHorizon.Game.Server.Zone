@@ -7,14 +7,15 @@
 /// Data: { message: string; messageCode: string; messageTemplateKey: string; }
 /// Services: { I18n: I18nLookup; }
 /// </summary>
+
 var actionData = new
 {
     MessageCode = (string)Data["messageCode"],
     MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
     TemplateData = new
     {
-        CasterName = Caster.Id,
-        TargetName = Target.Id,
+        CasterName = Caster.Name,
+        TargetName = Target.Name,
         Damage = PriorState["Damage"]
     }
 };
