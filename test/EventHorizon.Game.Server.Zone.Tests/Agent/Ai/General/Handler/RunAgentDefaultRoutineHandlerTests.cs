@@ -44,7 +44,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             {
                 AgentId = 123
             }, CancellationToken.None);
-            
+
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(
                 new StartAgentRoutineEvent

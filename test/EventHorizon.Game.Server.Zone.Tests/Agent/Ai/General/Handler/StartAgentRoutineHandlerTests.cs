@@ -38,7 +38,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
                 .ReturnsAsync(expectedAgent);
             var handler = new StartAgentRoutineHandler(mediatorMock.Object);
-            
+
             // When
             await handler.Handle(new StartAgentRoutineEvent
             {

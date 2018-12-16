@@ -1,0 +1,9 @@
+{
+    "name": "ServerModule",
+    "serverModuleList": [{
+        "name": "SystemCombatChat",
+        "initializeScript": "CombatSystemChat_Initialize.js",
+        "disposeScript": "CombatSystemChat_Dispose.js",
+        "updateScript": "CombatSystemChat_Update.js"
+    }]
+}

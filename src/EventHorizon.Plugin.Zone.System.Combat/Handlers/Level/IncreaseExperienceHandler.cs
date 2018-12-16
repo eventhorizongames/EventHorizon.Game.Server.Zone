@@ -1,6 +1,3 @@
-
-
-
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
@@ -36,7 +33,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
                 // Ignore
                 return;
             }
-            
+
             var entityLevelState = entity.GetProperty<LevelState>(LevelState.PROPERTY_NAME);
             entityLevelState.Experience += notification.Points;
             entityLevelState.AllTimeExperience += notification.Points;

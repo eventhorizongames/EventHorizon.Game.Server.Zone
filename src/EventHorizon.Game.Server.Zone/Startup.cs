@@ -125,10 +125,11 @@ namespace EventHorizon.Game.Server.Zone
             });
             services.AddTimer();
 
-            services.AddPlugins(HostingEnvironment);
-
-            // TODO: Remove this after done testing Combat System, move to Plugins flow
+            // TODO: Remove this after done testing, move to System flow
             services.AddSystemCombat();
+            services.AddSystemServerModule();
+
+            services.AddPlugins(HostingEnvironment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -151,10 +152,12 @@ namespace EventHorizon.Game.Server.Zone
             app.UseAgent();
             app.UseGui();
             app.UseParticle();
-            app.UsePlugins();
 
-            // TODO: Remove this after done testing Combat System, move to Plugins flow
+            // TODO: Remove this after done testing, move to Systems flow
             app.UseSystemCombat();
+            app.UseSystemServerModule();
+            
+            app.UsePlugins();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>

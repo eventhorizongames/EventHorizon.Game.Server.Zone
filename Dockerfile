@@ -12,6 +12,9 @@ COPY src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.Ex
 COPY src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj ./src/EventHorizon.Game.Server.Zone.Model/EventHorizon.Game.Server.Zone.Model.csproj
 COPY src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj ./src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj
 
+# Systems
+COPY src/EventHorizon.Zone.System.ServerModule/EventHorizon.Zone.System.ServerModule.csproj ./src/EventHorizon.Zone.System.ServerModule/EventHorizon.Zone.System.ServerModule.csproj
+
 # Embedded Plugins
 COPY src/EventHorizon.Plugin.Zone.System.Combat/EventHorizon.Plugin.Zone.System.Combat.csproj ./src/EventHorizon.Plugin.Zone.System.Combat/EventHorizon.Plugin.Zone.System.Combat.csproj
 
