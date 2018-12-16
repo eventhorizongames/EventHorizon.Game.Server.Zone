@@ -11,6 +11,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
             return new PlayerDetails
             {
                 Id = entity.PlayerId,
+                Name = entity.Name,
+                Locale = entity.Locale,
                 Position = new PlayerPositionState
                 {
                     Position = entity.Position.CurrentPosition,

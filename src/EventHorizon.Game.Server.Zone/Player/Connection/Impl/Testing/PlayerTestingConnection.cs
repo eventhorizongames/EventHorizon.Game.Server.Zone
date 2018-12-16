@@ -51,6 +51,8 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing
             return new PlayerDetails
             {
                 Id = id,
+                Name = "Test_Player",
+                Locale = "en_US",
                 Position = new PlayerPositionState
                 {
                     Position = Vector3.Zero,

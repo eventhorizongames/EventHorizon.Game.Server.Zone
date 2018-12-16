@@ -20,6 +20,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Mapper
             {
                 Id = -1,
                 PlayerId = details.Id,
+                Name = details.Name,
+                Locale = details.Locale,
                 ConnectionId = GetConnectionId(details),
                 Type = EntityType.PLAYER,
                 Position = new PositionState

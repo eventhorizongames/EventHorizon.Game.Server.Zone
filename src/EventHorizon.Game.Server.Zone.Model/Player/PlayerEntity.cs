@@ -12,14 +12,8 @@ namespace EventHorizon.Game.Server.Zone.Model.Player
 
         public long Id { get; set; }
         public string PlayerId { get; set; }
-        public string Name
-        {
-            get
-            {
-                return "Player_" + PlayerId;
-            }
-            set { }
-        }
+        public string Name { get; set; }
+        public string Locale { get; set; }
         public EntityType Type { get; set; }
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
