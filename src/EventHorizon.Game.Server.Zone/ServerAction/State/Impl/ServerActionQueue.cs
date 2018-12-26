@@ -9,7 +9,8 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
 {
     public class ServerActionQueue : IServerActionQueue
     {
-        private ConcurrentBag<ServerActionEntity> _actionList = new ConcurrentBag<ServerActionEntity>();
+        private ConcurrentQueue<ServerActionEntity> _actionList = new ConcurrentQueue<ServerActionEntity>();
+        private ConcurrentBag<ServerActionEntity> _reQueueList = new ConcurrentBag<ServerActionEntity>();
 
         public Task Clear()
         {
@@ -18,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
         }
         public Task Push(ServerActionEntity actionEntity)
         {
-            _actionList.Add(actionEntity);
+            _actionList.Enqueue(actionEntity);
             return Task.CompletedTask;
         }
         /// <summary>
@@ -26,26 +27,53 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.State.Impl
         /// </summary>
         /// <param name="take"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<ServerActionEntity>> Take(int take)
+        public Task<IEnumerable<ServerActionEntity>> Take(int take)
         {
-            var returnList = await this.Pop(take);
-            await this.Remove(returnList);
-            return returnList;
+            lock (_actionList)
+            {
+                return Task.FromResult(this.Pop(take));
+            }
         }
 
-        private Task<IEnumerable<ServerActionEntity>> Pop(int take)
+        private IEnumerable<ServerActionEntity> Pop(int take)
+        {
+            var response = Get(new List<ServerActionEntity>(), take).AsEnumerable();
+            foreach (var action in _reQueueList)
+            {
+                _actionList.Enqueue(action);
+            }
+            _reQueueList.Clear();
+            return response;
+        }
+        private List<ServerActionEntity> Get(List<ServerActionEntity> response, int take)
         {
             var now = DateTime.UtcNow;
-            return Task.FromResult(_actionList
-                .Where(a => now.CompareTo(a.RunAt) >= 0)
-                .Take(take)
-                .AsEnumerable()
-            );
+            var serverActionEntity = default(ServerActionEntity);
+            if (_actionList.TryDequeue(out serverActionEntity))
+            {
+                if (now.CompareTo(serverActionEntity.RunAt) >= 0)
+                {
+                    response.Add(serverActionEntity);
+                }
+                else
+                {
+                    _reQueueList.Add(serverActionEntity);
+                }
+                if (response.Count == take)
+                {
+                    return response;
+                }
+                return Get(response, take);
+            }
+            else
+            {
+                return response;
+            }
         }
-        private Task Remove(IEnumerable<ServerActionEntity> deleteList)
-        {
-            _actionList = new ConcurrentBag<ServerActionEntity>(_actionList.Except(deleteList));
-            return Task.CompletedTask;
-        }
+        // private Task Remove(IEnumerable<ServerActionEntity> deleteList)
+        // {
+        //     _actionList = new ConcurrentBag<ServerActionEntity>(_actionList.Except(deleteList));
+        //     return Task.CompletedTask;
+        // }
     }
 }

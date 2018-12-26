@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.Timer
     public class RunServerActionsTimerTask : ITimerTask
     {
         public int Period { get; } = 10;
+        public string Tag { get; } = "RunServerActions";
         public INotification OnRunEvent { get; } = new RunPendingServerActionsEvent();
     }
 }

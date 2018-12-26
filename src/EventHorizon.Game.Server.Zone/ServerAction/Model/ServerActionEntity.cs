@@ -15,5 +15,10 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.Model
             this.RunAt = runAt;
             this.EventToSend = eventToSend;
         }
+
+        public bool IsValid()
+        {
+            return _guid != null;
+        }
     }
 }

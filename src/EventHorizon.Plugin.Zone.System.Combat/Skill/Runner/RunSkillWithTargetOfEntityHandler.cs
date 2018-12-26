@@ -167,16 +167,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 return;
             }
 
-            _logger.LogDebug(
-                "Running Skill. {casterId} {targetId} {skillId} {@caster} {@target} {@skill}",
-                notification.CasterId,
-                notification.TargetId,
-                notification.SkillId,
-                caster,
-                target,
-                skill
-            );
-
             foreach (var skillEffect in skill.EffectList)
             {
                 await _mediator.Publish(

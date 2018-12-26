@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Game.Server.Zone.ServerAction.Run.Handler
 {
-    public class RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
+    public struct RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
     {
         readonly IMediator _mediator;
         readonly IServerActionQueue _serverActionQueue;
@@ -22,7 +22,7 @@ namespace EventHorizon.Game.Server.Zone.ServerAction.Run.Handler
             var list = await _serverActionQueue.Take(10);
             foreach (var action in list.Values())
             {
-                await _mediator.Publish(action.EventToSend);
+                await _mediator.Publish(action.EventToSend).ConfigureAwait(false);
             }
         }
     }
