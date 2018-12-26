@@ -16,6 +16,7 @@
 Methods.sendEvent(
     "MessageFromCombatSystem", {
         messageCode: Data.messageCode,
+        // This is done twice so this supports message templates inside template data.
         message: Methods.resolveTemplate(
             Methods.resolveTemplate(Data.messageTemplate, Data.templateData),
             Data.templateData

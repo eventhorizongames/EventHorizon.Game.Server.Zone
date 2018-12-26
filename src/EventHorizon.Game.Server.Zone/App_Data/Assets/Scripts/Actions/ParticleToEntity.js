@@ -23,7 +23,8 @@ const endingEntity = Services.EntityRepository.get(
 const particleEntity = Services.EntityBuilder.createParticleEmitter(
     "Flame_Particle", // TODO: Move this Skill Configuration
     startingEntity.position,
-    2 // TODO: Move this Skill Configuration
+    // Speed
+    10 // TODO: Move this Skill Configuration
 );
 // Set to where the particle should move
 particleEntity.moveTo(endingEntity.position)
