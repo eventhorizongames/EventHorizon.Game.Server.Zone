@@ -44,6 +44,7 @@
     <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Model\EventHorizon.Plugin.Zone.System.Model.csproj" />
     <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat\EventHorizon.Plugin.Zone.System.Combat.csproj" />
   </ItemGroup>
 

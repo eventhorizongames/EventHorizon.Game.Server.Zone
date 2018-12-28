@@ -127,6 +127,7 @@ namespace EventHorizon.Game.Server.Zone
 
             // TODO: Remove this after done testing, move to System flow
             services.AddSystemCombat();
+            services.AddSystemModel();
             services.AddSystemServerModule();
 
             services.AddPlugins(HostingEnvironment);
@@ -155,8 +156,9 @@ namespace EventHorizon.Game.Server.Zone
 
             // TODO: Remove this after done testing, move to Systems flow
             app.UseSystemCombat();
+            app.UseSystemModel();
             app.UseSystemServerModule();
-            
+
             app.UsePlugins();
 
             app.UseStaticFiles();
