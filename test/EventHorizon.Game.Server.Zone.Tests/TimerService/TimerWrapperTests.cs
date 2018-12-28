@@ -64,7 +64,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.TimerService
         public void TestStop_ShouldStopEventCallsAfterStopped()
         {
             // Given
-            var inputPeriod = 100;
+            var inputPeriod = 120;
             var expectedPublishedEvent = new TestNotificationEvent();
 
             var mediatorMock = new Mock<IMediator>();

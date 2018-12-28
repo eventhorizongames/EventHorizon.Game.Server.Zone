@@ -47,7 +47,14 @@ namespace EventHorizon.TimerService
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
-                _logger.LogWarning("Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                _logger.LogWarning(
+                    "Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                    timerState.Id,
+                    timerState.Guid,
+                    _timerTask.Tag,
+                    timerState.StartDate,
+                    DateTime.UtcNow - timerState.StartDate
+                );
                 return;
             }
 
@@ -67,12 +74,25 @@ namespace EventHorizon.TimerService
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Timer Exception; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                        _logger.LogError(ex,
+                            "Timer Exception; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                            timerState.Id,
+                            timerState.Guid,
+                            _timerTask.Tag,
+                            timerState.StartDate,
+                            DateTime.UtcNow - timerState.StartDate
+                        );
                     }
                 }
                 if (DateTime.UtcNow.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.UtcNow.AddMilliseconds(_timerTask.Period)) > 0)
                 {
-                    _logger.LogWarning("Timer ran long; Id: {Id} | Guid: {GUID} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}", timerState.Id, timerState.Guid, timerState.StartDate, DateTime.UtcNow - timerState.StartDate);
+                    _logger.LogWarning(
+                        "Timer ran long; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                        timerState.Id,
+                        timerState.Guid,
+                        _timerTask.Tag,
+                        timerState.StartDate,
+                        DateTime.UtcNow - timerState.StartDate);
                 }
                 timerState.IsRunning = false;
                 timerState.StartDate = DateTime.UtcNow;

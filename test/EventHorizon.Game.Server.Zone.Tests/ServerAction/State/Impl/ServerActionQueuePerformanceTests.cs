@@ -45,6 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             // Given
             // When
             var actionRepository = new ServerActionQueue();
+            await actionRepository.Clear();
             var now = DateTime.UtcNow;
             for (int i = 0; i < entitiesToCreate; i++)
             {
@@ -60,6 +61,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
             _testOutputHelper.WriteLine("Time: {0}ms", elapsed);
             _testOutputHelper.WriteLine("Count: {0}", actual.Count());
             Assert.True(elapsed <= expectedLessThan);
+            Assert.Equal(actual.Count(), input);
         }
     }
 }

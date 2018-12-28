@@ -62,9 +62,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
 
             // Then
             Assert.Collection(actual,
-                a => Assert.Equal(expectedActionEntity3, a),
+                a => Assert.Equal(expectedActionEntity1, a),
                 a => Assert.Equal(expectedActionEntity2, a),
-                a => Assert.Equal(expectedActionEntity1, a)
+                a => Assert.Equal(expectedActionEntity3, a)
             );
         }
 
@@ -92,9 +92,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.State.Impl
 
             // Then
             Assert.Collection(actualFirstCall,
-                a => Assert.Equal(expectedActionEntity3, a),
+                a => Assert.Equal(expectedActionEntity1, a),
                 a => Assert.Equal(expectedActionEntity2, a),
-                a => Assert.Equal(expectedActionEntity1, a)
+                a => Assert.Equal(expectedActionEntity3, a)
             );
 
             Assert.Empty(actualSecondCall);

@@ -8,6 +8,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Timer
     public class UpdateEntityLifeTimer : ITimerTask
     {
         public int Period { get; } = 10;
+        public string Tag { get; } = "UpdateEntityLife";
         public INotification OnRunEvent { get; } = new UpdateEntityLifeFromQueueEvent();
     }
 }

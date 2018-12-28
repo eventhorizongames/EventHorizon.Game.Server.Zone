@@ -11,6 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Impl
     public class MoveRegisteredAgentsTimer : ITimerTask
     {
         public int Period { get; } = 100;
+        public string Tag { get; } = "MoveRegisteredAgents";
         public INotification OnRunEvent { get; } = new MoveRegisteredAgentsEvent();
     }
 }
