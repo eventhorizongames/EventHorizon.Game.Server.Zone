@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -43,14 +44,26 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
 
         public async Task Handle(RegisterWithCoreServerEvent notification, CancellationToken cancellationToken)
         {
-            var connection = await _connectionFactory.GetConnection();
-            var response = await connection.RegisterZone(new ZoneRegistrationDetails
+            try
             {
-                Tags = _zoneSettings.Tags,
-                ServerAddress = _serverProperty.Get<string>(ServerPropertyKeys.HOST)
-            });
-            _serverProperty.Set(ServerPropertyKeys.SERVER_ID, response.Id);
-            _logger.LogInformation("Registered with Core Server: {0}", response.Id);
+                var response = await (await _connectionFactory.GetConnection())
+                    .RegisterZone(new ZoneRegistrationDetails
+                    {
+                        Tags = _zoneSettings.Tags,
+                        ServerAddress = _serverProperty.Get<string>(ServerPropertyKeys.HOST)
+                    });
+                _serverProperty.Set(ServerPropertyKeys.SERVER_ID, response.Id);
+                _logger.LogInformation("Registered with Core Server: {0}", response.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    "Failed to register with ZoneServer: {Tags} | {Host}",
+                    _zoneSettings.Tags,
+                    _serverProperty.Get<string>(ServerPropertyKeys.HOST)
+                );
+                throw ex;
+            }
         }
     }
 }

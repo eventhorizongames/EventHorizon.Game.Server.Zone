@@ -4,15 +4,15 @@
         "Position": {
             "CanMove": true,
             "CurrentPosition": {
-                "X": 0.0,
+                "X": 8.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 32.0
             },
-            "NextMoveRequest": "0001-01-01T00:00:00",
+            "NextMoveRequest": "2018-12-30T19:38:40.3566187Z",
             "MoveToPosition": {
-                "X": 0.0,
+                "X": 12.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 32.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -21,10 +21,10 @@
         "Speed": 1.0,
         "Data": {
             "Routine": {
-                "Type": "IDLE"
+                "Type": "MOVE"
             },
             "DefaultRoutine": {
-                "Type": "IDLE"
+                "Type": "WANDER"
             },
             "Wander": {
                 "LookDistance": 25
@@ -36,8 +36,8 @@
                 "Condition": {
                     "Name": "ALIVE"
                 },
-                "HealthPoints": 1000,
-                "MaxHealthPoints": 1000,
+                "HealthPoints": 9508,
+                "MaxHealthPoints": 10000,
                 "ActionPoints": 10,
                 "MaxActionPoints": 10,
                 "Attack": 1
@@ -48,6 +48,17 @@
                 "AttackLevel": 1,
                 "Experience": 0,
                 "AllTimeExperience": 3
+            },
+            "SkillState": {
+                "SkillList": null
+            },
+            "ModelState": {
+                "AnimationList": [],
+                "Mesh": {
+                    "Type": "GLTF",
+                    "Path": "/Assets/Meshes/",
+                    "File": "Default_Mesh.glb"
+                }
             }
         }
     }]
