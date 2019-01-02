@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Handlers
             // Get the Agent Entity
             var agent = await _mediator.Send(new GetAgentEvent
             {
-                AgentId = request.AgentId,
+                EntityId = request.EntityId,
             });
             if (!agent.IsFound() || !AgentRoutine.IDLE.Equals(request.Routine))
             {
@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Handlers
             // Clear any already in process Routines
             await _mediator.Publish(new ClearAgentRoutineEvent
             {
-                AgentId = request.AgentId
+                EntityId = request.EntityId
             });
         }
     }

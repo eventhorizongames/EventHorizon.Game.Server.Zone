@@ -9,8 +9,10 @@ using EventHorizon.Game.Server.Zone.Load;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Events;
 using EventHorizon.Game.Server.Zone.Load.Map.Factory;
+using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Load.Settings.Events;
 using EventHorizon.Game.Server.Zone.Load.Settings.Factory;
+using EventHorizon.Game.Server.Zone.Load.Settings.Model;
 using EventHorizon.Game.Server.Zone.Settings.Load;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -26,10 +28,12 @@ namespace EventHorizon.Game.Server.Zone.Core
             var zoneSettingsFactory = new ZoneSettingsFactory();
             services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
             services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);
+            services.AddTransient<ZoneSettings>(_ => zoneSettingsFactory.Settings);
 
             var zoneMapFactory = new ZoneMapFactory();
             services.AddSingleton<IZoneMapFactory>(zoneMapFactory);
             services.AddSingleton<IZoneMapSetter>(zoneMapFactory);
+            services.AddTransient<ZoneMap>(_ => zoneMapFactory.Map);
         }
         public static void UseLoad(this IApplicationBuilder app)
         {

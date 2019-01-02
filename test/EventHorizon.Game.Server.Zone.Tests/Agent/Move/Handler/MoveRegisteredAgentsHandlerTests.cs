@@ -25,15 +25,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var inputId3 = 333;
             var expectedMoveRegisteredAgentEvent1 = new MoveRegisteredAgentEvent
             {
-                AgentId = inputId1
+                EntityId = inputId1
             };
             var expectedMoveRegisteredAgentEvent2 = new MoveRegisteredAgentEvent
             {
-                AgentId = inputId2
+                EntityId = inputId2
             };
             var expectedMoveRegisteredAgentEvent3 = new MoveRegisteredAgentEvent
             {
-                AgentId = inputId3
+                EntityId = inputId3
             };
             var entityIdList = new List<long>()
             {
@@ -106,10 +106,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
         public async Task TestHandle_ShouldLogWarningWhenAgentCountListIsOver75Agents()
         {
             // Given
-            var agentIdList = new List<long>();
+            var entityIdList = new List<long>();
             for (int i = 0; i < 76; i++)
             {
-                agentIdList.Add(i);
+                entityIdList.Add(i);
             }
 
             var mediatorMock = new Mock<IMediator>();
@@ -123,7 +123,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var moveRepositoryMock = new Mock<IMoveAgentRepository>();
             var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
 
-            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(agentIdList);
+            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(entityIdList);
             serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
 
             // When

@@ -21,7 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler
             // Get entity position
             var agent = await _mediator.Send(new GetAgentEvent
             {
-                AgentId = notification.AgentId,
+                EntityId = notification.EntityId,
             });
             // Get Path to node
             var path = await _mediator.Send(new FindPathEvent
@@ -32,13 +32,13 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler
             // Register Path for Agent entity
             await _mediator.Publish(new RegisterAgentMovePathEvent
             {
-                AgentId = agent.Id,
+                EntityId = agent.Id,
                 Path = path
             });
             // Set Agents Routine
             await _mediator.Publish(new SetAgentRoutineEvent
             {
-                AgentId = agent.Id,
+                EntityId = agent.Id,
                 Routine = AgentRoutine.MOVE
             });
         }

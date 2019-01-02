@@ -5,7 +5,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
 {
     public struct SkillState
     {
-        public static readonly string PROPERTY_NAME = "SkillState";
+        public static readonly string PROPERTY_NAME = "skillState";
 
         public IDictionary<string, EntitySkillState> SkillList { get; set; }
 
@@ -15,7 +15,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
             {
                 switch (index)
                 {
-                    case "SkillList":
+                    case "skillList":
                         return SkillList;
                     default:
                         return null;
@@ -25,7 +25,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
             {
                 switch (index)
                 {
-                    case "SkillList":
+                    case "skillList":
                         SkillList = (IDictionary<string, EntitySkillState>)value;
                         break;
                     default:

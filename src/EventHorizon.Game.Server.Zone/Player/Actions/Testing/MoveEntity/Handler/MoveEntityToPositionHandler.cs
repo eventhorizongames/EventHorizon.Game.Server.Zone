@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity.Handle
         {
             await _mediator.Publish(new StartAgentMoveRoutineEvent
             {
-                AgentId = notification.EntityId,
+                EntityId = notification.EntityId,
                 ToPosition = notification.Position
             });
         }

@@ -20,13 +20,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // When
             await handler.Handle(new AgentFinishedMoveEvent
             {
-                AgentId = 123
+                EntityId = 123
             }, CancellationToken.None);
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(
                 new AgentRoutineFinishedEvent
                 {
-                    AgentId = 123
+                    EntityId = 123
                 }, It.IsAny<CancellationToken>())
             );
         }

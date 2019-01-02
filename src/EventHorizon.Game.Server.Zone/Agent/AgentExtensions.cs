@@ -1,4 +1,6 @@
-
+using EventHorizon.Game.Server.Zone.Agent.Connection;
+using EventHorizon.Game.Server.Zone.Agent.Connection.Factory;
+using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
@@ -20,10 +22,13 @@ namespace EventHorizon.Game.Server.Zone.Agent
     {
         public static void AddAgent(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<IAgentRepository, AgentRepository>()
+            services
+                .Configure<AgentSettings>(configuration.GetSection("Agent"))
+                .AddTransient<IAgentRepository, AgentRepository>()
                 .AddTransient<IMoveAgentRepository, MoveAgentRepository>()
                 .AddSingleton<ITimerTask, MoveRegisteredAgentsTimer>()
-                .AddSingleton<IScheduledTask, SaveAgentStateScheduledTask>();
+                .AddSingleton<IScheduledTask, SaveAgentStateScheduledTask>()
+                .AddAgentConnection(configuration);
         }
         public static void UseAgent(this IApplicationBuilder app)
         {

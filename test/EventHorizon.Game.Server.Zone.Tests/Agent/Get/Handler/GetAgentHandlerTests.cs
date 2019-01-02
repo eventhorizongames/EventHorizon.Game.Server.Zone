@@ -27,7 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
             var getAgentHandler = new GetAgentHandler(agentRepositoryMock.Object);
             var actual = await getAgentHandler.Handle(new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             Assert.Equal(expectedAgent, actual);

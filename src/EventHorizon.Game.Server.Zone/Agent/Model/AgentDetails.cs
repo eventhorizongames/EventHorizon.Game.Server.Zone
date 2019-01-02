@@ -6,11 +6,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
 {
     public struct AgentDetails
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
-
-        public float Speed { get; set; }
         public Dictionary<string, object> Data { get; set; }
     }
 }

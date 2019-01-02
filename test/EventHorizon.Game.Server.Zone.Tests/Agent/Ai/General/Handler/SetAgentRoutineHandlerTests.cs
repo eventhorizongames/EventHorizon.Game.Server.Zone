@@ -34,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var handler = new SetAgentRoutineHandler(agentRepositoryMock.Object);
             await handler.Handle(new SetAgentRoutineEvent
             {
-                AgentId = inputId,
+                EntityId = inputId,
                 Routine = AgentRoutine.SCRIPT
             }, CancellationToken.None);
 
@@ -56,7 +56,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var handler = new SetAgentRoutineHandler(agentRepositoryMock.Object);
             await handler.Handle(new SetAgentRoutineEvent
             {
-                AgentId = 123
+                EntityId = 123
             }, CancellationToken.None);
 
             // Then

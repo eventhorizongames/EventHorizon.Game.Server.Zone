@@ -44,12 +44,12 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         }
         public async Task Handle(MoveRegisteredAgentEvent notification, CancellationToken cancellationToken)
         {
-            var agentId = notification.AgentId;
-            var agent = await _agentRepository.FindById(agentId);
+            var entityId = notification.EntityId;
+            var agent = await _agentRepository.FindById(entityId);
             Queue<Vector3> path = agent.Path;
             if (path == null)
             {
-                await RemoveAgent(agentId);
+                await RemoveAgent(entityId);
                 return;
             }
             // Agent time to move has not expired or can is not set to Move, ignore request
@@ -60,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             Vector3 moveTo = agent.Position.CurrentPosition;
             if (!path.TryDequeue(out moveTo))
             {
-                await RemoveAgent(agentId);
+                await RemoveAgent(entityId);
                 return;
             }
             // TODO: Create Position update logic service
@@ -75,21 +75,21 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
             {
                 Data = new EntityClientMoveData
                 {
-                    EntityId = agentId,
+                    EntityId = entityId,
                         MoveTo = moveTo
                 },
             });
             if (path.Count == 0)
             {
-                await RemoveAgent(agentId);
+                await RemoveAgent(entityId);
             }
         }
-        private async Task RemoveAgent(long agentId)
+        private async Task RemoveAgent(long entityId)
         {
-            _moveRepository.Remove(agentId);
+            _moveRepository.Remove(entityId);
             await _mediator.Publish(new AgentFinishedMoveEvent
             {
-                AgentId = agentId,
+                EntityId = entityId,
             });
         }
     }

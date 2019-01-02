@@ -17,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Handlers
         {
             await _mediator.Publish(new AgentRoutineFinishedEvent
             {
-                AgentId = notification.AgentId
+                EntityId = notification.EntityId
             });
         }
     }

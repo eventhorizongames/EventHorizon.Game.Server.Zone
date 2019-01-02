@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Respository.Impl
     public class MoveAgentRepositoryTests
     {
         [Fact]
-        public void Test_ShouldAddAgentIdToAllList()
+        public void Test_ShouldAddAgentEntityIdToAllList()
         {
             // Given
             var inputId1 = 123;
@@ -20,11 +20,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Respository.Impl
             var list = moveAgentRepository.All();
 
             Assert.Collection(list,
-                agentId => Assert.Equal(inputId1, agentId)
+                entityId => Assert.Equal(inputId1, entityId)
             );
         }
         [Fact]
-        public void Test_ShouldRemoveAgentIdFromAllList()
+        public void Test_ShouldRemoveAgentEntityIdFromAllList()
         {
             // Given
             var inputId1 = 123;
@@ -35,7 +35,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Respository.Impl
             var list = moveAgentRepository.All();
 
             Assert.Collection(list,
-                agentId => Assert.Equal(inputId1, agentId)
+                entityId => Assert.Equal(inputId1, entityId)
             );
 
             // Then

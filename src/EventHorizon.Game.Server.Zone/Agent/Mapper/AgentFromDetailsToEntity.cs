@@ -18,6 +18,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
             return new AgentEntity
             {
                 Id = -1,
+                AgentId = details.Id,
                 Type = EntityType.AGENT,
                 Name = details.Name,
                 Position = new PositionState
@@ -32,7 +33,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                 },
                 TagList = details.TagList,
                 RawData = details.Data,
-                Speed = details.Speed,
             };
         }
     }

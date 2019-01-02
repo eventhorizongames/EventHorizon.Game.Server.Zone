@@ -5,6 +5,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Get
 {
     public struct GetAgentEvent : IRequest<AgentEntity>
     {
-        public long AgentId { get; set; }
+        public long EntityId { get; set; }
     }
 }

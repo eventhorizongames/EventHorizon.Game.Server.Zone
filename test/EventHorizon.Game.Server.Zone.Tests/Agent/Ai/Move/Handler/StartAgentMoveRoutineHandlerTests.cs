@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             var inputToPosition = new Vector3(100);
             var inputGetAgentEvent = new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
             var inputFindPathEvent = new FindPathEvent
             {
@@ -54,14 +54,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             // When
             await handler.Handle(new StartAgentMoveRoutineEvent
             {
-                AgentId = inputId,
+                EntityId = inputId,
                 ToPosition = inputToPosition
             }, CancellationToken.None);
             // Then
             mediatorMock.Verify(mediator => mediator.Send(
                 new GetAgentEvent
                 {
-                    AgentId = inputId
+                    EntityId = inputId
                 },
                 It.IsAny<CancellationToken>()
             ));
@@ -76,7 +76,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             mediatorMock.Verify(mediator => mediator.Publish(
                 new RegisterAgentMovePathEvent
                 {
-                    AgentId = inputId,
+                    EntityId = inputId,
                     Path = expectedPath
                 },
                 It.IsAny<CancellationToken>()
@@ -84,7 +84,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             mediatorMock.Verify(mediator => mediator.Publish(
                 new SetAgentRoutineEvent
                 {
-                    AgentId = inputId,
+                    EntityId = inputId,
                     Routine = AgentRoutine.MOVE
                 },
                 It.IsAny<CancellationToken>()

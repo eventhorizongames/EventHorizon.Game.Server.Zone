@@ -2,6 +2,9 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
 {
     public struct AgentRoutine
     {
+        public static readonly string ROUTINE_NAME = "routine";
+        public static readonly string DEFAULT_ROUTINE_NAME = "defaultRoutine";
+
         /// <summary>
         /// Default routine of an Agent, usually means they are not doing anything to note.
         /// </summary>
@@ -33,12 +36,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         /// </summary>
         public static readonly AgentRoutine FLEEING = new AgentRoutine("FLEEING");
 
-        private string _type;
-        public string Type { get { return _type; } }
+        public string Name { get; }
 
-        public AgentRoutine(string type)
+        public AgentRoutine(string name)
         {
-            _type = type;
+            Name = name;
         }
     }
 }

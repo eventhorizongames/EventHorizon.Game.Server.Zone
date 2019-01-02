@@ -12,11 +12,11 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
             // TODO: Add validation to Entity.
             return new AgentDetails
             {
+                Id = entity.AgentId,
                 Name = entity.Name,
                 Position = entity.Position,
                 TagList = entity.TagList,
                 Data = entity.AllData(),
-                Speed = entity.Speed,
             };
         }
     }

@@ -20,6 +20,9 @@ using MediatR;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using System.Threading;
 using EventHorizon.TimerService;
+using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Game.Server.Zone.Agent.Connection;
+using EventHorizon.Game.Server.Zone.Agent.Connection.Factory;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {
@@ -31,34 +34,45 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();
             var configurationMock = new Mock<IConfiguration>();
+            var config = new ConfigurationSection(new ConfigurationRoot(new List<IConfigurationProvider>()), "Agent");
+            configurationMock.Setup(a => a.GetSection("Agent")).Returns(config);
+            new AgentSettings();
 
             // When
             AgentExtensions.AddAgent(serviceCollectionMock, configurationMock.Object);
 
             // Then
             Assert.NotEmpty(serviceCollectionMock);
-            Assert.Collection(serviceCollectionMock,
-                service =>
-                {
-                    Assert.Equal(typeof(IAgentRepository), service.ServiceType);
-                    Assert.Equal(typeof(AgentRepository), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(IMoveAgentRepository), service.ServiceType);
-                    Assert.Equal(typeof(MoveAgentRepository), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
-                    Assert.Equal(typeof(MoveRegisteredAgentsTimer), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(IScheduledTask), service.ServiceType);
-                    Assert.Equal(typeof(SaveAgentStateScheduledTask), service.ImplementationType);
-                }
-            );
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(IAgentRepository) == a.Value.ServiceType
+                    && typeof(AgentRepository) == a.Value.ImplementationType;
+            });
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(IMoveAgentRepository) == a.Value.ServiceType
+                    && typeof(MoveAgentRepository) == a.Value.ImplementationType;
+            });
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(ITimerTask) == a.Value.ServiceType
+                    && typeof(MoveRegisteredAgentsTimer) == a.Value.ImplementationType;
+            });
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(IScheduledTask) == a.Value.ServiceType
+                    && typeof(SaveAgentStateScheduledTask) == a.Value.ImplementationType;
+            });
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(IAgentConnectionCache) == a.Value.ServiceType
+                    && typeof(AgentConnectionCache) == a.Value.ImplementationType;
+            });
+            Assert.Contains(serviceCollectionMock.Services, a =>
+            {
+                return typeof(IAgentConnectionFactory) == a.Value.ServiceType
+                    && typeof(AgentConnectionFactory) == a.Value.ImplementationType;
+            });
         }
         [Fact]
         public void TestUseAgent_ShouldSendAndPublishExpectedEvent()

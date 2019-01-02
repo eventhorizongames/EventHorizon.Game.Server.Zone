@@ -8,6 +8,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
@@ -23,7 +24,10 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             {
                 var scriptOptions = ScriptOptions
                     .Default
-                    .WithReferences(typeof(SkillValidatorScript).Assembly)
+                    .WithReferences(
+                        typeof(SkillValidatorScript).Assembly,
+                        typeof(CSharpArgumentInfo).Assembly
+                    )
                     .WithImports(
                         "System",
                         "System.Collections.Generic",

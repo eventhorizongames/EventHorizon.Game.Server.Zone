@@ -34,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var inputLookDistance = 100;
             var inputGetAgentEvent = new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
             var inputGetMapNodesAroundPositionEvent = new GetMapNodesAroundPositionEvent
             {
@@ -47,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             expectedMapNodes.Add(new MapNode(inputNodePosition));
             var inputStartAgentMoveRoutineEvent = new StartAgentMoveRoutineEvent
             {
-                AgentId = inputId,
+                EntityId = inputId,
                 ToPosition = inputNodePosition
             };
 
@@ -61,7 +61,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 RawData = new Dictionary<string, object>()
                 {
                     {
-                        "Wander",
+                        AgentWanderState.WANDER_NAME,
                         new AgentWanderState
                         {
                             LookDistance = inputLookDistance
@@ -69,7 +69,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                     }
                 }
             };
-            expectedAgent.PopulateData<AgentWanderState>("Wander");
+            expectedAgent.PopulateData<AgentWanderState>(AgentWanderState.WANDER_NAME);
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
@@ -82,7 +82,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var handler = new StartAgentWanderRoutineHandler(mediatorMock.Object, randomNumberGeneratorMock.Object);
             await handler.Handle(new StartAgentWanderRoutineEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
 
             // Then
@@ -106,7 +106,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var inputId = 123L;
             var inputGetAgentEvent = new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
 
             var mediatorMock = new Mock<IMediator>();
@@ -118,7 +118,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var handler = new StartAgentWanderRoutineHandler(mediatorMock.Object, randomNumberGeneratorMock.Object);
             await handler.Handle(new StartAgentWanderRoutineEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
 
             // Then
@@ -145,7 +145,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var inputLookDistance = 100;
             var inputGetAgentEvent = new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
             var inputGetMapNodesAroundPositionEvent = new GetMapNodesAroundPositionEvent
             {
@@ -165,7 +165,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                 },
                 RawData = new Dictionary<string, object>() {
                     {
-                        "Wander",
+                        AgentWanderState.WANDER_NAME,
                         new AgentWanderState
                         {
                             LookDistance = inputLookDistance
@@ -173,7 +173,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
                     }
                 }
             };
-            expectedAgent.PopulateData<AgentWanderState>("Wander");
+            expectedAgent.PopulateData<AgentWanderState>(AgentWanderState.WANDER_NAME);
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
@@ -186,7 +186,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Wander.Handler
             var handler = new StartAgentWanderRoutineHandler(mediatorMock.Object, randomNumberGeneratorMock.Object);
             await handler.Handle(new StartAgentWanderRoutineEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
 
             // Then

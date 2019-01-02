@@ -15,6 +15,9 @@ using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Game.Server.Zone.Load.Settings.Model;
+using EventHorizon.Game.Server.Zone.Agent.Connection;
+using EventHorizon.Game.Server.Zone.Agent;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {
@@ -26,6 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             // Given
             var expectedContentRootPath = "some-content-path";
             var expectedAgentFileName = IOPath.Combine(expectedContentRootPath, "App_Data", "Agent.state.json");
+            var expectedTag = "server-tag";
             var expectedAgentDetails1 = new AgentDetails
             {
                 Position = new PositionState()
@@ -44,18 +48,20 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
                 AgentList = expectedAgentList
             };
 
-            var mediatorMock = new Mock<IMediator>();
-            var hostingEnvironmentMock = new Mock<IHostingEnvironment>();
-            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var zoneSettings = new ZoneSettings
+            {
+                Tag = expectedTag
+            };
 
-            hostingEnvironmentMock.Setup(hostingEnvironment => hostingEnvironment.ContentRootPath).Returns(expectedContentRootPath);
-            jsonFileLoaderMock.Setup(jsonFileLoader => jsonFileLoader.GetFile<AgentSaveState>(expectedAgentFileName)).ReturnsAsync(expectedAgentState);
+            var mediatorMock = new Mock<IMediator>();
+            var agentConnectionMock = new Mock<IAgentConnection>();
+            agentConnectionMock.Setup(a => a.SendAction<IList<AgentDetails>>("GetAgentsByZoneTag", expectedTag)).ReturnsAsync(expectedAgentList);
 
             // When
             var loadZoneAgentStateHandler = new LoadZoneAgentStateHandler(
                 mediatorMock.Object,
-                hostingEnvironmentMock.Object,
-                jsonFileLoaderMock.Object
+                zoneSettings,
+                agentConnectionMock.Object
             );
 
             await loadZoneAgentStateHandler.Handle(new LoadZoneAgentStateEvent(), CancellationToken.None);

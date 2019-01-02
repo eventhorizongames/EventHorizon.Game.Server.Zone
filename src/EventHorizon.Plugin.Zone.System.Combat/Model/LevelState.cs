@@ -2,7 +2,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
 {
     public struct LevelState
     {
-        public static readonly string PROPERTY_NAME = "LevelState";
+        public static readonly string PROPERTY_NAME = "levelState";
 
         public long HealthPointsLevel { get; set; }
         public long ActionPointsLevel { get; set; }
@@ -11,22 +11,22 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
         public long Experience { get; set; }
         public long AllTimeExperience { get; set; }
 
-        public object this [string index]
+        public object this[string index]
         {
             get
             {
                 switch (index)
                 {
-                    case "HealthPointsLevel":
+                    case "healthPointsLevel":
                         return this.HealthPointsLevel;
-                    case "ActionPointsLevel":
+                    case "actionPointsLevel":
                         return this.ActionPointsLevel;
-                    case "AttackLevel":
+                    case "attackLevel":
                         return this.AttackLevel;
 
-                    case "Experience":
+                    case "experience":
                         return this.Experience;
-                    case "AllTimeExperience":
+                    case "allTimeExperience":
                         return this.AllTimeExperience;
 
                     default:
@@ -37,21 +37,21 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
             {
                 switch (index)
                 {
-                    case "HealthPointsLevel":
-                        this.HealthPointsLevel = (long) value;
+                    case "healthPointsLevel":
+                        this.HealthPointsLevel = (long)value;
                         break;
-                    case "ActionPointsLevel":
-                        this.ActionPointsLevel = (long) value;
+                    case "actionPointsLevel":
+                        this.ActionPointsLevel = (long)value;
                         break;
-                    case "AttackLevel":
-                        this.AttackLevel = (long) value;
+                    case "attackLevel":
+                        this.AttackLevel = (long)value;
                         break;
 
-                    case "Experience":
-                        this.Experience = (long) value;
+                    case "experience":
+                        this.Experience = (long)value;
                         break;
-                    case "AllTimeExperience":
-                        this.AllTimeExperience = (long) value;
+                    case "allTimeExperience":
+                        this.AllTimeExperience = (long)value;
                         break;
 
                     default:

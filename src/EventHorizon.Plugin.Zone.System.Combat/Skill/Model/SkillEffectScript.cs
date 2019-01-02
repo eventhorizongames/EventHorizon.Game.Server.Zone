@@ -1,4 +1,5 @@
 using System;
+using Microsoft.CSharp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,6 +10,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.CSharp.RuntimeBinder;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
@@ -25,7 +27,10 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             {
                 var scriptOptions = ScriptOptions
                     .Default
-                    .WithReferences(typeof(ClientSkillActionEvent).Assembly)
+                    .WithReferences(
+                        typeof(SkillEffectScript).Assembly,
+                        typeof(CSharpArgumentInfo).Assembly
+                    )
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
@@ -48,7 +53,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                             typeof(SkillEffectScriptData))
                         .CreateDelegate();
                 }
-            }
+            }//"(16,18): error CS0656: Missing compiler required member 'Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create'"
             catch (Exception ex)
             {
                 throw new InvalidOperationException(

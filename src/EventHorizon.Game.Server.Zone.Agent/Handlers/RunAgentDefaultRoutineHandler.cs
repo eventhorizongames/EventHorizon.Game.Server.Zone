@@ -19,20 +19,20 @@ namespace EventHorizon.Game.Server.Zone.Agent.Handlers
         }
         public async Task Handle(RunAgentDefaultRoutineEvent notification, CancellationToken cancellationToken)
         {
-            var agent = await _agentRepository.FindById(notification.AgentId);
+            var agent = await _agentRepository.FindById(notification.EntityId);
             if (agent.IsFound())
             {
-                agent.SetProperty("Routine", agent.GetProperty<AgentRoutine>("DefaultRoutine"));
-                var currentRoutine = agent.GetProperty<AgentRoutine>("Routine");
+                agent.SetProperty(AgentRoutine.ROUTINE_NAME, agent.GetProperty<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME));
+                var currentRoutine = agent.GetProperty<AgentRoutine>(AgentRoutine.ROUTINE_NAME);
                 // Clear any already in process Routines
                 await _mediator.Publish(new ClearAgentRoutineEvent
                 {
-                    AgentId = agent.Id
+                    EntityId = agent.Id
                 });
                 await _mediator.Publish(new StartAgentRoutineEvent
                 {
-                    AgentId = agent.Id,
-                    Routine = agent.GetProperty<AgentRoutine>("Routine")
+                    EntityId = agent.Id,
+                    Routine = agent.GetProperty<AgentRoutine>(AgentRoutine.ROUTINE_NAME)
                 });
             }
         }

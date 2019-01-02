@@ -23,19 +23,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 CurrentZone = "current-zone",
                 ZoneTag = "test"
             };
-            var expectedSpeed = 123;
             var inputAgent = new AgentEntity
             {
                 Name = expectedName,
                 Position = expectedPosition,
-                Speed = expectedSpeed,
                 RawData = new Dictionary<string, object>()
             };
             var expectedDetails = new AgentDetails
             {
                 Name = expectedName,
                 Position = expectedPosition,
-                Speed = expectedSpeed,
                 Data = new Dictionary<string, object>()
             };
 
@@ -45,7 +42,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             // Then
             Assert.Equal(expectedName, actual.Name);
             Assert.Equal(expectedPosition, actual.Position);
-            Assert.Equal(expectedSpeed, actual.Speed);
             Assert.Null(actual.TagList);
             Assert.Empty(actual.Data);
         }

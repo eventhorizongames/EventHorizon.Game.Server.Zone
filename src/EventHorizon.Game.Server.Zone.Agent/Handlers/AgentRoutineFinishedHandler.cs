@@ -18,13 +18,13 @@ namespace EventHorizon.Game.Server.Zone.Agent.Handlers
         }
         public async Task Handle(AgentRoutineFinishedEvent notification, CancellationToken cancellationToken)
         {
-            var agent = await _agentRepository.FindById(notification.AgentId);
+            var agent = await _agentRepository.FindById(notification.EntityId);
             if (agent.IsFound())
             {
-                await _mediator.Publish(new ClearAgentRoutineEvent { AgentId = agent.Id });
+                await _mediator.Publish(new ClearAgentRoutineEvent { EntityId = agent.Id });
                 await _mediator.Publish(new RunAgentDefaultRoutineEvent
                 {
-                    AgentId = agent.Id
+                    EntityId = agent.Id
                 });
             }
         }

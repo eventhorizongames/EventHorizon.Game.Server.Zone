@@ -10,6 +10,7 @@ namespace EventHorizon.Game.Server.Zone.State.Repository
     {
         Task<IEnumerable<AgentEntity>> All();
         Task<AgentEntity> FindById(long entityId);
+        Task<AgentEntity> FindByAgentId(string agentId);
         Task Update(EntityAction action, AgentEntity entity);
     }
 }

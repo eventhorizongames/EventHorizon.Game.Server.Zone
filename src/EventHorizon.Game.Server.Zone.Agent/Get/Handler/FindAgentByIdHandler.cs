@@ -6,16 +6,20 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Get.Handler
 {
-    public class GetAgentHandler : IRequestHandler<GetAgentEvent, AgentEntity>
+    public struct FindAgentByIdHandler : IRequestHandler<FindAgentByIdEvent, AgentEntity>
     {
         readonly IAgentRepository _agentRepository;
-        public GetAgentHandler(IAgentRepository agentRepository)
+        public FindAgentByIdHandler(
+            IAgentRepository agentRepository
+        )
         {
             _agentRepository = agentRepository;
         }
-        public Task<AgentEntity> Handle(GetAgentEvent request, CancellationToken cancellationToken)
+        public Task<AgentEntity> Handle(FindAgentByIdEvent request, CancellationToken cancellationToken)
         {
-            return _agentRepository.FindById(request.EntityId);
+            return _agentRepository.FindByAgentId(
+                request.AgentId
+            );
         }
     }
 }

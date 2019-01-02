@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         }
         public async Task Handle(RegisterAgentMovePathEvent notification, CancellationToken cancellationToken)
         {
-            var agent = await _agentRepository.FindById(notification.AgentId);
+            var agent = await _agentRepository.FindById(notification.EntityId);
             agent.Path = notification.Path;
             await _agentRepository.Update(AgentAction.PATH, agent);
             _moveRepository.Add(agent.Id);

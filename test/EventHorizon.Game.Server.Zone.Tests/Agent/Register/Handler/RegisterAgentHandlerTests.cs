@@ -23,27 +23,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
         public async Task TestHandle_ShouldReturnNotNullAgentWhenCalled()
         {
             // Given
-            var agentId = 123;
+            var entityId = 123;
             var inputRoutine = AgentRoutine.IDLE;
             var inputAgent = new AgentEntity();
 
             var expectedAgent = new AgentEntity
             {
-                Id = agentId,
+                Id = entityId,
                 RawData = new Dictionary<string, object>()
                 {
                     {
-                        "Routine",
+                        AgentRoutine.ROUTINE_NAME,
                         inputRoutine
                     },
                     {
-                        "DefaultRoutine",
+                        AgentRoutine.DEFAULT_ROUTINE_NAME,
                         inputRoutine
                     }
                 }
             };
-            expectedAgent.PopulateData<AgentRoutine>("Routine");
-            expectedAgent.PopulateData<AgentRoutine>("DefaultRoutine");
+            expectedAgent.PopulateData<AgentRoutine>(AgentRoutine.ROUTINE_NAME);
+            expectedAgent.PopulateData<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
 
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {
@@ -52,13 +52,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var expectedStartAgentRoutineEvent = new StartAgentRoutineEvent
             {
                 Routine = inputRoutine,
-                AgentId = agentId
+                EntityId = entityId
             };
 
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None)).ReturnsAsync(expectedAgent);
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(agentId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(entityId)).ReturnsAsync(expectedAgent);
 
             // When
             var registerAgentHandler = new RegisterAgentHandler(
@@ -75,7 +75,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             Assert.Equal(expectedAgent, actual);
 
             mediatorMock.Verify(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None));
-            agentRepositoryMock.Verify(agentRepository => agentRepository.FindById(agentId));
+            agentRepositoryMock.Verify(agentRepository => agentRepository.FindById(entityId));
             agentRepositoryMock.Verify(agentRepository => agentRepository.Update(AgentAction.ROUTINE, expectedAgent));
             mediatorMock.Verify(mediator => mediator.Publish(expectedStartAgentRoutineEvent, CancellationToken.None));
         }

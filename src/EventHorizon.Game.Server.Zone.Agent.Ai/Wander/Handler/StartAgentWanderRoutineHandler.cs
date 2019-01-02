@@ -23,7 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
         {
             var agent = await _mediator.Send(new GetAgentEvent
             {
-                AgentId = notification.AgentId
+                EntityId = notification.EntityId
             });
             if (!agent.IsFound())
             {
@@ -33,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
             var mapNodes = await _mediator.Send(new GetMapNodesAroundPositionEvent
             {
                 Position = agent.Position.CurrentPosition,
-                Distance = agent.GetProperty<AgentWanderState>("Wander").LookDistance
+                Distance = agent.GetProperty<AgentWanderState>(AgentWanderState.WANDER_NAME).LookDistance
             });
             if (mapNodes.Count == 0)
             {
@@ -44,7 +44,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Wander.Handler
 
             await _mediator.Publish(new StartAgentMoveRoutineEvent
             {
-                AgentId = agent.Id,
+                EntityId = agent.Id,
                 ToPosition = node.Position
             });
         }

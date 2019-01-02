@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
 {
     public class ZoneSettingsFactory : IZoneSettingsFactory, IZoneSettingsSetter
     {
-        private static ZoneSettings EMPTY_ZONE_SETTINGS = new ZoneSettings { Tags = new List<string>() { "new" } };
+        private static ZoneSettings EMPTY_ZONE_SETTINGS = new ZoneSettings { Tag = "new" };
         public ZoneSettings Settings { get; private set; }
 
         public ZoneSettingsFactory()

@@ -20,7 +20,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var clearAgentRoutineHandler = new ClearAgentRoutineHandler(moveAgentRepositoryMock.Object);
             clearAgentRoutineHandler.Handle(new ClearAgentRoutineEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             moveAgentRepositoryMock.Verify(repository => repository.Remove(inputId));

@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Game.Server.Zone.Agent.Get;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
 {
@@ -22,38 +23,57 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
         }
         public async Task<AgentEntity> Handle(RegisterAgentEvent request, CancellationToken cancellationToken)
         {
-            var agentToRegister = request.Agent;
-            await _mediator.Publish(new PopulateAgentEntityDataEvent
-            {
-                Agent = agentToRegister,
-            });
-            var registeredEntity = await _mediator.Send(new RegisterEntityEvent
-            {
-                Entity = agentToRegister,
-            });
-            if (!registeredEntity.IsFound())
-            {
-                return AgentEntity.CreateNotFound();
-            }
-
-            var agent = await _agentRepository.FindById(registeredEntity.Id);
+            // Check for already existing Agent Entity
+            var agent = await CheckAndRegisterAgent(
+                request.Agent
+            );
             if (!agent.IsFound())
             {
-                return AgentEntity.CreateNotFound();
+                return agent;
             }
-            var defaultRoutine = agent.GetProperty<AgentRoutine>("DefaultRoutine");
-            agent.SetProperty("Routine", defaultRoutine);
+
+            var defaultRoutine = agent.GetProperty<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
+            agent.SetProperty(AgentRoutine.ROUTINE_NAME, defaultRoutine);
             await _agentRepository.Update(AgentAction.ROUTINE, agent);
             await _mediator.Publish(new ClearAgentRoutineEvent
             {
-                AgentId = agent.Id
+                EntityId = agent.Id
             });
             await _mediator.Publish(new StartAgentRoutineEvent
             {
                 Routine = defaultRoutine,
-                AgentId = agent.Id
+                EntityId = agent.Id
             });
 
+            return agent;
+        }
+
+        private async Task<AgentEntity> CheckAndRegisterAgent(AgentEntity newAgent)
+        {
+            var agent = await _mediator.Send(
+                new FindAgentByIdEvent(newAgent.AgentId)
+            );
+            if (!agent.IsFound())
+            {
+                // Agent was not found, register new.
+                await _mediator.Publish(new PopulateAgentEntityDataEvent
+                {
+                    Agent = newAgent,
+                });
+                var registeredEntity = await _mediator.Send(new RegisterEntityEvent
+                {
+                    Entity = newAgent,
+                });
+                if (!registeredEntity.IsFound())
+                {
+                    return AgentEntity.CreateNotFound();
+                }
+                agent = await _agentRepository.FindById(registeredEntity.Id);
+                if (!agent.IsFound())
+                {
+                    return AgentEntity.CreateNotFound();
+                }
+            }
             return agent;
         }
     }

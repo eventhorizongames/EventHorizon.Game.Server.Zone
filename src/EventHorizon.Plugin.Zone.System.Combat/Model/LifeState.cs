@@ -4,7 +4,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
 {
     public struct LifeState
     {
-        public static readonly string PROPERTY_NAME = "LifeState";
+        public static readonly string PROPERTY_NAME = "lifeState";
 
         public LifeCondition Condition { get; set; }
 
@@ -22,20 +22,20 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
             {
                 switch (index)
                 {
-                    case "Condition":
+                    case "condition":
                         return this.Condition;
 
-                    case "HealthPoints":
+                    case "healthPoints":
                         return this.HealthPoints;
-                    case "MaxHealthPoints":
+                    case "maxHealthPoints":
                         return this.MaxHealthPoints;
 
-                    case "ActionPoints":
+                    case "actionPoints":
                         return this.ActionPoints;
-                    case "MaxActionPoints":
+                    case "maxActionPoints":
                         return this.MaxActionPoints;
 
-                    case "Attack":
+                    case "attack":
                         return this.Attack;
 
                     default:
@@ -46,25 +46,25 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
             {
                 switch (index)
                 {
-                    case "Condition":
+                    case "condition":
                         this.Condition = (LifeCondition)value;
                         break;
 
-                    case "HealthPoints":
+                    case "healthPoints":
                         this.HealthPoints = (int)value;
                         break;
-                    case "MaxHealthPoints":
+                    case "maxHealthPoints":
                         this.MaxHealthPoints = (int)value;
                         break;
 
-                    case "ActionPoints":
+                    case "actionPoints":
                         this.ActionPoints = (int)value;
                         break;
-                    case "MaxActionPoints":
+                    case "maxActionPoints":
                         this.MaxActionPoints = (int)value;
                         break;
 
-                    case "Attack":
+                    case "attack":
                         this.Attack = (int)value;
                         break;
 

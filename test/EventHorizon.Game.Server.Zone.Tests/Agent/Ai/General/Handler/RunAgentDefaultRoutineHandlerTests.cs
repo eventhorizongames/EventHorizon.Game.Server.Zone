@@ -29,12 +29,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
                 RawData = new Dictionary<string, object>()
                 {
                     {
-                        "DefaultRoutine",
+                        AgentRoutine.DEFAULT_ROUTINE_NAME,
                         AgentRoutine.WANDER
                     }
                 }
             };
-            agent.PopulateData<AgentRoutine>("DefaultRoutine");
+            agent.PopulateData<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
 
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(123)).ReturnsAsync(agent);
             var handler = new RunAgentDefaultRoutineHandler(mediatorMock.Object, agentRepositoryMock.Object);
@@ -42,14 +42,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // When
             await handler.Handle(new RunAgentDefaultRoutineEvent
             {
-                AgentId = 123
+                EntityId = 123
             }, CancellationToken.None);
 
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(
                 new StartAgentRoutineEvent
                 {
-                    AgentId = 123,
+                    EntityId = 123,
                     Routine = AgentRoutine.WANDER
                 }, It.IsAny<CancellationToken>())
             );
@@ -65,7 +65,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // When
             await handler.Handle(new RunAgentDefaultRoutineEvent
             {
-                AgentId = 123
+                EntityId = 123
             }, CancellationToken.None);
             // Then
             mediatorMock.Verify(mediator => mediator.Publish(

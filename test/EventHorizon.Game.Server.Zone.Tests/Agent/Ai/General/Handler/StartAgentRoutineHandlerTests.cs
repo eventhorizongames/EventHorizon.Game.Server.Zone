@@ -28,7 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             var inputId = 123L;
             var inputGetAgentEvent = new GetAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
             var expectedAgent = new AgentEntity
             {
@@ -42,7 +42,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             // When
             await handler.Handle(new StartAgentRoutineEvent
             {
-                AgentId = inputId,
+                EntityId = inputId,
                 Routine = AgentRoutine.IDLE
             }, CancellationToken.None);
 
@@ -50,7 +50,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             mediatorMock.Verify(mediator => mediator.Publish(
                 new ClearAgentRoutineEvent
                 {
-                    AgentId = inputId
+                    EntityId = inputId
                 },
                 It.IsAny<CancellationToken>()
             ));

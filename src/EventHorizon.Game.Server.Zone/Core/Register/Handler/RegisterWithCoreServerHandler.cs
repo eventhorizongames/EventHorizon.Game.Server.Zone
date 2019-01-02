@@ -33,12 +33,12 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
 
         public RegisterWithCoreServerHandler(ILogger<RegisterWithCoreServerHandler> logger,
             ICoreConnectionFactory connectionFactory,
-            IZoneSettingsFactory zoneSettingsFactory,
+            ZoneSettings zoneSettings,
             IServerProperty serverProperty)
         {
             _logger = logger;
             _connectionFactory = connectionFactory;
-            _zoneSettings = zoneSettingsFactory.Settings;
+            _zoneSettings = zoneSettings;
             _serverProperty = serverProperty;
         }
 
@@ -49,7 +49,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
                 var response = await (await _connectionFactory.GetConnection())
                     .RegisterZone(new ZoneRegistrationDetails
                     {
-                        Tags = _zoneSettings.Tags,
+                        Tag = _zoneSettings.Tag,
                         ServerAddress = _serverProperty.Get<string>(ServerPropertyKeys.HOST)
                     });
                 _serverProperty.Set(ServerPropertyKeys.SERVER_ID, response.Id);
@@ -59,7 +59,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Register.Handler
             {
                 _logger.LogError(
                     "Failed to register with ZoneServer: {Tags} | {Host}",
-                    _zoneSettings.Tags,
+                    _zoneSettings.Tag,
                     _serverProperty.Get<string>(ServerPropertyKeys.HOST)
                 );
                 throw ex;

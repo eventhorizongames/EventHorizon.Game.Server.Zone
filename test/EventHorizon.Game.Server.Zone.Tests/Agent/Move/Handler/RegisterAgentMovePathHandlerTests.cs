@@ -34,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await registerAgentMovePathHandler.Handle(new RegisterAgentMovePathEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
 
             // Then

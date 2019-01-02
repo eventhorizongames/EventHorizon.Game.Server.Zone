@@ -18,12 +18,12 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         }
 
         public long Id { get; set; }
+        public string AgentId { get; set; }
         public EntityType Type { get; set; }
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
 
         public string Name { get; set; }
-        public float Speed { get; set; }
 
         private Dictionary<string, object> _data;
         private Dictionary<string, object> _rawData;

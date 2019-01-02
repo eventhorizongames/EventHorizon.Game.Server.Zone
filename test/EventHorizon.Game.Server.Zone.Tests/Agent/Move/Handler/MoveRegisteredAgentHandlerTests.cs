@@ -45,7 +45,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                     ZoneTag = "current-tag"
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo, expectedMoveTo }),
-                Speed = 1
             };
             var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
@@ -74,7 +73,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await clearAgentRoutineHandler.Handle(new MoveRegisteredAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
@@ -97,7 +96,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             };
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
@@ -117,7 +116,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await clearAgentRoutineHandler.Handle(new MoveRegisteredAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
@@ -140,7 +139,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                     NextMoveRequest = DateTime.Now.Add(TimeSpan.FromMinutes(1)),
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { }),
-                Speed = 1
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
@@ -160,7 +158,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await clearAgentRoutineHandler.Handle(new MoveRegisteredAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
@@ -184,11 +182,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                     NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { }),
-                Speed = 1
             };
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
@@ -209,7 +206,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await clearAgentRoutineHandler.Handle(new MoveRegisteredAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));
@@ -238,7 +235,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                     ZoneTag = "current-tag"
                 },
                 Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo }),
-                Speed = 1
             };
             var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
@@ -250,7 +246,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             };
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
@@ -271,7 +267,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
             await clearAgentRoutineHandler.Handle(new MoveRegisteredAgentEvent
             {
-                AgentId = inputId
+                EntityId = inputId
             }, CancellationToken.None);
             // Then
             agentRepositoryMock.Verify(repository => repository.FindById(inputId));

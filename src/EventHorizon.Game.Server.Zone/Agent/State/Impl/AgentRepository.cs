@@ -21,19 +21,23 @@ namespace EventHorizon.Game.Server.Zone.Agent.State.Impl
 
         public async Task<IEnumerable<AgentEntity>> All()
         {
-            var entityList = await _entityRepository.All();
-            return entityList
-                .FindAll(a => a.Type == EntityType.AGENT)
+            return (await _entityRepository.All())
+                .Where(a => a.Type == EntityType.AGENT)
                 .Cast<AgentEntity>();
         }
 
         public async Task<AgentEntity> FindById(long id)
         {
-            var entityList = await _entityRepository.All();
-            return entityList
-                .FindAll(a => a.Type == EntityType.AGENT)
+            return (await _entityRepository.All())
+                .Where(a => a.Id == id && a.Type == EntityType.AGENT)
                 .Cast<AgentEntity>()
-                .FirstOrDefault(a => a.Id == id);
+                .FirstOrDefault();
+        }
+
+        public async Task<AgentEntity> FindByAgentId(string agentId)
+        {
+            return (await this.All())
+                .FirstOrDefault(a => a.AgentId == agentId);
         }
 
         public Task Update(EntityAction action, AgentEntity agent)

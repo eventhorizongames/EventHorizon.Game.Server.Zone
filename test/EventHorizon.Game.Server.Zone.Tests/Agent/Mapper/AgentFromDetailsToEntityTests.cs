@@ -29,7 +29,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                     ZoneTag = "test"
                 },
                 Data = new Dictionary<string, object>(),
-                Speed = 1
             };
             var expectedId = -1;
             var expectedType = EntityType.AGENT;
@@ -40,7 +39,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 
             var expectedMoveToPosition = inputAgent.Position.CurrentPosition;
             var expectedData = inputAgent.Data;
-            var expectedSpeed = inputAgent.Speed;
 
             // When
             var actual = AgentFromDetailsToEntity.MapToNew(inputAgent);
@@ -54,7 +52,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             Assert.Equal(expectedZoneTag, actual.Position.ZoneTag);
             Assert.Equal(expectedMoveToPosition, actual.Position.MoveToPosition);
             Assert.Equal(expectedData, actual.Data);
-            Assert.Equal(expectedSpeed, actual.Speed);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.PopulateData.Handler
             var agent = request.Agent;
 
             // Move these to a Repository, and have them populated from plugins.
-            agent.PopulateData<AgentWanderState>("Wander");
+            agent.PopulateData<AgentWanderState>(AgentWanderState.WANDER_NAME);
 
             return Task.CompletedTask;
         }

@@ -20,8 +20,8 @@
         }, {
             "validator": "caster_has_cost",
             "data": {
-                "propertyName": "LifeState",
-                "valueProperty": "ActionPoints",
+                "propertyName": "lifeState",
+                "valueProperty": "actionPoints",
                 "cost": 1
             }
         }],
@@ -51,17 +51,17 @@
             "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next. (Server Caster.LifeState.ActionPoints -= 1) | (ClientAction ChangeEntityState)",
             "effect": "decrease_caster_property",
             "data": {
-                "propertyName": "LifeState",
-                "valueProperty": "ActionPoints",
-                "modifierPropertyName": "LevelState",
-                "modifierValueProperty": "ActionPointsLevel",
+                "propertyName": "lifeState",
+                "valueProperty": "actionPoints",
+                "modifierPropertyName": "levelState",
+                "modifierValueProperty": "actionPointsLevel",
                 "modifierBase": 1
             },
             "validatorList": [{
                 "validator": "caster_has_cost",
                 "data": {
-                    "propertyName": "LifeState",
-                    "valueProperty": "ActionPoints",
+                    "propertyName": "lifeState",
+                    "valueProperty": "actionPoints",
                     "cost": 1
                 }
             }],
@@ -98,10 +98,10 @@
                         "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
                         "effect": "decrease_target_property",
                         "data": {
-                            "propertyName": "LifeState",
-                            "valueProperty": "HealthPoints",
-                            "modifierPropertyName": "LevelState",
-                            "modifierValueProperty": "Attack",
+                            "propertyName": "lifeState",
+                            "valueProperty": "healthPoints",
+                            "modifierPropertyName": "levelState",
+                            "modifierValueProperty": "attack",
                             "modifierBase": 1
                         },
                         "next": [{

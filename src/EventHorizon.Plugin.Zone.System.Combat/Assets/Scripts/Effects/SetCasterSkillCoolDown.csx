@@ -12,7 +12,7 @@
 
 var coolDown = (long)Data["coolDown"];
 
-var casterSkillState = Caster.GetProperty<dynamic>("SkillState");
+var casterSkillState = Caster.GetProperty<dynamic>("skillState");
 var skillState = casterSkillState.SkillList[Skill.Id];
 
 skillState.CooldownFinishes = Services.DateTime.Now

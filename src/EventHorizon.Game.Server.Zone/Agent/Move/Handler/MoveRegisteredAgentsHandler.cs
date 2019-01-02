@@ -37,14 +37,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         {
             // PERF: Could be a problem in the future with a lot of Agents
             // Solution: Move Agent processing to Shards/Partitioned Servers/Tasks of Agents
-            var agentIdList = _moveRepository.All();
-            if (agentIdList.Count() > 0)
+            var entityIdList = _moveRepository.All();
+            if (entityIdList.Count() > 0)
             {
-                if (agentIdList.Count() > 75)
+                if (entityIdList.Count() > 75)
                 {
                     _logger.LogWarning("Agent Movement List is over 75.");
                 }
-                Parallel.ForEach(agentIdList, async (entityId) =>
+                Parallel.ForEach(entityIdList, async (entityId) =>
                 {
                     using (var serviceScope = _serviceScopeFactory.CreateScope())
                     {
@@ -53,7 +53,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         {
                             await mediator.Publish(new MoveRegisteredAgentEvent
                             {
-                                AgentId = entityId
+                                EntityId = entityId
                             });
                         }
                         catch (Exception ex)
@@ -62,7 +62,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                             _moveRepository.Remove(entityId);
                             await mediator.Publish(new RunAgentDefaultRoutineEvent
                             {
-                                AgentId = entityId
+                                EntityId = entityId
                             });
                         }
                     }

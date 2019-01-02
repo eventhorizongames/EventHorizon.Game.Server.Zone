@@ -16,7 +16,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
         }
         public Task Handle(ClearAgentRoutineEvent notification, CancellationToken cancellationToken)
         {
-            _moveAgentRepository.Remove(notification.AgentId);
+            _moveAgentRepository.Remove(notification.EntityId);
             return Task.CompletedTask;
         }
     }

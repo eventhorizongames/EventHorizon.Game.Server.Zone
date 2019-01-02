@@ -1,12 +1,14 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Connection;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Game.Server.Zone.Load.Settings.Model;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
@@ -18,34 +20,35 @@ namespace EventHorizon.Game.Server.Zone.Agent.Startup.Handler
     public class LoadZoneAgentStateHandler : IRequestHandler<LoadZoneAgentStateEvent, Unit>
     {
         readonly IMediator _mediator;
-        readonly IHostingEnvironment _hostingEnvironment;
-        readonly IJsonFileLoader _fileLoader;
+        readonly ZoneSettings _zoneSettings;
+        readonly IAgentConnection _agentConnection;
 
-        public LoadZoneAgentStateHandler(IMediator mediator,
-            IHostingEnvironment hostingEnvironment,
-            IJsonFileLoader jsonFileLoader)
+        public LoadZoneAgentStateHandler(
+            IMediator mediator,
+            ZoneSettings zoneSettings,
+            IAgentConnection agentConnection
+        )
         {
             _mediator = mediator;
-            _hostingEnvironment = hostingEnvironment;
-            _fileLoader = jsonFileLoader;
+            _zoneSettings = zoneSettings;
+            _agentConnection = agentConnection;
         }
         public async Task<Unit> Handle(LoadZoneAgentStateEvent request, CancellationToken cancellationToken)
         {
-            // TODO: Move loading to a Persistence service
-            var agentState = await _fileLoader.GetFile<AgentSaveState>(GetAgentFileName());
-
-            foreach (var agent in agentState.AgentList)
+            // Load Global Agents from Agent service.
+            foreach (var agent in await _agentConnection.GetAgentList(_zoneSettings.Tag))
             {
                 await _mediator.Send(new RegisterAgentEvent
                 {
                     Agent = AgentFromDetailsToEntity.MapToNew(agent),
                 });
             }
+            // TODO: Load "LOCALE" agents.
             return Unit.Value;
         }
-        private string GetAgentFileName()
-        {
-            return IOPath.Combine(_hostingEnvironment.ContentRootPath, "App_Data", "Agent.state.json");
-        }
+        // private string GetAgentFileName()
+        // {
+        //     return IOPath.Combine(_hostingEnvironment.ContentRootPath, "App_Data", "Agent.state.json");
+        // }
     }
 }
