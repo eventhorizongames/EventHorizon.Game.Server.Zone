@@ -46,25 +46,28 @@ namespace EventHorizon.Game.Server.Zone.Agent.Save.Handler
             {
 
                 var saveAgentList = new List<AgentDetails>();
-                // TODO: Make sure to only save "GLOBAL" agents, not "LOCAL" to zone server agents.
                 foreach (var agent in await _agentRepository.All())
                 {
-                    saveAgentList.Add(
-                        AgentFromEntityToDetails.Map(agent)
-                    );
+                    // Update "GLOBAL" agents, Add "LOCAL" to list to be saved.
+                    if (agent.IsGlobal)
+                    {
+                        _agentConnection.UpdateAgent(
+                            AgentFromEntityToDetails.Map(agent)
+                        ).ConfigureAwait(false).GetAwaiter();
+                    }
+                    else
+                    {
+                        saveAgentList.Add(
+                            AgentFromEntityToDetails.Map(agent)
+                        );
+                    }
                 }
 
-                saveAgentList.ForEach(agent =>
-                    _agentConnection.UpdateAgent(
-                        agent
-                    )
-                );
-
-                // TODO: Save "LOCAL" agents
-                // await _fileSaver.SaveToFile(GetAgentDataDirectory(), GetAgentFileName(), new AgentSaveState
-                // {
-                //     AgentList = saveAgentList
-                // });
+                // Save "LOCAL" agents
+                await _fileSaver.SaveToFile(GetAgentDataDirectory(), GetAgentFileName(), new AgentSaveState
+                {
+                    AgentList = saveAgentList
+                });
             }
         }
         private string GetAgentDataDirectory()

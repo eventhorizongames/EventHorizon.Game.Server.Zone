@@ -12,12 +12,18 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
 {
     public class AgentFromDetailsToEntity
     {
-        public static AgentEntity MapToNew(AgentDetails details)
+        public static AgentEntity MapToNewGlobal(AgentDetails details)
+        {
+            return MapToNew(details, true);
+        }
+
+        public static AgentEntity MapToNew(AgentDetails details, bool isGlobal = false)
         {
             // TODO: Add validation to details.
             return new AgentEntity
             {
                 Id = -1,
+                IsGlobal = isGlobal,
                 AgentId = details.Id,
                 Type = EntityType.AGENT,
                 Name = details.Name,
@@ -27,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
                     CurrentPosition = details.Position.CurrentPosition,
                     CurrentZone = details.Position.CurrentZone,
                     ZoneTag = details.Position.ZoneTag,
-                    
+
                     // NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.CurrentPosition,
                 },

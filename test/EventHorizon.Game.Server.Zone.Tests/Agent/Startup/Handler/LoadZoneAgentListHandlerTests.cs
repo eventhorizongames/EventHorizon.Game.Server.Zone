@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using IOPath = System.IO.Path;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Register;
-using EventHorizon.Game.Server.Zone.Agent.Startup.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
@@ -54,14 +53,21 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             };
 
             var mediatorMock = new Mock<IMediator>();
+            var hostingEnvironmentMock = new Mock<IHostingEnvironment>();
             var agentConnectionMock = new Mock<IAgentConnection>();
+            var fileLoaderMock = new Mock<IJsonFileLoader>();
             agentConnectionMock.Setup(a => a.SendAction<IList<AgentDetails>>("GetAgentsByZoneTag", expectedTag)).ReturnsAsync(expectedAgentList);
+
+            hostingEnvironmentMock.Setup(hostingEnvironment => hostingEnvironment.ContentRootPath).Returns(expectedContentRootPath);
+            fileLoaderMock.Setup(jsonFileLoader => jsonFileLoader.GetFile<AgentSaveState>(expectedAgentFileName)).ReturnsAsync(expectedAgentState);
 
             // When
             var loadZoneAgentStateHandler = new LoadZoneAgentStateHandler(
                 mediatorMock.Object,
+                hostingEnvironmentMock.Object,
                 zoneSettings,
-                agentConnectionMock.Object
+                agentConnectionMock.Object,
+                fileLoaderMock.Object
             );
 
             await loadZoneAgentStateHandler.Handle(new LoadZoneAgentStateEvent(), CancellationToken.None);

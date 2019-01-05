@@ -115,7 +115,6 @@
                     }, {
                         "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
                         "effect": "start_target_animation",
-                        "target": "TARGET",
                         "data": {
                             "animation": "hit_for_damage"
                         }

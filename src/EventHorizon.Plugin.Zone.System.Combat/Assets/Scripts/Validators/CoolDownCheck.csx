@@ -8,7 +8,7 @@
 /// Data: { message: string; messageCode: string; }
 /// </summary>
 
-var skillState = Caster.GetProperty<dynamic>("SkillState");
+var skillState = Caster.GetProperty<dynamic>("skillState");
 
 var skillReady = Services.DateTime.Now > skillState
                 .SkillList[Skill.Id]
