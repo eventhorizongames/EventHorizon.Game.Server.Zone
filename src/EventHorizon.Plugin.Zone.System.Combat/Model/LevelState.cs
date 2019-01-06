@@ -18,15 +18,20 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
                 switch (index)
                 {
                     case "healthPointsLevel":
+                    case "HealthPointsLevel":
                         return this.HealthPointsLevel;
                     case "actionPointsLevel":
+                    case "ActionPointsLevel":
                         return this.ActionPointsLevel;
                     case "attackLevel":
+                    case "AttackLevel":
                         return this.AttackLevel;
 
                     case "experience":
+                    case "Experience":
                         return this.Experience;
                     case "allTimeExperience":
+                    case "AllTimeExperience":
                         return this.AllTimeExperience;
 
                     default:
@@ -38,19 +43,24 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
                 switch (index)
                 {
                     case "healthPointsLevel":
+                    case "HealthPointsLevel":
                         this.HealthPointsLevel = (long)value;
                         break;
                     case "actionPointsLevel":
+                    case "ActionPointsLevel":
                         this.ActionPointsLevel = (long)value;
                         break;
                     case "attackLevel":
+                    case "AttackLevel":
                         this.AttackLevel = (long)value;
                         break;
 
                     case "experience":
+                    case "Experience":
                         this.Experience = (long)value;
                         break;
                     case "allTimeExperience":
+                    case "AllTimeExperience":
                         this.AllTimeExperience = (long)value;
                         break;
 

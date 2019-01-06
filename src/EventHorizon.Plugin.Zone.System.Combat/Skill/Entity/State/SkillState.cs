@@ -16,6 +16,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
                 switch (index)
                 {
                     case "skillList":
+                    case "SkillList":
                         return SkillList;
                     default:
                         return null;
@@ -26,6 +27,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
                 switch (index)
                 {
                     case "skillList":
+                    case "SkillList":
                         SkillList = (IDictionary<string, EntitySkillState>)value;
                         break;
                     default:

@@ -30,6 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 },
                 Data = new Dictionary<string, object>(),
             };
+            var agentId = "test-id";
             var expectedId = -1;
             var expectedType = EntityType.AGENT;
             var expectedName = inputAgent.Name;
@@ -41,7 +42,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var expectedData = inputAgent.Data;
 
             // When
-            var actual = AgentFromDetailsToEntity.MapToNew(inputAgent);
+            var actual = AgentFromDetailsToEntity.MapToNew(inputAgent, agentId);
 
             // Then
             Assert.Equal(expectedId, actual.Id);

@@ -23,19 +23,25 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
                 switch (index)
                 {
                     case "condition":
+                    case "Condition":
                         return this.Condition;
 
                     case "healthPoints":
+                    case "HealthPoints":
                         return this.HealthPoints;
                     case "maxHealthPoints":
+                    case "MaxHealthPoints":
                         return this.MaxHealthPoints;
 
                     case "actionPoints":
+                    case "ActionPoints":
                         return this.ActionPoints;
                     case "maxActionPoints":
+                    case "MaxActionPoints":
                         return this.MaxActionPoints;
 
                     case "attack":
+                    case "Attack":
                         return this.Attack;
 
                     default:
@@ -47,24 +53,30 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Model
                 switch (index)
                 {
                     case "condition":
+                    case "Condition":
                         this.Condition = (LifeCondition)value;
                         break;
 
                     case "healthPoints":
+                    case "HealthPoints":
                         this.HealthPoints = (int)value;
                         break;
                     case "maxHealthPoints":
+                    case "MaxHealthPoints":
                         this.MaxHealthPoints = (int)value;
                         break;
 
                     case "actionPoints":
+                    case "ActionPoints":
                         this.ActionPoints = (int)value;
                         break;
                     case "maxActionPoints":
+                    case "MaxActionPoints":
                         this.MaxActionPoints = (int)value;
                         break;
 
                     case "attack":
+                    case "Attack":
                         this.Attack = (int)value;
                         break;
 

@@ -54,7 +54,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                             await mediator.Publish(new MoveRegisteredAgentEvent
                             {
                                 EntityId = entityId
-                            });
+                            }).ConfigureAwait(false);
                         }
                         catch (Exception ex)
                         {

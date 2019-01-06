@@ -14,17 +14,17 @@ namespace EventHorizon.Game.Server.Zone.Agent.Mapper
     {
         public static AgentEntity MapToNewGlobal(AgentDetails details)
         {
-            return MapToNew(details, true);
+            return MapToNew(details, details.Id, true);
         }
 
-        public static AgentEntity MapToNew(AgentDetails details, bool isGlobal = false)
+        public static AgentEntity MapToNew(AgentDetails details, string agentId, bool isGlobal = false)
         {
             // TODO: Add validation to details.
             return new AgentEntity
             {
                 Id = -1,
                 IsGlobal = isGlobal,
-                AgentId = details.Id,
+                AgentId = agentId,
                 Type = EntityType.AGENT,
                 Name = details.Name,
                 Position = new PositionState

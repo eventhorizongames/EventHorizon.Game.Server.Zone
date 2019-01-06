@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Startup
             {
                 await _mediator.Send(new RegisterAgentEvent
                 {
-                    Agent = AgentFromDetailsToEntity.MapToNew(agent),
+                    Agent = AgentFromDetailsToEntity.MapToNew(agent, Guid.NewGuid().ToString()),
                 });
             }
             return Unit.Value;
