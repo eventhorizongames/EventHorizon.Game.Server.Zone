@@ -24,18 +24,26 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
         {
             // Given
             var inputId1 = 123;
+            var inputId2 = 321;
             var inputAgent1 = new AgentEntity
             {
                 Id = inputId1,
                 RawData = new Dictionary<string, object>(),
             };
+            var inputAgent2 = new AgentEntity
+            {
+                Id = inputId2,
+                IsGlobal = true,
+                RawData = new Dictionary<string, object>(),
+            };
             var inputAgentList = new List<AgentEntity>
             {
                 inputAgent1,
+                inputAgent2,
             };
             var expectedContentRootPath = IOPath.Combine("some", "content", "path");
             var expectedDirectory = IOPath.Combine(expectedContentRootPath, "App_Data");
-            // var expectedFileName = "Agent.state.json";
+            var expectedFileName = "Agent.state.json";
 
             var zoneSettingsMock = new Mock<ZoneSettings>();
             var jsonFileSaverMock = new Mock<IJsonFileSaver>();
@@ -62,9 +70,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             // Then
             agentConnectionMock.Verify(a => a.SendAction("UpdateAgent", It.IsAny<AgentDetails>()));
             agentRepositoryMock.Verify(agentRepository => agentRepository.All());
-            
-            // hostingEnvironmentMock.Verify(hostingEnvironment => hostingEnvironment.ContentRootPath);
-            // jsonFileSaverMock.Verify(jsonFileSaver => jsonFileSaver.SaveToFile(expectedDirectory, expectedFileName, It.IsAny<AgentSaveState>()));
+            hostingEnvironmentMock.Verify(hostingEnvironment => hostingEnvironment.ContentRootPath);
+            jsonFileSaverMock.Verify(jsonFileSaver => jsonFileSaver.SaveToFile(expectedDirectory, expectedFileName, It.IsAny<AgentSaveState>()));
         }
     }
 }

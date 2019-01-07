@@ -73,7 +73,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             await loadZoneAgentStateHandler.Handle(new LoadZoneAgentStateEvent(), CancellationToken.None);
 
             // Then
-            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterAgentEvent>(), CancellationToken.None), Times.Exactly(2));
+            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterAgentEvent>(), CancellationToken.None), Times.Exactly(4));
         }
     }
 }
