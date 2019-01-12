@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
+using EventHorizon.Plugin.Zone.System.Combat.Script;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using MediatR;
 

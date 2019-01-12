@@ -1,7 +1,6 @@
 using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.Agent.Register.Handler;

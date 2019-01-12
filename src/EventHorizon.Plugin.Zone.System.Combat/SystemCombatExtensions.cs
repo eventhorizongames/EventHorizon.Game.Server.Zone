@@ -4,7 +4,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Load;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
+using EventHorizon.Plugin.Zone.System.Combat.Script;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using EventHorizon.Plugin.Zone.System.Combat.State;
 using EventHorizon.Plugin.Zone.System.Combat.Timer;

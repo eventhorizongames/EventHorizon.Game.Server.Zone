@@ -129,6 +129,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemCombat();
             services.AddSystemModel();
             services.AddSystemServerModule();
+            services.AddSystemAgentAi();
 
             services.AddPlugins(HostingEnvironment);
         }
@@ -150,14 +151,15 @@ namespace EventHorizon.Game.Server.Zone
             app.UseZoneCore();
             app.UseSetupServer();
 
+            // TODO: Remove this after done testing, move to Systems flow
+            app.UseSystemModel();
+            app.UseSystemCombat();
+            app.UseSystemServerModule();
+            app.UseSystemAgentAi();
+
             app.UseAgent();
             app.UseGui();
             app.UseParticle();
-
-            // TODO: Remove this after done testing, move to Systems flow
-            app.UseSystemCombat();
-            app.UseSystemModel();
-            app.UseSystemServerModule();
 
             app.UsePlugins();
 

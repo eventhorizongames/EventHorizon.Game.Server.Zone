@@ -1,0 +1,9 @@
+{
+    "RoutineList": [{
+        "RoutineName": "WANDER",
+        "FileName": "Wander.csx"
+    },{
+        "RoutineName": "IDLE",
+        "FileName": "Idle.csx"
+    }]
+}

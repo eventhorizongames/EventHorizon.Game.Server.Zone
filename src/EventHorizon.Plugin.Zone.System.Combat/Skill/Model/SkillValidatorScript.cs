@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Services;
+using EventHorizon.Plugin.Zone.System.Combat.Script;
 using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;

@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
+using EventHorizon.Game.Server.Zone.Agent.Ai.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using MediatR;
 

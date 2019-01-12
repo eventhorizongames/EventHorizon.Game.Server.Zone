@@ -5,7 +5,6 @@ using EventHorizon.Game.Server.Zone.State.Repository;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Dynamic;
 using System.Collections.Generic;

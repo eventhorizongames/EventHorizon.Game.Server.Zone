@@ -5,12 +5,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
-using EventHorizon.Game.Server.Zone.Agent.Ai.Wander;
 using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Handlers;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using MediatR;
@@ -56,10 +54,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.General.Handler
             ));
             mediatorMock.Verify(mediator => mediator.Publish(
                 It.IsAny<StartAgentMoveRoutineEvent>(),
-                It.IsAny<CancellationToken>()
-            ), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(
-                It.IsAny<StartAgentWanderRoutineEvent>(),
                 It.IsAny<CancellationToken>()
             ), Times.Never());
         }

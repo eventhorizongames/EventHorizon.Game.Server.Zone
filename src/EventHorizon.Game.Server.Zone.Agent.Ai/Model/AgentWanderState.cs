@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Agent.Model.Ai
+namespace EventHorizon.Game.Server.Zone.Agent.Ai.Model
 {
     public struct AgentWanderState
     {

@@ -3,7 +3,6 @@ using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Agent.Model.Ai;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using System.Collections.Generic;

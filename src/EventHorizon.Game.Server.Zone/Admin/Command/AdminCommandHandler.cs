@@ -20,25 +20,19 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command
             _logger = logger;
             _mediator = mediator;
         }
-        public Task<AdminCommandResponse> Handle(AdminCommandEvent request, CancellationToken cancellationToken)
+        public async Task<AdminCommandResponse> Handle(AdminCommandEvent request, CancellationToken cancellationToken)
         {
             switch (request.Command)
             {
-                case "reload-combat-system":
-                    return _mediator.Send(new AdminCommandReloadCombatSystemEvent { Data = request.Data });
                 case "reload-system":
                     _logger.LogInformation("Running Full System Reload...");
-                    _mediator.Publish(new AdminCommandReloadSystemEvent { Data = request.Data }).ConfigureAwait(false);
-                    return Task.FromResult(
-                        new AdminCommandResponse
-                        {
-                            Success = true
-                        }
-                    );
+                    await _mediator.Publish(new AdminCommandReloadSystemEvent { Data = request.Data });
+                    return new AdminCommandResponse
+                    {
+                        Success = true
+                    };
                 default:
-                    return Task.FromResult(
-                        new AdminCommandResponse { Success = false, Message = "command_not_found" }
-                    );
+                    return new AdminCommandResponse { Success = false, Message = "command_not_found" };
             }
         }
     }
