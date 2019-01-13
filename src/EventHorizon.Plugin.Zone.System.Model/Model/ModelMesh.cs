@@ -7,12 +7,14 @@ namespace EventHorizon.Plugin.Zone.System.Model.Model
         {
             Type = "GLTF",
             Path = "/Assets/Meshes/",
-            File = "Default_Mesh.glb"
+            File = "Default_Mesh.glb",
+            HeightOffset = 0,
         };
 
         public string Type { get; set; }
         public string Path { get; set; }
         public string File { get; set; }
+        public float HeightOffset { get; set; }
 
         public bool IsValid()
         {
