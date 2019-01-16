@@ -34,5 +34,6 @@ namespace EventHorizon.Game.Server.Zone.Model.Particle
         public float MaxEmitPower { get; set; }
 
         public float UpdateSpeed { get; set; }
+        public int BlendMode { get; set; }
     }
 }

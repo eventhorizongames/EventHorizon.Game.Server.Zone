@@ -101,6 +101,9 @@
         "id": "start_target_animation",
         "scriptFile": "StartTargetAnimation.csx"
     }, {
+        "id": "move_target_to_target_position",
+        "scriptFile": "MoveTargetToTargetPosition.csx"
+    }, {
         "comment": "not_done",
         "id": "start_animation_from_caster_to_target_offset",
         "scriptFile": "StartAnimationFromCasterToTargetOffset.csx"

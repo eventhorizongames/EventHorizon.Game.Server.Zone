@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {
-    public static class SystemCombatExtensions
+    public static class SystemAgentAiExtensions
     {
         public static void AddSystemAgentAi(this IServiceCollection services)
         {

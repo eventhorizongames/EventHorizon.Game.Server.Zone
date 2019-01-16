@@ -1,0 +1,65 @@
+{
+    "Id": "test-player",
+    "Name": "Test_Player",
+    "Locale": "en_US",
+    "Position": {
+        "CanMove": true,
+        "CurrentPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+        },
+        "NextMoveRequest": "2019-01-05T04:50:45.8398889Z",
+        "MoveToPosition": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+        },
+        "CurrentZone": "...",
+        "ZoneTag": "testing"
+    },
+    "TagList": ["npc", "wandering", "weak"],
+    "Data": {
+        "name": "canhorn",
+        "locale": "en_US",
+        "movementState": {
+            "Speed": 1.0
+        },
+        "lifeState": {
+            "Condition": {
+                "Name": "ALIVE"
+            },
+            "HealthPoints": 9508,
+            "MaxHealthPoints": 10000,
+            "ActionPoints": 10,
+            "MaxActionPoints": 10,
+            "Attack": 1
+        },
+        "levelState": {
+            "HealthPointsLevel": 1,
+            "ActionPointsLevel": 1,
+            "AttackLevel": 1,
+            "Experience": 0,
+            "AllTimeExperience": 3
+        },
+        "skillState": {
+            "skillList": {
+                "fire_ball": {
+                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                },
+                "move_to": {
+                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                }
+            }
+        },
+        "modelState": {
+            "AnimationList": [],
+            "Mesh": {
+                "Type": "GLTF",
+                "Path": "/Assets/Meshes/",
+                "File": "Default_Mesh.glb",
+                "HeightOffset": -1.2
+            }
+        }
+    }
+}

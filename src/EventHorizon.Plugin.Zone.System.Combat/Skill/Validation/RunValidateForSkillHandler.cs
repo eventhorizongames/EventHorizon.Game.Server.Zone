@@ -36,6 +36,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
                     request.Caster,
                     request.Target,
                     request.Skill,
+                    request.TargetPosition,
                     validator.Data
                 );
                 if (!response.Success)

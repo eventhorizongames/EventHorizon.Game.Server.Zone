@@ -11,6 +11,8 @@ using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
 using EventHorizon.Plugin.Zone.System.Combat.Script;
+using System.Numerics;
+using EventHorizon.Game.Server.Zone.Core;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
@@ -29,7 +31,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     .Default
                     .WithReferences(
                         typeof(SkillEffectScript).Assembly,
-                        typeof(CSharpArgumentInfo).Assembly
+                        typeof(CSharpArgumentInfo).Assembly,
+                        typeof(SystemAgentAiExtensions).Assembly
                     )
                     .WithImports(
                         "System",
@@ -37,6 +40,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "EventHorizon.Game.Server.Zone.External.Extensions",
                         "EventHorizon.Game.Server.Zone.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
+                        "EventHorizon.Game.Server.Zone.Agent.Ai.Move",
+
                         // TODO: Move all subnamespace Combat Events into root Events namespace
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
                         "EventHorizon.Plugin.Zone.System.Combat.Client",
@@ -74,6 +79,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             IObjectEntity caster,
             IObjectEntity target,
             SkillInstance skill,
+            Vector3 targetPosition,
             IDictionary<string, object> data,
             IDictionary<string, object> priorState)
         {
@@ -86,6 +92,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         Caster = caster,
                         Target = target,
                         Skill = skill,
+                        TargetPosition = targetPosition,
                         Data = data,
                         PriorState = priorState ?? EMPTY_STATE
                     });
@@ -105,6 +112,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
             public IObjectEntity Caster { get; set; }
             public IObjectEntity Target { get; set; }
             public SkillInstance Skill { get; set; }
+            public Vector3 TargetPosition { get; set; }
             public IDictionary<string, object> Data { get; set; }
             public IDictionary<string, object> PriorState { get; set; }
         }

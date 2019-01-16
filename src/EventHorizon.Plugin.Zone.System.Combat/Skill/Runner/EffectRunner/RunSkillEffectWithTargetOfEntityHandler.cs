@@ -13,6 +13,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Script;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Validation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System.Numerics;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
 {
@@ -45,12 +46,14 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             var caster = notification.Caster;
             var target = notification.Target;
             var skill = notification.Skill;
+            var targetPosition = notification.TargetPosition;
 
             // Run Validators of Skill
             var validationResponse = await RunValidationScripts(
                  effect,
                  caster,
-                 target
+                 target,
+                 targetPosition
             );
             if (!validationResponse.Success)
             {
@@ -98,6 +101,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                 caster,
                 target,
                 skill,
+                targetPosition,
                 notification.State
             );
 
@@ -125,7 +129,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
         private async Task<SkillValidatorResponse> RunValidationScripts(
             SkillEffect effect,
             IObjectEntity caster,
-            IObjectEntity target
+            IObjectEntity target,
+            Vector3 targetPosition
         )
         {
             // Run Validation scripts of Skill, return validations including errors.
@@ -134,7 +139,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                 {
                     SkillEffect = effect,
                     Caster = caster,
-                    Target = target
+                    Target = target,
+                    TargetPosition = targetPosition
                 }
             );
             foreach (var validationResponse in validationResponseList)
@@ -156,6 +162,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
             IObjectEntity caster,
             IObjectEntity target,
             SkillInstance skill,
+            Vector3 targetPosition,
             IDictionary<string, object> state
         )
         {
@@ -167,6 +174,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
                     caster,
                     target,
                     skill,
+                    targetPosition,
                     effect.Data,
                     state
                 );

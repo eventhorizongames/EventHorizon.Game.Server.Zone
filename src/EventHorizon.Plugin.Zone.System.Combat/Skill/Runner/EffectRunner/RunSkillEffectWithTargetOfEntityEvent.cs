@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using MediatR;
@@ -12,6 +13,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner.EffectRunner
         public IObjectEntity Caster { get; internal set; }
         public IObjectEntity Target { get; internal set; }
         public SkillInstance Skill { get; internal set; }
+        public Vector3 TargetPosition { get; set; }
         public IDictionary<string, object> State { get; internal set; }
     }
 }

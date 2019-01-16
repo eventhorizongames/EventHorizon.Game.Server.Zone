@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Runner;
 using MediatR;
+using Newtonsoft.Json.Linq;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
 {
@@ -36,13 +37,15 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                     });
                     break;
                 case PlayerActions.RUN_SKILL:
+                    var parsedObject = GetDataAsRunSkillData(notification.Data);
                     await _mediator.Publish(
                         new RunSkillWithTargetOfEntityEvent
                         {
-                            CasterId = player.Id,
                             ConnectionId = player.ConnectionId,
-                            TargetId = notification.Data.targetId,
-                            SkillId = notification.Data.skillId
+                            CasterId = player.Id,
+                            SkillId = parsedObject.skillId,
+                            TargetId = parsedObject.targetId,
+                            TargetPosition = parsedObject.targetPosition
                         }
                     );
                     break;
@@ -56,6 +59,26 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                     break;
 
             }
+        }
+
+        private RunSkillData GetDataAsRunSkillData(dynamic data)
+        {
+            var jObjectData = (JObject)data;
+            var containsProp = jObjectData.ContainsKey("targetPosition");
+            var runSkillData = jObjectData.ToObject<RunSkillData>();
+            if (!jObjectData.ContainsKey("targetPosition"))
+            {
+                runSkillData.targetPosition = new Vector3(9_999_999, 9_999_999, 9_999_999);
+            }
+            return runSkillData;
+        }
+
+        private struct RunSkillData
+        {
+            public string skillId { get; set; }
+            public long casterId { get; set; }
+            public long targetId { get; set; }
+            public Vector3 targetPosition { get; set; }
         }
     }
 }

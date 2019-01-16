@@ -58,16 +58,18 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                     SkillId = notification.SkillId
                 }
             );
+            var targetPosition = notification.TargetPosition;
             if (!caster.IsFound()
                 || !target.IsFound()
                 || !skill.IsFound())
             {
                 _logger.LogError(
-                    "Exception during casting of Skill. {connectionId} {casterId} {targetId} {skillId} {@caster} {@target} {@skill}",
+                    "Exception during casting of Skill. {ConnectionId} {CasterId} {TargetId} {SkillId} {TargetPosition} {@Caster} {@Target} {@Skill}",
                     notification.ConnectionId,
                     notification.CasterId,
                     notification.TargetId,
                     notification.SkillId,
+                    notification.TargetPosition,
                     caster,
                     target,
                     skill
@@ -129,6 +131,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                     Caster = caster,
                     Target = target,
                     Skill = skill,
+                    TargetPosition = targetPosition
                 }
             );
             if (!validationResponse.Success)
@@ -160,6 +163,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                             Caster = caster,
                             Target = target,
                             Skill = skill,
+                            TargetPosition = targetPosition,
                             State = state
                         }
                     ).ConfigureAwait(false);
@@ -176,7 +180,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                         SkillEffect = skillEffect,
                         Caster = caster,
                         Target = target,
-                        Skill = skill
+                        Skill = skill,
+                        TargetPosition = targetPosition
                     }
                 ).ConfigureAwait(false);
             }

@@ -23,6 +23,10 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler
             {
                 EntityId = notification.EntityId,
             });
+            if (!agent.IsFound())
+            {
+                return;
+            }
             // Get Path to node
             var path = await _mediator.Send(new FindPathEvent
             {

@@ -8,6 +8,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Script;
 using MediatR;
 using Moq;
 using Xunit;
+using System.Numerics;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
 {
@@ -36,6 +37,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             var mediatorMock = new Mock<IMediator>();
             scriptServicesMock.Setup(a => a.Mediator).Returns(mediatorMock.Object);
             var skill = new SkillInstance();
+            var targetPosition = new Vector3(1, 0, 1);
 
             //When
             var effectScript = new SkillEffectScript
@@ -54,6 +56,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                 casterMock.Object,
                 targetMock.Object,
                 skill,
+                targetPosition,
                 data,
                 null
             );
