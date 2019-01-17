@@ -1,7 +1,7 @@
 {
     "locale": "default",
     "translationList": {
-        "CasterDoesNotHaveSkill": "Failed: {casterName} does not have {skillName}.",
+        "CasterDoesNotHaveSkill": "Failed: ${casterName} does not have ${skillName}.",
         "SkillExceptionMessage": "Exception during casting of Skill.",
         "SkillFailedForReason": "(${skillName}) failed because ${skillFailedReason}.",
         "CasterDamagedTarget": "(${casterName}) damaged (${targetName}) for ${damage} point(s).",
