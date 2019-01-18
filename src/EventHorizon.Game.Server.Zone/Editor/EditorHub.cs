@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts;
+using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts.Model;
 using EventHorizon.Game.Server.Zone.Editor.Model;
 using EventHorizon.Game.Server.Zone.Editor.State.Get;
 using MediatR;
@@ -28,6 +30,22 @@ namespace EventHorizon.Game.Server.Zone.Editor
         public async Task<EditorState> StateOfEditor()
         {
             return await _mediator.Send(new GetEditorStateEvent());
+        }
+
+        public Task<EditorScriptFileContent> GetScriptFileContent(string directory, string fileName)
+        {
+            return _mediator.Send(new GetScriptFileContentEvent
+            {
+                Directory = directory,
+                FileName = fileName
+            });
+        }
+        public Task SaveScriptFileContent(EditorScriptFileContent scriptFileContent)
+        {
+            return _mediator.Publish(new SaveScriptFileContentEvent
+            {
+                ScriptFileContent = scriptFileContent
+            });
         }
     }
 }

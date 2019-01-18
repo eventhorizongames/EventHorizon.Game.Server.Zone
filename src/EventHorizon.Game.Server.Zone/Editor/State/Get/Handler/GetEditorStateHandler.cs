@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts;
 using EventHorizon.Game.Server.Zone.Editor.Load;
 using EventHorizon.Game.Server.Zone.Editor.Model;
 using MediatR;
@@ -23,6 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Editor.State.Get.Handler
                 AssetList = await _mediator.Send(new LoadEditorAssetListEvent()),
                 EntityList = await _mediator.Send(new LoadEditorEntityListEvent()),
                 ScriptList = await _mediator.Send(new LoadEditorScriptListEvent()),
+                EditorScripts = await _mediator.Send(new GetEditorScriptsStateEvent())
             };
         }
     }
