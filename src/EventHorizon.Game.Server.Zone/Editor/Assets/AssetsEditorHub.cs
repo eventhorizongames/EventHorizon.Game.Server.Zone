@@ -9,27 +9,22 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Game.Server.Zone.Editor
 {
-    [Authorize]
     public partial class EditorHub : Hub
     {
-        readonly IMediator _mediator;
-        public EditorHub(IMediator mediator)
+        public Task<EditorScriptFileContent> GetScriptFileContent(string directory, string fileName)
         {
-            _mediator = mediator;
-        }
-
-        public override Task OnConnectedAsync()
-        {
-            if (!Context.User.IsInRole("Admin"))
+            return _mediator.Send(new GetScriptFileContentEvent
             {
-                throw new System.Exception("no_role");
-            }
-            return Task.CompletedTask;
+                Directory = directory,
+                FileName = fileName
+            });
         }
-
-        public async Task<EditorState> StateOfEditor()
+        public Task SaveScriptFileContent(EditorScriptFileContent scriptFileContent)
         {
-            return await _mediator.Send(new GetEditorStateEvent());
+            return _mediator.Publish(new SaveScriptFileContentEvent
+            {
+                ScriptFileContent = scriptFileContent
+            });
         }
     }
 }

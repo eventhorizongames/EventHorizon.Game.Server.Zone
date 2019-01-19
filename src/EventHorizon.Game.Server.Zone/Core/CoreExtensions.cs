@@ -6,7 +6,6 @@ using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
 using EventHorizon.Game.Server.Zone.Core.Info;
 using EventHorizon.Game.Server.Zone.Core.Json;
-using EventHorizon.Game.Server.Zone.Core.Json.Impl;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl;

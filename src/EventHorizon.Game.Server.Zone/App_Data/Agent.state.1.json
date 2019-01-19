@@ -59,11 +59,12 @@
                 "SkillList": null
             },
             "modelState": {
-                "AnimationList": [],
-                "Mesh": {
-                    "Type": "GLTF",
-                    "Path": "/Assets/Meshes/",
-                    "File": "Default_Mesh.glb"
+                "animationList": [],
+                "mesh": {
+                    "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
+                    "type": "GLTF",
+                    "path": "/Assets/Meshes/",
+                    "file": "Default_Mesh.glb"
                 }
             }
         }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Load.Settings.Model;
 using EventHorizon.Game.Server.Zone.Agent.Connection;
 using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Game.Server.Zone.External.Json;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
 {
