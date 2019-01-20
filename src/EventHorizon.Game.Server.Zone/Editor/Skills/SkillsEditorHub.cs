@@ -14,6 +14,19 @@ namespace EventHorizon.Game.Server.Zone.Editor
 {
     public partial class EditorHub : Hub
     {
+        public Task<SystemCombatSkillScriptsFile> GetSystemCombatSkillScripts()
+        {
+            return _mediator.Send(new GetSystemCombatSkillScriptsFileEvent());
+        }
+        public Task SaveSystemCombatSkillScripts(SystemCombatSkillScriptsFile skillScriptFile)
+        {
+            // await _mediator.Send(new SaveCombatSkillEvent
+            // {
+            //     Skill = skillInstance
+            // });
+            // await _mediator.Publish(new SaveCombatSkillsEvent());
+            return Task.CompletedTask;
+        }
         public Task<CombatSkillsFile> GetCombatSkills()
         {
             return _mediator.Send(new GetCombatSkillsFileEvent());

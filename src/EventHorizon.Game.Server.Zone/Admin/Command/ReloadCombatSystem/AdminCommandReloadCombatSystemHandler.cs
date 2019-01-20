@@ -24,7 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.ReloadCombatSystem
                 new LoadCombatSkillsEvent()
             );
             await _mediator.Publish(
-                new LoadSkillCombatSystemEvent()
+                new LoadSystemCombatSkillScriptsEvent()
             );
             await _mediator.Publish(
                 new SetupCombatParticleSystemEvent()

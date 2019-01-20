@@ -41,7 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Core
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatParticleSystemEvent()).GetAwaiter().GetResult();
 
                 serviceScope.ServiceProvider.GetService<IMediator>().Publish(new LoadCombatSkillsEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new LoadSkillCombatSystemEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new LoadSystemCombatSkillScriptsEvent()).GetAwaiter().GetResult();
             }
         }
     }
