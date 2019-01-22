@@ -3,7 +3,7 @@
 /// 
 /// Caster - 
 /// Target - 
-/// Data: { propertyName: string; valueProperty: string; cost: number }
+/// Data: { propertyName: string; valueProperty: string; cost: number; }
 /// </summary>
 
 var propertyName = (string)Data["propertyName"];

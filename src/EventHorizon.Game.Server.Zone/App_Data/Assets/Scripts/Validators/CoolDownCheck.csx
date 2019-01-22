@@ -4,8 +4,8 @@
 /// Caster - 
 /// Target - 
 /// Skill - { id: string; }
-/// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
 /// Data: { message: string; messageCode: string; }
+/// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
 /// </summary>
 
 var skillState = Caster.GetProperty<dynamic>("skillState");

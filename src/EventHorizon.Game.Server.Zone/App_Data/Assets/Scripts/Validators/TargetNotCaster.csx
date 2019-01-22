@@ -3,7 +3,7 @@
 /// 
 /// Caster: { Id: string; } 
 /// Target: { Id: string; }
-/// Data: -
+/// Data: { }
 /// </summary>
 
 if (Target.Id != Caster.Id)

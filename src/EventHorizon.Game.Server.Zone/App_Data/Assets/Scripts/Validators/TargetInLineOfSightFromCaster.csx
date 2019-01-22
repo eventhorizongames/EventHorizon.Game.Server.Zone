@@ -3,7 +3,7 @@
 /// 
 /// Caster - 
 /// Target - 
-/// Data: {no data}
+/// Data: { }
 /// </summary>
 
 // TODO: Implement this, if feel like it.
