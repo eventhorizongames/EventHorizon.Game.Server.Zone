@@ -6,7 +6,7 @@ namespace EventHorizon.Identity.Exceptions
     [Serializable]
     public class IdentityServerRequestException : Exception
     {
-        public IdentityServerRequestException(string message)
-            : base(message) { }
+        public IdentityServerRequestException(string message, Exception ex)
+            : base(message, ex) { }
     }
 }

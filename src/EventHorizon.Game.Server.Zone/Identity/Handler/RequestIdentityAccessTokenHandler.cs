@@ -33,7 +33,7 @@ namespace EventHorizon.Identity.Handler
 
             if (tokenResponse.IsError)
             {
-                throw new IdentityServerRequestException("Error requesting token.");
+                throw new IdentityServerRequestException("Error requesting token.", tokenResponse.Exception);
             }
 
             return tokenResponse.AccessToken;
