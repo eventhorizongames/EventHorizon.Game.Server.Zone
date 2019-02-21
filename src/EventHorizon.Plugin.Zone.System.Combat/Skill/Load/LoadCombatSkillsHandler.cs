@@ -28,7 +28,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
 
         public async Task Handle(LoadCombatSkillsEvent notification, CancellationToken cancellationToken)
         {
-            var combatSkillsFile = await _mediator.Send(new GetCombatSkillsFileEvent());
+            var combatSkillsFile = await _mediator.Send(new GetCombatSkillsFileEvent(
+                notification.FileName
+            ));
             foreach (var skill in combatSkillsFile.SkillList)
             {
                 _skillRepository.Add(

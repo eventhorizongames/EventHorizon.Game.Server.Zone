@@ -1,1 +1,16 @@
-{}
+{
+    "skillScripts": {
+        "file": "Combat.Skill.Scripts.json"
+    },
+    "skills": {
+        "file": "Combat.Skills.json"
+    },
+    "guiList": [{
+        "file": "Skill.Selection.json"
+    }, {
+        "file": "Combat.json"
+    }],
+    "particleList": [{
+        "file": "System.Combat.json"
+    }]
+}

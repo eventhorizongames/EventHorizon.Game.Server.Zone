@@ -1,5 +1,7 @@
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Plugin.Zone.System.Combat.Events;
+using EventHorizon.Plugin.Zone.System.Combat.Gui;
+using EventHorizon.Plugin.Zone.System.Combat.Load;
 using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat
@@ -13,7 +15,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat
 
         public void Startup(IMediator mediator)
         {
-            mediator.Publish(new SetupCombatSystemGuiEvent());
+            mediator.Publish(new LoadCombatSystemEvent());
         }
 
         public string ValidateStartup()

@@ -1,0 +1,58 @@
+{
+    "layout": {
+        "id": "onscreen_skill_selection",
+        "sort": 0,
+        "controlList": [{
+            "id": "onscreen_skill_selection-grid",
+            "sort": 0,
+            "controlList": [{
+                "id": "onscreen_skill_selection-panel",
+                "sort": 0,
+                "comment": "This is where the skill list will be.",
+                "controlList": []
+            }]
+        }]
+    },
+    "templateList": [{
+        "id": "onscreen_skill_selection-grid",
+        "type": 4,
+        "options": {
+            "column": 3,
+            "row": 3,
+            "backgroundColor": "transparent",
+            "paddingBottom": 5,
+            "paddingTop": 5,
+            "paddingLeft": 5,
+            "paddingRight": 5
+        }
+    }, {
+        "id": "onscreen_skill_selection-panel",
+        "type": 4,
+        "options": {
+            "row": 2,
+            "column": 2
+        }
+    }, {
+        "id": "onscreen_skill_selection-skill-${index}-spacer",
+        "type": 4,
+        "options": {
+            "padding": 5
+        }
+    }, {
+        "id": "onscreen_skill_selection-skill-${index}-button",
+        "type": 4,
+        "options": {
+            "text": "25 / 100",
+            "linkOffsetY": -50,
+
+            "width": 60,
+            "height": 20,
+            "textSize": 12,
+            "textColor": "white",
+            "backgroundColor": "red",
+            "alignment": 2,
+            "vAlignment": 0,
+            "borderThickness": 0
+        }
+    }]
+}

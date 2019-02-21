@@ -8,11 +8,11 @@ namespace EventHorizon.Game.Server.Zone.Gui
         void AddLayout(string id, GuiControlLayout layout);
         IEnumerable<GuiControlLayout> AllLayouts();
 
-        IEnumerable<GuiControlTemplate> All();
-        void Add(string id, GuiControlTemplate template);
-        GuiControlTemplate Get(string id);
+        IEnumerable<GuiTemplate> All();
+        void Add(string id, GuiTemplate template);
+        GuiTemplate Get(string id);
         bool Contains(string id);
         void Remove(string id);
-        void Update(string id, GuiControlTemplate template);
+        void Update(string id, GuiTemplate template);
     }
 }

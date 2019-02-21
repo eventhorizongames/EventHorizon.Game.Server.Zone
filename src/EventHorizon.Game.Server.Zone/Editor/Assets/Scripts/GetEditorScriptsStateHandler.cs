@@ -19,21 +19,23 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
         {
             _serverInfo = serverInfo;
         }
-        public async Task<EditorScriptsState> Handle(GetEditorScriptsStateEvent request, CancellationToken cancellationToken)
+        public Task<EditorScriptsState> Handle(GetEditorScriptsStateEvent request, CancellationToken cancellationToken)
         {
-            return new EditorScriptsState
-            {
-                // Load Actions Scripts File List
-                Actions = GetEditorScriptFiles("Actions"),
-                // Load Effects Scripts File List
-                Effects = GetEditorScriptFiles("Effects"),
-                // Load Routines Scripts File List
-                Routines = GetEditorScriptFiles("Routines"),
-                // Load Server Scripts File List
-                Server = GetEditorScriptFiles("Server"),
-                // Load Validators Scripts File List
-                Validators = GetEditorScriptFiles("Validators"),
-            };
+            return Task.FromResult(
+                new EditorScriptsState
+                {
+                    // Load Actions Scripts File List
+                    Actions = GetEditorScriptFiles("Actions"),
+                    // Load Effects Scripts File List
+                    Effects = GetEditorScriptFiles("Effects"),
+                    // Load Routines Scripts File List
+                    Routines = GetEditorScriptFiles("Routines"),
+                    // Load Server Scripts File List
+                    Server = GetEditorScriptFiles("Server"),
+                    // Load Validators Scripts File List
+                    Validators = GetEditorScriptFiles("Validators"),
+                }
+            );
         }
 
         private List<EditorScriptFile> GetEditorScriptFiles(string scriptDirectory)

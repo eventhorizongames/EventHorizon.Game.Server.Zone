@@ -25,7 +25,11 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.SkillFile
         }
         public async Task<SystemCombatSkillScriptsFile> Handle(GetSystemCombatSkillScriptsFileEvent request, CancellationToken cancellationToken)
         {
-            var filePath = Path.Combine(_serverInfo.PluginsPath, "System.Combat.Skill.Scripts.json");
+            var filePath = Path.Combine(
+                _serverInfo.AssetsPath,
+                "Config",
+                request.FileName
+            );
             return await _fileLoader.GetFile<SystemCombatSkillScriptsFile>(filePath);
         }
     }

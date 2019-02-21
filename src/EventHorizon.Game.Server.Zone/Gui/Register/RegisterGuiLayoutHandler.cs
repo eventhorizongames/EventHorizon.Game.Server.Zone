@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Game.Server.Zone.Events.Gui;
-using EventHorizon.Game.Server.Zone.Gui.Client;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Gui.Register

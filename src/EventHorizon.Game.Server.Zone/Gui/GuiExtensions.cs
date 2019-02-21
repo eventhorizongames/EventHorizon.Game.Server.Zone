@@ -16,9 +16,6 @@ namespace EventHorizon.Game.Server.Zone.Gui
         }
         public static void UseGui(this IApplicationBuilder app)
         {
-            // using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            // {
-            // }
         }
     }
 }

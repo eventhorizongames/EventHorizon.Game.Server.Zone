@@ -10,20 +10,24 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Particle.Handler
 {
-    public class SetupCombatParticleSystemHandler : INotificationHandler<SetupCombatParticleSystemEvent>
+    public class LoadCombatParticleSystemHandler : INotificationHandler<LoadCombatParticleSystemEvent>
     {
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
         readonly ServerInfo _serverInfo;
-        public SetupCombatParticleSystemHandler(IMediator mediator, IJsonFileLoader fileLoader, ServerInfo serverInfo)
+        public LoadCombatParticleSystemHandler(IMediator mediator, IJsonFileLoader fileLoader, ServerInfo serverInfo)
         {
             _mediator = mediator;
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        public async Task Handle(SetupCombatParticleSystemEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(LoadCombatParticleSystemEvent notification, CancellationToken cancellationToken)
         {
-            var filePath = Path.Combine(_serverInfo.PluginsPath, "Particle.System.Combat.json");
+            var filePath = Path.Combine(
+                _serverInfo.AssetsPath,
+                "Particle",
+                notification.FileName
+            );
             var templateFile = await _fileLoader.GetFile<CombatSystemParticleTemplateList>(filePath);
 
             foreach (var template in templateFile.TemplateList)

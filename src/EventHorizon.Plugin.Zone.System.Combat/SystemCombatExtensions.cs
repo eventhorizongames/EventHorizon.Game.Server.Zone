@@ -13,6 +13,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EventHorizon.Plugin.Zone.System.Combat.Load;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {
@@ -37,11 +38,9 @@ namespace EventHorizon.Game.Server.Zone.Core
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatSystemGuiEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new SetupCombatParticleSystemEvent()).GetAwaiter().GetResult();
-
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new LoadCombatSkillsEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new LoadSystemCombatSkillScriptsEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+                    new LoadCombatSystemEvent()
+                ).GetAwaiter().GetResult();
             }
         }
     }

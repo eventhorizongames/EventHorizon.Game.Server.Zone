@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Command.Model;
-using EventHorizon.Game.Server.Zone.Admin.Command.ReloadCombatSystem;
 using EventHorizon.Game.Server.Zone.Events.Admin;
 using MediatR;
 using Microsoft.Extensions.Logging;

@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Gui.State
     public class GuiStateContainer : GuiState
     {
         private static readonly ConcurrentDictionary<string, GuiControlLayout> LAYOUT_MAP = new ConcurrentDictionary<string, GuiControlLayout>();
-        private static readonly ConcurrentDictionary<string, GuiControlTemplate> TEMPLATE_MAP = new ConcurrentDictionary<string, GuiControlTemplate>();
+        private static readonly ConcurrentDictionary<string, GuiTemplate> TEMPLATE_MAP = new ConcurrentDictionary<string, GuiTemplate>();
 
         public void AddLayout(string id, GuiControlLayout layout)
         {
@@ -18,17 +18,17 @@ namespace EventHorizon.Game.Server.Zone.Gui.State
             return LAYOUT_MAP.Values;
         }
 
-        public IEnumerable<GuiControlTemplate> All()
+        public IEnumerable<GuiTemplate> All()
         {
             return TEMPLATE_MAP.Values;
         }
-        public void Add(string id, GuiControlTemplate template)
+        public void Add(string id, GuiTemplate template)
         {
             TEMPLATE_MAP.AddOrUpdate(id, template, (key, oldEntity) => template);
         }
-        public GuiControlTemplate Get(string id)
+        public GuiTemplate Get(string id)
         {
-            var template = default(GuiControlTemplate);
+            var template = default(GuiTemplate);
             TEMPLATE_MAP.TryGetValue(id, out template);
             return template;
         }
@@ -38,10 +38,10 @@ namespace EventHorizon.Game.Server.Zone.Gui.State
         }
         public void Remove(string id)
         {
-            var template = default(GuiControlTemplate);
+            var template = default(GuiTemplate);
             TEMPLATE_MAP.TryRemove(id, out template);
         }
-        public void Update(string id, GuiControlTemplate template)
+        public void Update(string id, GuiTemplate template)
         {
             if (this.Contains(id))
             {

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Model.Gui
 {
-    public interface GuiTemplateLayout
+    public struct GuiTemplateLayout
     {
-        string Id { get; set; }
-        List<GuiTemplateLayout> TemplateList { get; set; }
+        public string Id { get; set; }
+        public List<GuiTemplateLayout> TemplateList { get; set; }
     }
 }

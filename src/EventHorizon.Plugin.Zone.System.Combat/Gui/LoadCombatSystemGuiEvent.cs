@@ -1,12 +1,12 @@
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
+namespace EventHorizon.Plugin.Zone.System.Combat.Gui
 {
-    public struct LoadCombatSkillsEvent : INotification
+    public struct LoadCombatSystemGuiEvent : INotification
     {
         public string FileName { get; }
 
-        public LoadCombatSkillsEvent(
+        public LoadCombatSystemGuiEvent(
             string fileName
         ) {
             this.FileName = fileName;

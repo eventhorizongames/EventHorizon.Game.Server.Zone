@@ -22,7 +22,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.SkillFile
         }
         public Task<CombatSkillsFile> Handle(GetCombatSkillsFileEvent request, CancellationToken cancellationToken)
         {
-            return _fileLoader.GetFile<CombatSkillsFile>(Path.Combine(_serverInfo.PluginsPath, "Combat.Skills.json"));
+            return _fileLoader.GetFile<CombatSkillsFile>(
+                Path.Combine(
+                    _serverInfo.AssetsPath,
+                    "Config",
+                    request.FileName
+                )
+            );
         }
     }
 }

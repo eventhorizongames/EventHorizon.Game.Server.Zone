@@ -19,22 +19,15 @@ namespace EventHorizon.Game.Server.Zone.Gui.Get
             _mediator = mediator;
             _guiState = guiState;
         }
-        public async Task<GuiLayout> Handle(GetGuiLayoutForPlayerEvent request, CancellationToken cancellationToken)
+        public Task<GuiLayout> Handle(GetGuiLayoutForPlayerEvent request, CancellationToken cancellationToken)
         {
-            var dataList = new List<GuiControlData>();
-            await _mediator.Publish(
-                new FillGuiDataListForPlayerEvent
+            return Task.FromResult(
+                new GuiLayout
                 {
-                    Player = request.Player,
-                    DataListRef = dataList
+                    TemplateList = _guiState.All(),
+                    LayoutList = _guiState.AllLayouts()
                 }
             );
-            return new GuiLayout
-            {
-                TemplateList = _guiState.All(),
-                LayoutList = _guiState.AllLayouts(),
-                DataList = dataList
-            };
         }
     }
 }

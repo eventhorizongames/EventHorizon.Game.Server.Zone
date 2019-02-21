@@ -36,7 +36,9 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Load
         public async Task Handle(LoadSystemCombatSkillScriptsEvent notification, CancellationToken cancellationToken)
         {
             var skillSystemCombatFile = await _mediator.Send(
-                new GetSystemCombatSkillScriptsFileEvent()
+                new GetSystemCombatSkillScriptsFileEvent(
+                    notification.FileName
+                )
             );
 
             var scriptEffectsPath = Path.Combine(_serverInfo.AssetsPath, "Scripts", "Effects");

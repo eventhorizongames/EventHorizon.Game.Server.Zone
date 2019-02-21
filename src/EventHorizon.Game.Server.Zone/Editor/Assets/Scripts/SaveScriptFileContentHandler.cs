@@ -16,7 +16,7 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
         {
             _serverInfo = serverInfo;
         }
-        public async Task Handle(SaveScriptFileContentEvent notification, CancellationToken cancellationToken)
+        public Task Handle(SaveScriptFileContentEvent notification, CancellationToken cancellationToken)
         {
             var scriptDirectory = notification.ScriptFileContent.FileDirectory;
             var scriptFileName = notification.ScriptFileContent.FileName;
@@ -29,6 +29,8 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
                 pathToFile,
                 scriptContents
             );
+
+            return Task.CompletedTask;
         }
     }
 }

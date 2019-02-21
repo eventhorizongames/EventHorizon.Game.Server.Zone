@@ -33,16 +33,21 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Validation
                 var script = _validatorScriptRepository.Find(
                     validator.Validator
                 );
-                response.Add(
-                    await script.Run(
-                        _scriptServices,
-                        request.Caster,
-                        request.Target,
-                        request.Skill,
-                        request.TargetPosition,
-                        validator.Data
-                    )
+                var scriptResponse = await script.Run(
+                    _scriptServices,
+                    request.Caster,
+                    request.Target,
+                    request.Skill,
+                    request.TargetPosition,
+                    validator.Data
                 );
+                response.Add(
+                    scriptResponse
+                );
+                if (!scriptResponse.Success)
+                {
+                    break;
+                }
             }
             return response;
         }
