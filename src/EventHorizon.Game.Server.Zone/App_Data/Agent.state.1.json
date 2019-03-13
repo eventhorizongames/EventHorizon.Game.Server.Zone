@@ -1,19 +1,19 @@
 {
     "AgentList": [{
-        "Id": "0b8be2b4-bfbc-4a9b-b58e-ac9b3866cdb1",
+        "Id": "9540eaa4-9b25-46dd-9b61-98ce719c0e6a",
         "Name": "First Ever NPC",
         "Position": {
             "CanMove": true,
             "CurrentPosition": {
-                "X": -36.0,
+                "X": 16.0,
                 "Y": 0.0,
-                "Z": 52.0
+                "Z": 4.0
             },
-            "NextMoveRequest": "2019-01-05T04:50:45.8398889Z",
+            "NextMoveRequest": "2019-03-12T04:28:42.3059079Z",
             "MoveToPosition": {
-                "X": -32.0,
+                "X": 16.0,
                 "Y": 0.0,
-                "Z": 52.0
+                "Z": 0.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -21,16 +21,17 @@
         "TagList": ["npc", "wandering", "weak"],
         "Data": {
             "ownerState": {
-                "name": "NONE"
+                "OwnerId": "055cb38d-1f42-437c-8614-1e9744d304d9",
+                "Name": "NONE"
             },
             "movementState": {
                 "Speed": 1.0
             },
             "routine": {
-                "Name": "MOVE"
+                "Name": "IDLE"
             },
             "defaultRoutine": {
-                "Name": "WANDER"
+                "Name": "IDLE"
             },
             "wander": {
                 "LookDistance": 25
@@ -42,7 +43,7 @@
                 "Condition": {
                     "Name": "ALIVE"
                 },
-                "HealthPoints": 9508,
+                "HealthPoints": 9505,
                 "MaxHealthPoints": 10000,
                 "ActionPoints": 10,
                 "MaxActionPoints": 10,
@@ -59,12 +60,12 @@
                 "SkillList": null
             },
             "modelState": {
-                "animationList": [],
-                "mesh": {
-                    "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
-                    "type": "GLTF",
-                    "path": "/Assets/Meshes/",
-                    "file": "Default_Mesh.glb"
+                "AnimationList": [],
+                "Mesh": {
+                    "Type": "GLTF",
+                    "Path": "/Assets/Meshes/",
+                    "File": "Default_Mesh.glb",
+                    "HeightOffset": -1.2
                 }
             }
         }

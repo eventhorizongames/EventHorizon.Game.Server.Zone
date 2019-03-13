@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Plugin.Zone.System.Model", "src\EventHorizon.Plugin.Zone.System.Model\EventHorizon.Plugin.Zone.System.Model.csproj", "{EFC2FF1F-86FA-44FC-8869-09E31A648950}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone.Agent.Companion", "src\EventHorizon.Game.Server.Zone.Agent.Companion\EventHorizon.Game.Server.Zone.Agent.Companion.csproj", "{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +176,18 @@ Global
 		{EFC2FF1F-86FA-44FC-8869-09E31A648950}.Release|x64.Build.0 = Release|Any CPU
 		{EFC2FF1F-86FA-44FC-8869-09E31A648950}.Release|x86.ActiveCfg = Release|Any CPU
 		{EFC2FF1F-86FA-44FC-8869-09E31A648950}.Release|x86.Build.0 = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|x64.Build.0 = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Debug|x86.Build.0 = Debug|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|x64.Build.0 = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|x86.ActiveCfg = Release|Any CPU
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE} = {FE232CB9-E002-4898-9117-E3162928E341}
@@ -187,5 +201,6 @@ Global
 		{366C5458-20AA-4753-ABAA-6628AF407FBE} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{3B6BE15C-E4DE-4D32-93EF-884CF3C18B4F} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{EFC2FF1F-86FA-44FC-8869-09E31A648950} = {FE232CB9-E002-4898-9117-E3162928E341}
+		{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF} = {FE232CB9-E002-4898-9117-E3162928E341}
 	EndGlobalSection
 EndGlobal

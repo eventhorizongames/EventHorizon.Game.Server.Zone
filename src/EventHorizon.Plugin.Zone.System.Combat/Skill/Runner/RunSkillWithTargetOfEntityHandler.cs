@@ -110,7 +110,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                                 new I18nTokenValue
                                 {
                                     Token = "casterName",
-                                    Value = caster.Name.ToString()
+                                    Value = caster?.Name?.ToString()
                                 },
                                 new I18nTokenValue
                                 {

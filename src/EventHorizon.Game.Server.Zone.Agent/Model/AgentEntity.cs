@@ -20,7 +20,15 @@ namespace EventHorizon.Game.Server.Zone.Agent.Model
         public long Id { get; set; }
         public bool IsGlobal { get; set; }
         public string AgentId { get; set; }
+        public string GlobalId
+        {
+            get
+            {
+                return this.AgentId;
+            }
+        }
         public EntityType Type { get; set; }
+
         public PositionState Position { get; set; }
         public IList<string> TagList { get; set; }
 

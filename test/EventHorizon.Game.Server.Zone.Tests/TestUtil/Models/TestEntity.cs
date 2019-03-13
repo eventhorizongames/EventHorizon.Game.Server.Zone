@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Models
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public string GlobalId { get; set; }
 
         public EntityType Type { get { return EntityType.OTHER; } }
         public PositionState Position { get; set; }

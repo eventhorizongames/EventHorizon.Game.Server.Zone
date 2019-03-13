@@ -10,6 +10,11 @@
         "TargetNotInRange": "${targetName} not in range",
         "CasterCanNotTargetSelf": "${casterName} cannot target self",
         "CasterNotEnoughPoints": "(${casterName}) needs at least ${errorData.cost} ${errorData.valueProperty}",
+        "TargetIsNotCastersCompanion": "(${targetName}) is not your Companion.",
+        "TargetIsCastersCompanion": "(${targetName}) is already your Companion.",
+        "TargetIsNotAbleToBeCaptured": "(${targetName}) cannot be captured.",
+        "CasterFailedToCaptureTarget": "(${casterName}) failed to capture (${targetName}).",
+        "TargetIsNowOwnedBy": "(${targetName}) is now owned by (${casterName}).",
         "EMPTY": ""
     }
 }

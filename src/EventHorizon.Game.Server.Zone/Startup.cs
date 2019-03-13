@@ -131,6 +131,8 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemServerModule();
             services.AddSystemAgentAi();
 
+            services.AddAgentCompanion();
+
             services.AddPlugins(HostingEnvironment);
         }
 
@@ -156,6 +158,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemCombat();
             app.UseSystemServerModule();
             app.UseSystemAgentAi();
+            app.UseAgentCompanion();
 
             app.UseAgent();
             app.UseGui();

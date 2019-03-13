@@ -155,10 +155,74 @@
         "description": "This moves the target to the target position.",
         "type": "ACTIVE",
         "target": "ENTITY",
-        "validatorList": [],
+        "validatorList": [{
+            "validator": "target_not_caster"
+        }, {
+            "validator": "target_is_caster_companion"
+        }],
+        "failedList": [{
+            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+            "effect": "skill_validation_failed",
+            "data": {
+                "messageCode": "skill_validation_failed",
+                "messageTemplateKey": "SkillFailedForReason"
+            }
+        }],
         "effectList": [{
             "comment": "Move target to position",
             "effect": "move_target_to_target_position"
+        }]
+    }, {
+        "id": "capture_target",
+        "comments": "This is just a test skill, or maybe not.",
+        "name": "Capture Target",
+        "description": "Capture a target, some random % chance.",
+        "type": "ACTIVE",
+        "target": "ENTITY",
+        "validatorList": [{
+            "validator": "target_not_caster"
+        }, {
+            "validator": "target_is_not_caster_companion"
+        }, {
+            "validator": "target_is_able_to_be_captured"
+        }],
+        "failedList": [{
+            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+            "effect": "skill_validation_failed",
+            "data": {
+                "messageCode": "skill_validation_failed",
+                "messageTemplateKey": "SkillFailedForReason"
+            }
+        }],
+        "effectList": [{
+            "comment": "This will set the Target.OwnerState.OwnerId to the Caster.GlobalId, if successful.",
+            "effect": "validator_effect",
+            "validatorList": [{
+                "validator": "validate_success",
+                "data": {
+                    "percent": 20
+                }
+            }],
+            "next": [{
+                "comment": "Make the Caster the owner of the target.",
+                "effect": "make_target_owner_caster",
+                "next": [{
+                    "comment": "Send to all clients a message that Caster captured Target.",
+                    "effect": "caster_target_message",
+                    "data": {
+                        "messageCode": "target_is_now_owned",
+                        "messageTemplateKey": "TargetIsNowOwnedBy"
+                    }
+                }]
+            }],
+            "failedList": [{
+                "comment": "Send all clients a message Caster failed to capture Target.",
+                "effect": "caster_target_message",
+                "data": {
+                    "messageCode": "casted_failed_to_capture_target",
+                    "messageTemplateKey": "CasterFailedToCaptureTarget"
+                }
+            }]
         }]
     }, {
         "comments": "Not Done",

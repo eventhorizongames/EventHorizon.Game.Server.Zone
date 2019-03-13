@@ -7,6 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
     {
         long Id { get; set; }
         string Name { get; set; }
+        string GlobalId { get; }
         EntityType Type { get; }
         PositionState Position { get; set; }
         IList<string> TagList { get; set; }

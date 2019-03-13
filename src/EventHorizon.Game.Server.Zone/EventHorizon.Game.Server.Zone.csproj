@@ -24,7 +24,7 @@
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="6.5.0" />
+    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="7.1.0" />
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
@@ -40,6 +40,7 @@
     
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
+    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Companion\EventHorizon.Game.Server.Zone.Agent.Companion.csproj" />
 
     <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
   </ItemGroup>

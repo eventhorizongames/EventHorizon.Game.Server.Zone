@@ -5,7 +5,15 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
 {
     public struct DefaultEntity : IObjectEntity
     {
+        public const string DEFAULT_GLOBAL_ID = "no_global_id";
         public long Id { get; set; }
+        public string GlobalId
+        {
+            get
+            {
+                return DefaultEntity.DEFAULT_GLOBAL_ID;
+            }
+        }
         public string Name { get; set; }
 
         public EntityType Type { get { return EntityType.OTHER; } }

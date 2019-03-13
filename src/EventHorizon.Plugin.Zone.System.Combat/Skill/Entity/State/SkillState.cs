@@ -46,6 +46,20 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
                     {
                         CooldownFinishes = DateTime.Now
                     }
+                },
+                {
+                    "move_to",
+                    new EntitySkillState
+                    {
+                        CooldownFinishes = DateTime.Now
+                    }
+                },
+                {
+                    "capture_target",
+                    new EntitySkillState
+                    {
+                        CooldownFinishes = DateTime.Now
+                    }
                 }
             }
         };
