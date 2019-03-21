@@ -15,6 +15,7 @@
         "TargetIsNotAbleToBeCaptured": "(${targetName}) cannot be captured.",
         "CasterFailedToCaptureTarget": "(${casterName}) failed to capture (${targetName}).",
         "TargetIsNowOwnedBy": "(${targetName}) is now owned by (${casterName}).",
+        "PlayerNotCompanionOwner": "(${playerName}) is not owner of (${casterName}).",
         "EMPTY": ""
     }
 }

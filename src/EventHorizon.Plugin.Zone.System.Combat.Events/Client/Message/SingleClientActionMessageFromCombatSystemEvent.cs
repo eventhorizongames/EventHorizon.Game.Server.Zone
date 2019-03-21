@@ -1,6 +1,5 @@
-using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Events.Client;
-using EventHorizon.Game.Server.Zone.Model.Client;
+using EventHorizon.Plugin.Zone.System.Combat.Events.Client.Messsage;
 using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Client.Messsage

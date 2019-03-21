@@ -9,9 +9,9 @@
 /// </summary>
 
 
-var targetOwnerId = Target.GetProperty<dynamic>("ownerState")["ownerId"];
+var canNotBeCaptured = Target.GetProperty<dynamic>("ownerState")["canNotBeCaptured"];
 
-if (targetOwnerId == Target.GlobalId)
+if (canNotBeCaptured)
 {
     return new SkillValidatorResponse
     {

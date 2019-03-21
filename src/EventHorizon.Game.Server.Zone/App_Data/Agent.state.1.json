@@ -1,19 +1,19 @@
 {
     "AgentList": [{
-        "Id": "9540eaa4-9b25-46dd-9b61-98ce719c0e6a",
+        "Id": "c683511d-1500-48ce-8c77-512053bc1e21",
         "Name": "First Ever NPC",
         "Position": {
             "CanMove": true,
             "CurrentPosition": {
-                "X": 16.0,
+                "X": 12.0,
+                "Y": 0.0,
+                "Z": 8.0
+            },
+            "NextMoveRequest": "2019-03-14T03:15:42.4679584Z",
+            "MoveToPosition": {
+                "X": 12.0,
                 "Y": 0.0,
                 "Z": 4.0
-            },
-            "NextMoveRequest": "2019-03-12T04:28:42.3059079Z",
-            "MoveToPosition": {
-                "X": 16.0,
-                "Y": 0.0,
-                "Z": 0.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -21,7 +21,7 @@
         "TagList": ["npc", "wandering", "weak"],
         "Data": {
             "ownerState": {
-                "OwnerId": "055cb38d-1f42-437c-8614-1e9744d304d9",
+                "OwnerId": "5f2f8bd2-a33a-4d7e-a0a0-7e86784c1f25",
                 "Name": "NONE"
             },
             "movementState": {
@@ -43,7 +43,81 @@
                 "Condition": {
                     "Name": "ALIVE"
                 },
-                "HealthPoints": 9505,
+                "HealthPoints": 9504,
+                "MaxHealthPoints": 10000,
+                "ActionPoints": 0,
+                "MaxActionPoints": 10,
+                "Attack": 1
+            },
+            "levelState": {
+                "HealthPointsLevel": 1,
+                "ActionPointsLevel": 1,
+                "AttackLevel": 1,
+                "Experience": 0,
+                "AllTimeExperience": 3
+            },
+            "skillState": {
+                "SkillList": {
+                    "fire_ball": {
+                        "CooldownFinishes": "2019-03-14T03:15:54.069386Z"
+                    }
+                }
+            },
+            "modelState": {
+                "AnimationList": [],
+                "Mesh": {
+                    "Type": "GLTF",
+                    "Path": "/Assets/Meshes/",
+                    "File": "Default_Mesh.glb",
+                    "HeightOffset": -1.2
+                }
+            }
+        }
+    }, {
+        "Id": "cac40679-2f2c-4e6a-82e2-6616b965438c",
+        "Name": "Enemy Agent",
+        "Position": {
+            "CanMove": true,
+            "CurrentPosition": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            },
+            "NextMoveRequest": "0001-01-01T00:00:00",
+            "MoveToPosition": {
+                "X": 0.0,
+                "Y": 0.0,
+                "Z": 0.0
+            },
+            "CurrentZone": "...",
+            "ZoneTag": "testing"
+        },
+        "TagList": ["npc", "wandering", "weak"],
+        "Data": {
+            "ownerState": {
+                "OwnerId": "NONE",
+                "Name": "NONE"
+            },
+            "movementState": {
+                "Speed": 1.0
+            },
+            "routine": {
+                "Name": "IDLE"
+            },
+            "defaultRoutine": {
+                "Name": "IDLE"
+            },
+            "wander": {
+                "LookDistance": 25
+            },
+            "life": {
+                "Health": 0
+            },
+            "lifeState": {
+                "Condition": {
+                    "Name": "ALIVE"
+                },
+                "HealthPoints": 9502,
                 "MaxHealthPoints": 10000,
                 "ActionPoints": 10,
                 "MaxActionPoints": 10,
@@ -57,7 +131,11 @@
                 "AllTimeExperience": 3
             },
             "skillState": {
-                "SkillList": null
+                "SkillList": {
+                    "fire_ball": {
+                        "CooldownFinishes": "2019-02-07T22:38:10.065443-06:00"
+                    }
+                }
             },
             "modelState": {
                 "AnimationList": [],

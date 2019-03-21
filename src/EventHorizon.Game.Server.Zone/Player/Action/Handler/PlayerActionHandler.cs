@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill;
 using EventHorizon.Game.Server.Zone.Entity.Find;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity;
 using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
+using EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Runner;
 using MediatR;
 using Newtonsoft.Json.Linq;
@@ -47,6 +49,19 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                             TargetId = parsedObject.targetId,
                             TargetPosition = parsedObject.targetPosition
                         }
+                    );
+                    break;
+                case PlayerActions.RUN_SKILL_ON_COMPANION:
+                    var parsedCompanionObject = GetDataAsRunSkillData(notification.Data);
+                    await _mediator.Publish(
+                        new RunPlayerCompanionSkillEvent(
+                            player.ConnectionId,
+                            player.Id,
+                            parsedCompanionObject.casterId,
+                            parsedCompanionObject.skillId,
+                            parsedCompanionObject.targetId,
+                            parsedCompanionObject.targetPosition
+                        )
                     );
                     break;
                 // TODO: Test Action, Remove in future.
