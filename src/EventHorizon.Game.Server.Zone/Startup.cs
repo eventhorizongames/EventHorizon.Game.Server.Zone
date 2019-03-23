@@ -27,6 +27,7 @@ using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
+using EventHorizon.Plugin.Zone.System.Combat.Editor;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
 using IdentityModel.AspNetCore.OAuth2Introspection;
@@ -127,6 +128,7 @@ namespace EventHorizon.Game.Server.Zone
 
             // TODO: Remove this after done testing, move to System flow
             services.AddSystemCombat();
+            services.AddSystemCombatEditor();
             services.AddSystemModel();
             services.AddSystemServerModule();
             services.AddSystemAgentAi();
@@ -156,6 +158,7 @@ namespace EventHorizon.Game.Server.Zone
             // TODO: Remove this after done testing, move to Systems flow
             app.UseSystemModel();
             app.UseSystemCombat();
+            app.UseSystemCombatEditor();
             app.UseSystemServerModule();
             app.UseSystemAgentAi();
             app.UseAgentCompanion();
@@ -171,6 +174,7 @@ namespace EventHorizon.Game.Server.Zone
             {
                 routes.MapHub<PlayerHub>("/playerHub");
                 routes.MapHub<EditorHub>("/editor");
+                routes.MapHub<SkillsEditorHub>("/skillsEditor");
                 routes.MapHub<AgentHub>("/agent");
                 routes.MapHub<AdminBus>("/admin");
             });

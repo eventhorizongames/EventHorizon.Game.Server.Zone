@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
@@ -6,6 +7,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
     public interface ISkillEffectScriptRepository
     {
         void Add(SkillEffectScript script);
+        IEnumerable<SkillEffectScript> All();
         SkillEffectScript Find(string id);
     }
 
@@ -16,6 +18,12 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
         {
             SCRIPT_MAP.AddOrUpdate(script.Id, script, (key, old) => script);
         }
+
+        public IEnumerable<SkillEffectScript> All()
+        {
+            return SCRIPT_MAP.Values;
+        }
+
         public SkillEffectScript Find(string id)
         {
             var script = default(SkillEffectScript);

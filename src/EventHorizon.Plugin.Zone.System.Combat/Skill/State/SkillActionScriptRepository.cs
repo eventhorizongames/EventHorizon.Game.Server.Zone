@@ -7,8 +7,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
     public interface ISkillActionScriptRepository
     {
         void Add(SkillActionScript script);
-        SkillActionScript Find(string id);
         IEnumerable<SkillActionScript> All();
+        SkillActionScript Find(string id);
     }
 
     public class SkillActionScriptRepository : ISkillActionScriptRepository

@@ -1,5 +1,6 @@
 
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
@@ -7,6 +8,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
     public interface ISkillValidatorScriptRepository
     {
         void Add(SkillValidatorScript script);
+        IEnumerable<SkillValidatorScript> All();
         SkillValidatorScript Find(string id);
     }
 
@@ -17,6 +19,12 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.State
         {
             SCRIPT_MAP.AddOrUpdate(script.Id, script, (key, old) => script);
         }
+
+        public IEnumerable<SkillValidatorScript> All()
+        {
+            return SCRIPT_MAP.Values;
+        }
+
         public SkillValidatorScript Find(string id)
         {
             var script = default(SkillValidatorScript);
