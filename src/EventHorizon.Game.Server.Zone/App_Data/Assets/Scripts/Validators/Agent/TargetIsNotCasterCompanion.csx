@@ -17,7 +17,7 @@ if (targetOwnerId == Caster.GlobalId)
     {
         Success = false,
         ErrorCode = "target_is_casters_companion",
-        ErrorMessageTemplateKey = "TargetIsCastersCompanion",
+        ErrorMessageTemplateKey = "targetIsCastersCompanion",
     };
 }
 return new SkillValidatorResponse

@@ -26,5 +26,5 @@ return new SkillValidatorResponse
 {
     Success = false,
     ErrorCode = "skill_not_ready",
-    ErrorMessageTemplateKey = "SkillNotReady",
+    ErrorMessageTemplateKey = "skillNotReady",
 };

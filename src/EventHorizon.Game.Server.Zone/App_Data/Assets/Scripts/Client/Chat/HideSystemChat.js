@@ -1,4 +1,4 @@
-/**
+/** 
  * This the internal "state" of the script, only accessible by the script.
  * $state: {
  * };
@@ -8,6 +8,8 @@
  * };
  */
 
-this._keyboardShortcuts.forEach(keyboardShortcut =>
-    this._unregisterInput.unregister(keyboardShortcut)
+$services.eventService.publish(
+    $utils.createEvent(
+        "MessageFromCombatSystem.HIDE"
+    )
 );

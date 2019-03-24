@@ -1,72 +1,223 @@
 {
     "skillList": [{
-        "id": "fire_ball",
-        "name": "Fire Ball",
-        "description": "Fire a flaming ball at a target.",
-        "type": "ACTIVE",
-        "target": "ENTITY",
-        "validatorList": [{
-            "validator": "cool_down_check"
-        }, {
-            "validator": "target_not_caster"
-        }, {
-            "validator": "target_in_range_of_caster",
-            "data": {
-                "min": 0,
-                "max": 25
-            }
-        }, {
-            "validator": "target_in_line_of_sight_from_caster"
-        }, {
-            "validator": "caster_has_cost",
-            "data": {
-                "propertyName": "lifeState",
-                "valueProperty": "actionPoints",
-                "cost": 1
-            }
-        }],
-        "failedList": [{
-            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "skill_validation_failed",
-            "data": {
-                "messageCode": "skill_validation_failed",
-                "messageTemplateKey": "SkillFailedForReason"
-            }
-        }],
-        "effectList": [{
-            "comment": "Set CoolDown on Caster.",
-            "effect": "set_caster_skill_cool_down",
-            "data": {
-                "coolDown": 1000
-            }
-        }, {
-            "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
-            "effect": "freeze_caster",
-            "duration": 500,
-            "next": [{
-                "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = false)",
-                "effect": "un_freeze_caster"
-            }]
-        }, {
-            "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next. (Server Caster.LifeState.ActionPoints -= 1) | (ClientAction ChangeEntityState)",
-            "effect": "decrease_caster_property",
-            "data": {
-                "propertyName": "lifeState",
-                "valueProperty": "actionPoints",
-                "modifierPropertyName": "levelState",
-                "modifierValueProperty": "actionPointsLevel",
-                "modifierBase": 1
-            },
+            "id": "fire_ball",
+            "name": "Fire Ball",
+            "description": "Fire a flaming ball at a target.",
+            "type": "ACTIVE",
+            "target": "ENTITY",
             "validatorList": [{
-                "validator": "caster_has_cost",
+                    "validator": "cool_down_check"
+                },
+                {
+                    "validator": "target_not_caster"
+                },
+                {
+                    "validator": "target_in_range_of_caster",
+                    "data": {
+                        "min": 0,
+                        "max": 25
+                    }
+                },
+                {
+                    "validator": "target_in_line_of_sight_from_caster"
+                },
+                {
+                    "validator": "caster_has_cost",
+                    "data": {
+                        "propertyName": "lifeState",
+                        "valueProperty": "actionPoints",
+                        "cost": 1
+                    }
+                }
+            ],
+            "failedList": [{
+                "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+                "effect": "skill_validation_failed",
                 "data": {
-                    "propertyName": "lifeState",
-                    "valueProperty": "actionPoints",
-                    "cost": 1
+                    "messageCode": "skill_validation_failed",
+                    "messageTemplateKey": "skillFailedForReason"
                 }
             }],
-            "next": [{
-                "comment": "Validate that target can be hit.",
+            "effectList": [{
+                    "comment": "Set CoolDown on Caster.",
+                    "effect": "set_caster_skill_cool_down",
+                    "data": {
+                        "coolDown": 1000
+                    }
+                },
+                {
+                    "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
+                    "effect": "freeze_caster",
+                    "duration": 500,
+                    "next": [{
+                        "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = false)",
+                        "effect": "un_freeze_caster"
+                    }]
+                },
+                {
+                    "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next. (Server Caster.LifeState.ActionPoints -= 1) | (ClientAction ChangeEntityState)",
+                    "effect": "decrease_caster_property",
+                    "data": {
+                        "propertyName": "lifeState",
+                        "valueProperty": "actionPoints",
+                        "modifierPropertyName": "levelState",
+                        "modifierValueProperty": "actionPointsLevel",
+                        "modifierBase": 1
+                    },
+                    "validatorList": [{
+                        "validator": "caster_has_cost",
+                        "data": {
+                            "propertyName": "lifeState",
+                            "valueProperty": "actionPoints",
+                            "cost": 1
+                        }
+                    }],
+                    "next": [{
+                        "comment": "Validate that target can be hit.",
+                        "effect": "validator_effect",
+                        "validatorList": [{
+                            "validator": "validate_success",
+                            "data": {
+                                "percent": 20
+                            }
+                        }],
+                        "next": [{
+                                "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
+                                "effect": "start_animation_from_caster_to_target",
+                                "duration": 50,
+                                "data": {
+                                    "animation": "fire_skill_at_direction_entity",
+                                    "duration": 50
+                                },
+                                "next": [{
+                                    "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",
+                                    "effect": "un_freeze_caster"
+                                }]
+                            },
+                            {
+                                "comment": "Create fire particle that will move from caster to target. (ClientAction CreateMovingParticle)",
+                                "effect": "particle_caster_to_target",
+                                "duration": 500,
+                                "data": {
+                                    "particleTemplateId": "ranged_fire",
+                                    "duration": 500
+                                },
+                                "next": [{
+                                        "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
+                                        "effect": "decrease_target_property",
+                                        "data": {
+                                            "propertyName": "lifeState",
+                                            "valueProperty": "healthPoints",
+                                            "modifierPropertyName": "levelState",
+                                            "modifierValueProperty": "attack",
+                                            "modifierBase": 1
+                                        },
+                                        "next": [{
+                                            "comment": "Send all clients a message that damage was done to the Target",
+                                            "effect": "damage_message",
+                                            "data": {
+                                                "messageCode": "damage_target",
+                                                "messageTemplateKey": "casterDamagedTarget"
+                                            }
+                                        }]
+                                    },
+                                    {
+                                        "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
+                                        "effect": "start_target_animation",
+                                        "data": {
+                                            "animation": "hit_for_damage"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "failedList": [{
+                                "comment": "Send all clients a message Caster missed Target.",
+                                "effect": "caster_target_message",
+                                "data": {
+                                    "messageCode": "caster_missed_target",
+                                    "messageTemplateKey": "casterMissedTarget"
+                                }
+                            },
+                            {
+                                "comment": "Start the cast of Fire Skill animation",
+                                "effect": "start_animation_from_caster_to_target_offset",
+                                "data": {
+                                    "animation": "fire_skill_at_direction"
+                                },
+                                "next": [{
+                                    "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time.",
+                                    "effect": "un_freeze_caster"
+                                }]
+                            },
+                            {
+                                "comment": "Create fire particle that will move from caster to target.",
+                                "effect": "particle_caster_to_target",
+                                "duration": 500,
+                                "data": {
+                                    "particleTemplateId": "ranged_fire",
+                                    "duration": 500
+                                }
+                            }
+                        ]
+                    }]
+                }
+            ]
+        },
+        {
+            "id": "move_to",
+            "comments": "Just for Testing",
+            "name": "Move To",
+            "description": "This moves the target to the target position.",
+            "type": "ACTIVE",
+            "target": "ENTITY",
+            "validatorList": [{
+                    "validator": "target_not_caster"
+                },
+                {
+                    "validator": "target_is_caster_companion"
+                }
+            ],
+            "failedList": [{
+                "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+                "effect": "skill_validation_failed",
+                "data": {
+                    "messageCode": "skill_validation_failed",
+                    "messageTemplateKey": "skillFailedForReason"
+                }
+            }],
+            "effectList": [{
+                "comment": "Move target to position",
+                "effect": "move_target_to_target_position"
+            }]
+        },
+        {
+            "id": "capture_target",
+            "comments": "This is just a test skill, or maybe not.",
+            "name": "Capture Target",
+            "description": "Capture a target, some random % chance.",
+            "type": "ACTIVE",
+            "target": "ENTITY",
+            "validatorList": [{
+                    "validator": "target_not_caster"
+                },
+                {
+                    "validator": "target_is_not_caster_companion"
+                },
+                {
+                    "validator": "target_is_able_to_be_captured"
+                }
+            ],
+            "failedList": [{
+                "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+                "effect": "skill_validation_failed",
+                "data": {
+                    "messageCode": "skill_validation_failed",
+                    "messageTemplateKey": "skillFailedForReason"
+                }
+            }],
+            "effectList": [{
+                "comment": "This will set the Target.OwnerState.OwnerId to the Caster.GlobalId, if successful.",
                 "effect": "validator_effect",
                 "validatorList": [{
                     "validator": "validate_success",
@@ -75,183 +226,59 @@
                     }
                 }],
                 "next": [{
-                    "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
-                    "effect": "start_animation_from_caster_to_target",
-                    "duration": 50,
-                    "data": {
-                        "animation": "fire_skill_at_direction_entity",
-                        "duration": 50
-                    },
+                    "comment": "Make the Caster the owner of the target.",
+                    "effect": "make_target_owner_caster",
                     "next": [{
-                        "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",
-                        "effect": "un_freeze_caster"
-                    }]
-                }, {
-                    "comment": "Create fire particle that will move from caster to target. (ClientAction CreateMovingParticle)",
-                    "effect": "particle_caster_to_target",
-                    "duration": 500,
-                    "data": {
-                        "particleTemplateId": "ranged_fire",
-                        "duration": 500
-                    },
-                    "next": [{
-                        "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
-                        "effect": "decrease_target_property",
+                        "comment": "Send to all clients a message that Caster captured Target.",
+                        "effect": "caster_target_message",
                         "data": {
-                            "propertyName": "lifeState",
-                            "valueProperty": "healthPoints",
-                            "modifierPropertyName": "levelState",
-                            "modifierValueProperty": "attack",
-                            "modifierBase": 1
-                        },
-                        "next": [{
-                            "comment": "Send all clients a message that damage was done to the Target",
-                            "effect": "damage_message",
-                            "data": {
-                                "messageCode": "damage_target",
-                                "messageTemplateKey": "CasterDamagedTarget"
-                            }
-                        }]
-                    }, {
-                        "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
-                        "effect": "start_target_animation",
-                        "data": {
-                            "animation": "hit_for_damage"
+                            "messageCode": "target_is_now_owned",
+                            "messageTemplateKey": "targetIsNowOwnedBy"
                         }
                     }]
                 }],
                 "failedList": [{
-                    "comment": "Send all clients a message Caster missed Target.",
+                    "comment": "Send all clients a message Caster failed to capture Target.",
                     "effect": "caster_target_message",
                     "data": {
-                        "messageCode": "caster_missed_target",
-                        "messageTemplateKey": "CasterMissedTarget"
-                    }
-                }, {
-                    "comment": "Start the cast of Fire Skill animation",
-                    "effect": "start_animation_from_caster_to_target_offset",
-                    "data": {
-                        "animation": "fire_skill_at_direction"
-                    },
-                    "next": [{
-                        "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time.",
-                        "effect": "un_freeze_caster"
-                    }]
-                }, {
-                    "comment": "Create fire particle that will move from caster to target.",
-                    "effect": "particle_caster_to_target",
-                    "duration": 500,
-                    "data": {
-                        "particleTemplateId": "ranged_fire",
-                        "duration": 500
+                        "messageCode": "casted_failed_to_capture_target",
+                        "messageTemplateKey": "casterFailedToCaptureTarget"
                     }
                 }]
             }]
-        }]
-    }, {
-        "id": "move_to",
-        "comments": "Just for Testing",
-        "name": "Move To",
-        "description": "This moves the target to the target position.",
-        "type": "ACTIVE",
-        "target": "ENTITY",
-        "validatorList": [{
-            "validator": "target_not_caster"
-        }, {
-            "validator": "target_is_caster_companion"
-        }],
-        "failedList": [{
-            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "skill_validation_failed",
-            "data": {
-                "messageCode": "skill_validation_failed",
-                "messageTemplateKey": "SkillFailedForReason"
-            }
-        }],
-        "effectList": [{
-            "comment": "Move target to position",
-            "effect": "move_target_to_target_position"
-        }]
-    }, {
-        "id": "capture_target",
-        "comments": "This is just a test skill, or maybe not.",
-        "name": "Capture Target",
-        "description": "Capture a target, some random % chance.",
-        "type": "ACTIVE",
-        "target": "ENTITY",
-        "validatorList": [{
-            "validator": "target_not_caster"
-        }, {
-            "validator": "target_is_not_caster_companion"
-        }, {
-            "validator": "target_is_able_to_be_captured"
-        }],
-        "failedList": [{
-            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "skill_validation_failed",
-            "data": {
-                "messageCode": "skill_validation_failed",
-                "messageTemplateKey": "SkillFailedForReason"
-            }
-        }],
-        "effectList": [{
-            "comment": "This will set the Target.OwnerState.OwnerId to the Caster.GlobalId, if successful.",
-            "effect": "validator_effect",
+        },
+        {
+            "comments": "Not Done",
+            "id": "the-real_move_to",
+            "name": "Move To",
+            "description": "This moves the target to the target position.",
+            "type": "ACTIVE",
+            "target": "ENTITY",
             "validatorList": [{
-                "validator": "validate_success",
-                "data": {
-                    "percent": 20
-                }
-            }],
-            "next": [{
-                "comment": "Make the Caster the owner of the target.",
-                "effect": "make_target_owner_caster",
-                "next": [{
-                    "comment": "Send to all clients a message that Caster captured Target.",
-                    "effect": "caster_target_message",
+                    "validator": "target_not_caster"
+                },
+                {
+                    "validator": "target_is_caster_companion"
+                },
+                {
+                    "validator": "target_position_in_distance_to_caster",
                     "data": {
-                        "messageCode": "target_is_now_owned",
-                        "messageTemplateKey": "TargetIsNowOwnedBy"
+                        "distance": 25
                     }
-                }]
-            }],
-            "failedList": [{
-                "comment": "Send all clients a message Caster failed to capture Target.",
-                "effect": "caster_target_message",
-                "data": {
-                    "messageCode": "casted_failed_to_capture_target",
-                    "messageTemplateKey": "CasterFailedToCaptureTarget"
                 }
+            ],
+            "failedList": [{
+                "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+                "effect": "skill_validation_failed",
+                "data": {
+                    "messageCode": "skill_validation_failed",
+                    "messageTemplateKey": "skillFailedForReason"
+                }
+            }],
+            "effectList": [{
+                "comment": "Move target to position",
+                "effect": "move_target_to_target_position"
             }]
-        }]
-    }, {
-        "comments": "Not Done",
-        "id": "the-real_move_to",
-        "name": "Move To",
-        "description": "This moves the target to the target position.",
-        "type": "ACTIVE",
-        "target": "ENTITY",
-        "validatorList": [{
-            "validator": "target_not_caster"
-        }, {
-            "validator": "target_is_caster_companion"
-        }, {
-            "validator": "target_position_in_distance_to_caster",
-            "data": {
-                "distance": 25
-            }
-        }],
-        "failedList": [{
-            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "skill_validation_failed",
-            "data": {
-                "messageCode": "skill_validation_failed",
-                "messageTemplateKey": "SkillFailedForReason"
-            }
-        }],
-        "effectList": [{
-            "comment": "Move target to position",
-            "effect": "move_target_to_target_position"
-        }]
-    }]
+        }
+    ]
 }

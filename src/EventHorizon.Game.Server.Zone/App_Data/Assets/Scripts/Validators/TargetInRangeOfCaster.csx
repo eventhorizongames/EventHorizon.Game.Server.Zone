@@ -15,7 +15,8 @@ var distance = Vector3.Distance(
     Target.Position.CurrentPosition
 );
 
-if (distance >= min && distance <= max) {
+if (distance >= min && distance <= max)
+{
     return new SkillValidatorResponse
     {
         Success = true
@@ -24,7 +25,7 @@ if (distance >= min && distance <= max) {
 
 return new SkillValidatorResponse
 {
-    Success = false, 
+    Success = false,
     ErrorCode = "target_not_in_range",
-    ErrorMessageTemplateKey = "TargetNotInRange"
+    ErrorMessageTemplateKey = "targetNotInRange"
 };

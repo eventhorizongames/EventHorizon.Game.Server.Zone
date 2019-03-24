@@ -55,7 +55,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill
                             MessageCode = "player_not_companion_owner",
                             Message = _i18nResolver.Resolve(
                                 "default",
-                                "PlayerNotCompanionOwner",
+                                "playerNotCompanionOwner",
                                 new I18nTokenValue
                                 {
                                     Token = "playerName",

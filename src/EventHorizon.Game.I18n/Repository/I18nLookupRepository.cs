@@ -6,11 +6,11 @@ namespace EventHorizon.Game.I18n.Lookup
 {
     public class I18nLookupRepository : I18nLookup, I18nResolver, I18nRepository
     {
-        private Dictionary<string, Dictionary<string, string>> I18N_LOOKUP = new Dictionary<string, Dictionary<string, string>>();
+        private Dictionary<string, IDictionary<string, string>> I18N_LOOKUP = new Dictionary<string, IDictionary<string, string>>();
 
-        public Dictionary<string, string> GetRepository(string locale)
+        public IDictionary<string, string> GetRepository(string locale)
         {
-            Dictionary<string, string> repository;
+            IDictionary<string, string> repository;
             if (I18N_LOOKUP.TryGetValue(locale, out repository))
             {
                 return repository;
@@ -20,7 +20,7 @@ namespace EventHorizon.Game.I18n.Lookup
 
         public string Lookup(string locale, string key)
         {
-            Dictionary<string, string> localeTranslationDictionary;
+            IDictionary<string, string> localeTranslationDictionary;
             if (I18N_LOOKUP.TryGetValue(locale, out localeTranslationDictionary))
             {
                 string translation;
@@ -54,7 +54,7 @@ namespace EventHorizon.Game.I18n.Lookup
             return translation;
         }
 
-        public void SetRepository(string locale, Dictionary<string, string> i18nRepository)
+        public void SetRepository(string locale, IDictionary<string, string> i18nRepository)
         {
             I18N_LOOKUP[locale] = i18nRepository ?? new Dictionary<string, string>();
         }

@@ -18,5 +18,5 @@ return new SkillValidatorResponse
 {
     Success = false,
     ErrorCode = "caster_can_not_be_target",
-    ErrorMessageTemplateKey = "CasterCanNotTargetSelf"
+    ErrorMessageTemplateKey = "casterCanNotTargetSelf"
 };

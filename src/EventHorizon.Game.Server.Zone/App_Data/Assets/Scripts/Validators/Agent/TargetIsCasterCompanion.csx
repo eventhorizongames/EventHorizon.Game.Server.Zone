@@ -23,5 +23,5 @@ return new SkillValidatorResponse
 {
     Success = false,
     ErrorCode = "target_is_not_casters_companion",
-    ErrorMessageTemplateKey = "TargetIsNotCastersCompanion",
+    ErrorMessageTemplateKey = "targetIsNotCastersCompanion",
 };

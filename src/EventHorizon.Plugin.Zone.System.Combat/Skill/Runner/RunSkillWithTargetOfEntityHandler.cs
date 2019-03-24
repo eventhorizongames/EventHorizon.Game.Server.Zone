@@ -86,7 +86,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                             MessageCode = "skill_exception",
                             Message = _i18nResolver.Resolve(
                                 "default",
-                                "SkillExceptionMessage"
+                                "skillExceptionMessage"
                             )
                         }
                     }
@@ -108,7 +108,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                             MessageCode = "does_not_have_skill",
                             Message = _i18nResolver.Resolve(
                                 "default",
-                                "CasterDoesNotHaveSkill",
+                                "casterDoesNotHaveSkill",
                                 new I18nTokenValue
                                 {
                                     Token = "casterName",

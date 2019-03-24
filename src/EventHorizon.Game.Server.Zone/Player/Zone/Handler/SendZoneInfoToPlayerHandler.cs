@@ -26,6 +26,7 @@ using EventHorizon.Zone.System.ServerModule.Fetch;
 using EventHorizon.Zone.System.ServerModule.Model;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.Client.Scripts.Model;
+using EventHorizon.Game.I18n.Fetch;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
@@ -54,6 +55,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
             var zoneInfo = new ZoneList
             {
                 Player = request.Player,
+                I18nMap = await _mediator.Send(new FetchI18nMapForLocaleQuery(request.Player.Locale)),
                 MapMesh = _zoneMap.Mesh,
                 Map = await _serverState.Map(),
                 EntityList = await _entityRepository.All(),
@@ -74,6 +76,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
     public struct ZoneList
     {
         public PlayerEntity Player { get; set; }
+        public IDictionary<string, string> I18nMap { get; set; }
         public ZoneMapMesh MapMesh { get; set; }
         public MapGraph Map { get; set; }
         public List<IObjectEntity> EntityList { get; set; }

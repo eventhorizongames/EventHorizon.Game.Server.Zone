@@ -24,8 +24,8 @@ return new SkillValidatorResponse
 {
     Success = false,
     ErrorCode = "caster_not_enough_points",
-    ErrorMessageTemplateKey = "CasterNotEnoughPoints",
-    ErrorMessageTemplateData = new 
+    ErrorMessageTemplateKey = "casterNotEnoughPoints",
+    ErrorMessageTemplateData = new
     {
         Cost = cost,
         ValueProperty = valueProperty

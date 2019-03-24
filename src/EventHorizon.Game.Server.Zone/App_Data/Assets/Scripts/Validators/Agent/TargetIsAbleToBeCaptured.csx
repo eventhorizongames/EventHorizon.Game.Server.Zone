@@ -17,7 +17,7 @@ if (!canBeCaptured)
     {
         Success = false,
         ErrorCode = "target_is_not_able_to_be_captured",
-        ErrorMessageTemplateKey = "TargetIsNotAbleToBeCaptured",
+        ErrorMessageTemplateKey = "targetIsNotAbleToBeCaptured",
     };
 }
 return new SkillValidatorResponse
