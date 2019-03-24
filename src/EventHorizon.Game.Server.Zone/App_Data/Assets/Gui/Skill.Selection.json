@@ -33,13 +33,13 @@
             "column": 2
         }
     }, {
-        "id": "onscreen_skill_selection-skill-${index}-spacer",
+        "id": "onscreen_skill_selection-skill-spacer",
         "type": 4,
         "options": {
             "padding": 5
         }
     }, {
-        "id": "onscreen_skill_selection-skill-${index}-button",
+        "id": "onscreen_skill_selection-skill-button",
         "type": 4,
         "options": {
             "text": "25 / 100",

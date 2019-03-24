@@ -10,12 +10,17 @@
  */
 
 let messageCount = 0;
+let showingChat = false;
 $services.logger.debug("Combat System Chat - Initialize");
 $services.logger.log("Combat System Chat - Initialize");
 
 const onMessageFromCombatSystemHandler = (data) => {
     messageCount++;
     $services.logger.debug("Message Data", data);
+    if (!showingChat) {
+        $services.logger.debug("Chat not open");
+        return;
+    }
     if (!data.message) {
         $services.logger.debug("No message", data);
         return;
@@ -63,9 +68,42 @@ const onMessageFromCombatSystemHandler = (data) => {
     $services.logger.debug("Message Result", result);
 };
 
-// Add onMessageFromCombatSystem to the $data
-$data.onMessageFromCombatSystemHandler = onMessageFromCombatSystemHandler;
-$data.onMessageFromCombatSystemContext = this;
+
+const onShowMessageFromCombatSystemHandler = () => {
+    // Active the Chat Window
+    $services.commandService.send({
+        type: {
+            key: "GUI.ACTIVATE_LAYOUT_COMMAND"
+        },
+        data: {
+            layoutId: "ChatLayout"
+        }
+    });
+    showingChat = true;
+};
+const onHideMessageFromCombatSystemHandler = () => {
+    // Active the Chat Window
+    $services.commandService.send({
+        type: {
+            key: "GUI.IN_ACTIVATE_LAYOUT_COMMAND"
+        },
+        data: {
+            layoutId: "ChatLayout"
+        }
+    });
+    // Active the Chat Window
+    $services.commandService.send({
+        type: {
+            key: "GUI.IN_ACTIVATE_LAYOUT_COMMAND"
+        },
+        data: {
+            layoutId: "ChatLayout"
+        }
+    });
+    showingChat = false;
+};
+
+
 
 // Setup Event Listeners
 $services.eventService.addEventListener({
@@ -74,6 +112,36 @@ $services.eventService.addEventListener({
     onMessageFromCombatSystemHandler,
     this
 );
+$services.eventService.addEventListener({
+        key: "MessageFromCombatSystem.SHOW"
+    },
+    onShowMessageFromCombatSystemHandler,
+    this
+);
+$services.eventService.addEventListener({
+        key: "MessageFromCombatSystem.HIDE"
+    },
+    onHideMessageFromCombatSystemHandler,
+    this
+);
+
+// Add onMessageFromCombatSystem to the $data
+$data.eventsToRemove = [];
+$data.eventsToRemove.push({
+    name: "MessageFromCombatSystem",
+    handler: onMessageFromCombatSystemHandler,
+    context: this
+});
+$data.eventsToRemove.push({
+    name: "MessageFromCombatSystem.SHOW",
+    handler: onShowMessageFromCombatSystemHandler,
+    context: this
+});
+$data.eventsToRemove.push({
+    name: "MessageFromCombatSystem.HIDE",
+    handler: onHideMessageFromCombatSystemHandler,
+    context: this
+});
 
 $services.eventService.publish({
     eventType: {
@@ -217,13 +285,3 @@ $services.logger.debug("inputResult", $services.commandService.send({
         }
     }
 }));
-
-// Active the Chat Window
-$services.commandService.send({
-    type: {
-        key: "GUI.ACTIVATE_LAYOUT_COMMAND"
-    },
-    data: {
-        layoutId: "ChatLayout"
-    }
-});

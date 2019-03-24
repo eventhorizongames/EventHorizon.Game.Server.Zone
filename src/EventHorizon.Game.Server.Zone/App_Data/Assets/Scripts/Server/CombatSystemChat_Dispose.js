@@ -4,16 +4,19 @@
  *   eventService: IEventService;
  *   commandService: ICommandService;
  * }
- * $state: {
- *  onMessageFromCombatSystemHandler: (data) => void;
+ * $data: {
+ *  eventsToDispose: Array<{ name:string; handler: ()=>void; context: any; }>;
  * }
  */
 
 $services.logger.debug("Hello from Server Dispose", $services);
 
-$services.eventService.removeEventListener({
-        key: "MessageFromCombatSystem"
-    },
-    $data.onMessageFromCombatSystemHandler,
-    $data.onMessageFromCombatSystemContext
-);
+var eventsToRemove = $data.eventsToDispose || [];
+eventsToRemove.forEach(eventData => {
+    $services.eventService.removeEventListener({
+            key: eventData.name
+        },
+        eventData.handler,
+        eventData.context
+    );
+});
