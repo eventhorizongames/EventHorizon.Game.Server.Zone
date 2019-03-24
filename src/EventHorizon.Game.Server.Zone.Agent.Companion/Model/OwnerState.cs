@@ -5,7 +5,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Companion.Model
         public static readonly string PROPERTY_NAME = "ownerState";
 
         public string OwnerId { get; set; }
-        public bool CanNotBeCaptured { get; set; }
+        public bool CanBeCaptured { get; set; }
 
         public object this[string index]
         {
@@ -15,8 +15,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Companion.Model
                 {
                     case "ownerId":
                         return this.OwnerId;
-                    case "canNotBeCaptured":
-                        return this.CanNotBeCaptured;
+                    case "canBeCaptured":
+                        return this.CanBeCaptured;
 
                     default:
                         return null;
@@ -29,8 +29,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Companion.Model
                     case "ownerId":
                         this.OwnerId = (string)value;
                         break;
-                    case "canNotBeCaptured":
-                        this.CanNotBeCaptured = (bool)value;
+                    case "canBeCaptured":
+                        this.CanBeCaptured = (bool)value;
                         break;
 
                     default:

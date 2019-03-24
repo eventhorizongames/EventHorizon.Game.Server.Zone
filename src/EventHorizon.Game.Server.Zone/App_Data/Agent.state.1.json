@@ -1,17 +1,17 @@
 {
     "AgentList": [{
-        "Id": "c683511d-1500-48ce-8c77-512053bc1e21",
+        "Id": "fa348a0a-e334-4c86-bcb1-a9b0ed9c75ab",
         "Name": "First Ever NPC",
         "Position": {
             "CanMove": true,
             "CurrentPosition": {
-                "X": 12.0,
+                "X": 8.0,
                 "Y": 0.0,
-                "Z": 8.0
+                "Z": 4.0
             },
-            "NextMoveRequest": "2019-03-14T03:15:42.4679584Z",
+            "NextMoveRequest": "0001-01-01T00:00:00",
             "MoveToPosition": {
-                "X": 12.0,
+                "X": 8.0,
                 "Y": 0.0,
                 "Z": 4.0
             },
@@ -21,8 +21,8 @@
         "TagList": ["npc", "wandering", "weak"],
         "Data": {
             "ownerState": {
-                "OwnerId": "5f2f8bd2-a33a-4d7e-a0a0-7e86784c1f25",
-                "Name": "NONE"
+                "OwnerId": "13b2b186-e384-4fcf-a478-3a9f111b0622",
+                "CanBeCaptured": true
             },
             "movementState": {
                 "Speed": 1.0
@@ -43,10 +43,10 @@
                 "Condition": {
                     "Name": "ALIVE"
                 },
-                "HealthPoints": 9504,
+                "HealthPoints": 9998,
                 "MaxHealthPoints": 10000,
-                "ActionPoints": 0,
-                "MaxActionPoints": 10,
+                "ActionPoints": 9919,
+                "MaxActionPoints": 10000,
                 "Attack": 1
             },
             "levelState": {
@@ -59,7 +59,7 @@
             "skillState": {
                 "SkillList": {
                     "fire_ball": {
-                        "CooldownFinishes": "2019-03-14T03:15:54.069386Z"
+                        "CooldownFinishes": "2019-03-23T15:51:19.4122912Z"
                     }
                 }
             },
@@ -74,20 +74,20 @@
             }
         }
     }, {
-        "Id": "cac40679-2f2c-4e6a-82e2-6616b965438c",
+        "Id": "aea546de-251a-4a6d-b28a-a5d1ed78d8e6",
         "Name": "Enemy Agent",
         "Position": {
             "CanMove": true,
             "CurrentPosition": {
-                "X": 0.0,
+                "X": 12.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 4.0
             },
             "NextMoveRequest": "0001-01-01T00:00:00",
             "MoveToPosition": {
-                "X": 0.0,
+                "X": 12.0,
                 "Y": 0.0,
-                "Z": 0.0
+                "Z": 4.0
             },
             "CurrentZone": "...",
             "ZoneTag": "testing"
@@ -95,8 +95,8 @@
         "TagList": ["npc", "wandering", "weak"],
         "Data": {
             "ownerState": {
-                "OwnerId": "NONE",
-                "Name": "NONE"
+                "OwnerId": "3479c50c-3387-4f41-9c70-ec4e319b4847",
+                "CanBeCaptured": false
             },
             "movementState": {
                 "Speed": 1.0
@@ -117,8 +117,8 @@
                 "Condition": {
                     "Name": "ALIVE"
                 },
-                "HealthPoints": 9502,
-                "MaxHealthPoints": 10000,
+                "HealthPoints": 984,
+                "MaxHealthPoints": 1000,
                 "ActionPoints": 10,
                 "MaxActionPoints": 10,
                 "Attack": 1

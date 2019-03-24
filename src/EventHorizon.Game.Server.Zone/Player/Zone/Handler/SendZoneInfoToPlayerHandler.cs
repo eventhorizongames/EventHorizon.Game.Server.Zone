@@ -24,6 +24,8 @@ using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 using EventHorizon.Zone.System.ServerModule.Model;
+using EventHorizon.Zone.System.Client.Scripts.Fetch;
+using EventHorizon.Zone.System.Client.Scripts.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
@@ -61,7 +63,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
                 }),
                 ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent()),
                 SkillActionScriptList = await _mediator.Send(new FetchAllSkillActionScriptListEvent()),
-                ServerModuleScriptList = await _mediator.Send(new FetchServerModuleScriptListEvent())
+                ServerModuleScriptList = await _mediator.Send(new FetchServerModuleScriptListEvent()),
+                ClientScriptList = await _mediator.Send(new FetchClientScriptListQuery())
             };
             await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
 
@@ -78,5 +81,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         public IEnumerable<ParticleTemplate> ParticleTemplateList { get; set; }
         public IEnumerable<SkillActionScript> SkillActionScriptList { get; set; }
         public IEnumerable<ServerModuleScripts> ServerModuleScriptList { get; set; }
+        public IEnumerable<ClientScript> ClientScriptList { get; set; }
     }
 }

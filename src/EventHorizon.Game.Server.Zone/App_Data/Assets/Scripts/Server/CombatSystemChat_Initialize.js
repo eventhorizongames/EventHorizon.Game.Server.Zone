@@ -253,7 +253,7 @@ $services.eventService.publish({
     }
 });
 
-// Add GUI Control Templates
+// Register New GUI Control's from Templates
 $services.logger.debug("containerResult", $services.commandService.send({
     type: {
         key: "GUI.REGISTER_CONTROL_COMMAND"

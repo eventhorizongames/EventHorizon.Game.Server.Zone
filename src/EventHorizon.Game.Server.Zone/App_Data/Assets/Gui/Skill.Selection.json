@@ -15,7 +15,7 @@
     },
     "templateList": [{
         "id": "onscreen_skill_selection-grid",
-        "type": 4,
+        "type": "Grid",
         "options": {
             "column": 3,
             "row": 3,
@@ -27,25 +27,26 @@
         }
     }, {
         "id": "onscreen_skill_selection-panel",
-        "type": 4,
-        "options": {
+        "type": "Panel",
+        "gridLocation": {
             "row": 2,
             "column": 2
-        }
+        },
+        "options": {}
     }, {
         "id": "onscreen_skill_selection-skill-spacer",
-        "type": 4,
+        "type": "Spacer",
         "options": {
             "padding": 5
         }
     }, {
         "id": "onscreen_skill_selection-skill-button",
-        "type": 4,
+        "type": "Button",
         "options": {
             "text": "25 / 100",
             "linkOffsetY": -50,
 
-            "width": 60,
+            "width": 120,
             "height": 20,
             "textSize": 12,
             "textColor": "white",

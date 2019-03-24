@@ -1,5 +1,7 @@
 using System.Reflection;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher;
+using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
+using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Timer;
 using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.DirectoryService;
@@ -18,6 +20,7 @@ using EventHorizon.Game.Server.Zone.External.DirectoryService;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Game.Server.Zone.External.RandomNumber;
+using EventHorizon.TimerService;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -25,31 +28,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {
-    public static class CoreExtensions
+    public static class AdminExtensions
     {
-        public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddZoneAdmin(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(Agent.PluginStartup), typeof(Agent.Ai.PluginStartup))
-                .AddTransient<DirectoryResolver, ServerDirectoryResolver>()
-                .AddTransient<IJsonFileLoader, JsonFileLoader>()
-                .AddTransient<IJsonFileSaver, JsonFileSaver>()
-                .AddSingleton<IIdPool, IdPoolImpl>()
-                .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()
-                .AddSingleton<IServerProperty, ServerPropertyImpl>()
-                .AddSingleton<ServerInfo, ZoneServerInfo>()
-                .Configure<AuthSettings>(configuration.GetSection("Auth"))
-                .Configure<CoreSettings>(configuration.GetSection("Core"))
-                .AddSingleton<ICoreConnectionCache, CoreConnectionCache>()
-                .AddSingleton<IDateTimeService, DateTimeService.DateTimeService>()
-                .AddTransient<ICoreConnectionFactory, CoreConnectionFactory>();
+            return services
+                .AddSingleton<ISystemWatcherState, SystemWatcherState>()
+                .AddTransient<ITimerTask, WatcherReloadSystemTimer>()
+            ;
         }
-        public static void UseZoneCore(this IApplicationBuilder app)
+        public static IApplicationBuilder UseZoneAdmin(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new FillServerPropertiesEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new RegisterWithCoreServerEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new StartWatchingSystemEvent()).GetAwaiter().GetResult();
             }
+            return app;
         }
     }
 }

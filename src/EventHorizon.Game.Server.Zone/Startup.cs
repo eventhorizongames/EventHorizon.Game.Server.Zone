@@ -112,6 +112,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
+            services.AddZoneAdmin();
             services.AddServerSetup(Configuration);
             services.AddEntity();
             services.AddAgent(Configuration);
@@ -132,6 +133,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemModel();
             services.AddSystemServerModule();
             services.AddSystemAgentAi();
+            services.AddSystemClientScripts();
 
             services.AddAgentCompanion();
 
@@ -153,6 +155,7 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseI18n();
             app.UseZoneCore();
+            app.UseZoneAdmin();
             app.UseSetupServer();
 
             // TODO: Remove this after done testing, move to Systems flow
@@ -162,6 +165,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemServerModule();
             app.UseSystemAgentAi();
             app.UseAgentCompanion();
+            app.UseSystemClientScripts();
 
             app.UseAgent();
             app.UseGui();

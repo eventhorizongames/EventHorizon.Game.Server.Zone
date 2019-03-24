@@ -11,7 +11,7 @@ var casterGlobalId = Caster.GlobalId;
 var targetOwner = Target.GetProperty<dynamic>("ownerState");
 
 targetOwner["ownerId"] = casterGlobalId;
-targetOwner["canNotBeCaptured"] = true;
+targetOwner["canBeCaptured"] = false;
 
 // TODO: Add Client Skill Action that will update all clients with new Owner on Target
 return new SkillEffectScriptResponse

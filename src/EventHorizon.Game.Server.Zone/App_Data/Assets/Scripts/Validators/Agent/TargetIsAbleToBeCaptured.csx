@@ -9,9 +9,9 @@
 /// </summary>
 
 
-var canNotBeCaptured = Target.GetProperty<dynamic>("ownerState")["canNotBeCaptured"];
+var canBeCaptured = Target.GetProperty<dynamic>("ownerState")["canBeCaptured"];
 
-if (canNotBeCaptured)
+if (!canBeCaptured)
 {
     return new SkillValidatorResponse
     {
