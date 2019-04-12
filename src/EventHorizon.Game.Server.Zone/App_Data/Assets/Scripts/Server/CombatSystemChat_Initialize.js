@@ -143,9 +143,9 @@ $data.eventsToRemove.push({
     context: this
 });
 
-$services.eventService.publish({
-    eventType: {
-        key: "GUI.CREATE_GUI_EVENT"
+$services.commandService.send({
+    type: {
+        key: "Gui.CREATE_GUI_COMMAND"
     },
     data: {
         layoutList: [{

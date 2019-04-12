@@ -23,6 +23,6 @@ property[Data.valueProperty] = property[Data.valueProperty] - Data.amount;
 entity.setProperty(Data.propertyName, property);
 
 Methods.sendEvent(
-    "ZONE.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
+    "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
     Data.id
 );

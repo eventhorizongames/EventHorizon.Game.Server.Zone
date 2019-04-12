@@ -1,0 +1,9 @@
+# Sample contents of .dockerignore file
+bin/
+obj/
+_scripts/
+client/node_modules/
+client/build/
+appsettings.*.json
+certificate.pfx
+global.json

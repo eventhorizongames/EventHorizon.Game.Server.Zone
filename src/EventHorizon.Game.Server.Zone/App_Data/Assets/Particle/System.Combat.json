@@ -5,7 +5,7 @@
         "type": "POSITION",
         "defaultSettings": {
             "capacity": 2000,
-            "particleTexture": "Assets/Textures/flare.png",
+            "particleTexture": "/Assets/Textures/flare.png",
 
             "minEmitBox": {
                 "x": -0.5,
@@ -77,7 +77,7 @@
         "type": "POSITION",
         "defaultSettings": {
             "capacity": 500,
-            "particleTexture": "Assets/Textures/flare.png",
+            "particleTexture": "/Assets/Textures/flare.png",
 
             "minEmitBox": {
                 "x": 0,
@@ -149,7 +149,7 @@
         "type": "POSITION",
         "defaultSettings": {
             "capacity": 100,
-            "particleTexture": "Assets/Textures/identifier.png",
+            "particleTexture": "/Assets/Textures/identifier.png",
 
             "minEmitBox": {
                 "x": 0,

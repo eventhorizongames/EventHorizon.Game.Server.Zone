@@ -1,1 +1,114 @@
-{"AgentList":[{"Id":"c0b9cdb7-02df-4b9e-9040-88f23cf3c846","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":4.0,"Y":0.0,"Z":0.0},"NextMoveRequest":"2019-03-24T20:30:20.623935Z","MoveToPosition":{"X":8.0,"Y":0.0,"Z":0.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"5e78acea-970e-470d-892e-ae3eb28f8ea5","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"IDLE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":9994,"MaxHealthPoints":10000,"ActionPoints":9852,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-03-24T20:23:18.0533963Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"GLTF","Path":"/Assets/Meshes/","File":"Default_Mesh.glb","HeightOffset":-1.2}}}},{"Id":"0e4dc020-26d9-4a5a-8609-e9cdb2729d5b","Name":"Enemy Agent","Position":{"CanMove":true,"CurrentPosition":{"X":12.0,"Y":0.0,"Z":4.0},"NextMoveRequest":"0001-01-01T00:00:00","MoveToPosition":{"X":12.0,"Y":0.0,"Z":4.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"3479c50c-3387-4f41-9c70-ec4e319b4847","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"IDLE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":966,"MaxHealthPoints":1000,"ActionPoints":10,"MaxActionPoints":10,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-02-07T22:38:10.065443-06:00"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"GLTF","Path":"/Assets/Meshes/","File":"Default_Mesh.glb","HeightOffset":-1.2}}}}]}
+{
+    "AgentList": [
+        {
+            "Id": "17a710f9-e5bc-46f6-a660-c9acc8031f34",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": { "X": 4.0, "Y": 0.0, "Z": -4.0 },
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": { "X": 4.0, "Y": 0.0, "Z": -4.0 },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": ["npc", "wandering", "weak"],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "",
+                    "CanBeCaptured": true
+                },
+                "movementState": { "Speed": 1.0 },
+                "routine": { "Name": "IDLE" },
+                "defaultRoutine": { "Name": "IDLE" },
+                "wander": { "LookDistance": 25 },
+                "life": { "Health": 0 },
+                "lifeState": {
+                    "Condition": { "Name": "ALIVE" },
+                    "HealthPoints": 9990,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9842,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fire_ball": {
+                            "CooldownFinishes": "2019-04-11T00:14:40.2112882Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "GLTF",
+                        "Path": "/Assets/Meshes/",
+                        "File": "Default_Mesh.glb",
+                        "HeightOffset": -1.2
+                    }
+                }
+            }
+        },
+        {
+            "Id": "82803f62-8cde-4f38-9d1c-fa1405539ac1",
+            "Name": "Enemy Agent",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": { "X": 12.0, "Y": 0.0, "Z": 4.0 },
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": { "X": 12.0, "Y": 0.0, "Z": 4.0 },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": ["npc", "wandering", "weak"],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "82803f62-8cde-4f38-9d1c-fa1405539ac1",
+                    "CanBeCaptured": false
+                },
+                "movementState": { "Speed": 1.0 },
+                "routine": { "Name": "IDLE" },
+                "defaultRoutine": { "Name": "IDLE" },
+                "wander": { "LookDistance": 25 },
+                "life": { "Health": 0 },
+                "lifeState": {
+                    "Condition": { "Name": "ALIVE" },
+                    "HealthPoints": 964,
+                    "MaxHealthPoints": 1000,
+                    "ActionPoints": 10,
+                    "MaxActionPoints": 10,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fire_ball": {
+                            "CooldownFinishes": "2019-02-08T04:38:10.065443+00:00"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "GLTF",
+                        "Path": "/Assets/Meshes/",
+                        "File": "Default_Mesh.glb",
+                        "HeightOffset": -1.2
+                    }
+                }
+            }
+        }
+    ]
+}
