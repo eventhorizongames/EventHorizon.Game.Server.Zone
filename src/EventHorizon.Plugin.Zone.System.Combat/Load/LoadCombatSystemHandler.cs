@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Plugin.Zone.System.Combat.Events;
-using EventHorizon.Plugin.Zone.System.Combat.Gui;
 using EventHorizon.Plugin.Zone.System.Combat.Load.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Load;
@@ -46,16 +45,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Load
                     combatSystemConfigurationFile.SkillScripts.File
                 )
             );
-            // Load GUI's
-            foreach (var guiFile in combatSystemConfigurationFile.GuiList)
-            {
-                await _mediator.Publish(
-                    new LoadCombatSystemGuiEvent(
-                        guiFile.File
-                    )
-                );
-            }
-            // TODO: Load Particles
+            // Load Particles
             foreach (var particleFile in combatSystemConfigurationFile.ParticleList)
             {
                 await _mediator.Publish(

@@ -5,12 +5,9 @@
     "skills": {
         "file": "Combat.Skills.json"
     },
-    "guiList": [{
-        "file": "Skill.Selection.json"
-    }, {
-        "file": "Combat.json"
-    }],
-    "particleList": [{
-        "file": "System.Combat.json"
-    }]
+    "particleList": [
+        {
+            "file": "System.Combat.json"
+        }
+    ]
 }

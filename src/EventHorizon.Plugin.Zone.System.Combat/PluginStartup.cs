@@ -1,6 +1,5 @@
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Plugin.Zone.System.Combat.Events;
-using EventHorizon.Plugin.Zone.System.Combat.Gui;
 using EventHorizon.Plugin.Zone.System.Combat.Load;
 using MediatR;
 

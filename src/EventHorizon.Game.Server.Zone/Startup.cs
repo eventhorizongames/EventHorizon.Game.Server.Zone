@@ -128,6 +128,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddTimer();
 
             // TODO: Remove this after done testing, move to System flow
+            services.AddSystemGui();
             services.AddSystemCombat();
             services.AddSystemCombatEditor();
             services.AddSystemModel();
@@ -160,14 +161,18 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSetupServer();
 
             // TODO: Remove this after done testing, move to Systems flow
+            // The systems flow will automatically load these systems from a folder,
+            //  just like the plugin flow, which is about the same.
+            app.UseSystemGui();
             app.UseSystemModel();
             app.UseSystemCombat();
             app.UseSystemCombatEditor();
             app.UseSystemServerModule();
             app.UseSystemEntityModule();
             app.UseSystemAgentAi();
-            app.UseAgentCompanion();
             app.UseSystemClientScripts();
+
+            app.UseAgentCompanion();
 
             app.UseAgent();
             app.UseGui();
