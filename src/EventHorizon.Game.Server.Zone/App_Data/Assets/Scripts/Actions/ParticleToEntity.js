@@ -1,11 +1,11 @@
 /**
  * Action Id: particle_to_entity
  * 
- * Services:
+ * $services:
  * - EntityRepository
- * Methods:
+ * $utils:
  * - sendEvent(eventName: string, data?: any)
- * Data:
+ * $data:
  * - startEntityId: number
  * - endingEntityId: number
  * - particleTemplateId: string 
@@ -13,14 +13,14 @@
  */
 
 // TODO: Flush this out more.
-const startingEntity = Services.EntityRepository.get(
-    Data.startEntityId
+const startingEntity = $services.entityRepository.get(
+    $data.startEntityId
 );
-const endingEntity = Services.EntityRepository.get(
-    Data.endingEntityId
+const endingEntity = $services.entityRepository.get(
+    $data.endingEntityId
 );
 // Create entity at Starting Location
-const particleEntity = Services.EntityBuilder.createParticleEmitter(
+const particleEntity = $services.entityBuilder.createParticleEmitter(
     "Flame_Particle", // TODO: Move this Skill Configuration
     startingEntity.position,
     // Speed

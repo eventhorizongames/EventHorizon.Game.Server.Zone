@@ -27,6 +27,8 @@ using EventHorizon.Zone.System.ServerModule.Model;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.Client.Scripts.Model;
 using EventHorizon.Game.I18n.Fetch;
+using EventHorizon.Zone.System.EntityModule.Fetch;
+using EventHorizon.Zone.System.EntityModule.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
@@ -66,7 +68,10 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
                 ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent()),
                 SkillActionScriptList = await _mediator.Send(new FetchAllSkillActionScriptListEvent()),
                 ServerModuleScriptList = await _mediator.Send(new FetchServerModuleScriptListEvent()),
-                ClientScriptList = await _mediator.Send(new FetchClientScriptListQuery())
+                ClientScriptList = await _mediator.Send(new FetchClientScriptListQuery()),
+
+                BaseEntityScriptModuleList = await _mediator.Send(new FetchBaseModuleListQuery()),
+                PlayerEntityScriptModuleList = await _mediator.Send(new FetchPlayerModuleListQuery())
             };
             await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
 
@@ -85,5 +90,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         public IEnumerable<SkillActionScript> SkillActionScriptList { get; set; }
         public IEnumerable<ServerModuleScripts> ServerModuleScriptList { get; set; }
         public IEnumerable<ClientScript> ClientScriptList { get; set; }
+        public IEnumerable<EntityScriptModule> BaseEntityScriptModuleList { get; set; }
+        public IEnumerable<EntityScriptModule> PlayerEntityScriptModuleList { get; set; }
     }
 }

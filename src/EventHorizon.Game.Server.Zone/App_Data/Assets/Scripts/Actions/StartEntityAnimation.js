@@ -1,11 +1,11 @@
 /**
  * Action Id: start_entity_animation
  * 
- * Services:
+ * $services:
  * - EntityRepository
- * Methods:
+ * $utils:
  * - sendEvent(eventName: string, data?: any)
- * Data: 
+ * $data: 
  * - entityId: number
  * - animation: string
  */

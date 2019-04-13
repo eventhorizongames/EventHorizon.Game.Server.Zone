@@ -12,7 +12,7 @@
  */
 
 $services.eventService.publish(
-    $utils.createEvent("PLAYER.ACTION_EVENT", {
+    $utils.createEvent("Player.PLAYER_ACTION_EVENT", {
         action: "Player.RUN_SKILL_ON_COMPANION",
         data: $data
     })

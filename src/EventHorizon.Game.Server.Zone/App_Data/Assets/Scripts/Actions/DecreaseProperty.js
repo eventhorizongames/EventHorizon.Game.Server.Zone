@@ -1,28 +1,25 @@
-/* 
+/*
  * Action Id: decrease_property
- * 
- * Services:
+ *
+ * $services:
  * - EntityRepository
- * Methods:
+ * $utils:
  * - sendEvent(eventName: string, data?: any)
- * Data: 
+ * $data:
  * - id: EntityId
  * - propertyName: string
  * - valueProperty: string
- * - amount: number 
+ * - amount: number
  */
 
-const entity = Services.EntityRepository.get(
-    Data.id
-);
+const entity = $services.entityRepository.get($data.id);
 if (entity == undefined) {
     return;
 }
-const property = entity.getProperty(Data.propertyName);
-property[Data.valueProperty] = property[Data.valueProperty] - Data.amount;
-entity.setProperty(Data.propertyName, property);
+const property = entity.getProperty($data.propertyName);
+property[$data.valueProperty] = property[$data.valueProperty] - $data.amount;
+entity.setProperty($data.propertyName, property);
 
-Methods.sendEvent(
-    "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
-    Data.id
-);
+$utils.sendEvent("Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT", {
+    entityId: $data.id
+});

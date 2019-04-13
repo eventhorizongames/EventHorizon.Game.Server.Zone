@@ -17,5 +17,6 @@ namespace EventHorizon.Game.Server.Zone.Load.Map.Model
         public int MinHeight { get; set; }
         public int MaxHeight { get; set; }
         public bool Updatable { get; set; }
+        public bool IsPickable { get; set; }
     }
 }

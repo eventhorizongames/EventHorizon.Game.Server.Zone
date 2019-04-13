@@ -1,14 +1,14 @@
 /** 
  * Action Id: freeze_entity
  * 
- * Services:
+ * $services:
  * - EntityRepository
- * Data:
+ * $data:
  * - id: string
  */
 
-const entity = Services.EntityRepository.get(
-    Data.id
+const entity = $services.entityRepository.get(
+    $data.id
 );
 if (entity == undefined) {
     return;

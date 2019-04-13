@@ -1,0 +1,30 @@
+{
+    "layout": {
+        "id": "HealthModule_${entityId}-layout",
+        "sort": 0,
+        "controlList": [{
+            "id": "HealthModule_${entityId}",
+            "sort": 0
+        }]
+    },
+    "templateList": [{
+        "id": "HealthModule-Template",
+        "type": "Bar",
+        "options": {
+            "width": 60,
+            "height": 20,
+            "alignment": 1,
+            "textSize": 12,
+            "textColor": "white",
+            "backgroundColor": "green",
+            "barColor": "#CD5C5C",
+            "barDirection": "paddingLeft",
+            "borderColor": "white",
+            "borderThickness": 0,
+            "linkOffsetY": -80,
+    
+            "percent": 25,
+            "text": "25 / 100"
+        }
+    }]
+}

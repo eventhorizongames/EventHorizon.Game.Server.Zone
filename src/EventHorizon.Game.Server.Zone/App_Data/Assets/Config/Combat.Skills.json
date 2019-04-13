@@ -78,7 +78,7 @@
                         "validatorList": [{
                             "validator": "validate_success",
                             "data": {
-                                "percent": 20
+                                "percent": 80
                             }
                         }],
                         "next": [{
@@ -110,7 +110,7 @@
                                             "valueProperty": "healthPoints",
                                             "modifierPropertyName": "levelState",
                                             "modifierValueProperty": "attack",
-                                            "modifierBase": 1
+                                            "modifierBase": 25
                                         },
                                         "next": [{
                                             "comment": "Send all clients a message that damage was done to the Target",

@@ -8,6 +8,7 @@
         "Subdivisions": 200,
         "MinHeight": 0,
         "MaxHeight": 15,
-        "Updatable": true
+        "Updatable": true,
+        "IsPickable": true
     }
 }
