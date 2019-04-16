@@ -252,3 +252,4 @@ data/*.json
 lcov*.info
 
 NuGet.Config
+global.json
