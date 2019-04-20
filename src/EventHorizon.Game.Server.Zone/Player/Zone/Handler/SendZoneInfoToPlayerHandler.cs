@@ -29,51 +29,65 @@ using EventHorizon.Zone.System.Client.Scripts.Model;
 using EventHorizon.Game.I18n.Fetch;
 using EventHorizon.Zone.System.EntityModule.Fetch;
 using EventHorizon.Zone.System.EntityModule.Model;
+using EventHorizon.Performance;
+using EventHorizon.Zone.System.ClientAssets.Fetch;
+using EventHorizon.Zone.System.ClientEntities.Fetch;
+using EventHorizon.Zone.System.ClientEntity.Api;
+using EventHorizon.Zone.System.ClientEntities.Api;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {
-    public class SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
+    public struct SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
         readonly IMediator _mediator;
         readonly ZoneMap _zoneMap;
         readonly IServerState _serverState;
         readonly IEntityRepository _entityRepository;
         readonly IHubContext<PlayerHub> _hubContext;
+        readonly IPerformanceTracker _performanceTracker;
         public SendZoneInfoToPlayerHandler(
             IMediator mediator,
             IZoneMapFactory zoneMapFactory,
             IServerState serverState,
             IEntityRepository entityRepository,
-            IHubContext<PlayerHub> hubContext)
+            IHubContext<PlayerHub> hubContext,
+            IPerformanceTracker performanceTracker
+        )
         {
             _mediator = mediator;
             _zoneMap = zoneMapFactory.Map;
             _serverState = serverState;
             _entityRepository = entityRepository;
             _hubContext = hubContext;
+            _performanceTracker = performanceTracker;
         }
         public async Task<PlayerEntity> Handle(SendZoneInfoToPlayerEvent request, CancellationToken cancellationToken)
         {
-            var zoneInfo = new ZoneList
+            using (_performanceTracker.Track("Player Zone Info Creation"))
             {
-                Player = request.Player,
-                I18nMap = await _mediator.Send(new FetchI18nMapForLocaleQuery(request.Player.Locale)),
-                MapMesh = _zoneMap.Mesh,
-                Map = await _serverState.Map(),
-                EntityList = await _entityRepository.All(),
-                GuiLayout = await _mediator.Send(new GetGuiLayoutForPlayerEvent
+                var zoneInfo = new ZoneList
                 {
-                    Player = request.Player
-                }),
-                ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent()),
-                SkillActionScriptList = await _mediator.Send(new FetchAllSkillActionScriptListEvent()),
-                ServerModuleScriptList = await _mediator.Send(new FetchServerModuleScriptListEvent()),
-                ClientScriptList = await _mediator.Send(new FetchClientScriptListQuery()),
+                    Player = request.Player,
+                    I18nMap = await _mediator.Send(new FetchI18nMapForLocaleQuery(request.Player.Locale)),
+                    MapMesh = _zoneMap.Mesh,
+                    Map = await _serverState.Map(),
+                    EntityList = await _entityRepository.All(),
+                    GuiLayout = await _mediator.Send(new GetGuiLayoutForPlayerEvent
+                    {
+                        Player = request.Player
+                    }),
+                    ParticleTemplateList = await _mediator.Send(new FetchAllParticleTemplateListEvent()),
+                    SkillActionScriptList = await _mediator.Send(new FetchAllSkillActionScriptListEvent()),
+                    ServerModuleScriptList = await _mediator.Send(new FetchServerModuleScriptListEvent()),
+                    ClientScriptList = await _mediator.Send(new FetchClientScriptListQuery()),
+                    ClientAssetList = await _mediator.Send(new FetchClientAssetListQuery()),
+                    ClientEntityInstanceList = await _mediator.Send(new FetchClientEntityInstanceListQuery()),
 
-                BaseEntityScriptModuleList = await _mediator.Send(new FetchBaseModuleListQuery()),
-                PlayerEntityScriptModuleList = await _mediator.Send(new FetchPlayerModuleListQuery())
-            };
-            await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
+                    BaseEntityScriptModuleList = await _mediator.Send(new FetchBaseModuleListQuery()),
+                    PlayerEntityScriptModuleList = await _mediator.Send(new FetchPlayerModuleListQuery())
+                };
+                await _hubContext.Clients.Client(request.Player.ConnectionId).SendAsync("ZoneInfo", zoneInfo);
+            }
 
             return request.Player;
         }
@@ -90,6 +104,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
         public IEnumerable<SkillActionScript> SkillActionScriptList { get; set; }
         public IEnumerable<ServerModuleScripts> ServerModuleScriptList { get; set; }
         public IEnumerable<ClientScript> ClientScriptList { get; set; }
+        public IEnumerable<IClientAsset> ClientAssetList { get; set; }
+        public IEnumerable<IClientEntityInstance> ClientEntityInstanceList { get; set; }
         public IEnumerable<EntityScriptModule> BaseEntityScriptModuleList { get; set; }
         public IEnumerable<EntityScriptModule> PlayerEntityScriptModuleList { get; set; }
     }

@@ -135,6 +135,8 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemServerModule();
             services.AddSystemEntityModule();
             services.AddSystemAgentAi();
+            services.AddSystemClientAssets();
+            services.AddSystemClientEntities();
             services.AddSystemClientScripts();
 
             services.AddAgentCompanion();
@@ -170,6 +172,8 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemServerModule();
             app.UseSystemEntityModule();
             app.UseSystemAgentAi();
+            app.UseSystemClientAssets();
+            app.UseSystemClientEntities();
             app.UseSystemClientScripts();
 
             app.UseAgentCompanion();

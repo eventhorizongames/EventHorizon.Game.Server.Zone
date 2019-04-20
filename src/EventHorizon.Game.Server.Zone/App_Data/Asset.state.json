@@ -1,4 +1,5 @@
 {
+    "comment": "DEPRECATED, only used by editor, see System.Client.Assets",
     "assetList": [
         {
             "id": "7b43e838-ef95-4c55-b530-17f49c5feb16",
@@ -19,15 +20,16 @@
         {
             "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
             "type": "MESH",
-            "name": "Testing Sphere",
+            "name": "A Tree",
             "data": {
                 "type": "SPHERE",
                 "segments": 16,
-                "diameter": 2
+                "diameter": 2,
+                "heightOffset":-1.2
             }
         },
         {
-            "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
+            "id": "f2f1d5f6-cc0d-4094-aecf-455b5c2f4906",
             "type": "MESH",
             "name": "Default Mesh",
             "data": {

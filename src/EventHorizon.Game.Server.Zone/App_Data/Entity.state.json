@@ -1,4 +1,5 @@
 {
+    "comment": "DEPRECATED, only used by editor, see System.Entity",
     "entityList": [{
         "id": "1e0b3688-ff19-4470-a898-920200325fc6",
         "name": "Tree?",

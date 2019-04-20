@@ -10,11 +10,13 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
         private string _assetsPath;
         private string _scriptsPath;
         private string _systemsPath;
+        private string _entityPath;
 
         public string PluginsPath => _pluginsPath;
         public string AssetsPath => _assetsPath;
         public string ScriptsPath => _scriptsPath;
         public string SystemsPath => _systemsPath;
+        public string EntityPath => _entityPath;
 
         public ZoneServerInfo(IHostingEnvironment hostingEnvironment)
         {
@@ -22,6 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
             _assetsPath = GenerateAssetsPath(hostingEnvironment);
             _scriptsPath = GenerateScriptsPath(hostingEnvironment);
             _systemsPath = GenerateSystemsPath(hostingEnvironment);
+            _entityPath = GenerateEntityPath(hostingEnvironment);
         }
 
         private string GeneratePluginsPath(IHostingEnvironment hostingEnvironment)
@@ -55,6 +58,14 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Systems"
+            );
+        }
+        private string GenerateEntityPath(IHostingEnvironment hostingEnvironment)
+        {
+            return IOPath.Combine(
+                hostingEnvironment.ContentRootPath,
+                "App_Data",
+                "Entity"
             );
         }
     }

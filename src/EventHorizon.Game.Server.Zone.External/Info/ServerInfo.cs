@@ -6,5 +6,6 @@ namespace EventHorizon.Game.Server.Zone.External.Info
         string AssetsPath { get; }
         string ScriptsPath { get; }
         string SystemsPath { get; }
+        string EntityPath { get; }
     }
 }
