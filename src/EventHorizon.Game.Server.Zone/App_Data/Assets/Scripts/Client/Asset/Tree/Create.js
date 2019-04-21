@@ -30,7 +30,7 @@
  */
 
 return new Promise(resolve => {
-    const BABYLON = $services.babylonjs;
+    const BABYLON = $services.renderingApi;
     const { id, scene } = $data;
     // TODO: pull from $state or Asset store
     var leafMaterial = new BABYLON.StandardMaterial("leafMaterial", scene);
