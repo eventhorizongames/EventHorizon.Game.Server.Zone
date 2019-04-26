@@ -7,7 +7,7 @@
  *   logger: ILogger;
  *   eventService: IEventService;
  *   commandService: ICommandService;
- *   babylonjs: BABYLONJS
+ *   babylonjs: BABYLONJS;
  * };
  *
  * $utils: {
@@ -33,25 +33,28 @@ return new Promise(resolve => {
     const BABYLON = $services.renderingApi;
     const { id, scene } = $data;
     // TODO: pull from $state or Asset store
-    var leafMaterial = new BABYLON.StandardMaterial("leafMaterial", scene);
+    var leafMaterial = new BABYLON.StandardMaterial(
+        `leafMaterial-${id}`,
+        scene
+    );
     leafMaterial.diffuseColor = new BABYLON.Color3(0.5, 1, 0.5);
 
     // TODO: pull from $state or Asset store
-    var woodMaterial = new BABYLON.StandardMaterial("woodMaterial", scene);
-    var woodTexture = new BABYLON.WoodProceduralTexture(
-        "woodMaterial_text",
-        512,
+    var woodMaterial = new BABYLON.StandardMaterial(
+        `woodMaterial-${id}`,
         scene
     );
-    woodTexture.ampScale = 50;
-    woodMaterial.diffuseTexture = woodTexture;
+    woodMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
 
     const createQuickTreeGenerator = (sizeBranch, sizeTrunk, radius) => {
         var tree = new BABYLON.Mesh(`tree-${id}`, scene);
         tree.setEnabled(true);
         tree.isVisible = true;
 
-        var leaves = new BABYLON.Mesh("leaves", scene);
+        var leaves = new BABYLON.Mesh(`leaves-${id}`, scene);
 
         var vertexData = BABYLON.VertexData.CreateSphere({
             segments: 2,

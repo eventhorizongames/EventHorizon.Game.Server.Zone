@@ -77,6 +77,25 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                     moveTo = player.Position.MoveToPosition;
                     break;
             }
+            // Check for Dense playerMoveToMapNode
+            var playerMoveToMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
+            {
+                Position = moveTo,
+            });
+            if (playerMoveToMapNode.Info.ContainsKey("dense") 
+                && (int)playerMoveToMapNode.Info["dense"] > 0)
+            {
+                // TODO: Send message to player they cannot move to position, it is a wall ;)
+                // await _mediator.Publish(new ClientActionEntityClientMoveToAllEvent
+                // {
+                //     Data = new EntityClientMoveData
+                //     {
+                //         EntityId = player.Id,
+                //         MoveTo = moveTo
+                //     },
+                // });
+                return moveTo;
+            }
             var newPosition = player.Position;
             newPosition.CurrentPosition = player.Position.MoveToPosition;
             newPosition.MoveToPosition = moveTo;

@@ -1,9 +1,9 @@
 {
-    "id": "1e0b3688-ff19-4470-a898-920200325fc6",
+    "id": "001",
     "name": "Tree 001",
     "position": { "X": 12.0, "Y": 0.0, "Z": 4.0 },
     "assetId": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
-    "data": {
+    "properties": {
         "dense": true
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Structure;
 
@@ -7,13 +8,13 @@ namespace EventHorizon.Game.Server.Zone.Model.Map
     {
         public int Index { get; set; }
         public Vector3 Position { get; set; }
-        public dynamic Info { get; set; }
+        public IDictionary<string, object> Info { get; set; }
 
         public MapNode(Vector3 position)
         {
             Index = -1;
             Position = position;
-            Info = new { };
+            Info = new Dictionary<string, object>();
         }
 
         /// <summary>

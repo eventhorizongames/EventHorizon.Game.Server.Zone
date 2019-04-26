@@ -19,6 +19,14 @@ namespace EventHorizon.Game.Server.Zone.Map.State
         {
             get { return this._nodes.Count; }
         }
+        public IList<MapNode> NodeList
+        {
+            get { return this._nodes; }
+        }
+        public IList<MapEdge> EdgeList
+        {
+            get { return this._edges; }
+        }
 
         public MapGraph(Vector3 position, Vector3 dimensions, bool isDirectionGraph)
         {
@@ -98,6 +106,11 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                     FromIndex = edge.ToIndex
                 });
             }
+        }
+
+        public void RemoveEdge(MapEdge edge)
+        {
+            this._edges.Remove(edge);
         }
 
         public IList<MapEdge> GetEdgesOfNode(int nodeIndex)
