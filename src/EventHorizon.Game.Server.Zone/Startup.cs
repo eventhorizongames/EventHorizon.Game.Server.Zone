@@ -21,7 +21,6 @@ using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Player.State;
-using EventHorizon.Game.Server.Zone.Player.State.Impl;
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;

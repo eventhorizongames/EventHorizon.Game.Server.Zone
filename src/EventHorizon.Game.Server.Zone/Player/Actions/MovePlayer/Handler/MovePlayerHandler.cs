@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Map;

@@ -21,6 +21,7 @@ using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Game.Server.Zone.External.Player;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {

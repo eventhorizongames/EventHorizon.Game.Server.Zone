@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill;
 using EventHorizon.Game.Server.Zone.Entity.Find;
+using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity;
@@ -21,12 +22,18 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
         readonly IMediator _mediator;
         readonly IPlayerRepository _playerRepository;
 
-        public PlayerActionHandler(IMediator mediator, IPlayerRepository playerRepository)
+        public PlayerActionHandler(
+            IMediator mediator, 
+            IPlayerRepository playerRepository
+        )
         {
             _mediator = mediator;
             _playerRepository = playerRepository;
         }
-        public async Task Handle(PlayerActionEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            PlayerActionEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
             var player = await _playerRepository.FindById(notification.PlayerId);
             switch (notification.Action)

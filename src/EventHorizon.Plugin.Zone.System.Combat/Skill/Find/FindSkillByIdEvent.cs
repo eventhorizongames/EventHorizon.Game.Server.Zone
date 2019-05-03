@@ -7,4 +7,4 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Find
     {
         public string SkillId { get; set; }
     }
-}
+} 

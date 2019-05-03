@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
@@ -27,13 +28,20 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         readonly IMediator _mediator;
         readonly IPlayerRepository _player;
 
-        public PlayerConnectedHandler(IServerProperty serverProperty, IMediator mediator, IPlayerRepository player)
+        public PlayerConnectedHandler(
+            IServerProperty serverProperty,
+            IMediator mediator,
+            IPlayerRepository player
+        )
         {
             _serverProperty = serverProperty;
             _mediator = mediator;
             _player = player;
         }
-        public async Task Handle(PlayerConnectedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            PlayerConnectedEvent notification,
+            CancellationToken cancellationToken
+        )
         {
             // Check for player on this zone server
             var playerAction = PlayerAction.CONNECTION_ID;

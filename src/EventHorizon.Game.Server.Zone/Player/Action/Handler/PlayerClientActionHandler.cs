@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Player.State;
@@ -12,14 +13,19 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
     {
         readonly IPlayerRepository _playerRepository;
         readonly IHubContext<PlayerHub> _hubContext;
-        public PlayerClientActionHandler(IPlayerRepository playerRepository, IHubContext<PlayerHub> hubContext)
+        public PlayerClientActionHandler(
+            IPlayerRepository playerRepository,
+            IHubContext<PlayerHub> hubContext
+        )
         {
             _playerRepository = playerRepository;
             _hubContext = hubContext;
         }
-        public async Task Handle(PlayerClientActionEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            PlayerClientActionEvent notification,
+            CancellationToken cancellationToken
+        )
         {
-        
             var player = await _playerRepository.FindById(notification.PlayerId);
 
             await _hubContext.Clients.Client(player.ConnectionId)

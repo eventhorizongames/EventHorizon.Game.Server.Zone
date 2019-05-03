@@ -1,0 +1,24 @@
+using EventHorizon.Game.Server.Zone.Model.Admin;
+using MediatR;
+
+namespace EventHorizon.Game.Server.Zone.Admin.Command
+{
+    public struct AdminCommandEvent : INotification
+    {
+        public string ConnectionId { get; }
+        public IAdminCommand Command { get; }
+        public object Data { get; }
+
+        public AdminCommandEvent(
+            string connectionId,
+            IAdminCommand command,
+            object data
+        )
+        {
+            this.ConnectionId = connectionId;
+            this.Command = command;
+            this.Data = data;
+        }
+
+    }
+}

@@ -11,7 +11,9 @@ namespace EventHorizon.Game.Server.Zone.Admin.Bus
     public class AdminBus : Hub
     {
         readonly IMediator _mediator;
-        public AdminBus(IMediator mediator)
+        public AdminBus(
+            IMediator mediator
+        )
         {
             _mediator = mediator;
         }
@@ -25,13 +27,20 @@ namespace EventHorizon.Game.Server.Zone.Admin.Bus
             return Task.CompletedTask;
         }
 
-        public async Task<AdminCommandResponse> Command(string command, object data)
+        public Task Command(
+            string command,
+            object data
+        )
         {
-            return await _mediator.Send(new AdminCommandEvent
-            {
-                Command = command,
-                Data = data,
-            });
+            return _mediator.Publish(
+                new AdminCommandEvent(
+                    Context.ConnectionId,
+                    AdminCommandFromString.CreateFromString(
+                        command
+                    ),
+                    data
+                )
+            );
         }
     }
 }
