@@ -71,12 +71,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
         [InlineData(MoveDirections.Forward, 0, 5)]
         [InlineData(MoveDirections.Backwards, 0, -5)]
         [InlineData(9999, 0, 0)]
-        public async Task TestHandle_ShouldReturnMoveDirection(long inputMoveDirection, float expectedXPosition, float expectedZPosition)
+        public async Task TestHandle_ShouldReturnMoveDirection(
+            long inputMoveDirection,
+            float expectedXPosition,
+            float expectedZPosition
+        )
         {
             // Given
             var tileDimensions = 5;
             var currentPosition = Vector3.Zero;
             var playerMapNode = new MapNode(currentPosition);
+            var moveToPostion = new Vector3(expectedXPosition, 0, expectedZPosition);
             var zoneMap = new ZoneMap()
             {
                 TileDimensions = tileDimensions
@@ -105,7 +110,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
             {
-                Position = currentPosition,
+                Position = moveToPostion,
             }, CancellationToken.None)).ReturnsAsync(playerMapNode);
 
             // When
@@ -130,11 +135,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
         public async Task TestHandle_ShouldGlobalUpdatePlayer()
         {
             // Given
+            var inputMoveDirection = MoveDirections.Forward;
             var expectedEntityId = 321;
 
             var tileDimensions = 5;
             var currentPosition = Vector3.Zero;
             var playerMapNode = new MapNode(currentPosition);
+            var moveToPostion = new Vector3(0, 0, tileDimensions);
             var zoneMap = new ZoneMap()
             {
                 TileDimensions = tileDimensions
@@ -151,7 +158,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
                     MoveToPosition = new Vector3(0, 0, 0),
                 }
             };
-            var inputMoveDirection = MoveDirections.Forward;
 
             var expectedCurrentPosition = new Vector3(0);
             var expectedMoveToPosition = new Vector3(0, 0, 5);
@@ -166,7 +172,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
             {
-                Position = currentPosition,
+                Position = moveToPostion,
             }, CancellationToken.None)).ReturnsAsync(playerMapNode);
 
             // When
