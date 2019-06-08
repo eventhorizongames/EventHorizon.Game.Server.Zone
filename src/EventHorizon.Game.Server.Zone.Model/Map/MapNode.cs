@@ -16,6 +16,12 @@ namespace EventHorizon.Game.Server.Zone.Model.Map
             Position = position;
             Info = new Dictionary<string, object>();
         }
+        public MapNode(int index)
+        {
+            Index = index;
+            Position = new Vector3();
+            Info = new Dictionary<string, object>();
+        }
 
         /// <summary>
         /// Required to override to work with Octree usage.

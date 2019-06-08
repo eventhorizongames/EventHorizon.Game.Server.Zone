@@ -62,6 +62,10 @@ namespace EventHorizon.Zone.System.EntityModule.Load
         {
             var result = new List<EntityScriptModule>();
             var directoryInfo = new DirectoryInfo(modulePath);
+            if (!directoryInfo.Exists)
+            {
+                return result;
+            }
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
                 result.Add(

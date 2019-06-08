@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Command;
 using EventHorizon.Game.Server.Zone.Admin.Command.Model;
+using EventHorizon.Game.Server.Zone.Info.Api;
+using EventHorizon.Game.Server.Zone.Info.Query;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -40,6 +42,13 @@ namespace EventHorizon.Game.Server.Zone.Admin.Bus
                     ),
                     data
                 )
+            );
+        }
+
+        public Task<IZoneInfo> ZoneInfo()
+        {
+            return _mediator.Send(
+                new QueryForFullZoneInfo()
             );
         }
     }
