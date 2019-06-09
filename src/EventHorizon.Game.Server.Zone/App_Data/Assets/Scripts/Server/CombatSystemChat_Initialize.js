@@ -10,17 +10,11 @@
  */
 
 let messageCount = 0;
-let showingChat = false;
 $services.logger.debug("Combat System Chat - Initialize");
-$services.logger.log("Combat System Chat - Initialize");
 
 const onMessageFromCombatSystemHandler = data => {
     messageCount++;
     $services.logger.debug("Message Data", data);
-    if (!showingChat) {
-        $services.logger.debug("Chat not open");
-        return;
-    }
     if (!data.message) {
         $services.logger.debug("No message", data);
         return;
@@ -78,37 +72,26 @@ const onMessageFromCombatSystemHandler = data => {
 };
 
 const onShowMessageFromCombatSystemHandler = () => {
-    // Active the Chat Window
+    // Show the Chat Window
     $services.commandService.send({
         type: {
-            key: "GUI.ACTIVATE_LAYOUT_COMMAND"
+            key: "Engine.Gui.SHOW_LAYOUT_COMMAND"
         },
         data: {
             layoutId: "ChatLayout"
         }
     });
-    showingChat = true;
 };
 const onHideMessageFromCombatSystemHandler = () => {
-    // Active the Chat Window
+    // Hide the Chat Window
     $services.commandService.send({
         type: {
-            key: "GUI.IN_ACTIVATE_LAYOUT_COMMAND"
+            key: "Engine.Gui.HIDE_LAYOUT_COMMAND"
         },
         data: {
             layoutId: "ChatLayout"
         }
     });
-    // Active the Chat Window
-    $services.commandService.send({
-        type: {
-            key: "GUI.IN_ACTIVATE_LAYOUT_COMMAND"
-        },
-        data: {
-            layoutId: "ChatLayout"
-        }
-    });
-    showingChat = false;
 };
 
 // Setup Event Listeners
@@ -183,6 +166,7 @@ $services.commandService.send({
                 id: "ChatModule_Container",
                 type: "Container",
                 options: {
+                    isVisible: false,
                     width: "66%",
                     height: "50%",
                     alpha: 0.5,
@@ -192,7 +176,14 @@ $services.commandService.send({
                     cornerRadius: 20,
                     left: 20,
                     top: 20,
-                    thickness: 0
+                    thickness: 0,
+                    animation: {
+                        isEnabled: true,
+                        transition: 0.05,
+                        transitionStart: 0.01,
+                        transitionEnd: 0.5,
+                        transitionTime: 10
+                    }
                 }
             },
             {
@@ -316,3 +307,12 @@ $services.logger.debug(
         }
     })
 );
+
+$services.commandService.send({
+    type: {
+        key: "GUI.ACTIVATE_LAYOUT_COMMAND"
+    },
+    data: {
+        layoutId: "ChatLayout"
+    }
+});

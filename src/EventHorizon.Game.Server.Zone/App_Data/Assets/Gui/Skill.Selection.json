@@ -54,8 +54,8 @@
                 "text": "25 / 100",
                 "linkOffsetY": -50,
 
-                "width": 120,
-                "height": 20,
+                "width": "120px",
+                "height": "20px",
                 "textSize": 12,
                 "textColor": "white",
                 "backgroundColor": "red",
