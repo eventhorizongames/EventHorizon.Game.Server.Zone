@@ -1,0 +1,4 @@
+{
+    "command": "reload-system",
+    "scriptFile": "Admin_Client_ReloadScriptsSystem.csx"
+}

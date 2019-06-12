@@ -1,0 +1,4 @@
+{
+    "command": "reload-system",
+    "scriptFile": "Admin_Entity_ReloadModuleSystem.csx"
+}

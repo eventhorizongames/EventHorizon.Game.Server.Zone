@@ -20,6 +20,11 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.Respond
             CancellationToken cancellationToken
         )
         {
+            if(string.IsNullOrEmpty(
+                request.ConnectionId
+            )) {
+                return false;
+            }
             await _hubContext.Clients.Client(
                 request.ConnectionId
             ).SendAsync(

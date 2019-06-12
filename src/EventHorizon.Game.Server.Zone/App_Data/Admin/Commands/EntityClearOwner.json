@@ -1,0 +1,4 @@
+{
+    "command": "entity-clear-owner",
+    "scriptFile": "Admin_Entity_EntityClearOwner.csx"
+}

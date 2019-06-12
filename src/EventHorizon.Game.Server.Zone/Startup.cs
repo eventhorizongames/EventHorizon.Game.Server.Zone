@@ -137,6 +137,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemClientAssets();
             services.AddSystemClientEntities();
             services.AddSystemClientScripts();
+            services.AddSystemServer();
 
             services.AddAgentCompanion();
 
@@ -158,12 +159,12 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseI18n();
             app.UseZoneCore();
-            app.UseZoneAdmin();
             app.UseSetupServer();
 
             // TODO: Remove this after done testing, move to Systems flow
             // The systems flow will automatically load these systems from a folder,
             //  just like the plugin flow, which is about the same.
+            app.UseSystemServer();
             app.UseSystemGui();
             app.UseSystemModel();
             app.UseSystemCombat();
@@ -174,6 +175,9 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemClientAssets();
             app.UseSystemClientEntities();
             app.UseSystemClientScripts();
+
+            // Need to load UseSystemServer, needs scripts 
+            app.UseZoneAdmin();
 
             app.UseAgentCompanion();
 

@@ -1,5 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone.Admin.Command;
+using EventHorizon.Game.Server.Zone.Admin.Command.Model;
+using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
 using EventHorizon.Game.Server.Zone.Events.Admin;
 using MediatR;
@@ -30,7 +33,12 @@ namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Check
             {
                 _logger.LogInformation("Running System Reload");
                 await _mediator.Publish(
-                    new AdminCommandReloadSystemEvent()
+                    new AdminCommandEvent(
+                        AdminCommandFromString.CreateFromString(
+                            "reload-system"
+                        ),
+                        null
+                    )
                 );
                 _systemWatcherState.RemovePendingReload();
             }

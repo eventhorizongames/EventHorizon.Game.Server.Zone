@@ -19,6 +19,15 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command
             this.Command = command;
             this.Data = data;
         }
+        public AdminCommandEvent(
+            IAdminCommand command,
+            object data
+        )
+        {
+            this.ConnectionId = null;
+            this.Command = command;
+            this.Data = data;
+        }
 
     }
 }

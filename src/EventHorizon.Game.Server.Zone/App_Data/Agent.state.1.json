@@ -1,29 +1,56 @@
 {
     "AgentList": [
         {
-            "Id": "ea12a885-b5c6-4b31-8300-742aa839e760",
+            "Id": "7786961f-8694-450d-bc8c-31de06aa9d04",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
-                "CurrentPosition": { "X": 4.0, "Y": 0.0, "Z": -4.0 },
+                "CurrentPosition": {
+                    "X": 23.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
                 "NextMoveRequest": "0001-01-01T00:00:00",
-                "MoveToPosition": { "X": 4.0, "Y": 0.0, "Z": -4.0 },
+                "MoveToPosition": {
+                    "X": 23.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
             },
-            "TagList": ["npc", "wandering", "weak"],
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
             "Data": {
-                "ownerState": { "OwnerId": "", "CanBeCaptured": true },
-                "movementState": { "Speed": 1.0 },
-                "routine": { "Name": "IDLE" },
-                "defaultRoutine": { "Name": "IDLE" },
-                "wander": { "LookDistance": 25 },
-                "life": { "Health": 0 },
+                "ownerState": {
+                    "OwnerId": "dfb6f390-8058-4bfb-bf6c-f79decfa0011",
+                    "CanBeCaptured": true
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "IDLE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
                 "lifeState": {
-                    "Condition": { "Name": "ALIVE" },
-                    "HealthPoints": 7233,
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7208,
                     "MaxHealthPoints": 10000,
-                    "ActionPoints": 9842,
+                    "ActionPoints": 9841,
                     "MaxActionPoints": 10000,
                     "Attack": 1
                 },
@@ -37,41 +64,68 @@
                 "skillState": {
                     "SkillList": {
                         "fire_ball": {
-                            "CooldownFinishes": "2019-04-11T00:14:40.2112882Z"
+                            "CooldownFinishes": "2019-06-09T04:40:16.9459588Z"
                         }
                     }
                 },
                 "modelState": {
                     "AnimationList": [],
-                    "Mesh": { "Type": "GLTF", "AssetId": "DEFAULT_MESH" }
+                    "Mesh": {
+                        "Type": "GLTF",
+                        "AssetId": "DEFAULT_MESH"
+                    }
                 }
             }
         },
         {
-            "Id": "33b30cec-778e-47d0-a0ae-77c1227a9614",
+            "Id": "bf47bab7-cad0-4064-9893-ad3660ad2c7a",
             "Name": "Enemy Agent",
             "Position": {
                 "CanMove": true,
-                "CurrentPosition": { "X": 12.0, "Y": 0.0, "Z": 4.0 },
+                "CurrentPosition": {
+                    "X": 12.0,
+                    "Y": 0.0,
+                    "Z": 4.0
+                },
                 "NextMoveRequest": "0001-01-01T00:00:00",
-                "MoveToPosition": { "X": 12.0, "Y": 0.0, "Z": 4.0 },
+                "MoveToPosition": {
+                    "X": 12.0,
+                    "Y": 0.0,
+                    "Z": 4.0
+                },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
             },
-            "TagList": ["npc", "wandering", "weak"],
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
             "Data": {
                 "ownerState": {
                     "OwnerId": "82803f62-8cde-4f38-9d1c-fa1405539ac1",
                     "CanBeCaptured": false
                 },
-                "movementState": { "Speed": 1.0 },
-                "routine": { "Name": "IDLE" },
-                "defaultRoutine": { "Name": "IDLE" },
-                "wander": { "LookDistance": 25 },
-                "life": { "Health": 0 },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "IDLE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
                 "lifeState": {
-                    "Condition": { "Name": "ALIVE" },
-                    "HealthPoints": 177,
+                    "Condition": {
+                        "Name": "DEAD"
+                    },
+                    "HealthPoints": -73,
                     "MaxHealthPoints": 1000,
                     "ActionPoints": 10,
                     "MaxActionPoints": 10,
@@ -93,7 +147,10 @@
                 },
                 "modelState": {
                     "AnimationList": [],
-                    "Mesh": { "Type": "GLTF", "AssetId": "DEFAULT_MESH" }
+                    "Mesh": {
+                        "Type": "GLTF",
+                        "AssetId": "DEFAULT_MESH"
+                    }
                 }
             }
         }

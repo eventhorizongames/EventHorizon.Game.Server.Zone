@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,15 @@ namespace EventHorizon.Game.Server.Zone.Entity.State.Impl
         public Task<List<IObjectEntity>> All()
         {
             return Task.FromResult(ENTITIES.Values.ToList());
+        }
+
+        public Task<IEnumerable<IObjectEntity>> Where(
+            Func<IObjectEntity, bool> predicate
+        )
+        {
+            return Task.FromResult(
+                ENTITIES.Values.Where<IObjectEntity>(predicate)
+            );
         }
 
         public Task<IObjectEntity> FindById(long id)
