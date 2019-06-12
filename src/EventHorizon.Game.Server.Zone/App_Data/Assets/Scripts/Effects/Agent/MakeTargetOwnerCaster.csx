@@ -6,6 +6,8 @@
 /// Data: { mesageTemplateKey: string; }
 /// </summary>
 
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.Client.DataType;
 
 var casterGlobalId = Caster.GlobalId;
 var targetOwner = Target.GetProperty<dynamic>("ownerState");
@@ -13,8 +15,23 @@ var targetOwner = Target.GetProperty<dynamic>("ownerState");
 targetOwner["ownerId"] = casterGlobalId;
 targetOwner["canBeCaptured"] = false;
 
-// TODO: Add Client Skill Action that will update all clients with new Owner on Target
+await Services.Mediator.Publish(
+    new ClientActionEntityClientChangedToAllEvent
+    {
+        Data = new EntityChangedData(
+            Target
+        )
+    }
+);
+
+var action = new ClientSkillActionEvent
+{
+    Action = "agent_captured"
+};
 return new SkillEffectScriptResponse
 {
-    ActionList = new List<ClientSkillActionEvent>()
+    ActionList = new List<ClientSkillActionEvent>
+    {
+        action
+    }
 };

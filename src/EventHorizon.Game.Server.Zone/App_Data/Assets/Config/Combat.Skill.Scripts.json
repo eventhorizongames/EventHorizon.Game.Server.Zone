@@ -49,6 +49,10 @@
     }],
     "actionList": [{
         "comment": "not_done",
+        "id": "agent_captured",
+        "scriptFile": "Agent/AgentCaptured.js"
+    }, {
+        "comment": "not_done",
         "id": "freeze_entity",
         "scriptFile": "FreezeEntity.js"
     }, {
