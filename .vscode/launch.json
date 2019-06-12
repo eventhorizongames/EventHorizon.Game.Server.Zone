@@ -42,9 +42,9 @@
             "name": "Start Zone 01 Server",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_Release",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
+            "program": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/bin/Release/netcoreapp2.1/EventHorizon.Game.Server.Zone.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone",
             "stopAtEntry": false,
@@ -65,9 +65,9 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_URLS": "http://localhost:5801",
-                "HOST": "http://localhost:5801"
+                "ASPNETCORE_ENVIRONMENT": "Production",
+                "ASPNETCORE_URLS": "http://localhost:5082",
+                "HOST": "http://localhost:5082"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/src/EventHorizon.Game.Server.Zone/Views"

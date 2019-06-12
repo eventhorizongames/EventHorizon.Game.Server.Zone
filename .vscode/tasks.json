@@ -1,13 +1,21 @@
 {
     "version": "2.0.0",
-    "tasks": [{
+    "tasks": [
+        {
             "label": "build",
             "command": "dotnet",
             "type": "process",
-            "args": [
-                "build"
-            ],
+            "args": ["build"],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build_Release",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "/p:Configuration=Release"
+            ],
         },
         {
             "label": "test",
@@ -18,6 +26,6 @@
                 "kind": "test",
                 "isDefault": true
             }
-        },
+        }
     ]
 }

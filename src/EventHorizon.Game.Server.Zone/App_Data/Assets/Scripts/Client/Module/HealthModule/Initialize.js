@@ -40,21 +40,21 @@ function onEntityChanged({ entityId }) {
         passedEntityId: entityId,
         options: {
             text: getEntityText(),
-            percent: getEntityPercent()
-        }
+            percent: getEntityPercent(),
+        },
     });
 
     $services.commandService.send({
         type: {
-            key: "GUI.UPDATE_GUI_CONTROL_COMMAND"
+            key: "Engine.Gui.UPDATE_GUI_CONTROL_COMMAND",
         },
         data: {
             controlId: guiControlId(),
             options: {
                 text: getEntityText(),
-                percent: getEntityPercent()
-            }
-        }
+                percent: getEntityPercent(),
+            },
+        },
     });
 }
 function getEntityText() {
@@ -72,26 +72,26 @@ function onMeshSet({ id }) {
 
     $services.commandService.send({
         type: {
-            key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND"
+            key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND",
         },
         data: {
             controlId: guiControlId(),
-            mesh: $entity.getProperty("MESH_MODULE_NAME").mesh
-        }
+            mesh: $entity.getProperty("MESH_MODULE_NAME").mesh,
+        },
     });
 }
 
 // Setup Event Listener's
 $services.eventService.addEventListener(
     {
-        key: "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT"
+        key: "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
     },
     onEntityChanged,
     this
 );
 $services.eventService.addEventListener(
     {
-        key: "Module.Mesh.MESH_SET_EVENT"
+        key: "Module.Mesh.MESH_SET_EVENT",
     },
     onMeshSet,
     this
@@ -105,17 +105,17 @@ $data.eventsToRemove = [];
 $data.eventsToRemove.push({
     name: "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
     handler: onEntityChanged,
-    context: this
+    context: this,
 });
 $data.eventsToRemove.push({
     name: "Module.Mesh.MESH_SET_EVENT",
     handler: onMeshSet,
-    context: this
+    context: this,
 });
 
 $services.commandService.send({
     type: {
-        key: "GUI.ADD_LAYOUT_COMMAND"
+        key: "GUI.ADD_LAYOUT_COMMAND",
     },
     data: {
         layout: {
@@ -125,45 +125,45 @@ $services.commandService.send({
                 {
                     id: guiControlId(),
                     sort: 0,
-                    controlList: []
-                }
-            ]
-        }
-    }
+                    controlList: [],
+                },
+            ],
+        },
+    },
 });
 
 // Register the control with the provided template and options.
 $services.commandService.send({
     type: {
-        key: "GUI.REGISTER_CONTROL_COMMAND"
+        key: "GUI.REGISTER_CONTROL_COMMAND",
     },
     data: {
         controlId: guiControlId(),
         templateId: "HealthModule-Template",
         options: {
             text: getEntityText(),
-            percent: getEntityPercent()
-        }
-    }
+            percent: getEntityPercent(),
+        },
+    },
 });
 
 // Activate the layout
 $services.commandService.send({
     type: {
-        key: "GUI.ACTIVATE_LAYOUT_COMMAND"
+        key: "GUI.ACTIVATE_LAYOUT_COMMAND",
     },
     data: {
-        layoutId: guiLayoutId()
-    }
+        layoutId: guiLayoutId(),
+    },
 });
 
 // Link the GUI to the $entity mesh
 $services.commandService.send({
     type: {
-        key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND"
+        key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND",
     },
     data: {
         controlId: guiControlId(),
-        mesh: $entity.getProperty("MESH_MODULE_NAME").mesh
-    }
+        mesh: $entity.getProperty("MESH_MODULE_NAME").mesh,
+    },
 });
