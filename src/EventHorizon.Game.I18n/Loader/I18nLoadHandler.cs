@@ -35,7 +35,7 @@ namespace EventHorizon.Game.I18n.Loader
             CancellationToken cancellationToken
         )
         {
-            var loadingDirectory = Path.Combine(_serverInfo.AssetsPath, "I18n");
+            var loadingDirectory = Path.Combine(_serverInfo.I18nPath);
             // Read all i18n files from Asset/I18n
             foreach (var i18nFileName in _directoryResolver.GetFiles(loadingDirectory))
             {

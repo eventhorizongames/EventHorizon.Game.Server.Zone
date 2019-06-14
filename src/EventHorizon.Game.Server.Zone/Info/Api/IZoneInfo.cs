@@ -23,7 +23,6 @@ namespace EventHorizon.Game.Server.Zone.Info.Api
         List<IObjectEntity> EntityList { get; }
         GuiLayout GuiLayout { get; }
         IEnumerable<ParticleTemplate> ParticleTemplateList { get; }
-        IEnumerable<SkillActionScript> SkillActionScriptList { get; }
         IEnumerable<ServerModuleScripts> ServerModuleScriptList { get; }
         IEnumerable<ClientScript> ClientScriptList { get; }
         IEnumerable<IClientAsset> ClientAssetList { get; }

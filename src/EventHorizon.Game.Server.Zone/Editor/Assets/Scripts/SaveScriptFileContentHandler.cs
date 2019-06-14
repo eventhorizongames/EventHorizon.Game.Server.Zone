@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,8 +23,18 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
             var scriptFileName = notification.ScriptFileContent.FileName;
             var scriptContents = notification.ScriptFileContent.Content;
 
+            var directoriesToCombine = new List<string>();
+            directoriesToCombine.Add(
+                _serverInfo.AppDataPath
+            );
+            directoriesToCombine.AddRange(
+                scriptDirectory
+            );
+            directoriesToCombine.Add(
+                scriptFileName
+            );
             var pathToFile = IOPath.Combine(
-                _serverInfo.ScriptsPath, scriptDirectory, scriptFileName
+                directoriesToCombine.ToArray()
             );
             File.WriteAllText(
                 pathToFile,

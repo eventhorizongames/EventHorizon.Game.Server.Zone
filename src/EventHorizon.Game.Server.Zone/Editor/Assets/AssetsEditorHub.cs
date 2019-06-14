@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts;
 using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts.Model;
@@ -11,7 +12,7 @@ namespace EventHorizon.Game.Server.Zone.Editor
 {
     public partial class EditorHub : Hub
     {
-        public Task<EditorScriptFileContent> GetScriptFileContent(string directory, string fileName)
+        public Task<EditorScriptFileContent> GetScriptFileContent(IList<string> directory, string fileName)
         {
             return _mediator.Send(new GetScriptFileContentEvent
             {

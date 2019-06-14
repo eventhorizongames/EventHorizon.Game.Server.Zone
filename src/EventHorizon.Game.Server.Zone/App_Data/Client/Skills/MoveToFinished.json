@@ -1,0 +1,38 @@
+{
+    "comments": "Not Done",
+    "id": "the-real_move_to",
+    "name": "Move To",
+    "description": "This moves the target to the target position.",
+    "type": "ACTIVE",
+    "target": "ENTITY",
+    "validatorList": [
+        {
+            "validator": "Validators_TargetNotCaster.csx"
+        },
+        {
+            "validator": "Validators_TargetIsCasterCompanion.csx"
+        },
+        {
+            "validator": "Validators_TargetPositionInDistanceToCaster.csx",
+            "data": {
+                "distance": 25
+            }
+        }
+    ],
+    "effectList": [
+        {
+            "comment": "Move target to position",
+            "effect": "Effects_MoveTargetToTargetPosition.csx"
+        }
+    ],
+    "failedList": [
+        {
+            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+            "effect": "Effects_SkillValidationFailed.csx",
+            "data": {
+                "messageCode": "skill_validation_failed",
+                "messageTemplateKey": "skillFailedForReason"
+            }
+        }
+    ]
+}

@@ -33,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.Reload
                     new StandardAdminCommandResponse(
                         notification.Command.Command,
                         notification.Command.RawCommand,
-                        false,
+                        true,
                         "reload_admin_successful"
                     )
                 )

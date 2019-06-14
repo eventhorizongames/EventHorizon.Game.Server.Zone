@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Entity;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Zone.System.ClientEntities.Model;
@@ -32,7 +31,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
         )
         {
             // Register ClientEntity Instances from Path
-            foreach (var clientEntityInstance in await GetClientEntityInstancesFromPath(_serverInfo.EntityPath))
+            foreach (var clientEntityInstance in 
+                await GetClientEntityInstancesFromPath(
+                    _serverInfo.ClientEntityPath
+                )
+            )
             {
                 // Register clientEntity Instance from File
                 await _mediator.Publish(new RegisterClientEntityInstanceEvent
@@ -46,6 +49,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             string path
         )
         {
+            // TODO: Load Recursively from root path
             var result = new List<ClientEntityInstance>();
             var directoryInfo = new DirectoryInfo(path);
             foreach (var fileInfo in directoryInfo.GetFiles())

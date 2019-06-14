@@ -1,0 +1,6 @@
+{
+    "name": "Back To Menu",
+    "initializeScript": "ServerModule_BackToMenu_Initialize.js",
+    "disposeScript": "ServerModule_BackToMenu_Dispose.js",
+    "updateScript": "ServerModule_BackToMenu_Update.js"
+}

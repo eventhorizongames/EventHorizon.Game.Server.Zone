@@ -24,7 +24,6 @@ namespace EventHorizon.Game.Server.Zone.Info.Model
         public List<IObjectEntity> EntityList { get; set; }
         public GuiLayout GuiLayout { get; set; }
         public IEnumerable<ParticleTemplate> ParticleTemplateList { get; set; }
-        public IEnumerable<SkillActionScript> SkillActionScriptList { get; set; }
         public IEnumerable<ServerModuleScripts> ServerModuleScriptList { get; set; }
         public IEnumerable<ClientScript> ClientScriptList { get; set; }
         public IEnumerable<IClientAsset> ClientAssetList { get; set; }

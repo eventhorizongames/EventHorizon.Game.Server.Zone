@@ -6,7 +6,7 @@ using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts.Model;
 using EventHorizon.Game.Server.Zone.External.Info;
 using MediatR;
 using IOPath = System.IO.Path;
-
+using EventHorizon.Game.Server.Zone.External.Extensions;
 
 namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
 {
@@ -25,35 +25,74 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
                 new EditorScriptsState
                 {
                     // Load Actions Scripts File List
-                    Actions = GetEditorScriptFiles("Actions"),
-                    // Load Effects Scripts File List
-                    Effects = GetEditorScriptFiles("Effects"),
-                    // Load Routines Scripts File List
-                    Routines = GetEditorScriptFiles("Routines"),
+                    Client = GetEditorScriptFiles(
+                        _serverInfo.ClientScriptsPath
+                    ),
                     // Load Server Scripts File List
-                    Server = GetEditorScriptFiles("Server"),
-                    // Load Validators Scripts File List
-                    Validators = GetEditorScriptFiles("Validators"),
+                    Server = GetEditorScriptFiles(
+                        _serverInfo.ServerScriptsPath
+                    ),
                 }
             );
         }
 
-        private List<EditorScriptFile> GetEditorScriptFiles(string scriptDirectory)
+        private List<EditorScriptFile> GetEditorScriptFiles(
+            string scriptsDirectory
+        )
         {
-            var scriptsPath = _serverInfo.ScriptsPath;
-            var scriptsFileNames = Directory.GetFiles(IOPath.Combine(scriptsPath, scriptDirectory));
-            var scripts = new List<EditorScriptFile>(scriptsFileNames.Length);
-            foreach (var script in scriptsFileNames)
+            var scripts = new List<EditorScriptFile>();
+            LoadFromDirectory(
+                _serverInfo.AppDataPath,
+                $"{_serverInfo.AppDataPath}{IOPath.DirectorySeparatorChar}".MakePathRelative(
+                    scriptsDirectory
+                ),
+                scripts
+            );
+            return scripts;
+        }
+
+        private static void LoadFromDirectory(
+            string appDataPath,
+            string scriptsDirectory,
+            List<EditorScriptFile> scripts
+        )
+        {
+            foreach (var scriptDirectory in
+                Directory.GetDirectories(
+                    IOPath.Combine(
+                        appDataPath,
+                        scriptsDirectory
+                    )
+                )
+            )
+            {
+                LoadFromDirectory(
+                    appDataPath,
+                    $"{appDataPath}{IOPath.DirectorySeparatorChar}".MakePathRelative(
+                        scriptDirectory
+                    ),
+                    scripts
+                );
+            }
+            foreach (var script in
+                Directory.GetFiles(
+                    IOPath.Combine(
+                        appDataPath,
+                        scriptsDirectory
+                    )
+                )
+            )
             {
                 scripts.Add(
                     new EditorScriptFile
                     {
-                        FileDirectory = scriptDirectory,
+                        FileDirectory = scriptsDirectory.Split(
+                            IOPath.DirectorySeparatorChar
+                        ),
                         FileName = new FileInfo(script).Name
                     }
                 );
             }
-            return scripts;
         }
     }
 }

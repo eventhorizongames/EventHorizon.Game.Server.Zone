@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Save;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.SkillFile;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -35,16 +34,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Editor
                 new EditorSystemCombatSkillScriptsFileQuery()
             );
         }
-        public Task SaveSystemCombatSkillScripts(SystemCombatSkillScriptsFile skillScriptFile)
-        {
-            // EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query.EditorSystemCombatSkillScriptsFileQuery,EventHorizon.Plugin.Zone.System.Combat.Editor.Model.EditorSystemCombatSkillScriptsFile
-            // await _mediator.Send(new SaveCombatSkillEvent
-            // {
-            //     Skill = skillInstance
-            // });
-            // await _mediator.Publish(new SaveCombatSkillsEvent());
-            return Task.CompletedTask;
-        }
         public async Task<EditorCombatSkills> GetCombatSkills()
         {
             return new EditorCombatSkills(
@@ -59,7 +48,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Editor
             {
                 Skill = skillInstance
             });
-            await _mediator.Publish(new SaveCombatSkillsEvent());
         }
     }
 }

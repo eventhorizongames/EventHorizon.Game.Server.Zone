@@ -11,7 +11,10 @@ namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher
 {
     public struct StartWatchingSystemHandler : INotificationHandler<StartWatchingSystemEvent>
     {
-        static FileSystemWatcher Watcher;
+        static FileSystemWatcher ADMIN_WATCHER;
+        static FileSystemWatcher CLIENT_WATCHER;
+        static FileSystemWatcher I18N_WATCHER;
+        static FileSystemWatcher SERVER_WATCHER;
 
         readonly ISystemWatcherState _systemWatcherState;
         readonly ServerInfo _serverInfo;
@@ -26,25 +29,46 @@ namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher
 
         public Task Handle(StartWatchingSystemEvent notification, CancellationToken cancellationToken)
         {
-            if (Watcher != null)
-            {
-                Watcher.Dispose();
-            }
-            Watcher = new FileSystemWatcher();
-            Watcher.IncludeSubdirectories = true;
-            Watcher.NotifyFilter = NotifyFilters.LastAccess
+            ADMIN_WATCHER?.Dispose();
+            CLIENT_WATCHER?.Dispose();
+            I18N_WATCHER?.Dispose();
+            SERVER_WATCHER?.Dispose();
+
+            ADMIN_WATCHER = CreateWatcherFor(
+                _serverInfo.AdminPath
+            );
+            CLIENT_WATCHER = CreateWatcherFor(
+                _serverInfo.ClientPath
+            );
+            I18N_WATCHER = CreateWatcherFor(
+                _serverInfo.I18nPath
+            );
+            SERVER_WATCHER = CreateWatcherFor(
+                _serverInfo.ServerPath
+            );
+
+            return Task.CompletedTask;
+        }
+
+        public FileSystemWatcher CreateWatcherFor(
+            string path
+        )
+        {
+            var watcher = new FileSystemWatcher();
+            watcher.IncludeSubdirectories = true;
+            watcher.NotifyFilter = NotifyFilters.LastAccess
                                  | NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
                                  | NotifyFilters.DirectoryName;
-            Watcher.Path = _serverInfo.AssetsPath;
-            Watcher.Changed += OnChanged;
-            Watcher.Created += OnChanged;
-            Watcher.Deleted += OnChanged;
+            watcher.Path = path;
+            watcher.Changed += OnChanged;
+            watcher.Created += OnChanged;
+            watcher.Deleted += OnChanged;
 
             // Begin watching.
-            Watcher.EnableRaisingEvents = true;
+            watcher.EnableRaisingEvents = true;
 
-            return Task.CompletedTask;
+            return watcher;
         }
 
         private void OnChanged(object source, FileSystemEventArgs e) =>

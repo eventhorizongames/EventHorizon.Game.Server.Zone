@@ -32,30 +32,44 @@ namespace EventHorizon.Zone.System.ServerModule.Load
 
         public async Task Handle(LoadServerModuleSystemEvent notification, CancellationToken cancellationToken)
         {
-            foreach (var serverModule in await GetServerModuleList())
-            {
-                _serverModuleRepository.Add(
-                    serverModule.CreateScripts(
-                        GetServerScriptsPath()
-                    )
-                );
-            }
+            await GetServerModuleList(
+                GetServerScriptsPath()
+            );
         }
         private string GetServerScriptsPath()
         {
             return Path.Combine(
-                _serverInfo.ScriptsPath,
-                "Server"
+                _serverInfo.ClientPath,
+                "ServerModule"
             );
         }
-        private async Task<IEnumerable<ServerModuleDefintion>> GetServerModuleList()
+        private async Task GetServerModuleList(
+            string path
+        )
         {
-            return (await GetServerModuleFile()).ServerModuleList;
+            foreach (var file in new DirectoryInfo(path).GetFiles())
+            {
+                AddServerModuleScript(
+                    await GetServerModuleFile(
+                        file.FullName
+                    )
+                );
+            }
         }
-        private Task<ServerModuleFile> GetServerModuleFile()
+        private Task<ServerModuleScripts> GetServerModuleFile(
+            string fullName
+        )
         {
-            return _fileLoader.GetFile<ServerModuleFile>(
-                Path.Combine(_serverInfo.SystemsPath, "System.ServerModule.json")
+            return _fileLoader.GetFile<ServerModuleScripts>(
+                fullName
+            );
+        }
+        private void AddServerModuleScript(
+            ServerModuleScripts serverModule
+        )
+        {
+            _serverModuleRepository.Add(
+                serverModule
             );
         }
     }

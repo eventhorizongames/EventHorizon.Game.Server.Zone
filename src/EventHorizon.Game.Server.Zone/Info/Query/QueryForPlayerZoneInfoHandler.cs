@@ -70,14 +70,8 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     ParticleTemplateList = await _mediator.Send(
                         new FetchAllParticleTemplateListEvent()
                     ),
-                    SkillActionScriptList = await _mediator.Send(
-                        new FetchAllSkillActionScriptListEvent()
-                    ),
                     ServerModuleScriptList = await _mediator.Send(
                         new FetchServerModuleScriptListEvent()
-                    ),
-                    ClientScriptList = await _mediator.Send(
-                        new FetchClientScriptListQuery()
                     ),
                     ClientAssetList = await _mediator.Send(
                         new FetchClientAssetListQuery()
@@ -90,7 +84,11 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     ),
                     PlayerEntityScriptModuleList = await _mediator.Send(
                         new FetchPlayerModuleListQuery()
-                    )
+                    ),
+                    
+                    ClientScriptList = await _mediator.Send(
+                        new FetchClientScriptListQuery()
+                    ),
                 };
             }
         }

@@ -21,5 +21,5 @@ await Services.Mediator.Publish(new LoadAgentRoutineSystemEvent());
 
 return new AdminCommandScriptResponse(
     true, // Success
-    "combat_system_reloaded" // Message
+    "agent_routine_system_reloaded" // Message
 );

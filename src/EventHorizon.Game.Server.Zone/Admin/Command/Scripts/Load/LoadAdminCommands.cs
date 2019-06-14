@@ -33,6 +33,8 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Load
                 CancellationToken cancellationToken
             )
             {
+                // Clear out any existing admin Commands
+                _adminCommandRepository.Clear();
                 // Load in Commands from App_Data/Admin/Commands folder
                 var commandDirectory = new DirectoryInfo(
                     GetAdminCommandsPath()

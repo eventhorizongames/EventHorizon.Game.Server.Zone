@@ -24,7 +24,6 @@ namespace EventHorizon.Game.Server.Zone.Core
             services
                 .AddSingleton<ISkillRepository, SkillRepository>()
                 .AddSingleton<ISkillEffectScriptRepository, SkillEffectScriptRepository>()
-                .AddSingleton<ISkillActionScriptRepository, SkillActionScriptRepository>()
                 .AddSingleton<ISkillValidatorScriptRepository, SkillValidatorScriptRepository>()
                 .AddSingleton<IEntityQueue<ChangeEntityLife>, EntityQueue<ChangeEntityLife>>()
                 .AddSingleton<IEntityQueue<EntityLevelUp>, EntityQueue<EntityLevelUp>>()

@@ -1,0 +1,32 @@
+{
+    "id": "move_to",
+    "comments": "Just for Testing",
+    "name": "Move To",
+    "description": "This moves the target to the target position.",
+    "type": "ACTIVE",
+    "target": "ENTITY",
+    "validatorList": [
+        {
+            "validator": "Validators_TargetNotCaster.csx"
+        },
+        {
+            "validator": "Validators_Agent_TargetIsCasterCompanion.csx"
+        }
+    ],
+    "effectList": [
+        {
+            "comment": "Move target to position",
+            "effect": "Effects_MoveTargetToTargetPosition.csx"
+        }
+    ],
+    "failedList": [
+        {
+            "comment": "Send a message to Caster client about why the validation failed for the Skill.",
+            "effect": "Effects_SkillValidationFailed.csx",
+            "data": {
+                "messageCode": "skill_validation_failed",
+                "messageTemplateKey": "skillFailedForReason"
+            }
+        }
+    ]
+}

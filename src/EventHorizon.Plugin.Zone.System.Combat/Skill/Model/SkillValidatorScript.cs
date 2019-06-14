@@ -16,10 +16,20 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
     public struct SkillValidatorScript
     {
         public string Id { get; set; }
-        public string ScriptFile { get; set; }
         private ScriptRunner<SkillValidatorResponse> _runner;
+        private SkillValidatorScript(
+            string id,
+            ScriptRunner<SkillValidatorResponse> runner
+        )
+        {
+            this.Id = id;
+            _runner = runner;
+        }
 
-        public void CreateScript(string scriptPath)
+        public static SkillValidatorScript CreateScript(
+            string id,
+            string scriptContent
+        )
         {
             try
             {
@@ -36,36 +46,30 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "EventHorizon.Game.Server.Zone.External.Extensions",
                         "EventHorizon.Game.Server.Zone.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
-                        // TODO: Move all subnamespace Combat Events into root Events namespace
+                        // TODO: Move these to the Script using statements
                         "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
-                using (var file = File.OpenText(this.GetFileName(scriptPath)))
-                {
-                    _runner = CSharpScript
-                        .Create<SkillValidatorResponse>(
-                            file.ReadToEnd(),
-                            scriptOptions,
-                            typeof(SkillValidatorScriptData))
-                        .CreateDelegate();
-                }
+                var runner = CSharpScript
+                    .Create<SkillValidatorResponse>(
+                        scriptContent,
+                        scriptOptions,
+                        typeof(SkillValidatorScriptData))
+                    .CreateDelegate();
+                return new SkillValidatorScript(
+                    id,
+                    runner
+                );
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException(
-                    $"Exception with {Id}",
+                    $"Exception with {id}",
                     ex
                 );
             }
-        }
-        private string GetFileName(string scriptPath)
-        {
-            return Path.Combine(
-                scriptPath,
-                ScriptFile
-            );
         }
         public async Task<SkillValidatorResponse> Run(
             IScriptServices scriptServices,

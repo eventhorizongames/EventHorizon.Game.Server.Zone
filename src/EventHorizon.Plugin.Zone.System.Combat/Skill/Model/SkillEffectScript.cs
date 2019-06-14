@@ -19,11 +19,22 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
     public struct SkillEffectScript
     {
         private readonly static IDictionary<string, object> EMPTY_STATE = new ReadOnlyDictionary<string, object>(new Dictionary<string, object>());
-        public string Id { get; set; }
-        public string ScriptFile { get; set; }
+        public string Id { get; }
         private ScriptRunner<SkillEffectScriptResponse> _runner;
 
-        public void CreateScript(string scriptPath)
+        private SkillEffectScript(
+            string id,
+            ScriptRunner<SkillEffectScriptResponse> runner
+        )
+        {
+            this.Id = id;
+            _runner = runner;
+        }
+
+        public static SkillEffectScript CreateScript(
+            string id,
+            string scriptContent
+        )
         {
             try
             {
@@ -42,37 +53,31 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         "EventHorizon.Game.Server.Zone.Agent.Ai.Move",
 
-                        // TODO: Move all subnamespace Combat Events into root Events namespace
+                        // TODO: Move these to the Script using statements
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
                         "EventHorizon.Plugin.Zone.System.Combat.Client",
                         "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
-                using (var file = File.OpenText(this.GetFileName(scriptPath)))
-                {
-                    _runner = CSharpScript
-                        .Create<SkillEffectScriptResponse>(
-                            file.ReadToEnd(),
-                            scriptOptions,
-                            typeof(SkillEffectScriptData))
-                        .CreateDelegate();
-                }
+                var runner = CSharpScript
+                    .Create<SkillEffectScriptResponse>(
+                        scriptContent,
+                        scriptOptions,
+                        typeof(SkillEffectScriptData))
+                    .CreateDelegate();
+                return new SkillEffectScript(
+                    id,
+                    runner
+                );
             }//"(16,18): error CS0656: Missing compiler required member 'Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo.Create'"
             catch (Exception ex)
             {
                 throw new InvalidOperationException(
-                    $"Exception with {Id}",
+                    $"Exception with {id}",
                     ex
                 );
             }
-        }
-        private string GetFileName(string scriptPath)
-        {
-            return Path.Combine(
-                scriptPath,
-                ScriptFile
-            );
         }
         public async Task<SkillEffectScriptResponse> Run(
             IScriptServices services,

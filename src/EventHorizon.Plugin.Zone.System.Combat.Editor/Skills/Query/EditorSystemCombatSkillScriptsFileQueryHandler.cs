@@ -6,21 +6,17 @@ using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query
 {
-    public struct EditorSystemCombatSkillScriptsFileQueryHandler : IRequestHandler<
-    EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query.EditorSystemCombatSkillScriptsFileQuery, EventHorizon.Plugin.Zone.System.Combat.Editor.Model.EditorSystemCombatSkillScriptsFile>
+    public struct EditorSystemCombatSkillScriptsFileQueryHandler : IRequestHandler<EditorSystemCombatSkillScriptsFileQuery, EditorSystemCombatSkillScriptsFile>
     {
         readonly ISkillEffectScriptRepository _effectScriptRepository;
-        readonly ISkillActionScriptRepository _actionScriptRepository;
         readonly ISkillValidatorScriptRepository _validatorScriptRepository;
 
         public EditorSystemCombatSkillScriptsFileQueryHandler(
             ISkillEffectScriptRepository effectScriptRepository,
-            ISkillActionScriptRepository actionScriptRepository,
             ISkillValidatorScriptRepository validatorScriptRepository
         )
         {
             _effectScriptRepository = effectScriptRepository;
-            _actionScriptRepository = actionScriptRepository;
             _validatorScriptRepository = validatorScriptRepository;
         }
 
@@ -32,7 +28,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query
             return Task.FromResult(
                 new EditorSystemCombatSkillScriptsFile(
                     _effectScriptRepository.All(),
-                    _actionScriptRepository.All(),
                     _validatorScriptRepository.All()
                 )
             );

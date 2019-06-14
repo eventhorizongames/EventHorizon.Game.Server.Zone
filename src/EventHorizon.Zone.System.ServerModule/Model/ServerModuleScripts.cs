@@ -6,8 +6,8 @@ namespace EventHorizon.Zone.System.ServerModule.Model
     public struct ServerModuleScripts
     {
         public string Name { get; set; }
-        public string InitializeScriptString { get; set; }
-        public string DisposeScriptString { get; set; }
-        public string UpdateScriptString { get; set; }
+        public string InitializeScript { get; set; }
+        public string DisposeScript { get; set; }
+        public string UpdateScript { get; set; }
     }
 }

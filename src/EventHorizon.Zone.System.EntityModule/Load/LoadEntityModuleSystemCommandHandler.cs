@@ -51,7 +51,7 @@ namespace EventHorizon.Zone.System.EntityModule.Load
         private string GetModulePathForType(string type)
         {
             return Path.Combine(
-                _serverInfo.AssetsPath,
+                _serverInfo.ClientPath,
                 "Modules",
                 type
             );

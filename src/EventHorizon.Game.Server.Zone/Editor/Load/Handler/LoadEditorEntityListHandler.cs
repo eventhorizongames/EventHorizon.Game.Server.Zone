@@ -23,7 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Editor.Load.Handler
         }
         public async Task<IList<EditorEntity>> Handle(LoadEditorEntityListEvent request, CancellationToken cancellationToken)
         {
-            // TODO: Move loading to a Persistence service
+            // TODO: Need to change this to load from App_Data/Client/Entity
             return (await _fileLoader.GetFile<EditorEntityStateFile>(GetAssetsFileName())).EntityList;
         }
         private string GetAssetsFileName()

@@ -21,5 +21,5 @@ await Services.Mediator.Send(new LoadSystemClientEntitiesCommand());
 
 return new AdminCommandScriptResponse(
     true, // Success
-    "gui_system_reloaded" // Message
+    "client_entities_system_reloaded" // Message
 );

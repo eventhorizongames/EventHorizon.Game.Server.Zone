@@ -44,8 +44,8 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
         private string GetEntityAssetsPath()
         {
             return Path.Combine(
-                _serverInfo.AssetsPath,
-                "Client"
+                _serverInfo.ClientPath,
+                "Assets"
             );
         }
         private async Task<IList<ClientAsset>> GetClientAssetsFromPath(

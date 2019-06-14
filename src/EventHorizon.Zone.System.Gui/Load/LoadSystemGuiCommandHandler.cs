@@ -47,7 +47,7 @@ namespace EventHorizon.Zone.System.Gui.Load
         private string GetGuiFilesPath()
         {
             return Path.Combine(
-                _serverInfo.AssetsPath,
+                _serverInfo.ClientPath,
                 "Gui"
             );
         }

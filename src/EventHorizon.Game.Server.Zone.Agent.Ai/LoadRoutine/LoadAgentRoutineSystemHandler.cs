@@ -27,10 +27,17 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.LoadRoutine
             _agentRoutineRepository = agentRoutineRepository;
         }
 
-        public async Task Handle(LoadAgentRoutineSystemEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            LoadAgentRoutineSystemEvent notification,
+            CancellationToken cancellationToken
+        )
         {
-            foreach (var routine in await GetAgentRoutineList())
+            // Get a list of files from directory
+            var directory = new DirectoryInfo(GetRoutinesPath());
+            foreach (var routineFile in directory.GetFiles())
             {
+                var routine = await _fileLoader.GetFile<AgentRoutineScript>(routineFile.FullName);
+
                 _agentRoutineRepository.Add(
                     routine.CreateScript(
                         GetRoutineScriptsPath()
@@ -41,18 +48,16 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.LoadRoutine
         private string GetRoutineScriptsPath()
         {
             return Path.Combine(
-                _serverInfo.ScriptsPath,
+                _serverInfo.ServerPath,
+                "Scripts",
                 "Routines"
             );
         }
-        private async Task<IEnumerable<AgentRoutineScript>> GetAgentRoutineList()
+        private string GetRoutinesPath()
         {
-            return (await GetAgentRoutineSystemFile()).RoutineList;
-        }
-        private Task<AgentRoutineFile> GetAgentRoutineSystemFile()
-        {
-            return _fileLoader.GetFile<AgentRoutineFile>(
-                Path.Combine(_serverInfo.SystemsPath, "System.Agent.Routine.json")
+            return Path.Combine(
+                _serverInfo.ServerPath,
+                "Routines"
             );
         }
     }

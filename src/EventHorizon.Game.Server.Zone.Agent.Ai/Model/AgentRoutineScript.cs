@@ -45,11 +45,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Model
                         "EventHorizon.Game.Server.Zone.Events.Path",
                         "EventHorizon.Game.Server.Zone.Agent.Events",
                         "EventHorizon.Game.Server.Zone.Agent.Model",
-                        "EventHorizon.Game.Server.Zone.Agent.Move",
-
-                        // TODO: Move all subnamespace Agent AI Events into root Events namespace
-                        "EventHorizon.Game.Server.Zone.Agent.Ai.Model",
-                        "EventHorizon.Game.Server.Zone.Agent.Ai.Move"
+                        "EventHorizon.Game.Server.Zone.Agent.Move"
                     );
 
                 using (var file = File.OpenText(this.GetFileName(scriptPath)))

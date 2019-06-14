@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,17 +18,29 @@ namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
         {
             _serverInfo = serverInfo;
         }
-        public async Task<EditorScriptFileContent> Handle(GetScriptFileContentEvent request, CancellationToken cancellationToken)
+        public async Task<EditorScriptFileContent> Handle(
+            GetScriptFileContentEvent request,
+            CancellationToken cancellationToken
+        )
         {
+            var directoriesToCombine = new List<string>();
+            directoriesToCombine.Add(
+                _serverInfo.AppDataPath
+            );
+            directoriesToCombine.AddRange(
+                request.Directory
+            );
+            directoriesToCombine.Add(
+                request.FileName
+            );
+
             return new EditorScriptFileContent
             {
                 FileDirectory = request.Directory,
                 FileName = request.FileName,
                 Content = await File.ReadAllTextAsync(
                     IOPath.Combine(
-                        _serverInfo.ScriptsPath,
-                        request.Directory,
-                        request.FileName
+                        directoriesToCombine.ToArray()
                     )
                 )
             };

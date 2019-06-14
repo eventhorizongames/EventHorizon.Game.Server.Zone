@@ -25,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Loader
                 "key1", "value1"
             }};
 
-            var assetsPath = "/path/to/assets/folder";
+            var i18nPath = "/path/to/assets/folder";
             var localeFileName = "file.json";
             var fileList = new List<string>()
             {
@@ -38,14 +38,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Loader
             };
 
             var serverInfoMock = new Mock<ServerInfo>();
-            serverInfoMock.Setup(a => a.AssetsPath).Returns(assetsPath);
+            serverInfoMock.Setup(a => a.I18nPath).Returns(i18nPath);
             var directoryResolverMock = new Mock<DirectoryResolver>();
             directoryResolverMock.Setup(
                 a => a.GetFiles(
-                    System.IO.Path.Combine(
-                        assetsPath,
-                        "I18n"
-                    )
+                    i18nPath
                 )
             ).Returns(fileList);
             var jsonFileLoaderMock = new Mock<IJsonFileLoader>();

@@ -9,6 +9,7 @@ using MediatR;
 using Moq;
 using Xunit;
 using System.Numerics;
+using System.IO;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
 {
@@ -40,17 +41,25 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             var targetPosition = new Vector3(1, 0, 1);
 
             //When
-            var effectScript = new SkillEffectScript
-            {
-                ScriptFile = "FreezeCaster.csx"
-            };
-            effectScript.CreateScript(
-                System.IO.Path.Combine(
-                    "Combat",
-                    "Skill",
-                    "Model"
+            var effectScript = SkillEffectScript.CreateScript(
+                "some-id",
+                File.ReadAllText(
+                    
+                    System.IO.Path.Combine(
+                        "Combat",
+                        "Skill",
+                        "Model",
+                        "FreezeCaster.csx"
+                    )
                 )
             );
+            // effectScript.CreateScript(
+            //     System.IO.Path.Combine(
+            //         "Combat",
+            //         "Skill",
+            //         "Model"
+            //     )
+            // );
             var actual = await effectScript.Run(
                 scriptServicesMock.Object,
                 casterMock.Object,

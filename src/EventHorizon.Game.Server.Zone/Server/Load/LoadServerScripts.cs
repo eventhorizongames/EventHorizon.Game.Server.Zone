@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Server.State;
+using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.Server.Model;
 using MediatR;
@@ -30,7 +31,10 @@ namespace EventHorizon.Game.Server.Zone.Server.Load
                 this.LoadFromDirectoryInfo(
                     GetClientScriptsPath() + IOPath.DirectorySeparatorChar,
                     new DirectoryInfo(
-                        GetClientScriptsPath()
+                        IOPath.Combine(
+                            GetClientScriptsPath(),
+                            "Admin"
+                        )
                     )
                 );
 
@@ -74,8 +78,7 @@ namespace EventHorizon.Game.Server.Zone.Server.Load
                                 new ServerScript.ServerScriptDetails
                                 {
                                     FileName = fileInfo.Name,
-                                    Path = MakeRelativePath(
-                                        scriptsPath,
+                                    Path = scriptsPath.MakePathRelative(
                                         fileInfo.DirectoryName
                                     ),
                                     ScriptString = file.ReadToEnd()
@@ -85,41 +88,6 @@ namespace EventHorizon.Game.Server.Zone.Server.Load
                     }
                 }
             }
-
-            public static string MakeRelativePath(
-                string fromPath,
-                string toPath
-            )
-            {
-                if (string.IsNullOrEmpty(fromPath)) throw new ArgumentNullException("fromPath");
-                if (string.IsNullOrEmpty(toPath)) throw new ArgumentNullException("toPath");
-
-                var fromUri = new Uri(fromPath);
-                var toUri = new Uri(toPath);
-
-                if (fromUri.Scheme != toUri.Scheme) { return toPath; } // path can't be made relative.
-
-                var relativeUri = fromUri.MakeRelativeUri(
-                    toUri
-                );
-                var relativePath = Uri.UnescapeDataString(
-                    relativeUri.ToString()
-                );
-
-                if (toUri.Scheme.Equals(
-                    "file",
-                    StringComparison.InvariantCultureIgnoreCase
-                ))
-                {
-                    relativePath = relativePath.Replace(
-                        IOPath.AltDirectorySeparatorChar,
-                        IOPath.DirectorySeparatorChar
-                    );
-                }
-
-                return relativePath;
-            }
-
 
             private string GetClientScriptsPath()
             {

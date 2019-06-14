@@ -21,5 +21,5 @@ await Services.Mediator.Publish(new LoadClientScriptsSystemCommand());
 
 return new AdminCommandScriptResponse(
     true, // Success
-    "gui_system_reloaded" // Message
+    "client_scripts_system_reloaded" // Message
 );

@@ -8,7 +8,6 @@ using EventHorizon.Game.Server.Zone.Info.Model;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;
-using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.State;
 using EventHorizon.Performance;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
@@ -65,9 +64,6 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     ),
                     ParticleTemplateList = await _mediator.Send(
                         new FetchAllParticleTemplateListEvent()
-                    ),
-                    SkillActionScriptList = await _mediator.Send(
-                        new FetchAllSkillActionScriptListEvent()
                     ),
                     ServerModuleScriptList = await _mediator.Send(
                         new FetchServerModuleScriptListEvent()
