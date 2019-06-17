@@ -1,0 +1,40 @@
+{
+    "comments": "This is the behavior tree for following any nearby players",
+    "name": "Follow Player",
+    "description": "",
+    "root": {
+        "type": "PRIORITY_SELECTOR",
+        "nodeList": [
+            {
+                "type": "CONCURRENT_SELECTOR",
+                "failGate": 1,
+                "nodeList": [
+                    {
+                        "type": "CONDITION",
+                        "fire": "Behavior_Condition_LookForPlayer.csx"
+                    },
+                    {
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_FollowPlayer.csx"
+                    }
+                ]
+            },
+            {
+                "type": "SEQUENCE_SELECTOR",
+                "nodeList": [
+                    {
+                        "comments": "This will return a action to populate the Agents move to path.",
+                        "comments2": "If the path is filled it will",
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_FindNewMoveLocation.csx"
+                    },
+                    {
+                        "comments": "This will will return a differed state of Actor movement.",
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_MoveToLocation.csx"
+                    }
+                ]
+            }
+        ]
+    }
+}

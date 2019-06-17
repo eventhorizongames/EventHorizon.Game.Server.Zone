@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Mediatr" Version="5.1.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.10.0" />
+        <!-- <PackageReference Include="Microsoft.CSharp" Version="4.5.0" /> -->
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
+        
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
+    </ItemGroup>
+
+</Project>

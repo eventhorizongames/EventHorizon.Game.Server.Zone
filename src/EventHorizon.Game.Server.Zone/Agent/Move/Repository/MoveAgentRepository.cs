@@ -20,8 +20,13 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl
 
         public void Remove(long entityId)
         {
-            long removeId;
-            ENTITIES.TryRemove(entityId, out removeId);
+            ENTITIES.TryRemove(entityId, out _);
         }
+
+        public bool Contains(
+            long entityId
+        ) => ENTITIES.ContainsKey(
+            entityId
+        );
     }
 }

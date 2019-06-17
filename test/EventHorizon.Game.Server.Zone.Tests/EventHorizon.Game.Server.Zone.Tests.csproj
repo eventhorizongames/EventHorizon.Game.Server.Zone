@@ -8,6 +8,7 @@
   
   <ItemGroup>
     <Content Include="**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    <Content Include="**\*.json" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,6 +12,20 @@ namespace EventHorizon.Game.Server.Zone.Agent.PopulateData.Handler
         {
             var agent = request.Agent;
 
+            agent.PopulateData<AgentBehavior>(
+                AgentBehavior.PROPERTY_NAME
+            );
+            var behavior = agent.GetProperty<AgentBehavior>(
+                AgentBehavior.PROPERTY_NAME
+            );
+            if (behavior.TreeId == null)
+            {
+                agent.SetProperty(
+                    AgentBehavior.PROPERTY_NAME,
+                    AgentBehavior.NEW
+                );
+            }
+
             // Move these to a Repository, and have them populated from plugins.
             agent.PopulateData<AgentRoutine>(AgentRoutine.ROUTINE_NAME);
             agent.PopulateData<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);

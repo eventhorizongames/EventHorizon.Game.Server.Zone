@@ -63,6 +63,7 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                 await RemoveAgent(entityId);
                 return;
             }
+
             // TODO: Create Position update logic service
             var newPosition = agent.Position;
             newPosition.CurrentPosition = agent.Position.MoveToPosition;

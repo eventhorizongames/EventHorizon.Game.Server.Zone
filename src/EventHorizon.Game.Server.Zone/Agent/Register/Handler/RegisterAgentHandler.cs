@@ -31,6 +31,15 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
                 return agent;
             }
 
+            // await _mediator.Send(
+            //     new RegisterActorWithBehaviorTreeUpdate(
+            //         agent.Id,
+            //         agent.GetProperty<AgentBehavior>(
+            //             AgentBehavior.PROPERTY_NAME
+            //         ).TreeId
+            //     )
+            // );
+
             var defaultRoutine = agent.GetProperty<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
             agent.SetProperty(AgentRoutine.ROUTINE_NAME, defaultRoutine);
             await _agentRepository.Update(AgentAction.ROUTINE, agent);

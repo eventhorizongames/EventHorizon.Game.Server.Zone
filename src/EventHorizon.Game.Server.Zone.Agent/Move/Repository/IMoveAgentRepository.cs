@@ -7,5 +7,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository
         IEnumerable<long> All();
         void Add(long entityId);
         void Remove(long entityId);
+        bool Contains(
+            long entityId
+        );
     }
 }

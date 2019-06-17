@@ -1,0 +1,23 @@
+{
+    "comments": "This is the behavior tree for following any nearby players",
+    "name": "Follow Player",
+    "description": "",
+    "root": {
+        "type": "PRIORITY_SELECTOR",
+        "nodeList": [
+            {
+                "type": "CONCURRENT_SELECTOR",
+                "nodeList": [
+                    {
+                        "type": "CONDITION",
+                        "script": "Behavior_Condition_PlayerFound.csx"
+                    },
+                    {
+                        "type": "BEHAVIOR",
+                        "script": "Behaviors_GoToPlayer.csx"
+                    }
+                ]
+            }
+        ]
+    }
+}
