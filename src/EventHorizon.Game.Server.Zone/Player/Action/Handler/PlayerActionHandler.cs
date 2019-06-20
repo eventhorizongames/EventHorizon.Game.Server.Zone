@@ -1,19 +1,13 @@
-using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
+using Newtonsoft.Json.Linq;
 using EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill;
-using EventHorizon.Game.Server.Zone.Entity.Find;
 using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.Player.Actions.Testing.MoveEntity;
-using EventHorizon.Game.Server.Zone.Player.State;
-using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Runner;
-using MediatR;
-using Newtonsoft.Json.Linq;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
 {
@@ -23,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
         readonly IPlayerRepository _playerRepository;
 
         public PlayerActionHandler(
-            IMediator mediator, 
+            IMediator mediator,
             IPlayerRepository playerRepository
         )
         {
@@ -31,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
             _playerRepository = playerRepository;
         }
         public async Task Handle(
-            PlayerActionEvent notification, 
+            PlayerActionEvent notification,
             CancellationToken cancellationToken
         )
         {
@@ -70,14 +64,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                             parsedCompanionObject.targetPosition
                         )
                     );
-                    break;
-                // TODO: Test Action, Remove in future.
-                case PlayerActions.TESTING_PATH_ENTITY_TO_PLAYER:
-                    await _mediator.Publish(new MoveEntityToPositionEvent
-                    {
-                        Position = player.Position.CurrentPosition,
-                        EntityId = notification.Data
-                    });
                     break;
 
             }

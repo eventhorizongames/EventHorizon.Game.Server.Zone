@@ -1,17 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Ai;
-using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
-using EventHorizon.Game.Server.Zone.Client;
-using EventHorizon.Game.Server.Zone.Core.Model;
-using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -60,10 +51,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
                         {
                             _logger.LogError(ex, "{EntityId} failed to Move.", entityId);
                             _moveRepository.Remove(entityId);
-                            await mediator.Publish(new RunAgentDefaultRoutineEvent
-                            {
-                                EntityId = entityId
-                            });
                         }
                     }
                 });

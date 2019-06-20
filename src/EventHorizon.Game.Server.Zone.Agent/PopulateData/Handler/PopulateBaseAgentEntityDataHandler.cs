@@ -26,10 +26,6 @@ namespace EventHorizon.Game.Server.Zone.Agent.PopulateData.Handler
                 );
             }
 
-            // Move these to a Repository, and have them populated from plugins.
-            agent.PopulateData<AgentRoutine>(AgentRoutine.ROUTINE_NAME);
-            agent.PopulateData<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
-
             return Task.CompletedTask;
         }
     }

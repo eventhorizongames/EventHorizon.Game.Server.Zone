@@ -1,5 +1,5 @@
 /// <summary>
-/// Name: Routine_Action_MoveToLocation.csx
+/// Name: Behavior_Action_MoveToLocation.csx
 /// 
 /// This script will move the Actor to the specified location
 /// 
@@ -29,7 +29,7 @@ var isAgentMoving = await Services.Mediator.Send(
     )
 );
 
-// In not running startup new Move Routine from MoveTo data in Action
+// In not running startup new Move Behavior from MoveTo data in Action
 if (!isAgentMoving)
 {
     var toPosition = Actor.GetProperty<Vector3>("ActorMoveToPostion");
@@ -39,9 +39,9 @@ if (!isAgentMoving)
             BehaviorNodeStatus.SUCCESS
         );
     }
-    Services.Mediator.Publish(new StartAgentMoveRoutineEvent
+    Services.Mediator.Send(new MoveAgentToPosition
     {
-        EntityId = Actor.Id,
+        AgentId = Actor.Id,
         ToPosition = toPosition
     }).ConfigureAwait(false);
 

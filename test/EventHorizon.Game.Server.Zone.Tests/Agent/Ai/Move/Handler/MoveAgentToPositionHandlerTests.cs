@@ -2,23 +2,20 @@ using Xunit;
 using Moq;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Get;
-using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler;
-using EventHorizon.Game.Server.Zone.Path.Find;
 using EventHorizon.Game.Server.Zone.Agent.Move;
-using EventHorizon.Game.Server.Zone.Agent.Ai;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Path;
-using EventHorizon.Game.Server.Zone.Agent.Events;
+using static EventHorizon.Game.Server.Zone.Agent.Ai.Move.MoveAgentToPosition;
+using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
 {
-    public class StartAgentMoveRoutineHandlerTest
+    public class MoveAgentToPositionHandlerTest
     {
         [Fact]
         public async Task TestHandle_ShouldCallExpectedEvents()
@@ -50,11 +47,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
                 .ReturnsAsync(expectedAgent);
             mediatorMock.Setup(mediator => mediator.Send(inputFindPathEvent, CancellationToken.None))
                 .ReturnsAsync(expectedPath);
-            var handler = new StartAgentMoveRoutineHandler(mediatorMock.Object);
+            var handler = new MoveAgentToPositionHandler(mediatorMock.Object);
             // When
-            await handler.Handle(new StartAgentMoveRoutineEvent
+            await handler.Handle(new MoveAgentToPosition
             {
-                EntityId = inputId,
+                AgentId = inputId,
                 ToPosition = inputToPosition
             }, CancellationToken.None);
             // Then
@@ -78,14 +75,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
                 {
                     EntityId = inputId,
                     Path = expectedPath
-                },
-                It.IsAny<CancellationToken>()
-            ));
-            mediatorMock.Verify(mediator => mediator.Publish(
-                new SetAgentRoutineEvent
-                {
-                    EntityId = inputId,
-                    Routine = AgentRoutine.MOVE
                 },
                 It.IsAny<CancellationToken>()
             ));

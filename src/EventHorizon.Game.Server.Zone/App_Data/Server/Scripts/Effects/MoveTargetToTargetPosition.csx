@@ -9,9 +9,9 @@
 /// Services: { Mediator: IMediator; I18n: I18nLookup; }
 /// </summary>
 
-await Services.Mediator.Publish(new StartAgentMoveRoutineEvent
+await Services.Mediator.Send(new MoveAgentToPosition
 {
-    EntityId = Target.Id,
+    AgentId = Target.Id,
     ToPosition = TargetPosition
 });
 

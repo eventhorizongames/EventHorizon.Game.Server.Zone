@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.PopulateData;
 using EventHorizon.Game.Server.Zone.Entity.Register;

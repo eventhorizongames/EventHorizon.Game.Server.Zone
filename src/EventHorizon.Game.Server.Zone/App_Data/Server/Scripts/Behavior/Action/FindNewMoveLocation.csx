@@ -1,5 +1,5 @@
 /// <summary>
-/// Name: Routine_Action_FindNewMoveLocation.csx
+/// Name: Behavior_Action_FindNewMoveLocation.csx
 /// 
 /// This script should check the state of the 
 /// 

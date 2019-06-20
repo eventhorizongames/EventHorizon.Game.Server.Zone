@@ -9,7 +9,6 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Zone.System.Agent.Behavior.Register;
 
@@ -118,7 +117,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             // Then
             Assert.False(actual.IsFound());
             agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), CancellationToken.None), Times.Never());
         }
         [Fact]
         public async Task TestHandle_ShouldReturnNotFoundAgentWhenAgentEntityIsNotFoundInRepository()
@@ -167,7 +166,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             // Then
             Assert.False(actual.IsFound());
             agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<StartAgentRoutineEvent>(), CancellationToken.None), Times.Never());
+            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), CancellationToken.None), Times.Never());
         }
     }
 }
