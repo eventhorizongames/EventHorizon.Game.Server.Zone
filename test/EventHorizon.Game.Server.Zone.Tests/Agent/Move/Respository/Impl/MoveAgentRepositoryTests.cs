@@ -1,6 +1,7 @@
 using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
+using EventHorizon.Performance;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Respository.Impl
 {

@@ -20,20 +20,24 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
         }
 
         public BehaviorNode(
-            SerializedBehaviorNode serailzed
+            SerializedBehaviorNode serailzedNode
         )
         {
+            if (serailzedNode == null)
+            {
+                throw new ArgumentException("BehaviorNode requires a valid SerializedBehaviorNode", "serailzedNode");
+            }
             this.Token = Guid.NewGuid().GetHashCode();
             this.Type = BehaviorNodeType.Parse(
-                serailzed.Type
+                serailzedNode.Type
             );
-            this.Status = serailzed.Status;
-            this.Fire = serailzed.Fire;
-            this.FailGate = serailzed.FailGate;
+            this.Status = serailzedNode.Status;
+            this.Fire = serailzedNode.Fire;
+            this.FailGate = serailzedNode.FailGate;
             this.NodeList = new List<BehaviorNode>();
-            if (serailzed.NodeList != null)
+            if (serailzedNode.NodeList != null)
             {
-                this.NodeList = serailzed.NodeList
+                this.NodeList = serailzedNode.NodeList
                     .Select(
                         node => new BehaviorNode(
                             node

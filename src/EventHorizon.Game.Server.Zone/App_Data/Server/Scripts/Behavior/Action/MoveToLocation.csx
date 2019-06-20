@@ -18,6 +18,9 @@
 
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Move;
+using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
+using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Behavior.Model;
 
 // Check for Actor already moving
 var isAgentMoving = await Services.Mediator.Send(
@@ -36,16 +39,16 @@ if (!isAgentMoving)
             BehaviorNodeStatus.SUCCESS
         );
     }
-    await Services.Mediator.Publish(new StartAgentMoveRoutineEvent
+    Services.Mediator.Publish(new StartAgentMoveRoutineEvent
     {
         EntityId = Actor.Id,
         ToPosition = toPosition
-    });
+    }).ConfigureAwait(false);
 
     // Set the ActorMoveToPostion to null, 
     //  this way when next update comes through it will be a 
     //  SUCCESS if agent is not moving.
-    Actor.SetProperty<Vector3>(
+    Actor.SetProperty<string>(
         "ActorMoveToPostion",
         null
     );

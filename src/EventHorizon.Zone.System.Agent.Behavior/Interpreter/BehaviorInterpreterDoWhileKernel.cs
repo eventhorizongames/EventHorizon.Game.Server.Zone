@@ -17,7 +17,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreter
             _interpreterMap = interpreterMap;
         }
         public async Task<BehaviorTreeState> Tick(
-            AgentBehaviorTreeShape shape,
+            ActorBehaviorTreeShape shape,
             IObjectEntity actor
         )
         {
@@ -36,7 +36,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreter
                     treeState
                 );
 
-                // TODO: Check timming of current loop. If over timeout, stash Actor state for future.
+                // TODO: Check timing of current loop. If over timeout, stash Actor state for future.
             } while (treeState.ContainsNext);
             return treeState;
         }

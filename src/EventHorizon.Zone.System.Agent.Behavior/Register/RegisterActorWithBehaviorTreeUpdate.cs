@@ -1,8 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.System.Agent.Behavior.Api;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Behavior.Register
+namespace EventHorizon.Zone.System.Agent.Behavior.Register
 {
     public struct RegisterActorWithBehaviorTreeUpdate : IRequest
     {
@@ -20,11 +21,22 @@ namespace EventHorizon.Game.Server.Zone.Agent.Behavior.Register
 
         public struct RegisterActorWithBehaviorTreeUpdateHandler : IRequestHandler<RegisterActorWithBehaviorTreeUpdate>
         {
+            readonly ActorBehaviorTreeRepository _repository;
+            public RegisterActorWithBehaviorTreeUpdateHandler(
+                ActorBehaviorTreeRepository repository
+            )
+            {
+                _repository = repository;
+            }
             public Task<Unit> Handle(
                 RegisterActorWithBehaviorTreeUpdate request,
                 CancellationToken cancellationToken
             )
             {
+                _repository.RegisterActorToTree(
+                    request.ActorId,
+                    request.TreeId
+                );
                 return Unit.Task;
             }
         }

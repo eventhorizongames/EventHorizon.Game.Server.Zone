@@ -1,8 +1,10 @@
+using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Behavior.Interpreter;
 using EventHorizon.Zone.System.Agent.Behavior.Interpreters;
 using EventHorizon.Zone.System.Agent.Behavior.Load;
 using EventHorizon.Zone.System.Agent.Behavior.State;
+using EventHorizon.Zone.System.Agent.Behavior.Timer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,10 +16,16 @@ namespace EventHorizon.Game.Server.Zone.Core
         public static void AddSystemAgentBehavior(this IServiceCollection services)
         {
             services
-                .AddSingleton<AgentBehaviorScriptRepository, InMemoryAgentBehaviorScriptRepository>()
-                .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>()
+                .AddSingleton<ITimerTask, BehaviorTreeUpdateTriggerTimerTask>()
+
+                .AddSingleton<ActorBehaviorScriptRepository, InMemoryActorBehaviorScriptRepository>()
+                .AddSingleton<ActorBehaviorTreeRepository, InMemoryActorBehaviorTreeRepository>()
+
+                .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>()
                 .AddSingleton<BehaviorInterpreterKernel, BehaviorInterpreterDoWhileKernel>()
-                .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>();
+
+                .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>();
+
         }
         public static void UseSystemAgentBehavior(this IApplicationBuilder app)
         {
@@ -25,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             {
                 serviceScope.ServiceProvider.GetService<IMediator>()
                     .Send(
-                        new LoadAgentBehaviorSystemEvent()
+                        new LoadAgentBehaviorSystem()
                     ).GetAwaiter(
                     ).GetResult();
             }

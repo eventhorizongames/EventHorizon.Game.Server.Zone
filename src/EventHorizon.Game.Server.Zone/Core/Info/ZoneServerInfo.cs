@@ -7,6 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
     public class ZoneServerInfo : ServerInfo
     {
         public string AppDataPath { get; }
+        public string SystemPath { get; }
         public string AdminPath { get; }
         public string PluginsPath { get; }
         public string I18nPath { get; }
@@ -21,6 +22,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
         )
         {
             AppDataPath = GenerateAppDataPath(hostingEnvironment);
+            SystemPath = GenerateSystemPathPath(hostingEnvironment);
             AdminPath = GenerateAdminPath(hostingEnvironment);
             PluginsPath = GeneratePluginsPath(hostingEnvironment);
             I18nPath = GenerateI18nPath(hostingEnvironment);
@@ -36,6 +38,14 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data"
+            );
+        }
+        private string GenerateSystemPathPath(IHostingEnvironment hostingEnvironment)
+        {
+            return IOPath.Combine(
+                hostingEnvironment.ContentRootPath,
+                "App_Data",
+                "System"
             );
         }
         private string GenerateAdminPath(IHostingEnvironment hostingEnvironment)

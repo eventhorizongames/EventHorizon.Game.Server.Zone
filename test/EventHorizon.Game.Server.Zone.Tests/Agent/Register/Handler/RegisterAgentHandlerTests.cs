@@ -1,7 +1,6 @@
 using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Ai;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Game.Server.Zone.Agent.Register.Handler;
 using MediatR;
@@ -9,10 +8,10 @@ using EventHorizon.Game.Server.Zone.State.Repository;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
-using System.Dynamic;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Agent.Events;
 using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.System.Agent.Behavior.Register;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -23,8 +22,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
         {
             // Given
             var entityId = 123;
-            var inputRoutine = AgentRoutine.IDLE;
+            var treeId = "tree-id";
             var inputAgent = new AgentEntity();
+            var inputAgentBehavior = new AgentBehavior();
+            inputAgentBehavior.TreeId = treeId;
 
             var expectedAgent = new AgentEntity
             {
@@ -32,30 +33,33 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 RawData = new Dictionary<string, object>()
                 {
                     {
-                        AgentRoutine.ROUTINE_NAME,
-                        inputRoutine
-                    },
-                    {
-                        AgentRoutine.DEFAULT_ROUTINE_NAME,
-                        inputRoutine
+                        AgentBehavior.PROPERTY_NAME,
+                        inputAgentBehavior
                     }
                 }
             };
-            expectedAgent.PopulateData<AgentRoutine>(AgentRoutine.ROUTINE_NAME);
-            expectedAgent.PopulateData<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
+            expectedAgent.PopulateData<AgentBehavior>(
+                AgentBehavior.PROPERTY_NAME
+            );
 
             var expectedRegisterEntityEvent = new RegisterEntityEvent
             {
                 Entity = inputAgent
             };
-            var expectedStartAgentRoutineEvent = new StartAgentRoutineEvent
-            {
-                Routine = inputRoutine,
-                EntityId = entityId
-            };
+            var expectedRegisterActorWithBehaviorTreeUpdate = new RegisterActorWithBehaviorTreeUpdate(
+                entityId,
+                treeId
+            );
 
             var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None)).ReturnsAsync(expectedAgent);
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    expectedRegisterEntityEvent,
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
             agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(entityId)).ReturnsAsync(expectedAgent);
 
@@ -73,10 +77,23 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             Assert.True(actual.IsFound());
             Assert.Equal(expectedAgent, actual);
 
-            mediatorMock.Verify(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None));
-            agentRepositoryMock.Verify(agentRepository => agentRepository.FindById(entityId));
-            agentRepositoryMock.Verify(agentRepository => agentRepository.Update(AgentAction.ROUTINE, expectedAgent));
-            mediatorMock.Verify(mediator => mediator.Publish(expectedStartAgentRoutineEvent, CancellationToken.None));
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    expectedRegisterEntityEvent,
+                    CancellationToken.None
+                )
+            );
+            agentRepositoryMock.Verify(
+                agentRepository => agentRepository.FindById(
+                    entityId
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    expectedRegisterActorWithBehaviorTreeUpdate,
+                    CancellationToken.None
+                )
+            );
         }
         [Fact]
         public async Task TestHandle_ShouldReturnNotFoundAgentWhenRegisterEntityEventFailed()
@@ -120,9 +137,22 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             };
 
             var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(mediator => mediator.Send(expectedRegisterEntityEvent, CancellationToken.None)).ReturnsAsync(expectedAgent);
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    expectedRegisterEntityEvent,
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(inputId)).ReturnsAsync(AgentEntity.CreateNotFound());
+            agentRepositoryMock.Setup(
+                agentRepository => agentRepository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                AgentEntity.CreateNotFound()
+            );
 
             // When
             var registerAgentHandler = new RegisterAgentHandler(

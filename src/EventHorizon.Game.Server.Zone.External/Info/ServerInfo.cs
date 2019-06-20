@@ -2,6 +2,7 @@ namespace EventHorizon.Game.Server.Zone.External.Info
 {
     public interface ServerInfo
     {
+        string SystemPath { get; }
         string AppDataPath { get; }
         string PluginsPath { get; }
         string I18nPath { get; }

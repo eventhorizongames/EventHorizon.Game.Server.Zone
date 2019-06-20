@@ -1,60 +1,61 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-    <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-    <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
-  </ItemGroup> 
+    <ItemGroup>
+        <Folder Include="wwwroot\" />
+        <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+        <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="EventHorizon.Game.Server.Zone.Plugin" Version="0.1.4" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.3" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.6.0" />
-    
-    <PackageReference Include="MediatR" Version="5.1.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.0.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
+    <ItemGroup>
+        <PackageReference Include="EventHorizon.Game.Server.Zone.Plugin" Version="0.1.4" />
+        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.3" />
+        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.6.0" />
 
-    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
-    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
-    <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="7.1.0" />
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
-  </ItemGroup>
+        <PackageReference Include="MediatR" Version="5.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.0.3" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
 
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
-  </ItemGroup>
+        <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+        <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="7.1.0" />
+        <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Events\EventHorizon.Game.Server.Zone.Events.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
-    
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
-    <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Companion\EventHorizon.Game.Server.Zone.Agent.Companion.csproj" />
+    <ItemGroup>
+        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
+    </ItemGroup>
 
-    <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
-    <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Behavior\EventHorizon.Zone.System.Agent.Behavior.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Model\EventHorizon.Plugin.Zone.System.Model.csproj" />
-    <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat\EventHorizon.Plugin.Zone.System.Combat.csproj" />
-    <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat.Editor\EventHorizon.Plugin.Zone.System.Combat.Editor.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Events\EventHorizon.Game.Server.Zone.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
+        <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Companion\EventHorizon.Game.Server.Zone.Agent.Companion.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Behavior\EventHorizon.Zone.System.Agent.Behavior.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Model\EventHorizon.Plugin.Zone.System.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat\EventHorizon.Plugin.Zone.System.Combat.csproj" />
+        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat.Editor\EventHorizon.Plugin.Zone.System.Combat.Editor.csproj" />
+    </ItemGroup>
 
 </Project>

@@ -4,9 +4,13 @@ using EventHorizon.Zone.System.Agent.Behavior.Script;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.State
 {
-    public class InMemoryAgentBehaviorScriptRepository : AgentBehaviorScriptRepository
+    public class InMemoryActorBehaviorScriptRepository : ActorBehaviorScriptRepository
     {
         private static readonly ConcurrentDictionary<string, BehaviorScript> SCRIPT_MAP = new ConcurrentDictionary<string, BehaviorScript>();
+        public void Clear()
+        {
+            SCRIPT_MAP.Clear();
+        }
         public void Add(
             BehaviorScript script
         )

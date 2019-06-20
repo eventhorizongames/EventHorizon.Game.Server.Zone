@@ -17,6 +17,9 @@ using MediatR;
 using System.Threading;
 using EventHorizon.Zone.System.Agent.Behavior.Script.Run;
 using EventHorizon.Zone.System.Agent.Behavior.Script;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using EventHorizon.Performance;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
 {
@@ -28,6 +31,33 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             testOutputHelper
         )
         { }
+
+        private Mock<IServiceScopeFactory> SetupServiceScopeFactoryWithMediatorMock(
+            Mock<IMediator> mediatorMock
+        )
+        {
+            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
+            var serviceScopeMock = new Mock<IServiceScope>();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            serviceScopeFactoryMock.Setup(
+                scopeFactory => scopeFactory.CreateScope()
+            ).Returns(
+                serviceScopeMock.Object
+            );
+            serviceScopeMock.SetupGet(
+                serviceScope => serviceScope.ServiceProvider
+            ).Returns(
+                serviceProviderMock.Object
+            );
+            serviceProviderMock.Setup(
+                serviceProvider => serviceProvider.GetService(
+                    typeof(IMediator)
+                )
+            ).Returns(
+                mediatorMock.Object
+            );
+            return serviceScopeFactoryMock;
+        }
 
         [Fact]
         public async Task AllNodesShouldHaveSuccessStatus()
@@ -50,7 +80,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             The Tree Shape is an represtation of the BT,
                 this is static and helps with the navigation of the tree
                 by the Interpreter. */
-            var treeShape = new AgentBehaviorTreeShape(
+            var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
 
@@ -60,7 +90,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var actor = new DefaultEntity();
 
             // Setup Infrastructure mock
+            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
+            var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
+                mediatorMock
+            );
             mediatorMock.Setup(
                 mediator => mediator.Send(
                     It.IsAny<RunBehaviorScript>(),
@@ -76,7 +110,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        mediatorMock.Object
+                        loggerMock.Object,
+                        serviceScopeFactoryMock.Object
                     )
                 )
             );
@@ -124,7 +159,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             The Tree Shape is an represtation of the BT,
                 this is static and helps with the navigation of the tree
                 by the Interpreter. */
-            var treeShape = new AgentBehaviorTreeShape(
+            var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
 
@@ -134,7 +169,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var actor = new DefaultEntity();
 
             // Setup Infrastructure mock
+            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
+            var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
+                mediatorMock
+            );
             mediatorMock.Setup(
                 mediator => mediator.Send(
                     It.IsAny<RunBehaviorScript>(),
@@ -150,7 +189,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        mediatorMock.Object
+                        loggerMock.Object,
+                        serviceScopeFactoryMock.Object
                     )
                 )
             );
@@ -206,7 +246,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             The Tree Shape is an represtation of the BT,
                 this is static and helps with the navigation of the tree
                 by the Interpreter. */
-            var treeShape = new AgentBehaviorTreeShape(
+            var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
 
@@ -223,7 +263,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
 
 
             // Setup Infrastructure mock
+            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
+            var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
+                mediatorMock
+            );
             mediatorMock.Setup(
                 mediator => mediator.Send(
                     It.IsAny<RunBehaviorScript>(),
@@ -240,7 +284,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        mediatorMock.Object
+                        loggerMock.Object,
+                        serviceScopeFactoryMock.Object
                     )
                 )
             );

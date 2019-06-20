@@ -5,25 +5,25 @@ using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Behavior.Script.Builder;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Load
 {
-    public struct LoadAgentBehaviorSystemEvent : IRequest
+    public struct LoadActorBehaviorScripts : IRequest
     {
-        public struct LoadServerModuleSystemHandler : IRequestHandler<LoadAgentBehaviorSystemEvent>
+        public struct LoadActorBehaviorScriptsHandler : IRequestHandler<LoadActorBehaviorScripts>
         {
             readonly IMediator _mediator;
             readonly ServerInfo _serverInfo;
             readonly IJsonFileLoader _fileLoader;
-            readonly AgentBehaviorScriptRepository _agentBehaviorScriptRepository;
+            readonly ActorBehaviorScriptRepository _agentBehaviorScriptRepository;
 
-            public LoadServerModuleSystemHandler(
+            public LoadActorBehaviorScriptsHandler(
                 IMediator mediator,
                 ServerInfo serverInfo,
                 IJsonFileLoader fileLoader,
-                AgentBehaviorScriptRepository agentBehaviorScriptRepository
+                ActorBehaviorScriptRepository agentBehaviorScriptRepository
             )
             {
                 _mediator = mediator;
@@ -32,12 +32,13 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Load
                 _agentBehaviorScriptRepository = agentBehaviorScriptRepository;
             }
 
-            public Task<Unit> Handle(
-                LoadAgentBehaviorSystemEvent notification,
+            public async Task<Unit> Handle(
+                LoadActorBehaviorScripts request,
                 CancellationToken cancellationToken
             )
             {
-                this.LoadFromDirectoryInfo(
+                _agentBehaviorScriptRepository.Clear();
+                await this.LoadFromDirectoryInfo(
                     Path.Combine(
                         _serverInfo.ServerPath,
                         "Scripts"
@@ -51,10 +52,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Load
                     )
                 );
 
-                return Unit.Task;
+                return Unit.Value;
             }
 
-            private void LoadFromDirectoryInfo(
+            private async Task LoadFromDirectoryInfo(
                 string scriptsPath,
                 DirectoryInfo directoryInfo
             )
@@ -63,33 +64,43 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Load
                 foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
                 {
                     // Load Files From Directories
-                    this.LoadFromDirectoryInfo(
+                    await this.LoadFromDirectoryInfo(
                         scriptsPath,
                         subDirectoryInfo
                     );
                 }
                 // Load script files into Repository
-                this.LoadFileIntoRepository(
+                await this.LoadFileIntoRepository(
                     scriptsPath,
                     directoryInfo
                 );
             }
-            private void LoadFileIntoRepository(
+            private async Task LoadFileIntoRepository(
                 string scriptsPath,
                 DirectoryInfo directoryInfo
             )
             {
                 foreach (var effectFile in directoryInfo.GetFiles())
                 {
+                    var id = GenerateName(
+                        $"{scriptsPath}{Path.DirectorySeparatorChar}".MakePathRelative(
+                            effectFile.DirectoryName
+                        ), effectFile.Name
+                    );
+                    var content = File.ReadAllText(
+                        effectFile.FullName
+                    );
                     _agentBehaviorScriptRepository.Add(
-                        BehaviorScript.CreateScript(
-                            GenerateName(
-                                $"{scriptsPath}{Path.DirectorySeparatorChar}".MakePathRelative(
-                                    effectFile.DirectoryName
-                                ), effectFile.Name
-                            ),
-                            File.ReadAllText(
-                                effectFile.FullName
+                        await _mediator.Send(
+                            new BuildBehaviorScript(
+                                GenerateName(
+                                    $"{scriptsPath}{Path.DirectorySeparatorChar}".MakePathRelative(
+                                        effectFile.DirectoryName
+                                    ), effectFile.Name
+                                ),
+                                File.ReadAllText(
+                                    effectFile.FullName
+                                )
                             )
                         )
                     );

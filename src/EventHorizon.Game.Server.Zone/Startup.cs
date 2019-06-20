@@ -61,7 +61,10 @@ namespace EventHorizon.Game.Server.Zone
             if (HostingEnvironment.IsDevelopment())
             {
                 // Enabled TLS 1.2
-                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+                System.Net.ServicePointManager.SecurityProtocol = 
+                    SecurityProtocolType.Tls12 
+                    | SecurityProtocolType.Tls11 
+                    | SecurityProtocolType.Tls;
             }
             services.AddHttpClient();
             services.AddMediatR();
@@ -69,7 +72,9 @@ namespace EventHorizon.Game.Server.Zone
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.RequireHttpsMetadata = HostingEnvironment.IsProduction() || HostingEnvironment.IsStaging();
+                    options.RequireHttpsMetadata = 
+                        HostingEnvironment.IsProduction() 
+                        || HostingEnvironment.IsStaging();
                     options.Authority = Configuration["Auth:Authority"];
                     options.ApiName = Configuration["Auth:ApiName"];
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
@@ -82,7 +87,10 @@ namespace EventHorizon.Game.Server.Zone
                 .AddJsonProtocol(config =>
                 {
                     config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    config.PayloadSerializerSettings.Converters.Add(new DefaultStringEnumConverter(0));
+                    config.PayloadSerializerSettings
+                        .Converters.Add(
+                            new DefaultStringEnumConverter(0)
+                        );
                 });
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -90,21 +98,29 @@ namespace EventHorizon.Game.Server.Zone
                 Converters = { new DefaultStringEnumConverter(0) },
             };
 
-            services.AddCors(options => options.AddPolicy("CorsPolicy",
-            builder =>
-            {
-                builder.AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .WithOrigins(
-                        Configuration
-                            .GetSection("Cors:Hosts")
-                            .GetChildren()
-                            .AsEnumerable()
-                            .Select(a => a.Value)
-                            .ToArray()
-                    )
-                    .AllowCredentials();
-            }));
+            services.AddCors(
+                options => options.AddPolicy(
+                    "CorsPolicy",
+                    builder =>
+                    {
+                        builder.AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .WithOrigins(
+                                Configuration
+                                    .GetSection(
+                                        "Cors:Hosts"
+                                    ).GetChildren(
+
+                                    ).AsEnumerable(
+
+                                    ).Select(
+                                        a => a.Value
+                                    ).ToArray()
+                            )
+                            .AllowCredentials();
+                    }
+                )
+            );
 
             services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
             services.AddI18n();
@@ -134,6 +150,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemServerModule();
             services.AddSystemEntityModule();
             services.AddSystemAgentAi();
+            services.AddSystemAgentBehavior();
             services.AddSystemClientAssets();
             services.AddSystemClientEntities();
             services.AddSystemClientScripts();
@@ -172,6 +189,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemServerModule();
             app.UseSystemEntityModule();
             app.UseSystemAgentAi();
+            app.UseSystemAgentBehavior();
             app.UseSystemClientAssets();
             app.UseSystemClientEntities();
             app.UseSystemClientScripts();

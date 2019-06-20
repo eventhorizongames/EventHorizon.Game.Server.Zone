@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Model
 {
-    public struct AgentBehaviorTreeShape
+    public struct ActorBehaviorTreeShape
     {
         public IList<BehaviorNode> NodeList { get; set; }
 
-        public AgentBehaviorTreeShape(
+        public ActorBehaviorTreeShape(
             SerializedAgentBehaviorTree tree
         )
         {

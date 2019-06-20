@@ -1,5 +1,4 @@
 using EventHorizon.Performance.Model;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

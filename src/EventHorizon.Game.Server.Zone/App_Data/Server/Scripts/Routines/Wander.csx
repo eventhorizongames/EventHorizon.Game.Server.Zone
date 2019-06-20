@@ -8,6 +8,7 @@
 
 using EventHorizon.Game.Server.Zone.Agent.Ai.Model;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
+using EventHorizon.Game.Server.Zone.Events.Map;
 
 // Get Map Nodes around Agent, within distance
 var mapNodes = await Services.Mediator.Send(new GetMapNodesAroundPositionEvent

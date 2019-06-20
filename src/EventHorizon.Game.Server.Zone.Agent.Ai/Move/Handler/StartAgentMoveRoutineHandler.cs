@@ -12,12 +12,17 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move.Handler
     public class StartAgentMoveRoutineHandler : INotificationHandler<StartAgentMoveRoutineEvent>
     {
         readonly IMediator _mediator;
-        public StartAgentMoveRoutineHandler(IMediator mediator)
+        public StartAgentMoveRoutineHandler(
+            IMediator mediator
+        )
         {
             _mediator = mediator;
         }
         public async Task Handle(StartAgentMoveRoutineEvent notification, CancellationToken cancellationToken)
         {
+            // TODO: PerformanceTracker Add Performance Tracking Here to check the slowest spot
+            // I have a hunch it is the Path From<>To lookup
+            
             // Get entity position
             var agent = await _mediator.Send(new GetAgentEvent
             {

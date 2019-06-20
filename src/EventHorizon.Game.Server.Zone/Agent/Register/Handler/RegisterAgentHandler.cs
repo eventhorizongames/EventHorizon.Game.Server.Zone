@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Agent.Get;
+using EventHorizon.Zone.System.Agent.Behavior.Register;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
 {
@@ -31,27 +32,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
                 return agent;
             }
 
-            // await _mediator.Send(
-            //     new RegisterActorWithBehaviorTreeUpdate(
-            //         agent.Id,
-            //         agent.GetProperty<AgentBehavior>(
-            //             AgentBehavior.PROPERTY_NAME
-            //         ).TreeId
-            //     )
-            // );
-
-            var defaultRoutine = agent.GetProperty<AgentRoutine>(AgentRoutine.DEFAULT_ROUTINE_NAME);
-            agent.SetProperty(AgentRoutine.ROUTINE_NAME, defaultRoutine);
-            await _agentRepository.Update(AgentAction.ROUTINE, agent);
-            await _mediator.Publish(new ClearAgentRoutineEvent
-            {
-                EntityId = agent.Id
-            });
-            await _mediator.Publish(new StartAgentRoutineEvent
-            {
-                Routine = defaultRoutine,
-                EntityId = agent.Id
-            });
+            await _mediator.Send(
+                new RegisterActorWithBehaviorTreeUpdate(
+                    agent.Id,
+                    agent.GetProperty<AgentBehavior>(
+                        AgentBehavior.PROPERTY_NAME
+                    ).TreeId
+                )
+            );
 
             return agent;
         }

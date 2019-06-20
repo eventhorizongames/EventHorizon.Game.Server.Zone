@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
@@ -5,6 +6,8 @@ using EventHorizon.Zone.System.Agent.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Behavior.Script.Run;
 using EventHorizon.Zone.System.Agent.Behavior.State;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
 {
@@ -17,12 +20,15 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
     /// </summary>
     public class ActionInterpreter : ActionBehaviorInterpreter
     {
-        readonly IMediator _mediator;
+        readonly ILogger _logger;
+        readonly IServiceScopeFactory _serviceScopeFactory;
         public ActionInterpreter(
-            IMediator mediator
+            ILogger<ActionInterpreter> logger,
+            IServiceScopeFactory serviceScopeFactory
         )
         {
-            _mediator = mediator;
+            _logger = logger;
+            _serviceScopeFactory = serviceScopeFactory;
         }
         public async Task<BehaviorTreeState> Run(
             IObjectEntity actor,
@@ -34,22 +40,40 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                 behaviorTreeState.ActiveNode.Status
             ))
             {
-                // When Ready run first pass
-                return behaviorTreeState.SetStatusOnActiveNode(
-                    BehaviorNodeStatus.VISITING
-                ).SetStatusOnActiveNode(
-                    // The response from the script fire will fill the status
-                    //  of the Active Node
-                    (await _mediator.Send(
-                        new RunBehaviorScript(
-                            actor,
-                            behaviorTreeState.ActiveNode.Fire
-                        )
-                    )).Status
-                ).SetTraversalToActiveNode(
-                // Set Active proccessing node back to Traversal, 
-                // This is the parent of this node, triggering validation of status.
-                );
+                try
+                {
+                    using (var serviceScope = _serviceScopeFactory.CreateScope())
+                    {
+                        var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+                        // When Ready run first pass
+                        return behaviorTreeState.SetStatusOnActiveNode(
+                            BehaviorNodeStatus.VISITING
+                        ).SetStatusOnActiveNode(
+                            // The response from the script fire will fill the status
+                            //  of the Active Node
+                            (await mediator.Send(
+                                new RunBehaviorScript(
+                                    actor,
+                                    behaviorTreeState.ActiveNode.Fire
+                                )
+                            )).Status
+                        ).SetTraversalToActiveNode(
+                        // Set Active proccessing node back to Traversal, 
+                        // This is the parent of this node, triggering validation of status.
+                        );
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(
+                        "Exception during Run of Action",
+                        ex
+                    );
+                    return behaviorTreeState.SetStatusOnActiveNode(
+                        BehaviorNodeStatus.FAILED
+                    ).SetTraversalToActiveNode(
+                    );
+                }
             }
             else if (BehaviorNodeStatus.RUNNING.Equals(
                 behaviorTreeState.ActiveNode.Status

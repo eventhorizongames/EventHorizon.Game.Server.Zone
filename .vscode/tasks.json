@@ -6,16 +6,14 @@
             "command": "dotnet",
             "type": "process",
             "args": ["build"],
+            "group": { "kind": "build", "isDefault": true },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "build_Release",
             "command": "dotnet",
             "type": "process",
-            "args": [
-                "build",
-                "/p:Configuration=Release"
-            ],
+            "args": ["build", "/p:Configuration=Release"]
         },
         {
             "label": "test",

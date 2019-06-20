@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Api
     public interface BehaviorInterpreterKernel
     {
         Task<BehaviorTreeState> Tick(
-            AgentBehaviorTreeShape shape,
+            ActorBehaviorTreeShape shape,
             IObjectEntity actor
         );
     }

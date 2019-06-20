@@ -23,10 +23,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script.Run
 
         public struct RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
         {
-            readonly AgentBehaviorScriptRepository _scriptRepository;
+            readonly ActorBehaviorScriptRepository _scriptRepository;
             readonly IScriptServices _scriptServices;
             public RunBehaviorScriptHandler(
-                AgentBehaviorScriptRepository scriptRepository,
+                ActorBehaviorScriptRepository scriptRepository,
                 IScriptServices scriptServices
             )
             {

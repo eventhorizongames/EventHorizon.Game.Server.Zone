@@ -17,6 +17,9 @@
 
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Model;
+using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Behavior.Model;
 
 // Get Map Nodes around Agent, within distance
 var mapNodes = await Services.Mediator.Send(new GetMapNodesAroundPositionEvent
@@ -37,6 +40,9 @@ var node = mapNodes[randomNodeIndex];
 Actor.SetProperty<Vector3>(
     "ActorMoveToPostion", 
     node.Position
+    // new Vector3(
+    //     0,0,0
+    // )
 );
 
 return new BehaviorScriptResponse(

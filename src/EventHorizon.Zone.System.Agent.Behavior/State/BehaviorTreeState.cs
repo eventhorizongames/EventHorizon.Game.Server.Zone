@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
     {
         private int _activeNodeToken;
         private int _activeTraversalToken;
-        private AgentBehaviorTreeShape _shape;
+        private ActorBehaviorTreeShape _shape;
 
         public bool ContainsNext => TraversalStack.Count > 0;
 
@@ -24,7 +24,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
         public IList<int> NextTraversalStack { get; }
 
         public BehaviorTreeState(
-            AgentBehaviorTreeShape shape
+            ActorBehaviorTreeShape shape
         )
         {
             _shape = shape;

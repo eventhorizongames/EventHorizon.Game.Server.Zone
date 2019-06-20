@@ -11,11 +11,11 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
     public struct BehaviorScript
     {
         public string Id { get; }
-        private ScriptRunner<BehaviorScriptResponse> _runner;
+        private Script<BehaviorScriptResponse> _runner;
 
-        private BehaviorScript(
+        public BehaviorScript(
             string id,
-            ScriptRunner<BehaviorScriptResponse> runner
+            Script<BehaviorScriptResponse> runner
         )
         {
             this.Id = id;
@@ -38,18 +38,21 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
+                        "EventHorizon.Zone.System.Agent.Behavior.Script",
+                        "EventHorizon.Zone.System.Agent.Behavior.Model",
+
                         "EventHorizon.Game.Server.Zone.External.Extensions",
                         "EventHorizon.Game.Server.Zone.Model.Entity",
-                        "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
-                        "EventHorizon.Game.Server.Zone.Agent.Ai.Move"
+                        "EventHorizon.Game.Server.Zone.Events.Entity.Movement"
                     );
 
                 var runner = CSharpScript
                     .Create<BehaviorScriptResponse>(
                         scriptContent,
                         scriptOptions,
-                        typeof(BehaviorScriptData))
-                    .CreateDelegate();
+                        typeof(BehaviorScriptData)
+                    );
+                runner.Compile();
                 return new BehaviorScript(
                     id,
                     runner
@@ -70,12 +73,12 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
         {
             try
             {
-                return await _runner(
+                return (await _runner.RunAsync(
                     new BehaviorScriptData
                     {
                         Services = services,
                         Actor = actor
-                    });
+                    })).ReturnValue;
             }
             catch (Exception ex)
             {

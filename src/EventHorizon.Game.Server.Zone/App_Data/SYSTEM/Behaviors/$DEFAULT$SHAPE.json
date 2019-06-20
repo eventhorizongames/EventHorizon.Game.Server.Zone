@@ -1,0 +1,9 @@
+{
+    "comments": "This is just a default behavior shape that does nothing.",
+    "name": "DEFAULT",
+    "description": "",
+    "root": {
+        "type": "ACTION",
+        "fire": "$DEFAULT$SCRIPT"
+    }
+}
