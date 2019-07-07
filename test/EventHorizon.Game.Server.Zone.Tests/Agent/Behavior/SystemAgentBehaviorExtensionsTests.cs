@@ -36,37 +36,87 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             );
 
             // Then
-            Assert.NotEmpty(serviceCollectionMock);
-            Assert.Collection(serviceCollectionMock,
+            Assert.NotEmpty(
+                serviceCollectionMock
+            );
+            Assert.Collection(
+                serviceCollectionMock,
                 service =>
                 {
-                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
-                    Assert.Equal(typeof(BehaviorTreeUpdateTriggerTimerTask), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(ITimerTask), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(BehaviorTreeUpdateTriggerTimerTask), 
+                        service.ImplementationType
+                    );
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(ActorBehaviorScriptRepository), service.ServiceType);
-                    Assert.Equal(typeof(InMemoryActorBehaviorScriptRepository), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(ActorBehaviorScriptRepository), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(InMemoryActorBehaviorScriptRepository), 
+                        service.ImplementationType
+                    );
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(ActorBehaviorTreeRepository), service.ServiceType);
-                    Assert.Equal(typeof(InMemoryActorBehaviorTreeRepository), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(ActorBehaviorTreeRepository), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(InMemoryActorBehaviorTreeRepository), 
+                        service.ImplementationType
+                    );
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(BehaviorInterpreterMap), service.ServiceType);
-                    Assert.Equal(typeof(BehaviorInterpreterInMemoryMap), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(BehaviorInterpreterMap), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(BehaviorInterpreterInMemoryMap), 
+                        service.ImplementationType
+                    );
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(BehaviorInterpreterKernel), service.ServiceType);
-                    Assert.Equal(typeof(BehaviorInterpreterDoWhileKernel), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(BehaviorInterpreterKernel), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(BehaviorInterpreterDoWhileKernel), 
+                        service.ImplementationType
+                    );
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(ActionBehaviorInterpreter), service.ServiceType);
-                    Assert.Equal(typeof(ActionInterpreter), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(ActionBehaviorInterpreter), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(ActionInterpreter), 
+                        service.ImplementationType
+                    );
+                },
+                service =>
+                {
+                    Assert.Equal(
+                        typeof(ConditionBehaviorInterpreter), 
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(ConditionInterpreter), 
+                        service.ImplementationType
+                    );
                 }
             );
         }
@@ -95,9 +145,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                 serviceProviderMock.Object
             );
             var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-            serviceScopeFactoryMock.Setup(a => a.CreateScope()).Returns(serviceScopeMock.Object);
+            serviceScopeFactoryMock.Setup(
+                serviceScopeFactory => serviceScopeFactory.CreateScope()
+            ).Returns(
+                serviceScopeMock.Object
+            );
             var applicationServicesMock = new Mock<IServiceProvider>();
-            applicationServicesMock.Setup(a => a.GetService(typeof(IServiceScopeFactory))).Returns(serviceScopeFactoryMock.Object);
+            applicationServicesMock.Setup(
+                applicationServices => applicationServices.GetService(
+                    typeof(IServiceScopeFactory)
+                )
+            ).Returns(
+                serviceScopeFactoryMock.Object
+            );
 
             var applicationBuilderMock = new Mock<IApplicationBuilder>();
             applicationBuilderMock.Setup(

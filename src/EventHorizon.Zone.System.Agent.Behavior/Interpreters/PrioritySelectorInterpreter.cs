@@ -6,13 +6,13 @@ using EventHorizon.Zone.System.Agent.Behavior.State;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
 {
-     /// <summary>
-     /// On each traversal priority selectors check which child to run in priority order until the first one succeeds or returns that it is running. 
-     /// 
-     /// One option is to call the last still running node again during the next behavior tree update. 
-     /// 
-     /// The other option is to always restart traversal from the highest priority child and implicitly cancel the last running child behavior if it isn’t chosen immediately again.
-     /// </summary>
+    /// <summary>
+    /// On each traversal priority selectors check which child to run in priority order until the first one succeeds or returns that it is running. 
+    /// 
+    /// One option is to call the last still running node again during the next behavior tree update. 
+    /// 
+    /// The other option is to always restart traversal from the highest priority child and implicitly cancel the last running child behavior if it isn’t chosen immediately again.
+    /// </summary>
     public class PrioritySelectorInterpreter : BehaviorInterpreter
     {
         public Task<BehaviorTreeState> Run(
@@ -20,6 +20,33 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
+            if (behaviorTreeState.ContainedInLastTraversal(
+                behaviorTreeState.ActiveNode.Token
+            ))
+            {
+                behaviorTreeState = behaviorTreeState
+                    .SetStatusOnActiveNode(
+                        BehaviorNodeStatus.VISITING
+                    )
+                    .RemoveNodeFromLastTraversalStack(
+                        behaviorTreeState.ActiveNode.Token
+                    )
+                    .PushActiveNodeToTraversalStack()
+                    .PopActiveNodeFromQueue();
+                while (
+                    behaviorTreeState.IsActiveNodeValidAndNotRunning()
+                )
+                {
+                    behaviorTreeState = behaviorTreeState
+                        .SetStatusOnActiveNode(
+                            BehaviorNodeStatus.SUCCESS
+                        ).PopActiveNodeFromQueue();
+                }
+                return Task.FromResult(
+                    behaviorTreeState
+                );
+            }
+
             if (BehaviorNodeStatus.READY.Equals(
                 behaviorTreeState.ActiveNode.Status
             ))
@@ -27,7 +54,8 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                 return Task.FromResult(
                     behaviorTreeState.SetStatusOnActiveNode(
                         BehaviorNodeStatus.VISITING
-                    ).PushActiveNodeToTraversalStack()
+                    )
+                    .PushActiveNodeToTraversalStack()
                     .SetNextActiveNode()
                 );
             }
@@ -37,22 +65,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                 var childNode = behaviorTreeState.GetNode(
                     childNodeToken.Token
                 );
-
-                if (BehaviorNodeStatus.FAILED.Equals(
-                    childNode.Status
-                ))
-                {
-                    return Task.FromResult(
-                        behaviorTreeState.SetStatusOnTraversalNode(
-                            BehaviorNodeStatus.FAILED
-                        ).PopActiveTraversalNode()
-                        .SetTraversalToActiveNode(
-                        // This will make the current Traversal Node Active
-                        //  and ready for processing/validation
-                        )
-                    );
-                }
-                else if (BehaviorNodeStatus.RUNNING.Equals(
+                if (BehaviorNodeStatus.RUNNING.Equals(
                     childNode.Status
                 ))
                 {
@@ -67,13 +80,35 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                         ).PopActiveTraversalNode(
                         // This will pop the current Active Traversal off the stack
                         // This will allow for the Parent node to run processing.
-                        ).SetTraversalToActiveNode(
+                        ).SetTraversalToCheck(
                         // This will make the current Traversal Node Active
                         //  and ready for processing and validation
                         )
                     );
                 }
+                else if (BehaviorNodeStatus.SUCCESS.Equals(
+                    childNode.Status
+                ))
+                {
+                    return Task.FromResult(
+                        behaviorTreeState.SetStatusOnTraversalNode(
+                            // Set to Running state so can be picked up latter for 
+                            //  validation at a later time.
+                            BehaviorNodeStatus.SUCCESS
+                        ).SetTraversalToCheck(
+                        // This will make the current Traversal Node Active
+                        //  and ready for processing and validation
+                        ).PopActiveTraversalNode(
+                        // This will pop the current Active Traversal off the stack
+                        // This will allow for the Parent node to run processing.
+                        )
+                    );
+                }
                 else if (BehaviorNodeStatus.READY.Equals(
+                    childNode.Status
+                ) || BehaviorNodeStatus.FAILED.Equals(
+                    childNode.Status
+                ) || BehaviorNodeStatus.VISITING.Equals(
                     childNode.Status
                 ))
                 {
@@ -86,15 +121,15 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                 }
             }
 
-            // If made it here they all nodes are SUCCESSFUL
+            // If made it here, something went wrong, set status to ERROR and check traversal
             return Task.FromResult(
                 behaviorTreeState.SetStatusOnTraversalNode(
-                    BehaviorNodeStatus.SUCCESS
-                ).PopActiveTraversalNode(
-                // This will pop the current Active Traversal off the stack
-                ).SetTraversalToActiveNode(
+                    BehaviorNodeStatus.ERROR
+                ).SetTraversalToCheck(
                 // This will make the current Traversal Node Active
                 //  and ready for processing/validation
+                ).PopActiveTraversalNode(
+                // This will pop the current Active Traversal off the stack
                 )
             );
         }

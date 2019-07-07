@@ -13,6 +13,7 @@ namespace EventHorizon.Game.Server.Zone.Map.State
     {
         private ConcurrentDictionary<MapNode, MapNode> _nodes;
         private ConcurrentDictionary<MapEdge, MapEdge> _edges;
+        private ConcurrentDictionary<int, ConcurrentBag<MapEdge>> _nodeFromEdges;
         private bool _isDirectionGraph;
         private int nextNodeIndex;
         private Octree<MapNode> octree;
@@ -35,6 +36,7 @@ namespace EventHorizon.Game.Server.Zone.Map.State
             this._isDirectionGraph = isDirectionGraph;
             this._nodes = new ConcurrentDictionary<MapNode, MapNode>();
             this._edges = new ConcurrentDictionary<MapEdge, MapEdge>();
+            this._nodeFromEdges = new ConcurrentDictionary<int, ConcurrentBag<MapEdge>>();
 
             this.nextNodeIndex = -1;
 
@@ -69,14 +71,6 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                 new MapEdge(from, to),
                 out edge
             );
-            // foreach (var edge in this._edges)
-            // {
-            //     if (edge.Value.FromIndex == from
-            //         && edge.Value.ToIndex == to)
-            //     {
-            //         return edge.Value;
-            //     }
-            // }
             return edge;
         }
 
@@ -107,8 +101,9 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                 edge,
                 (key, current) => edge
             );
-
-            // this._edges.Add(edge);
+            AddFromNodeToEdge(
+                edge
+            );
 
             if (!this._isDirectionGraph)
             {
@@ -122,12 +117,23 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                     reversedEdge,
                     (key, current) => reversedEdge
                 );
-                // this._edges.Add(new MapEdge
-                // {
-                //     ToIndex = edge.FromIndex,
-                //     FromIndex = edge.ToIndex
-                // });
+                AddFromNodeToEdge(
+                    reversedEdge
+                );
             }
+        }
+
+        private void AddFromNodeToEdge(
+            MapEdge edge
+        )
+        {
+            this._nodeFromEdges
+                .GetOrAdd(
+                    edge.FromIndex,
+                    new ConcurrentBag<MapEdge>()
+                ).Add(
+                    edge
+                );
         }
 
         public void RemoveEdge(MapEdge edge)
@@ -138,17 +144,21 @@ namespace EventHorizon.Game.Server.Zone.Map.State
             );
         }
 
-        public IList<MapEdge> GetEdgesOfNode(int nodeIndex)
+        readonly IEnumerable<MapEdge> EMPTY_IMMUTABLE_LIST = new List<MapEdge>().AsReadOnly();
+        public IEnumerable<MapEdge> GetEdgesOfNode(int nodeIndex)
         {
-            var edgeList = new List<MapEdge>();
-            foreach (var edge in this._edges)
+            ConcurrentBag<MapEdge> edgeList;
+            if (this._nodeFromEdges
+                .TryGetValue(
+                    nodeIndex,
+                    out edgeList
+                )
+            )
             {
-                if (edge.Value.FromIndex == nodeIndex)
-                {
-                    edgeList.Add(edge.Value);
-                }
+                return edgeList;
             }
-            return edgeList;
+
+            return EMPTY_IMMUTABLE_LIST;
         }
 
         private bool ContainsNode(int index)

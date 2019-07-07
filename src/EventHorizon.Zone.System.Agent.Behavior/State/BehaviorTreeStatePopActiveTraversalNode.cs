@@ -18,6 +18,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
             else
             {
                 this._activeTraversalToken = -1;
+                this._checkTraversal = false;
             }
             return this;
         }

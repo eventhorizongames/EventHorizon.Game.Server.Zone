@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.External.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner;
+using EventHorizon.Game.Server.Zone.Player.Actions.StopPlayer;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
 {
@@ -38,6 +39,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         Player = player,
                         MoveDirection = notification.Data
                     });
+                    break;
+                case PlayerActions.STOP:
+                    await _mediator.Send(new StopPlayer(
+                        player
+                    ));
                     break;
                 case PlayerActions.RUN_SKILL:
                     var parsedObject = GetDataAsRunSkillData(notification.Data);

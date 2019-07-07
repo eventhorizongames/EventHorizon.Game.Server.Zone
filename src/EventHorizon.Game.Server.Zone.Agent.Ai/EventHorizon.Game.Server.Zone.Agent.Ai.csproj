@@ -18,6 +18,7 @@
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj" />
     <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
     <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
+    <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
   </ItemGroup>
 
 </Project>

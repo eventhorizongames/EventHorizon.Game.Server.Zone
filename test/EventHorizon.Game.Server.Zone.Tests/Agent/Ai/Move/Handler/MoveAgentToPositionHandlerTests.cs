@@ -12,6 +12,7 @@ using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Path;
 using static EventHorizon.Game.Server.Zone.Agent.Ai.Move.MoveAgentToPosition;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
+using EventHorizon.Performance;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
 {
@@ -43,41 +44,65 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
             };
             var expectedPath = new Queue<Vector3>();
             var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(mediator => mediator.Send(inputGetAgentEvent, CancellationToken.None))
-                .ReturnsAsync(expectedAgent);
-            mediatorMock.Setup(mediator => mediator.Send(inputFindPathEvent, CancellationToken.None))
-                .ReturnsAsync(expectedPath);
-            var handler = new MoveAgentToPositionHandler(mediatorMock.Object);
-            // When
-            await handler.Handle(new MoveAgentToPosition
-            {
-                AgentId = inputId,
-                ToPosition = inputToPosition
-            }, CancellationToken.None);
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    inputGetAgentEvent, 
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    inputFindPathEvent, 
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedPath
+            );
+            // When            
+            var moveAgentToPositionHandler = new MoveAgentToPositionHandler(
+                mediatorMock.Object, 
+                new Mock<IPerformanceTracker>().Object
+            );
+            await moveAgentToPositionHandler.Handle(
+                new MoveAgentToPosition
+                {
+                    AgentId = inputId,
+                    ToPosition = inputToPosition
+                }, 
+                CancellationToken.None
+            );
             // Then
-            mediatorMock.Verify(mediator => mediator.Send(
-                new GetAgentEvent
-                {
-                    EntityId = inputId
-                },
-                It.IsAny<CancellationToken>()
-            ));
-            mediatorMock.Verify(mediator => mediator.Send(
-                new FindPathEvent
-                {
-                    From = inputCurrentPosition,
-                    To = inputToPosition
-                },
-                It.IsAny<CancellationToken>()
-            ));
-            mediatorMock.Verify(mediator => mediator.Publish(
-                new RegisterAgentMovePathEvent
-                {
-                    EntityId = inputId,
-                    Path = expectedPath
-                },
-                It.IsAny<CancellationToken>()
-            ));
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    new GetAgentEvent
+                    {
+                        EntityId = inputId
+                    },
+                    It.IsAny<CancellationToken>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    new FindPathEvent
+                    {
+                        From = inputCurrentPosition,
+                        To = inputToPosition
+                    },
+                    It.IsAny<CancellationToken>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    new QueueAgentToMoveEvent
+                    {
+                        EntityId = inputId,
+                        Path = expectedPath
+                    },
+                    It.IsAny<CancellationToken>()
+                )
+            );
         }
     }
 }

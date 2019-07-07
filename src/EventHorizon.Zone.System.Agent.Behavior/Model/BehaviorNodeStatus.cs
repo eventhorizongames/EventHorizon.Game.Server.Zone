@@ -52,8 +52,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
                     (string)obj
                 );
             }
-            if (GetType() != obj.GetType()
-            )
+            if (GetType() != obj.GetType())
             {
                 return false;
             }

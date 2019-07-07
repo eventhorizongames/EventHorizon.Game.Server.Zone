@@ -27,11 +27,14 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         {
             get
             {
-                return _rawData ?? new Dictionary<string, object>();
+                return _rawData ?? (_rawData = new Dictionary<string, object>());
             }
             set
             {
-                _data = new Dictionary<string, object>();
+                if (_data == null)
+                    _data = new Dictionary<string, object>();
+                else
+                    _data.Clear();
                 _rawData = value;
             }
         }
@@ -39,13 +42,30 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
         {
             get
             {
-                return _data ?? new Dictionary<string, object>();
+                return _data ?? (_data = new Dictionary<string, object>());
             }
         }
 
         public bool IsFound()
         {
             return false;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null
+                || GetType() != obj.GetType()
+                || !(obj is IObjectEntity)
+            )
+            {
+                return false;
+            }
+            return Id.Equals(((IObjectEntity)obj).Id);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

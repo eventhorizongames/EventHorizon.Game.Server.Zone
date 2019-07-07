@@ -18,28 +18,44 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
 
         private struct ActorBehaviorTreeContainer
         {
-            public string TreeId { get; }
             public ActorBehaviorTreeShape Shape { get; }
-            public ConcurrentBag<long> ActorList { get; }
+            public ConcurrentDictionary<long, long> ActorList { get; }
 
             public ActorBehaviorTreeContainer(
-                string treeId,
                 ActorBehaviorTreeShape shape
             )
             {
-                TreeId = treeId;
                 Shape = shape;
-                ActorList = new ConcurrentBag<long>();
+                ActorList = new ConcurrentDictionary<long, long>();
             }
             public ActorBehaviorTreeContainer(
-                string treeId,
                 ActorBehaviorTreeShape shape,
-                ConcurrentBag<long> actorList
+                ConcurrentDictionary<long, long> actorList
             )
             {
-                TreeId = treeId;
                 Shape = shape;
                 ActorList = actorList;
+            }
+
+            internal void AddActor(long actorId)
+            {
+                ActorList.TryAdd(
+                    actorId, 
+                    actorId
+                );
+            }
+
+            internal void RemoveActor(long actorId)
+            {
+                ActorList.TryRemove(
+                    actorId, 
+                    out _
+                );
+            }
+
+            internal IEnumerable<long> GetActorList()
+            {
+                return ActorList.Keys;
             }
         }
 
@@ -57,7 +73,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
             {
                 return new List<long>();
             }
-            return container.ActorList;
+            return container.GetActorList();
         }
 
         public void ClearTrees()
@@ -100,7 +116,27 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
                     "treeId"
                 );
             }
-            container.ActorList.Add(
+            container.AddActor(
+                actorId
+            );
+        }
+
+        public void UnRegisterActorFromTree(long actorId, string treeId)
+        {
+            var container = default(
+                ActorBehaviorTreeContainer
+            );
+            if (!MAP.TryGetValue(
+                treeId,
+                out container
+            ))
+            {
+                throw new ArgumentException(
+                    "TreeId not found",
+                    "treeId"
+                );
+            }
+            container.RemoveActor(
                 actorId
             );
         }
@@ -111,7 +147,6 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
         )
         {
             var container = new ActorBehaviorTreeContainer(
-                treeId,
                 behaviorTreeShape
             );
             if (MAP.TryGetValue(
@@ -120,7 +155,6 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
             ))
             {
                 container = new ActorBehaviorTreeContainer(
-                    treeId,
                     behaviorTreeShape,
                     container.ActorList
                 );
@@ -128,7 +162,6 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
             MAP.AddOrUpdate(
                 treeId,
                 new ActorBehaviorTreeContainer(
-                    treeId,
                     behaviorTreeShape
                 ),
                 (_, __) => container

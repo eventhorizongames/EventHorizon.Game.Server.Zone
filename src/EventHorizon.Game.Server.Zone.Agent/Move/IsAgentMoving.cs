@@ -1,7 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
+using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Move
 {
@@ -17,23 +18,21 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move
         }
         public struct IsAgentMovingHandler : IRequestHandler<IsAgentMoving, bool>
         {
-            readonly IMoveAgentRepository _repository;
+            readonly IAgentRepository _agentRepository;
             public IsAgentMovingHandler(
-                IMoveAgentRepository repository
+                IAgentRepository agentRepository
             )
             {
-                _repository = repository;
+                _agentRepository = agentRepository;
             }
-            public Task<bool> Handle(
+            public async Task<bool> Handle(
                 IsAgentMoving request,
                 CancellationToken cancellationToken
             )
             {
-                return Task.FromResult(
-                    _repository.Contains(
-                        request.EntityId
-                    )
-                );
+                return (await _agentRepository.FindById(
+                    request.EntityId
+                )).Path?.Count > 0;
             }
         }
     }

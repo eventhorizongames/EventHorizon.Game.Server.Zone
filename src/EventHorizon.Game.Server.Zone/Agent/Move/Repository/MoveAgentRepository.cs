@@ -6,29 +6,28 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl
 {
     public class MoveAgentRepository : IMoveAgentRepository
     {
-        private static readonly ConcurrentDictionary<long, long> ENTITIES = new ConcurrentDictionary<long, long>();
-        public void Add(long entityId)
+        private static readonly ConcurrentQueue<long> ENTITIES = new ConcurrentQueue<long>();
+        private static readonly ConcurrentQueue<long> TO_REGISTER = new ConcurrentQueue<long>();
+
+        public void Register(long entityId)
         {
-            ENTITIES.TryAdd(entityId, entityId);
+            TO_REGISTER.Enqueue(entityId);
         }
 
-        public IEnumerable<long> All()
+        public bool Dequeue(out long entityId)
         {
-            return ENTITIES.Values;
+            return ENTITIES.TryDequeue(out entityId);
         }
 
-        public void Remove(long entityId)
+        public void MergeRegisteredIntoQueue()
         {
-            ENTITIES.TryRemove(entityId, out _);
-        }
-
-        public bool Contains(
-            long entityId
-        )
-        {
-            return ENTITIES.ContainsKey(
-                entityId
-            );
+            long entityId = 0;
+            while (TO_REGISTER.TryDequeue(out entityId))
+            {
+                ENTITIES.Enqueue(
+                    entityId
+                );
+            }
         }
     }
 }

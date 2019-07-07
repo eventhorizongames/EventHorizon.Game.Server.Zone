@@ -41,6 +41,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Models
             }
         }
 
+        public TestObjectEntity(
+            Dictionary<string, object> rawData
+        )
+        {
+            Id = 0L;
+            Name = null;
+            GlobalId = null;
+            Position = default(PositionState);
+            TagList = null;
+            _data = new Dictionary<string, object>();
+            _rawData = rawData ?? new Dictionary<string, object>();
+        }
+
         public bool IsFound()
         {
             return !this.Equals(default(TestObjectEntity));

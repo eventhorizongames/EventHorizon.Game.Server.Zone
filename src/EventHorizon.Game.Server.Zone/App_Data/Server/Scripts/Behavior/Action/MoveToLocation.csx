@@ -6,7 +6,7 @@
 /// Actor: { 
 ///     Id: long;
 ///     BehaviorState: IBehaviorState;
-///     ActorMoveToPostion: Vector3;
+///     ActorMoveToPosition: Vector3;
 /// } 
 /// Services: { 
 ///     Mediator: IMediator; 
@@ -21,6 +21,8 @@ using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Zone.System.Agent.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.Client.DataType;
 
 // Check for Actor already moving
 var isAgentMoving = await Services.Mediator.Send(
@@ -32,8 +34,8 @@ var isAgentMoving = await Services.Mediator.Send(
 // In not running startup new Move Behavior from MoveTo data in Action
 if (!isAgentMoving)
 {
-    var toPosition = Actor.GetProperty<Vector3>("ActorMoveToPostion");
-    if (toPosition == null)
+    var toPosition = Actor.GetProperty<Vector3>("ActorMoveToPosition");
+    if (toPosition == default(Vector3))
     {
         return new BehaviorScriptResponse(
             BehaviorNodeStatus.SUCCESS
@@ -45,12 +47,12 @@ if (!isAgentMoving)
         ToPosition = toPosition
     }).ConfigureAwait(false);
 
-    // Set the ActorMoveToPostion to null, 
+    // Set the ActorMoveToPosition to null, 
     //  this way when next update comes through it will be a 
     //  SUCCESS if agent is not moving.
-    Actor.SetProperty<string>(
-        "ActorMoveToPostion",
-        null
+    Actor.SetProperty<Vector3>(
+        "ActorMoveToPosition",
+        default(Vector3)
     );
 }
 

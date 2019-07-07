@@ -3,7 +3,7 @@
     "name": "Follow Player",
     "description": "",
     "root": {
-        "type": "PRIORITY_SELECTOR",
+        "type": "SEQUENCE_SELECTOR",
         "nodeList": [
             {
                 "type": "CONCURRENT_SELECTOR",

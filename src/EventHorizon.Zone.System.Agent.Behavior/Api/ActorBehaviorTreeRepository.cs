@@ -17,6 +17,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Api
             long actorId, 
             string treeId
         );
+        void UnRegisterActorFromTree(
+            long actorId, 
+            string treeId
+        );
         IEnumerable<string> TreeIdList();
         IEnumerable<long> ActorIdList(
             string treeId

@@ -1,20 +1,20 @@
 {
     "AgentList": [
         {
-            "Id": "7786961f-8694-450d-bc8c-31de06aa9d04",
+            "Id": "a66360a9-59aa-4455-8fef-204e9be0d4d9",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 23.0,
+                    "X": -25.0,
                     "Y": 0.0,
-                    "Z": 0.0
+                    "Z": 30.0
                 },
-                "NextMoveRequest": "0001-01-01T00:00:00",
+                "NextMoveRequest": "2019-07-04T13:58:19.8663358Z",
                 "MoveToPosition": {
-                    "X": 23.0,
+                    "X": -25.0,
                     "Y": 0.0,
-                    "Z": 0.0
+                    "Z": 31.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -26,14 +26,14 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "dfb6f390-8058-4bfb-bf6c-f79decfa0011",
-                    "CanBeCaptured": true
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
                 },
                 "movementState": {
                     "Speed": 1.0
                 },
                 "routine": {
-                    "Name": "IDLE"
+                    "Name": "MOVE"
                 },
                 "defaultRoutine": {
                     "Name": "IDLE"
@@ -48,9 +48,9 @@
                     "Condition": {
                         "Name": "ALIVE"
                     },
-                    "HealthPoints": 7208,
+                    "HealthPoints": 7173,
                     "MaxHealthPoints": 10000,
-                    "ActionPoints": 9841,
+                    "ActionPoints": 9826,
                     "MaxActionPoints": 10000,
                     "Attack": 1
                 },
@@ -64,94 +64,22 @@
                 "skillState": {
                     "SkillList": {
                         "fire_ball": {
-                            "CooldownFinishes": "2019-06-09T04:40:16.9459588Z"
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
                         }
                     }
                 },
                 "modelState": {
                     "AnimationList": [],
                     "Mesh": {
-                        "Type": "GLTF",
-                        "AssetId": "DEFAULT_MESH"
-                    }
-                }
-            }
-        },
-        {
-            "Id": "bf47bab7-cad0-4064-9893-ad3660ad2c7a",
-            "Name": "Enemy Agent",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": 12.0,
-                    "Y": 0.0,
-                    "Z": 4.0
-                },
-                "NextMoveRequest": "0001-01-01T00:00:00",
-                "MoveToPosition": {
-                    "X": 12.0,
-                    "Y": 0.0,
-                    "Z": 4.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": "82803f62-8cde-4f38-9d1c-fa1405539ac1",
-                    "CanBeCaptured": false
-                },
-                "movementState": {
-                    "Speed": 1.0
-                },
-                "routine": {
-                    "Name": "IDLE"
-                },
-                "defaultRoutine": {
-                    "Name": "IDLE"
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "life": {
-                    "Health": 0
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "DEAD"
-                    },
-                    "HealthPoints": -73,
-                    "MaxHealthPoints": 1000,
-                    "ActionPoints": 10,
-                    "MaxActionPoints": 10,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fire_ball": {
-                            "CooldownFinishes": "2019-02-07T22:38:10.065443-06:00"
-                        }
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE-cc0d-4094-aecf"
                     }
                 },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "GLTF",
-                        "AssetId": "DEFAULT_MESH"
-                    }
-                }
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-04T08:58:21.2081773-05:00"
             }
         }
     ]

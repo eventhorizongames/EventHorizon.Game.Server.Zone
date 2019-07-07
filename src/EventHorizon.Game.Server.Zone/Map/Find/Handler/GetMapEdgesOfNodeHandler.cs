@@ -10,18 +10,25 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Map.Handler
 {
-    public class GetMapEdgesOfNodeHandler : IRequestHandler<GetMapEdgesOfNodeEvent, IList<MapEdge>>
+    public class GetMapEdgesOfNodeHandler : IRequestHandler<GetMapEdgesOfNodeEvent, IEnumerable<MapEdge>>
     {
         readonly IServerState _serverState;
-        public GetMapEdgesOfNodeHandler(IServerState serverState)
+        public GetMapEdgesOfNodeHandler(
+            IServerState serverState
+        )
         {
             _serverState = serverState;
         }
 
-        public async Task<IList<MapEdge>> Handle(GetMapEdgesOfNodeEvent request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<MapEdge>> Handle(
+            GetMapEdgesOfNodeEvent request,
+            CancellationToken cancellationToken
+        )
         {
             return (await _serverState.Map())
-                .GetEdgesOfNode(request.NodeIndex);
+                .GetEdgesOfNode(
+                    request.NodeIndex
+                );
         }
     }
 }

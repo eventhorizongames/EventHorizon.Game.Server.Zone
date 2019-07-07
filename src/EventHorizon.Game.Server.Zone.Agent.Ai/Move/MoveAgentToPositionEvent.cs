@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Events.Path;
+using EventHorizon.Performance;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move
@@ -15,11 +17,14 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move
         public struct MoveAgentToPositionHandler : IRequestHandler<MoveAgentToPosition>
         {
             readonly IMediator _mediator;
+            readonly IPerformanceTracker _performanceTracker;
             public MoveAgentToPositionHandler(
-                IMediator mediator
+                IMediator mediator,
+                IPerformanceTracker performanceTracker
             )
             {
                 _mediator = mediator;
+                _performanceTracker = performanceTracker;
             }
             public async Task<Unit> Handle(
                 MoveAgentToPosition request,
@@ -38,14 +43,16 @@ namespace EventHorizon.Game.Server.Zone.Agent.Ai.Move
                 {
                     return Unit.Value;
                 }
+                Queue<Vector3> path;
                 // Get Path to node
-                var path = await _mediator.Send(new FindPathEvent
+                path = await _mediator.Send(new FindPathEvent
                 {
                     From = agent.Position.CurrentPosition,
                     To = request.ToPosition
                 });
+
                 // Register Path for Agent entity
-                await _mediator.Publish(new RegisterAgentMovePathEvent
+                await _mediator.Publish(new QueueAgentToMoveEvent
                 {
                     EntityId = agent.Id,
                     Path = path

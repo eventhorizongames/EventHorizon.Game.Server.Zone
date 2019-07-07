@@ -24,7 +24,8 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>()
                 .AddSingleton<BehaviorInterpreterKernel, BehaviorInterpreterDoWhileKernel>()
 
-                .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>();
+                .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>()
+                .AddSingleton<ConditionBehaviorInterpreter, ConditionInterpreter>();
 
         }
         public static void UseSystemAgentBehavior(this IApplicationBuilder app)

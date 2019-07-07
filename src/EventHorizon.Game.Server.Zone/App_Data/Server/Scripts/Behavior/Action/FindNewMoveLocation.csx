@@ -33,12 +33,12 @@ if (mapNodes.Count == 0)
         BehaviorNodeStatus.FAILED
     );
 }
-var randomNodeIndex = Services.Random.Next(0, mapNodes.Count);
+var randomNodeIndex = Services.Random.Next(0, mapNodes.Count - 1);
 var node = mapNodes[randomNodeIndex];
 
 // Add MoveToNode to Actor State
 Actor.SetProperty<Vector3>(
-    "ActorMoveToPostion", 
+    "ActorMoveToPosition", 
     node.Position
     // new Vector3(
     //     0,0,0

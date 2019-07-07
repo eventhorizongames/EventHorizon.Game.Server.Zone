@@ -20,6 +20,10 @@ using EventHorizon.Zone.System.Agent.Behavior.Script;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Performance;
+using EventHorizon.Zone.System.Agent.Behavior.State;
+using EventHorizon.Game.Server.Zone.Agent.Model;
+using System.Collections.Generic;
+using EventHorizon.Game.Server.Zone.Tests.TestUtil.Models;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
 {
@@ -64,8 +68,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
         {
             // Given
             var expected = "SUCCESS";
-            /* Tree Data
-            Load in the Testing Behavior Tree for this test. */
             var agentBehaviorTree = JsonConvert.DeserializeObject<SerializedAgentBehaviorTree>(
                 await File.ReadAllTextAsync(
                     System.IO.Path.Combine(
@@ -76,21 +78,93 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                     )
                 )
             );
-            /* Tree Shape
-            The Tree Shape is an represtation of the BT,
-                this is static and helps with the navigation of the tree
-                by the Interpreter. */
+
             var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
+            var actor = new TestObjectEntity(
+                null
+            );
 
-            /* Actor BT Data
-            This is the Data for a specific instance.
-            Saved between Interpreter Ticks for specific Actor. */
-            var actor = new DefaultEntity();
+            var actionInterpreterLoggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var conditionInterpreterLoggerMock = new Mock<ILogger<ConditionInterpreter>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
+                mediatorMock
+            );
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    It.IsAny<RunBehaviorScript>(),
+                    It.IsAny<CancellationToken>()
+                )
+            ).ReturnsAsync(
+                new BehaviorScriptResponse(
+                    BehaviorNodeStatus.SUCCESS
+                )
+            );
 
-            // Setup Infrastructure mock
-            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var interpreter = new BehaviorInterpreterDoWhileKernel(
+                new BehaviorInterpreterInMemoryMap(
+                    new ActionInterpreter(
+                        actionInterpreterLoggerMock.Object,
+                        serviceScopeFactoryMock.Object
+                    ),
+                    new ConditionInterpreter(
+                        conditionInterpreterLoggerMock.Object,
+                        serviceScopeFactoryMock.Object
+                    )
+                )
+            );
+
+            // When
+            var actual = await interpreter.Tick(
+                treeShape,
+                actor
+            );
+
+            // Then
+            Assert.Collection(
+                actual.NodeMap.Values,
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected),
+                node => Assert.Equal(node.Status, expected)
+            );
+        }
+        [Fact]
+        public async Task ShouldBeAbleToReuseActorStateWhenEntityContainsExistingState()
+        {
+            // Given
+            var expected = "SUCCESS";
+            var agentBehaviorTree = JsonConvert.DeserializeObject<SerializedAgentBehaviorTree>(
+                await File.ReadAllTextAsync(
+                    System.IO.Path.Combine(
+                        "Agent",
+                        "Behavior",
+                        "Data",
+                        "AllNodesShouldHaveSuccessStatus.json"
+                    )
+                )
+            );
+
+            var treeShape = new ActorBehaviorTreeShape(
+                agentBehaviorTree
+            );
+            var actor = new TestObjectEntity(
+                null
+            );
+            actor.SetProperty(
+                "BehaviorTreeState",
+                new BehaviorTreeState(
+                    treeShape
+                )
+            );
+
+            var actionInterpreterLoggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var conditionInterpreterLoggerMock = new Mock<ILogger<ConditionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
             var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
                 mediatorMock
@@ -110,7 +184,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        loggerMock.Object,
+                        actionInterpreterLoggerMock.Object,
+                        serviceScopeFactoryMock.Object
+                    ),
+                    new ConditionInterpreter(
+                        conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
                 )
@@ -143,8 +221,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var expectedScriptId1 = "Behavior_Action_FindNewMoveLocation.csx";
             var expectedScriptId2 = "Behavior_Action_MoveToLocation.csx";
 
-            /* Tree Data
-            Load in the Testing Behavior Tree for this test. */
             var agentBehaviorTree = JsonConvert.DeserializeObject<SerializedAgentBehaviorTree>(
                 await File.ReadAllTextAsync(
                     System.IO.Path.Combine(
@@ -155,21 +231,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                     )
                 )
             );
-            /* Tree Shape
-            The Tree Shape is an represtation of the BT,
-                this is static and helps with the navigation of the tree
-                by the Interpreter. */
             var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
 
-            /* Actor BT Data
-            This is the Data for a specific instance.
-            Saved between Interpreter Ticks for specific Actor. */
-            var actor = new DefaultEntity();
+            var actor = new TestObjectEntity(
+                null
+            );
 
-            // Setup Infrastructure mock
-            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var actionInterpreterLoggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var conditionInterpreterLoggerMock = new Mock<ILogger<ConditionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
             var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
                 mediatorMock
@@ -184,12 +255,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                     BehaviorNodeStatus.SUCCESS
                 )
             );
-
-            // To be tested
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        loggerMock.Object,
+                        actionInterpreterLoggerMock.Object,
+                        serviceScopeFactoryMock.Object
+                    ),
+                    new ConditionInterpreter(
+                        conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
                 )
@@ -208,13 +281,23 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                 node => Assert.Equal(node.Status, expectedStatus),
                 node => Assert.Equal(node.Status, expectedStatus)
             );
+            Assert.Equal(
+                new RunBehaviorScript(
+                    actor,
+                    expectedScriptId2
+                ),
+                new RunBehaviorScript(
+                    actor,
+                    expectedScriptId2
+                )
+            );
             mediatorMock.Verify(
                 mediator => mediator.Send(
                     new RunBehaviorScript(
                         actor,
                         expectedScriptId1
                     ),
-                    CancellationToken.None
+                    It.IsAny<CancellationToken>()
                 )
             );
             mediatorMock.Verify(
@@ -223,7 +306,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                         actor,
                         expectedScriptId2
                     ),
-                    CancellationToken.None
+                    It.IsAny<CancellationToken>()
                 )
             );
         }
@@ -253,17 +336,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             /*  Actor BT Data
             This is the Data for a specific instance.
             Saved between Interpreter Ticks for specific Actor. */
-            var actor = new DefaultEntity();
+            var actor = new TestObjectEntity(
+                null
+            );
 
 
 
             /* Interpreter 
             Reads in the BT Shape and Actor BT Data. */
-
-
-
             // Setup Infrastructure mock
-            var loggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var actionInterpreterLoggerMock = new Mock<ILogger<ActionInterpreter>>();
+            var conditionInterpreterLoggerMock = new Mock<ILogger<ConditionInterpreter>>();
             var mediatorMock = new Mock<IMediator>();
             var serviceScopeFactoryMock = SetupServiceScopeFactoryWithMediatorMock(
                 mediatorMock
@@ -284,7 +367,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var interpreter = new BehaviorInterpreterDoWhileKernel(
                 new BehaviorInterpreterInMemoryMap(
                     new ActionInterpreter(
-                        loggerMock.Object,
+                        actionInterpreterLoggerMock.Object,
+                        serviceScopeFactoryMock.Object
+                    ),
+                    new ConditionInterpreter(
+                        conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
                 )
@@ -302,6 +389,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
                     treeShape,
                     actor
                 );
+                actor.SetProperty<BehaviorTreeState>("BehaviorTreeState", state);
             }
 
             var elapsed = watch.ElapsedMilliseconds;

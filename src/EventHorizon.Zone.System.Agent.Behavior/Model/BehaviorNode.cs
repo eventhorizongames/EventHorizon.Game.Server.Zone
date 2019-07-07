@@ -25,7 +25,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
         {
             if (serailzedNode == null)
             {
-                throw new ArgumentException("BehaviorNode requires a valid SerializedBehaviorNode", "serailzedNode");
+                throw new ArgumentException(
+                    "BehaviorNode requires a valid SerializedBehaviorNode", 
+                    "serailzedNode"
+                );
             }
             this.Token = Guid.NewGuid().GetHashCode();
             this.Type = BehaviorNodeType.Parse(
@@ -53,18 +56,5 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
             this.Status = status;
             return this;
         }
-
-        // public bool IsTraversalNode()
-        // {
-        //     if (BehaviorNodeType.PRIORITY_SELECTOR.Equals(Type)
-        //         || BehaviorNodeType.CONCURRENT_SELECTOR.Equals(Type)
-        //         || BehaviorNodeType.SEQUENCE_SELECTOR.Equals(Type)
-        //         || BehaviorNodeType.LOOP_SELECTOR.Equals(Type)
-        //         || BehaviorNodeType.RANDOM_SELECTOR.Equals(Type))
-        //     {
-        //         return true;
-        //     }
-        //     return false;
-        // }
     }
 }

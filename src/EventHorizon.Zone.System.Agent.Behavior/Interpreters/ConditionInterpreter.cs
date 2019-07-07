@@ -1,13 +1,19 @@
+using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Behavior.Script.Run;
 using EventHorizon.Zone.System.Agent.Behavior.State;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
 {
     /// <summary>
-    /// TODO: This should short-circuit the Current Traversal to FAILURE on failed. 
+    /// This will short-circuit the Current Traversal to FAILURE on failed script run. 
     /// 
     /// Conditions check that certain actor or game world states hold true. 
     /// 
@@ -15,55 +21,101 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
     /// 
     /// When placed below a concurrent node, conditions become a kind of invariant check that prevents its sibling nodes from running if a necessary state becomes invalid.
     /// </summary>
-    public class ConditionInterpreter : BehaviorInterpreter
+    public class ConditionInterpreter : ConditionBehaviorInterpreter
     {
-        public Task<BehaviorTreeState> Run(
+        private static readonly BehaviorScriptResponse FAILED_RESPONSE = new BehaviorScriptResponse(
+            BehaviorNodeStatus.FAILED
+        );
+        readonly ILogger _logger;
+        readonly IServiceScopeFactory _serviceScopeFactory;
+        public ConditionInterpreter(
+            ILogger<ConditionInterpreter> logger,
+            IServiceScopeFactory serviceScopeFactory
+        )
+        {
+            _logger = logger;
+            _serviceScopeFactory = serviceScopeFactory;
+        }
+        public async Task<BehaviorTreeState> Run(
             IObjectEntity actor,
             BehaviorTreeState behaviorTreeState
         )
         {
-            // Check if READY
-            if (BehaviorNodeStatus.READY.Equals(
+            if (CheckIfStatusReadyOrRunning(
                 behaviorTreeState.ActiveNode.Status
             ))
             {
-                // When Ready run first pass
-                return Task.FromResult(
-                    behaviorTreeState.SetStatusOnActiveNode(
-                        BehaviorNodeStatus.VISITING
-                    ).SetStatusOnActiveNode(
-                        // TODO: Fire the Script on the Condition
-                        // The response from the script fire will fill the status
-                        BehaviorNodeStatus.SUCCESS
-                    ).SetTraversalToActiveNode(
+                var result = await RunScript(
+                    actor,
+                    behaviorTreeState.ActiveNode.Fire
+                );
+
+                if (BehaviorNodeStatus.SUCCESS.Equals(
+                    result.Status
+                ) || BehaviorNodeStatus.RUNNING.Equals(
+                    result.Status
+                ))
+                {
+                    return behaviorTreeState.SetStatusOnActiveNode(
+                        result.Status
+                    ).SetTraversalToCheck(
                     // Set Active proccessing node back to Traversal, 
                     // This is the parent of this node, triggering validation of status.
-                    )
-                );
-            }
-            else if (BehaviorNodeStatus.RUNNING.Equals(
-                behaviorTreeState.ActiveNode.Status
-            ))
-            {
-                // When running re-run script to check state of RUNNING status
-                return Task.FromResult(
-                    behaviorTreeState.SetStatusOnActiveNode(
-                        // TODO: Fire the Script on the Condition
-                        // The response from the script fire will fill the status
-                        BehaviorNodeStatus.SUCCESS
-                    ).SetTraversalToActiveNode(
-                    // Set Active proccessing node back to Traversal, 
-                    // This is the parent of this node, triggering validation of status.
-                    )
-                );
-            }
-            // If not RUNNING/READY, reset active Node to Traversal Node.
-            return Task.FromResult(
-                behaviorTreeState.SetTraversalToActiveNode(
+                    );
+                }
+
+                return behaviorTreeState.SetStatusOnActiveNode(
+                    BehaviorNodeStatus.FAILED
+                ).SetStatusOnTraversalNode(
+                    BehaviorNodeStatus.FAILED
+                ).PopActiveTraversalNode(
+                // Conditions stop the running of the current traversal on failure.
+                ).SetTraversalToCheck(
                 // Set Active proccessing node back to Traversal, 
                 // This is the parent of this node, triggering validation of status.
-                )
+                );
+            }
+            // If not READY/RUNNING, reset active Node to Traversal Node.
+            return behaviorTreeState.SetTraversalToCheck(
+            // Set Active proccessing node back to Traversal, 
+            // This is the parent of this node, triggering validation of status.
             );
         }
+
+        private async Task<BehaviorScriptResponse> RunScript(
+            IObjectEntity actor,
+            string script
+        )
+        {
+            try
+            {
+                using (var serviceScope = _serviceScopeFactory.CreateScope())
+                {
+                    var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+                    return (await mediator.Send(
+                        new RunBehaviorScript(
+                            actor,
+                            script
+                        )
+                    ));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    "Exception during Run of Action",
+                    ex
+                );
+                return FAILED_RESPONSE;
+            }
+        }
+
+
+        private bool CheckIfStatusReadyOrRunning(string status) =>
+            BehaviorNodeStatus.READY.Equals(
+                status
+            ) || BehaviorNodeStatus.RUNNING.Equals(
+                status
+            );
     }
 }

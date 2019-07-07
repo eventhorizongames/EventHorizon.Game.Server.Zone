@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Map;
@@ -47,9 +48,9 @@ namespace EventHorizon.Game.Server.Zone.Map.Cost
             );
             IList<MapEdge> updatedEdges = new List<MapEdge>();
             // Change Edges cost based on request.
-            for (int i = 0; i < edges.Count; i++)
+            for (int i = 0; i < edges.Count(); i++)
             {
-                var edge = edges[0];
+                var edge = edges.First();
                 edge.Cost += request.Cost;
                 updatedEdges.Add(edge);
             }

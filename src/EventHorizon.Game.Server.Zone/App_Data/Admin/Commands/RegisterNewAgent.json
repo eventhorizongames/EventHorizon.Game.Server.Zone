@@ -1,0 +1,4 @@
+{
+    "command": "agent-new",
+    "scriptFile": "Admin_Agent_RegisterNewAgent.csx"
+}

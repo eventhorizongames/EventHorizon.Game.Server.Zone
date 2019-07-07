@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
     public struct ActorBehaviorTreeShape
     {
         public IList<BehaviorNode> NodeList { get; set; }
+        public bool IsValid => NodeList != null;
 
         public ActorBehaviorTreeShape(
             SerializedAgentBehaviorTree tree
@@ -52,7 +53,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Model
             int nodeToken
         )
         {
-            // TODO: Optimize this by making it a dictionary lookup
+            // PERF: Optimize this by making it a dictionary lookup
             return NodeList.First(a => a.Token == nodeToken).NodeList;
         }
     }

@@ -1,0 +1,11 @@
+{
+    "id": "SPHERE-cc0d-4094-aecf",
+    "type": "MESH",
+    "name": "A Sphere",
+    "data": {
+        "type": "SPHERE",
+        "segments": 16,
+        "diameter": 2,
+        "heightOffset": -1.2
+    }
+}

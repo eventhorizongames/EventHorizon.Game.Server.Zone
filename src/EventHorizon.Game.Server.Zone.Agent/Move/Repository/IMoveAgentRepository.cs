@@ -4,11 +4,8 @@ namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository
 {
     public interface IMoveAgentRepository
     {
-        IEnumerable<long> All();
-        void Add(long entityId);
-        void Remove(long entityId);
-        bool Contains(
-            long entityId
-        );
+        void Register(long entityId);
+        bool Dequeue(out long entityId);
+        void MergeRegisteredIntoQueue();
     }
 }

@@ -35,8 +35,9 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
-            // Check if READY
             if (BehaviorNodeStatus.READY.Equals(
+                behaviorTreeState.ActiveNode.Status
+            ) || BehaviorNodeStatus.RUNNING.Equals(
                 behaviorTreeState.ActiveNode.Status
             ))
             {
@@ -57,10 +58,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                                     behaviorTreeState.ActiveNode.Fire
                                 )
                             )).Status
-                        ).SetTraversalToActiveNode(
-                        // Set Active proccessing node back to Traversal, 
-                        // This is the parent of this node, triggering validation of status.
-                        );
+                        ).SetTraversalToCheck();
                     }
                 }
                 catch (Exception ex)
@@ -71,29 +69,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                     );
                     return behaviorTreeState.SetStatusOnActiveNode(
                         BehaviorNodeStatus.FAILED
-                    ).SetTraversalToActiveNode(
-                    );
+                    ).SetTraversalToCheck();
                 }
             }
-            else if (BehaviorNodeStatus.RUNNING.Equals(
-                behaviorTreeState.ActiveNode.Status
-            ))
-            {
-                // When running re-run script to check state of RUNNING status
-                return behaviorTreeState.SetStatusOnActiveNode(
-                    // TODO: Fire the Script on the Condition
-                    // The response from the script fire will fill the status
-                    BehaviorNodeStatus.SUCCESS
-                ).SetTraversalToActiveNode(
-                // Set Active proccessing node back to Traversal, 
-                // This is the parent of this node, triggering validation of status.
-                );
-            }
-            // If not RUNNING/READY, reset active Node to Traversal Node.
-            return behaviorTreeState.SetTraversalToActiveNode(
-            // Set Active proccessing node back to Traversal, 
-            // This is the parent of this node, triggering validation of status.
-            );
+            return behaviorTreeState.SetTraversalToCheck();
         }
     }
 }

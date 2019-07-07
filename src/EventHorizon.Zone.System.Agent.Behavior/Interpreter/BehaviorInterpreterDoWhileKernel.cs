@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
@@ -21,10 +22,10 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreter
             IObjectEntity actor
         )
         {
-            // TODO: Setup this up from the shape and the current actor state
-            var treeState = new BehaviorTreeState(
-                shape
-            );
+            var treeState = GetActorState(
+                shape,
+                actor
+            ).PopActiveNodeFromQueue();
 
             do
             {
@@ -36,9 +37,44 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreter
                     treeState
                 );
 
-                // TODO: Check timing of current loop. If over timeout, stash Actor state for future.
+                while (treeState.CheckTraversal)
+                {
+                    treeState = await _interpreterMap.InterperterByType(
+                        treeState.SetCheckTraversal(
+                            false
+                        ).ActivateNode(
+                            treeState.ActiveTraversal.Token
+                        ).ActiveTraversal.Type
+                    ).Run(
+                        actor,
+                        treeState
+                    );
+                }
             } while (treeState.ContainsNext);
+            actor.SetProperty(
+                "BehaviorTreeState",
+                treeState
+            );
             return treeState;
+        }
+
+        private BehaviorTreeState GetActorState(
+            ActorBehaviorTreeShape shape,
+            IObjectEntity actor
+        )
+        {
+            var treeState = actor.GetProperty<BehaviorTreeState>(
+                "BehaviorTreeState"
+            );
+            if (!treeState.IsValid)
+            {
+                return new BehaviorTreeState(
+                    shape
+                );
+            }
+            return treeState.SetShape(
+                shape
+            );
         }
     }
 }

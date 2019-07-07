@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
@@ -56,12 +57,16 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                         return Task.FromResult(
                             behaviorTreeState.SetStatusOnTraversalNode(
                                 BehaviorNodeStatus.FAILED
+                            ).SetTraversalToCheck(
+                            // This will make the current Traversal Node Active
+                            //  and ready for processing/validation
                             ).PopActiveTraversalNode(
                             // Because of failure we pop out of the Traversal node
                             // This will make the Parent Node the Current Traversal
-                            ).SetTraversalToActiveNode(
-                            // This will make the current Traversal Node Active
-                            // and ready for processing and validation
+                            ).AdvanceQueueToAfterPassedToken(
+                                behaviorTreeState.GetActiveTraversalChildren()
+                                    .Last()
+                                    .Token
                             )
                         );
                     }
@@ -86,8 +91,8 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                 // If any found still in ready, run them.
                 return Task.FromResult(
                     behaviorTreeState.SetNextActiveNode(
-                    // This will set the next child node, in this Traversal node,
-                    //  to be processed.
+                    // This will set the next node to be processed.
+                    // In this case should be the next Child
                     )
                 );
             }
@@ -103,12 +108,12 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
                     ).AddActiveTraversalToNextStack(
                     // This add the Active Traversal to the Next Stack State
                     // The next stack state will be used in next tick/update calls
+                    ).SetTraversalToCheck(
+                    // This will make the current Traversal Node Active
+                    //  and ready for processing/validation
                     ).PopActiveTraversalNode(
                     // This will pop the current Active Traversal off the stack
                     // This will allow for the Parent node to run processing.
-                    ).SetTraversalToActiveNode(
-                    // This will make the current Traversal/Parent Node Active
-                    //  and ready for processing and validation.
                     )
                 );
             }
@@ -117,11 +122,11 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreters
             return Task.FromResult(
                 behaviorTreeState.SetStatusOnTraversalNode(
                     BehaviorNodeStatus.SUCCESS
-                ).PopActiveTraversalNode(
-                // This will pop the current Active Traversal off the stack
-                ).SetTraversalToActiveNode(
+                ).SetTraversalToCheck(
                 // This will make the current Traversal Node Active
                 //  and ready for processing/validation
+                ).PopActiveTraversalNode(
+                // This will pop the current Active Traversal off the stack
                 )
             );
         }

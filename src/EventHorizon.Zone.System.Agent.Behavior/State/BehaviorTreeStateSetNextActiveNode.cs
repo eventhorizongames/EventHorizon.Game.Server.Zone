@@ -8,9 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
     {
         public BehaviorTreeState SetNextActiveNode()
         {
-            return SetNextChildNodeOfStatusToActive(
-                BehaviorNodeStatus.READY
-            );
+            return this.PopActiveNodeFromQueue();
         }
     }
 }

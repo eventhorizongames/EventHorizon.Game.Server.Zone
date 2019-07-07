@@ -13,6 +13,7 @@ using EventHorizon.Game.Server.Zone.External.DateTimeService;
 using EventHorizon.Game.Server.Zone.Model.Core;
 using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.State.Repository;
+using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -26,20 +27,36 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
         public async Task TestHandle_ShouldPublishMoveEventForAgent()
         {
             // Given
-            var inputId = 123;
-            var expectedMoveTo = new Vector3(2, 2, 2);
+            var inputId = 123L;
+            var expectedMoveTo = new Vector3(
+                2,
+                2,
+                2
+            );
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
                 Position = new PositionState
                 {
                     CanMove = true,
-                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
-                    CurrentPosition = new Vector3(4, 4, 4),
+                    NextMoveRequest = DateTime.Now.Subtract(
+                        TimeSpan.FromMinutes(1)
+                    ),
+                    CurrentPosition = new Vector3(
+                        4,
+                        4,
+                        4
+                    ),
                     CurrentZone = "current-zone",
                     ZoneTag = "current-tag"
                 },
-                Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo, expectedMoveTo }),
+                Path = new Queue<Vector3>(
+                    new List<Vector3>()
+                    {
+                        expectedMoveTo,
+                        expectedMoveTo
+                    }
+                ),
             };
             var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
@@ -53,9 +70,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
-            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
+            dateTimeMock.Setup(
+                dataTime => dataTime.Now
+            ).Returns(
+                DateTime.Now
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
@@ -64,26 +91,55 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 mediatorMock.Object,
                 dateTimeMock.Object,
                 agentRepositoryMock.Object,
-                moveAgentRepositoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentHandler.Handle(new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent
+                {
+                    EntityId = inputId
+                },
+                CancellationToken.None
+            );
             // Then
-            agentRepositoryMock.Verify(repository => repository.FindById(inputId));
-            agentRepositoryMock.Verify(repository => repository.Update(EntityAction.POSITION, It.IsAny<AgentEntity>())); // TODO: Look at validating this differently
-            mediatorMock.Verify(mediator => mediator.Publish(expectedClientActionEvent, It.IsAny<CancellationToken>()));
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    EntityAction.POSITION,
+                    It.IsAny<AgentEntity>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedClientActionEvent,
+                    It.IsAny<CancellationToken>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<QueueAgentToMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                )
+            );
 
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<AgentFinishedMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
-            moveAgentRepositoryMock.Verify(repository => repository.Remove(It.IsAny<long>()), Times.Never());
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<AgentFinishedMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
+
         }
 
         [Fact]
         public async Task TestHandle_ShouldOnlyRemoveAgentWhenNoPathIsNull()
         {
             // Given
-            var inputId = 123;
+            var inputId = 123L;
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
@@ -98,7 +154,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
@@ -107,40 +169,82 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 mediatorMock.Object,
                 dateTimeMock.Object,
                 agentRepositoryMock.Object,
-                moveAgentRepositoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentHandler.Handle(new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent
+                {
+                    EntityId = inputId
+                },
+                CancellationToken.None
+            );
             // Then
-            agentRepositoryMock.Verify(repository => repository.FindById(inputId));
-            agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(expectedAgentFinishedMoveEvent, It.IsAny<CancellationToken>()));
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
-            moveAgentRepositoryMock.Verify(repository => repository.Remove(inputId));
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    It.IsAny<EntityAction>(),
+                    It.IsAny<AgentEntity>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedAgentFinishedMoveEvent,
+                    It.IsAny<CancellationToken>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<ClientActionEntityClientMoveToAllEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<QueueAgentToMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
         }
 
         [Fact]
         public async Task TestHandle_ShouldDifferProcessingToFutureDateIfNextMoveRequestisStillInFuture()
         {
             // Given
-            var inputId = 123;
+            var inputId = 123L;
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
                 Position = new PositionState
                 {
-                    NextMoveRequest = DateTime.Now.Add(TimeSpan.FromMinutes(1)),
+                    NextMoveRequest = DateTime.Now.Add(
+                        TimeSpan.FromMinutes(
+                            1
+                        )
+                    ),
                 },
-                Path = new Queue<Vector3>(new List<Vector3>() { }),
+                Path = new Queue<Vector3>(
+                    new List<Vector3>() { }
+                ),
             };
 
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
@@ -149,34 +253,72 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 mediatorMock.Object,
                 dateTimeMock.Object,
                 agentRepositoryMock.Object,
-                moveAgentRepositoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentHandler.Handle(new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent
+                {
+                    EntityId = inputId
+                },
+                CancellationToken.None
+            );
+
             // Then
-            agentRepositoryMock.Verify(repository => repository.FindById(inputId));
-            agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<AgentFinishedMoveEvent>(), It.IsAny<CancellationToken>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
-            moveAgentRepositoryMock.Verify(repository => repository.Remove(It.IsAny<long>()), Times.Never());
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<QueueAgentToMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                )
+            );
+
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    It.IsAny<EntityAction>(),
+                    It.IsAny<AgentEntity>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<AgentFinishedMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<ClientActionEntityClientMoveToAllEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
         }
 
         [Fact]
         public async Task TestHandle_ShouldRemoveAgentIfPathQueueIsEmpty()
         {
             // Given
-            var inputId = 123;
+            var inputId = 123L;
             var expectedAgent = new AgentEntity
             {
                 Id = inputId,
                 Position = new PositionState
                 {
                     CanMove = true,
-                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
+                    NextMoveRequest = DateTime.Now.Subtract(
+                        TimeSpan.FromMinutes(
+                            1
+                        )
+                    ),
                 },
-                Path = new Queue<Vector3>(new List<Vector3>() { }),
+                Path = new Queue<Vector3>(
+                    new List<Vector3>() { }
+                ),
             };
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
@@ -186,9 +328,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
-            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
+            dateTimeMock.Setup(
+                dateTime => dateTime.Now
+            ).Returns(
+                DateTime.Now
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
@@ -197,19 +349,42 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 mediatorMock.Object,
                 dateTimeMock.Object,
                 agentRepositoryMock.Object,
-                moveAgentRepositoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentHandler.Handle(new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent
+                {
+                    EntityId = inputId
+                },
+                CancellationToken.None
+            );
             // Then
-            agentRepositoryMock.Verify(repository => repository.FindById(inputId));
-            moveAgentRepositoryMock.Verify(repository => repository.Remove(inputId));
-            mediatorMock.Verify(mediator => mediator.Publish(expectedAgentFinishedMoveEvent, It.IsAny<CancellationToken>()));
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedAgentFinishedMoveEvent,
+                    It.IsAny<CancellationToken>()
+                )
+            );
 
-            agentRepositoryMock.Verify(repository => repository.Update(It.IsAny<EntityAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<ClientActionEntityClientMoveToAllEvent>(), It.IsAny<CancellationToken>()), Times.Never());
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    It.IsAny<EntityAction>(),
+                    It.IsAny<AgentEntity>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<ClientActionEntityClientMoveToAllEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
         }
 
         [Fact]
@@ -224,12 +399,25 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Position = new PositionState
                 {
                     CanMove = true,
-                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromMinutes(1)),
-                    CurrentPosition = new Vector3(4, 4, 4),
+                    NextMoveRequest = DateTime.Now.Subtract(
+                        TimeSpan.FromMinutes(
+                            1
+                        )
+                    ),
+                    CurrentPosition = new Vector3(
+                        4,
+                        4,
+                        4
+                    ),
                     CurrentZone = "current-zone",
                     ZoneTag = "current-tag"
                 },
-                Path = new Queue<Vector3>(new List<Vector3>() { expectedMoveTo }),
+                Path = new Queue<Vector3>(
+                    new List<Vector3>()
+                    {
+                        expectedMoveTo
+                    }
+                ),
             };
             var expectedClientActionEvent = new ClientActionEntityClientMoveToAllEvent
             {
@@ -247,9 +435,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
-            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
+            dateTimeMock.Setup(
+                dateTime => dateTime.Now
+            ).Returns(
+                DateTime.Now
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(repository => repository.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
             var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
@@ -258,19 +456,47 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 mediatorMock.Object,
                 dateTimeMock.Object,
                 agentRepositoryMock.Object,
-                moveAgentRepositoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentHandler.Handle(new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent
+                {
+                    EntityId = inputId
+                },
+                CancellationToken.None
+            );
             // Then
-            agentRepositoryMock.Verify(repository => repository.FindById(inputId));
-            agentRepositoryMock.Verify(repository => repository.Update(EntityAction.POSITION, It.IsAny<AgentEntity>())); // TODO: Look at validating this differently
-            mediatorMock.Verify(mediator => mediator.Publish(expectedClientActionEvent, It.IsAny<CancellationToken>()));
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    EntityAction.POSITION,
+                    It.IsAny<AgentEntity>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedClientActionEvent,
+                    It.IsAny<CancellationToken>()
+                )
+            );
 
-            mediatorMock.Verify(mediator => mediator.Publish(expectedAgentFinishedMoveEvent, It.IsAny<CancellationToken>()));
-            moveAgentRepositoryMock.Verify(repository => repository.Remove(inputId));
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedAgentFinishedMoveEvent,
+                    It.IsAny<CancellationToken>()
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<QueueAgentToMoveEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
         }
     }
 }

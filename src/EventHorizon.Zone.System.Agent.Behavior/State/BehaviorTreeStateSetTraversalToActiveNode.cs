@@ -6,10 +6,15 @@ namespace EventHorizon.Zone.System.Agent.Behavior.State
 {
     public partial struct BehaviorTreeState
     {
-        public BehaviorTreeState SetTraversalToActiveNode()
+        /// <summary>
+        /// Flag this state to check traversal the next time it has a chance to.
+        /// </summary>
+        /// <returns>Update Tree State.</returns>
+        public BehaviorTreeState SetTraversalToCheck()
         {
-            this._activeNodeToken = this._activeTraversalToken;
-            return this;
+            return this.SetCheckTraversal(
+                true
+            );
         }
     }
 }

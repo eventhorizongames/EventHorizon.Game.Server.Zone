@@ -14,13 +14,14 @@ namespace EventHorizon.Game.Server.Zone.Path.Find.Handler
     public class FindPathHandler : IRequestHandler<FindPathEvent, Queue<Vector3>>
     {
         readonly IMediator _mediator;
-        public FindPathHandler(IMediator mediator)
+        public FindPathHandler(
+            IMediator mediator
+        )
         {
             _mediator = mediator;
         }
         public async Task<Queue<Vector3>> Handle(FindPathEvent request, CancellationToken cancellationToken)
         {
-
             var fromMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
             {
                 Position = request.From,

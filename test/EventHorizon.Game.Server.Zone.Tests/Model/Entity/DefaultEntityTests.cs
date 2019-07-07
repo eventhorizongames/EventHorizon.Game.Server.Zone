@@ -15,34 +15,55 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             //Given
             var expectedId = 0;
             var expectedType = EntityType.OTHER;
-            var expectedPosition = default(PositionState);
-            IList<string> expectedTagList = null;
+            var expectedPosition = default(
+                PositionState
+            );
             Dictionary<string, object> expectedData = new Dictionary<string, object>();
 
             //When
             var actual = new DefaultEntity();
 
             //Then
-            Assert.False(actual.IsFound());
-            Assert.Equal(expectedId, actual.Id);
-            Assert.Equal(expectedType, actual.Type);
-            Assert.Equal(expectedPosition, actual.Position);
-            Assert.Equal(expectedTagList, actual.TagList);
-            Assert.Equal(expectedData, actual.Data);
+            Assert.False(
+                actual.IsFound()
+            );
+            Assert.Equal(
+                expectedId,
+                actual.Id
+            );
+            Assert.Equal(
+                expectedType,
+                actual.Type
+            );
+            Assert.Equal(
+                expectedPosition,
+                actual.Position
+            );
+            Assert.Null(
+                actual.TagList
+            );
+            Assert.Equal(
+                expectedData, actual.Data
+            );
         }
 
         [Fact]
         public void Test_ShouldMatchDefault()
         {
             //Given
-            var expected = default(DefaultEntity);
+            var expected = new DefaultEntity();
 
             //When
             var actual = new DefaultEntity();
 
             //Then
-            Assert.False(actual.IsFound());
-            Assert.Equal(expected, actual);
+            Assert.False(
+                actual.IsFound()
+            );
+            Assert.Equal(
+                expected,
+                actual
+            );
         }
 
         [Fact]
@@ -57,10 +78,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
                 RawData = new Dictionary<string, object>()
             };
             defaultEntity.Data["someProperty"] = expected;
-            var actual = defaultEntity.GetProperty<string>("someProperty");
+            var actual = defaultEntity.GetProperty<string>(
+                "someProperty"
+            );
 
             //Then
-            Assert.Equal(expected, actual);
+            Assert.Equal(
+                expected,
+                actual
+            );
         }
 
         [Fact]
@@ -80,12 +106,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
                     }
                 }
             };
-            defaultEntity.PopulateData<string>("SomeData");
-            var model = defaultEntity.GetProperty<string>("SomeData");
-            var actual = model;
+            defaultEntity.PopulateData<string>(
+                "SomeData"
+            );
+            var actual = defaultEntity.GetProperty<string>(
+                "SomeData"
+            );
 
             //Then
-            Assert.Equal(expected, actual);
+            Assert.Equal(
+                expected,
+                actual
+            );
         }
     }
 }

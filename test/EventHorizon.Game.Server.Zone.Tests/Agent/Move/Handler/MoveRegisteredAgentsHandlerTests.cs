@@ -6,23 +6,26 @@ using System.Threading.Tasks;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Move.Handler;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging.Internal;
+using EventHorizon.Performance;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {
     public class MoveRegisteredAgentsHandlerTests
     {
+        private delegate void IdSetter(out long entityId);
+
+
         [Fact]
         public async Task TestHandle_ShouldPublishToMoveRegisteredAgentForEachAgentInRepository()
         {
             // Given
-            var inputId1 = 111;
-            var inputId2 = 222;
-            var inputId3 = 333;
+            var inputId1 = 111L;
+            var inputId2 = 222L;
+            var inputId3 = 333L;
             var expectedMoveRegisteredAgentEvent1 = new MoveRegisteredAgentEvent
             {
                 EntityId = inputId1
@@ -43,104 +46,171 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             };
 
             var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
             var moveRepositoryMock = new Mock<IMoveAgentRepository>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-
-            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(entityIdList);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
-
+            var called = 0;
+            moveRepositoryMock.Setup(
+                moveRepository => moveRepository.Dequeue(
+                    out inputId1
+                )
+            ).Callback(
+                new IdSetter((out long id) =>
+                {
+                    if (called == 0)
+                        id = inputId1;
+                    else if (called == 1)
+                        id = inputId2;
+                    else if (called == 2)
+                        id = inputId3;
+                    else
+                        id = -1;
+                    called++;
+                })
+            ).Returns(
+                () => called <= 3
+            );
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
                 loggerMock.Object,
+                mediatorMock.Object,
                 moveRepositoryMock.Object,
-                serviceScopeFactoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentsHandler.Handle(new MoveRegisteredAgentsEvent(), CancellationToken.None);
+            await moveRegisteredAgentsHandler.Handle(
+                new MoveRegisteredAgentsEvent(),
+                CancellationToken.None
+            );
 
             // Then
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentEvent1, CancellationToken.None));
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentEvent2, CancellationToken.None));
-            mediatorMock.Verify(mediator => mediator.Publish(expectedMoveRegisteredAgentEvent3, CancellationToken.None));
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<MoveRegisteredAgentEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Exactly(
+                    3
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedMoveRegisteredAgentEvent1,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedMoveRegisteredAgentEvent2,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    expectedMoveRegisteredAgentEvent3,
+                    CancellationToken.None
+                )
+            );
         }
         [Fact]
         public async Task TestHandle_ShouldNotPublishToMoveRegisteredAgentWhenNothingIsInAgentRepository()
         {
             // Given
+            var defaultEntityId = 0L;
             var entityIdList = new List<long>()
             {
             };
 
             var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
             var moveRepositoryMock = new Mock<IMoveAgentRepository>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
 
-            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(entityIdList);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
+            moveRepositoryMock.Setup(
+                moveRepository => moveRepository.Dequeue(
+                    out defaultEntityId
+                )
+            ).Returns(
+                false
+            );
 
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
                 loggerMock.Object,
+                mediatorMock.Object,
                 moveRepositoryMock.Object,
-                serviceScopeFactoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentsHandler.Handle(new MoveRegisteredAgentsEvent(), CancellationToken.None);
+            await moveRegisteredAgentsHandler.Handle(
+                new MoveRegisteredAgentsEvent(),
+                CancellationToken.None
+            );
 
             // Then
-            mediatorMock.Verify(mediator => mediator.Publish(It.IsAny<MoveRegisteredAgentEvent>(), CancellationToken.None), Times.Never());
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<MoveRegisteredAgentEvent>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
         }
         [Fact]
-        public async Task TestHandle_ShouldLogWarningWhenAgentCountListIsOver75Agents()
+        public async Task TestHandle_ShouldLogWarningWhenAgentCountListIsOver25Agents()
         {
             // Given
             var entityIdList = new List<long>();
-            for (int i = 0; i < 76; i++)
-            {
-                entityIdList.Add(i);
-            }
 
             var mediatorMock = new Mock<IMediator>();
-            var serviceScopeMock = new Mock<IServiceScope>();
-            var serviceProviderMock = new Mock<IServiceProvider>();
-
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
-            serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
-
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
             var moveRepositoryMock = new Mock<IMoveAgentRepository>();
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
 
-            moveRepositoryMock.Setup(moveRepository => moveRepository.All()).Returns(entityIdList);
-            serviceScopeFactoryMock.Setup(serviceScopeFactory => serviceScopeFactory.CreateScope()).Returns(serviceScopeMock.Object);
+            for (long i = 0; i < 76; i++)
+            {
+                entityIdList.Add(i);
+                moveRepositoryMock.Setup(
+                    moveRepository => moveRepository.Dequeue(
+                        out i
+                    )
+                ).Returns(true);
+            }
 
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
                 loggerMock.Object,
+                mediatorMock.Object,
                 moveRepositoryMock.Object,
-                serviceScopeFactoryMock.Object
+                new Mock<IPerformanceTracker>().Object
             );
-            await moveRegisteredAgentsHandler.Handle(new MoveRegisteredAgentsEvent(), CancellationToken.None);
+            await moveRegisteredAgentsHandler.Handle(
+                new MoveRegisteredAgentsEvent(),
+                CancellationToken.None
+            );
 
             // Then
-            loggerMock.Verify(logger => logger.Log(LogLevel.Warning,
-                It.IsAny<EventId>(),
-                It.Is<FormattedLogValues>(v => v.ToString().Contains("Agent Movement List is over 75.")),
-                It.IsAny<Exception>(),
-                It.IsAny<Func<object, Exception, string>>()
-            ));
+            loggerMock.Verify(
+                logger => logger.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<FormattedLogValues>(
+                        v => v.ToString().Contains(
+                            "Agent Movement List is over 10."
+                        )
+                    ),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<object, Exception, string>>()
+                )
+            );
+            loggerMock.Verify(
+                logger => logger.Log(
+                    LogLevel.Warning,
+                    It.IsAny<EventId>(),
+                    It.Is<FormattedLogValues>(
+                        v => v.ToString().Contains(
+                            "Agent Movement List is over 25."
+                        )
+                    ),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<object, Exception, string>>()
+                )
+            );
         }
     }
 }

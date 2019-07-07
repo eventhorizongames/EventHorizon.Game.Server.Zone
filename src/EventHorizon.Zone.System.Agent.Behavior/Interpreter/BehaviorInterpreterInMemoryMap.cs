@@ -10,13 +10,13 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Interpreter
         readonly Dictionary<BehaviorNodeType, BehaviorInterpreter> _interpreterMap;
 
         public BehaviorInterpreterInMemoryMap(
-            ActionBehaviorInterpreter actionInterpreter
+            ActionBehaviorInterpreter actionInterpreter,
+            ConditionBehaviorInterpreter conditionInterpreter
         )
         {
             var prioritySelectorInterpreter = new PrioritySelectorInterpreter();
             var concurrentSelectorInterpreter = new ConcurrentSelectorInterpreter();
             var sequenceSelectorInterpreter = new SequenceSelectorInterpreter();
-            var conditionInterpreter = new ConditionInterpreter();
 
             _interpreterMap = new Dictionary<BehaviorNodeType, BehaviorInterpreter>()
             {

@@ -3,23 +3,23 @@
     "name": "Wander",
     "description": "",
     "root": {
-        "type": "PRIORITY_SELECTOR",
+        "type": "SEQUENCE_SELECTOR",
         "nodeList": [
             {
-                "type": "SEQUENCE_SELECTOR",
-                "nodeList": [
-                    {
-                        "comments": "This will return a action to populate the Agents move to path.",
-                        "comments2": "If the path is filled it will",
-                        "type": "ACTION",
-                        "fire": "Behavior_Action_FindNewMoveLocation.csx"
-                    },
-                    {
-                        "comments": "This will will return a differed state of Actor movement.",
-                        "type": "ACTION",
-                        "fire": "Behavior_Action_MoveToLocation.csx"
-                    }
-                ]
+                "comments": "Wait an amount of time before moving on.",
+                "type": "ACTION",
+                "fire": "Behavior_Action_WaitSomeTime.csx"
+            },
+            {
+                "comments": "This will return a action to populate the Agents move to path.",
+                "comments2": "If the path is filled it will",
+                "type": "ACTION",
+                "fire": "Behavior_Action_FindNewMoveLocation.csx"
+            },
+            {
+                "comments": "This will will return a differed state of Actor movement.",
+                "type": "ACTION",
+                "fire": "Behavior_Action_MoveToLocation.csx"
             }
         ]
     }
