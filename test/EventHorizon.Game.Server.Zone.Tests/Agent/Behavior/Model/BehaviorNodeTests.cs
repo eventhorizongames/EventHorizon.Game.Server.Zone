@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Model
         {
             // Given
             var expectedParam = "serailzedNode";
-            var expectedMessage = "BehaviorNode requires a valid SerializedBehaviorNode\r\nParameter name: serailzedNode";
+            var expectedMessage = $"BehaviorNode requires a valid SerializedBehaviorNode{Environment.NewLine}Parameter name: serailzedNode";
 
             // When
             Action testAction = () => new BehaviorNode(null);

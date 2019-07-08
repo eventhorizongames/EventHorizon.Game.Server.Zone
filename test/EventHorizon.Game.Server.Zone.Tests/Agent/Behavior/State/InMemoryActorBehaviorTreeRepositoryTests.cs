@@ -229,7 +229,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State
             // Given
             var treeId = "tree-id";
             var actorId = 1L;
-            var expectedMessage = "TreeId not found\r\nParameter name: treeId";
+            var expectedMessage = $"TreeId not found{Environment.NewLine}Parameter name: treeId";
             var expectedParam = "treeId";
 
             // When
@@ -265,7 +265,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State
             // Given
             var treeId = "tree-id";
             var actorId = 1L;
-            var expectedMessage = "TreeId not found\r\nParameter name: treeId";
+            var expectedMessage = $"TreeId not found{Environment.NewLine}Parameter name: treeId";
             var expectedParam = "treeId";
 
             // When
