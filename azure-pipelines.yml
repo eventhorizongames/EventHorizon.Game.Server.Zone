@@ -1,0 +1,47 @@
+pool:
+  name: Default
+
+variables:
+  BuildConfiguration: Release
+  BuildPlatform: x64
+  disable.coverage.autogenerate: true
+  Parameters.RestoreBuildProjects: '**/*.csproj'
+  Parameters.TestProjects: '**/*[Tt]ests/*.csproj'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(Parameters.RestoreBuildProjects)'
+    vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(Parameters.RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration) /p:Version=$(Build.BuildNumber)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(Parameters.TestProjects)'
+    arguments: '--configuration $(BuildConfiguration) --filter Category!=Performance /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Report Generator'
+  inputs:
+    command: custom
+    projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
+    custom: reportgenerator
+    arguments: '"-reports:$(Build.SourcesDirectory)/test/**/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"'
+    workingDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml
+    reportDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports
+
