@@ -6,3 +6,5 @@ dotnet reportgenerator "-reports:.\TestResults\Coverage\coverage.cobertura.xml" 
 
 
 dotnet reportgenerator "-reports:../*/TestResults/Coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"
+
+dotnet reportgenerator test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj "-reports:../*/TestResults/Coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"
