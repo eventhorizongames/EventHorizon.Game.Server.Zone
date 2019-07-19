@@ -357,7 +357,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State
             );
 
             // Then
-            Assert.Collection(
+            Assert.Empty(
                 actual.NodeList
             );
         }

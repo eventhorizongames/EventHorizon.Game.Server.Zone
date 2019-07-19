@@ -83,9 +83,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State
             // Then
             Assert.Equal(
                 expectedBehaviorScript,
-                default(
-                    BehaviorScript
-                )
+                actual
             );
         }
     }

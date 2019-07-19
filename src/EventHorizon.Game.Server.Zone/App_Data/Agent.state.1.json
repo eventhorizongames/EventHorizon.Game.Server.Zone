@@ -6,9 +6,9 @@
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -25.0,
+                    "X": 0.0,
                     "Y": 0.0,
-                    "Z": 30.0
+                    "Z": 0.0
                 },
                 "NextMoveRequest": "2019-07-04T13:58:19.8663358Z",
                 "MoveToPosition": {
@@ -76,7 +76,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
+                    "TreeId": "Behaviors_Idle.json"
                 },
                 "ActorMoveToPosition": null,
                 "NextRunTime": "2019-07-04T08:58:21.2081773-05:00"

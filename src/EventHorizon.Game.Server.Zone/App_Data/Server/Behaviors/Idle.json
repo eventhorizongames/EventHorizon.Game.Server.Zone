@@ -1,0 +1,14 @@
+{
+    "comments": "This will cause the Agent do nothing.",
+    "name": "Idle",
+    "description": "",
+    "root": {
+        "type": "SEQUENCE_SELECTOR",
+        "nodeList": [
+            {
+                "type": "ACTION",
+                "fire": "$DEFAULT$SCRIPT"
+            }
+        ]
+    }
+}

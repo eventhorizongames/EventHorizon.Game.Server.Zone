@@ -1,1 +1,403 @@
-{"AgentList":[{"Id":"60dd3799-3d17-4399-b36e-406343ba0bfd","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":34.0,"Y":0.0,"Z":46.0},"NextMoveRequest":"2019-07-11T00:25:21.3692705Z","MoveToPosition":{"X":34.0,"Y":0.0,"Z":45.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:29.5199271-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"73566506-cc03-45c5-a94b-e5af06a18d7d","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":1.0,"Y":0.0,"Z":5.0},"NextMoveRequest":"2019-07-11T00:25:25.6661761Z","MoveToPosition":{"X":2.0,"Y":0.0,"Z":5.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":null,"BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"-49019662":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"1280348030":{"Token":1280348030,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_FindNewMoveLocation.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[]}}},{"Id":"90fc41c5-9e52-4f02-b26f-ef4f000b19df","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":61.0,"Y":0.0,"Z":-22.0},"NextMoveRequest":"2019-07-11T00:25:18.1636855Z","MoveToPosition":{"X":61.0,"Y":0.0,"Z":-21.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:26.2079984-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"d1cb798f-d948-4645-bb9b-ac8b38b266d0","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":-14.0,"Y":0.0,"Z":57.0},"NextMoveRequest":"2019-07-11T00:25:25.6678903Z","MoveToPosition":{"X":-14.0,"Y":0.0,"Z":56.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":null,"BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"-49019662":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"1280348030":{"Token":1280348030,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_FindNewMoveLocation.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[]}}},{"Id":"8dd8aca6-43c7-4824-b5d6-773f75316885","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":0.0,"Y":0.0,"Z":39.0},"NextMoveRequest":"2019-07-11T00:25:21.5699899Z","MoveToPosition":{"X":-1.0,"Y":0.0,"Z":39.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:36.614892-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"2abd00c1-7569-49a7-9a38-4ada8f18d530","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":43.0,"Y":0.0,"Z":17.0},"NextMoveRequest":"2019-07-11T00:25:25.6641978Z","MoveToPosition":{"X":43.0,"Y":0.0,"Z":18.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":null,"BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"-49019662":{"Token":-49019662,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_MoveToLocation.csx","FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"1280348030":{"Token":1280348030,"Type":{"Name":"ACTION"},"Status":"SUCCESS","Fire":"Behavior_Action_FindNewMoveLocation.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[]}}},{"Id":"5f703f2e-eb9b-4a6f-afc6-44e00527b93c","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":-56.0,"Y":0.0,"Z":-47.0},"NextMoveRequest":"2019-07-11T00:25:19.5704352Z","MoveToPosition":{"X":-57.0,"Y":0.0,"Z":-47.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:37.6155703-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"c6181d94-58d1-47fc-8555-ca926c21cd42","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":19.0,"Y":0.0,"Z":40.0},"NextMoveRequest":"2019-07-11T00:25:23.0699374Z","MoveToPosition":{"X":20.0,"Y":0.0,"Z":40.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:35.1161912-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"b3bb3958-1c57-4975-acf0-db230ef63762","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":-22.0,"Y":0.0,"Z":34.0},"NextMoveRequest":"2019-07-11T00:25:10.7595366Z","MoveToPosition":{"X":-22.0,"Y":0.0,"Z":35.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:25.9126389-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}},{"Id":"551e9b89-3932-4dad-89a8-65ca014e52aa","Name":"First Ever NPC","Position":{"CanMove":true,"CurrentPosition":{"X":-34.0,"Y":0.0,"Z":-2.0},"NextMoveRequest":"2019-07-11T00:25:25.1639884Z","MoveToPosition":{"X":-35.0,"Y":0.0,"Z":-2.0},"CurrentZone":"...","ZoneTag":"testing"},"TagList":["npc","wandering","weak"],"Data":{"ownerState":{"OwnerId":"7eba45d5-dbf6-4f82-bcb2-c96214be4ad2","CanBeCaptured":false},"movementState":{"Speed":1.0},"routine":{"Name":"MOVE"},"defaultRoutine":{"Name":"IDLE"},"wander":{"LookDistance":25},"life":{"Health":0},"lifeState":{"Condition":{"Name":"ALIVE"},"HealthPoints":7173,"MaxHealthPoints":10000,"ActionPoints":9826,"MaxActionPoints":10000,"Attack":1},"levelState":{"HealthPointsLevel":1,"ActionPointsLevel":1,"AttackLevel":1,"Experience":0,"AllTimeExperience":3},"skillState":{"SkillList":{"fire_ball":{"CooldownFinishes":"2019-06-14T18:04:14.0149854Z"}}},"modelState":{"AnimationList":[],"Mesh":{"Type":"SPHERE","AssetId":"SPHERE-cc0d-4094-aecf"}},"behavior":{"TreeId":"Behaviors_Wander.json"},"ActorMoveToPosition":{"X":0.0,"Y":0.0,"Z":0.0},"NextRunTime":"2019-07-10T19:25:31.2247871-05:00","BehaviorTreeState":{"ContainsNext":false,"CheckTraversal":false,"ActiveNode":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null},"ActiveTraversal":{"Token":0,"Type":{"Name":null},"Status":null,"Fire":null,"FailGate":0,"NodeList":null},"NodeMap":{"178264612":{"Token":178264612,"Type":{"Name":"SEQUENCE_SELECTOR"},"Status":"RUNNING","Fire":null,"FailGate":0,"NodeList":null},"762050573":{"Token":762050573,"Type":{"Name":"ACTION"},"Status":"RUNNING","Fire":"Behavior_Action_WaitSomeTime.csx","FailGate":0,"NodeList":null}},"TraversalStack":[],"LastTraversalStack":[],"NextTraversalStack":[178264612],"IsValid":true,"ShapeQueue":[1280348030,-49019662]}}}]}
+{
+    "AgentList": [
+        {
+            "Id": "c5d21292-74ea-4345-9963-770e008182ce",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7168,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fire_ball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE-cc0d-4094-aecf"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Idle.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T12:32:17.800289-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -854847032,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "SUCCESS",
+                        "Fire": "$DEFAULT$SCRIPT",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "1366806128": {
+                            "Token": 1366806128,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-854847032": {
+                            "Token": -854847032,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": "$DEFAULT$SCRIPT",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [],
+                    "IsValid": true,
+                    "ShapeQueue": []
+                }
+            }
+        },
+        {
+            "Id": "e9598901-96b9-4a44-9bbb-58c3023c0a4c",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -6.0,
+                    "Y": 0.0,
+                    "Z": 3.0
+                },
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": {
+                    "X": -6.0,
+                    "Y": 0.0,
+                    "Z": 3.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fire_ball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE-cc0d-4094-aecf"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Idle.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T12:32:16.9873419-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -854847032,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "SUCCESS",
+                        "Fire": "$DEFAULT$SCRIPT",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "1366806128": {
+                            "Token": 1366806128,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-854847032": {
+                            "Token": -854847032,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": "$DEFAULT$SCRIPT",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [],
+                    "IsValid": true,
+                    "ShapeQueue": []
+                }
+            }
+        },
+        {
+            "Id": "458a8fb4-818e-4f09-b028-4d99069cb368",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -34.0,
+                    "Y": 0.0,
+                    "Z": 8.0
+                },
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": {
+                    "X": -34.0,
+                    "Y": 0.0,
+                    "Z": 8.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fire_ball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE-cc0d-4094-aecf"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Idle.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T12:32:14.7997978-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -854847032,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "SUCCESS",
+                        "Fire": "$DEFAULT$SCRIPT",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "1366806128": {
+                            "Token": 1366806128,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-854847032": {
+                            "Token": -854847032,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "SUCCESS",
+                            "Fire": "$DEFAULT$SCRIPT",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [],
+                    "IsValid": true,
+                    "ShapeQueue": []
+                }
+            }
+        }
+    ]
+}
