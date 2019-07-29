@@ -29,6 +29,7 @@ using EventHorizon.Performance.Impl;
 using EventHorizon.Plugin.Zone.System.Combat.Editor;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Editor.ExternalHub;
 using IdentityModel.AspNetCore.OAuth2Introspection;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
@@ -61,9 +62,9 @@ namespace EventHorizon.Game.Server.Zone
             if (HostingEnvironment.IsDevelopment())
             {
                 // Enabled TLS 1.2
-                System.Net.ServicePointManager.SecurityProtocol = 
-                    SecurityProtocolType.Tls12 
-                    | SecurityProtocolType.Tls11 
+                System.Net.ServicePointManager.SecurityProtocol =
+                    SecurityProtocolType.Tls12
+                    | SecurityProtocolType.Tls11
                     | SecurityProtocolType.Tls;
             }
             services.AddHttpClient();
@@ -72,8 +73,8 @@ namespace EventHorizon.Game.Server.Zone
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.RequireHttpsMetadata = 
-                        HostingEnvironment.IsProduction() 
+                    options.RequireHttpsMetadata =
+                        HostingEnvironment.IsProduction()
                         || HostingEnvironment.IsStaging();
                     options.Authority = Configuration["Auth:Authority"];
                     options.ApiName = Configuration["Auth:ApiName"];
@@ -143,6 +144,9 @@ namespace EventHorizon.Game.Server.Zone
             services.AddTimer();
 
             // TODO: Remove this after done testing, move to System flow
+            services.AddSystemServer();
+            services.AddSystemEditor();
+            services.AddSystemBackup();
             services.AddSystemGui();
             services.AddSystemCombat();
             services.AddSystemCombatEditor();
@@ -154,7 +158,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemClientAssets();
             services.AddSystemClientEntities();
             services.AddSystemClientScripts();
-            services.AddSystemServer();
+            services.AddSystemPlayer();
 
             services.AddAgentCompanion();
 
@@ -182,6 +186,8 @@ namespace EventHorizon.Game.Server.Zone
             // The systems flow will automatically load these systems from a folder,
             //  just like the plugin flow, which is about the same.
             app.UseSystemServer();
+            app.UseSystemEditor();
+            app.UseSystemBackup();
             app.UseSystemGui();
             app.UseSystemModel();
             app.UseSystemCombat();
@@ -193,6 +199,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemClientAssets();
             app.UseSystemClientEntities();
             app.UseSystemClientScripts();
+            app.UseSystemPlayer();
 
             // Need to load UseSystemServer, needs scripts 
             app.UseZoneAdmin();
@@ -213,6 +220,8 @@ namespace EventHorizon.Game.Server.Zone
                 routes.MapHub<SkillsEditorHub>("/skillsEditor");
                 routes.MapHub<AgentHub>("/agent");
                 routes.MapHub<AdminBus>("/admin");
+
+                routes.MapHub<SystemEditorHub>("/systemEditor");
             });
             app.UseMvc();
         }

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.0.3" />
+        <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+        <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+        <PackageReference Include="MediatR" Version="5.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj" />
+    </ItemGroup>
+
+</Project>

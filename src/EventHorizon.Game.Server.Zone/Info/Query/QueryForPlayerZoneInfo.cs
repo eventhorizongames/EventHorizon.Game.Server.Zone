@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Info.Api;
 using EventHorizon.Game.Server.Zone.Model.Player;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
-    public struct QueryForPlayerZoneInfo : IRequest<IZoneInfo>
+    public struct QueryForPlayerZoneInfo : IRequest<IDictionary<string, object>>
     {
         public PlayerEntity Player { get; }
         public QueryForPlayerZoneInfo(

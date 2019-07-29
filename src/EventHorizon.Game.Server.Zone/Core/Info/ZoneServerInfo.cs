@@ -8,6 +8,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
     {
         public string AppDataPath { get; }
         public string SystemPath { get; }
+        public string SystemBackupPath { get; }
         public string AdminPath { get; }
         public string PluginsPath { get; }
         public string I18nPath { get; }
@@ -21,26 +22,53 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            AppDataPath = GenerateAppDataPath(hostingEnvironment);
-            SystemPath = GenerateSystemPathPath(hostingEnvironment);
-            AdminPath = GenerateAdminPath(hostingEnvironment);
-            PluginsPath = GeneratePluginsPath(hostingEnvironment);
-            I18nPath = GenerateI18nPath(hostingEnvironment);
-            ClientPath = GenerateClientPath(hostingEnvironment);
-            ClientScriptsPath = GenerateClientScriptsPath(hostingEnvironment);
-            ClientEntityPath = GenerateClientEntityPath(hostingEnvironment);
-            ServerPath = GenerateServerPath(hostingEnvironment);
-            ServerScriptsPath = GenerateServerScriptsPath(hostingEnvironment);
+            AppDataPath = GenerateAppDataPath(
+                hostingEnvironment
+            );
+            SystemPath = GenerateSystemPath(
+                hostingEnvironment
+            );
+            SystemBackupPath = GenerateSystemBackupPath(
+                hostingEnvironment
+            );
+            AdminPath = GenerateAdminPath(
+                hostingEnvironment
+            );
+            PluginsPath = GeneratePluginsPath(
+                hostingEnvironment
+            );
+            I18nPath = GenerateI18nPath(
+                hostingEnvironment
+            );
+            ClientPath = GenerateClientPath(
+                hostingEnvironment
+            );
+            ClientScriptsPath = GenerateClientScriptsPath(
+                hostingEnvironment
+            );
+            ClientEntityPath = GenerateClientEntityPath(
+                hostingEnvironment
+            );
+            ServerPath = GenerateServerPath(
+                hostingEnvironment
+            );
+            ServerScriptsPath = GenerateServerScriptsPath(
+                hostingEnvironment
+            );
         }
 
-        private string GenerateAppDataPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateAppDataPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data"
             );
         }
-        private string GenerateSystemPathPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateSystemPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -48,7 +76,19 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "System"
             );
         }
-        private string GenerateAdminPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateSystemBackupPath(
+            IHostingEnvironment hostingEnvironment
+        )
+        {
+            return IOPath.Combine(
+                hostingEnvironment.ContentRootPath,
+                "App_Data",
+                "__Backup__"
+            );
+        }
+        private string GenerateAdminPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -56,7 +96,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Admin"
             );
         }
-        private string GeneratePluginsPath(IHostingEnvironment hostingEnvironment)
+        private string GeneratePluginsPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -64,7 +106,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Plugins"
             );
         }
-        private string GenerateClientPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateClientPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -72,7 +116,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Client"
             );
         }
-        private string GenerateClientScriptsPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateClientScriptsPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -81,7 +127,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Scripts"
             );
         }
-        private string GenerateClientEntityPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateClientEntityPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -90,7 +138,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Entity"
             );
         }
-        private string GenerateServerPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateServerPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -98,7 +148,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "Server"
             );
         }
-        private string GenerateI18nPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateI18nPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,
@@ -106,7 +158,9 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
                 "I18n"
             );
         }
-        private string GenerateServerScriptsPath(IHostingEnvironment hostingEnvironment)
+        private string GenerateServerScriptsPath(
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return IOPath.Combine(
                 hostingEnvironment.ContentRootPath,

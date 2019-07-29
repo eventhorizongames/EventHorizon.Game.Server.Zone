@@ -254,3 +254,5 @@ lcov*.info
 NuGet.Config
 global.json
 .ionide
+
+__Backup__
