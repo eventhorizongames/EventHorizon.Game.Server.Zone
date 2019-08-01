@@ -163,6 +163,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddAgentCompanion();
 
             services.AddPlugins(HostingEnvironment);
+            services.AddPluginInteraction();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -211,6 +212,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseParticle();
 
             app.UsePlugins();
+            app.UsePluginInteraction();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>

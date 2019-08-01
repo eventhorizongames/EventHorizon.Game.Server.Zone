@@ -6,10 +6,16 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
 {
     public static class DataPropertyExtensions
     {
-        public static T GetProperty<T>(this IObjectEntity entity, string prop)
+        public static T GetProperty<T>(
+            this IObjectEntity entity, 
+            string prop
+        )
         {
             object value = default(T);
-            entity.Data.TryGetValue(prop, out value);
+            entity.Data.TryGetValue(
+                prop, 
+                out value
+            );
             if (value == null)
             {
                 return default(T);
@@ -17,18 +23,28 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
             return (T)value;
         }
 
-        public static void SetProperty<T>(this IObjectEntity entity, string prop, T value)
+        public static void SetProperty<T>(
+            this IObjectEntity entity, 
+            string prop, 
+            T value
+        )
         {
             entity.Data[prop] = value;
         }
 
         /// <summary>
-        /// TODO: Add default value to be used when temp data is not found.
+        /// Will populate the Raw Data into the state data of the entity.
         /// </summary>
+        /// <param name="entity"></param>
         /// <param name="prop"></param>
+        /// <param name="defaultValue"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T PopulateData<T>(this IObjectEntity entity, string prop)
+        public static T PopulateData<T>(
+            this IObjectEntity entity, 
+            string prop, 
+            T defaultValue = default(T)
+        )
         {
             var rawData = entity.RawData;
             var data = entity.Data;
@@ -52,12 +68,14 @@ namespace EventHorizon.Game.Server.Zone.Model.Entity
             }
             else
             {
-                data[prop] = default(T);
+                data[prop] = defaultValue;
             }
             return entity.GetProperty<T>(prop);
         }
 
-        public static Dictionary<string, object> AllData(this IObjectEntity entity)
+        public static Dictionary<string, object> AllData(
+            this IObjectEntity entity
+        )
         {
             var data = new Dictionary<string, object>();
             foreach (var prop in entity.RawData)

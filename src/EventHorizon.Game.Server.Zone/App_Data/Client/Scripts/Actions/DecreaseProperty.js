@@ -1,6 +1,6 @@
 /*
  * Action Id: decrease_property
- *
+ * 
  * $services:
  * - EntityRepository
  * $utils:

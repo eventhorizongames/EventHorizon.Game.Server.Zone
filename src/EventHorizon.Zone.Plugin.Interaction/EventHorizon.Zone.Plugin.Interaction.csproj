@@ -8,17 +8,21 @@
         <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.0.3" />
         <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="2.10.0" />
         <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
         <PackageReference Include="MediatR" Version="5.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
-
-        <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction.Events\EventHorizon.Zone.Plugin.Interaction.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction.Model\EventHorizon.Zone.Plugin.Interaction.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction.Events\EventHorizon.Zone.Plugin.Interaction.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Events\EventHorizon.Game.Server.Zone.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat.Events\EventHorizon.Plugin.Zone.System.Combat.Events.csproj" />
     </ItemGroup>
 
 </Project>

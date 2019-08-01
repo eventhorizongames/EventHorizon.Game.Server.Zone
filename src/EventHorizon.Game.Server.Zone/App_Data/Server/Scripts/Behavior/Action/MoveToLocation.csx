@@ -35,7 +35,7 @@ var isAgentMoving = await Services.Mediator.Send(
 if (!isAgentMoving)
 {
     var toPosition = Actor.GetProperty<Vector3>("ActorMoveToPosition");
-    if (toPosition == default(Vector3))
+    if (toPosition == default(Vector3)) // TODO: Find better way to check Vector3
     {
         return new BehaviorScriptResponse(
             BehaviorNodeStatus.SUCCESS

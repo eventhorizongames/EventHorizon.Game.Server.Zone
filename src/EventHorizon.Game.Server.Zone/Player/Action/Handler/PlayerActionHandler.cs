@@ -9,6 +9,7 @@ using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner;
 using EventHorizon.Game.Server.Zone.Player.Actions.StopPlayer;
+using EventHorizon.Zone.System.Player.Events.ClientAction;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
 {
@@ -71,7 +72,15 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         )
                     );
                     break;
-
+                case PlayerActions.INTERACT:
+                    var interactionEntityId = (long)notification.Data;
+                    await _mediator.Publish(
+                        new PlayerInteractionEvent(
+                            player,
+                            interactionEntityId
+                        )
+                    );
+                    break;
             }
         }
 

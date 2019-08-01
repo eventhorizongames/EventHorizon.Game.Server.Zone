@@ -6,5 +6,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions
         public const string STOP = "STOP";
         public const string RUN_SKILL = "Player.RUN_SKILL";
         public const string RUN_SKILL_ON_COMPANION = "Player.RUN_SKILL_ON_COMPANION";
+        public const string INTERACT = "INTERACT";
     }
 }
