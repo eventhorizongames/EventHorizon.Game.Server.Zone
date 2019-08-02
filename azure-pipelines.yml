@@ -1,7 +1,10 @@
+name: $(MajorVersion).$(MinorVersion)$(rev:.r)
 pool:
   name: Default
 
 variables:
+  MajorVersion: 0
+  MinorVersion: 2
   BuildConfiguration: Release
   BuildPlatform: x64
   disable.coverage.autogenerate: true
