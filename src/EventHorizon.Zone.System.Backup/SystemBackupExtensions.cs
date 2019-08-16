@@ -11,9 +11,7 @@ namespace EventHorizon.Game.Server.Zone
             this IServiceCollection services
         )
         {
-            return services.AddMediatR(
-                typeof(SystemBackupExtensions).Assembly
-            );
+            return services;
         }
         public static void UseSystemBackup(
             this IApplicationBuilder app

@@ -1,5 +1,4 @@
 {
-    "id": "capture_target",
     "comments": "This is just a test skill, or maybe not.",
     "name": "Capture Target",
     "description": "Capture a target, some random % chance.",
@@ -26,7 +25,7 @@
             }
         }
     ],
-    "effectList": [
+    "next": [
         {
             "comment": "This will set the Target.OwnerState.OwnerId to the Caster.GlobalId, if successful.",
             "effect": "Effects_ValidatorEffect.csx",
@@ -63,7 +62,15 @@
                         "messageTemplateKey": "casterFailedToCaptureTarget"
                     }
                 }
-            ]
+            ],
+            "data": {
+                "string1": "",
+                "boolean1": false,
+                "string2": "",
+                "number2": 0,
+                "string": "",
+                "numberValue1": 0
+            }
         }
     ]
 }

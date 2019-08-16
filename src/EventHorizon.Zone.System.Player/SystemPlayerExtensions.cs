@@ -11,9 +11,7 @@ namespace EventHorizon.Game.Server.Zone
             this IServiceCollection services
         )
         {
-            return services.AddMediatR(
-                typeof(SystemPlayerExtensions).Assembly
-            );
+            return services;
         }
         public static void UseSystemPlayer(
             this IApplicationBuilder app

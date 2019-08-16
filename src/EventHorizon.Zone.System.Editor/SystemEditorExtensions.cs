@@ -11,9 +11,7 @@ namespace EventHorizon.Game.Server.Zone
             this IServiceCollection services
         )
         {
-            return services.AddMediatR(
-                typeof(SystemEditorExtensions).Assembly
-            );
+            return services;
         }
         public static void UseSystemEditor(
             this IApplicationBuilder app

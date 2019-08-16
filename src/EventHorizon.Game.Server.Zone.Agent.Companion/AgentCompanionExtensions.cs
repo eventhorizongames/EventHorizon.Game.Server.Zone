@@ -5,11 +5,15 @@ namespace EventHorizon.Game.Server.Zone
 {
     public static class AgentCompanionExtensions
     {
-        public static void AddAgentCompanion(this IServiceCollection services)
+        public static IServiceCollection AddAgentCompanion(
+            this IServiceCollection services
+        )
         {
-
+            return services;
         }
-        public static void UseAgentCompanion(this IApplicationBuilder app)
+        public static void UseAgentCompanion(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

@@ -1,22 +1,23 @@
 
-using EventHorizon.Zone.System.Client.Scripts.Load;
-using EventHorizon.Zone.System.Client.Scripts.State;
+using EventHorizon.Zone.System.ClientAssets.Load;
+using EventHorizon.Zone.System.ClientAssets.State;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone
 {
-    public static class SystemClientScriptsExtensions
+    public static class SystemClientAssetsExtensions
     {
-        public static IServiceCollection AddSystemClientScripts(
+        public static IServiceCollection AddSystemClientAssets(
             this IServiceCollection services
         )
         {
             return services
-                .AddSingleton<ClientScriptRepository, ClientScriptInMemoryRepository>();
+                .AddSingleton<ClientAssetRepository, ClientAssetInMemoryRepository>()
+            ;
         }
-        public static IApplicationBuilder UseSystemClientScripts(
+        public static void UseSystemClientAssets(
             this IApplicationBuilder app
         )
         {
@@ -24,11 +25,9 @@ namespace EventHorizon.Game.Server.Zone
             {
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()
-                    .Publish(new LoadClientScriptsSystemCommand())
-                    .GetAwaiter()
+                    .Send(new LoadSystemClientAssetsCommand()).GetAwaiter()
                     .GetResult();
             }
-            return app;
         }
     }
 }

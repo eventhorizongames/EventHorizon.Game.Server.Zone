@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Tests.Base;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.TimerService;

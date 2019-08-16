@@ -16,10 +16,6 @@ namespace EventHorizon.Game.Server.Zone
             return services
                 .AddSingleton<InteractionScriptRepository, InMemoryInteractionScriptRepository>()
             ;
-            // TODO: Look at why this is loading event/notification handlers twice
-            // return services.AddMediatR(
-            //     typeof(PluginInteractionExtensions).Assembly
-            // );
         }
         public static void UsePluginInteraction(
             this IApplicationBuilder app

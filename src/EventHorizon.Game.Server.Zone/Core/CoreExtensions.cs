@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMediatR(typeof(Agent.PluginStartup), typeof(Agent.Ai.PluginStartup))
+            services
                 .AddTransient<DirectoryResolver, ServerDirectoryResolver>()
                 .AddTransient<IJsonFileLoader, JsonFileLoader>()
                 .AddTransient<IJsonFileSaver, JsonFileSaver>()

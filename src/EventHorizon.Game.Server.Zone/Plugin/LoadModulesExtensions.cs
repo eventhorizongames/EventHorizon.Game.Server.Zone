@@ -13,7 +13,8 @@ namespace EventHorizon.Game.Server.Zone.Plugin
     {
         public static IServiceCollection AddPlugins(
             this IServiceCollection services,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment
+        )
         {
             return services
                 // Server Plugin State needs to be done as part of Service startup to load plugin Assembly files into the DI Container.
@@ -22,10 +23,15 @@ namespace EventHorizon.Game.Server.Zone.Plugin
                         hostingEnvironment,
                         services,
                         new ServerPluginLoader(
-                            hostingEnvironment.IsDevelopment())));
+                            hostingEnvironment.IsDevelopment()
+                        )
+                    )
+                )
+            ;
         }
         public static IApplicationBuilder UsePlugins(
-            this IApplicationBuilder app)
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

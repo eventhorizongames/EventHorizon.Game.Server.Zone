@@ -1,7 +1,4 @@
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent.Connection.Factory;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
@@ -20,7 +17,10 @@ namespace EventHorizon.Game.Server.Zone.Agent
 {
     public static class AgentExtensions
     {
-        public static void AddAgent(this IServiceCollection services, IConfiguration configuration)
+        public static void AddAgent(
+            this IServiceCollection services, 
+            IConfiguration configuration
+        )
         {
             services
                 .Configure<AgentSettings>(configuration.GetSection("Agent"))

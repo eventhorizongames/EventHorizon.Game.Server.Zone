@@ -1,18 +1,14 @@
 using System;
-using Microsoft.CSharp;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
-using MediatR;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
 using EventHorizon.Plugin.Zone.System.Combat.Script;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Core;
+using EventHorizon.Game.Server.Zone;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
 {
@@ -43,6 +39,8 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                     .WithReferences(
                         typeof(SkillEffectScript).Assembly,
                         typeof(CSharpArgumentInfo).Assembly,
+                        // This is necessary to resolve the supported imports
+                        typeof(SystemAgentExtensions).Assembly,
                         typeof(SystemAgentAiExtensions).Assembly
                     )
                     .WithImports(

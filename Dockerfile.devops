@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.3-aspnetcore-runtime AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
-COPY src/EventHorizon.Game.Server.Zone/bin/Release/netcoreapp2.1/publish/. ./
+COPY src/EventHorizon.Game.Server.Zone/bin/Release/netcoreapp2.2/publish/. ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

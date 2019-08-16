@@ -15,7 +15,8 @@ namespace EventHorizon.Game.I18n
             return services
                 .AddSingleton<I18nLookup>(i18nLookupRepository)
                 .AddSingleton<I18nRepository>(i18nLookupRepository)
-                .AddSingleton<I18nResolver>(i18nLookupRepository);
+                .AddSingleton<I18nResolver>(i18nLookupRepository)
+            ;
         }
         public static void UseI18n(this IApplicationBuilder app)
         {

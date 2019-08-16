@@ -9,12 +9,17 @@ namespace EventHorizon.Game.Server.Zone
 {
     public static class SystemServerModuleExtensions
     {
-        public static void AddSystemServerModule(this IServiceCollection services)
+        public static IServiceCollection AddSystemServerModule(
+            this IServiceCollection services
+        )
         {
-            services
-                .AddSingleton<ServerModuleRepository, ServerModuleInMemoryRepository>();
+            return services
+                .AddSingleton<ServerModuleRepository, ServerModuleInMemoryRepository>()
+            ;
         }
-        public static void UseSystemServerModule(this IApplicationBuilder app)
+        public static void UseSystemServerModule(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

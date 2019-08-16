@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.Loader;
-using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.Server.Zone.Admin.Bus;
 using EventHorizon.Game.Server.Zone.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
-using EventHorizon.Game.Server.Zone.Core.Ping;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Gui;
 using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
-using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;
@@ -30,18 +23,13 @@ using EventHorizon.Plugin.Zone.System.Combat.Editor;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Editor.ExternalHub;
-using IdentityModel.AspNetCore.OAuth2Introspection;
 using MediatR;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -68,7 +56,6 @@ namespace EventHorizon.Game.Server.Zone
                     | SecurityProtocolType.Tls;
             }
             services.AddHttpClient();
-            services.AddMediatR();
 
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
@@ -80,10 +67,7 @@ namespace EventHorizon.Game.Server.Zone
                     options.ApiName = Configuration["Auth:ApiName"];
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
                 });
-            services.AddMvc(options =>
-            {
-                // options.Filters.Add(typeof(JsonExceptionFilter));
-            });
+            services.AddMvc();
             services.AddSignalR()
                 .AddJsonProtocol(config =>
                 {
@@ -124,13 +108,15 @@ namespace EventHorizon.Game.Server.Zone
             );
 
             services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
-            services.AddI18n();
+
+            // Core Services
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
-            services.AddZoneAdmin();
             services.AddServerSetup(Configuration);
             services.AddEntity();
+
+            services.AddZoneAdmin();
             services.AddAgent(Configuration);
             services.AddGui();
             services.AddParticle();
@@ -145,6 +131,9 @@ namespace EventHorizon.Game.Server.Zone
 
             // TODO: Remove this after done testing, move to System flow
             services.AddSystemServer();
+
+            // External Services, Systems, and Plugins
+            services.AddI18n();
             services.AddSystemEditor();
             services.AddSystemBackup();
             services.AddSystemGui();
@@ -153,6 +142,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemModel();
             services.AddSystemServerModule();
             services.AddSystemEntityModule();
+            services.AddSystemAgent();
             services.AddSystemAgentAi();
             services.AddSystemAgentBehavior();
             services.AddSystemClientAssets();
@@ -164,6 +154,35 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddPlugins(HostingEnvironment);
             services.AddPluginInteraction();
+
+            // To be moved into extension startup
+            var extensionAssemblyList = new Assembly[] {
+                    typeof(I18nExtensions).Assembly,
+                    typeof(Startup).Assembly,
+                    typeof(SystemEditorExtensions).Assembly,
+                    typeof(SystemBackupExtensions).Assembly,
+                    typeof(SystemCombatExtensions).Assembly,
+                    typeof(SystemCombatEditorExtensions).Assembly,
+                    typeof(SystemModelExtensions).Assembly,
+                    typeof(SystemServerModuleExtensions).Assembly,
+                    typeof(SystemEntityModuleExtensions).Assembly,
+                    typeof(SystemAgentExtensions).Assembly,
+                    typeof(SystemAgentAiExtensions).Assembly,
+                    typeof(SystemClientAssetsExtensions).Assembly,
+                    typeof(SystemClientEntitiesExtensions).Assembly,
+                    typeof(SystemClientScriptsExtensions).Assembly,
+                    typeof(SystemPlayerExtensions).Assembly,
+                    typeof(SystemGuiExtensions).Assembly,
+                    typeof(SystemAgentBehaviorExtensions).Assembly,
+                    typeof(AgentCompanionExtensions).Assembly,
+                    typeof(PluginExtensions).Assembly,
+                    typeof(PluginInteractionExtensions).Assembly,
+            };
+
+            services
+                .AddMediatR(
+                    extensionAssemblyList
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -195,6 +214,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemCombatEditor();
             app.UseSystemServerModule();
             app.UseSystemEntityModule();
+            app.UseSystemAgent();
             app.UseSystemAgentAi();
             app.UseSystemAgentBehavior();
             app.UseSystemClientAssets();

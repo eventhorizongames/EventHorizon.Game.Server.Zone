@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventHorizon.Zone.System.Editor.Create;
+using EventHorizon.Zone.System.Editor.Delete;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using EventHorizon.Zone.System.Editor.Save;
@@ -39,7 +41,7 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
         }
 
         public Task<StandardEditorFile> GetEditorFileContent(
-            IList<string> path, 
+            IList<string> path,
             string fileName
         )
         {
@@ -50,8 +52,8 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
                 )
             );
         }
-        public Task<EditorFileSaveResponse> SaveEditorFileContent(
-            IList<string> path, 
+        public Task<EditorResponse> SaveEditorFileContent(
+            IList<string> path,
             string fileName,
             string content
         )
@@ -61,6 +63,54 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
                     path,
                     fileName,
                     content
+                )
+            );
+        }
+        public Task<EditorResponse> CreateEditorFile(
+            IList<string> path,
+            string fileName
+        )
+        {
+            return _mediator.Send(
+                new CreateEditorFile(
+                    path,
+                    fileName
+                )
+            );
+        }
+        public Task<EditorResponse> CreateEditorFolder(
+            IList<string> path,
+            string folderName
+        )
+        {
+            return _mediator.Send(
+                new CreateEditorFolder(
+                    path,
+                    folderName
+                )
+            );
+        }
+        public Task<EditorResponse> DeleteEditorFile(
+            IList<string> path,
+            string fileName
+        )
+        {
+            return _mediator.Send(
+                new DeleteEditorFile(
+                    path,
+                    fileName
+                )
+            );
+        }
+        public Task<EditorResponse> DeleteEditorFolder(
+            IList<string> path,
+            string folderName
+        )
+        {
+            return _mediator.Send(
+                new DeleteEditorFolder(
+                    path,
+                    folderName
                 )
             );
         }

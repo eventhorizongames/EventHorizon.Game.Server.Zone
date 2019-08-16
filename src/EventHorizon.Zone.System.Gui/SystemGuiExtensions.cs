@@ -8,11 +8,15 @@ namespace EventHorizon.Game.Server.Zone
 {
     public static class SystemGuiExtensions
     {
-        public static IServiceCollection AddSystemGui(this IServiceCollection services)
+        public static IServiceCollection AddSystemGui(
+            this IServiceCollection services
+        )
         {
             return services;
         }
-        public static void UseSystemGui(this IApplicationBuilder app)
+        public static void UseSystemGui(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

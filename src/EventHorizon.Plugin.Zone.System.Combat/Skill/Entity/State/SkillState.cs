@@ -41,21 +41,21 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State
             SkillList = new Dictionary<string, EntitySkillState>()
             {
                 {
-                    "fire_ball",
+                    "fireball",
                     new EntitySkillState
                     {
                         CooldownFinishes = DateTime.Now
                     }
                 },
                 {
-                    "move_to",
+                    "moveto",
                     new EntitySkillState
                     {
                         CooldownFinishes = DateTime.Now
                     }
                 },
                 {
-                    "capture_target",
+                    "capturetarget",
                     new EntitySkillState
                     {
                         CooldownFinishes = DateTime.Now

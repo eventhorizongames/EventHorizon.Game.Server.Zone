@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
-    <PackageReference Include="Mediatr" Version="5.1.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Mediatr" Version="7.0.0" />
   </ItemGroup>
   
   <ItemGroup>
@@ -16,6 +15,7 @@
 
     <ProjectReference Include="..\EventHorizon.Zone.System.Editor.Model\EventHorizon.Zone.System.Editor.Model.csproj" />
     <ProjectReference Include="..\EventHorizon.Zone.System.Editor.Events\EventHorizon.Zone.System.Editor.Events.csproj" />
+    <ProjectReference Include="..\EventHorizon.Zone.Plugin.Editor\EventHorizon.Zone.Plugin.Editor.csproj" />
   </ItemGroup>
 
 </Project>

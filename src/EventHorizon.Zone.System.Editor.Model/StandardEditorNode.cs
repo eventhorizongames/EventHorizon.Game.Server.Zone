@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EventHorizon.Zone.System.Editor.Model
 {
@@ -32,14 +30,27 @@ namespace EventHorizon.Zone.System.Editor.Model
             Children = new List<IEditorNode>();
             Properties = new Dictionary<string, object>();
         }
+        /// <summary>
+        /// Root folder constructor, pass in the name and it will also be used as the Folder
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public StandardEditorNode(
+            string name
+        ) : this(name, true, new string[] { }, "FOLDER") { }
         public IEditorNode AddProperty(
             string key,
             object value
         )
         {
-            Properties.Add(
-                key,
-                value
+            Properties[key] = value;
+            return this;
+        }
+        public IEditorNode AddChild(
+            IEditorNode child
+        ) {
+            Children.Add(
+                child
             );
             return this;
         }

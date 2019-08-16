@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
@@ -33,7 +33,7 @@ FROM build AS publish
 WORKDIR /source
 RUN dotnet publish --output bin/publish --configuration Release
 
-FROM microsoft/dotnet:2.1.3-aspnetcore-runtime AS runtime
+FROM microsoft/dotnet-aspnetcore-runtime:2.2 AS runtime
 WORKDIR /app
 COPY --from=publish /source/src/EventHorizon.Game.Server.Zone/bin/publish ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

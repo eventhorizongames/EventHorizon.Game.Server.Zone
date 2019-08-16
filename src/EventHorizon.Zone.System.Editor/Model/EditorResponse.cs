@@ -1,15 +1,15 @@
 namespace EventHorizon.Zone.System.Editor.Model
 {
-    public struct EditorFileSaveResponse
+    public struct EditorResponse
     {
         public bool Successful { get; }
         public string ErrorCode { get; }
-        public EditorFileSaveResponse(
+        public EditorResponse(
             bool successful
         ) : this(successful, null)
         {
         }
-        public EditorFileSaveResponse(
+        public EditorResponse(
             bool successful,
             string errorCode
         )

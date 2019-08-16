@@ -11,6 +11,20 @@ namespace EventHorizon.Zone.System.Editor.Model
             IEditorNode node
         )
         {
+            var foundNode = Root.FirstOrDefault(
+                a => a.Name == node.Name
+            );
+            if (foundNode != null)
+            {
+                foreach (var child in node.Children)
+                {
+                    foundNode.Children.Add(
+                        child
+                    );
+                }
+                return;
+            }
+
             Root.Add(
                 node
             );

@@ -63,7 +63,7 @@
                 },
                 "skillState": {
                     "SkillList": {
-                        "fire_ball": {
+                        "fireball": {
                             "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
                         }
                     }
@@ -145,7 +145,7 @@
                 },
                 "skillState": {
                     "SkillList": {
-                        "fire_ball": {
+                        "fireball": {
                             "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
                         }
                     }
@@ -227,7 +227,7 @@
                 },
                 "skillState": {
                     "SkillList": {
-                        "fire_ball": {
+                        "fireball": {
                             "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
                         }
                     }

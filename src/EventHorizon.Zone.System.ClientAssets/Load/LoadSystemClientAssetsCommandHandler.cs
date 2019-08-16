@@ -11,7 +11,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientAssets.Load
 {
-    public class LoadSystemClientAssetsCommandHandler : AsyncRequestHandler<LoadSystemClientAssetsCommand>
+    public class LoadSystemClientAssetsCommandHandler : IRequestHandler<LoadSystemClientAssetsCommand>
     {
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
@@ -26,7 +26,7 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        protected override async Task Handle(
+        public async Task<Unit> Handle(
             LoadSystemClientAssetsCommand request,
             CancellationToken cancellationToken
         )
@@ -40,6 +40,7 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
                     ClientAsset = clientAsset
                 });
             }
+            return Unit.Value;
         }
         private string GetEntityAssetsPath()
         {

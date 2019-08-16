@@ -19,7 +19,9 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class SystemCombatExtensions
     {
-        public static void AddSystemCombat(this IServiceCollection services)
+        public static void AddSystemCombat(
+            this IServiceCollection services
+        )
         {
             services
                 .AddSingleton<ISkillRepository, SkillRepository>()
@@ -31,9 +33,12 @@ namespace EventHorizon.Game.Server.Zone.Core
 
                 .AddTransient<IScriptServices, ScriptServices>()
                 .AddTransient<ITimerTask, UpdateEntityLifeTimer>()
-                .AddTransient<ITimerTask, EntityLevelUpTimer>();
+                .AddTransient<ITimerTask, EntityLevelUpTimer>()
+            ;
         }
-        public static void UseSystemCombat(this IApplicationBuilder app)
+        public static void UseSystemCombat(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

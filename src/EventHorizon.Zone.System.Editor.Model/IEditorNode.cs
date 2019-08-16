@@ -14,5 +14,8 @@ namespace EventHorizon.Zone.System.Editor.Model
             string key,
             object value
         );
+        IEditorNode AddChild(
+            IEditorNode child
+        );
     }
 }

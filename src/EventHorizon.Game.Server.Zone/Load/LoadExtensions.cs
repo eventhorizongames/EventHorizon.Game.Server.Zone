@@ -23,25 +23,35 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class LoadExtensions
     {
-        public static void AddLoad(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddLoad(this IServiceCollection services, IConfiguration configuration)
         {
             var zoneSettingsFactory = new ZoneSettingsFactory();
-            services.AddSingleton<IZoneSettingsFactory>(zoneSettingsFactory);
-            services.AddSingleton<IZoneSettingsSetter>(zoneSettingsFactory);
-            services.AddTransient<ZoneSettings>(_ => zoneSettingsFactory.Settings);
-
             var zoneMapFactory = new ZoneMapFactory();
-            services.AddSingleton<IZoneMapFactory>(zoneMapFactory);
-            services.AddSingleton<IZoneMapSetter>(zoneMapFactory);
-            services.AddTransient<ZoneMap>(_ => zoneMapFactory.Map);
+            return services.AddSingleton<IZoneSettingsFactory>(
+                zoneSettingsFactory
+            ).AddSingleton<IZoneSettingsSetter>(
+                zoneSettingsFactory
+            ).AddTransient<ZoneSettings>(
+                _ => zoneSettingsFactory.Settings
+            ).AddSingleton<IZoneMapFactory>(
+                zoneMapFactory
+            ).AddSingleton<IZoneMapSetter>(
+                zoneMapFactory
+            ).AddTransient<ZoneMap>(
+                _ => zoneMapFactory.Map
+            );
         }
         public static void UseLoad(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                mediator.Publish(new LoadZoneSettingsEvent()).GetAwaiter().GetResult();
-                mediator.Publish(new LoadZoneMapEvent()).GetAwaiter().GetResult();
+                mediator.Publish(
+                    new LoadZoneSettingsEvent()
+                ).GetAwaiter().GetResult();
+                mediator.Publish(
+                    new LoadZoneMapEvent()
+                ).GetAwaiter().GetResult();
             }
         }
     }

@@ -12,7 +12,8 @@ namespace EventHorizon.Game.Server.Zone
         public static IServiceCollection AddSystemClientEntities(this IServiceCollection services)
         {
             return services
-                .AddSingleton<ClientEntityInstanceRepository, ClientEntityInstanceInMemoryRepository>();
+                .AddSingleton<ClientEntityInstanceRepository, ClientEntityInstanceInMemoryRepository>()
+            ;
         }
         public static void UseSystemClientEntities(this IApplicationBuilder app)
         {

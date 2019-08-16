@@ -1,6 +1,5 @@
 {
     "comments": "Not Done",
-    "id": "the-real_move_to",
     "name": "Move To",
     "description": "This moves the target to the target position.",
     "type": "ACTIVE",
@@ -19,7 +18,7 @@
             }
         }
     ],
-    "effectList": [
+    "next": [
         {
             "comment": "Move target to position",
             "effect": "Effects_MoveTargetToTargetPosition.csx"

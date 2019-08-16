@@ -18,9 +18,13 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Save
         public Task<SkillInstance> Handle(SaveCombatSkillEvent request, CancellationToken cancellationToken)
         {
             // TODO: Save the skill details right to file system
-            // Not needed, an auto reload will be automatically triggered when the file system changes.
-            _skillRepository.Add(request.Skill);
-            return Task.FromResult(request.Skill);
+            // Set is not needed, saving to file system will automatically triggered reload on changes.
+            _skillRepository.Set(
+                request.Skill
+            );
+            return Task.FromResult(
+                request.Skill
+            );
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Info;
@@ -13,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Editor.Save
 {
-    public struct SaveEditorFileContent : IRequest<EditorFileSaveResponse>
+    public struct SaveEditorFileContent : IRequest<EditorResponse>
     {
         public IList<string> FilePath { get; }
         public string FileName { get; }
@@ -30,7 +29,7 @@ namespace EventHorizon.Zone.System.Editor.Save
             Content = content;
         }
 
-        public struct SaveEditorFileContentHandler : IRequestHandler<SaveEditorFileContent, EditorFileSaveResponse>
+        public struct SaveEditorFileContentHandler : IRequestHandler<SaveEditorFileContent, EditorResponse>
         {
             readonly ILogger _logger;
             readonly IMediator _mediator;
@@ -47,7 +46,7 @@ namespace EventHorizon.Zone.System.Editor.Save
                 _serverInfo = serverInfo;
             }
 
-            public async Task<EditorFileSaveResponse> Handle(
+            public async Task<EditorResponse> Handle(
                 SaveEditorFileContent request,
                 CancellationToken cancellationToken
             )
@@ -78,11 +77,11 @@ namespace EventHorizon.Zone.System.Editor.Save
                     }
 
                     File.WriteAllText(
-                        fileInfo.FullName, 
+                        fileInfo.FullName,
                         request.Content
                     );
-                    
-                    return new EditorFileSaveResponse(
+
+                    return new EditorResponse(
                         true
                     );
                 }
@@ -92,7 +91,7 @@ namespace EventHorizon.Zone.System.Editor.Save
                         "Failed to Save Editor File Content.",
                         ex
                     );
-                    return new EditorFileSaveResponse(
+                    return new EditorResponse(
                         false,
                         "server_exception"
                     );

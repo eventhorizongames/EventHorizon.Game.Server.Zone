@@ -14,4 +14,4 @@
 /// }
 /// </summary>
 
-System.Console.WriteLine("I am here");
+System.Console.WriteLine($"I am here: Player: {Player.Id}  |  Target: {Target.Id}");

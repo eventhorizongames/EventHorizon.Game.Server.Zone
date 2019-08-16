@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientEntities.Load
 {
-    public class LoadSystemClientEntitiesCommandHandler : AsyncRequestHandler<LoadSystemClientEntitiesCommand>
+    public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystemClientEntitiesCommand>
     {
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
@@ -25,7 +25,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        protected override async Task Handle(
+        public async Task<Unit> Handle(
             LoadSystemClientEntitiesCommand request,
             CancellationToken cancellationToken
         )
@@ -43,7 +43,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
                     ClientEntityInstance = clientEntityInstance
                 });
             }
-
+            return Unit.Value;
         }
         private async Task<IList<ClientEntityInstance>> GetClientEntityInstancesFromPath(
             string path

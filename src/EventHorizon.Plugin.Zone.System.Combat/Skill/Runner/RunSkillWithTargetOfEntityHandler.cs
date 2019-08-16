@@ -173,7 +173,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Runner
                 return;
             }
 
-            foreach (var skillEffect in skill.EffectList)
+            foreach (var skillEffect in skill.Next)
             {
                 await _mediator.Publish(
                     new RunSkillEffectWithTargetOfEntityEvent

@@ -44,10 +44,10 @@
         },
         "skillState": {
             "skillList": {
-                "fire_ball": {
+                "fireball": {
                     "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
                 },
-                "move_to": {
+                "moveto": {
                     "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
                 }
             }

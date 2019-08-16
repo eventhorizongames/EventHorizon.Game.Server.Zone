@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Gui.Load
 {
-    public class LoadSystemGuiCommandHandler : AsyncRequestHandler<LoadSystemGuiCommand>
+    public class LoadSystemGuiCommandHandler : IRequestHandler<LoadSystemGuiCommand>
     {
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
@@ -25,7 +25,7 @@ namespace EventHorizon.Zone.System.Gui.Load
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        protected override async Task Handle(LoadSystemGuiCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(LoadSystemGuiCommand request, CancellationToken cancellationToken)
         {
             // Register Gui Layout and Templates from Files
             foreach (var guiLayout in await GetGuiLayoutFileList(GetGuiFilesPath()))
@@ -43,6 +43,7 @@ namespace EventHorizon.Zone.System.Gui.Load
                     });
                 }
             }
+            return Unit.Value;
         }
         private string GetGuiFilesPath()
         {

@@ -9,13 +9,15 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone.Core
+namespace EventHorizon.Game.Server.Zone
 {
     public static class SystemAgentBehaviorExtensions
     {
-        public static void AddSystemAgentBehavior(this IServiceCollection services)
+        public static IServiceCollection AddSystemAgentBehavior(
+            this IServiceCollection services
+        )
         {
-            services
+            return services
                 .AddSingleton<ITimerTask, BehaviorTreeUpdateTriggerTimerTask>()
 
                 .AddSingleton<ActorBehaviorScriptRepository, InMemoryActorBehaviorScriptRepository>()
@@ -25,10 +27,12 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<BehaviorInterpreterKernel, BehaviorInterpreterDoWhileKernel>()
 
                 .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>()
-                .AddSingleton<ConditionBehaviorInterpreter, ConditionInterpreter>();
-
+                .AddSingleton<ConditionBehaviorInterpreter, ConditionInterpreter>()
+            ;
         }
-        public static void UseSystemAgentBehavior(this IApplicationBuilder app)
+        public static void UseSystemAgentBehavior(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

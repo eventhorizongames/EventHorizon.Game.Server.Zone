@@ -1,5 +1,4 @@
 {
-    "id": "fire_ball",
     "name": "Fire Ball",
     "description": "Fire a flaming ball at a target.",
     "type": "ACTIVE",
@@ -40,7 +39,7 @@
             }
         }
     ],
-    "effectList": [
+    "next": [
         {
             "comment": "Set CoolDown on Caster.",
             "effect": "Effects_SetCasterSkillCoolDown.csx",
