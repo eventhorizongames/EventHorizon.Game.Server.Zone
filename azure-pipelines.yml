@@ -10,6 +10,18 @@ variables:
   Parameters.TestProjects: '**/*[Tt]ests/*.csproj'
 
 steps:
+- task: UseDotNet@2
+  displayName: 'Use .NET Core sdk'
+  inputs:
+    packageType: sdk
+    version: 2.2.401
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.*' 
+    #checkLatest: false # Optional
+
 - task: DotNetCoreCLI@2
   displayName: Restore
   inputs:
