@@ -1,5 +1,4 @@
 # Sample contents of .dockerignore file
-bin/
 obj/
 _scripts/
 client/node_modules/
