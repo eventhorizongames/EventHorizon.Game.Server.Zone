@@ -147,6 +147,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemAgentBehavior()
                 .AddPluginAgentBehaviorEditor()
                 .AddSystemClientAssets()
+                .AddPluginClientAssetsEditor()
                 .AddSystemClientEntities()
                 .AddSystemClientScripts()
                 .AddSystemPlayer()
@@ -168,6 +169,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemAgentExtensions).Assembly,
                     typeof(SystemAgentAiExtensions).Assembly,
                     typeof(SystemClientAssetsExtensions).Assembly,
+                    typeof(PluginClientAssetsEditorExtensions).Assembly,
                     typeof(SystemClientEntitiesExtensions).Assembly,
                     typeof(SystemClientScriptsExtensions).Assembly,
                     typeof(SystemPlayerExtensions).Assembly,
@@ -219,6 +221,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemAgentBehavior();
             app.UsePluginAgentBehaviorEditor();
             app.UseSystemClientAssets();
+            app.UsePluginClientAssetsEditor();
             app.UseSystemClientEntities();
             app.UseSystemClientScripts();
             app.UseSystemPlayer();

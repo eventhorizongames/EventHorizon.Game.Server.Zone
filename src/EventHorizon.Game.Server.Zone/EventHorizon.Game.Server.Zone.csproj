@@ -55,6 +55,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Plugin.ClientAssets.Editor\EventHorizon.Zone.Plugin.ClientAssets.Editor.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Behavior\EventHorizon.Zone.System.Agent.Behavior.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Plugin.Agent.Behavior.Editor\EventHorizon.Zone.Plugin.Agent.Behavior.Editor.csproj" />
