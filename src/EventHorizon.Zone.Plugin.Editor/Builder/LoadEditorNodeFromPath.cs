@@ -11,7 +11,8 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
         public static Task<IEditorNode> Create(
             string rootFolderName,
             string rootFolderPath,
-            string directoryToLoadPath
+            string directoryToLoadPath,
+            string nodeType = "EDITOR_CONTENT"
         )
         {
             var directoryInfo = new DirectoryInfo(
@@ -29,7 +30,8 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
             LoadFromDirectoryInfo(
                 directoryNode,
                 rootFolderPath,
-                directoryInfo
+                directoryInfo,
+                nodeType
             );
 
             return Task.FromResult(
@@ -40,7 +42,8 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
         private static void LoadFromDirectoryInfo(
             IEditorNode parentNode,
             string scriptsPath,
-            DirectoryInfo directoryInfo
+            DirectoryInfo directoryInfo,
+            string nodeType
         )
         {
             // Load Scripts from Sub-Directories
@@ -65,14 +68,16 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
                 LoadFromDirectoryInfo(
                     folderNode,
                     scriptsPath,
-                    subDirectoryInfo
+                    subDirectoryInfo,
+                    nodeType
                 );
             }
             // Load script files into Repository
             LoadFileIntoRepository(
                 parentNode,
                 scriptsPath,
-                directoryInfo
+                directoryInfo,
+                nodeType
             );
         }
 
@@ -80,7 +85,8 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
         private static void LoadFileIntoRepository(
             IEditorNode parentNode,
             string scriptsPath,
-            DirectoryInfo directoryInfo
+            DirectoryInfo directoryInfo,
+            string nodeType
         )
         {
             foreach (var fileInfo in directoryInfo.GetFiles())
@@ -95,7 +101,7 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
                         ).Split(
                             Path.DirectorySeparatorChar
                         ),
-                        "EDITOR_CONTENT"
+                        nodeType
                     ).AddProperty(
                         "language",
                         ComputeLanguageFromName(

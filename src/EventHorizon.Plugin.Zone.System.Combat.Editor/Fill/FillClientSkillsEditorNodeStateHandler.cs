@@ -2,6 +2,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Plugin.Editor;
 using EventHorizon.Zone.Plugin.Editor.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
@@ -34,7 +35,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
                     rootFolder
                 ).AddProperty(
                     // Disable context menu support.
-                    "support:contextMenu",
+                    EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
                     // Add the skill node as a child to it.
@@ -56,9 +57,10 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
                 Path.Combine(
                     _serverInfo.ClientPath,
                     "Skills"
-                )
+                ), 
+                "EDITOR_SKILL"
             )).AddProperty(
-                "support:delete", 
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                 false
             );
         }

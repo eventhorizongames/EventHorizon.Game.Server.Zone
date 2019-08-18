@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Info;
@@ -7,13 +8,13 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Server.Editor
+namespace EventHorizon.Zone.Plugin.Agent.Behavior.Editor.Fill
 {
-    public struct FillServerScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public struct FillClientAgentBehaviorEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 
-        public FillServerScriptsEditorNodeStateHandler(
+        public FillClientAgentBehaviorEditorNodeStateHandler(
             ServerInfo serverInfo
         )
         {
@@ -25,46 +26,41 @@ namespace EventHorizon.Game.Server.Zone.Server.Editor
             CancellationToken cancellationToken
         )
         {
+            // Node Root Folder Details
             var rootFolder = "Server";
+
             notification.AddNode(
                 // Create the root node.
                 new StandardEditorNode(
                     rootFolder
                 ).AddProperty(
-                    // Disable context menu support.
+                    // Disable context menu support on the root node.
                     EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
-                    // Add the script node as a child to it.
-                    await CreateScriptNode(
+                    await CreateNode(
                         rootFolder
                     )
                 )
             );
         }
 
-        private async Task<IEditorNode> CreateScriptNode(
+        private async Task<IEditorNode> CreateNode(
             string rootFolder
         )
         {
-            var node = (await LoadEditorNodeFromPath.Create(
+            // Create Script Node
+            return (await LoadEditorNodeFromPath.Create(
                 rootFolder,
                 _serverInfo.ServerPath,
-                _serverInfo.ServerScriptsPath
+                Path.Combine(
+                    _serverInfo.ServerPath,
+                    "Behaviors"
+                )
             )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY, 
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
                 false
             );
-
-            foreach (var child in node.Children)
-            {
-                child.AddProperty(
-                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
-                    false
-                );
-            }
-
-            return node;
         }
     }
 }

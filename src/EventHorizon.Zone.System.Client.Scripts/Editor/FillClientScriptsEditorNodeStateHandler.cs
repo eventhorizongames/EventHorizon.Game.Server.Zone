@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Plugin.Editor;
 using EventHorizon.Zone.Plugin.Editor.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
@@ -31,7 +32,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
                     rootFolder
                 ).AddProperty(
                     // Disable context menu support.
-                    "support:contextMenu",
+                    EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
                     // Add the script node as a child to it.
@@ -51,13 +52,16 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
                 _serverInfo.ClientPath,
                 _serverInfo.ClientScriptsPath
             )).AddProperty(
-                "support:contextMenu", 
+                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY, 
                 false
             );
 
             foreach (var child in node.Children)
             {
-                child.AddProperty("support:delete", false);
+                child.AddProperty(
+                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
+                    false
+                );
             }
 
             return node;

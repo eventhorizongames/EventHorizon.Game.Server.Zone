@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Plugin.Editor;
 using EventHorizon.Zone.Plugin.Editor.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
@@ -35,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Editor
                     rootFolder
                 ).AddProperty(
                     // Disable context menu support.
-                    "support:contextMenu",
+                    EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
                     // Add the script node as a child to it.
@@ -58,7 +56,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Editor
                     "Commands"
                 )
             )).AddProperty(
-                "support:delete",
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                 false
             );
         }

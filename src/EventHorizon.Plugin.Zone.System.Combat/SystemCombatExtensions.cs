@@ -19,11 +19,11 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class SystemCombatExtensions
     {
-        public static void AddSystemCombat(
+        public static IServiceCollection AddSystemCombat(
             this IServiceCollection services
         )
         {
-            services
+            return services
                 .AddSingleton<ISkillRepository, SkillRepository>()
                 .AddSingleton<ISkillEffectScriptRepository, SkillEffectScriptRepository>()
                 .AddSingleton<ISkillValidatorScriptRepository, SkillValidatorScriptRepository>()

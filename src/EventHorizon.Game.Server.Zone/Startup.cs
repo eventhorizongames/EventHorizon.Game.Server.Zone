@@ -133,27 +133,26 @@ namespace EventHorizon.Game.Server.Zone
             services.AddSystemServer();
 
             // External Services, Systems, and Plugins
-            services.AddI18n();
-            services.AddSystemEditor();
-            services.AddSystemBackup();
-            services.AddSystemGui();
-            services.AddSystemCombat();
-            services.AddSystemCombatEditor();
-            services.AddSystemModel();
-            services.AddSystemServerModule();
-            services.AddSystemEntityModule();
-            services.AddSystemAgent();
-            services.AddSystemAgentAi();
-            services.AddSystemAgentBehavior();
-            services.AddSystemClientAssets();
-            services.AddSystemClientEntities();
-            services.AddSystemClientScripts();
-            services.AddSystemPlayer();
-
-            services.AddAgentCompanion();
-
-            services.AddPlugins(HostingEnvironment);
-            services.AddPluginInteraction();
+            services.AddI18n()
+                .AddSystemEditor()
+                .AddSystemBackup()
+                .AddSystemGui()
+                .AddSystemCombat()
+                .AddSystemCombatEditor()
+                .AddSystemModel()
+                .AddSystemServerModule()
+                .AddSystemEntityModule()
+                .AddSystemAgent()
+                .AddSystemAgentAi()
+                .AddSystemAgentBehavior()
+                .AddPluginAgentBehaviorEditor()
+                .AddSystemClientAssets()
+                .AddSystemClientEntities()
+                .AddSystemClientScripts()
+                .AddSystemPlayer()
+                .AddAgentCompanion()
+                .AddPlugins(HostingEnvironment)
+                .AddPluginInteraction();
 
             // To be moved into extension startup
             var extensionAssemblyList = new Assembly[] {
@@ -174,6 +173,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemPlayerExtensions).Assembly,
                     typeof(SystemGuiExtensions).Assembly,
                     typeof(SystemAgentBehaviorExtensions).Assembly,
+                    typeof(PluginAgentBehaviorEditorExtensions).Assembly,
                     typeof(AgentCompanionExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
                     typeof(PluginInteractionExtensions).Assembly,
@@ -217,6 +217,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemAgent();
             app.UseSystemAgentAi();
             app.UseSystemAgentBehavior();
+            app.UsePluginAgentBehaviorEditor();
             app.UseSystemClientAssets();
             app.UseSystemClientEntities();
             app.UseSystemClientScripts();
