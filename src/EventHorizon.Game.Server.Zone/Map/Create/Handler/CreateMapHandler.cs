@@ -78,7 +78,7 @@ namespace EventHorizon.Game.Server.Zone.Map.Create.Handler
                         indexMap.Add(navNode.Index);
                         key++;
                     }
-                    _logger.LogInformation("Node {I} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
+                    // _logger.LogInformation("Node {I} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
                 }
 
                 var currentNodeIndex = 0;
@@ -132,7 +132,7 @@ namespace EventHorizon.Game.Server.Zone.Map.Create.Handler
 
                         ++currentNodeIndex;
                     }
-                    _logger.LogInformation("Edge {Index} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
+                    // _logger.LogInformation("Edge {Index} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
                 }
                 await _serverState.SetMap(mapGraph);
                 await _mediator.Publish(new MapCreatedEvent());

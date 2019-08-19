@@ -76,6 +76,11 @@ namespace EventHorizon.Zone.System.Editor.Save
                         );
                     }
 
+                    if (!fileInfo.Directory.Exists)
+                    {
+                        fileInfo.Directory.Create();
+                    }
+
                     File.WriteAllText(
                         fileInfo.FullName,
                         request.Content

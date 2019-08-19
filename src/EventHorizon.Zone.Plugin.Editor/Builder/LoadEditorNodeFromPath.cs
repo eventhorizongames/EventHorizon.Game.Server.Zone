@@ -15,6 +15,20 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
             string nodeType = "EDITOR_CONTENT"
         )
         {
+            return Create(
+                new List<string>() { rootFolderName },
+                rootFolderPath,
+                directoryToLoadPath,
+                nodeType
+            );
+        }
+        public static Task<IEditorNode> Create(
+            IList<string> rootPath,
+            string rootFolderPath,
+            string directoryToLoadPath,
+            string nodeType = "EDITOR_CONTENT"
+        )
+        {
             var directoryInfo = new DirectoryInfo(
                 directoryToLoadPath
             );
@@ -23,16 +37,19 @@ namespace EventHorizon.Zone.Plugin.Editor.Builder
             var directoryNode = new StandardEditorNode(
                 directoryInfo.Name,
                 true,
-                new List<string>() { rootFolderName },
+                rootPath,
                 "FOLDER"
             );
 
-            LoadFromDirectoryInfo(
-                directoryNode,
-                rootFolderPath,
-                directoryInfo,
-                nodeType
-            );
+            if (directoryInfo.Exists)
+            {
+                LoadFromDirectoryInfo(
+                    directoryNode,
+                    rootFolderPath,
+                    directoryInfo,
+                    nodeType
+                );
+            }
 
             return Task.FromResult(
                 directoryNode as IEditorNode

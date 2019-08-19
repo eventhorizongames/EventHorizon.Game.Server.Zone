@@ -7,14 +7,13 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.System.Client.Scripts.Editor
+namespace EventHorizon.Zone.Plugin.ClientEntities.Editor.Fill
 {
-    // TODO: Move this into a Client.Scripts.Editor Project
-    public struct FillClientScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public struct FillClientEntitiesEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 
-        public FillClientScriptsEditorNodeStateHandler(
+        public FillClientEntitiesEditorNodeStateHandler(
             ServerInfo serverInfo
         )
         {
@@ -26,46 +25,38 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
             CancellationToken cancellationToken
         )
         {
+            // Node Root Folder Details
             var rootFolder = "Client";
+
             notification.AddNode(
                 // Create the root node.
                 new StandardEditorNode(
                     rootFolder
                 ).AddProperty(
-                    // Disable context menu support.
+                    // Disable context menu support on the root node.
                     EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
-                    // Add the script node as a child to it.
-                    await CreateScriptNode(
+                    await CreateNode(
                         rootFolder
                     )
                 )
             );
         }
 
-        private async Task<IEditorNode> CreateScriptNode(
+        private async Task<IEditorNode> CreateNode(
             string rootFolder
         )
         {
-            var node = (await LoadEditorNodeFromPath.Create(
+            // Create Script Node
+            return (await LoadEditorNodeFromPath.Create(
                 rootFolder,
                 _serverInfo.ClientPath,
-                _serverInfo.ClientScriptsPath
+                _serverInfo.ClientEntityPath
             )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY, 
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                 false
             );
-
-            foreach (var child in node.Children)
-            {
-                child.AddProperty(
-                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
-                    false
-                );
-            }
-
-            return node;
         }
     }
 }

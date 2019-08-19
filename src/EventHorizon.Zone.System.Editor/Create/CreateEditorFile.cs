@@ -69,7 +69,11 @@ namespace EventHorizon.Zone.System.Editor.Create
                             )
                         );
                     }
-                    using(fileInfo.Create())
+                    if (!fileInfo.Directory.Exists)
+                    {
+                        fileInfo.Directory.Create();
+                    }
+                    using (fileInfo.Create()) { }
 
                     return Task.FromResult(
                         new EditorResponse(

@@ -137,11 +137,15 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemEditor()
                 .AddSystemBackup()
                 .AddSystemGui()
+                .AddPluginGuiEditor()
                 .AddSystemCombat()
                 .AddSystemCombatEditor()
+                .AddPluginParticleEditor()
                 .AddSystemModel()
                 .AddSystemServerModule()
+                .AddPluginServerModuleEditor()
                 .AddSystemEntityModule()
+                .AddPluginEntityModuleEditor()
                 .AddSystemAgent()
                 .AddSystemAgentAi()
                 .AddSystemAgentBehavior()
@@ -149,6 +153,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemClientAssets()
                 .AddPluginClientAssetsEditor()
                 .AddSystemClientEntities()
+                .AddPluginClientEntitiesEditor()
                 .AddSystemClientScripts()
                 .AddSystemPlayer()
                 .AddAgentCompanion()
@@ -163,24 +168,30 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemBackupExtensions).Assembly,
                     typeof(SystemCombatExtensions).Assembly,
                     typeof(SystemCombatEditorExtensions).Assembly,
+                    typeof(PluginParticleEditorExtensions).Assembly,
                     typeof(SystemModelExtensions).Assembly,
                     typeof(SystemServerModuleExtensions).Assembly,
+                    typeof(PluginServerModuleEditorExtensions).Assembly,
                     typeof(SystemEntityModuleExtensions).Assembly,
+                    typeof(PluginEntityModuleEditorExtensions).Assembly,
                     typeof(SystemAgentExtensions).Assembly,
                     typeof(SystemAgentAiExtensions).Assembly,
                     typeof(SystemClientAssetsExtensions).Assembly,
                     typeof(PluginClientAssetsEditorExtensions).Assembly,
                     typeof(SystemClientEntitiesExtensions).Assembly,
+                    typeof(PluginClientEntitiesEditorExtensions).Assembly,
                     typeof(SystemClientScriptsExtensions).Assembly,
                     typeof(SystemPlayerExtensions).Assembly,
                     typeof(SystemGuiExtensions).Assembly,
+                    typeof(PluginGuiEditorExtensions).Assembly,
                     typeof(SystemAgentBehaviorExtensions).Assembly,
                     typeof(PluginAgentBehaviorEditorExtensions).Assembly,
                     typeof(AgentCompanionExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
                     typeof(PluginInteractionExtensions).Assembly,
             };
-
+            
+            "".Reverse().Where(a => char.IsLetter(a)).ToString();
             services
                 .AddMediatR(
                     extensionAssemblyList
@@ -211,11 +222,15 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemEditor();
             app.UseSystemBackup();
             app.UseSystemGui();
+            app.UsePluginGuiEditor();
             app.UseSystemModel();
             app.UseSystemCombat();
             app.UseSystemCombatEditor();
+            app.UsePluginParticleEditor();
             app.UseSystemServerModule();
+            app.UsePluginServerModuleEditor();
             app.UseSystemEntityModule();
+            app.UsePluginEntityModuleEditor();
             app.UseSystemAgent();
             app.UseSystemAgentAi();
             app.UseSystemAgentBehavior();
@@ -223,6 +238,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemClientAssets();
             app.UsePluginClientAssetsEditor();
             app.UseSystemClientEntities();
+            app.UsePluginClientEntitiesEditor();
             app.UseSystemClientScripts();
             app.UseSystemPlayer();
 
