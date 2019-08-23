@@ -22,9 +22,9 @@
 
 var eventsToRemove = $data.eventsToDispose || [];
 eventsToRemove.forEach(eventData => {
-    $services.eventService.removeEventListener(
+    $services.eventService.off(
         {
-            key: eventData.name
+            key: eventData.name,
         },
         eventData.handler,
         eventData.context
@@ -33,9 +33,9 @@ eventsToRemove.forEach(eventData => {
 
 $services.commandService.send({
     type: {
-        key: "GUI.DISPOSE_OF_GUI_CONTROL_COMMAND"
+        key: "GUI.DISPOSE_OF_GUI_CONTROL_COMMAND",
     },
     data: {
-        controlId: $data.guiControlId
-    }
+        controlId: $data.guiControlId,
+    },
 });

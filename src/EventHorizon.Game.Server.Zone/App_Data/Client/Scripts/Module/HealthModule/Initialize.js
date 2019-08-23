@@ -82,14 +82,14 @@ function onMeshSet({ id }) {
 }
 
 // Setup Event Listener's
-$services.eventService.addEventListener(
+$services.eventService.on(
     {
         key: "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
     },
     onEntityChanged,
     this
 );
-$services.eventService.addEventListener(
+$services.eventService.on(
     {
         key: "Module.Mesh.MESH_SET_EVENT",
     },

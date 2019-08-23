@@ -13,7 +13,7 @@ $services.logger.debug("Hello from Server Dispose", $services);
 
 var eventsToRemove = $data.eventsToDispose || [];
 eventsToRemove.forEach(eventData => {
-    $services.eventService.removeEventListener(
+    $services.eventService.off(
         {
             key: eventData.name
         },

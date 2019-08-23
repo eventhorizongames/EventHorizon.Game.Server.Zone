@@ -21,29 +21,32 @@ const onMessageFromCombatSystemHandler = data => {
     }
     var result = $services.commandService.send({
         type: {
-            key: "GUI.ADD_LAYOUT_TO_CONTROL_COMMAND"
+            key: "GUI.ADD_LAYOUT_TO_CONTROL_COMMAND",
         },
         data: {
             targetControlId: "ChatModule_Panel",
             registerControlList: [
                 {
                     controlId: "ChatModule_Message_Panel_" + messageCount,
-                    templateId: "ChatModule_Message_Panel"
+                    templateId: "ChatModule_Message_Panel",
+                    options: {
+                        adaptHeightToChildren: true,
+                    },
                 },
                 {
                     controlId: "ChatModule_Sender_" + messageCount,
                     templateId: "ChatModule_Sender",
                     options: {
-                        text: "System : "
-                    }
+                        text: "System : ",
+                    },
                 },
                 {
                     controlId: "ChatModule_Message_" + messageCount,
                     templateId: "ChatModule_Message",
                     options: {
-                        text: data.message
-                    }
-                }
+                        text: data.message,
+                    },
+                },
             ],
             templateList: [],
             layout: {
@@ -56,17 +59,17 @@ const onMessageFromCombatSystemHandler = data => {
                         controlList: [
                             {
                                 id: "ChatModule_Sender_" + messageCount,
-                                sort: 0
+                                sort: 0,
                             },
                             {
                                 id: "ChatModule_Message_" + messageCount,
-                                sort: 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        }
+                                sort: 1,
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
     });
     $services.logger.debug("Message Result", result);
 };
@@ -75,43 +78,43 @@ const onShowMessageFromCombatSystemHandler = () => {
     // Show the Chat Window
     $services.commandService.send({
         type: {
-            key: "Engine.Gui.SHOW_LAYOUT_COMMAND"
+            key: "Engine.Gui.SHOW_LAYOUT_COMMAND",
         },
         data: {
-            layoutId: "ChatLayout"
-        }
+            layoutId: "ChatLayout",
+        },
     });
 };
 const onHideMessageFromCombatSystemHandler = () => {
     // Hide the Chat Window
     $services.commandService.send({
         type: {
-            key: "Engine.Gui.HIDE_LAYOUT_COMMAND"
+            key: "Engine.Gui.HIDE_LAYOUT_COMMAND",
         },
         data: {
-            layoutId: "ChatLayout"
-        }
+            layoutId: "ChatLayout",
+        },
     });
 };
 
 // Setup Event Listeners
-$services.eventService.addEventListener(
+$services.eventService.on(
     {
-        key: "MessageFromCombatSystem"
+        key: "MessageFromCombatSystem",
     },
     onMessageFromCombatSystemHandler,
     this
 );
-$services.eventService.addEventListener(
+$services.eventService.on(
     {
-        key: "MessageFromCombatSystem.SHOW"
+        key: "MessageFromCombatSystem.SHOW",
     },
     onShowMessageFromCombatSystemHandler,
     this
 );
-$services.eventService.addEventListener(
+$services.eventService.on(
     {
-        key: "MessageFromCombatSystem.HIDE"
+        key: "MessageFromCombatSystem.HIDE",
     },
     onHideMessageFromCombatSystemHandler,
     this
@@ -122,22 +125,22 @@ $data.eventsToRemove = [];
 $data.eventsToRemove.push({
     name: "MessageFromCombatSystem",
     handler: onMessageFromCombatSystemHandler,
-    context: this
+    context: this,
 });
 $data.eventsToRemove.push({
     name: "MessageFromCombatSystem.SHOW",
     handler: onShowMessageFromCombatSystemHandler,
-    context: this
+    context: this,
 });
 $data.eventsToRemove.push({
     name: "MessageFromCombatSystem.HIDE",
     handler: onHideMessageFromCombatSystemHandler,
-    context: this
+    context: this,
 });
 
 $services.commandService.send({
     type: {
-        key: "Gui.CREATE_GUI_COMMAND"
+        key: "Gui.CREATE_GUI_COMMAND",
     },
     data: {
         layoutList: [
@@ -151,15 +154,15 @@ $services.commandService.send({
                         controlList: [
                             {
                                 id: "ChatModule_Panel",
-                                sort: 0
+                                sort: 0,
                                 // },{
                                 //     id: "ChatModule_Input",
                                 //     sort: 1
-                            }
-                        ]
-                    }
-                ]
-            }
+                            },
+                        ],
+                    },
+                ],
+            },
         ],
         templateList: [
             {
@@ -182,9 +185,9 @@ $services.commandService.send({
                         transition: 0.05,
                         transitionStart: 0.01,
                         transitionEnd: 0.5,
-                        transitionTime: 10
-                    }
-                }
+                        transitionTime: 10,
+                    },
+                },
             },
             {
                 id: "ChatModule_Panel",
@@ -194,8 +197,8 @@ $services.commandService.send({
                     horizontalAlignment: 0,
                     top: -15,
                     left: 15,
-                    enableScrolling: true
-                }
+                    enableScrolling: true,
+                },
             },
             {
                 id: "ChatModule_Input",
@@ -204,7 +207,6 @@ $services.commandService.send({
                     alpha: 2,
                     autoStretchWidth: false,
                     width: "100%",
-                    height: "15%",
                     fontSize: 15,
                     horizontalAlignment: 0,
                     verticalAlignment: 1,
@@ -215,8 +217,8 @@ $services.commandService.send({
                     cornerRadius: 0,
 
                     placeholderText: "message_placeholder",
-                    onClick: _ => {}
-                }
+                    onClick: _ => {},
+                },
             },
             {
                 // Stack Panel, horizontal
@@ -224,11 +226,12 @@ $services.commandService.send({
                 type: "Panel",
                 options: {
                     top: -45,
+                    height: "50px",
                     isVertical: false,
                     verticalAlignment: 1,
                     horizontalAlignment: 0,
-                    isPointerBlocker: false
-                }
+                    isPointerBlocker: false,
+                },
             },
             {
                 // Sender Text
@@ -240,12 +243,12 @@ $services.commandService.send({
                     resizeToFit: true,
                     color: "white",
                     width: "30px",
-                    height: "20px",
+                    // height: "20px",
                     fontSize: "14px",
                     fontWeight: "bold",
 
-                    text: "sender_text"
-                }
+                    text: "sender_text",
+                },
             },
             {
                 // Message Text
@@ -255,15 +258,15 @@ $services.commandService.send({
                     alpha: 1,
                     color: "white",
                     width: "600px",
-                    height: "20px",
+                    // height: "20px",
                     fontSize: "14px",
                     textHorizontalAlignment: 0,
 
-                    text: "message_text"
-                }
-            }
-        ]
-    }
+                    text: "message_text",
+                },
+            },
+        ],
+    },
 });
 
 // Register New GUI Control's from Templates
@@ -271,48 +274,48 @@ $services.logger.debug(
     "containerResult",
     $services.commandService.send({
         type: {
-            key: "GUI.REGISTER_CONTROL_COMMAND"
+            key: "GUI.REGISTER_CONTROL_COMMAND",
         },
         data: {
             controlId: "ChatModule_Container",
-            templateId: "ChatModule_Container"
-        }
+            templateId: "ChatModule_Container",
+        },
     })
 );
 $services.logger.debug(
     "panelResult",
     $services.commandService.send({
         type: {
-            key: "GUI.REGISTER_CONTROL_COMMAND"
+            key: "GUI.REGISTER_CONTROL_COMMAND",
         },
         data: {
             controlId: "ChatModule_Panel",
-            templateId: "ChatModule_Panel"
-        }
+            templateId: "ChatModule_Panel",
+        },
     })
 );
 $services.logger.debug(
     "inputResult",
     $services.commandService.send({
         type: {
-            key: "GUI.REGISTER_CONTROL_COMMAND"
+            key: "GUI.REGISTER_CONTROL_COMMAND",
         },
         data: {
             controlId: "ChatModule_Input",
             templateId: "ChatModule_Input",
             options: {
                 placeholderText: "Type message here...",
-                onClick: text => $services.logger.debug(text)
-            }
-        }
+                onClick: text => $services.logger.debug(text),
+            },
+        },
     })
 );
 
 $services.commandService.send({
     type: {
-        key: "GUI.ACTIVATE_LAYOUT_COMMAND"
+        key: "GUI.ACTIVATE_LAYOUT_COMMAND",
     },
     data: {
-        layoutId: "ChatLayout"
-    }
+        layoutId: "ChatLayout",
+    },
 });
