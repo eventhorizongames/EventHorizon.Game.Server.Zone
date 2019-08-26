@@ -55,9 +55,9 @@
                 "linkOffsetY": -50,
                 "width": "120px",
                 "height": "20px",
-                "textSize": 12,
-                "textColor": "white",
-                "backgroundColor": "red",
+                "fontSize": 12,
+                "color": "white",
+                "background": "red",
                 "alignment": 2,
                 "vAlignment": 0,
                 "borderThickness": 0

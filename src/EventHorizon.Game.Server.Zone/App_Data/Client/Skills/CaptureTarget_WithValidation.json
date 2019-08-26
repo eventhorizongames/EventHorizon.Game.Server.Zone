@@ -10,6 +10,9 @@
         },
         {
             "validator": "Validators_Agent_TargetIsNotCasterCompanion.csx"
+        },
+        {
+            "validator": "Validators_Agent_TargetIsAbleToBeCaptured.csx"
         }
     ],
     "failedList": [

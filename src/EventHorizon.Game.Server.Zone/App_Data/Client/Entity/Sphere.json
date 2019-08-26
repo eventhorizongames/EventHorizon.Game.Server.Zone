@@ -1,0 +1,18 @@
+{
+    "id": "94C7B541-2C71-4543-B6A5-200CCA063F0A",
+    "name": "Sphere OG",
+    "position": {
+        "X": 25.0,
+        "Y": 0.0,
+        "Z": 25.0
+    },
+    "assetId": "SPHERE_HUGE",
+    "properties": {
+        "dense": true,
+        "densityBox": {
+            "X": 10.0,
+            "Y": 10.0,
+            "Z": 10.0
+        }
+    }
+}

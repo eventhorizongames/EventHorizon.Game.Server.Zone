@@ -349,5 +349,61 @@ namespace EventHorizon.Game.Server.Zone.Math
                 child.FindNearbyPoints(position, radius, options, ref result);
             }
         }
+        public void FindNearbyPointsInDimension(
+            Vector3 position,
+            Vector3 dimension,
+            IOctreeOptions options,
+            ref List<T> result
+        )
+        {
+            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
+            {
+                foreach (var point in Search_Points)
+                {
+                    var rect1 = new
+                    {
+                        x = position.X - (dimension.X / 2),
+                        y = position.Y - (dimension.Y / 2),
+                        z = position.Z - (dimension.Z / 2),
+
+                        width = dimension.X,
+                        height = dimension.Y,
+                        depth = dimension.Z,
+                    };
+                    var rect2 = new
+                    {
+                        x = point.Value.Position.X - 0.5,
+                        y = point.Value.Position.Y - 0.5,
+                        z = point.Value.Position.Z - 0.5,
+
+                        width = 1,
+                        height = 1,
+                        depth = 1,
+                    };
+                    var dist = Vector3.Distance(position, point.Value.Position);
+                    if (rect1.x < rect2.x + rect2.width &&
+                        rect1.x + rect1.width > rect2.x &&
+                        rect1.z < rect2.z + rect2.height &&
+                        rect1.z + rect1.height > rect2.z
+                    )
+                    {
+                        if (dist == 0 && options.NotSelf)
+                        {
+                            continue;
+                        }
+                        result.Add(point.Value);
+                    }
+                }
+            }
+            foreach (var child in this.Search_Children)
+            {
+                child.FindNearbyPointsInDimension(
+                    position,
+                    dimension,
+                    options,
+                    ref result
+                );
+            }
+        }
     }
 }

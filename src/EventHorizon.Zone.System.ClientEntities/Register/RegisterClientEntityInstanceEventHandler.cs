@@ -1,7 +1,9 @@
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Map.Cost;
 using EventHorizon.Zone.System.ClientEntities.State;
+using EventHorizon.Zone.System.ClientEntities.Api;
 using MediatR;
 
 namespace EventHorizon.Zone.System.ClientEntities.Register
@@ -18,23 +20,49 @@ namespace EventHorizon.Zone.System.ClientEntities.Register
             _mediator = mediator;
             _clientEntityRepository = entityRepository;
         }
-        public Task Handle(RegisterClientEntityInstanceEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(RegisterClientEntityInstanceEvent notification, CancellationToken cancellationToken)
         {
+            var entity = notification.ClientEntityInstance;
             _clientEntityRepository.Add(
-                notification.ClientEntityInstance
+                entity
             );
             // At postion if they are dense, increase cost to get to node
-            if (notification.ClientEntityInstance.Properties != null
-                && (bool)notification.ClientEntityInstance.Properties["dense"])
+            if (ContainProperty(
+                entity,
+                "dense"
+            ))
             {
-                _mediator.Send(
+                if (ContainProperty(
+                    entity,
+                    "densityBox"
+                ))
+                {
+                    await _mediator.Send(
+                        new ChangeEdgeCostForNodesAtPositionCommand(
+                            entity.Position,
+                            entity.GetProperty<Vector3>("densityBox"),
+                            500
+                        )
+                    );
+                    return;
+                }
+                await _mediator.Send(
                     new ChangeEdgeCostForNodeAtPositionCommand(
-                        notification.ClientEntityInstance.Position,
+                        entity.Position,
                         500
                     )
                 );
             }
-            return Task.CompletedTask;
+        }
+
+        private static bool ContainProperty(
+            Model.ClientEntityInstance entity,
+            string property
+        )
+        {
+            return entity.Properties?.ContainsKey(
+                property
+            ) ?? false;
         }
     }
 }

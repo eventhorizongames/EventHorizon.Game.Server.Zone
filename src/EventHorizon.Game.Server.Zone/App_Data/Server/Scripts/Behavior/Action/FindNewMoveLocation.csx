@@ -22,11 +22,10 @@ using EventHorizon.Zone.System.Agent.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
 
 // Get Map Nodes around Agent, within distance
-var mapNodes = await Services.Mediator.Send(new GetMapNodesAroundPositionEvent
-{
-    Position = Actor.Position.CurrentPosition,
-    Distance = Actor.GetProperty<AgentWanderState>(AgentWanderState.WANDER_NAME).LookDistance
-});
+var mapNodes = await Services.Mediator.Send(new GetMapNodesAroundPositionEvent(
+    Actor.Position.CurrentPosition,
+    Actor.GetProperty<AgentWanderState>(AgentWanderState.WANDER_NAME).LookDistance
+));
 if (mapNodes.Count == 0)
 {
     return new BehaviorScriptResponse(

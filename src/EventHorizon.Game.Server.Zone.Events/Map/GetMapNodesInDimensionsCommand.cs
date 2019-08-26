@@ -5,18 +5,18 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Map
 {
-    public struct GetMapNodesAroundPositionEvent : IRequest<IList<MapNode>>
+    public struct GetMapNodesInDimensionsCommand : IRequest<IList<MapNode>>
     {
-        public Vector3 Position { get; }   
-        public int Distance { get; }
+        public Vector3 Position { get; }
+        public Vector3 Dimensions { get; }
 
-        public GetMapNodesAroundPositionEvent(
+        public GetMapNodesInDimensionsCommand(
             Vector3 position,
-            int distance
+            Vector3 dimensions
         )
         {
             Position = position;
-            Distance = distance;
+            Dimensions = dimensions;
         }
     }
 }

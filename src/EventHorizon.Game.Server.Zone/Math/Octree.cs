@@ -50,6 +50,21 @@ namespace EventHorizon.Game.Server.Zone.Math
             this._root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
             return result;
         }
+        public IList<T> FindNearbyPoints(
+            Vector3 position,
+            Vector3 dimension,
+            IOctreeOptions options = null
+        )
+        {
+            var result = new List<T>();
+            this._root.FindNearbyPointsInDimension(
+                position,
+                dimension,
+                options ?? IOctreeOptions.DEFAULT,
+                ref result
+            );
+            return result;
+        }
     }
     public class IOctreeOptions
     {

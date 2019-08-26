@@ -12,25 +12,25 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Map.Handler
 {
-    public class GetMapNodesAroundPositionHandler
-        : IRequestHandler<GetMapNodesAroundPositionEvent, IList<MapNode>>
+    public class GetMapNodesInDimensionsCommandHandler
+        : IRequestHandler<GetMapNodesInDimensionsCommand, IList<MapNode>>
     {
         readonly IServerState _serverState;
-        public GetMapNodesAroundPositionHandler(
+        public GetMapNodesInDimensionsCommandHandler(
             IServerState serverState
         )
         {
             _serverState = serverState;
         }
         public async Task<IList<MapNode>> Handle(
-            GetMapNodesAroundPositionEvent request,
+            GetMapNodesInDimensionsCommand request,
             CancellationToken cancellationToken
         )
         {
             return (await _serverState.Map())
-                .GetClosestNodes(
+                .GetClosestNodesInDimension(
                     request.Position,
-                    request.Distance
+                    request.Dimensions
                 );
         }
     }

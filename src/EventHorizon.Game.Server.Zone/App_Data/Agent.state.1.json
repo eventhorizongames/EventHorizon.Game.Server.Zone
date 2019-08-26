@@ -72,7 +72,7 @@
                     "AnimationList": [],
                     "Mesh": {
                         "Type": "SPHERE",
-                        "AssetId": "SPHERE-cc0d-4094-aecf"
+                        "AssetId": "SPHERE"
                     }
                 },
                 "behavior": {

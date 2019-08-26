@@ -2,10 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Math;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Model.Structure;
 using EventHorizon.Game.Server.Zone.Model.Map;
 using System.Collections.Concurrent;
-using System;
 
 namespace EventHorizon.Game.Server.Zone.Map.State
 {
@@ -13,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Map.State
     {
         private ConcurrentDictionary<MapNode, MapNode> _nodes;
         private ConcurrentDictionary<MapEdge, MapEdge> _edges;
-        private ConcurrentDictionary<int, ConcurrentBag<MapEdge>> _nodeFromEdges;
+        private ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>> _nodeFromEdges;
         private bool _isDirectionGraph;
         private int nextNodeIndex;
         private Octree<MapNode> octree;
@@ -36,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Map.State
             this._isDirectionGraph = isDirectionGraph;
             this._nodes = new ConcurrentDictionary<MapNode, MapNode>();
             this._edges = new ConcurrentDictionary<MapEdge, MapEdge>();
-            this._nodeFromEdges = new ConcurrentDictionary<int, ConcurrentBag<MapEdge>>();
+            this._nodeFromEdges = new ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>>();
 
             this.nextNodeIndex = -1;
 
@@ -57,6 +55,18 @@ namespace EventHorizon.Game.Server.Zone.Map.State
         {
             return this.octree
                 .FindNearbyPoints(GetClosestNode(position).Position, radius, null);
+        }
+
+        public IList<MapNode> GetClosestNodesInDimension(
+            Vector3 position,
+            Vector3 dimensions
+        )
+        {
+            return this.octree.FindNearbyPoints(
+                position,
+                dimensions,
+                null
+            );
         }
 
         public MapNode GetClosestNode(Vector3 position)
@@ -130,8 +140,9 @@ namespace EventHorizon.Game.Server.Zone.Map.State
             this._nodeFromEdges
                 .GetOrAdd(
                     edge.FromIndex,
-                    new ConcurrentBag<MapEdge>()
-                ).Add(
+                    new ConcurrentDictionary<MapEdge, MapEdge>()
+                ).TryAdd(
+                    edge,
                     edge
                 );
         }
@@ -142,12 +153,20 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                 edge,
                 out _
             );
+            this._nodeFromEdges
+                .GetOrAdd(
+                    edge.FromIndex,
+                    new ConcurrentDictionary<MapEdge, MapEdge>()
+                ).Remove(
+                    edge,
+                    out _
+                );
         }
 
         readonly IEnumerable<MapEdge> EMPTY_IMMUTABLE_LIST = new List<MapEdge>().AsReadOnly();
         public IEnumerable<MapEdge> GetEdgesOfNode(int nodeIndex)
         {
-            ConcurrentBag<MapEdge> edgeList;
+            ConcurrentDictionary<MapEdge, MapEdge> edgeList;
             if (this._nodeFromEdges
                 .TryGetValue(
                     nodeIndex,
@@ -155,7 +174,7 @@ namespace EventHorizon.Game.Server.Zone.Map.State
                 )
             )
             {
-                return edgeList;
+                return edgeList.Values;
             }
 
             return EMPTY_IMMUTABLE_LIST;

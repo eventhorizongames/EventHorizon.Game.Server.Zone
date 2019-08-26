@@ -4175,6 +4175,4170 @@
                 "ActorMoveToPosition": null,
                 "NextRunTime": "2019-07-02T14:37:48.5167121-05:00"
             }
+        },
+        {
+            "Id": "3048bcd3-32f6-43b9-a89b-541e8e1a6abd",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": -29.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.766237Z",
+                "MoveToPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": -30.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:57.994665-05:00"
+            }
+        },
+        {
+            "Id": "4c5ba433-d41e-4e1f-a2b7-472c6ba3faea",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -21.0,
+                    "Y": 0.0,
+                    "Z": -29.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.7719941Z",
+                "MoveToPosition": {
+                    "X": -22.0,
+                    "Y": 0.0,
+                    "Z": -29.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:30.9953674-05:00"
+            }
+        },
+        {
+            "Id": "16f65ffc-d9b9-4d82-bf97-f99b8ab464ce",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 36.0,
+                    "Y": 0.0,
+                    "Z": 32.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:11.024081Z",
+                "MoveToPosition": {
+                    "X": 35.0,
+                    "Y": 0.0,
+                    "Z": 32.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 43.0,
+                    "Y": 0.0,
+                    "Z": 25.0
+                },
+                "NextRunTime": "2019-07-02T14:37:38.6978861-05:00"
+            }
+        },
+        {
+            "Id": "26eec67f-2c40-4841-ac47-6638752de7ac",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 51.0,
+                    "Y": 0.0,
+                    "Z": 55.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.7749833Z",
+                "MoveToPosition": {
+                    "X": 52.0,
+                    "Y": 0.0,
+                    "Z": 55.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:40.8734825-05:00"
+            }
+        },
+        {
+            "Id": "1a24f891-b81e-4fae-b19e-7d585841c5a6",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": 21.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.7886918Z",
+                "MoveToPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": 20.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:17.3129117-05:00"
+            }
+        },
+        {
+            "Id": "a4264218-5b3c-4ca5-8238-8af42b03e2e8",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 23.0,
+                    "Y": 0.0,
+                    "Z": 16.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8004559Z",
+                "MoveToPosition": {
+                    "X": 23.0,
+                    "Y": 0.0,
+                    "Z": 17.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 14.0,
+                    "Y": 0.0,
+                    "Z": 19.0
+                },
+                "NextRunTime": "2019-07-02T14:37:41.3306739-05:00"
+            }
+        },
+        {
+            "Id": "dd3ecb0d-2867-4e31-a221-dea036a1ce7b",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -13.0,
+                    "Y": 0.0,
+                    "Z": 58.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:04.0740117Z",
+                "MoveToPosition": {
+                    "X": -14.0,
+                    "Y": 0.0,
+                    "Z": 58.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:31.4866976-05:00"
+            }
+        },
+        {
+            "Id": "3eb3b892-714c-467e-8956-6e7c5e9d6dce",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -46.0,
+                    "Y": 0.0,
+                    "Z": 2.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:06.8885003Z",
+                "MoveToPosition": {
+                    "X": -47.0,
+                    "Y": 0.0,
+                    "Z": 2.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:28.0019596-05:00"
+            }
+        },
+        {
+            "Id": "12686959-9c66-4e22-9ab8-2266c7afda76",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -11.0,
+                    "Y": 0.0,
+                    "Z": 49.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8121533Z",
+                "MoveToPosition": {
+                    "X": -11.0,
+                    "Y": 0.0,
+                    "Z": 48.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:57.1943866-05:00"
+            }
+        },
+        {
+            "Id": "fe905ce5-c53f-445a-ad31-9fe1a13c1da3",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 14.0,
+                    "Y": 0.0,
+                    "Z": -28.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:07.7846322Z",
+                "MoveToPosition": {
+                    "X": 14.0,
+                    "Y": 0.0,
+                    "Z": -27.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:24.6997197-05:00"
+            }
+        },
+        {
+            "Id": "563ec48a-0879-4b9e-9ad9-376a4145990c",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 50.0,
+                    "Y": 0.0,
+                    "Z": 17.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:50.2451836Z",
+                "MoveToPosition": {
+                    "X": 51.0,
+                    "Y": 0.0,
+                    "Z": 17.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 36.0,
+                    "Y": 0.0,
+                    "Z": 9.0
+                },
+                "NextRunTime": "2019-07-02T14:37:32.3320332-05:00"
+            }
+        },
+        {
+            "Id": "1ec61959-6f67-4ce8-a30a-e38d408f1fa9",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -26.0,
+                    "Y": 0.0,
+                    "Z": -47.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8263238Z",
+                "MoveToPosition": {
+                    "X": -26.0,
+                    "Y": 0.0,
+                    "Z": -46.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:29.7997596-05:00"
+            }
+        },
+        {
+            "Id": "067c4d34-6d6c-4552-aec6-f9622cd26e52",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 16.0,
+                    "Y": 0.0,
+                    "Z": 24.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8284252Z",
+                "MoveToPosition": {
+                    "X": 16.0,
+                    "Y": 0.0,
+                    "Z": 25.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:50.7487271-05:00"
+            }
+        },
+        {
+            "Id": "d4d486b4-2720-4fb9-ad5b-75649060997e",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 17.0,
+                    "Y": 0.0,
+                    "Z": -55.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:48.3228012Z",
+                "MoveToPosition": {
+                    "X": 18.0,
+                    "Y": 0.0,
+                    "Z": -55.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 25.0,
+                    "Y": 0.0,
+                    "Z": -52.0
+                },
+                "NextRunTime": "2019-07-02T14:37:18.9562871-05:00"
+            }
+        },
+        {
+            "Id": "953f7420-c42a-4d7b-a649-bc9960bf2f63",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 42.0,
+                    "Y": 0.0,
+                    "Z": -46.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:08.6302418Z",
+                "MoveToPosition": {
+                    "X": 41.0,
+                    "Y": 0.0,
+                    "Z": -46.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:45.5393062-05:00"
+            }
+        },
+        {
+            "Id": "a7ba4b06-fe03-43ee-a552-c6886cfb770e",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -17.0,
+                    "Y": 0.0,
+                    "Z": -49.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8410349Z",
+                "MoveToPosition": {
+                    "X": -18.0,
+                    "Y": 0.0,
+                    "Z": -49.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:33.8009313-05:00"
+            }
+        },
+        {
+            "Id": "cec1131d-77e5-4b37-9a87-f099dfa16ab7",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -46.0,
+                    "Y": 0.0,
+                    "Z": -45.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:45.3508722Z",
+                "MoveToPosition": {
+                    "X": -47.0,
+                    "Y": 0.0,
+                    "Z": -45.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -29.0,
+                    "Y": 0.0,
+                    "Z": -62.0
+                },
+                "NextRunTime": "2019-07-02T14:37:22.3332791-05:00"
+            }
+        },
+        {
+            "Id": "c324227f-e243-453c-9176-cd043831b293",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 46.0,
+                    "Y": 0.0,
+                    "Z": -52.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8427151Z",
+                "MoveToPosition": {
+                    "X": 46.0,
+                    "Y": 0.0,
+                    "Z": -51.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:25.4146863-05:00"
+            }
+        },
+        {
+            "Id": "c7401588-7488-4db6-9549-14c7f2f3aa87",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 45.0,
+                    "Y": 0.0,
+                    "Z": 43.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.84808Z",
+                "MoveToPosition": {
+                    "X": 45.0,
+                    "Y": 0.0,
+                    "Z": 42.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:45.4098322-05:00"
+            }
+        },
+        {
+            "Id": "e5c17bb0-215b-4f0e-9692-1bcf4a8ea8e0",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 30.0,
+                    "Y": 0.0,
+                    "Z": -30.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:09.4368289Z",
+                "MoveToPosition": {
+                    "X": 30.0,
+                    "Y": 0.0,
+                    "Z": -29.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 48.0,
+                    "Y": 0.0,
+                    "Z": -46.0
+                },
+                "NextRunTime": "2019-07-02T14:37:32.0158919-05:00"
+            }
+        },
+        {
+            "Id": "235af148-8d8f-49b9-a1e5-93fcca5e7cee",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": 38.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:02.2757011Z",
+                "MoveToPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": 37.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 2.0,
+                    "Y": 0.0,
+                    "Z": 54.0
+                },
+                "NextRunTime": "2019-07-02T14:37:15.7608741-05:00"
+            }
+        },
+        {
+            "Id": "ffc4ad26-f299-40a1-b0f3-ae0a300171c5",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 49.0,
+                    "Y": 0.0,
+                    "Z": 59.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:02.2908476Z",
+                "MoveToPosition": {
+                    "X": 49.0,
+                    "Y": 0.0,
+                    "Z": 60.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 54.0,
+                    "Y": 0.0,
+                    "Z": 51.0
+                },
+                "NextRunTime": "2019-07-02T14:37:33.5595924-05:00"
+            }
+        },
+        {
+            "Id": "9f233a7b-efd6-4042-9aa4-13528854b6a4",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 47.0,
+                    "Y": 0.0,
+                    "Z": 58.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8640693Z",
+                "MoveToPosition": {
+                    "X": 46.0,
+                    "Y": 0.0,
+                    "Z": 58.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:38.5341142-05:00"
+            }
+        },
+        {
+            "Id": "ad89e676-8538-4156-8d60-1d8464d01dd0",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 33.0,
+                    "Y": 0.0,
+                    "Z": -4.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8780326Z",
+                "MoveToPosition": {
+                    "X": 32.0,
+                    "Y": 0.0,
+                    "Z": -4.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:27.5395073-05:00"
+            }
+        },
+        {
+            "Id": "70640092-3969-4c66-8d9d-598e4ac0084d",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -30.0,
+                    "Y": 0.0,
+                    "Z": -40.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:08.6564676Z",
+                "MoveToPosition": {
+                    "X": -30.0,
+                    "Y": 0.0,
+                    "Z": -39.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -13.0,
+                    "Y": 0.0,
+                    "Z": -52.0
+                },
+                "NextRunTime": "2019-07-02T14:37:17.2863477-05:00"
+            }
+        },
+        {
+            "Id": "b302eb0c-f5f1-46fd-b19d-2f1442c67e76",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 32.0,
+                    "Y": 0.0,
+                    "Z": 45.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.8849505Z",
+                "MoveToPosition": {
+                    "X": 32.0,
+                    "Y": 0.0,
+                    "Z": 46.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:38:04.5975428-05:00"
+            }
+        },
+        {
+            "Id": "2526ddd9-deb4-4edb-b875-10e984fcdf49",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -3.0,
+                    "Y": 0.0,
+                    "Z": 3.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:53.3085948Z",
+                "MoveToPosition": {
+                    "X": -2.0,
+                    "Y": 0.0,
+                    "Z": 3.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:23.6050576-05:00"
+            }
+        },
+        {
+            "Id": "8dbacc7b-b46d-4dfb-9cf6-3c7e1ed8a222",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 15.0,
+                    "Y": 0.0,
+                    "Z": -38.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:11.1434711Z",
+                "MoveToPosition": {
+                    "X": 14.0,
+                    "Y": 0.0,
+                    "Z": -38.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:58.53485-05:00"
+            }
+        },
+        {
+            "Id": "249af564-4a6b-4d36-89af-f500de76ebb7",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 1.0,
+                    "Y": 0.0,
+                    "Z": -24.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.898502Z",
+                "MoveToPosition": {
+                    "X": 1.0,
+                    "Y": 0.0,
+                    "Z": -23.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:52.2052823-05:00"
+            }
+        },
+        {
+            "Id": "0e376110-7288-404d-bd06-1f68cc1c2524",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -42.0,
+                    "Y": 0.0,
+                    "Z": 50.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:02.3249297Z",
+                "MoveToPosition": {
+                    "X": -43.0,
+                    "Y": 0.0,
+                    "Z": 50.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:28.2140099-05:00"
+            }
+        },
+        {
+            "Id": "71564004-c74e-48b7-8cf7-27458d7450b3",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -25.0,
+                    "Y": 0.0,
+                    "Z": 9.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:12.6770553Z",
+                "MoveToPosition": {
+                    "X": -26.0,
+                    "Y": 0.0,
+                    "Z": 9.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -21.0,
+                    "Y": 0.0,
+                    "Z": -26.0
+                },
+                "NextRunTime": "2019-07-02T14:37:30.5164619-05:00"
+            }
+        },
+        {
+            "Id": "674defdb-c99d-4dda-bc1c-9a79e107e8cf",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -53.0,
+                    "Y": 0.0,
+                    "Z": 32.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:06.0686356Z",
+                "MoveToPosition": {
+                    "X": -52.0,
+                    "Y": 0.0,
+                    "Z": 32.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -61.0,
+                    "Y": 0.0,
+                    "Z": 41.0
+                },
+                "NextRunTime": "2019-07-02T14:37:17.0911668-05:00"
+            }
+        },
+        {
+            "Id": "75d0502e-a97c-4cb5-b0a5-af6680c6973b",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -25.0,
+                    "Y": 0.0,
+                    "Z": 12.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:09.4719764Z",
+                "MoveToPosition": {
+                    "X": -26.0,
+                    "Y": 0.0,
+                    "Z": 12.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:17.7040949-05:00"
+            }
+        },
+        {
+            "Id": "7fe8ebf6-a6d8-462b-a24e-a76fb2daccdd",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -14.0,
+                    "Y": 0.0,
+                    "Z": -33.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:09.4823026Z",
+                "MoveToPosition": {
+                    "X": -15.0,
+                    "Y": 0.0,
+                    "Z": -33.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:37.7045758-05:00"
+            }
+        },
+        {
+            "Id": "5ef3c1c8-0346-47f6-b47c-4b1ff9ac8fa1",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 22.0,
+                    "Y": 0.0,
+                    "Z": -59.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:40.9843658Z",
+                "MoveToPosition": {
+                    "X": 22.0,
+                    "Y": 0.0,
+                    "Z": -58.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 51.0,
+                    "Y": 0.0,
+                    "Z": -52.0
+                },
+                "NextRunTime": "2019-07-02T14:37:18.7527372-05:00"
+            }
+        },
+        {
+            "Id": "be2fa7e3-7ac1-407a-95c3-e933312d6f43",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 5.0,
+                    "Y": 0.0,
+                    "Z": -44.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:05.1644131Z",
+                "MoveToPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": -44.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:20.2928789-05:00"
+            }
+        },
+        {
+            "Id": "1df3b8c6-5063-4f5d-bfb3-a4f3c6452faa",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": 10.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:11.1620569Z",
+                "MoveToPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": 10.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:19.1197348-05:00"
+            }
+        },
+        {
+            "Id": "4468aa7c-c7f6-446c-a3ac-23f88f84e085",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -43.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:11.1748481Z",
+                "MoveToPosition": {
+                    "X": -42.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -41.0,
+                    "Y": 0.0,
+                    "Z": -45.0
+                },
+                "NextRunTime": "2019-07-02T14:37:24.6851651-05:00"
+            }
+        },
+        {
+            "Id": "fe0f17bf-85e7-46b5-af8d-fb57172409ec",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -4.0,
+                    "Y": 0.0,
+                    "Z": 36.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9042053Z",
+                "MoveToPosition": {
+                    "X": -5.0,
+                    "Y": 0.0,
+                    "Z": 36.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:27.5276823-05:00"
+            }
+        },
+        {
+            "Id": "b253c230-04b6-4a8d-aa84-e47176745fbd",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9159408Z",
+                "MoveToPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:27.8812214-05:00"
+            }
+        },
+        {
+            "Id": "299e5e84-252f-404c-81ae-8c3e3fd978c8",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -39.0,
+                    "Y": 0.0,
+                    "Z": 12.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9202899Z",
+                "MoveToPosition": {
+                    "X": -40.0,
+                    "Y": 0.0,
+                    "Z": 12.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -37.0,
+                    "Y": 0.0,
+                    "Z": 4.0
+                },
+                "NextRunTime": "2019-07-02T14:37:20.4052723-05:00"
+            }
+        },
+        {
+            "Id": "2eedd86f-50f2-4695-885d-8246dff9121d",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 11.0,
+                    "Y": 0.0,
+                    "Z": -32.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9285678Z",
+                "MoveToPosition": {
+                    "X": 12.0,
+                    "Y": 0.0,
+                    "Z": -32.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:33.7159799-05:00"
+            }
+        },
+        {
+            "Id": "595c469a-c653-4164-bd18-0f49ba684717",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 27.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.2034588Z",
+                "MoveToPosition": {
+                    "X": 26.0,
+                    "Y": 0.0,
+                    "Z": -43.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": 27.0,
+                    "Y": 0.0,
+                    "Z": -59.0
+                },
+                "NextRunTime": "2019-07-02T14:37:22.5156711-05:00"
+            }
+        },
+        {
+            "Id": "4e1dac4b-bb9b-4e79-8082-f8f8d91e4f6f",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 15.0,
+                    "Y": 0.0,
+                    "Z": 41.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9328788Z",
+                "MoveToPosition": {
+                    "X": 15.0,
+                    "Y": 0.0,
+                    "Z": 42.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:22.6739447-05:00"
+            }
+        },
+        {
+            "Id": "a3cb801d-de1a-4f68-a41c-df244953261f",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 28.0,
+                    "Y": 0.0,
+                    "Z": -8.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.947038Z",
+                "MoveToPosition": {
+                    "X": 29.0,
+                    "Y": 0.0,
+                    "Z": -8.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:38:07.6139359-05:00"
+            }
+        },
+        {
+            "Id": "2c9b886d-4486-47f7-9685-4ac6b11f8741",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 8.0,
+                    "Y": 0.0,
+                    "Z": 31.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:02.4093921Z",
+                "MoveToPosition": {
+                    "X": 7.0,
+                    "Y": 0.0,
+                    "Z": 31.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:19.4262915-05:00"
+            }
+        },
+        {
+            "Id": "8217b2ba-7d61-4a68-82a3-387cb065cccc",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": -42.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:01.3267388Z",
+                "MoveToPosition": {
+                    "X": 3.0,
+                    "Y": 0.0,
+                    "Z": -41.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:27.7102843-05:00"
+            }
+        },
+        {
+            "Id": "3d4ceec3-2325-4310-ba0f-da0064827011",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 46.0,
+                    "Y": 0.0,
+                    "Z": 8.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:14.9532921Z",
+                "MoveToPosition": {
+                    "X": 45.0,
+                    "Y": 0.0,
+                    "Z": 8.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:25.613117-05:00"
+            }
+        },
+        {
+            "Id": "85fae8a2-1a92-473f-b193-298b8526776c",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -21.0,
+                    "Y": 0.0,
+                    "Z": -40.0
+                },
+                "NextMoveRequest": "2019-07-02T19:36:57.4036032Z",
+                "MoveToPosition": {
+                    "X": -22.0,
+                    "Y": 0.0,
+                    "Z": -40.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": null,
+                "NextRunTime": "2019-07-02T14:37:20.2797614-05:00"
+            }
+        },
+        {
+            "Id": "3e534fa6-6027-43cf-8b73-3f78e9e9140d",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -39.0,
+                    "Y": 0.0,
+                    "Z": 9.0
+                },
+                "NextMoveRequest": "2019-07-02T19:37:05.2208209Z",
+                "MoveToPosition": {
+                    "X": -40.0,
+                    "Y": 0.0,
+                    "Z": 9.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "CanBeCaptured": false
+                },
+                "movementState": {
+                    "Speed": 1.0
+                },
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "life": {
+                    "Health": 0
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 7173,
+                    "MaxHealthPoints": 10000,
+                    "ActionPoints": 9826,
+                    "MaxActionPoints": 10000,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
+                        }
+                    }
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "ActorMoveToPosition": {
+                    "X": -26.0,
+                    "Y": 0.0,
+                    "Z": 29.0
+                },
+                "NextRunTime": "2019-07-02T14:37:30.7156591-05:00"
+            }
         }
     ]
 }
