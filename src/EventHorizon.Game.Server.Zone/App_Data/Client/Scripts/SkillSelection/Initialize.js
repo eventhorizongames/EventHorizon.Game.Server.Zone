@@ -2,120 +2,139 @@
  * This the internal "state" of the script, only accessible by the script.
  * $state: {
  * };
- * 
+ *
  * This is data passed to the script from the outside.
  * $data: {
  * };
  */
 
+const layoutId = (guiId = "GUI_Module_SkillSelection.json");
 const skillList = $data.skillList;
-const keyboardShortcuts = $state._keyboardShortcuts = [];
+const keyboardShortcuts = ($state._keyboardShortcuts = []);
 
-// Register New GUI Control's from Templates
-$services.commandService.send({
-    type: {
-        key: "GUI.REGISTER_CONTROL_COMMAND"
-    },
-    data: {
-        controlId: "onscreen_skill_selection-grid",
-        templateId: "onscreen_skill_selection-grid"
-    }
-});
-$services.commandService.send({
-    type: {
-        key: "GUI.REGISTER_CONTROL_COMMAND"
-    },
-    data: {
-        controlId: "onscreen_skill_selection-panel",
-        templateId: "onscreen_skill_selection-panel"
-    }
-});
+/**
+ * When the Skill Selection GUI is Activated it will publish an event and call this function.
+ * This function will populate the GUI with the "active" skill list of the entity.
+ */
+function guiActivated() {
+    const skillListLayoutId = (skillListGuiId =
+        "GUI_Module_SkillSelection.SkillList");
+    const skillListLayoutData = {
+        id: skillListLayoutId,
+        sort: 0,
+        controlList: skillLayoutControlList,
+    };
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.REGISTER_GUI_LAYOUT_DATA_COMMAND", {
+            layoutData: skillListLayoutData,
+        })
+    );
 
-// Active the Skill Selection GUI
-const skillSelectionLayoutId = "onscreen_skill_selection";
-$services.commandService.send({
-    type: {
-        key: "GUI.ACTIVATE_LAYOUT_COMMAND"
-    },
-    data: {
-        layoutId: skillSelectionLayoutId
-    }
-});
+    // Create new Layout attached to "onscreen_skill_selection-panel"
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+            id: skillListGuiId,
+            layoutId: skillListLayoutId,
+            parentControlId: $services.queryService.query({
+                type: "Engine.Gui.QUERY_FOR_GENERATE_GUI_CONTROL_ID",
+                data: {
+                    guiId,
+                    controlId: "onscreen_skill_selection-panel",
+                },
+            }).result,
+        })
+    );
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+            id: skillListGuiId,
+        })
+    );
+}
 
-// Create Skill List Panel
-const panelControlId = "onscreen_skill_selection-panel";
-const panelLayoutControlList = insertSpacer(
-    skillList.map((_, index) => ({
+// Create the dynamic skill control list
+const skillLayoutControlList = insertSpacer(
+    skillList.map((skill, index) => ({
         id: `onscreen_skill_selection-skill-${index}-button`,
         sort: index,
-        controlList: []
+        templateId: "platform-button",
+        options: {
+            width: "120px",
+            height: "20px",
+            fontSize: 12,
+            color: "white",
+            background: "red",
+            alignment: 2,
+            vAlignment: 0,
+            borderThickness: 0,
+            text: skill.skillName,
+            onClick: skill.onClick,
+            linkOffsetY: index * -50,
+        },
     }))
 );
-
-// Add Panel Layout Control List to panelControl 
-$services.commandService.send({
-    type: {
-        key: "GUI.ADD_LAYOUT_TO_CONTROL_COMMAND"
-    },
-    data: {
-        targetControlId: panelControlId,
-        registerControlList: [
-            ...skillList.map((_, index) => ({
-                controlId: `onscreen_skill_selection-skill-${index}-spacer`,
-                templateId: `onscreen_skill_selection-skill-spacer`
-            })),
-            ...skillList.map((skill, index) => ({
-                controlId: `onscreen_skill_selection-skill-${index}-button`,
-                templateId: `onscreen_skill_selection-skill-button`,
-                options: {
-                    text: skill.skillName,
-                    onClick: skill.onClick,
-                    linkOffsetY: index * -50
-                }
-            }))
-        ],
-        templateList: [],
-        layout: {
-            id: "onscreen_skill_selection-panel-skill_list",
-            count: 0,
-            controlList: panelLayoutControlList
-        }
-    }
-});
-
-// Setup Keyboard Shortcuts
-setupKeyboardShortcuts(skillList);
-
-
-function insertSpacer(skillList /* any[] */ ) {
+function insertSpacer(skillButtonControlList /* any[] */) {
     var newList = [];
-    skillList.forEach((skill, index) => {
-        skill.sort = index * 2;
-        newList.push(skill);
-        if ($utils.isObjectDefined(skillList[index + 1])) {
+    skillButtonControlList.forEach((skillControl, index) => {
+        skillControl.sort = index * 2;
+        newList.push(skillControl);
+        if ($utils.isObjectDefined(skillButtonControlList[index + 1])) {
             newList.push({
                 id: `onscreen_skill_selection-skill-${index}-spacer`,
-                sort: skill.sort + 1
+                sort: skillControl.sort + 1,
+                templateId: "platform-spacer",
+                options: {
+                    padding: 5,
+                },
             });
         }
     });
     return newList;
 }
 
+$services.eventService.on(
+    { key: "Local.SkillSelection.Gui.ACTIVATED" },
+    guiActivated,
+    "SkillSelection-Initialize"
+);
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+        id: guiId,
+        layoutId,
+        controlDataList: [],
+    })
+);
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+        id: guiId,
+    })
+);
+
+// Create a List of Events to Remove
+$data.eventsToRemove = [];
+$data.eventsToRemove.push({
+    name: "Local.SkillSelection.Gui.ACTIVATED",
+    handler: guiActivated,
+    context: "SkillSelection-Initialize",
+});
+
+// Setup Keyboard Shortcuts
+setupKeyboardShortcuts(skillList);
+
 function setupKeyboardShortcuts(skillList) {
-    skillList.forEach(skill =>
-        skill.keyboardShortcut &&
-        keyboardShortcuts.push({
-            key: skill.keyboardShortcut,
-            pressed: skill.onClick
-        })
+    skillList.forEach(
+        skill =>
+            skill.keyboardShortcut &&
+            keyboardShortcuts.push({
+                key: skill.keyboardShortcut,
+                pressed: skill.onClick,
+            })
     );
     keyboardShortcuts.forEach(keyboardShortcut =>
         $services.commandService.send({
             type: {
-                key: "INPUT.REGISTER_INPUT_COMMAND"
+                key: "Engine.Input.REGISTER_INPUT_COMMAND",
             },
-            data: keyboardShortcut
+            data: keyboardShortcut,
         })
     );
 }

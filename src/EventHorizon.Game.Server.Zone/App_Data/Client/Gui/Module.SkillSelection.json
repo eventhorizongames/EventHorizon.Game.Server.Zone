@@ -1,0 +1,32 @@
+{
+    "id": "GUI_Module_SkillSelection.json",
+    "sort": 0,
+    "activateScript": "SkillSelection_Activated.js",
+    "controlList": [
+        {
+            "id": "onscreen_skill_selection-grid",
+            "sort": 0,
+            "templateId": "platform-grid",
+            "options": {
+                "column": 3,
+                "row": 1,
+                "backgroundColor": "transparent",
+                "paddingBottom": 5,
+                "paddingTop": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5
+            },
+            "controlList": [
+                {
+                    "id": "onscreen_skill_selection-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 2
+                    }
+                }
+            ]
+        }
+    ]
+}

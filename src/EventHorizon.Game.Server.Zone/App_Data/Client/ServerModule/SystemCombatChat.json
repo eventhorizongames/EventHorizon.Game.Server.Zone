@@ -1,6 +1,0 @@
-{
-    "name": "SystemCombatChat",
-    "initializeScript": "ServerModule_CombatSystemChat_Initialize.js",
-    "disposeScript": "ServerModule_CombatSystemChat_Dispose.js",
-    "updateScript": "ServerModule_CombatSystemChat_Update.js"
-}

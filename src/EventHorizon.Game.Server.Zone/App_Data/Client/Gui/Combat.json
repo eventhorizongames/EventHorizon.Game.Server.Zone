@@ -1,42 +1,14 @@
 {
-    "layout": {
-        "Id": "CombatGui",
-        "Sort": 0,
-        "ControlList": [
-            {
-                "Id": "MainGrid",
-                "Sort": 0,
-                "ControlList": [
-                    {
-                        "Id": "LifePanel",
-                        "Sort": 0,
-                        "ControlList": [
-                            {
-                                "Id": "HealthLabel",
-                                "Sort": 0
-                            },
-                            {
-                                "Id": "HealthBar",
-                                "Sort": 1
-                            },
-                            {
-                                "Id": "MagicLabel",
-                                "Sort": 2
-                            },
-                            {
-                                "Id": "MagicBar",
-                                "Sort": 3
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    "templateList": [
+    "id": "GUI_Combat.json",
+    "comment": "This is not currently in use anywhere.",
+    "comment1": "The id will come from the directory structure.",
+    "sort": 0,
+    "initializeScript": "Scripts_Gui_CombatInitialize.js",
+    "controlList": [
         {
-            "id": "MainGrid",
-            "type": 4,
+            "id": "gui_combat-grid",
+            "sort": 0,
+            "templateId": "platform-grid",
             "options": {
                 "column": 4,
                 "row": 4,
@@ -45,80 +17,89 @@
                 "paddingTop": 50,
                 "paddingLeft": 50,
                 "paddingRight": 50
-            }
-        },
-        {
-            "id": "LifePanel",
-            "type": 0,
-            "gridLocation": {
-                "column": 3,
-                "row": 0
             },
-            "options": {}
-        },
-        {
-            "id": "HealthLabel",
-            "type": 1,
-            "options": {
-                "width": 60,
-                "height": 14,
-                "alignment": 1,
-                "text": "Health",
-                "textSize": 12,
-                "textColor": "white",
-                "backgroundColor": "transparent",
-                "borderThickness": 0
-            }
-        },
-        {
-            "id": "HealthBar",
-            "type": 2,
-            "options": {
-                "width": 60,
-                "height": 20,
-                "alignment": 1,
-                "textSize": 12,
-                "textColor": "white",
-                "backgroundColor": "green",
-                "barColor": "#CD5C5C",
-                "barDirection": "paddingLeft",
-                "borderColor": "white",
-                "borderThickness": 0,
-                "percent": 100,
-                "text": "100 / 100"
-            }
-        },
-        {
-            "id": "MagicLabel",
-            "type": 1,
-            "options": {
-                "width": 60,
-                "height": 14,
-                "alignment": 1,
-                "text": "Magic",
-                "textSize": 12,
-                "textColor": "white",
-                "backgroundColor": "transparent",
-                "borderThickness": 0
-            }
-        },
-        {
-            "id": "MagicBar",
-            "type": 2,
-            "options": {
-                "width": 60,
-                "height": 20,
-                "alignment": 1,
-                "textSize": 12,
-                "textColor": "White",
-                "backgroundColor": "blue",
-                "barColor": "#CD5C5C",
-                "barDirection": "paddingLeft",
-                "borderColor": "white",
-                "borderThickness": 0,
-                "percent": 100,
-                "text": "100 / 100"
-            }
+            "controlList": [
+                {
+                    "id": "gui_combat-life_panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "gridLocation": {
+                        "column": 3,
+                        "row": 0
+                    },
+                    "options": {},
+                    "controlList": [
+                        {
+                            "id": "gui_combat-health_label",
+                            "sort": 0,
+                            "templateId": "platform-label",
+                            "options": {
+                                "width": 60,
+                                "height": 14,
+                                "alignment": 1,
+                                "text": "Health",
+                                "textSize": 12,
+                                "textColor": "white",
+                                "backgroundColor": "transparent",
+                                "borderThickness": 0
+                            }
+                        },
+                        {
+                            "Id": "gui_combat-health_bar",
+                            "Sort": 1,
+                            "templateId": "platform-bar",
+                            "options": {
+                                "width": 60,
+                                "height": 20,
+                                "alignment": 1,
+                                "textSize": 12,
+                                "textColor": "white",
+                                "backgroundColor": "green",
+                                "barColor": "#CD5C5C",
+                                "barDirection": "paddingLeft",
+                                "borderColor": "white",
+                                "borderThickness": 0,
+                                "percent": 100,
+                                "text": "100 / 100"
+                            }
+                        },
+                        {
+                            "Id": "gui_combat-action_label",
+                            "Sort": 2,
+                            "templateId": "platform-label",
+                            "options": {
+                                "width": 60,
+                                "height": 14,
+                                "alignment": 1,
+                                "text": "Magic",
+                                "textSize": 12,
+                                "textColor": "white",
+                                "backgroundColor": "transparent",
+                                "borderThickness": 0
+                            }
+                        },
+                        {
+                            "Id": "gui_combat-action_bar",
+                            "Sort": 3,
+                            "templateId": "platform-bar",
+                            "options": {
+                                "width": 60,
+                                "height": 20,
+                                "alignment": 1,
+                                "textSize": 12,
+                                "textColor": "White",
+                                "backgroundColor": "blue",
+                                "barColor": "#CD5C5C",
+                                "barDirection": "paddingLeft",
+                                "borderColor": "white",
+                                "borderThickness": 0,
+                                "percent": 100,
+                                "text": "100 / 100"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

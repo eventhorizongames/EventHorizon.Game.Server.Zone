@@ -10,7 +10,6 @@ using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
 using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
-using EventHorizon.Game.Server.Zone.Gui;
 using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
@@ -118,7 +117,6 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddZoneAdmin();
             services.AddAgent(Configuration);
-            services.AddGui();
             services.AddParticle();
             services.AddServerAction();
 
@@ -248,7 +246,6 @@ namespace EventHorizon.Game.Server.Zone
             app.UseAgentCompanion();
 
             app.UseAgent();
-            app.UseGui();
             app.UseParticle();
 
             app.UsePlugins();

@@ -1,18 +1,11 @@
 {
-    "layout": {
-        "id": "HealthModule_${entityId}-layout",
-        "sort": 0,
-        "controlList": [
-            {
-                "id": "HealthModule_${entityId}",
-                "sort": 0
-            }
-        ]
-    },
-    "templateList": [
+    "id": "GUI_Module_HealthModule.json",
+    "sort": 0,
+    "controlList": [
         {
-            "id": "HealthModule-Template",
-            "type": "Bar",
+            "id": "gui_health_module-bar",
+            "sort": 0,
+            "templateId": "platform-bar",
             "options": {
                 "width": 80,
                 "height": 20,

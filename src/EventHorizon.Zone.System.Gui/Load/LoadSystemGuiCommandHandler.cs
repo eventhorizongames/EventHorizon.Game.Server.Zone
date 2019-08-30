@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Gui;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
-using EventHorizon.Game.Server.Zone.Model.Gui;
+using EventHorizon.Zone.System.Gui.Model;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Gui.Load
@@ -31,17 +31,10 @@ namespace EventHorizon.Zone.System.Gui.Load
             foreach (var guiLayout in await GetGuiLayoutFileList(GetGuiFilesPath()))
             {
                 // Register Layout from Gui File
-                await _mediator.Publish(new RegisterGuiLayoutEvent
+                await _mediator.Send(new RegisterGuiLayoutCommand
                 {
-                    Layout = guiLayout.Layout
+                    Layout = guiLayout
                 });
-                foreach (var template in guiLayout.TemplateList)
-                {
-                    await _mediator.Publish(new RegisterGuiTemplateEvent
-                    {
-                        Template = template
-                    });
-                }
             }
             return Unit.Value;
         }
@@ -52,16 +45,16 @@ namespace EventHorizon.Zone.System.Gui.Load
                 "Gui"
             );
         }
-        private async Task<IList<GuiLayoutFile>> GetGuiLayoutFileList(
+        private async Task<IList<GuiLayout>> GetGuiLayoutFileList(
             string guiPath
         )
         {
-            var result = new List<GuiLayoutFile>();
+            var result = new List<GuiLayout>();
             var directoryInfo = new DirectoryInfo(guiPath);
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
                 result.Add(
-                    await _fileLoader.GetFile<GuiLayoutFile>(
+                    await _fileLoader.GetFile<GuiLayout>(
                         fileInfo.FullName
                     )
                 );

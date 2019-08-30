@@ -25,17 +25,38 @@
  * };
  */
 const { $entity } = $data;
-function guiControlId() {
-    return `HealthModule_${$entity.entityId}`;
-}
-function guiLayoutId() {
-    return `${guiControlId()}-layout`;
-}
+const layoutId = "GUI_Module_HealthModule.json";
+$services.logger.debug("HealthModule_Initialize");
+
+$data.guiId = `health_module-${$entity.id}`;
+
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+        id: $data.guiId,
+        layoutId,
+        controlDataList: [
+            {
+                controlId: "gui_health_module-bar",
+                options: {
+                    text: getEntityText(),
+                    percent: getEntityPercent(),
+                },
+                linkWith: $entity.getProperty("MESH_MODULE_NAME").mesh,
+            },
+        ],
+    })
+);
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+        id: $data.guiId,
+    })
+);
+
 function onEntityChanged({ entityId }) {
     if ($entity.entityId !== entityId) {
         return;
     }
-    $services.logger.debug("onEntityChnaged", {
+    $services.logger.debug("onEntityChanged", {
         entityId: $entity.entityId,
         passedEntityId: entityId,
         options: {
@@ -44,18 +65,18 @@ function onEntityChanged({ entityId }) {
         },
     });
 
-    $services.commandService.send({
-        type: {
-            key: "Engine.Gui.UPDATE_GUI_CONTROL_COMMAND",
-        },
-        data: {
-            controlId: guiControlId(),
-            options: {
-                text: getEntityText(),
-                percent: getEntityPercent(),
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.UPDATE_GUI_CONTROL_COMMAND", {
+            guiId: $data.guiId,
+            control: {
+                controlId: "gui_health_module-bar",
+                options: {
+                    text: getEntityText(),
+                    percent: getEntityPercent(),
+                },
             },
-        },
-    });
+        })
+    );
 }
 function getEntityText() {
     const lifeState = $entity.getProperty("lifeState");
@@ -70,15 +91,15 @@ function onMeshSet({ id }) {
         return;
     }
 
-    $services.commandService.send({
-        type: {
-            key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND",
-        },
-        data: {
-            controlId: guiControlId(),
-            mesh: $entity.getProperty("MESH_MODULE_NAME").mesh,
-        },
-    });
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.UPDATE_GUI_CONTROL_COMMAND", {
+            guiId: $data.guiId,
+            control: {
+                controlId: "gui_health_module-bar",
+                linkWith: $entity.getProperty("MESH_MODULE_NAME").mesh,
+            },
+        })
+    );
 }
 
 // Setup Event Listener's
@@ -96,11 +117,6 @@ $services.eventService.on(
     onMeshSet,
     this
 );
-
-// Add the guiControlId to the data to signal when it is disposed.
-$data.guiControlId = guiControlId();
-
-// Add eventsToRemove to the $data, will be called by the Dispose script
 $data.eventsToRemove = [];
 $data.eventsToRemove.push({
     name: "Entity.ENTITY_CHANGED_SUCCESSFULLY_EVENT",
@@ -111,59 +127,4 @@ $data.eventsToRemove.push({
     name: "Module.Mesh.MESH_SET_EVENT",
     handler: onMeshSet,
     context: this,
-});
-
-$services.commandService.send({
-    type: {
-        key: "GUI.ADD_LAYOUT_COMMAND",
-    },
-    data: {
-        layout: {
-            id: guiLayoutId(),
-            sort: 0,
-            controlList: [
-                {
-                    id: guiControlId(),
-                    sort: 0,
-                    controlList: [],
-                },
-            ],
-        },
-    },
-});
-
-// Register the control with the provided template and options.
-$services.commandService.send({
-    type: {
-        key: "GUI.REGISTER_CONTROL_COMMAND",
-    },
-    data: {
-        controlId: guiControlId(),
-        templateId: "HealthModule-Template",
-        options: {
-            text: getEntityText(),
-            percent: getEntityPercent(),
-        },
-    },
-});
-
-// Activate the layout
-$services.commandService.send({
-    type: {
-        key: "GUI.ACTIVATE_LAYOUT_COMMAND",
-    },
-    data: {
-        layoutId: guiLayoutId(),
-    },
-});
-
-// Link the GUI to the $entity mesh
-$services.commandService.send({
-    type: {
-        key: "GUI.LINK_GUI_CONTROL_WITH_MESH_COMMAND",
-    },
-    data: {
-        controlId: guiControlId(),
-        mesh: $entity.getProperty("MESH_MODULE_NAME").mesh,
-    },
 });

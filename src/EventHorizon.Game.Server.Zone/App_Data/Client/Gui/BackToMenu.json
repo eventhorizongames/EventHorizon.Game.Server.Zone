@@ -1,0 +1,51 @@
+{
+    "id": "GUI_BackToMenu.json",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "back_to_main_menu-container",
+            "sort": 0,
+            "templateId": "platform-container",
+            "options": {
+                "width": "100%",
+                "height": "100%",
+                "horizontalAlignment": 0,
+                "verticalAlignment": 0,
+                "background": "transparent"
+            },
+            "controlList": [
+                {
+                    "id": "back_to_main_menu-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "options": {
+                        "verticalAlignment": 0,
+                        "horizontalAlignment": 0,
+                        "top": 15,
+                        "left": 15
+                    },
+                    "controlList": [
+                        {
+                            "id": "back_to_main_menu-button",
+                            "sort": 0,
+                            "templateId": "platform-button",
+                            "options": {
+                                "width": "130px",
+                                "height": "35px",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "disabledColor": "gray",
+                                "disabledHoverCursor": "mouse",
+                                "alignment": 2,
+                                "vAlignment": 2,
+                                "borderThickness": 0,
+                                "text": "Back to Main Menu TODO"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,5 +1,7 @@
 
+using EventHorizon.Zone.System.Gui.Api;
 using EventHorizon.Zone.System.Gui.Load;
+using EventHorizon.Zone.System.Gui.State;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +14,9 @@ namespace EventHorizon.Game.Server.Zone
             this IServiceCollection services
         )
         {
-            return services;
+            return services
+                .AddSingleton<GuiState, InMemoryGuiState>()
+            ;
         }
         public static void UseSystemGui(
             this IApplicationBuilder app

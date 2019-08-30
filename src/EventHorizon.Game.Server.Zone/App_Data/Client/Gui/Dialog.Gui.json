@@ -1,0 +1,180 @@
+{
+    "id": "gui_dialog",
+    "sort": 0,
+    "initializeScript": "Local_GuiLayout_Initialize.js",
+    "controlList": [
+        {
+            "id": "gui_dialog-overlay",
+            "sort": 0,
+            "layer": 99,
+            "templateId": "platform-container",
+            "options": {
+                "isVisible": false,
+                "isHitTestVisible": true,
+                "background": "black",
+                "alpha": 0.7,
+                "animation": {
+                    "isEnabled": true,
+                    "transition": 0.05,
+                    "transitionStart": 0.01,
+                    "transitionEnd": 0.7,
+                    "transitionTime": 50
+                }
+            },
+            "controlList": []
+        },
+        {
+            "id": "gui_dialog-grid",
+            "sort": 1,
+            "layer": 99,
+            "templateId": "platform-grid",
+            "options": {
+                "isVisible": false,
+                "column": 1,
+                "row": 3,
+                "height": "100%",
+                "backgroundColor": "transparent",
+                "paddingBottom": 0,
+                "paddingTop": 0,
+                "paddingLeft": 0,
+                "paddingRight": 0,
+                "animation": {
+                    "isEnabled": true,
+                    "transition": 0.05,
+                    "transitionStart": 0.01,
+                    "transitionEnd": 1,
+                    "transitionTime": 50
+                }
+            },
+            "controlList": [
+                {
+                    "id": "gui_dialog-topleft-panel",
+                    "sort": 0,
+                    "templateId": "platform-container",
+                    "options": {
+                        "background": "white",
+                        "adaptHeightToChildren": true,
+                        "adaptWidthToChildren": true,
+                        "paddingTop": "15px",
+                        "paddingRight": "15px",
+                        "paddingLeft": "15px",
+                        "horizontalAlignment": 0,
+                        "verticalAlignment": 0
+                    },
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 0
+                    },
+                    "controlList": [
+                        {
+                            "id": "gui_dialog-start_game-button",
+                            "sort": 0,
+                            "templateId": "platform-button",
+                            "options": {
+                                "height": "50px",
+                                "width": "250px",
+                                "textKey": "dialog::button::hide",
+                                "fontSize": 16,
+                                "color": "white",
+                                "background": "black",
+                                "disabledColor": "gray",
+                                "hoverColor": "red",
+                                "disabledHoverCursor": "mouse",
+                                "onClickScript": "Local_GuiLayout_Hide.js"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "gui_dialog-dialog_area",
+                    "sort": 0,
+                    "templateId": "platform-container",
+                    "options": {
+                        "background": "black",
+                        "paddingBottom": 15,
+                        "paddingTop": 0,
+                        "paddingLeft": 50,
+                        "paddingRight": 50,
+                        "cornerRadius": 15
+                    },
+                    "gridLocation": {
+                        "row": 2,
+                        "column": 0
+                    },
+                    "controlList": [
+                        {
+                            "id": "gui_dialog-dialog_text_area",
+                            "sort": 0,
+                            "templateId": "platform-container",
+                            "options": {
+                                "thickness": 0,
+                                "adaptHeightToChildren": true,
+                                "background": "transparent",
+                                "width": "100%",
+                                "height": "100%",
+                                "horizontalAlignment": 0,
+                                "verticalAlignment": 0,
+                                "paddingBottom": 5,
+                                "paddingTop": 15,
+                                "paddingLeft": 15,
+                                "paddingRight": 5
+                            },
+                            "gridLocation": {
+                                "row": 0,
+                                "column": 0
+                            },
+                            "controlList": [
+                                {
+                                    "id": "gui_dialog-title_text",
+                                    "sort": 0,
+                                    "templateId": "platform-text",
+                                    "options": {
+                                        "width": "100%",
+                                        "textKey": "dialog::titleText",
+                                        "fontSize": 16,
+                                        "color": "white",
+                                        "textHorizontalAlignment": 0,
+                                        "textVerticalAlignment": 0,
+                                        "horizontalAlignment": 0,
+                                        "verticalAlignment": 0,
+                                        "onClickScript": "Local_GuiLayout_GoToGame.js"
+                                    }
+                                },
+                                {
+                                    "id": "gui_dialog-dialog_scroll_view",
+                                    "sort": 1,
+                                    "templateId": "platform-scroll_viewer",
+                                    "options": {
+                                        "background": "transparent",
+                                        "color": "transparent",
+                                        "width": 1,
+                                        "height": 0.7,
+                                        "paddingTop": "3%",
+                                        "paddingLeft": "20px",
+                                        "paddingRight": "15px"
+                                    },
+                                    "controlList": [
+                                        {
+                                            "id": "gui_editor-body_text",
+                                            "sort": 3,
+                                            "templateId": "platform-text",
+                                            "options": {
+                                                "textWrapping": 1,
+                                                "resizeToFit": true,
+                                                "textHorizontalAlignment": 0,
+                                                "textVerticalAlignment": 0,
+                                                "color": "white",
+                                                "textKey": "dialog::bodyText",
+                                                "fontSize": 16
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

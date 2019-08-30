@@ -3,9 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
 using EventHorizon.Game.Server.Zone.External.Entity;
-using EventHorizon.Game.Server.Zone.Gui.Events;
-using EventHorizon.Game.Server.Zone.Info.Api;
-using EventHorizon.Game.Server.Zone.Info.Model;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;
@@ -15,6 +12,7 @@ using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.ClientAssets.Fetch;
 using EventHorizon.Zone.System.ClientEntities.Fetch;
 using EventHorizon.Zone.System.EntityModule.Fetch;
+using EventHorizon.Zone.System.Gui.Events.Layout;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 using MediatR;
 
@@ -75,12 +73,11 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     await _entityRepository.All()
                 );
                 zoneInfo.Add(
-                    "GuiLayout",
+                    "GuiLayoutList",
                     await _mediator.Send(
-                        new GetGuiLayoutForPlayerEvent
-                        {
-                            Player = request.Player
-                        }
+                        new GetGuiLayoutListForPlayerCommand(
+                            request.Player
+                        )
                     )
                 );
                 zoneInfo.Add(

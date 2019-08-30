@@ -1,0 +1,6 @@
+{
+    "name": "SystemCombatLog",
+    "initializeScript": "ServerModule_CombatSystemLog_Initialize.js",
+    "disposeScript": "ServerModule_CombatSystemLog_Dispose.js",
+    "updateScript": "ServerModule_CombatSystemLog_Update.js"
+}

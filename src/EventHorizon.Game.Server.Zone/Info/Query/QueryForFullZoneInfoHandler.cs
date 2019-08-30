@@ -2,7 +2,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
 using EventHorizon.Game.Server.Zone.External.Entity;
-using EventHorizon.Game.Server.Zone.Gui.Events;
 using EventHorizon.Game.Server.Zone.Info.Api;
 using EventHorizon.Game.Server.Zone.Info.Model;
 using EventHorizon.Game.Server.Zone.Load.Map;
@@ -10,11 +9,11 @@ using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;
 using EventHorizon.Game.Server.Zone.State;
 using EventHorizon.Performance;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.ClientAssets.Fetch;
 using EventHorizon.Zone.System.ClientEntities.Fetch;
 using EventHorizon.Zone.System.EntityModule.Fetch;
+using EventHorizon.Zone.System.Gui.Events.Layout;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 using MediatR;
 
@@ -59,8 +58,8 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     MapMesh = _zoneMap.Mesh,
                     Map = await _serverState.Map(),
                     EntityList = await _entityRepository.All(),
-                    GuiLayout = await _mediator.Send(
-                        new GetGuiLayoutForPlayerEvent()
+                    GuiLayoutList = await _mediator.Send(
+                        new GetGuiLayoutListForPlayerCommand()
                     ),
                     ParticleTemplateList = await _mediator.Send(
                         new FetchAllParticleTemplateListEvent()

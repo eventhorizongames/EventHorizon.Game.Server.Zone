@@ -1,5 +1,5 @@
 {
-    "name": "HEALTH_MODULE_NAME",
+    "name": "HEALTH_MODULE_NAME_FROM_SERVER",
     "initializeScriptName": "Module_HealthModule_Initialize.js",
     "disposeScriptName": "Module_HealthModule_Dispose.js",
     "updateScriptName": "Module_HealthModule_Update.js"
