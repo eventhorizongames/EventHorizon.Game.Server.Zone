@@ -27,7 +27,6 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Admin.Skill
             _mediator = mediator;
             _playerRepository = playerRepository;
         }
-        // set-player-skill 73c73306-cc98-47ed-a73b-ce4395098ce4 CaptureTarget
         public async Task Handle(
             AdminCommandEvent notification,
             CancellationToken cancellationToken
