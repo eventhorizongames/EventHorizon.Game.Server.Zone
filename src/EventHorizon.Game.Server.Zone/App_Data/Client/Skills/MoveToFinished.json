@@ -6,6 +6,9 @@
     "target": "ENTITY",
     "validatorList": [
         {
+            "validator": "Validators_CoolDownCheck.csx"
+        },
+        {
             "validator": "Validators_TargetNotCaster.csx"
         },
         {
@@ -19,6 +22,13 @@
         }
     ],
     "next": [
+        {
+            "comment": "Set CoolDown on Caster.",
+            "effect": "Effects_SetCasterSkillCoolDown.csx",
+            "data": {
+                "coolDown": 1000
+            }
+        },
         {
             "comment": "Move target to position",
             "effect": "Effects_MoveTargetToTargetPosition.csx"
