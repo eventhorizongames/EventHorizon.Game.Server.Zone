@@ -24,7 +24,7 @@
                     "transition": 0.05,
                     "transitionStart": 0.01,
                     "transitionEnd": 0.5,
-                    "transitionTime": 10
+                    "transitionTime": 500
                 }
             }
         },
@@ -47,7 +47,7 @@
                     "transition": 0.05,
                     "transitionStart": 0.01,
                     "transitionEnd": 1,
-                    "transitionTime": 10
+                    "transitionTime": 500
                 }
             },
             "controlList": [
