@@ -13,12 +13,12 @@
 
 using EventHorizon.Game.Server.Zone.Model.Admin;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-
+using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Game.Server.Zone.Server.Load;
 
-var command = Data["Command"] as IAdminCommand;
+var command = Data.Command;
 await Services.Mediator.Send(
-    new LoadServerScripts()
+    new LoadServerScriptsCommand()
 );
 
 return new AdminCommandScriptResponse(

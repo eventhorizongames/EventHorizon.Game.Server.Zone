@@ -11,10 +11,10 @@
 /// - I18n: I18nLookup;
 /// </summary>
 
+using System.Linq;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Game.Server.Zone.Model.Admin;
-
-using System.Linq;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
@@ -24,7 +24,7 @@ var agentList = await Services.Mediator.Send(
     new GetAgentListEvent()
 );
 var count = 1;
-var countToCreateString = (Data["Command"] as IAdminCommand).Parts.FirstOrDefault();
+var countToCreateString = (Data.Command).Parts.FirstOrDefault();
 if (!int.TryParse(
     countToCreateString,
     out count

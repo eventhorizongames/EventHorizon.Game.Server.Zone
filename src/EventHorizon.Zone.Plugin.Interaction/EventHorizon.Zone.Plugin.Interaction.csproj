@@ -22,6 +22,9 @@
         <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Model\EventHorizon.Game.Server.Zone.Model.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat.Events\EventHorizon.Plugin.Zone.System.Combat.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
     </ItemGroup>
 
 </Project>

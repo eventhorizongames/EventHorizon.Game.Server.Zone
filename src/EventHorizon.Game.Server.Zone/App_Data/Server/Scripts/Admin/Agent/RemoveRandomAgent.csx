@@ -23,7 +23,7 @@ var agentList = await Services.Mediator.Send(
     new GetAgentListEvent()
 );
 var count = 1;
-var countToCreateString = (Data["Command"] as IAdminCommand).Parts.FirstOrDefault();
+var countToCreateString = Data.Command.Parts.FirstOrDefault();
 if (!int.TryParse(
     countToCreateString,
     out count

@@ -1,20 +1,23 @@
+using System;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Zone.Plugin.Interaction.Script.State;
+using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 using MediatR;
+using IOPath = System.IO.Path;
 
-namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
+namespace EventHorizon.Game.Server.Zone.Server.Load
 {
-    public struct LoadInteractionScriptsCommandHandler : IRequestHandler<LoadInteractionScriptsCommand>
+    public struct LoadAdminServerScriptsHandler : IRequestHandler<LoadServerScriptsCommand>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
-
-        public LoadInteractionScriptsCommandHandler(
+        public LoadAdminServerScriptsHandler(
             IMediator mediator,
             ServerInfo serverInfo
         )
@@ -22,23 +25,22 @@ namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
             _mediator = mediator;
             _serverInfo = serverInfo;
         }
-
         public async Task<Unit> Handle(
-            LoadInteractionScriptsCommand request,
+            LoadServerScriptsCommand request,
             CancellationToken cancellationToken
         )
         {
-            var interactionPath = Path.Combine(
-                _serverInfo.ServerScriptsPath,
-                "Interaction"
-            );
             // Start Loading Script from Root Client Scripts Directory
             await this.LoadFromDirectoryInfo(
-                $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}",
+                GetClientScriptsPath() + IOPath.DirectorySeparatorChar,
                 new DirectoryInfo(
-                    interactionPath
+                    IOPath.Combine(
+                        GetClientScriptsPath(),
+                        "Admin"
+                    )
                 )
             );
+
             return Unit.Value;
         }
 
@@ -69,6 +71,11 @@ namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
             DirectoryInfo directoryInfo
         )
         {
+            var scriptReferenceAssemblies = new Assembly[] {
+                typeof(LoadAdminServerScriptsHandler).Assembly
+            };
+            var scriptImports = new string[] {
+            };
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
                 // Register Script with Platform
@@ -80,25 +87,19 @@ namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
                         ),
                         File.ReadAllText(
                             fileInfo.FullName
-                        )
+                        ),
+                        scriptReferenceAssemblies,
+                        scriptImports
                     )
                 );
             }
         }
-        private static string GenerateName(
-            string path,
-            string fileName
-        )
+
+        private string GetClientScriptsPath()
         {
-            return string.Join(
-                "_",
-                string.Join(
-                    "_",
-                    path.Split(
-                        Path.DirectorySeparatorChar
-                    )
-                ),
-                fileName
+            return IOPath.Combine(
+                _serverInfo.ServerPath,
+                "Scripts"
             );
         }
     }

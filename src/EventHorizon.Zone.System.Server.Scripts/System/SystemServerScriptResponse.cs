@@ -1,16 +1,13 @@
 using EventHorizon.Zone.System.Server.Scripts.Model;
 
-namespace EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model
+namespace EventHorizon.Zone.System.Server.Scripts.System
 {
-    /// <summary>
-    /// Used in Scripts to create Script Responses.
-    /// </summary>
-    public class AdminCommandScriptResponse : ServerScriptResponse
+    public struct SystemServerScriptResponse : ServerScriptResponse
     {
         public bool Success { get; }
         public string Message { get; }
 
-        public AdminCommandScriptResponse(
+        public SystemServerScriptResponse(
             bool success,
             string message
         )

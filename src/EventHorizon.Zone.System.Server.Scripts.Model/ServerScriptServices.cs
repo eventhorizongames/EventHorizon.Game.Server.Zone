@@ -1,9 +1,9 @@
 using EventHorizon.Game.I18n;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Server.Api
+namespace EventHorizon.Zone.System.Server.Scripts.Model
 {
-    public interface IServerScriptServices
+    public interface ServerScriptServices
     {
         IMediator Mediator { get; }
         I18nLookup I18n { get; }

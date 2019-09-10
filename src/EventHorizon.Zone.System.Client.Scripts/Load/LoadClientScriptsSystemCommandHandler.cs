@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Game.Server.Zone.External.Json;
 using EventHorizon.Zone.System.Client.Scripts.Model;
 using EventHorizon.Zone.System.Client.Scripts.State;
 using MediatR;
@@ -33,7 +30,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
         {
             // Start Loading Script from Root Client Scripts Directory
             this.LoadFromDirectoryInfo(
-                _serverInfo.ClientScriptsPath + Path.DirectorySeparatorChar,
+                $"{_serverInfo.ClientScriptsPath}{Path.DirectorySeparatorChar}",
                 new DirectoryInfo(
                     GetClientScriptsPath()
                 )

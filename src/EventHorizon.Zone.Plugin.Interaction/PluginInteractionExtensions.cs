@@ -13,9 +13,7 @@ namespace EventHorizon.Game.Server.Zone
             this IServiceCollection services
         )
         {
-            return services
-                .AddSingleton<InteractionScriptRepository, InMemoryInteractionScriptRepository>()
-            ;
+            return services;
         }
         public static void UsePluginInteraction(
             this IApplicationBuilder app

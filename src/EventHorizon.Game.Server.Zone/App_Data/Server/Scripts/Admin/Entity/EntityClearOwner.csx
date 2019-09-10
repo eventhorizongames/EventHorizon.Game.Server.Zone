@@ -13,10 +13,11 @@
 
 using System.Linq;
 using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Game.Server.Zone.Model.Entity;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Game.Server.Zone.Entity.Find;
 
-var command = Data["Command"] as IAdminCommand;
+var command = Data.Command;
 if (command.Parts.Count != 1)
 {
     return new AdminCommandScriptResponse(

@@ -68,6 +68,10 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Player\EventHorizon.Zone.System.Player.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
     </ItemGroup>
 
     <ItemGroup>

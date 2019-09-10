@@ -127,11 +127,9 @@ namespace EventHorizon.Game.Server.Zone
             });
             services.AddTimer();
 
-            // TODO: Remove this after done testing, move to System flow
-            services.AddSystemServer();
-
             // External Services, Systems, and Plugins
             services.AddI18n()
+                .AddSystemServerScripts()
                 .AddSystemEditor()
                 .AddSystemBackup()
                 .AddSystemGui()
@@ -160,8 +158,9 @@ namespace EventHorizon.Game.Server.Zone
 
             // To be moved into extension startup
             var extensionAssemblyList = new Assembly[] {
-                    typeof(I18nExtensions).Assembly,
                     typeof(Startup).Assembly,
+                    typeof(SystemServerScriptsExtensions).Assembly,
+                    typeof(I18nExtensions).Assembly,
                     typeof(SystemEditorExtensions).Assembly,
                     typeof(SystemBackupExtensions).Assembly,
                     typeof(SystemCombatExtensions).Assembly,
@@ -196,7 +195,6 @@ namespace EventHorizon.Game.Server.Zone
                 );
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseLoad();
@@ -208,15 +206,17 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-
+        
+            // TODO: Look at organizing this into Platform, Systems, Plugin order
+            // Platform -- From the Zone Base Project
+            // System -- These are which Systems should be setup for this Zone Server
+            //  The systems flow should automatically load these systems.
+            // Plugin -- These are Extra features, but not needed by Systems to function.
             app.UseI18n();
             app.UseZoneCore();
             app.UseSetupServer();
 
-            // TODO: Remove this after done testing, move to Systems flow
-            // The systems flow will automatically load these systems from a folder,
-            //  just like the plugin flow, which is about the same.
-            app.UseSystemServer();
+            app.UseSystemServerScripts();
             app.UseSystemEditor();
             app.UseSystemBackup();
             app.UseSystemGui();
@@ -240,7 +240,6 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemClientScripts();
             app.UseSystemPlayer();
 
-            // Need to load UseSystemServer, needs scripts 
             app.UseZoneAdmin();
 
             app.UseAgentCompanion();

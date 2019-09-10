@@ -1,15 +1,15 @@
 using EventHorizon.Game.I18n;
-using EventHorizon.Game.Server.Zone.Server.Api;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Server.Model
+namespace EventHorizon.Zone.System.Server.Scripts.System
 {
-    public class ServerScriptServices : IServerScriptServices
+    public class SystemServerScriptServices : ServerScriptServices
     {
         public IMediator Mediator { get; }
         public I18nLookup I18n { get; }
 
-        public ServerScriptServices(
+        public SystemServerScriptServices(
             IMediator mediator,
             I18nLookup i18n
         )

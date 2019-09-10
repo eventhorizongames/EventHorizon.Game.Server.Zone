@@ -16,7 +16,7 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.ClientAssets.Load;
 
-var command = Data["Command"] as IAdminCommand;
+var command = Data.Command;
 await Services.Mediator.Send(new LoadSystemClientAssetsCommand());
 
 return new AdminCommandScriptResponse(
