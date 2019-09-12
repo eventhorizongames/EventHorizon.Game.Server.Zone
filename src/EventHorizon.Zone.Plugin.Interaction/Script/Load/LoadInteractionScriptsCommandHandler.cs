@@ -1,9 +1,9 @@
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Zone.Plugin.Interaction.Script.State;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;
 
@@ -71,6 +71,11 @@ namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
         {
             foreach (var fileInfo in directoryInfo.GetFiles())
             {
+                var scriptReferenceAssemblies = new Assembly[] {
+                    typeof(LoadInteractionScriptsCommandHandler).Assembly
+                };
+                var scriptImports = new string[] {
+                };
                 // Register Script with Platform
                 await _mediator.Send(
                     new RegisterServerScriptCommand(
@@ -80,7 +85,9 @@ namespace EventHorizon.Zone.Plugin.Interaction.Script.Load
                         ),
                         File.ReadAllText(
                             fileInfo.FullName
-                        )
+                        ),
+                        scriptReferenceAssemblies,
+                        scriptImports
                     )
                 );
             }

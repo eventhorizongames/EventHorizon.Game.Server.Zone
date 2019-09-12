@@ -1,6 +1,5 @@
 
 using EventHorizon.Zone.Plugin.Interaction.Script.Load;
-using EventHorizon.Zone.Plugin.Interaction.Script.State;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

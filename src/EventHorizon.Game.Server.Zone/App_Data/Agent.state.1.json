@@ -1,20 +1,20 @@
 {
     "AgentList": [
         {
-            "Id": "a66360a9-59aa-4455-8fef-204e9be0d4d9",
+            "Id": "5123b878-5067-4b8d-9ac3-dd80b703e7fb",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 0.0,
+                    "X": -26.0,
                     "Y": 0.0,
-                    "Z": 0.0
+                    "Z": -29.0
                 },
-                "NextMoveRequest": "2019-07-04T13:58:19.8663358Z",
+                "NextMoveRequest": "2019-09-10T02:23:56.1621959Z",
                 "MoveToPosition": {
-                    "X": -25.0,
+                    "X": -26.0,
                     "Y": 0.0,
-                    "Z": 31.0
+                    "Z": -30.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -26,7 +26,7 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "7eba45d5-dbf6-4f82-bcb2-c96214be4ad2",
+                    "OwnerId": "143f0ed0-c06c-4714-ae1b-6f0e081dee26",
                     "CanBeCaptured": false
                 },
                 "movementState": {
@@ -48,7 +48,7 @@
                     "Condition": {
                         "Name": "ALIVE"
                     },
-                    "HealthPoints": 7173,
+                    "HealthPoints": 7013,
                     "MaxHealthPoints": 10000,
                     "ActionPoints": 9826,
                     "MaxActionPoints": 10000,
@@ -78,8 +78,77 @@
                 "behavior": {
                     "TreeId": "Behaviors_Idle.json"
                 },
-                "ActorMoveToPosition": null,
-                "NextRunTime": "2019-07-04T08:58:21.2081773-05:00"
+                "ActorMoveToPosition": {
+                    "X": -35.0,
+                    "Y": 0.0,
+                    "Z": -52.0
+                },
+                "NextRunTime": null,
+                "BehaviorTreeState": {
+                    "ContainsNext": true,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": 514776319,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "-397673520": {
+                            "Token": -397673520,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "514776319": {
+                            "Token": 514776319,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [
+                        -397673520
+                    ],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [],
+                    "IsValid": true,
+                    "ShapeQueue": []
+                },
+                "interactionState": {
+                    "active": true,
+                    "list": [
+                        {
+                            "scriptId": "Interaction_DialogInteraction.csx",
+                            "distanceToPlayer": 25,
+                            "data": {
+                                "dialogTreeId": "Local_HelloWorld.json"
+                            }
+                        }
+                    ]
+                }
             }
         }
     ]
