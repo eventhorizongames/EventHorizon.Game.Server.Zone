@@ -28,7 +28,7 @@ namespace EventHorizon.Game.I18n.Fetch
             if (i18nRepo.IsEmpty())
             {
                 i18nRepo = _i18nRepo.GetRepository(
-                    request.Locale ?? DEFAULT_LOCALE
+                    DEFAULT_LOCALE
                 );
             }
             return Task.FromResult(

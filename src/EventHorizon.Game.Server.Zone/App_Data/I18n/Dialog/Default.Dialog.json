@@ -1,0 +1,18 @@
+{
+    "locale": "default",
+    "translationList": {
+        "dialog::bodyText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra bibendum lorem, non dictum orci. Ut pharetra venenatis odio at tempor. Duis vitae consectetur lectus. Nulla nec tincidunt metus. Aenean a eleifend massa. Nam placerat vitae ante non faucibus. Pellentesque egestas enim sed enim blandit, at sodales erat ornare. In dictum augue dolor, eu egestas odio elementum et. Mauris et orci fermentum, aliquam purus a, facilisis nibh. Proin erat quam, mollis vitae semper ac, aliquet vel tortor. Nam nec enim vitae sem convallis auctor. Nam vitae nisl nibh. Curabitur ac leo tortor. Fusce dui nisl, consectetur id nunc hendrerit, aliquet porta sem. Nunc suscipit ante eu blandit placerat. Vivamus non erat sed purus scelerisque fermentum aliquam sed elit. Donec et placerat nibh. Etiam elementum neque eget libero ultrices ultricies. Duis volutpat facilisis urna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Cras convallis eget diam et cursus. Fusce vulputate augue eget tempor dapibus. Phasellus eu fringilla augue.",
+        "dialog::button::hide": "Close Dialog",
+        "dialog:HelloWorld:title_001": "NPC: ${npc.name}",
+        "dialog:HelloWorld:text_001": "Hello ${player.name}, how are you doing today?",
+        "dialog:HelloWorld:selection_001": "Let me see your store inventory...",
+        "dialog:HelloWorld:selection_002": "OKay, any news?",
+        "dialog:HelloWorld:selection_003": "Meh...",
+        "dialog:News:title_001": "NPC: ${npc.name}",
+        "dialog:News:text_001": "What specifically?",
+        "dialog:News:selection_001": "Gossip around the area?",
+        "dialog:News:selection_002": "Any more news?",
+        "dialog:News:selection_003": "Bye, Bye...",
+        "empty": ""
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "locale": "default",
+    "translationList": {
+        "casterDoesNotHaveSkill": "Failed: ${casterName} does not have ${skillName}.",
+        "skillExceptionMessage": "Exception during casting of Skill.",
+        "skillFailedForReason": "(${skillName}) failed because ${skillFailedReason}.",
+        "casterDamagedTarget": "(${casterName}) damaged (${targetName}) for ${damage} point(s).",
+        "casterMissedTarget": "(${casterName}) missed (${targetName}).",
+        "skillNotReady": "${skillName} is not ready",
+        "targetNotInRange": "${targetName} not in range",
+        "casterCanNotTargetSelf": "${casterName} cannot target self",
+        "casterNotEnoughPoints": "(${casterName}) needs at least ${errorData.cost} ${errorData.valueProperty}",
+        "targetIsNotCastersCompanion": "(${targetName}) is not your Companion.",
+        "targetIsCastersCompanion": "(${targetName}) is already your Companion.",
+        "targetIsNotAbleToBeCaptured": "(${targetName}) cannot be captured.",
+        "casterFailedToCaptureTarget": "(${casterName}) failed to capture (${targetName}).",
+        "targetIsNowOwnedBy": "(${targetName}) is now owned by (${casterName}).",
+        "playerNotCompanionOwner": "(${playerName}) is not owner of (${casterName}).",
+        "noTargetSelected": "No target selected!",
+        "noTargetToCaptureSelected": "No target selected to capture.",
+        "noSelectionsMessage": "No companion or target selected",
+        "combatSystem:system": "System: ",
+        "empty": ""
+    }
+}

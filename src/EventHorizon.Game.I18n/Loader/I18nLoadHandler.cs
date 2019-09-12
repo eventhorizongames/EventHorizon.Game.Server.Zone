@@ -35,9 +35,21 @@ namespace EventHorizon.Game.I18n.Loader
             CancellationToken cancellationToken
         )
         {
-            var loadingDirectory = Path.Combine(_serverInfo.I18nPath);
-            // Read all i18n files from Asset/I18n
-            foreach (var i18nFileName in _directoryResolver.GetFiles(loadingDirectory))
+            await LoadDirectoryIntoRepository(
+                Path.Combine(
+                    _serverInfo.I18nPath
+                )
+            );
+        }
+
+        public async Task LoadDirectoryIntoRepository(
+            string path
+        )
+        {
+            // Read all i18n files of path
+            foreach (var i18nFileName in _directoryResolver.GetFiles(
+                path
+            ))
             {
                 // Add i18n translation list into i18nRepository
                 var i18nFile = await _fileLoader.GetFile<I18nFile>(
@@ -46,6 +58,15 @@ namespace EventHorizon.Game.I18n.Loader
                 _i18nRepository.SetRepository(
                     i18nFile.Locale,
                     i18nFile.TranslationList
+                );
+            }
+            // Read through the directories of path
+            foreach (var directoryPath in _directoryResolver.GetDirectories(
+                path
+            ))
+            {
+                await this.LoadDirectoryIntoRepository(
+                    directoryPath
                 );
             }
         }

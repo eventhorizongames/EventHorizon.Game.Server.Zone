@@ -38,6 +38,50 @@ namespace EventHorizon.Game.Server.Zone.Tests.I81n.Repository
             );
         }
         [Fact]
+        public void TestLookup_ShouldMergeRepositoriesWhenSameLocaleRepositoriesAreSet()
+        {
+            //Given
+            var locale = "en_US";
+            var key1 = "HelloWorld";
+            var expectedValue1 = "hi";
+            var key2 = "HelloWorld";
+            var expectedValue2 = "hi";
+
+            var repository1 = new Dictionary<string, string>()
+                {{
+                    key1, expectedValue1
+                }};
+            var repository2 = new Dictionary<string, string>()
+                {{
+                    key2, expectedValue2
+                }};
+
+            //When
+            var i18nLookupRepository = new I18nLookupRepository();
+            i18nLookupRepository.SetRepository(
+                locale,
+                repository1
+            );
+            i18nLookupRepository.SetRepository(
+                locale,
+                repository2
+            );
+
+            var actual = i18nLookupRepository.GetRepository(
+                locale
+            );
+
+            //Then
+            Assert.Equal(
+                expectedValue1,
+                actual[key1]
+            );
+            Assert.Equal(
+                expectedValue2,
+                actual[key2]
+            );
+        }
+        [Fact]
         public void TestSetRepository_ShouldSetEmptyDictionaryOnNullSet()
         {
             //Given
