@@ -1,0 +1,40 @@
+{
+    "id": "Assets_Dialog_HelloWorld.json",
+    "type": "DIALOG",
+    "name": "Hello World Dialog Tree",
+    "data": {
+        "root": {
+            "titleKey": "dialog:HelloWorld:title_001",
+            "title": "${npc.name}",
+            "titleData": {},
+            "textKey": "dialog:HelloWorld:text_001",
+            "text": "Hello ${player.name}, how are you doing today?",
+            "textData": {},
+            "actions": [
+                {
+                    "textKey": "dialog:HelloWorld:selection_001",
+                    "text": "Let me see your store inventory...",
+                    "textData": {},
+                    "actionType": "script",
+                    "script": {
+                        "id": "Dialog_Shop_Open.js",
+                        "data": {}
+                    }
+                },
+                {
+                    "textKey": "dialog:HelloWorld:selection_002",
+                    "text": "OKay, any news?",
+                    "textData": {},
+                    "actionType": "next",
+                    "nextNodeKey": "Assets_Dialog_News.json"
+                },
+                {
+                    "textKey": "dialog:HelloWorld:selection_003",
+                    "text": "Meh...",
+                    "textData": {},
+                    "actionType": "done"
+                }
+            ]
+        }
+    }
+}

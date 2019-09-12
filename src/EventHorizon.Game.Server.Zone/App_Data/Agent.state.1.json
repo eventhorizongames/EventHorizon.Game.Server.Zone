@@ -1,20 +1,20 @@
 {
     "AgentList": [
         {
-            "Id": "5123b878-5067-4b8d-9ac3-dd80b703e7fb",
+            "Id": "097ade21-f8da-4381-89af-f1e90932b8c0",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -26.0,
+                    "X": 2.0,
                     "Y": 0.0,
-                    "Z": -29.0
+                    "Z": 2.0
                 },
-                "NextMoveRequest": "2019-09-10T02:23:56.1621959Z",
+                "NextMoveRequest": "0001-01-01T00:00:00",
                 "MoveToPosition": {
-                    "X": -26.0,
+                    "X": 2.0,
                     "Y": 0.0,
-                    "Z": -30.0
+                    "Z": 2.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -26,7 +26,7 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "143f0ed0-c06c-4714-ae1b-6f0e081dee26",
+                    "OwnerId": "b3ada141-355b-4fff-81cb-0313ddbcf995",
                     "CanBeCaptured": false
                 },
                 "movementState": {
@@ -85,15 +85,15 @@
                 },
                 "NextRunTime": null,
                 "BehaviorTreeState": {
-                    "ContainsNext": true,
+                    "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 514776319,
+                        "Token": -1178911520,
                         "Type": {
                             "Name": "ACTION"
                         },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Status": "SUCCESS",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -108,30 +108,28 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-397673520": {
-                            "Token": -397673520,
+                        "-123040503": {
+                            "Token": -123040503,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
-                            "Status": "RUNNING",
+                            "Status": "SUCCESS",
                             "Fire": null,
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "514776319": {
-                            "Token": 514776319,
+                        "-1178911520": {
+                            "Token": -1178911520,
                             "Type": {
                                 "Name": "ACTION"
                             },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Status": "SUCCESS",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
                     },
-                    "TraversalStack": [
-                        -397673520
-                    ],
+                    "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [],
                     "IsValid": true,
@@ -144,7 +142,7 @@
                             "scriptId": "Interaction_DialogInteraction.csx",
                             "distanceToPlayer": 25,
                             "data": {
-                                "dialogTreeId": "Local_HelloWorld.json"
+                                "dialogTreeId": "Assets_Dialog_HelloWorld.json"
                             }
                         }
                     ]

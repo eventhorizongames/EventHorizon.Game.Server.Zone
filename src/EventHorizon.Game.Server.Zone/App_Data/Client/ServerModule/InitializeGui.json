@@ -1,0 +1,4 @@
+{
+    "name": "InitializeGui",
+    "initializeScript": "ServerModule_Gui_Initialize.js"
+}

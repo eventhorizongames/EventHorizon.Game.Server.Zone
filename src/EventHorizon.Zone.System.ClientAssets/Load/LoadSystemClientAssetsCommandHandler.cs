@@ -31,15 +31,11 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
             CancellationToken cancellationToken
         )
         {
-            // Add ClientAssets from Path
-            foreach (var clientAsset in await GetClientAssetsFromPath(GetEntityAssetsPath()))
-            {
-                // Add ClientAsset
-                await _mediator.Publish(new AddClientAssetEvent
-                {
-                    ClientAsset = clientAsset
-                });
-            }
+            await GetClientAssetsFromDirectory(
+                new DirectoryInfo(
+                    GetEntityAssetsPath()
+                )
+            );
             return Unit.Value;
         }
         private string GetEntityAssetsPath()
@@ -49,21 +45,28 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
                 "Assets"
             );
         }
-        private async Task<IList<ClientAsset>> GetClientAssetsFromPath(
-            string path
+        private async Task GetClientAssetsFromDirectory(
+            DirectoryInfo directoryInfo
         )
         {
-            var result = new List<ClientAsset>();
-            var directoryInfo = new DirectoryInfo(path);
-            foreach (var fileInfo in directoryInfo.GetFiles())
+            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
             {
-                result.Add(
-                    await _fileLoader.GetFile<ClientAsset>(
-                        fileInfo.FullName
-                    )
+                // Load Files From Directories
+                await this.GetClientAssetsFromDirectory(
+                    subDirectoryInfo
                 );
             }
-            return result;
+            foreach (var fileInfo in directoryInfo.GetFiles())
+            {
+                await _mediator.Publish(
+                    new AddClientAssetEvent
+                    {
+                        ClientAsset = await _fileLoader.GetFile<ClientAsset>(
+                            fileInfo.FullName
+                        )
+                    }
+                );
+            }
         }
     }
 }

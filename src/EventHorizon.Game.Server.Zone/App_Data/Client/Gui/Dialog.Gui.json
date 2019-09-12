@@ -1,7 +1,6 @@
 {
     "id": "gui_dialog",
     "sort": 0,
-    "initializeScript": "Local_GuiLayout_Initialize.js",
     "controlList": [
         {
             "id": "gui_dialog-overlay",
@@ -15,10 +14,10 @@
                 "alpha": 0.7,
                 "animation": {
                     "isEnabled": true,
-                    "transition": 0.05,
+                    "transitionFrames": 30,
                     "transitionStart": 0.01,
                     "transitionEnd": 0.7,
-                    "transitionTime": 500
+                    "transitionTime": 1250
                 }
             },
             "controlList": []
@@ -31,7 +30,7 @@
             "options": {
                 "isVisible": false,
                 "column": 1,
-                "row": 3,
+                "row": 2,
                 "height": "100%",
                 "backgroundColor": "transparent",
                 "paddingBottom": 0,
@@ -43,7 +42,7 @@
                     "transition": 0.05,
                     "transitionStart": 0.01,
                     "transitionEnd": 1,
-                    "transitionTime": 500
+                    "transitionTime": 1000
                 }
             },
             "controlList": [
@@ -52,7 +51,7 @@
                     "sort": 0,
                     "templateId": "platform-container",
                     "options": {
-                        "background": "white",
+                        "background": "transparent",
                         "adaptHeightToChildren": true,
                         "adaptWidthToChildren": true,
                         "paddingTop": "15px",
@@ -77,10 +76,9 @@
                                 "fontSize": 16,
                                 "color": "white",
                                 "background": "black",
-                                "disabledColor": "gray",
-                                "hoverColor": "red",
+                                "hoverColor": "#151414",
                                 "disabledHoverCursor": "mouse",
-                                "onClickScript": "Local_GuiLayout_Hide.js"
+                                "onClickScript": "Dialog_Hide.js"
                             }
                         }
                     ]
@@ -98,7 +96,7 @@
                         "cornerRadius": 15
                     },
                     "gridLocation": {
-                        "row": 2,
+                        "row": 1,
                         "column": 0
                     },
                     "controlList": [
@@ -108,12 +106,9 @@
                             "templateId": "platform-container",
                             "options": {
                                 "thickness": 0,
-                                "adaptHeightToChildren": true,
                                 "background": "transparent",
                                 "width": "100%",
                                 "height": "100%",
-                                "horizontalAlignment": 0,
-                                "verticalAlignment": 0,
                                 "paddingBottom": 5,
                                 "paddingTop": 15,
                                 "paddingLeft": 15,
@@ -130,14 +125,14 @@
                                     "templateId": "platform-text",
                                     "options": {
                                         "width": "100%",
+                                        "height": "10%",
                                         "textKey": "dialog::titleText",
                                         "fontSize": 16,
                                         "color": "white",
                                         "textHorizontalAlignment": 0,
                                         "textVerticalAlignment": 0,
                                         "horizontalAlignment": 0,
-                                        "verticalAlignment": 0,
-                                        "onClickScript": "Local_GuiLayout_GoToGame.js"
+                                        "verticalAlignment": 0
                                     }
                                 },
                                 {
@@ -147,11 +142,12 @@
                                     "options": {
                                         "background": "transparent",
                                         "color": "transparent",
-                                        "width": 1,
-                                        "height": 0.7,
-                                        "paddingTop": "3%",
+                                        "width": "100%",
+                                        "height": "50%",
+                                        "paddingTop": "10%",
                                         "paddingLeft": "20px",
-                                        "paddingRight": "15px"
+                                        "paddingRight": "15px",
+                                        "verticalAlignment": 0
                                     },
                                     "controlList": [
                                         {
@@ -167,6 +163,32 @@
                                                 "textKey": "dialog::bodyText",
                                                 "fontSize": 16
                                             }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "gui_dialog-dialog_actions_scroll_view",
+                                    "sort": 2,
+                                    "templateId": "platform-scroll_viewer",
+                                    "options": {
+                                        "background": "transparent",
+                                        "color": "transparent",
+                                        "width": "100%",
+                                        "height": "100%",
+                                        "paddingTop": "53%",
+                                        "paddingLeft": "35px",
+                                        "paddingRight": "15px",
+                                        "verticalAlignment": 0
+                                    },
+                                    "controlList": [
+                                        {
+                                            "id": "gui_editor-action_button_stack",
+                                            "sort": 0,
+                                            "templateId": "platform-panel",
+                                            "options": {
+                                                "isVertical": true
+                                            },
+                                            "controlList": []
                                         }
                                     ]
                                 }

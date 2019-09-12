@@ -1,0 +1,28 @@
+{
+    "id": "gui_dialog_action_button",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "gui_editor-action_button",
+            "sort": 0,
+            "templateId": "platform-button",
+            "options": {
+                "height": "26px",
+                "width": "100%",
+                "textKey": "dialog::button::hide",
+                "fontSize": 16,
+                "color": "white",
+                "background": "transparent",
+                "disabledColor": "gray",
+                "disabledHoverCursor": "mouse",
+                "hoverColor": "#151414",
+                "onClickScript": "Local_GuiLayout_Hide.js",
+                "textBlockOptions": {
+                    "paddingLeft": "5px",
+                    "resizeToFit": true,
+                    "textHorizontalAlignment": 0
+                }
+            }
+        }
+    ]
+}

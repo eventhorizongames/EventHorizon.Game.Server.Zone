@@ -1,0 +1,1 @@
+alert("Open Gossip GUI");
