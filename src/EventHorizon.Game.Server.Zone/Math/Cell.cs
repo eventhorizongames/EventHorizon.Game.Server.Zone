@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System;
 using System.Collections.Concurrent;
-using EventHorizon.Game.Server.Zone.Model.Structure;
+using EventHorizon.Zone.Core.Model.Structure;
 
 namespace EventHorizon.Game.Server.Zone.Math
 {

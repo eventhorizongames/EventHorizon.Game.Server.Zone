@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Client;
+using EventHorizon.Zone.Core.Model.Client;
 
 namespace EventHorizon.Zone.Plugin.Interaction.Model.Client
 {

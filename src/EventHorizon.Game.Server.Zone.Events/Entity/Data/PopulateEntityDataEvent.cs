@@ -1,5 +1,5 @@
 
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Entity.Data

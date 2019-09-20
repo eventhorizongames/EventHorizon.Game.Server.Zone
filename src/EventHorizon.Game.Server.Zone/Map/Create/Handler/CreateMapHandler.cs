@@ -8,7 +8,7 @@ using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Game.Server.Zone.Map.State;
-using EventHorizon.Game.Server.Zone.Model.Map;
+using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Game.Server.Zone.State;
 using EventHorizon.Performance;
 using MediatR;

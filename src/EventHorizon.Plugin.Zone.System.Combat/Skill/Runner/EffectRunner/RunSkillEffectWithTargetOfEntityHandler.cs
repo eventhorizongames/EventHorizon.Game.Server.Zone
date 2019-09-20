@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.ServerAction;
 using EventHorizon.Game.Server.Zone.External.DateTimeService;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;

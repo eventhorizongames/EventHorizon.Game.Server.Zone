@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-namespace EventHorizon.Game.Server.Zone.Model.Core
+namespace EventHorizon.Zone.Core.Model.Core
 {
     public struct PositionState
     {

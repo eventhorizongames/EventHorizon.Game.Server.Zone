@@ -6,7 +6,7 @@ using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
-using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using MediatR;
 using Microsoft.AspNetCore.SignalR.Client;

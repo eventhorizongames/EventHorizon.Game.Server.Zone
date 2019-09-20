@@ -1,6 +1,6 @@
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Mapper

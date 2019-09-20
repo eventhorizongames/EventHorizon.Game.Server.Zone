@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Zone.Core.Model.Core;
 
-namespace EventHorizon.Game.Server.Zone.Model.Entity
+namespace EventHorizon.Zone.Core.Model.Entity
 {
     public struct DefaultEntity : IObjectEntity
     {

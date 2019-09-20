@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Model.Admin
+namespace EventHorizon.Zone.Core.Model.Admin
 {
     public struct StandardAdminCommandResponse : IAdminCommandResponse
     {

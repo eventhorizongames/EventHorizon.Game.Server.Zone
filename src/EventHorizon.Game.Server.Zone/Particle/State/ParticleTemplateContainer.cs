@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Particle;
+using EventHorizon.Zone.Core.Model.Particle;
 
 namespace EventHorizon.Game.Server.Zone.Particle.State
 {

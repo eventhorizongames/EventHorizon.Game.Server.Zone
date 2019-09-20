@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Particle;
+using EventHorizon.Zone.Core.Model.Particle;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Particle.Add

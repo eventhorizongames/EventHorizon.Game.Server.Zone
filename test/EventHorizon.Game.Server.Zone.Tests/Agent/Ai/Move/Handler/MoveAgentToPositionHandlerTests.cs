@@ -8,7 +8,7 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone.Agent.Move;
 using System.Collections.Generic;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Path;
 using static EventHorizon.Game.Server.Zone.Agent.Ai.Move.MoveAgentToPosition;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;

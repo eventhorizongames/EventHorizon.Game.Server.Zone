@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Info.Query;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.State;
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 using MediatR;
 using Microsoft.Extensions.Logging;

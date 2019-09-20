@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Model.Core;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Core;
+using EventHorizon.Zone.Core.Model.Entity;
 
-namespace EventHorizon.Game.Server.Zone.Model.Player
+namespace EventHorizon.Zone.Core.Model.Player
 {
     public struct PlayerEntity : IObjectEntity
     {

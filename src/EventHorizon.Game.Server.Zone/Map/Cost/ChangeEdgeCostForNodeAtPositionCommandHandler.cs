@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Game.Server.Zone.Events.Map.Cost;
-using EventHorizon.Game.Server.Zone.Model.Map;
+using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Game.Server.Zone.State;
 using MediatR;
 

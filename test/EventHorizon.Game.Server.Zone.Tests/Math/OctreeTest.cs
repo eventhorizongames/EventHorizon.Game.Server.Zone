@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Math;
-using EventHorizon.Game.Server.Zone.Model.Structure;
+using EventHorizon.Zone.Core.Model.Structure;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Xunit;
 

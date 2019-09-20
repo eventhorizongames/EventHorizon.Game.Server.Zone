@@ -1,5 +1,5 @@
 using System;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Life.Change
 {

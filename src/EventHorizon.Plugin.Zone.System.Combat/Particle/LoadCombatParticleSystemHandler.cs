@@ -5,7 +5,7 @@ using EventHorizon.Game.Server.Zone.Events.Particle.Add;
 using EventHorizon.Game.Server.Zone.External.Extensions;
 using EventHorizon.Game.Server.Zone.External.Info;
 using EventHorizon.Game.Server.Zone.External.Json;
-using EventHorizon.Game.Server.Zone.Model.Particle;
+using EventHorizon.Zone.Core.Model.Particle;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Model;
 using MediatR;

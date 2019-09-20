@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Behavior.State;

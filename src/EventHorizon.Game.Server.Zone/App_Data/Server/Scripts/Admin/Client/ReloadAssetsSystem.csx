@@ -11,7 +11,7 @@
 /// - I18n: I18nLookup;
 /// </summary>
 
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.ClientAssets.Load;

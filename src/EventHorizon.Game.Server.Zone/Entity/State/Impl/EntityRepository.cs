@@ -7,7 +7,7 @@ using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Entity.Action;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.External.Entity;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Entity.State.Impl

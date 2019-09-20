@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Model.Entity;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Model.Player;
 
 namespace EventHorizon.Game.Server.Zone.External.Player
 {

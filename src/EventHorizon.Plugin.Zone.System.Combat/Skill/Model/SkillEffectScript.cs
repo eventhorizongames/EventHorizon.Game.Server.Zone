@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
@@ -47,7 +47,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "System",
                         "System.Collections.Generic",
                         "EventHorizon.Game.Server.Zone.External.Extensions",
-                        "EventHorizon.Game.Server.Zone.Model.Entity",
+                        "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         "EventHorizon.Game.Server.Zone.Agent.Ai.Move",
 

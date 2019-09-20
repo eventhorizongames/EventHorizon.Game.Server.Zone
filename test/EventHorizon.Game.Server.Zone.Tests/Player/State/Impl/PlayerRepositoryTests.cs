@@ -5,9 +5,9 @@ using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.External.Entity;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl

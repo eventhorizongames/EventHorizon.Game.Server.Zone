@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Level;

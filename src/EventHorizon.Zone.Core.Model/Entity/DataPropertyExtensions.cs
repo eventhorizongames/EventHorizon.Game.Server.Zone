@@ -2,7 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace EventHorizon.Game.Server.Zone.Model.Entity
+namespace EventHorizon.Zone.Core.Model.Entity
 {
     public static class DataPropertyExtensions
     {

@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Move
 {

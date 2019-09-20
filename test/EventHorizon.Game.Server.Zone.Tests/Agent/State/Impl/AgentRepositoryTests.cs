@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.External.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl

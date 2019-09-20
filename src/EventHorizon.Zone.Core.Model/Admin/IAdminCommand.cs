@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EventHorizon.Game.Server.Zone.Model.Admin
+namespace EventHorizon.Zone.Core.Model.Admin
 {
     public interface IAdminCommand
     {

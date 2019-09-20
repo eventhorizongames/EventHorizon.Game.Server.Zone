@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Plugin.Zone.System.Combat.Script;
 using MediatR;
@@ -44,7 +44,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "System.Collections.Generic",
                         "System.Numerics",
                         "EventHorizon.Game.Server.Zone.External.Extensions",
-                        "EventHorizon.Game.Server.Zone.Model.Entity",
+                        "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         // TODO: Move these to the Script using statements
                         "EventHorizon.Plugin.Zone.System.Combat.Events.Life",

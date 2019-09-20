@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Model.Client
+namespace EventHorizon.Zone.Core.Model.Client
 {
     public interface IClientActionData
     {

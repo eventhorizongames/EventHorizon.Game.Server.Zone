@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Admin.Command

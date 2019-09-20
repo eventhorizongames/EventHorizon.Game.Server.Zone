@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Entity.Data;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Model;
 using System;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;

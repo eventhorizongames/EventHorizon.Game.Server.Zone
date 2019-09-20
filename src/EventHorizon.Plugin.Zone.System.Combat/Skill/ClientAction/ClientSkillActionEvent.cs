@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Client;
+using EventHorizon.Zone.Core.Model.Client;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction
 {

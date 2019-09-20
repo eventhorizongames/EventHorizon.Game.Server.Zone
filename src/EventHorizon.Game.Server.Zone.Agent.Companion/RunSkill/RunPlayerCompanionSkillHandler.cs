@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Companion.Model;
 using EventHorizon.Game.Server.Zone.External.Entity;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner;
 using MediatR;
 using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;

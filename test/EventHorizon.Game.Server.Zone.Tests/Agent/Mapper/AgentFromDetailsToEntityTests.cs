@@ -6,8 +6,8 @@ using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Model.Core;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Core;
+using EventHorizon.Zone.Core.Model.Entity;
 using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper

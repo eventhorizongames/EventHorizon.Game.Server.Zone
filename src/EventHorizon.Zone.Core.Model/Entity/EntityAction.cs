@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Model.Entity
+namespace EventHorizon.Zone.Core.Model.Entity
 {
     public class EntityAction
     {

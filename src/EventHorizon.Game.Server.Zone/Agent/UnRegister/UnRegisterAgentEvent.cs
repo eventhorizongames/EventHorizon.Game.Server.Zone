@@ -5,7 +5,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Zone.System.Agent.Behavior.Register;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Zone.System.Agent.Behavior.UnRegister;
 

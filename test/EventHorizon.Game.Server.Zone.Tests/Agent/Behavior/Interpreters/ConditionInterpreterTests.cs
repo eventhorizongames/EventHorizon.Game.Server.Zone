@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
 using EventHorizon.Zone.System.Agent.Behavior.Interpreters;
 using EventHorizon.Zone.System.Agent.Behavior.Model;

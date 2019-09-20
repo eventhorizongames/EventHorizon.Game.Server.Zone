@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Map.State;
-using EventHorizon.Game.Server.Zone.Model.Map;
+using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Game.Server.Zone.Path.Find.Handler;
 
 namespace EventHorizon.Game.Server.Zone.Path.Search

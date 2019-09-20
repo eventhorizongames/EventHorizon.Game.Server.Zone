@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Update

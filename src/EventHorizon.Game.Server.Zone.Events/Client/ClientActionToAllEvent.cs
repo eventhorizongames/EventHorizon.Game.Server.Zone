@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Client;
+using EventHorizon.Zone.Core.Model.Client;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Events.Client

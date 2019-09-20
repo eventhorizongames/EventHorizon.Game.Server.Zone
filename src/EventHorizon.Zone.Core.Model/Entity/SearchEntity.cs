@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Model.Structure;
+using EventHorizon.Zone.Core.Model.Structure;
 
 namespace EventHorizon.Game.Server.Zone.Entity.Model
 {

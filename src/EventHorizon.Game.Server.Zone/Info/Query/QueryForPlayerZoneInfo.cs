@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Info.Api;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query

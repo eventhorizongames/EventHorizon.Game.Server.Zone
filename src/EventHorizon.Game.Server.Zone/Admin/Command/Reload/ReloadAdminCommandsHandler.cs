@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Load;
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Admin.Command.Reload

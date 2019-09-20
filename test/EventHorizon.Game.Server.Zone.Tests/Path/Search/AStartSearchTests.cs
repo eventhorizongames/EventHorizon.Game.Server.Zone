@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Map.State;
-using EventHorizon.Game.Server.Zone.Model.Map;
+using EventHorizon.Zone.Core.Model.Map;
 using Xunit;
 using EventHorizon.Game.Server.Zone.Path.Search;
 using System.Diagnostics;

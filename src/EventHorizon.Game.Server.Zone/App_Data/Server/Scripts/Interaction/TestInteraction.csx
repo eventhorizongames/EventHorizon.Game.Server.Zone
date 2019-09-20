@@ -22,7 +22,7 @@
 /// }
 /// </summary>
 
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 
 var player = Data.Player;
 var target = Data.Target;

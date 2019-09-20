@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Behavior.Model;

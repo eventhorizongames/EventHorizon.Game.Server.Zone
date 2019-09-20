@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 
 namespace EventHorizon.Game.Server.Zone.Admin.Command.Model
 {

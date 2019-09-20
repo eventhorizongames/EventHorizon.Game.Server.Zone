@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity

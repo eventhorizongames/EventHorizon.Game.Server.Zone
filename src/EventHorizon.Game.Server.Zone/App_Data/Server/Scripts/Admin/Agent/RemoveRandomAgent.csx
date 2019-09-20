@@ -12,7 +12,7 @@
 /// </summary>
 
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-using EventHorizon.Game.Server.Zone.Model.Admin;
+using EventHorizon.Zone.Core.Model.Admin;
 
 using System.Linq;
 using EventHorizon.Game.Server.Zone.Agent.Get;

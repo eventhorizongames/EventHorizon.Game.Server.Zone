@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace EventHorizon.Game.Server.Zone.Model.Structure
+namespace EventHorizon.Zone.Core.Model.Structure
 {
     public interface IOctreeEntity
     {

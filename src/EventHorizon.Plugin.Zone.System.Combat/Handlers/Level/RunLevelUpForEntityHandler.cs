@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Model;

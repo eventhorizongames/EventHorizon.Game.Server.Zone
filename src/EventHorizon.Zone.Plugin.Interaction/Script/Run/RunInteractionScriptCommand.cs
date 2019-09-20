@@ -1,5 +1,5 @@
-using EventHorizon.Game.Server.Zone.Model.Entity;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Plugin.Interaction.Model;
 using EventHorizon.Zone.Plugin.Interaction.Script.Api;
 using MediatR;

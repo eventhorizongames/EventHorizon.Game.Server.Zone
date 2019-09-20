@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.Agent.Ai.Script;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
 using MediatR;

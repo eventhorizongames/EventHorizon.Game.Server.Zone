@@ -13,8 +13,8 @@
 
 using System.Linq;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-using EventHorizon.Game.Server.Zone.Model.Admin;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Admin;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;

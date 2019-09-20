@@ -1,5 +1,5 @@
 using System;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
 

@@ -4,7 +4,7 @@ using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Mapper;
-using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Zone.Core.Model.Core;
 using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper

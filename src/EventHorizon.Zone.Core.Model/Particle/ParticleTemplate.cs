@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Model.Particle
+namespace EventHorizon.Zone.Core.Model.Particle
 {
     public struct ParticleTemplate
     {

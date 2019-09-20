@@ -1,6 +1,6 @@
 using System;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Model.Core;
+using EventHorizon.Zone.Core.Model.Core;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Core

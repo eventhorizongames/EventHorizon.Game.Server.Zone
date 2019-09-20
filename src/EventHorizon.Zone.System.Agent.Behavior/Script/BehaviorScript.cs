@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.Agent.Ai.Script;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
@@ -42,7 +42,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
                         "EventHorizon.Zone.System.Agent.Behavior.Model",
 
                         "EventHorizon.Game.Server.Zone.External.Extensions",
-                        "EventHorizon.Game.Server.Zone.Model.Entity",
+                        "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement"
                     );
 

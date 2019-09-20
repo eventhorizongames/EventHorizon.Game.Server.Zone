@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Gui.Model;
 using MediatR;
 

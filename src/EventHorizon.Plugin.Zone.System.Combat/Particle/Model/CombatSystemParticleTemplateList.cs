@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Model.Particle;
+using EventHorizon.Zone.Core.Model.Particle;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Particle.Model
 {
