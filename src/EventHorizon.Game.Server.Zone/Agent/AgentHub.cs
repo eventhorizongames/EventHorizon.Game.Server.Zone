@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Game.Server.Zone.Agent
 {
+    // TODO: Check to make sure this is not used anymore.
+    // If it is still used move it into Editor, I think that is where is this used.
+    // If not used just delete it.
     [Authorize]
     public class AgentHub : Hub
     {
