@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Editor.Model;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
 using Newtonsoft.Json;
 using IOPath = System.IO.Path;

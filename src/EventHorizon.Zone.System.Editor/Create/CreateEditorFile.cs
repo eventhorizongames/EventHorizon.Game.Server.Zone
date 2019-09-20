@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;

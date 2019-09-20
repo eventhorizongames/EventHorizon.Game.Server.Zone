@@ -13,8 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
-
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj" />
     </ItemGroup>

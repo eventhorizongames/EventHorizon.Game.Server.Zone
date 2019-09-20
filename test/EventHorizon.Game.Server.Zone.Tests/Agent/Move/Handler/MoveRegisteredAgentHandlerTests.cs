@@ -9,7 +9,7 @@ using EventHorizon.Game.Server.Zone.Agent.Move.Handler;
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.State.Repository;

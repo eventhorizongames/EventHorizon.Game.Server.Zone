@@ -13,7 +13,7 @@ using EventHorizon.Game.Server.Zone.Agent.Register;
 using EventHorizon.Game.Server.Zone.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Game.Server.Zone.Load.Settings.Model;
 using EventHorizon.Game.Server.Zone.Agent.Connection;
 using EventHorizon.Game.Server.Zone.Agent;

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Model;
-using EventHorizon.Game.Server.Zone.External.DirectoryService;
-using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
 using Moq;
 using Xunit;
 

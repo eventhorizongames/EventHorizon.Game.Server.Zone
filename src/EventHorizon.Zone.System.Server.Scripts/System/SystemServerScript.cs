@@ -182,7 +182,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                         "System.Collections.Generic",
                         "System.Numerics"
                     // TODO: Load extra imports from Details
-                    // "EventHorizon.Game.Server.Zone.External.Extensions",
+                    // "EventHorizon.Zone.Core.Model.Extensions",
                     // "EventHorizon.Zone.Core.Model.Entity",
                     // "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                     // "EventHorizon.Game.Server.Zone.Events.Map",

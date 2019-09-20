@@ -1,6 +1,6 @@
 using EventHorizon.Game.I18n;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
-using EventHorizon.Game.Server.Zone.External.RandomNumber;
+using EventHorizon.Zone.Core.Model.DateTimeService;
+using EventHorizon.Zone.Core.Model.RandomNumber;
 using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Script

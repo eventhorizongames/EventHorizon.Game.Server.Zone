@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Model;
-using EventHorizon.Game.Server.Zone.External.DirectoryService;
-using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
 
 namespace EventHorizon.Game.I18n.Loader

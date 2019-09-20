@@ -1,6 +1,6 @@
 using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Entity.State.Impl;
-using EventHorizon.Game.Server.Zone.External.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone.Entity

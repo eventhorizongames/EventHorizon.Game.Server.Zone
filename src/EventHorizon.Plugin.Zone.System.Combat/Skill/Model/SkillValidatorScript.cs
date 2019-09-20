@@ -43,7 +43,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         "System",
                         "System.Collections.Generic",
                         "System.Numerics",
-                        "EventHorizon.Game.Server.Zone.External.Extensions",
+                        "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
                         // TODO: Move these to the Script using statements

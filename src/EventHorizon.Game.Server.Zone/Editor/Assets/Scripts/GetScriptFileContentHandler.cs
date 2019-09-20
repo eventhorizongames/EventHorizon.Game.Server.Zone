@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts.Model;
-using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Core.Model.Info;
 using MediatR;
 using IOPath = System.IO.Path;
 

@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.External.Client;
+using EventHorizon.Zone.Core.Model.Client;
 using EventHorizon.Zone.Plugin.Interaction.Events.Client;
 using EventHorizon.Zone.Plugin.Interaction.Model.Client;
 using MediatR;

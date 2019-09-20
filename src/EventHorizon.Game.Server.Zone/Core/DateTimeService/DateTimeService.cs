@@ -1,5 +1,5 @@
 using System;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Zone.Core.Model.DateTimeService;
 
 namespace EventHorizon.Game.Server.Zone.Core.DateTimeService
 {

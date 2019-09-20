@@ -3,7 +3,7 @@ using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 
-namespace EventHorizon.Game.Server.Zone.External.Player
+namespace EventHorizon.Zone.Core.Model.Player
 {
     public interface IPlayerRepository
     {

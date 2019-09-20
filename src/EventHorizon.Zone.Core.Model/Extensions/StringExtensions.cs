@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.External.Extensions
+namespace EventHorizon.Zone.Core.Model.Extensions
 {
     public static class StringExtensions
     {

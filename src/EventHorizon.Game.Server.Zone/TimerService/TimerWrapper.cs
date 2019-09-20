@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

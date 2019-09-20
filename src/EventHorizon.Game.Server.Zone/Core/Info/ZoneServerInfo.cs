@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Core.Model.Info;
 using Microsoft.AspNetCore.Hosting;
 using IOPath = System.IO.Path;
 

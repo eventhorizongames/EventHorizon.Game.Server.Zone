@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Identity;
 using MediatR;
 using Microsoft.AspNetCore.SignalR.Client;

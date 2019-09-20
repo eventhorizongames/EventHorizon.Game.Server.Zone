@@ -13,7 +13,6 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Game.Server.Zone.Agent.Ai\EventHorizon.Game.Server.Zone.Agent.Ai.csproj" />
     </ItemGroup>

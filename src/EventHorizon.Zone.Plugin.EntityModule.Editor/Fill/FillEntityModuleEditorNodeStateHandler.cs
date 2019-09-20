@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Plugin.Editor;
 using EventHorizon.Zone.Plugin.Editor.Builder;
 using EventHorizon.Zone.System.Editor.Events;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Extensions;
+using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.System.Editor.Model;
 
 namespace EventHorizon.Zone.Plugin.Editor.Builder

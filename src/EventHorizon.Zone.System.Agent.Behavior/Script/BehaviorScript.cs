@@ -41,7 +41,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
                         "EventHorizon.Zone.System.Agent.Behavior.Script",
                         "EventHorizon.Zone.System.Agent.Behavior.Model",
 
-                        "EventHorizon.Game.Server.Zone.External.Extensions",
+                        "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Game.Server.Zone.Events.Entity.Movement"
                     );

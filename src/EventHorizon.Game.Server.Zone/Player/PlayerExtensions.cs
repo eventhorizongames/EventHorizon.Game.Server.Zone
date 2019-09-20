@@ -2,7 +2,7 @@ using EventHorizon.Game.Server.Core.Player.Connection;
 using EventHorizon.Game.Server.Core.Player.Connection.Impl;
 using EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing;
 using EventHorizon.Game.Server.Core.Player.Model;
-using EventHorizon.Game.Server.Zone.External.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;

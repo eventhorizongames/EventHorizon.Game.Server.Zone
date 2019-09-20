@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace EventHorizon.Game.Server.Zone.External.Extensions
+namespace EventHorizon.Zone.Core.Model.Extensions
 {
     public static class PathExtensions
     {

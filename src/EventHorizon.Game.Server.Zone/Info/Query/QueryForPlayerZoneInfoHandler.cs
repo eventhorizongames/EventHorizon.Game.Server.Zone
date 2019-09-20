@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
-using EventHorizon.Game.Server.Zone.External.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;

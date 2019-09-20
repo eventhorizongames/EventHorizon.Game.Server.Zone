@@ -6,7 +6,7 @@ using EventHorizon.Game.Server.Zone.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.Client;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.External.Client
+namespace EventHorizon.Zone.Core.Model.Client
 {
     public class ClientActionToAllHandler<T, J> where T : ClientActionToAllEvent<J> where J : IClientActionData
     {

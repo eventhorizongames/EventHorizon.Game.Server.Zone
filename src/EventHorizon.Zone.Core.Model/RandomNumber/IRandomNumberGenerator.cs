@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.External.RandomNumber
+namespace EventHorizon.Zone.Core.Model.RandomNumber
 {
     public interface IRandomNumberGenerator
     {

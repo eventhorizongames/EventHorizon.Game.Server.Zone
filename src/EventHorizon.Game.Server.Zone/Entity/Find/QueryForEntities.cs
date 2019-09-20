@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.State.Impl;
-using EventHorizon.Game.Server.Zone.External.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity;
 using MediatR;
 

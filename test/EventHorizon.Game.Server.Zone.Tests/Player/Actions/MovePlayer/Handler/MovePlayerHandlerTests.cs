@@ -20,8 +20,8 @@ using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Game.Server.Zone.Events.Map;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
-using EventHorizon.Game.Server.Zone.External.Player;
+using EventHorizon.Zone.Core.Model.DateTimeService;
+using EventHorizon.Zone.Core.Model.Player;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {

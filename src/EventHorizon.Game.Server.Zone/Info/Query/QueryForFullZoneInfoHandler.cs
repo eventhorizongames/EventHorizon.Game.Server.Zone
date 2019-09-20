@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
-using EventHorizon.Game.Server.Zone.External.Entity;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Info.Api;
 using EventHorizon.Game.Server.Zone.Info.Model;
 using EventHorizon.Game.Server.Zone.Load.Map;

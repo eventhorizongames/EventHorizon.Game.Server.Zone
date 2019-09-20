@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 
-namespace EventHorizon.Game.Server.Zone.External.Entity
+namespace EventHorizon.Zone.Core.Model.Entity
 {
     public interface IEntityRepository
     {

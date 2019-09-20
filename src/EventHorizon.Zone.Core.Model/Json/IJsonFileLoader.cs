@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace EventHorizon.Game.Server.Zone.External.Json
+namespace EventHorizon.Zone.Core.Model.Json
 {
     public interface IJsonFileLoader
     {

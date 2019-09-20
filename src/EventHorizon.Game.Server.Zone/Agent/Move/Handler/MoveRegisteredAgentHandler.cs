@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.External.DateTimeService;
+using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Game.Server.Zone.State.Repository;

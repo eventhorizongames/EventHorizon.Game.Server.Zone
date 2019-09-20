@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.State;
-using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
 using IOPath = System.IO.Path;
 

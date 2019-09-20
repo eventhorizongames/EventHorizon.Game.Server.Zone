@@ -8,7 +8,6 @@ COPY src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj ./sr
 COPY src/EventHorizon.Game.Server.Zone.Agent/EventHorizon.Game.Server.Zone.Agent.csproj ./src/EventHorizon.Game.Server.Zone.Agent/EventHorizon.Game.Server.Zone.Agent.csproj
 COPY src/EventHorizon.Game.Server.Zone.Agent.Ai/EventHorizon.Game.Server.Zone.Agent.Ai.csproj ./src/EventHorizon.Game.Server.Zone.Agent.Ai/EventHorizon.Game.Server.Zone.Agent.Ai.csproj
 COPY src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj ./src/EventHorizon.Game.Server.Zone.Events/EventHorizon.Game.Server.Zone.Events.csproj
-COPY src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj ./src/EventHorizon.Game.Server.Zone.External/EventHorizon.Game.Server.Zone.External.csproj
 COPY src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj ./src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj
 COPY src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj ./src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj
 

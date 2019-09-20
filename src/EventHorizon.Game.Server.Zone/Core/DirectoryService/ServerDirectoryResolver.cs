@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
-using EventHorizon.Game.Server.Zone.External.DirectoryService;
+using EventHorizon.Zone.Core.Model.DirectoryService;
 
 namespace EventHorizon.Game.Server.Zone.Core.DirectoryService
 {

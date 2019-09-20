@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client.DataType;
 using EventHorizon.Game.Server.Zone.Events.Client;
 using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.External.Client;
+using EventHorizon.Zone.Core.Model.Client;
 using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction

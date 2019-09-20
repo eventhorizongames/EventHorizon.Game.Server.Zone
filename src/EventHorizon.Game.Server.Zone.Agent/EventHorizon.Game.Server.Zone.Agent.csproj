@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Game.Server.Zone.External\EventHorizon.Game.Server.Zone.External.csproj" />
-    </ItemGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="EventHorizon.Game.Server.Zone.Plugin" Version="0.2.1" />
@@ -13,8 +12,8 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
     </ItemGroup>
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
-    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+    </ItemGroup>
 
 </Project>

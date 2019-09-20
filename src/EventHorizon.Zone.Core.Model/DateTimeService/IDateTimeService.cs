@@ -1,6 +1,6 @@
 using System;
 
-namespace EventHorizon.Game.Server.Zone.External.DateTimeService
+namespace EventHorizon.Zone.Core.Model.DateTimeService
 {
     public interface IDateTimeService
     {

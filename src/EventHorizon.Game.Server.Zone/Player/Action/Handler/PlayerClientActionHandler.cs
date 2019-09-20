@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Player.State;

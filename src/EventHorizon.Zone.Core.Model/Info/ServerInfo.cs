@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.External.Info
+namespace EventHorizon.Zone.Core.Model.Info
 {
     public interface ServerInfo
     {

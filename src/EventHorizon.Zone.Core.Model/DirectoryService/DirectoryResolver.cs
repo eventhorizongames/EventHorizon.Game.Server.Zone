@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EventHorizon.Game.Server.Zone.External.DirectoryService
+namespace EventHorizon.Zone.Core.Model.DirectoryService
 {
     public interface DirectoryResolver
     {

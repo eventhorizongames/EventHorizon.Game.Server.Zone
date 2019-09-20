@@ -1,8 +1,8 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Extensions;
-using EventHorizon.Game.Server.Zone.External.Info;
+using EventHorizon.Zone.Core.Model.Extensions;
+using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using MediatR;

@@ -1,8 +1,8 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.External.Info;
-using EventHorizon.Game.Server.Zone.External.Json;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Load;
 using MediatR;

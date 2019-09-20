@@ -5,7 +5,7 @@ using EventHorizon.Game.Server.Zone.Admin.Command;
 using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Events.Admin;
 using EventHorizon.Game.Server.Zone.Events.Entity.Find;
-using EventHorizon.Game.Server.Zone.External.Player;
+using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Model;
