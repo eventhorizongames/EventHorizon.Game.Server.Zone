@@ -1,7 +1,7 @@
 using Xunit;
 using Moq;
 using System.Threading.Tasks;
-using EventHorizon.Plugin.Zone.System.Combat.State;
+using EventHorizon.Zone.System.Combat.State;
 using System.Diagnostics;
 using Xunit.Abstractions;
 

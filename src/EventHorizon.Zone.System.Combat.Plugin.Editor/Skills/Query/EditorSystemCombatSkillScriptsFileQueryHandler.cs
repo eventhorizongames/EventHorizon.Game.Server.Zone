@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Model;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
+using EventHorizon.Zone.System.Combat.Skill.State;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Query

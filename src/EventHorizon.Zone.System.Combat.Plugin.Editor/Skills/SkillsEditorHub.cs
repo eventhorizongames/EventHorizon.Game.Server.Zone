@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Fetch;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Save;
+using EventHorizon.Zone.System.Combat.Skill.Fetch;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Skill.Save;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using EventHorizon.Plugin.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Skill.Model;
 
 namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Model
 {

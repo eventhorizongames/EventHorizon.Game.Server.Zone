@@ -78,7 +78,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj" />
-        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat\EventHorizon.Plugin.Zone.System.Combat.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat\EventHorizon.Zone.System.Combat.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction\EventHorizon.Zone.Plugin.Interaction.csproj" />
     </ItemGroup>
