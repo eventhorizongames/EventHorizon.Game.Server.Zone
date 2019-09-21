@@ -22,6 +22,7 @@ using EventHorizon.Plugin.Zone.System.Combat.Editor;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Editor.ExternalHub;
+using EventHorizon.Zone.System.ModelState;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -137,7 +138,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemCombat()
                 .AddSystemCombatEditor()
                 .AddPluginParticleEditor()
-                .AddSystemModel()
+                .AddSystemModelState()
                 .AddSystemServerModule()
                 .AddPluginServerModuleEditor()
                 .AddSystemEntityModule()
@@ -221,7 +222,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemBackup();
             app.UseSystemGui();
             app.UsePluginGuiEditor();
-            app.UseSystemModel();
+            app.UseSystemModelState();
             app.UseSystemCombat();
             app.UseSystemCombatEditor();
             app.UsePluginParticleEditor();

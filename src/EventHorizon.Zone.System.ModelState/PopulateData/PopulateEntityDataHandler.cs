@@ -2,10 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Data;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Model.Model;
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Model.PopulateData
+namespace EventHorizon.Zone.System.ModelState.PopulateData
 {
     public class PopulateEntityModelDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {
@@ -13,7 +12,7 @@ namespace EventHorizon.Plugin.Zone.System.Model.PopulateData
         {
             var entity = notification.Entity;
 
-            entity.PopulateData<ModelState>(ModelState.PROPERTY_NAME);
+            entity.PopulateData<ModelDetailsState>(ModelDetailsState.PROPERTY_NAME);
 
             this.ValidateModelState(entity);
 
@@ -22,11 +21,11 @@ namespace EventHorizon.Plugin.Zone.System.Model.PopulateData
 
         private void ValidateModelState(IObjectEntity entity)
         {
-            var modelState = entity.GetProperty<ModelState>(ModelState.PROPERTY_NAME);
+            var modelState = entity.GetProperty<ModelDetailsState>(ModelDetailsState.PROPERTY_NAME);
 
             if (!modelState.IsValid())
             {
-                entity.SetProperty(ModelState.PROPERTY_NAME, ModelState.DEFAULT);
+                entity.SetProperty(ModelDetailsState.PROPERTY_NAME, ModelDetailsState.DEFAULT);
             }
         }
     }

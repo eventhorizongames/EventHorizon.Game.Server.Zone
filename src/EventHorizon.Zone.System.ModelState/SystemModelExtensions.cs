@@ -2,17 +2,17 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone
+namespace EventHorizon.Zone.System.ModelState
 {
     public static class SystemModelExtensions
     {
-        public static IServiceCollection AddSystemModel(
+        public static IServiceCollection AddSystemModelState(
             this IServiceCollection services
         )
         {
             return services;
         }
-        public static void UseSystemModel(
+        public static void UseSystemModelState(
             this IApplicationBuilder app
         )
         {

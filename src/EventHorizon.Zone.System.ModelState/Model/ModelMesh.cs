@@ -1,4 +1,4 @@
-namespace EventHorizon.Plugin.Zone.System.Model.Model
+namespace EventHorizon.Zone.System.ModelState
 {
     public struct ModelMesh
     {
