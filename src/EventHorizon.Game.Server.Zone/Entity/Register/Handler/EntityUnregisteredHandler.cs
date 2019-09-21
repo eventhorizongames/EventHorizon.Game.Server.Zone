@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Client;
-using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Game.Server.Zone.Entity.State;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Player;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;

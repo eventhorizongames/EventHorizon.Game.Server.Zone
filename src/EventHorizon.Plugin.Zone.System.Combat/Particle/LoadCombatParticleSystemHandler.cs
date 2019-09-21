@@ -1,7 +1,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Particle.Add;
+using EventHorizon.Zone.Core.Events.Particle.Add;
 using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;

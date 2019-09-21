@@ -9,7 +9,7 @@ using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using Moq;
 using Xunit;
-using EventHorizon.Game.Server.Zone.Events.Entity.Search;
+using EventHorizon.Zone.Core.Events.Entity.Search;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
 {

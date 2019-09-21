@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Events.Client;
+using EventHorizon.Zone.Core.Events.Client;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Client.Messsage;
 using MediatR;
 

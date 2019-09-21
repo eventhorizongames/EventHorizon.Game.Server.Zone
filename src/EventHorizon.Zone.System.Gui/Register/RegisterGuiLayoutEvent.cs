@@ -1,7 +1,7 @@
 using EventHorizon.Zone.System.Gui.Model;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Events.Gui
+namespace EventHorizon.Zone.Core.Events.Gui
 {
     public struct RegisterGuiLayoutCommand : IRequest
     {

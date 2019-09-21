@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Entity.Data;
+using EventHorizon.Zone.Core.Events.Entity.Data;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Model.Model;
 using MediatR;

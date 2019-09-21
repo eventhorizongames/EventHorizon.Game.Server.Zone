@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Events.Client;
+using EventHorizon.Zone.Core.Events.Client;
 using MediatR;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction

@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E21217AB-F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone.Tests", "test\EventHorizon.Game.Server.Zone.Tests\EventHorizon.Game.Server.Zone.Tests.csproj", "{1BC6418A-D9D8-4092-AAAD-E77F0A35E9FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone.Events", "src\EventHorizon.Game.Server.Zone.Events\EventHorizon.Game.Server.Zone.Events.csproj", "{9D8FA792-86BA-46C2-839C-4B6B8162DB15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Events", "src\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj", "{9D8FA792-86BA-46C2-839C-4B6B8162DB15}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone.Agent", "src\EventHorizon.Game.Server.Zone.Agent\EventHorizon.Game.Server.Zone.Agent.csproj", "{ABFF544A-188A-4847-83EB-A8981854B0B7}"
 EndProject

@@ -1,9 +1,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Client.DataType;
-using EventHorizon.Game.Server.Zone.Events.Client;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Zone.Core.Model.Client.DataType;
+using EventHorizon.Zone.Core.Events.Client;
+using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.Client;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.State;

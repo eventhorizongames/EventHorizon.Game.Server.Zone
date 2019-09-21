@@ -43,7 +43,7 @@ namespace EventHorizon.Zone.System.Agent.Behavior.Script
 
                         "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
-                        "EventHorizon.Game.Server.Zone.Events.Entity.Movement"
+                        "EventHorizon.Zone.Core.Events.Entity.Movement"
                     );
 
                 var runner = CSharpScript

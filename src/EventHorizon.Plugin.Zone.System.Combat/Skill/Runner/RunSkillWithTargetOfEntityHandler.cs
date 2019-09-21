@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Model;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;

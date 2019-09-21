@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;

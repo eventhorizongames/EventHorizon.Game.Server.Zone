@@ -6,7 +6,7 @@ using EventHorizon.Game.Server.Zone.Entity.Find;
 using System.Threading.Tasks;
 using System.Threading;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Find.Handler
 {

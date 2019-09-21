@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Agent.Behavior.Api;

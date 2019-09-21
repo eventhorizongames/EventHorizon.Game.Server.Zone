@@ -1,7 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Load;
+using EventHorizon.Zone.Core.Events.Admin.Command;
+using EventHorizon.Zone.Core.Events.Admin.Command.Respond;
 using EventHorizon.Zone.Core.Model.Admin;
 using MediatR;
 

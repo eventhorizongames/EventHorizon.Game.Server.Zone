@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.Command;
 using EventHorizon.Game.Server.Zone.Admin.Command.Model;
 using EventHorizon.Game.Server.Zone.Info.Api;
 using EventHorizon.Game.Server.Zone.Info.Query;
+using EventHorizon.Zone.Core.Events.Admin.Command;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;

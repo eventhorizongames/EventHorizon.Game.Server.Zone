@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.Command;
-using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
-using EventHorizon.Game.Server.Zone.Events.Admin;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Admin.Command;
+using EventHorizon.Zone.Core.Events.Admin.Command.Respond;
+using EventHorizon.Zone.Core.Events.Admin;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Zone.Core.Model.Entity;

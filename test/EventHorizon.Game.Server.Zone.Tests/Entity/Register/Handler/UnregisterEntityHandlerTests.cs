@@ -1,14 +1,11 @@
 using Xunit;
 using Moq;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Entity.Register.Handler;
 using EventHorizon.Game.Server.Zone.Entity.Registered;
 using System.Threading;
 using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Game.Server.Zone.Entity.Model;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler

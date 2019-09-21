@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Entity.Movement;
-using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Events.Entity.Movement;
 using EventHorizon.Zone.Core.Model.Entity;
 using MediatR;
 

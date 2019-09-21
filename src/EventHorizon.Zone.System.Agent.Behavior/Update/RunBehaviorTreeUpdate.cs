@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 
 namespace EventHorizon.Zone.System.Agent.Behavior.Update
 {

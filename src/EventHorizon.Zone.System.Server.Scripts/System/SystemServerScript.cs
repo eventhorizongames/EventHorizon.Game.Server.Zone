@@ -184,9 +184,9 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                     // TODO: Load extra imports from Details
                     // "EventHorizon.Zone.Core.Model.Extensions",
                     // "EventHorizon.Zone.Core.Model.Entity",
-                    // "EventHorizon.Game.Server.Zone.Events.Entity.Movement",
-                    // "EventHorizon.Game.Server.Zone.Events.Map",
-                    // "EventHorizon.Game.Server.Zone.Events.Path"
+                    // "EventHorizon.Zone.Core.Events.Entity.Movement",
+                    // "EventHorizon.Zone.Core.Events.Map",
+                    // "EventHorizon.Zone.Core.Events.Path"
                     ).AddImports(
                         details.Imports
                     );

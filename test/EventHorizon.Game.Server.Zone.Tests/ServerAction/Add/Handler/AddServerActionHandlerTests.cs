@@ -8,7 +8,7 @@ using EventHorizon.Game.Server.Zone.Tests.TestUtil.Events;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.ServerAction.Add;
-using EventHorizon.Game.Server.Zone.Events.ServerAction;
+using EventHorizon.Zone.Core.Events.ServerAction;
 
 namespace EventHorizon.Game.Server.Zone.Tests.ServerAction.Add.Handler
 {

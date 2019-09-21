@@ -1,12 +1,9 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Agent.State.Impl;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Entity.Model;
 using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl

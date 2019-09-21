@@ -1,13 +1,7 @@
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.State
 {

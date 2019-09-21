@@ -1,7 +1,7 @@
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Map.Cost;
+using EventHorizon.Zone.Core.Events.Map.Cost;
 using EventHorizon.Zone.System.ClientEntities.State;
 using EventHorizon.Zone.System.ClientEntities.Api;
 using MediatR;

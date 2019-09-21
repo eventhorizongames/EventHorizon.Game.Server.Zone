@@ -21,8 +21,8 @@ using EventHorizon.Game.Server.Zone.Agent.Move;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
 using EventHorizon.Zone.System.Agent.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Zone.Core.Model.Client.DataType;
 
 // Check for Actor already moving
 var isAgentMoving = await Services.Mediator.Send(

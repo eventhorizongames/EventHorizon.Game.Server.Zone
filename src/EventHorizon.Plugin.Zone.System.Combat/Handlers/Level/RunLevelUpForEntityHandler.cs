@@ -1,14 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Client.DataType;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.Events.Entity.Find;
-using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Level;
-using EventHorizon.Plugin.Zone.System.Combat.Model;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
 using MediatR;
+using EventHorizon.Zone.Core.Model.Client.DataType;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Handlers.Level
 {

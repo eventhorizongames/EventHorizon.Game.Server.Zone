@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Gui;
+using EventHorizon.Zone.Core.Events.Gui;
 using EventHorizon.Zone.System.Gui.Api;
 using MediatR;
 

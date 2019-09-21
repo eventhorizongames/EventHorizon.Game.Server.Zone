@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Events.Particle.Add;
+using EventHorizon.Zone.Core.Events.Particle.Add;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Particle.Add.Handler

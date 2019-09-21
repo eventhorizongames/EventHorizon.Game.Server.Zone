@@ -7,21 +7,17 @@ using System.Numerics;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Load.Map;
-using EventHorizon.Game.Server.Zone.Player.State;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Map;
 using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Player.Update;
-using EventHorizon.Game.Server.Zone.Client;
-using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Zone.Core.Events.Map;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
+using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Player;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {

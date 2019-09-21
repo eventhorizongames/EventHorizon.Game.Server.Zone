@@ -17,7 +17,7 @@
 
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Model;
-using EventHorizon.Game.Server.Zone.Events.Map;
+using EventHorizon.Zone.Core.Events.Map;
 using EventHorizon.Zone.System.Agent.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Behavior.Model;
 

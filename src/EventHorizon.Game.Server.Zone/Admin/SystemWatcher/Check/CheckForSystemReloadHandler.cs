@@ -1,10 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.Command;
 using EventHorizon.Game.Server.Zone.Admin.Command.Model;
-using EventHorizon.Game.Server.Zone.Admin.Command.Respond;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
-using EventHorizon.Game.Server.Zone.Events.Admin;
+using EventHorizon.Zone.Core.Events.Admin.Command;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

@@ -6,8 +6,8 @@
 /// Data: { mesageTemplateKey: string; }
 /// </summary>
 
-using EventHorizon.Game.Server.Zone.Events.Client.Actions;
-using EventHorizon.Game.Server.Zone.Client.DataType;
+using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Zone.Core.Model.Client.DataType;
 
 var casterGlobalId = Caster.GlobalId;
 var targetOwner = Target.GetProperty<dynamic>("ownerState");
