@@ -1,5 +1,5 @@
-using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
-using EventHorizon.Plugin.Zone.System.Combat.Events.Life;
+using EventHorizon.Zone.System.Combat.Events.Level;
+using EventHorizon.Zone.System.Combat.Events.Life;
 using EventHorizon.TimerService;
 using MediatR;
 

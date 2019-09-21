@@ -1,5 +1,5 @@
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Check;
-using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
+using EventHorizon.Zone.System.Combat.Events.Level;
 using EventHorizon.TimerService;
 using MediatR;
 

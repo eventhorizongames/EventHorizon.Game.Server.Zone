@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Plugin.Zone.System.Combat.Events.Level;
+using EventHorizon.Zone.System.Combat.Events.Level;
 using EventHorizon.Plugin.Zone.System.Combat.Level;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Client.DataType;

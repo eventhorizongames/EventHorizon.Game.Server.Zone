@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Client;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Events.Client.Messsage
+namespace EventHorizon.Zone.System.Combat.Events.Client.Messsage
 {
     public struct MessageFromCombatSystemData : IClientActionData
     {

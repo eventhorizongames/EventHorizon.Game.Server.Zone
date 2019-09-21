@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Events.Life
+namespace EventHorizon.Zone.System.Combat.Events.Life
 {
     public struct IncreaseLifePropertyEvent : INotification
     {

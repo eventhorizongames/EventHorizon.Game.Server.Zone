@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Events.Level
+namespace EventHorizon.Zone.System.Combat.Events.Level
 {
     public struct IncreaseExperienceEvent : INotification
     {

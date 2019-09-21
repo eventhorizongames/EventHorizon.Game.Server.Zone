@@ -1,7 +1,7 @@
 using System.Numerics;
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Events.Skill.Runner
+namespace EventHorizon.Zone.System.Combat.Events.Skill.Runner
 {
     public struct RunSkillWithTargetOfEntityEvent : INotification
     {

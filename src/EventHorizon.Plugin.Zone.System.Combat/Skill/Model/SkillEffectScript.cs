@@ -54,7 +54,7 @@ namespace EventHorizon.Plugin.Zone.System.Combat.Skill.Model
                         // TODO: Move these to the Script using statements
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.Model",
                         "EventHorizon.Plugin.Zone.System.Combat.Client",
-                        "EventHorizon.Plugin.Zone.System.Combat.Events.Life",
+                        "EventHorizon.Zone.System.Combat.Events.Life",
                         "EventHorizon.Plugin.Zone.System.Combat.Skill.ClientAction"
                     );
 
