@@ -4,10 +4,10 @@ using EventHorizon.Game.Server.Zone.Agent.Companion.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
 using MediatR;
-using EventHorizon.Plugin.Zone.System.Combat.Client.Messsage;
 using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Model;
+using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill
 {

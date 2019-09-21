@@ -1,4 +1,4 @@
-namespace EventHorizon.Plugin.Zone.System.Combat.Model.Life
+namespace EventHorizon.Zone.System.Combat.Model.Life
 {
     public struct LifeCondition
     {

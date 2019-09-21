@@ -1,6 +1,6 @@
 using System;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Zone.System.Combat.Model.Life;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Life
 {

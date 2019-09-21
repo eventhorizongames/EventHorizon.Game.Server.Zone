@@ -1,7 +1,7 @@
 using EventHorizon.Zone.System.Combat.Events;
 using EventHorizon.Plugin.Zone.System.Combat.Life;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Zone.System.Combat.Model.Level;
+using EventHorizon.Zone.System.Combat.Model.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Particle.Event;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Load;
 using EventHorizon.Plugin.Zone.System.Combat.Script;

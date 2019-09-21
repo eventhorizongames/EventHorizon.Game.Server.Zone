@@ -1,4 +1,4 @@
-namespace EventHorizon.Plugin.Zone.System.Combat.Model.Level
+namespace EventHorizon.Zone.System.Combat.Model.Level
 {
     public struct LevelProperty
     {

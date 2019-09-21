@@ -1,5 +1,5 @@
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
+using EventHorizon.Zone.System.Combat.Model.Level;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.Level
 {

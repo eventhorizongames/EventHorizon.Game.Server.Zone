@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Data;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Plugin.Zone.System.Combat.Model;
+using EventHorizon.Zone.System.Combat.Model;
 using System;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Zone.System.Combat.Model.Life;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.Entity.State;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.PopulateData

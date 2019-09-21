@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Level;
+using EventHorizon.Zone.System.Combat.Model.Level;
 
 namespace EventHorizon.Plugin.Zone.System.Combat.State
 {

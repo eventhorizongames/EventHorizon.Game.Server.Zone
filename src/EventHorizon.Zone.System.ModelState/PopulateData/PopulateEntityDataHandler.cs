@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.ModelState.PopulateData
         {
             var entity = notification.Entity;
 
-            entity.PopulateData<ModelDetailsState>(ModelDetailsState.PROPERTY_NAME);
+            entity.PopulateData<EntityModelState>(EntityModelState.PROPERTY_NAME);
 
             this.ValidateModelState(entity);
 
@@ -21,11 +21,11 @@ namespace EventHorizon.Zone.System.ModelState.PopulateData
 
         private void ValidateModelState(IObjectEntity entity)
         {
-            var modelState = entity.GetProperty<ModelDetailsState>(ModelDetailsState.PROPERTY_NAME);
+            var modelState = entity.GetProperty<EntityModelState>(EntityModelState.PROPERTY_NAME);
 
             if (!modelState.IsValid())
             {
-                entity.SetProperty(ModelDetailsState.PROPERTY_NAME, ModelDetailsState.DEFAULT);
+                entity.SetProperty(EntityModelState.PROPERTY_NAME, EntityModelState.DEFAULT);
             }
         }
     }

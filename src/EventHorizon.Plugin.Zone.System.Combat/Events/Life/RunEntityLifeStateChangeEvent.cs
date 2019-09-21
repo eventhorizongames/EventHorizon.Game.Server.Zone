@@ -1,4 +1,3 @@
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Events.Life

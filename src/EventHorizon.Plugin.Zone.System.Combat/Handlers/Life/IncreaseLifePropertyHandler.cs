@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Combat.Events.Life;
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Zone.System.Combat.Model.Life;
 using EventHorizon.Plugin.Zone.System.Combat.State;
 using MediatR;
 

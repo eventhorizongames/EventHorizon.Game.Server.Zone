@@ -1,6 +1,6 @@
 using EventHorizon.Zone.Core.Model.Entity;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Model
+namespace EventHorizon.Zone.System.Combat.Model
 {
     public class EntitySkillAction : EntityAction
     {

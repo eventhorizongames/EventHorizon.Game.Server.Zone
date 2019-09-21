@@ -1,6 +1,6 @@
-using EventHorizon.Plugin.Zone.System.Combat.Model.Life;
+using EventHorizon.Zone.System.Combat.Model.Life;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Model
+namespace EventHorizon.Zone.System.Combat.Model
 {
     public struct LifeState
     {

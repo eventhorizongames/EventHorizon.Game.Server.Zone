@@ -1,9 +1,9 @@
 namespace EventHorizon.Zone.System.ModelState
 {
-    public struct ModelDetailsState
+    public struct EntityModelState
     {
         public static readonly string PROPERTY_NAME = "modelState";
-        public static readonly ModelDetailsState DEFAULT = new ModelDetailsState
+        public static readonly EntityModelState DEFAULT = new EntityModelState
         {
             AnimationList = new string[0],
             Mesh = ModelMesh.DEFAULT

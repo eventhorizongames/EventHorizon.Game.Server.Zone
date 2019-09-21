@@ -16,6 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
