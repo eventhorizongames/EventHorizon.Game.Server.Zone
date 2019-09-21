@@ -5,11 +5,11 @@ using EventHorizon.Plugin.Zone.System.Combat.Skill.Save;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using EventHorizon.Plugin.Zone.System.Combat.Editor.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Model;
 using System;
-using EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query;
+using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Query;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Editor
+namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Skills
 {
     [Authorize]
     public class SkillsEditorHub : Hub

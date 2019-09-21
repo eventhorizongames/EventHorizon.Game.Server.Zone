@@ -8,7 +8,7 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.System.Client.Scripts.Editor
+namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Editor
 {
     public struct FillClientSkillsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {

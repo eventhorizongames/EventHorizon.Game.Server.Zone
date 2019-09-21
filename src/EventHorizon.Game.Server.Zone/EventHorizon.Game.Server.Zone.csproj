@@ -72,12 +72,13 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj" />
         <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat\EventHorizon.Plugin.Zone.System.Combat.csproj" />
-        <ProjectReference Include="..\EventHorizon.Plugin.Zone.System.Combat.Editor\EventHorizon.Plugin.Zone.System.Combat.Editor.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction\EventHorizon.Zone.Plugin.Interaction.csproj" />
     </ItemGroup>

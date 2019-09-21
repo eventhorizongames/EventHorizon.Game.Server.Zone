@@ -18,9 +18,9 @@ using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
-using EventHorizon.Plugin.Zone.System.Combat.Editor;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills;
 using EventHorizon.Zone.System.Editor.ExternalHub;
 using EventHorizon.Zone.System.ModelState;
 using MediatR;
@@ -136,7 +136,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemGui()
                 .AddPluginGuiEditor()
                 .AddSystemCombat()
-                .AddSystemCombatEditor()
+                .AddPluginCombatEditor()
                 .AddPluginParticleEditor()
                 .AddSystemModelState()
                 .AddSystemServerModule()
@@ -165,7 +165,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemEditorExtensions).Assembly,
                     typeof(SystemBackupExtensions).Assembly,
                     typeof(SystemCombatExtensions).Assembly,
-                    typeof(SystemCombatEditorExtensions).Assembly,
+                    typeof(SystemCombatPluginEditorExtensions).Assembly,
                     typeof(PluginParticleEditorExtensions).Assembly,
                     typeof(SystemModelExtensions).Assembly,
                     typeof(SystemServerModuleExtensions).Assembly,
@@ -224,7 +224,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UsePluginGuiEditor();
             app.UseSystemModelState();
             app.UseSystemCombat();
-            app.UseSystemCombatEditor();
+            app.UsePluginCombatEditor();
             app.UsePluginParticleEditor();
             app.UseSystemServerModule();
             app.UsePluginServerModuleEditor();

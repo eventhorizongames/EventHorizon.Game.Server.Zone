@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Plugin.Zone.System.Combat.Editor.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Model;
 using EventHorizon.Plugin.Zone.System.Combat.Skill.State;
 using MediatR;
 
-namespace EventHorizon.Plugin.Zone.System.Combat.Editor.Skills.Query
+namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Query
 {
     public struct EditorSystemCombatSkillScriptsFileQueryHandler : IRequestHandler<EditorSystemCombatSkillScriptsFileQuery, EditorSystemCombatSkillScriptsFile>
     {
