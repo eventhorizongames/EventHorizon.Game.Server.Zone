@@ -1,5 +1,5 @@
 using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
-using EventHorizon.Zone.System.Agent.Behavior.State;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using Xunit.Sdk;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State

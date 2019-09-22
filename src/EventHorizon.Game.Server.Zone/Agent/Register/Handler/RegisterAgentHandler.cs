@@ -7,7 +7,7 @@ using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Agent.Get;
-using EventHorizon.Zone.System.Agent.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
 
 namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
 {

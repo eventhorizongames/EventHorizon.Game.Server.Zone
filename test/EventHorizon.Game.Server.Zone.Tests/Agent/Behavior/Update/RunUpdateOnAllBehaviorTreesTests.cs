@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Performance;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Update;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Update;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Update.RunUpdateOnAllBehaviorTrees;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Update.RunUpdateOnAllBehaviorTrees;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Update
 {

@@ -1,5 +1,5 @@
 using System;
-using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Script

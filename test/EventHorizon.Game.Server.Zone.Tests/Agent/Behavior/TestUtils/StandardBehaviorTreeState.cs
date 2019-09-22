@@ -1,6 +1,6 @@
 using System;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Behavior.State;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
 {

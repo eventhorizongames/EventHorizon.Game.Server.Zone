@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Behavior.Timer;
-using EventHorizon.Zone.System.Agent.Behavior.Update;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Update;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Timer

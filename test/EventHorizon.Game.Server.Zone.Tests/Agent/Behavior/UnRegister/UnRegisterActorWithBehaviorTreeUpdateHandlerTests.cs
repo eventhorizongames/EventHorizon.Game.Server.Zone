@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.UnRegister;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.UnRegister;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.UnRegister.UnRegisterActorWithBehaviorTreeUpdate;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.UnRegister.UnRegisterActorWithBehaviorTreeUpdate;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.UnRegister
 {

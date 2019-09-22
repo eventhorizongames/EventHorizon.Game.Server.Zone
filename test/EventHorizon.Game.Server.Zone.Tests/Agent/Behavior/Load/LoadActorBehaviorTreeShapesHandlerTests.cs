@@ -3,14 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Load;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Load.LoadActorBehaviorScripts;
-using static EventHorizon.Zone.System.Agent.Behavior.Load.LoadActorBehaviorTreeShapes;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadActorBehaviorScripts;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadActorBehaviorTreeShapes;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Load
 {

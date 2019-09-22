@@ -4,7 +4,7 @@ using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Game.Server.Zone.Agent.Model;
 using EventHorizon.Game.Server.Zone.Agent.UnRegister;
 using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Zone.System.Agent.Behavior.UnRegister;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.UnRegister;
 using MediatR;
 using Moq;
 using Xunit;

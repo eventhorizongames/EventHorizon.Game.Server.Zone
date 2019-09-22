@@ -2,13 +2,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Plugin.Zone.Agent.Ai.Script;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Behavior.Script;
-using EventHorizon.Zone.System.Agent.Behavior.Script.Run;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Script.Run.RunBehaviorScript;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run.RunBehaviorScript;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Script.Run
 {

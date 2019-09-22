@@ -25,8 +25,8 @@
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Agent.Ai.Model;
 using EventHorizon.Zone.Core.Events.Map;
-using EventHorizon.Zone.System.Agent.Behavior.Script;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 
 
 Nullable<DateTime> nextRunDate = Actor.GetProperty<DateTime?>("NextRunTime");

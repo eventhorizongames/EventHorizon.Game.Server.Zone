@@ -1,4 +1,4 @@
-using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Model

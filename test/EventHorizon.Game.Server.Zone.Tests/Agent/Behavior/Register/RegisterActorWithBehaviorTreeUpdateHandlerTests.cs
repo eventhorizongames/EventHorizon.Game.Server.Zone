@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Register.RegisterActorWithBehaviorTreeUpdate;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Register.RegisterActorWithBehaviorTreeUpdate;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Register
 {

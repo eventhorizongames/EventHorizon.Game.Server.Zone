@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Behavior.Load;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Load.LoadAgentBehaviorSystem;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadAgentBehaviorSystem;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Load
 {

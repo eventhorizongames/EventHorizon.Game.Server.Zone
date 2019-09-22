@@ -10,7 +10,7 @@ using EventHorizon.Game.Server.Zone.Agent.Register;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {

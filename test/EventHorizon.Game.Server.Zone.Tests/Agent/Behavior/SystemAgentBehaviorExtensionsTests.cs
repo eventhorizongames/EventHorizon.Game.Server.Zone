@@ -3,12 +3,12 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone.Tests.Base;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.TimerService;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Interpreter;
-using EventHorizon.Zone.System.Agent.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Behavior.Load;
-using EventHorizon.Zone.System.Agent.Behavior.State;
-using EventHorizon.Zone.System.Agent.Behavior.Timer;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            SystemAgentBehaviorExtensions.AddSystemAgentBehavior(
+            SystemAgentBehaviorExtensions.AddSystemAgentPluginBehavior(
                 serviceCollectionMock
             );
 
@@ -166,7 +166,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             );
 
             // When
-            SystemAgentBehaviorExtensions.UseSystemAgentBehavior(
+            SystemAgentBehaviorExtensions.UseSystemAgentPluginBehavior(
                 applicationBuilderMock.Object
             );
 

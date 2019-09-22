@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Performance;
-using EventHorizon.Zone.System.Agent.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Behavior.Update;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Update;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Behavior.Update.RunBehaviorTreeUpdate;
+using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Update.RunBehaviorTreeUpdate;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Update
 {

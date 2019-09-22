@@ -14,7 +14,7 @@
 using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
-using EventHorizon.Zone.System.Agent.Behavior.Load;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 
 await Services.Mediator.Send(new LoadAgentBehaviorSystem());
 

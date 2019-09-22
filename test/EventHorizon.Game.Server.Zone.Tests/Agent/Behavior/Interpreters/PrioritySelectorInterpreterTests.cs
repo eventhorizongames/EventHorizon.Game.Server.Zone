@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Interpreters

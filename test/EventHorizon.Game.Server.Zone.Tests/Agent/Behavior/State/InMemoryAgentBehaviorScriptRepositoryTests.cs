@@ -1,6 +1,6 @@
-using EventHorizon.Zone.System.Agent.Behavior.Script;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using Xunit;
-using EventHorizon.Zone.System.Agent.Behavior.State;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.State
 {
