@@ -2,13 +2,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Plugin.Editor;
-using EventHorizon.Zone.Plugin.Editor.Builder;
+using EventHorizon.Zone.System.Editor.Model.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.Plugin.Agent.Behavior.Editor.Fill
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor.Fill
 {
     public struct FillClientAgentBehaviorEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {

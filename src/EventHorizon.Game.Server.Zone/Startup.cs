@@ -146,7 +146,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemAgent()
                 .AddSystemAgentAi()
                 .AddSystemAgentBehavior()
-                .AddPluginAgentBehaviorEditor()
+                .AddSystemAgentPluginBehaviorEditor()
                 .AddSystemClientAssets()
                 .AddPluginClientAssetsEditor()
                 .AddSystemClientEntities()
@@ -220,25 +220,36 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemServerScripts();
             app.UseSystemEditor();
             app.UseSystemBackup();
+
             app.UseSystemGui();
             app.UsePluginGuiEditor();
+            
             app.UseSystemModelState();
+            
             app.UseSystemCombat();
             app.UsePluginCombatEditor();
+
             app.UsePluginParticleEditor();
+
             app.UseSystemServerModule();
             app.UsePluginServerModuleEditor();
+
             app.UseSystemEntityModule();
             app.UsePluginEntityModuleEditor();
+
             app.UseSystemAgent();
             app.UseSystemAgentAi();
             app.UseSystemAgentBehavior();
-            app.UsePluginAgentBehaviorEditor();
+            app.UseSystemAgentPluginBehaviorEditor();
+            
             app.UseSystemClientAssets();
             app.UsePluginClientAssetsEditor();
+
             app.UseSystemClientEntities();
             app.UsePluginClientEntitiesEditor();
+
             app.UseSystemClientScripts();
+
             app.UseSystemPlayer();
 
             app.UseZoneAdmin();

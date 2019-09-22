@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Extensions;
-using EventHorizon.Zone.System.Editor.Model;
 
-namespace EventHorizon.Zone.Plugin.Editor.Builder
+namespace EventHorizon.Zone.System.Editor.Model.Builder
 {
     public static class LoadEditorNodeFromPath
     {

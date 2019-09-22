@@ -1,4 +1,4 @@
-namespace EventHorizon.Zone.Plugin.Editor
+namespace EventHorizon.Zone.System.Editor.Model
 {
     public static class EditorNodePropertySupportKeys
     {

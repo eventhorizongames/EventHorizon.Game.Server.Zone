@@ -2,10 +2,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Plugin.Editor;
-using EventHorizon.Zone.Plugin.Editor.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
+using EventHorizon.Zone.System.Editor.Model.Builder;
 using MediatR;
 
 namespace EventHorizon.Zone.Plugin.ClientAssets.Editor.Fill

@@ -6,10 +6,10 @@ namespace EventHorizon.Game.Server.Zone
 {
     public static class PluginAgentBehaviorEditorExtensions
     {
-        public static IServiceCollection AddPluginAgentBehaviorEditor(
+        public static IServiceCollection AddSystemAgentPluginBehaviorEditor(
             this IServiceCollection services
         ) => services;
-        public static IApplicationBuilder UsePluginAgentBehaviorEditor(
+        public static IApplicationBuilder UseSystemAgentPluginBehaviorEditor(
             this IApplicationBuilder app
         ) => app;
     }
