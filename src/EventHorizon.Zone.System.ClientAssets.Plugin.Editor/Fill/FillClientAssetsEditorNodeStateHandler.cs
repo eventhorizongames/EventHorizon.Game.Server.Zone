@@ -7,7 +7,7 @@ using EventHorizon.Zone.System.Editor.Model;
 using EventHorizon.Zone.System.Editor.Model.Builder;
 using MediatR;
 
-namespace EventHorizon.Zone.Plugin.ClientAssets.Editor.Fill
+namespace EventHorizon.Zone.System.ClientAssets.Plugin.Editor.Fill
 {
     public struct FillClientAssetsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
