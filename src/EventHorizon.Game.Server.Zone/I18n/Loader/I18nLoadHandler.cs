@@ -2,13 +2,16 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Game.I18n;
+using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Model;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
+using IOPath = System.IO.Path;
 
-namespace EventHorizon.Game.I18n.Loader
+namespace EventHorizon.Game.Server.Zone.I18n.Loader
 {
     public class I18nLoadHandler : INotificationHandler<I18nLoadEvent>
     {
@@ -36,7 +39,7 @@ namespace EventHorizon.Game.I18n.Loader
         )
         {
             await LoadDirectoryIntoRepository(
-                Path.Combine(
+                IOPath.Combine(
                     _serverInfo.I18nPath
                 )
             );

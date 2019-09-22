@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Model;
+using EventHorizon.Game.Server.Zone.I18n.Loader;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.Tests.I81n.Loader
+namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 {
     public class I18nLoadHandlerTests
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Extensions;
 using MediatR;
 
 namespace EventHorizon.Game.I18n.Fetch
@@ -25,7 +25,9 @@ namespace EventHorizon.Game.I18n.Fetch
             var i18nRepo = _i18nRepo.GetRepository(
                 request.Locale ?? DEFAULT_LOCALE
             );
-            if (i18nRepo.IsEmpty())
+            if (IsEmpty(
+                i18nRepo
+            ))
             {
                 i18nRepo = _i18nRepo.GetRepository(
                     DEFAULT_LOCALE
@@ -34,6 +36,12 @@ namespace EventHorizon.Game.I18n.Fetch
             return Task.FromResult(
                 i18nRepo
             );
+        }
+        public bool IsEmpty<TSource>(
+            IEnumerable<TSource> source
+        )
+        {
+            return !source?.Any() ?? true;
         }
     }
 }

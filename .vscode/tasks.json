@@ -17,7 +17,7 @@
         },
         {
             "label": "test",
-            "command": "${workspaceFolder}/_scripts/test.main.ps1",
+            "command": "${workspaceFolder}/_scripts/run.main.test.report.ps1",
             "type": "shell",
             "problemMatcher": "$msCompile",
             "group": {
