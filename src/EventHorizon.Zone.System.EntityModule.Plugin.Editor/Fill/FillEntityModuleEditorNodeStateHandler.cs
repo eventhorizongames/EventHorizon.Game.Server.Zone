@@ -8,7 +8,7 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.Plugin.EntityModule.Editor
+namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
 {
     public struct FillEntityModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
