@@ -6,7 +6,7 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.Plugin.ClientEntities.Editor.Fill
+namespace EventHorizon.Zone.System.ClientEntities.Plugin.Editor.Fill
 {
     public struct FillClientEntitiesEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {

@@ -61,7 +61,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Plugin.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Plugin.Interaction", "src\EventHorizon.Zone.Plugin.Interaction\EventHorizon.Zone.Plugin.Interaction.csproj", "{7DC4AA9D-9975-497D-AE95-C54AAF934207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Plugin.ClientEntities.Editor", "src\EventHorizon.Zone.Plugin.ClientEntities.Editor\EventHorizon.Zone.Plugin.ClientEntities.Editor.csproj", "{6566F390-73D4-42C8-ADF5-E1E041DDBF50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientEntities.Plugin.Editor", "src\EventHorizon.Zone.System.ClientEntities.Plugin.Editor\EventHorizon.Zone.System.ClientEntities.Plugin.Editor.csproj", "{6566F390-73D4-42C8-ADF5-E1E041DDBF50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Plugin.Gui.Editor", "src\EventHorizon.Zone.Plugin.Gui.Editor\EventHorizon.Zone.Plugin.Gui.Editor.csproj", "{790D09E8-EE0D-4923-A6B1-6CF5EF87E074}"
 EndProject
