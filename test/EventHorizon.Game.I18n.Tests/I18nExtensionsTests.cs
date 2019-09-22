@@ -1,16 +1,15 @@
 using System;
 using System.Threading;
-using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Lookup;
-using EventHorizon.Game.Server.Zone.Tests.TestUtil;
+using EventHorizon.Game.I18n.Tests.TestUtils;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.Tests.I81n
+namespace EventHorizon.Game.I18n.Tests
 {
     public class I18nExtensionsTests
     {

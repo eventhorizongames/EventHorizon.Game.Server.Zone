@@ -3,7 +3,7 @@ using EventHorizon.Game.I18n.Lookup;
 using EventHorizon.Game.I18n.Model;
 using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.Tests.I81n.Repository
+namespace EventHorizon.Game.I18n.Tests.Repository
 {
     public class I18nLookupRepositoryTests
     {

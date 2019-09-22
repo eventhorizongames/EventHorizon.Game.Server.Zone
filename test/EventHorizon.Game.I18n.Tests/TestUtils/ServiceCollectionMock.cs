@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone.Tests.TestUtil
+namespace EventHorizon.Game.I18n.Tests.TestUtils
 {
     public class ServiceCollectionMock : IServiceCollection
     {

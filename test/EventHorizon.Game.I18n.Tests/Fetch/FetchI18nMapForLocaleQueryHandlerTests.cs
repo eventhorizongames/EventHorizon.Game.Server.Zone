@@ -6,7 +6,7 @@ using EventHorizon.Game.I18n.Fetch;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Game.Server.Zone.I18n.Tests.Fetch
+namespace EventHorizon.Game.I18n.Tests.Fetch
 {
     public class FetchI18nMapForLocaleQueryHandlerTests
     {
