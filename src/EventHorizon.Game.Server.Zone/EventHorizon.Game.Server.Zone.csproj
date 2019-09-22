@@ -52,7 +52,7 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.Plugin.Particle.Editor\EventHorizon.Zone.Plugin.Particle.Editor.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Plugin.Editor\EventHorizon.Zone.System.Particle.Plugin.Editor.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Plugin.ServerModule.Editor\EventHorizon.Zone.Plugin.ServerModule.Editor.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />

@@ -7,7 +7,7 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
-namespace EventHorizon.Zone.Plugin.Particle.Editor.Fill
+namespace EventHorizon.Zone.System.Particle.Plugin.Editor.Fill
 {
     public struct FillParticleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
