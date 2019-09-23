@@ -28,7 +28,7 @@ namespace EventHorizon.Game.I18n.Tests.Model
         public void TestWhenTranslationListSetShouldReturnedExpectly()
         {
             // Given
-            var expectedTranslationMap = new Dictionary<string, string> ();
+            var expectedTranslationMap = new Dictionary<string, string>();
 
             // When
             var actual = new I18nFile
