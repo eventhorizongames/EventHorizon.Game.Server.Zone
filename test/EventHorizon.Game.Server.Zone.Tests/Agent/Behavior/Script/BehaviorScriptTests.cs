@@ -41,7 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.Script
         {
             // Given
             var scriptId = "hello-world";
-            var scriptContent = "using this;";
+            var scriptContent = "var mediator = Services.Mediator;";
             var expectedMessage = $"Exception with {scriptId}";
 ;
             // When
