@@ -21,7 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil.Models;
 

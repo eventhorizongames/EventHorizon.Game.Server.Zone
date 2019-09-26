@@ -1,13 +1,6 @@
 using Xunit;
-using Moq;
-using Microsoft.Extensions.DependencyInjection;
-using MediatR;
-using System;
-using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
-using Microsoft.Extensions.Logging;
-using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Move;
-using static EventHorizon.Game.Server.Zone.Agent.Move.Impl.MoveRegisteredAgentsTimer;
+using EventHorizon.Zone.System.Agent.Move.Impl;
+using EventHorizon.Zone.System.Agent.Events.Move;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Impl
 {

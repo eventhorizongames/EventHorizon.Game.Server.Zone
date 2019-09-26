@@ -1,8 +1,7 @@
-using System.Linq;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl
+namespace EventHorizon.Zone.System.Agent.Move.Repository.Impl
 {
     public class MoveAgentRepository : IMoveAgentRepository
     {

@@ -4,7 +4,7 @@ using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Save
+namespace EventHorizon.Zone.System.Agent.Save
 {
     public class SaveAgentStateScheduledTask : IScheduledTask
     {

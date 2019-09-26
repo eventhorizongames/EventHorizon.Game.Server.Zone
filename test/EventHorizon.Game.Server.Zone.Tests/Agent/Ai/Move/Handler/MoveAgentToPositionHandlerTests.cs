@@ -1,18 +1,18 @@
 using Xunit;
 using Moq;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Get;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Move;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Events.Path;
-using static EventHorizon.Game.Server.Zone.Agent.Ai.Move.MoveAgentToPosition;
-using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
+using static EventHorizon.Zone.System.Agent.Plugin.Ai.Move.MoveAgentToPosition;
+using EventHorizon.Zone.System.Agent.Plugin.Ai.Move;
 using EventHorizon.Performance;
+using EventHorizon.Zone.System.Agent.Events.Get;
+using EventHorizon.Zone.System.Agent.Events.Move;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Ai.Move.Handler
 {

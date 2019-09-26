@@ -1,26 +1,25 @@
 using Xunit;
 using Moq;
 using Microsoft.Extensions.DependencyInjection;
-using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Zone.System.Agent;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
 using EventHorizon.Schedule;
-using EventHorizon.Game.Server.Zone.Agent.State.Impl;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
-using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
-using EventHorizon.Game.Server.Zone.Agent.Save;
+using EventHorizon.Zone.System.Agent.State.Impl;
+using EventHorizon.Zone.System.Agent.Move.Repository.Impl;
+using EventHorizon.Zone.System.Agent.Move.Impl;
+using EventHorizon.Zone.System.Agent.Save;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Microsoft.AspNetCore.Builder;
 using System;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Agent.Startup;
+using EventHorizon.Zone.System.Agent.Startup;
 using System.Threading;
 using EventHorizon.TimerService;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent.Connection.Factory;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Connection.Factory;
+using EventHorizon.Zone.System.Agent.Model.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {

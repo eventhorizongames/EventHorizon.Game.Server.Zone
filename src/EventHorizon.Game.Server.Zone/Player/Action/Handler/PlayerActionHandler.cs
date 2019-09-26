@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Newtonsoft.Json.Linq;
-using EventHorizon.Game.Server.Zone.Agent.Companion.RunSkill;
+using EventHorizon.Zone.System.Agent.Plugin.Companion.RunSkill;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Actions;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;

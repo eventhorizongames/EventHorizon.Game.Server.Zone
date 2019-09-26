@@ -3,7 +3,7 @@ using Moq;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using EventHorizon.Game.Server.Zone.Agent.Save;
+using EventHorizon.Zone.System.Agent.Save;
 using System.Threading.Tasks;
 using System.Threading;
 

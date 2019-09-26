@@ -4,7 +4,7 @@ using System.Net;
 using System.Reflection;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.Server.Zone.Admin.Bus;
-using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Zone.System.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;

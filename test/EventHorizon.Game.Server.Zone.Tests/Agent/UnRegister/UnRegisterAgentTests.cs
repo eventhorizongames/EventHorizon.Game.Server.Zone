@@ -1,14 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Get;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.UnRegister;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.UnRegister;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.UnRegister;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Game.Server.Zone.Agent.UnRegister.UnRegisterAgent;
+using static EventHorizon.Zone.System.Agent.UnRegister.UnRegisterAgent;
+using EventHorizon.Zone.System.Agent.Events.Get;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.UnRegister
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Connections.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Connection
+namespace EventHorizon.Zone.System.Agent.Connection
 {
     public interface IAgentConnectionCache
     {

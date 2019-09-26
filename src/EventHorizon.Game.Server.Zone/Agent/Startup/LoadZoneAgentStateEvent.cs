@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Startup
+namespace EventHorizon.Zone.System.Agent.Startup
 {
     public struct LoadZoneAgentStateEvent : IRequest
     {

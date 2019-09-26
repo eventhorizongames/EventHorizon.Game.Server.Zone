@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
+using EventHorizon.Zone.System.Agent.Move.Repository;
 using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
+namespace EventHorizon.Zone.System.Agent.Move.Handler
 {
     public class MoveRegisteredAgentsHandler : INotificationHandler<MoveRegisteredAgentsEvent>
     {

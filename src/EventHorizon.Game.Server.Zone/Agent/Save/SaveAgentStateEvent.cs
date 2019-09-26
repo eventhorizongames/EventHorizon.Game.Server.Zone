@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Save
+namespace EventHorizon.Zone.System.Agent.Save
 {
     public struct SaveAgentStateEvent : INotification
     {

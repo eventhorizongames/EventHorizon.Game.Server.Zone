@@ -1,12 +1,8 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Schedule;
 using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Agent.Events.Move;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Impl
+namespace EventHorizon.Zone.System.Agent.Move.Impl
 {
     public class MoveRegisteredAgentsTimer : ITimerTask
     {

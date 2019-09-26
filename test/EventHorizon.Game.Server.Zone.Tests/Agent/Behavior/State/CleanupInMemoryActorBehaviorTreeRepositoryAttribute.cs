@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
+using EventHorizon.Zone.System.Agent.Move.Repository.Impl;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using Xunit.Sdk;
 

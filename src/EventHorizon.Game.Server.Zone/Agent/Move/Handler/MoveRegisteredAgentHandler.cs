@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
+namespace EventHorizon.Zone.System.Agent.Move.Handler
 {
     public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>
     {

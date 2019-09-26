@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Move;
-using EventHorizon.Game.Server.Zone.Agent.Move.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Move.Handler;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Events.Move;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {

@@ -1,13 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Ai;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
-using EventHorizon.Game.Server.Zone.State.Repository;
+using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model.State;
 using MediatR;
-using EventHorizon.Zone.Core.Model.Entity;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Move.Handler
+namespace EventHorizon.Zone.System.Agent.Move.Handler
 {
     public class QueueAgentToMoveHandler : INotificationHandler<QueueAgentToMoveEvent>
     {

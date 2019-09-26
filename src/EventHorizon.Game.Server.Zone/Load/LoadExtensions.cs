@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Agent.Startup;
+using EventHorizon.Zone.System.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.IdPool;
 using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
 using EventHorizon.Game.Server.Zone.Core.Model;

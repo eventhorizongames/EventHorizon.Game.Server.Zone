@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Plugin.Zone.Agent.Ai.Script;
+using EventHorizon.Zone.System.Agent.Plugin.Ai.Script;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
@@ -52,6 +52,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
                         scriptOptions,
                         typeof(BehaviorScriptData)
                     );
+                // This will try and complie the script.
+                // If it fails the Catch will capture this and the passed on to the loader.
+                runner.CreateDelegate();
                 runner.Compile();
                 return new BehaviorScript(
                     id,

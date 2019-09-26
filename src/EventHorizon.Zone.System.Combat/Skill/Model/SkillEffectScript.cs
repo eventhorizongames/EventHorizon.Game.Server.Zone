@@ -49,7 +49,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Model
                         "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Zone.Core.Events.Entity.Movement",
-                        "EventHorizon.Game.Server.Zone.Agent.Ai.Move",
+                        "EventHorizon.Zone.System.Agent.Plugin.Ai.Move",
 
                         // TODO: Move these to the Script using statements
                         "EventHorizon.Zone.System.Combat.Skill.Model",

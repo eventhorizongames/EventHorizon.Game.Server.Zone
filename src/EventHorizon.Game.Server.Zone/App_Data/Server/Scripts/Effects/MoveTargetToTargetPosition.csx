@@ -9,6 +9,8 @@
 /// Services: { Mediator: IMediator; I18n: I18nLookup; }
 /// </summary>
 
+using EventHorizon.Zone.System.Agent.Plugin.Ai.Move;
+
 await Services.Mediator.Send(new MoveAgentToPosition
 {
     AgentId = Target.Id,

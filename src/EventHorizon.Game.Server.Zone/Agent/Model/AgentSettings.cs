@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Agent.Model
+namespace EventHorizon.Zone.System.Agent.Model
 {
     public class AgentSettings
     {

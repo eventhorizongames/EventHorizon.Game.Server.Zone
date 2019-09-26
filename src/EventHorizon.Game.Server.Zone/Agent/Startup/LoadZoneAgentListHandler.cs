@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent.Mapper;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Register;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Mapper;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Register;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Zone.Core.Model.Json;
@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using IOPath = System.IO.Path;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Startup
+namespace EventHorizon.Zone.System.Agent.Startup
 {
     public class LoadZoneAgentStateHandler : IRequestHandler<LoadZoneAgentStateEvent, Unit>
     {

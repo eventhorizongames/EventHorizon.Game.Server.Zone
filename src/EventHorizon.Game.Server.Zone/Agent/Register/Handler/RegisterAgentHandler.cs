@@ -1,26 +1,32 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.PopulateData;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Agent.Get;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Events.Get;
+using EventHorizon.Zone.System.Agent.Events.PopulateData;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
+namespace EventHorizon.Zone.System.Agent.Register.Handler
 {
     public class RegisterAgentHandler : IRequestHandler<RegisterAgentEvent, AgentEntity>
     {
         readonly IMediator _mediator;
         readonly IAgentRepository _agentRepository;
-        public RegisterAgentHandler(IMediator mediator, IAgentRepository agentRepository)
+        public RegisterAgentHandler(
+            IMediator mediator,
+            IAgentRepository agentRepository
+        )
         {
             _mediator = mediator;
             _agentRepository = agentRepository;
         }
-        public async Task<AgentEntity> Handle(RegisterAgentEvent request, CancellationToken cancellationToken)
+        public async Task<AgentEntity> Handle(
+            RegisterAgentEvent request,
+            CancellationToken cancellationToken
+        )
         {
             // Check for already existing Agent Entity
             var agent = await CheckAndRegisterAgent(
@@ -43,27 +49,37 @@ namespace EventHorizon.Game.Server.Zone.Agent.Register.Handler
             return agent;
         }
 
-        private async Task<AgentEntity> CheckAndRegisterAgent(AgentEntity newAgent)
+        private async Task<AgentEntity> CheckAndRegisterAgent(
+            AgentEntity newAgent
+        )
         {
             var agent = await _mediator.Send(
-                new FindAgentByIdEvent(newAgent.AgentId)
+                new FindAgentByIdEvent(
+                    newAgent.AgentId
+                )
             );
             if (!agent.IsFound())
             {
                 // Agent was not found, register new.
-                await _mediator.Publish(new PopulateAgentEntityDataEvent
-                {
-                    Agent = newAgent,
-                });
-                var registeredEntity = await _mediator.Send(new RegisterEntityEvent
-                {
-                    Entity = newAgent,
-                });
+                await _mediator.Publish(
+                    new PopulateAgentEntityDataEvent
+                    {
+                        Agent = newAgent,
+                    }
+                );
+                var registeredEntity = await _mediator.Send(
+                    new RegisterEntityEvent
+                    {
+                        Entity = newAgent,
+                    }
+                );
                 if (!registeredEntity.IsFound())
                 {
                     return AgentEntity.CreateNotFound();
                 }
-                agent = await _agentRepository.FindById(registeredEntity.Id);
+                agent = await _agentRepository.FindById(
+                    registeredEntity.Id
+                );
                 if (!agent.IsFound())
                 {
                     return AgentEntity.CreateNotFound();

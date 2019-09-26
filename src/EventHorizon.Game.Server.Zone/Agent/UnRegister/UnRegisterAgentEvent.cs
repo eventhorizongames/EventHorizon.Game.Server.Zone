@@ -1,15 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Get;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Model;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.UnRegister;
+using EventHorizon.Zone.System.Agent.Events.Get;
 
-namespace EventHorizon.Game.Server.Zone.Agent.UnRegister
+namespace EventHorizon.Zone.System.Agent.UnRegister
 {
     public struct UnRegisterAgent : IRequest
     {

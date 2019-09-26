@@ -1,13 +1,12 @@
 using Xunit;
 using Moq;
 using MediatR;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Move.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Move;
+using EventHorizon.Zone.System.Agent.Move.Handler;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Threading;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Events.Move;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {

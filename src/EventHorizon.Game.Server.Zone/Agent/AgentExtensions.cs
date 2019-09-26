@@ -1,19 +1,18 @@
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Move.Impl;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Move.Repository.Impl;
-using EventHorizon.Game.Server.Zone.Agent.Save;
-using EventHorizon.Game.Server.Zone.Agent.Startup;
-using EventHorizon.Game.Server.Zone.Agent.State.Impl;
-using EventHorizon.Game.Server.Zone.State.Repository;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Move.Impl;
+using EventHorizon.Zone.System.Agent.Move.Repository.Impl;
+using EventHorizon.Zone.System.Agent.Save;
+using EventHorizon.Zone.System.Agent.Startup;
+using EventHorizon.Zone.System.Agent.State.Impl;
 using EventHorizon.Schedule;
 using EventHorizon.TimerService;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent
+namespace EventHorizon.Zone.System.Agent
 {
     public static class AgentExtensions
     {

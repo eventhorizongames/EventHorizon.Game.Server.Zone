@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.State.Repository;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent.State.Impl
+namespace EventHorizon.Zone.System.Agent.State.Impl
 {
     public class AgentRepository : IAgentRepository
     {

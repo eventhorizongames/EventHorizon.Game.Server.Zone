@@ -1,16 +1,16 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Game.Server.Zone.Agent.Register.Handler;
+using EventHorizon.Zone.System.Agent.Register.Handler;
 using MediatR;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Register;
+using EventHorizon.Zone.System.Agent.Register;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+using EventHorizon.Zone.System.Agent.Model.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -60,21 +60,35 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 expectedAgent
             );
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            agentRepositoryMock.Setup(agentRepository => agentRepository.FindById(entityId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                agentRepository => agentRepository.FindById(
+                    entityId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
 
             // When
             var registerAgentHandler = new RegisterAgentHandler(
                 mediatorMock.Object,
                 agentRepositoryMock.Object
             );
-            var actual = await registerAgentHandler.Handle(new RegisterAgentEvent
-            {
-                Agent = inputAgent
-            }, CancellationToken.None);
+            var actual = await registerAgentHandler.Handle(
+                new RegisterAgentEvent
+                {
+                    Agent = inputAgent
+                }, 
+                CancellationToken.None
+            );
 
             // Then
-            Assert.True(actual.IsFound());
-            Assert.Equal(expectedAgent, actual);
+            Assert.True(
+                actual.IsFound()
+            );
+            Assert.Equal(
+                expectedAgent, 
+                actual
+            );
 
             mediatorMock.Verify(
                 mediator => mediator.Send(
@@ -101,7 +115,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var inputAgent = new AgentEntity();
 
             var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(mediator => mediator.Send(It.IsAny<RegisterEntityEvent>(), CancellationToken.None)).ReturnsAsync(default(AgentEntity));
+            mediatorMock.Setup(
+                mediator => mediator.Send(
+                    It.IsAny<RegisterEntityEvent>(), 
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                default(AgentEntity)
+            );
             var agentRepositoryMock = new Mock<IAgentRepository>();
 
             // When
@@ -109,15 +130,32 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 mediatorMock.Object,
                 agentRepositoryMock.Object
             );
-            var actual = await registerAgentHandler.Handle(new RegisterAgentEvent
-            {
-                Agent = inputAgent
-            }, CancellationToken.None);
+            var actual = await registerAgentHandler.Handle(
+                new RegisterAgentEvent
+                {
+                    Agent = inputAgent
+                }, 
+                CancellationToken.None
+            );
 
             // Then
-            Assert.False(actual.IsFound());
-            agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), CancellationToken.None), Times.Never());
+            Assert.False(
+                actual.IsFound()
+            );
+            agentRepositoryMock.Verify(
+                a => a.Update(
+                    It.IsAny<AgentAction>(), 
+                    It.IsAny<AgentEntity>()
+                ), 
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), 
+                    CancellationToken.None
+                ), 
+                Times.Never()
+            );
         }
         [Fact]
         public async Task TestHandle_ShouldReturnNotFoundAgentWhenAgentEntityIsNotFoundInRepository()
@@ -158,15 +196,32 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 mediatorMock.Object,
                 agentRepositoryMock.Object
             );
-            var actual = await registerAgentHandler.Handle(new RegisterAgentEvent
-            {
-                Agent = inputAgent
-            }, CancellationToken.None);
+            var actual = await registerAgentHandler.Handle(
+                new RegisterAgentEvent
+                {
+                    Agent = inputAgent
+                }, 
+                CancellationToken.None
+            );
 
             // Then
-            Assert.False(actual.IsFound());
-            agentRepositoryMock.Verify(a => a.Update(It.IsAny<AgentAction>(), It.IsAny<AgentEntity>()), Times.Never());
-            mediatorMock.Verify(mediator => mediator.Send(It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), CancellationToken.None), Times.Never());
+            Assert.False(
+                actual.IsFound()
+            );
+            agentRepositoryMock.Verify(
+                a => a.Update(
+                    It.IsAny<AgentAction>(), 
+                    It.IsAny<AgentEntity>()
+                ), 
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Send(
+                    It.IsAny<RegisterActorWithBehaviorTreeUpdate>(), 
+                    CancellationToken.None
+                ), 
+                Times.Never()
+            );
         }
     }
 }

@@ -1,8 +1,8 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.Agent.State.Impl;
+using EventHorizon.Zone.System.Agent.State.Impl;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 

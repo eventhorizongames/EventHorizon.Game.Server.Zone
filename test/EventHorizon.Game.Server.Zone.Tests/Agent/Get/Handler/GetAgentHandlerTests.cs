@@ -1,11 +1,11 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Get.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Get;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Get;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Events.Get;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
 {
@@ -21,16 +21,30 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
             {
                 Id = inputId
             };
-            agentRepositoryMock.Setup(a => a.FindById(inputId)).ReturnsAsync(expectedAgent);
+            agentRepositoryMock.Setup(
+                a => a.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                expectedAgent
+            );
 
             // When
-            var getAgentHandler = new GetAgentHandler(agentRepositoryMock.Object);
-            var actual = await getAgentHandler.Handle(new GetAgentEvent
-            {
-                EntityId = inputId
-            }, CancellationToken.None);
+            var getAgentHandler = new GetAgentHandler(
+                agentRepositoryMock.Object
+            );
+            var actual = await getAgentHandler.Handle(
+                new GetAgentEvent
+                {
+                    EntityId = inputId
+                }, 
+                CancellationToken.None
+            );
             // Then
-            Assert.Equal(expectedAgent, actual);
+            Assert.Equal(
+                expectedAgent, 
+                actual
+            );
         }
     }
 }

@@ -1,7 +1,7 @@
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Register
+namespace EventHorizon.Zone.System.Agent.Register
 {
     public struct RegisterAgentEvent : IRequest<AgentEntity>
     {

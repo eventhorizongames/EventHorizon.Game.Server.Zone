@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent.Mapper;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Core.Json;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Mapper;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Game.Server.Zone.Load.Settings.Model;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using EventHorizon.Performance;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using IOPath = System.IO.Path;
+using EventHorizon.Zone.System.Agent.Model.State;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Save.Handler
+namespace EventHorizon.Zone.System.Agent.Save.Handler
 {
     public class SaveAgentStateHandler : INotificationHandler<SaveAgentStateEvent>
     {

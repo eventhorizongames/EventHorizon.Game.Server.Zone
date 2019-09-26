@@ -1,12 +1,12 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.State.Repository;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Agent.Get.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Get;
+using EventHorizon.Zone.System.Agent.Get;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Events.Get;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
 {
@@ -29,15 +29,30 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
                 expectedAgent1,
                 expectedAgent2
             };
-            agentRepositoryMock.Setup(a => a.All()).ReturnsAsync(expectedAgentList);
+            agentRepositoryMock.Setup(
+                a => a.All()
+            ).ReturnsAsync(
+                expectedAgentList
+            );
 
             // When
-            var getAgentHandler = new GetAgentListHandler(agentRepositoryMock.Object);
-            var actual = await getAgentHandler.Handle(new GetAgentListEvent(), CancellationToken.None);
+            var getAgentHandler = new GetAgentListHandler(
+                agentRepositoryMock.Object
+            );
+            var actual = await getAgentHandler.Handle(
+                new GetAgentListEvent(),
+                CancellationToken.None
+            );
             // Then
             Assert.Collection(actual,
-                agent => Assert.Equal(expectedAgent1, agent),
-                agent => Assert.Equal(expectedAgent2, agent)
+                agent => Assert.Equal(
+                    expectedAgent1,
+                    agent
+                ),
+                agent => Assert.Equal(
+                    expectedAgent2,
+                    agent
+                )
             );
         }
     }

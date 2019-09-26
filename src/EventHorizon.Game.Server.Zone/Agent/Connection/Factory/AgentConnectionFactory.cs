@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Connection.Factory
+namespace EventHorizon.Zone.System.Agent.Connection.Factory
 {
     public class AgentConnectionFactory : IAgentConnectionFactory
     {

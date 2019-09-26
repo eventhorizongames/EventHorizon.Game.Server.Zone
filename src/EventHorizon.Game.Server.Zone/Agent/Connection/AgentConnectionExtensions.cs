@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent.Connection.Factory;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Connection.Factory;
+using EventHorizon.Zone.System.Agent.Model;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone.Agent
+namespace EventHorizon.Zone.System.Agent
 {
     public static class AgentConnectionExtensions
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Connection
+namespace EventHorizon.Zone.System.Agent.Connection
 {
     public interface IAgentConnectionFactory
     {

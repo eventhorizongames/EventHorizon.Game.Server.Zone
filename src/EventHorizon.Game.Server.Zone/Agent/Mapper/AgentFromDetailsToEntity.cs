@@ -1,14 +1,14 @@
 
 using System;
 using EventHorizon.Game.Server.Core.Player.Model;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Mapper
+namespace EventHorizon.Zone.System.Agent.Mapper
 {
     public class AgentFromDetailsToEntity
     {

@@ -17,8 +17,8 @@
 /// </summary>
 
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Agent.Move;
-using EventHorizon.Game.Server.Zone.Agent.Ai.Move;
+using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Plugin.Ai.Move;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.Core.Events.Client.Actions;

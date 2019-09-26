@@ -1,20 +1,19 @@
 using Xunit;
 using Moq;
-using EventHorizon.Game.Server.Zone.Core.Json;
-using EventHorizon.Game.Server.Zone.State.Repository;
 using Microsoft.AspNetCore.Hosting;
 using EventHorizon.Performance;
-using EventHorizon.Game.Server.Zone.Agent.Save.Handler;
-using EventHorizon.Game.Server.Zone.Agent.Save;
+using EventHorizon.Zone.System.Agent.Save.Handler;
+using EventHorizon.Zone.System.Agent.Save;
 using System.Threading.Tasks;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using IOPath = System.IO.Path;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Load.Settings.Model;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent;
 using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.Agent.Model.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
 {
@@ -42,8 +41,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 inputAgent1,
                 inputAgent2,
             };
-            var expectedContentRootPath = IOPath.Combine("some", "content", "path");
-            var expectedDirectory = IOPath.Combine(expectedContentRootPath, "App_Data");
+            var expectedContentRootPath = IOPath.Combine(
+                "some",
+                "content",
+                "path"
+            );
+            var expectedDirectory = IOPath.Combine(
+                expectedContentRootPath,
+                "App_Data"
+            );
             var expectedFileName = "Agent.state.json";
 
             var zoneSettingsMock = new Mock<ZoneSettings>();
@@ -53,8 +59,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var performanceTrackerMock = new Mock<IPerformanceTracker>();
             var agentConnectionMock = new Mock<IAgentConnection>();
 
-            hostingEnvironmentMock.Setup(hostingEnvironment => hostingEnvironment.ContentRootPath).Returns(expectedContentRootPath);
-            agentRepositoryMock.Setup(agentRepository => agentRepository.All()).ReturnsAsync(inputAgentList);
+            hostingEnvironmentMock.Setup(
+                hostingEnvironment => hostingEnvironment.ContentRootPath
+            ).Returns(
+                expectedContentRootPath
+            );
+            agentRepositoryMock.Setup(
+                agentRepository => agentRepository.All()
+            ).ReturnsAsync(
+                inputAgentList
+            );
 
             // When
             var saveAgentStateHandler = new SaveAgentStateHandler(
@@ -66,13 +80,31 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 performanceTrackerMock.Object
             );
 
-            await saveAgentStateHandler.Handle(new SaveAgentStateEvent(), CancellationToken.None);
+            await saveAgentStateHandler.Handle(
+                new SaveAgentStateEvent(),
+                CancellationToken.None
+            );
 
             // Then
-            agentConnectionMock.Verify(a => a.SendAction("UpdateAgent", It.IsAny<AgentDetails>()));
-            agentRepositoryMock.Verify(agentRepository => agentRepository.All());
-            hostingEnvironmentMock.Verify(hostingEnvironment => hostingEnvironment.ContentRootPath);
-            jsonFileSaverMock.Verify(jsonFileSaver => jsonFileSaver.SaveToFile(expectedDirectory, expectedFileName, It.IsAny<AgentSaveState>()));
+            agentConnectionMock.Verify(
+                a => a.SendAction(
+                    "UpdateAgent",
+                    It.IsAny<AgentDetails>()
+                )
+            );
+            agentRepositoryMock.Verify(
+                agentRepository => agentRepository.All()
+            );
+            hostingEnvironmentMock.Verify(
+                hostingEnvironment => hostingEnvironment.ContentRootPath
+            );
+            jsonFileSaverMock.Verify(
+                jsonFileSaver => jsonFileSaver.SaveToFile(
+                    expectedDirectory,
+                    expectedFileName,
+                    It.IsAny<AgentSaveState>()
+                )
+            );
         }
     }
 }

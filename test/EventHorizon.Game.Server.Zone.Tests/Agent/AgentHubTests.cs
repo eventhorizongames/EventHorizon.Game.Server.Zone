@@ -2,14 +2,14 @@ using Xunit;
 using Moq;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
-using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Zone.System.Agent;
 using System.Threading.Tasks;
 using System;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model;
 using System.Threading;
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Agent.Get;
+using EventHorizon.Zone.System.Agent.Events.Get;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {
@@ -23,17 +23,31 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
 
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
-            contextMock.Setup(a => a.User).Returns(userMock.Object);
-            userMock.Setup(a => a.IsInRole(inputAdminRole)).Returns(true);
+            contextMock.Setup(
+                a => a.User
+            ).Returns(
+                userMock.Object
+            );
+            userMock.Setup(
+                a => a.IsInRole(
+                    inputAdminRole
+                )
+            ).Returns(
+                true
+            );
 
             // When
-            var agentHub = new AgentHub(null);
+            var agentHub = new AgentHub(
+                null
+            );
             agentHub.Context = contextMock.Object;
 
             await agentHub.OnConnectedAsync();
 
             // Then
-            Assert.True(true);
+            Assert.True(
+                true
+            );
         }
         [Fact]
         public async Task TestOnConnectedAsync_ShouldThrowNoRoleExceptionWhenUserIsNotInAdminRole()
@@ -44,11 +58,23 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
 
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
-            contextMock.Setup(a => a.User).Returns(userMock.Object);
-            userMock.Setup(a => a.IsInRole(inputAdminRole)).Returns(false);
+            contextMock.Setup(
+                a => a.User
+            ).Returns(
+                userMock.Object
+            );
+            userMock.Setup(
+                a => a.IsInRole(
+                    inputAdminRole
+                )
+            ).Returns(
+                false
+            );
 
             // When
-            var agentHub = new AgentHub(null);
+            var agentHub = new AgentHub(
+                null
+            );
             agentHub.Context = contextMock.Object;
             try
             {
@@ -57,7 +83,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
             }
             catch (Exception ex)
             {
-                Assert.Equal(expectedMessage, ex.Message);
+                Assert.Equal(
+                    expectedMessage, 
+                    ex.Message
+                );
             }
         }
         [Fact]
@@ -76,17 +105,40 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
             var expectedGetAgentListEvent = new GetAgentListEvent();
 
             var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(a => a.Send(expectedGetAgentListEvent, CancellationToken.None)).ReturnsAsync(expectedAgentList);
+            mediatorMock.Setup(
+                a => a.Send(
+                    expectedGetAgentListEvent, 
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedAgentList
+            );
 
             // When
-            var agentHub = new AgentHub(mediatorMock.Object);
+            var agentHub = new AgentHub(
+                mediatorMock.Object
+            );
             var actual = await agentHub.GetAgentList();
 
-            mediatorMock.Verify(a => a.Send(expectedGetAgentListEvent, CancellationToken.None));
+            mediatorMock.Verify(
+                a => a.Send(
+                    expectedGetAgentListEvent, 
+                    CancellationToken.None
+                )
+            );
             Assert.Collection(actual,
-                agent => Assert.Equal(expectedAgent1, agent),
-                agent => Assert.Equal(expectedAgent2, agent),
-                agent => Assert.Equal(expectedAgent3, agent)
+                agent => Assert.Equal(
+                    expectedAgent1, 
+                    agent
+                ),
+                agent => Assert.Equal(
+                    expectedAgent2, 
+                    agent
+                ),
+                agent => Assert.Equal(
+                    expectedAgent3, 
+                    agent
+                )
             );
         }
     }

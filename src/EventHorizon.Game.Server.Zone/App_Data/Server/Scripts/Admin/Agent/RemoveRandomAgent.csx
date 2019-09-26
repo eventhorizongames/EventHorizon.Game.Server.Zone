@@ -15,8 +15,8 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Zone.Core.Model.Admin;
 
 using System.Linq;
-using EventHorizon.Game.Server.Zone.Agent.Get;
-using EventHorizon.Game.Server.Zone.Agent.UnRegister;
+using EventHorizon.Zone.System.Agent.Events.Get;
+using EventHorizon.Zone.System.Agent.UnRegister;
 
 // Find an Agent to clone
 var agentList = await Services.Mediator.Send(

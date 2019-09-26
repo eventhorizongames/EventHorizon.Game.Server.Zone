@@ -1,13 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Core.Player.Model;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Connection;
 using MediatR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace EventHorizon.Game.Server.Zone.Agent.Connection.Factory
+namespace EventHorizon.Zone.System.Agent.Connection.Factory
 {
     public class AgentConnection : IAgentConnection
     {

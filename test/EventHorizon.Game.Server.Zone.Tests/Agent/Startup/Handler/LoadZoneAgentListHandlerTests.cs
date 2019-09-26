@@ -3,20 +3,20 @@ using Moq;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using EventHorizon.Game.Server.Zone.Core.Json;
-using EventHorizon.Game.Server.Zone.Agent.Model;
-using EventHorizon.Game.Server.Zone.Agent.Mapper;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Mapper;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IOPath = System.IO.Path;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Agent.Register;
-using EventHorizon.Game.Server.Zone.Agent.Startup;
+using EventHorizon.Zone.System.Agent.Register;
+using EventHorizon.Zone.System.Agent.Startup;
 using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Game.Server.Zone.Load.Settings.Model;
-using EventHorizon.Game.Server.Zone.Agent.Connection;
-using EventHorizon.Game.Server.Zone.Agent;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {
