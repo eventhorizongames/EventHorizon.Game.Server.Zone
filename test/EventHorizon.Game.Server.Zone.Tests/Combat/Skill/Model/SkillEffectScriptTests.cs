@@ -44,7 +44,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
             var effectScript = SkillEffectScript.CreateScript(
                 "some-id",
                 File.ReadAllText(
-                    
                     System.IO.Path.Combine(
                         "Combat",
                         "Skill",

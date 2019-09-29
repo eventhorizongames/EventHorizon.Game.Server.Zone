@@ -22,8 +22,8 @@
 /// }
 /// </summary>
 
-using EventHorizon.Zone.Plugin.Interaction.Model.Client;
-using EventHorizon.Zone.Plugin.Interaction.Events.Client;
+using EventHorizon.Zone.System.Interaction.Model.Client;
+using EventHorizon.Zone.System.Interaction.Events.Client;
 
 Services.Mediator.Publish(
     new SendSingleInteractionClientActionEvent(

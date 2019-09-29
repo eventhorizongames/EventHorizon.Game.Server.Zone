@@ -50,7 +50,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
             var data = entity.Data;
             if (!rawData.ContainsKey(prop))
             {
-                data[prop] = default(T);
+                data[prop] = defaultValue;
             }
             else if (rawData[prop] is JObject)
             {

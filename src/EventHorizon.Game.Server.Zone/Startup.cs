@@ -155,7 +155,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemPlayer()
                 .AddAgentCompanion()
                 .AddPlugins(HostingEnvironment)
-                .AddPluginInteraction();
+                .AddSystemInteraction();
 
             // To be moved into extension startup
             var extensionAssemblyList = new Assembly[] {
@@ -186,7 +186,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(PluginAgentBehaviorEditorExtensions).Assembly,
                     typeof(AgentCompanionExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
-                    typeof(PluginInteractionExtensions).Assembly,
+                    typeof(SystemInteractionExtensions).Assembly,
             };
             
             "".Reverse().Where(a => char.IsLetter(a)).ToString();
@@ -260,7 +260,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseParticle();
 
             app.UsePlugins();
-            app.UsePluginInteraction();
+            app.UseSystemInteraction();
 
             app.UseStaticFiles();
             app.UseSignalR(routes =>

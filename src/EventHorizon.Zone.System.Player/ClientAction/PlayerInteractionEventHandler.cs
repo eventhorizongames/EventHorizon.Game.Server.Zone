@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Plugin.Interaction.Events;
+using EventHorizon.Zone.System.Interaction.Events;
 using EventHorizon.Zone.System.Player.Events.ClientAction;
 using MediatR;
 

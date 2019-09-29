@@ -82,7 +82,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat\EventHorizon.Zone.System.Combat.csproj" />
 
-        <ProjectReference Include="..\EventHorizon.Zone.Plugin.Interaction\EventHorizon.Zone.Plugin.Interaction.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Interaction\EventHorizon.Zone.System.Interaction.csproj" />
     </ItemGroup>
 
 </Project>

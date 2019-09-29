@@ -17,9 +17,9 @@ namespace EventHorizon.Zone.Core.Events.Client
 
             var castObj = obj as ClientActionToSingleEvent<T>;
 
-            return ConnectionId.Equals(castObj.ConnectionId)
-                && Action.Equals(castObj.Action)
-                && Data.Equals(castObj.Data);
+            return (ConnectionId?.Equals(castObj.ConnectionId) ?? false)
+                && (Action?.Equals(castObj.Action) ?? false)
+                && (Data?.Equals(castObj.Data) ?? false);
         }
 
         public override int GetHashCode()
