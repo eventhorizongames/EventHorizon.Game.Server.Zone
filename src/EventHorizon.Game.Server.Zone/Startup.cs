@@ -134,62 +134,61 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemEditor()
                 .AddSystemBackup()
                 .AddSystemGui()
-                .AddPluginGuiEditor()
+                .AddSystemGuiPluginEditor()
                 .AddSystemCombat()
-                .AddPluginCombatEditor()
-                .AddPluginParticleEditor()
+                .AddSystemCombatPluginEditor()
+                .AddSystemParticlePluginEditor()
                 .AddSystemModelState()
                 .AddSystemServerModule()
-                .AddPluginServerModuleEditor()
+                .AddSystemServerModulePluginEditor()
                 .AddSystemEntityModule()
-                .AddPluginEntityModuleEditor()
+                .AddSystemEntityModulePluginEditor()
                 .AddSystemAgent()
-                .AddSystemAgentAi()
+                .AddSystemAgentPluginAi()
                 .AddSystemAgentPluginBehavior()
                 .AddSystemAgentPluginBehaviorEditor()
                 .AddSystemClientAssets()
-                .AddPluginClientAssetsEditor()
+                .AddSystemClientAssetsPluginEditor()
                 .AddSystemClientEntities()
-                .AddPluginClientEntitiesEditor()
+                .AddSystemClientEntitiesPluginEditor()
                 .AddSystemClientScripts()
                 .AddSystemPlayer()
-                .AddAgentCompanion()
+                .AddSystemAgentPluginCompanion()
                 .AddPlugins(HostingEnvironment)
                 .AddSystemInteraction();
 
             // To be moved into extension startup
             var extensionAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
-                    typeof(SystemServerScriptsExtensions).Assembly,
                     typeof(I18nExtensions).Assembly,
+                    typeof(PluginExtensions).Assembly,
+                    typeof(SystemServerScriptsExtensions).Assembly,
                     typeof(SystemEditorExtensions).Assembly,
                     typeof(SystemBackupExtensions).Assembly,
                     typeof(SystemCombatExtensions).Assembly,
                     typeof(SystemCombatPluginEditorExtensions).Assembly,
-                    typeof(PluginParticleEditorExtensions).Assembly,
+                    typeof(SystemParticlePluginEditorExtensions).Assembly,
                     typeof(SystemModelExtensions).Assembly,
                     typeof(SystemServerModuleExtensions).Assembly,
-                    typeof(PluginServerModuleEditorExtensions).Assembly,
+                    typeof(SystemServerModulePluginEditorExtensions).Assembly,
                     typeof(SystemEntityModuleExtensions).Assembly,
-                    typeof(PluginEntityModuleEditorExtensions).Assembly,
+                    typeof(SystemEntityModulePluginEditorExtensions).Assembly,
                     typeof(SystemAgentExtensions).Assembly,
-                    typeof(SystemAgentAiExtensions).Assembly,
+                    typeof(SystemAgentPluginAiExtensions).Assembly,
+                    typeof(SystemAgentPluginCompanionExtensions).Assembly,
+                    typeof(SystemAgentPluginBehaviorExtensions).Assembly,
+                    typeof(SystemAgentPluginBehaviorEditorExtensions).Assembly,
                     typeof(SystemClientAssetsExtensions).Assembly,
-                    typeof(PluginClientAssetsEditorExtensions).Assembly,
+                    typeof(SystemClientAssetsPluginEditorExtensions).Assembly,
                     typeof(SystemClientEntitiesExtensions).Assembly,
-                    typeof(PluginClientEntitiesEditorExtensions).Assembly,
+                    typeof(SystemClientEntitiesPluginEditorExtensions).Assembly,
                     typeof(SystemClientScriptsExtensions).Assembly,
                     typeof(SystemPlayerExtensions).Assembly,
                     typeof(SystemGuiExtensions).Assembly,
-                    typeof(PluginGuiEditorExtensions).Assembly,
-                    typeof(SystemAgentBehaviorExtensions).Assembly,
-                    typeof(PluginAgentBehaviorEditorExtensions).Assembly,
-                    typeof(AgentCompanionExtensions).Assembly,
-                    typeof(PluginExtensions).Assembly,
+                    typeof(SystemGuiPluginEditorExtensions).Assembly,
                     typeof(SystemInteractionExtensions).Assembly,
             };
             
-            "".Reverse().Where(a => char.IsLetter(a)).ToString();
             services
                 .AddMediatR(
                     extensionAssemblyList
@@ -222,31 +221,31 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemBackup();
 
             app.UseSystemGui();
-            app.UsePluginGuiEditor();
+            app.UseSystemGuiPluginEditor();
 
             app.UseSystemModelState();
             
             app.UseSystemCombat();
-            app.UsePluginCombatEditor();
+            app.UseSystemCombatPluginEditor();
 
-            app.UsePluginParticleEditor();
+            app.UseSystemParticlePluginEditor();
 
             app.UseSystemServerModule();
-            app.UsePluginServerModuleEditor();
+            app.UseSystemServerModulePluginEditor();
 
             app.UseSystemEntityModule();
-            app.UsePluginEntityModuleEditor();
+            app.UseSystemEntityModulePluginEditor();
 
             app.UseSystemAgent();
-            app.UseSystemAgentAi();
+            app.UseSystemAgentPluginAi();
             app.UseSystemAgentPluginBehavior();
             app.UseSystemAgentPluginBehaviorEditor();
             
             app.UseSystemClientAssets();
-            app.UsePluginClientAssetsEditor();
+            app.UseSystemClientAssetsPluginEditor();
 
             app.UseSystemClientEntities();
-            app.UsePluginClientEntitiesEditor();
+            app.UseSystemClientEntitiesPluginEditor();
 
             app.UseSystemClientScripts();
 
@@ -254,7 +253,7 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseZoneAdmin();
 
-            app.UseAgentCompanion();
+            app.UseSystemAgentPluginCompanion();
 
             app.UseAgent();
             app.UseParticle();

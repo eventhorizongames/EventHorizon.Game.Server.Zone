@@ -41,7 +41,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Model
                         typeof(CSharpArgumentInfo).Assembly,
                         // This is necessary to resolve the supported imports
                         typeof(SystemAgentExtensions).Assembly,
-                        typeof(SystemAgentAiExtensions).Assembly
+                        typeof(SystemAgentPluginAiExtensions).Assembly
                     )
                     .WithImports(
                         "System",

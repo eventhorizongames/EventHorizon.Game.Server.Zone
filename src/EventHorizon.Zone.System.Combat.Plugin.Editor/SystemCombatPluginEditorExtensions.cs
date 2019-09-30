@@ -5,13 +5,13 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class SystemCombatPluginEditorExtensions
     {
-        public static IServiceCollection AddPluginCombatEditor(
+        public static IServiceCollection AddSystemCombatPluginEditor(
             this IServiceCollection services
         )
         {
             return services;
         }
-        public static IApplicationBuilder UsePluginCombatEditor(
+        public static IApplicationBuilder UseSystemCombatPluginEditor(
             this IApplicationBuilder app
         )
         {

@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone
 {
-    public static class SystemAgentBehaviorExtensions
+    public static class SystemAgentPluginBehaviorExtensions
     {
         public static IServiceCollection AddSystemAgentPluginBehavior(
             this IServiceCollection services

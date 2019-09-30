@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone
 {
-    public static class SystemAgentAiExtensions
+    public static class SystemAgentPluginAiExtensions
     {
-        public static IServiceCollection AddSystemAgentAi(
+        public static IServiceCollection AddSystemAgentPluginAi(
             this IServiceCollection services
         )
         {
@@ -14,7 +14,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddTransient<IScriptServices, ScriptServices>()
             ;
         }
-        public static void UseSystemAgentAi(
+        public static void UseSystemAgentPluginAi(
             this IApplicationBuilder app
         )
         {

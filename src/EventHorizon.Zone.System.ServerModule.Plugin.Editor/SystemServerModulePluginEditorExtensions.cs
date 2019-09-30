@@ -4,13 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone
 {
-    public static class PluginParticleEditorExtensions
+    public static class SystemServerModulePluginEditorExtensions
     {
-        public static IServiceCollection AddPluginParticleEditor(
+        public static IServiceCollection AddSystemServerModulePluginEditor(
             this IServiceCollection services
         ) => services;
 
-        public static IApplicationBuilder UsePluginParticleEditor(
+        public static IApplicationBuilder UseSystemServerModulePluginEditor(
             this IApplicationBuilder app
         ) => app;
     }

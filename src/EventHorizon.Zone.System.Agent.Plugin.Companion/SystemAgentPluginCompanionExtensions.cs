@@ -3,15 +3,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone
 {
-    public static class AgentCompanionExtensions
+    public static class SystemAgentPluginCompanionExtensions
     {
-        public static IServiceCollection AddAgentCompanion(
+        public static IServiceCollection AddSystemAgentPluginCompanion(
             this IServiceCollection services
         )
         {
             return services;
         }
-        public static void UseAgentCompanion(
+        public static void UseSystemAgentPluginCompanion(
             this IApplicationBuilder app
         )
         {

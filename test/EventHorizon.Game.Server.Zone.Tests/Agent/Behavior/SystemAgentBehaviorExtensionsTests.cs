@@ -30,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            SystemAgentBehaviorExtensions.AddSystemAgentPluginBehavior(
+            SystemAgentPluginBehaviorExtensions.AddSystemAgentPluginBehavior(
                 serviceCollectionMock
             );
 
@@ -166,7 +166,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior
             );
 
             // When
-            SystemAgentBehaviorExtensions.UseSystemAgentPluginBehavior(
+            SystemAgentPluginBehaviorExtensions.UseSystemAgentPluginBehavior(
                 applicationBuilderMock.Object
             );
 
