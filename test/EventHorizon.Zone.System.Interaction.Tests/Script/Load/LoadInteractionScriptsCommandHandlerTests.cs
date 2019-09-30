@@ -23,7 +23,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
             {
                 new TestData(
                     "SubLoadedScript.csx",
-                    "Interaction\\SubDirectory",
+                    $"Interaction{Path.DirectorySeparatorChar}SubDirectory",
                     "// Sub Script Comment"
                 ),
                 new TestData(
