@@ -1,6 +1,7 @@
 using Xunit;
-using EventHorizon.Zone.System.Agent.Move.Impl;
 using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Move.Timer;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Impl
 {

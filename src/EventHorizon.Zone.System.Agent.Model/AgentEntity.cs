@@ -10,8 +10,11 @@ namespace EventHorizon.Zone.System.Agent.Model
         private static AgentEntity NULL = default(AgentEntity);
         public static AgentEntity CreateNotFound()
         {
-            return default(AgentEntity);
+            return NULL;
         }
+
+        private Dictionary<string, object> _data;
+        private Dictionary<string, object> _rawData;
 
         public long Id { get; set; }
         public bool IsGlobal { get; set; }
@@ -29,31 +32,48 @@ namespace EventHorizon.Zone.System.Agent.Model
         public IList<string> TagList { get; set; }
 
         public string Name { get; set; }
-
-        private Dictionary<string, object> _data;
-        private Dictionary<string, object> _rawData;
         public Dictionary<string, object> RawData
         {
             get
             {
-                return _rawData ?? new Dictionary<string, object>();
+                return _rawData;
             }
             set
             {
                 _data = new Dictionary<string, object>();
                 _rawData = value;
+                if (_rawData == null)
+                {
+                    _rawData = new Dictionary<string, object>();
+                }
             }
         }
         public Dictionary<string, object> Data
         {
             get
             {
-                return _data ?? new Dictionary<string, object>();
+                return _data;
             }
         }
 
         // Volatile Entity Data
         public Queue<Vector3> Path { get; set; }
+
+        public AgentEntity(
+            Dictionary<string, object> rawData
+        )
+        {
+            _data = new Dictionary<string, object>();
+            _rawData = rawData ?? new Dictionary<string, object>();
+            Id = -1L;
+            IsGlobal = false;
+            AgentId = string.Empty;
+            Type = EntityType.AGENT;
+            Position = default(PositionState);
+            TagList = null;
+            Name = string.Empty;
+            Path = null;
+        }
 
         public bool IsFound()
         {

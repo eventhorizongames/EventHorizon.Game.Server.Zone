@@ -18,7 +18,8 @@
 
 using System.Numerics;
 using EventHorizon.Zone.System.Agent.Events.Move;
-using EventHorizon.Zone.System.Agent.Plugin.Ai.Move;
+using EventHorizon.Zone.System.Agent.Plugin.Ai.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.Core.Events.Client.Actions;
@@ -41,11 +42,13 @@ if (!isAgentMoving)
             BehaviorNodeStatus.SUCCESS
         );
     }
-    Services.Mediator.Send(new MoveAgentToPosition
-    {
-        AgentId = Actor.Id,
-        ToPosition = toPosition
-    }).ConfigureAwait(false);
+    Services.Mediator.Send(
+        new MoveAgentToPositionEvent
+        {
+            AgentId = Actor.Id,
+            ToPosition = toPosition
+        }
+    ).ConfigureAwait(false);
 
     // Set the ActorMoveToPosition to null, 
     //  this way when next update comes through it will be a 

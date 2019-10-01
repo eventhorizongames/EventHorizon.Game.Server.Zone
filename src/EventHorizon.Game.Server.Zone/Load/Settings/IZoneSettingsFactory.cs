@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Load.Settings.Model;
+using EventHorizon.Zone.Core.Model.Settings;
 
 namespace EventHorizon.Game.Server.Zone.Settings.Load
 {

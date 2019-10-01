@@ -4,7 +4,6 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Move.Handler;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
@@ -17,6 +16,8 @@ using Moq;
 using Xunit;
 using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Move.Register;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {
@@ -32,7 +33,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 2,
                 2
             );
-            var expectedAgent = new AgentEntity
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
             {
                 Id = inputId,
                 Position = new PositionState
@@ -139,7 +142,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
         {
             // Given
             var inputId = 123L;
-            var expectedAgent = new AgentEntity
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
             {
                 Id = inputId,
                 Path = null,
@@ -217,7 +222,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
         {
             // Given
             var inputId = 123L;
-            var expectedAgent = new AgentEntity
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
             {
                 Id = inputId,
                 Position = new PositionState
@@ -303,7 +310,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
         {
             // Given
             var inputId = 123L;
-            var expectedAgent = new AgentEntity
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
             {
                 Id = inputId,
                 Position = new PositionState
@@ -392,7 +401,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             // Given
             var inputId = 123;
             var expectedMoveTo = new Vector3(2, 2, 2);
-            var expectedAgent = new AgentEntity
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
             {
                 Id = inputId,
                 Position = new PositionState

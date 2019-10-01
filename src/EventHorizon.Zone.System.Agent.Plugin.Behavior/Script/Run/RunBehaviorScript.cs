@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Ai.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
@@ -24,10 +24,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
         public struct RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
         {
             readonly ActorBehaviorScriptRepository _scriptRepository;
-            readonly IScriptServices _scriptServices;
+            readonly ServerScriptServices _scriptServices;
             public RunBehaviorScriptHandler(
                 ActorBehaviorScriptRepository scriptRepository,
-                IScriptServices scriptServices
+                ServerScriptServices scriptServices
             )
             {
                 _scriptRepository = scriptRepository;

@@ -1,4 +1,3 @@
-using EventHorizon.Zone.System.Agent.Plugin.Ai.Script;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +10,6 @@ namespace EventHorizon.Game.Server.Zone
         )
         {
             return services
-                .AddTransient<IScriptServices, ScriptServices>()
             ;
         }
         public static void UseSystemAgentPluginAi(

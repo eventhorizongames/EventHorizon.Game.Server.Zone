@@ -1,9 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Core.Player.Model;
-using EventHorizon.Identity;
+using EventHorizon.Identity.AccessToken;
 using MediatR;
-using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -34,10 +32,17 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl
         {
             return new PlayerConnection(
                 _loggerFactory.CreateLogger<PlayerConnection>(),
-                await _connectionCache.GetConnection($"{_playerSettings.Server}/playerBus", options =>
+                await _connectionCache.GetConnection(
+                    $"{_playerSettings.Server}/playerBus",
+                    options =>
                     {
-                        options.AccessTokenProvider = async () => await _mediator.Send(new RequestIdentityAccessTokenEvent());
-                    }));
+                        options.AccessTokenProvider = async () => 
+                            await _mediator.Send(
+                                new RequestIdentityAccessTokenEvent()
+                            );
+                    }
+                )
+            );
         }
     }
 }

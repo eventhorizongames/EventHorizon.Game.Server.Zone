@@ -1,4 +1,4 @@
-using EventHorizon.Zone.System.Agent.Move.Repository.Impl;
+using EventHorizon.Zone.System.Agent.Move.Repository;
 using Xunit.Sdk;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Repository

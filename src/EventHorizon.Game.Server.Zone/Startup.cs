@@ -4,11 +4,9 @@ using System.Net;
 using System.Reflection;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.Server.Zone.Admin.Bus;
-using EventHorizon.Zone.System.Agent;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
-using EventHorizon.Game.Server.Zone.Editor;
 using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
@@ -117,7 +115,6 @@ namespace EventHorizon.Game.Server.Zone
             services.AddEntity();
 
             services.AddZoneAdmin();
-            services.AddAgent(Configuration);
             services.AddParticle();
             services.AddServerAction();
 
@@ -130,6 +127,7 @@ namespace EventHorizon.Game.Server.Zone
 
             // External Services, Systems, and Plugins
             services.AddI18n()
+                .AddEventHorizonIdentity(Configuration)
                 .AddSystemServerScripts()
                 .AddSystemEditor()
                 .AddSystemBackup()
@@ -143,8 +141,9 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemServerModulePluginEditor()
                 .AddSystemEntityModule()
                 .AddSystemEntityModulePluginEditor()
-                .AddSystemAgent()
+                .AddSystemAgent(Configuration)
                 .AddSystemAgentPluginAi()
+                .AddSystemAgentPluginMove()
                 .AddSystemAgentPluginBehavior()
                 .AddSystemAgentPluginBehaviorEditor()
                 .AddSystemClientAssets()
@@ -161,6 +160,7 @@ namespace EventHorizon.Game.Server.Zone
             var extensionAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
                     typeof(I18nExtensions).Assembly,
+                    typeof(EventHorizonIdentityExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
                     typeof(SystemServerScriptsExtensions).Assembly,
                     typeof(SystemEditorExtensions).Assembly,
@@ -175,6 +175,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemEntityModulePluginEditorExtensions).Assembly,
                     typeof(SystemAgentExtensions).Assembly,
                     typeof(SystemAgentPluginAiExtensions).Assembly,
+                    typeof(SystemAgentPluginMoveExtensions).Assembly,
                     typeof(SystemAgentPluginCompanionExtensions).Assembly,
                     typeof(SystemAgentPluginBehaviorExtensions).Assembly,
                     typeof(SystemAgentPluginBehaviorEditorExtensions).Assembly,
@@ -188,7 +189,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemGuiPluginEditorExtensions).Assembly,
                     typeof(SystemInteractionExtensions).Assembly,
             };
-            
+
             services
                 .AddMediatR(
                     extensionAssemblyList
@@ -206,13 +207,14 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-        
+
             // TODO: Look at organizing this into Platform, Systems, Plugin order
             // Platform -- From the Zone Base Project
             // System -- These are which Systems should be setup for this Zone Server
             //  The systems flow should automatically load these systems.
             // Plugin -- These are Extra features, but not needed by Systems to function.
             app.UseI18n();
+            app.UseEventHorizonIdentity();
             app.UseZoneCore();
             app.UseSetupServer();
 
@@ -224,7 +226,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemGuiPluginEditor();
 
             app.UseSystemModelState();
-            
+
             app.UseSystemCombat();
             app.UseSystemCombatPluginEditor();
 
@@ -238,9 +240,10 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseSystemAgent();
             app.UseSystemAgentPluginAi();
+            app.UseSystemAgentPluginMove();
             app.UseSystemAgentPluginBehavior();
             app.UseSystemAgentPluginBehaviorEditor();
-            
+
             app.UseSystemClientAssets();
             app.UseSystemClientAssetsPluginEditor();
 
@@ -255,7 +258,6 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseSystemAgentPluginCompanion();
 
-            app.UseAgent();
             app.UseParticle();
 
             app.UsePlugins();
@@ -264,13 +266,13 @@ namespace EventHorizon.Game.Server.Zone
             app.UseStaticFiles();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<PlayerHub>("/playerHub");
-                routes.MapHub<EditorHub>("/editor");
-                routes.MapHub<SkillsEditorHub>("/skillsEditor");
-                routes.MapHub<AgentHub>("/agent");
                 routes.MapHub<AdminBus>("/admin");
+                routes.MapHub<PlayerHub>("/playerHub");
 
                 routes.MapHub<SystemEditorHub>("/systemEditor");
+                routes.MapHub<SkillsEditorHub>("/skillsEditor");
+
+                // routes.MapHub<EditorHub>("/editor");
             });
             app.UseMvc();
         }

@@ -16,20 +16,6 @@ namespace EventHorizon.Zone.System.Agent.PopulateData.Handler
         {
             var agent = request.Agent;
 
-            agent.PopulateData<AgentBehavior>(
-                AgentBehavior.PROPERTY_NAME
-            );
-            var behavior = agent.GetProperty<AgentBehavior>(
-                AgentBehavior.PROPERTY_NAME
-            );
-            if (behavior.TreeId == null)
-            {
-                agent.SetProperty(
-                    AgentBehavior.PROPERTY_NAME,
-                    AgentBehavior.NEW
-                );
-            }
-
             return Task.CompletedTask;
         }
     }

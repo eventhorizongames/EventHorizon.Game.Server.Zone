@@ -3,14 +3,14 @@ using Moq;
 using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
-using EventHorizon.Zone.System.Agent.Move.Handler;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Logging.Internal;
 using EventHorizon.Performance;
-using EventHorizon.Zone.System.Agent.Events.Move;
 using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Move.Register;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
 {

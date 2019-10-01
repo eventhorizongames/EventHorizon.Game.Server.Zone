@@ -9,13 +9,15 @@
 /// Services: { Mediator: IMediator; I18n: I18nLookup; }
 /// </summary>
 
-using EventHorizon.Zone.System.Agent.Plugin.Ai.Move;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
-await Services.Mediator.Send(new MoveAgentToPosition
-{
-    AgentId = Target.Id,
-    ToPosition = TargetPosition
-});
+await Services.Mediator.Send(
+    new MoveAgentToPositionEvent
+    {
+        AgentId = Target.Id,
+        ToPosition = TargetPosition
+    }
+);
 
 return new SkillEffectScriptResponse
 {

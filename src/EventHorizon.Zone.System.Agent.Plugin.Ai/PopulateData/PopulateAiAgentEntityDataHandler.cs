@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Ai.PopulateData
         {
             var agent = request.Agent;
 
-            // Move these to a Repository, and have them populated from plugins.
+            // TODO: Move these to a Behavior Agent/Actor State, and have the plugin populate data.
             agent.PopulateData<AgentWanderState>(
                 AgentWanderState.WANDER_NAME
             );

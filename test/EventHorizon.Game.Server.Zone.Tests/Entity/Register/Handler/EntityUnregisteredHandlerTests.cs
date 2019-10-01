@@ -3,10 +3,10 @@ using Moq;
 using System.Threading.Tasks;
 using MediatR;
 using EventHorizon.Game.Server.Zone.Entity.Registered.Handler;
-using EventHorizon.Game.Server.Zone.Entity.Registered;
 using System.Threading;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
 {
@@ -25,19 +25,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
                 mediatorMock.Object
             );
 
-            await entityRegisteredHandler.Handle(new EntityUnregisteredEvent
-            {
-                EntityId = expectedEntityId
-            }, CancellationToken.None);
-
-            // Then
-            mediatorMock.Verify(a => a.Publish(new ClientActionEntityUnregisteredToAllEvent
-            {
-                Data = new EntityUnregisteredData
+            await entityRegisteredHandler.Handle(
+                new EntityUnRegisteredEvent
                 {
                     EntityId = expectedEntityId
-                }
-            }, CancellationToken.None));
+                },
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    new ClientActionEntityUnregisteredToAllEvent
+                    {
+                        Data = new EntityUnregisteredData
+                        {
+                            EntityId = expectedEntityId
+                        }
+                    },
+                    CancellationToken.None
+                )
+            );
         }
     }
 }

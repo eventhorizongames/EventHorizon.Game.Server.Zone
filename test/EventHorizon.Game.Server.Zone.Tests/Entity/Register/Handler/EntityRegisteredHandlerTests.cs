@@ -1,15 +1,13 @@
 using Xunit;
 using Moq;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Client;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using System.Threading;
-using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Game.Server.Zone.Entity.Registered.Handler;
-using EventHorizon.Game.Server.Zone.Entity.Registered;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
 {
@@ -28,19 +26,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
                 mediatorMock.Object
             );
 
-            await entityRegisteredHandler.Handle(new EntityRegisteredEvent
-            {
-                Entity = expectedEntity.Object
-            }, CancellationToken.None);
-
-            // Then
-            mediatorMock.Verify(a => a.Publish(new ClientActionEntityRegisteredToAllEvent
-            {
-                Data = new EntityRegisteredData
+            await entityRegisteredHandler.Handle(
+                new EntityRegisteredEvent
                 {
                     Entity = expectedEntity.Object
-                }
-            }, CancellationToken.None));
+                },
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    new ClientActionEntityRegisteredToAllEvent
+                    {
+                        Data = new EntityRegisteredData
+                        {
+                            Entity = expectedEntity.Object
+                        }
+                    },
+                    CancellationToken.None
+                )
+            );
         }
     }
 }

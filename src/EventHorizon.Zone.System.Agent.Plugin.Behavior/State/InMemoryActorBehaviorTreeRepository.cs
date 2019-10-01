@@ -35,18 +35,22 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 ActorList = actorList;
             }
 
-            internal void AddActor(long actorId)
+            internal void AddActor(
+                long actorId
+            )
             {
                 ActorList.TryAdd(
-                    actorId, 
+                    actorId,
                     actorId
                 );
             }
 
-            internal void RemoveActor(long actorId)
+            internal void RemoveActor(
+                long actorId
+            )
             {
                 ActorList.TryRemove(
-                    actorId, 
+                    actorId,
                     out _
                 );
             }
@@ -109,9 +113,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 out container
             ))
             {
-                throw new ArgumentException(
-                    "TreeId not found",
-                    "treeId"
+                // Register a default tree shape if not found.
+                RegisterTree(
+                    treeId,
+                    DEFAULT_TREE_SHAPE
+                );
+                MAP.TryGetValue(
+                    treeId,
+                    out container
                 );
             }
             container.AddActor(
@@ -119,24 +128,20 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             );
         }
 
-        public void UnRegisterActorFromTree(long actorId, string treeId)
+        public void UnRegisterActorFromTree(
+            long actorId,
+            string treeId
+        )
         {
-            var container = default(
-                ActorBehaviorTreeContainer
-            );
-            if (!MAP.TryGetValue(
+            if (MAP.TryGetValue(
                 treeId,
-                out container
+                out var container
             ))
             {
-                throw new ArgumentException(
-                    "TreeId not found",
-                    "treeId"
+                container.RemoveActor(
+                    actorId
                 );
             }
-            container.RemoveActor(
-                actorId
-            );
         }
 
         public void RegisterTree(

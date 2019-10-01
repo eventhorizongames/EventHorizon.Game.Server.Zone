@@ -1,5 +1,3 @@
-using EventHorizon.Performance.Model;
-
 namespace EventHorizon.Performance
 {
     public interface IPerformanceTracker

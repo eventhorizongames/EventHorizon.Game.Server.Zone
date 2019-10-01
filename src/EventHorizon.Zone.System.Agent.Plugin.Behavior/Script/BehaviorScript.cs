@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using EventHorizon.Game.Server.Zone;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Ai.Script;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
@@ -33,6 +34,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
                     .Default
                     .WithReferences(
                         typeof(BehaviorScript).Assembly,
+                        typeof(SystemAgentPluginAiExtensions).Assembly,
+                        typeof(SystemAgentPluginMoveExtensions).Assembly,
                         typeof(CSharpArgumentInfo).Assembly
                     )
                     .WithImports(
@@ -70,7 +73,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
             }
         }
         public async Task<BehaviorScriptResponse> Run(
-            IScriptServices services,
+            ServerScriptServices services,
             IObjectEntity actor
         )
         {
@@ -94,7 +97,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
 
         public class BehaviorScriptData
         {
-            public IScriptServices Services { get; set; }
+            public ServerScriptServices Services { get; set; }
             public IObjectEntity Actor { get; set; }
         }
     }

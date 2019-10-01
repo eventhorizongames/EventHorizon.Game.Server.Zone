@@ -1,17 +1,7 @@
-using System;
-using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.IdPool;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Entity.Register;
-using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Actions;
-using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.Player.Model;
-using EventHorizon.Game.Server.Zone.Player.State;
-using EventHorizon.Game.Server.Zone.Player.Zone;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
@@ -37,10 +27,12 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             var player = await _player.FindById(notification.Id);
             if (player.IsFound())
             {
-                await _mediator.Publish(new UnregisterEntityEvent
-                {
-                    Entity = player
-                });
+                await _mediator.Publish(
+                    new UnRegisterEntityEvent
+                    {
+                        Entity = player
+                    }
+                );
             }
         }
     }

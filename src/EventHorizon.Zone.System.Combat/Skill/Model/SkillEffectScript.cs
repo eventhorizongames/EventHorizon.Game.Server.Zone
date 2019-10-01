@@ -41,7 +41,8 @@ namespace EventHorizon.Zone.System.Combat.Skill.Model
                         typeof(CSharpArgumentInfo).Assembly,
                         // This is necessary to resolve the supported imports
                         typeof(SystemAgentExtensions).Assembly,
-                        typeof(SystemAgentPluginAiExtensions).Assembly
+                        typeof(SystemAgentPluginAiExtensions).Assembly,
+                        typeof(SystemAgentPluginMoveExtensions).Assembly
                     )
                     .WithImports(
                         "System",
@@ -49,7 +50,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Model
                         "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Zone.Core.Events.Entity.Movement",
-                        "EventHorizon.Zone.System.Agent.Plugin.Ai.Move",
+                        "EventHorizon.Zone.System.Agent.Plugin.Move.Events",
 
                         // TODO: Move these to the Script using statements
                         "EventHorizon.Zone.System.Combat.Skill.Model",

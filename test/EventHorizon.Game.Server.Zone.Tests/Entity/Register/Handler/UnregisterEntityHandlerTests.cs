@@ -7,6 +7,7 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone.Entity.Register;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
 {
@@ -18,7 +19,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
             // Given
             var expectedId = 123;
             var expectedEntity = new Mock<IObjectEntity>();
-            expectedEntity.Setup(a => a.Id).Returns(expectedId);
+            expectedEntity.Setup(
+                mock => mock.Id
+            ).Returns(
+                expectedId
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var entityRepositoryMock = new Mock<IEntityRepository>();
@@ -29,17 +34,29 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Register.Handler
                 entityRepositoryMock.Object
             );
 
-            await unregisterEntityHandler.Handle(new UnregisterEntityEvent
-            {
-                Entity = expectedEntity.Object
-            }, CancellationToken.None);
+            await unregisterEntityHandler.Handle(
+                new UnRegisterEntityEvent
+                {
+                    Entity = expectedEntity.Object
+                },
+                CancellationToken.None
+            );
 
             // Then
-            entityRepositoryMock.Verify(a => a.Remove(expectedId));
-            mediatorMock.Verify(a => a.Publish(new EntityUnregisteredEvent
-            {
-                EntityId = expectedId
-            }, CancellationToken.None));
+            entityRepositoryMock.Verify(
+                mock => mock.Remove(
+                    expectedId
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    new EntityUnRegisteredEvent
+                    {
+                        EntityId = expectedId
+                    },
+                    CancellationToken.None
+                )
+            );
         }
     }
 }

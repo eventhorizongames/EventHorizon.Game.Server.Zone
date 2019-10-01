@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Model;
-using EventHorizon.Identity;
+using EventHorizon.Identity.AccessToken;
 using MediatR;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;

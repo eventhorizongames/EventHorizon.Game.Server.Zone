@@ -1,7 +1,5 @@
-
-using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Load.Settings.Model;
 using EventHorizon.Game.Server.Zone.Settings.Load;
+using EventHorizon.Zone.Core.Model.Settings;
 
 namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
 {
@@ -9,6 +7,8 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
     {
         private static ZoneSettings EMPTY_ZONE_SETTINGS = new ZoneSettings { Tag = "new" };
         public ZoneSettings Settings { get; private set; }
+
+        ZoneSettings IZoneSettingsFactory.Settings => throw new System.NotImplementedException();
 
         public ZoneSettingsFactory()
         {

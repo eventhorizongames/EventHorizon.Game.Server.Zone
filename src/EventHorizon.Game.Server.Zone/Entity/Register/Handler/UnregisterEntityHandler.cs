@@ -1,14 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Entity.Registered;
-using EventHorizon.Game.Server.Zone.Entity.State;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.Core.Model.Entity;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Entity.Register.Handler
 {
-    public class UnregisterEntityHandler : INotificationHandler<UnregisterEntityEvent>
+    public class UnregisterEntityHandler : INotificationHandler<UnRegisterEntityEvent>
     {
         readonly IMediator _mediator;
         readonly IEntityRepository _entityRepository;
@@ -18,13 +16,20 @@ namespace EventHorizon.Game.Server.Zone.Entity.Register.Handler
             _entityRepository = entityRepository;
         }
 
-        public async Task Handle(UnregisterEntityEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            UnRegisterEntityEvent notification,
+            CancellationToken cancellationToken
+        )
         {
-            await _entityRepository.Remove(notification.Entity.Id);
-            await _mediator.Publish(new EntityUnregisteredEvent
-            {
-                EntityId = notification.Entity.Id,
-            });
+            await _entityRepository.Remove(
+                notification.Entity.Id
+            );
+            await _mediator.Publish(
+                new EntityUnRegisteredEvent
+                {
+                    EntityId = notification.Entity.Id,
+                }
+            );
         }
     }
 }

@@ -1,24 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Stop;
-using EventHorizon.Game.Server.Zone.Core.Exceptions;
-using EventHorizon.Game.Server.Zone.Core.Model;
 using EventHorizon.Game.Server.Zone.Core.Register;
-using EventHorizon.Game.Server.Zone.Core.Register.Model;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
-using EventHorizon.Identity;
-using IdentityModel.Client;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace EventHorizon.Game.Server.Zone.Core.Ping.Handler
 {
