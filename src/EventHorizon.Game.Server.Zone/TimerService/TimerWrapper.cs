@@ -1,8 +1,5 @@
 using System;
 using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Schedule;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -48,7 +45,7 @@ namespace EventHorizon.TimerService
             {
                 // Log that MoveRegister timer is still running
                 _logger.LogWarning(
-                    "Timer found that it was already running. Check for long running loop; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                    "Timer found that it was already running. \nCheck for long running loop. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
                     timerState.Id,
                     timerState.Guid,
                     _timerTask.Tag,
@@ -75,7 +72,7 @@ namespace EventHorizon.TimerService
                     catch (Exception ex)
                     {
                         _logger.LogError(ex,
-                            "Timer Exception; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                            "Timer Exception. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
                             timerState.Id,
                             timerState.Guid,
                             _timerTask.Tag,
@@ -84,10 +81,18 @@ namespace EventHorizon.TimerService
                         );
                     }
                 }
-                if (DateTime.UtcNow.Add(DateTime.UtcNow - timerState.StartDate).CompareTo(DateTime.UtcNow.AddMilliseconds(_timerTask.Period)) > 0)
+                if (
+                    DateTime.UtcNow.Add(
+                        DateTime.UtcNow - timerState.StartDate
+                    ).CompareTo(
+                        DateTime.UtcNow.AddMilliseconds(
+                            _timerTask.Period
+                        )
+                    ) > 0
+                )
                 {
                     _logger.LogWarning(
-                        "Timer ran long; Id: {Id} | Guid: {GUID} | Tag: {Tag} | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} | TimeRunning: {TimeRunning}",
+                        "Timer ran long. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
                         timerState.Id,
                         timerState.Guid,
                         _timerTask.Tag,

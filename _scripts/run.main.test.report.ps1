@@ -1,4 +1,4 @@
-param([String]$root="") #Must be the first statement in your script
+param([String]$root = "") #Must be the first statement in your script
 
 $ScriptRanFromDir = Get-Location
 $GeneratedCoverageFile = "coverage.lcov";
