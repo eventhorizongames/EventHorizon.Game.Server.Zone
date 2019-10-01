@@ -1,4 +1,4 @@
-namespace EventHorizon.Zone.Core.Model.Extensions
+namespace System
 {
     public static class StringExtensions
     {

@@ -15,11 +15,13 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
+        <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj" />
 
-        <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
-        <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />

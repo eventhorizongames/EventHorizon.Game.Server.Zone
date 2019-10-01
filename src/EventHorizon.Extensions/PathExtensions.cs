@@ -1,7 +1,4 @@
-using System;
-using System.IO;
-
-namespace EventHorizon.Zone.Core.Model.Extensions
+namespace System.IO
 {
     public static class PathExtensions
     {

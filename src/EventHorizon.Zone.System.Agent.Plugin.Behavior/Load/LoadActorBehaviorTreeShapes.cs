@@ -1,7 +1,6 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;

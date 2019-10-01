@@ -1,13 +1,10 @@
-using System;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using EventHorizon.Zone.System.Server.Scripts.Model;
 using MediatR;
 using IOPath = System.IO.Path;
 

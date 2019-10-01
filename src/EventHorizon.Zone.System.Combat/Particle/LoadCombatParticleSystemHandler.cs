@@ -2,12 +2,10 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Particle.Add;
-using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Model.Particle;
 using EventHorizon.Zone.System.Combat.Particle.Event;
-using EventHorizon.Zone.System.Combat.Particle.Model;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Particle.Handler

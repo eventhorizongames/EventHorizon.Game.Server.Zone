@@ -6,7 +6,6 @@ using EventHorizon.Game.Server.Zone.Editor.Assets.Scripts.Model;
 using EventHorizon.Zone.Core.Model.Info;
 using MediatR;
 using IOPath = System.IO.Path;
-using EventHorizon.Zone.Core.Model.Extensions;
 
 namespace EventHorizon.Game.Server.Zone.Editor.Assets.Scripts
 {

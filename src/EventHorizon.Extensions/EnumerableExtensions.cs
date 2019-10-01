@@ -1,8 +1,7 @@
 
-using System.Collections.Generic;
 using System.Linq;
 
-namespace EventHorizon.Extensions
+namespace System.Collections.Generic
 {
     public static class EnumerableExtensions
     {

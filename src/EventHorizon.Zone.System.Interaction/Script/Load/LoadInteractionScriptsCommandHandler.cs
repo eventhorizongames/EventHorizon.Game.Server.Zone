@@ -2,7 +2,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Extensions;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;

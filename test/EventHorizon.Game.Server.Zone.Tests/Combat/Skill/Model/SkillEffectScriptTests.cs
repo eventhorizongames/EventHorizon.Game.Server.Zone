@@ -52,13 +52,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.Skill.Model
                     )
                 )
             );
-            // effectScript.CreateScript(
-            //     System.IO.Path.Combine(
-            //         "Combat",
-            //         "Skill",
-            //         "Model"
-            //     )
-            // );
             var actual = await effectScript.Run(
                 scriptServicesMock.Object,
                 casterMock.Object,

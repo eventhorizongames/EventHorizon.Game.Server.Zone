@@ -1,3 +1,4 @@
+using EventHorizon.Identity.Client;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -12,13 +13,15 @@ namespace EventHorizon.Game.Server.Zone
             IConfiguration configuration
         )
         {
-            return services;
+            return services
+                .AddSingleton<ITokenClientFactory, CachingTokenClientFactory>()
+            ;
         }
         public static IApplicationBuilder UseEventHorizonIdentity(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
                 return app;
             }

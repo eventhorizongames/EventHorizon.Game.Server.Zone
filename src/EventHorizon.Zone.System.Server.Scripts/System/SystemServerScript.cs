@@ -174,19 +174,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                     .AddReferences(
                         typeof(SystemServerScript).Assembly,
                         typeof(CSharpArgumentInfo).Assembly
-                    // TODO: Load extra Assemblies from Details
                     ).AddReferences(
                         details.ReferenceAssemblies
                     ).AddImports(
                         "System",
                         "System.Collections.Generic",
                         "System.Numerics"
-                    // TODO: Load extra imports from Details
-                    // "EventHorizon.Zone.Core.Model.Extensions",
-                    // "EventHorizon.Zone.Core.Model.Entity",
-                    // "EventHorizon.Zone.Core.Events.Entity.Movement",
-                    // "EventHorizon.Zone.Core.Events.Map",
-                    // "EventHorizon.Zone.Core.Events.Path"
                     ).AddImports(
                         details.Imports
                     );

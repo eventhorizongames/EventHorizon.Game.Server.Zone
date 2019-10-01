@@ -47,7 +47,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Model
                     .WithImports(
                         "System",
                         "System.Collections.Generic",
-                        "EventHorizon.Zone.Core.Model.Extensions",
                         "EventHorizon.Zone.Core.Model.Entity",
                         "EventHorizon.Zone.Core.Events.Entity.Movement",
                         "EventHorizon.Zone.System.Agent.Plugin.Move.Events",

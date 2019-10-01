@@ -13,6 +13,7 @@
   </ItemGroup>
   
   <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
   </ItemGroup>
 
