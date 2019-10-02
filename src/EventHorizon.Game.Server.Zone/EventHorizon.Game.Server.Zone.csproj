@@ -39,7 +39,9 @@
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Map\EventHorizon.Zone.Core.Map.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
         <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
         <ProjectReference Include="..\EventHorizon.Scheduler\EventHorizon.Scheduler.csproj" />

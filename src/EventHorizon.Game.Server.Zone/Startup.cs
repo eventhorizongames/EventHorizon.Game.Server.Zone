@@ -12,7 +12,6 @@ using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Plugin;
-using EventHorizon.Game.Server.Zone.ServerAction;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
@@ -117,7 +116,7 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddZoneAdmin();
             services.AddParticle();
-            services.AddServerAction();
+            services.AddCoreServerAction();
 
             services.AddScheduler((sender, args) =>
             {
@@ -161,6 +160,7 @@ namespace EventHorizon.Game.Server.Zone
             var extensionAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
                     typeof(CoreMapExtensions).Assembly,
+                    typeof(CoreServerActionExtensions).Assembly,
                     typeof(I18nExtensions).Assembly,
                     typeof(EventHorizonIdentityExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
