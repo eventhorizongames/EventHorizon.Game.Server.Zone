@@ -27,18 +27,22 @@ namespace EventHorizon.TimerService
 
         public void Start()
         {
-            _timer = new Timer(this.OnRunTask, new TimerState(), 0, this._timerTask.Period);
+            _timer = new Timer(
+                this.OnRunTask,
+                new TimerState(),
+                0,
+                this._timerTask.Period
+            );
         }
 
         public void Stop()
         {
-            if (_timer != null)
-            {
-                _timer.Dispose();
-            }
+            _timer?.Dispose();
         }
 
-        public void OnRunTask(object state)
+        public void OnRunTask(
+            object state
+        )
         {
             var timerState = (TimerState)state;
             if (timerState.IsRunning)
@@ -69,7 +73,9 @@ namespace EventHorizon.TimerService
                             CancellationToken.None
                         ).GetAwaiter().GetResult();
                     }
-                    catch (Exception ex)
+                    catch (
+                        Exception ex
+                    )
                     {
                         _logger.LogError(ex,
                             "Timer Exception. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
@@ -97,7 +103,8 @@ namespace EventHorizon.TimerService
                         timerState.Guid,
                         _timerTask.Tag,
                         timerState.StartDate,
-                        DateTime.UtcNow - timerState.StartDate);
+                        DateTime.UtcNow - timerState.StartDate
+                    );
                 }
                 timerState.IsRunning = false;
                 timerState.StartDate = DateTime.UtcNow;
