@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Map;
+using EventHorizon.Zone.Core.Map.Model;
 using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Game.Server.Zone.Map.State;
-using EventHorizon.Game.Server.Zone.Math;
-using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Xunit;
 using Xunit.Abstractions;
-using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Math
 {

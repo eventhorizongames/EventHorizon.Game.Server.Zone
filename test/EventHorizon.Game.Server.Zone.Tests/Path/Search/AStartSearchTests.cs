@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Map.State;
 using EventHorizon.Zone.Core.Model.Map;
 using Xunit;
-using EventHorizon.Game.Server.Zone.Path.Search;
 using System.Diagnostics;
+using EventHorizon.Zone.Core.Map.Search;
+using EventHorizon.Zone.Core.Map.Model;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
 {

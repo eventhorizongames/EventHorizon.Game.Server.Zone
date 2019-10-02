@@ -1,18 +1,15 @@
 using Xunit;
 using Moq;
-using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.Game.Server.Zone.Setup;
-using EventHorizon.Game.Server.Zone.State;
-using EventHorizon.Game.Server.Zone.State.Impl;
 using EventHorizon.Schedule;
 using EventHorizon.Game.Server.Zone.Core.Ping;
-using EventHorizon.Game.Server.Zone.Map.Create;
 using MediatR;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using System.Threading;
+using EventHorizon.Zone.Core.Events.Map.Create;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Setup
 {
@@ -28,13 +25,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
             ServerSetupExtensions.AddServerSetup(serviceCollectionMock, null);
 
             // Then
-            Assert.NotEmpty(serviceCollectionMock);
-            Assert.Collection(serviceCollectionMock,
-                service =>
-                {
-                    Assert.Equal(typeof(IServerState), service.ServiceType);
-                    Assert.Equal(typeof(ServerState), service.ImplementationType);
-                },
+            Assert.Collection(
+                serviceCollectionMock,
                 service =>
                 {
                     Assert.Equal(typeof(IScheduledTask), service.ServiceType);

@@ -111,6 +111,7 @@ namespace EventHorizon.Game.Server.Zone
             services.AddLoad(Configuration);
             services.AddPlayer(Configuration);
             services.AddZoneCore(Configuration);
+            services.AddCoreMap();
             services.AddServerSetup(Configuration);
             services.AddEntity();
 
@@ -159,6 +160,7 @@ namespace EventHorizon.Game.Server.Zone
             // To be moved into extension startup
             var extensionAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
+                    typeof(CoreMapExtensions).Assembly,
                     typeof(I18nExtensions).Assembly,
                     typeof(EventHorizonIdentityExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,

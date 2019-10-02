@@ -6,11 +6,9 @@ using System;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler;
 using MediatR;
-using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using System.Threading;
 using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Model.Core;
@@ -41,14 +39,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
-            var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
+            var mapDetailsMock = new Mock<IMapDetails>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
             // When
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
                 dateTimeMock.Object,
-                zoneMapFactoryMock.Object,
+                mapDetailsMock.Object,
                 playerRepositoryMock.Object
             );
 
@@ -78,10 +76,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var currentPosition = Vector3.Zero;
             var playerMapNode = new MapNode(currentPosition);
             var moveToPostion = new Vector3(expectedXPosition, 0, expectedZPosition);
-            var zoneMap = new ZoneMap()
-            {
-                TileDimensions = tileDimensions
-            };
 
             var inputPlayer = new PlayerEntity
             {
@@ -99,10 +93,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
-            var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
+            var mapDetailsMock = new Mock<IMapDetails>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
-            zoneMapFactoryMock.Setup(a => a.Map).Returns(zoneMap);
+            mapDetailsMock.Setup(
+                mock => mock.TileDimensions
+            ).Returns(
+                tileDimensions
+            );
 
             mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
             {
@@ -113,7 +111,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
                 dateTimeMock.Object,
-                zoneMapFactoryMock.Object,
+                mapDetailsMock.Object,
                 playerRepositoryMock.Object
             );
 
@@ -138,10 +136,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var currentPosition = Vector3.Zero;
             var playerMapNode = new MapNode(currentPosition);
             var moveToPostion = new Vector3(0, 0, tileDimensions);
-            var zoneMap = new ZoneMap()
-            {
-                TileDimensions = tileDimensions
-            };
 
             var inputPlayer = new PlayerEntity
             {
@@ -161,10 +155,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
-            var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
+            var mapDetailsMock = new Mock<IMapDetails>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
-            zoneMapFactoryMock.Setup(a => a.Map).Returns(zoneMap);
+            mapDetailsMock.Setup(
+                mock => mock.TileDimensions
+            ).Returns(
+                tileDimensions
+            );
 
             mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
             {
@@ -187,7 +185,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
                 dateTimeMock.Object,
-                zoneMapFactoryMock.Object,
+                mapDetailsMock.Object,
                 playerRepositoryMock.Object
             );
 

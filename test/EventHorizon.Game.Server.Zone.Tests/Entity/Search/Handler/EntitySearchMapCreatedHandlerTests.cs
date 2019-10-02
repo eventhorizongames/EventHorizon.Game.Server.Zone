@@ -1,13 +1,12 @@
 using Xunit;
 using Moq;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Load.Map;
 using EventHorizon.Game.Server.Zone.Entity.State;
 using EventHorizon.Game.Server.Zone.Entity.Search.Handler;
-using EventHorizon.Game.Server.Zone.Map.Create;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Load.Map.Model;
+using EventHorizon.Zone.Core.Model.Map;
+using EventHorizon.Zone.Core.Events.Map.Create;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
 {
@@ -19,27 +18,41 @@ namespace EventHorizon.Game.Server.Zone.Tests.Entity.Search.Handler
             // Given
             var inputDimensions = 4;
             var inputTileDimensions = 5;
-            var expectedDimensions = new Vector3(inputDimensions * inputTileDimensions);
+            var expectedDimensions = new Vector3(
+                inputDimensions * inputTileDimensions
+            );
 
-            var zoneMapFactoryMock = new Mock<IZoneMapFactory>();
+            var mapDetailsMock = new Mock<IMapDetails>();
             var entitySearchTreeMock = new Mock<IEntitySearchTree>();
 
-            zoneMapFactoryMock.Setup(a => a.Map).Returns(new ZoneMap
-            {
-                Dimensions = inputDimensions,
-                TileDimensions = inputTileDimensions
-            });
+            mapDetailsMock.Setup(
+                mock => mock.Dimensions
+            ).Returns(
+                inputDimensions
+            );
+            mapDetailsMock.Setup(
+                mock => mock.TileDimensions
+            ).Returns(
+                inputTileDimensions
+            );
 
             // When
             var entitySearchMapCreatedHandler = new EntitySearchMapCreatedHandler(
-                zoneMapFactoryMock.Object,
+                mapDetailsMock.Object,
                 entitySearchTreeMock.Object
             );
 
-            await entitySearchMapCreatedHandler.Handle(new MapCreatedEvent(), CancellationToken.None);
+            await entitySearchMapCreatedHandler.Handle(
+                new MapCreatedEvent(), 
+                CancellationToken.None
+            );
 
             // Then
-            entitySearchTreeMock.Verify(a => a.UpdateDimensions(expectedDimensions));
+            entitySearchTreeMock.Verify(
+                mock => mock.UpdateDimensions(
+                    expectedDimensions
+                )
+            );
         }
     }
 }

@@ -3,10 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Load.Map;
-using EventHorizon.Game.Server.Zone.Load.Map.Model;
 using EventHorizon.Game.Server.Zone.Particle.Fetch;
-using EventHorizon.Game.Server.Zone.State;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.ClientAssets.Fetch;
@@ -15,27 +12,28 @@ using EventHorizon.Zone.System.EntityModule.Fetch;
 using EventHorizon.Zone.System.Gui.Events.Layout;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 using MediatR;
+using EventHorizon.Zone.Core.Model.Map;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
     public struct QueryForPlayerZoneInfoHandler : IRequestHandler<QueryForPlayerZoneInfo, IDictionary<string, object>>
     {
         readonly IMediator _mediator;
-        readonly ZoneMap _zoneMap;
-        readonly IServerState _serverState;
+        readonly IMapGraph _map;
+        readonly IMapMesh _mapMesh;
         readonly IEntityRepository _entityRepository;
         readonly IPerformanceTracker _performanceTracker;
         public QueryForPlayerZoneInfoHandler(
             IMediator mediator,
-            IZoneMapFactory zoneMapFactory,
-            IServerState serverState,
+            IMapGraph map,
+            IMapMesh mapMesh,
             IEntityRepository entityRepository,
             IPerformanceTracker performanceTracker
         )
         {
             _mediator = mediator;
-            _zoneMap = zoneMapFactory.Map;
-            _serverState = serverState;
+            _map = map;
+            _mapMesh = mapMesh;
             _entityRepository = entityRepository;
             _performanceTracker = performanceTracker;
         }
@@ -61,12 +59,12 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     )
                 );
                 zoneInfo.Add(
-                    "MapMesh",
-                    _zoneMap.Mesh
+                    "Map",
+                    _map
                 );
                 zoneInfo.Add(
-                    "Map",
-                    await _serverState.Map()
+                    "MapMesh",
+                    _mapMesh
                 );
                 zoneInfo.Add(
                     "EntityList",

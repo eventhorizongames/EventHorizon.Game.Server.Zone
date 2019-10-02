@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Math;
 
 namespace EventHorizon.Game.Server.Zone.Entity.State
 {

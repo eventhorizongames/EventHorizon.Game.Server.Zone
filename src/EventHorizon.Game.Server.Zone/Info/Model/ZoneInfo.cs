@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Zone.Info.Api;
-using EventHorizon.Game.Server.Zone.Load.Map.Model;
-using EventHorizon.Game.Server.Zone.Map.State;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Zone.Core.Model.Particle;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Client.Scripts.Model;
@@ -18,8 +17,8 @@ namespace EventHorizon.Game.Server.Zone.Info.Model
     {
         public PlayerEntity Player { get; set; }
         public IDictionary<string, string> I18nMap { get; set; }
-        public ZoneMapMesh MapMesh { get; set; }
-        public MapGraph Map { get; set; }
+        public IMapGraph Map { get; set; }
+        public IMapMesh MapMesh { get; set; }
         public List<IObjectEntity> EntityList { get; set; }
         public IEnumerable<GuiLayout> GuiLayoutList { get; set; }
         public IEnumerable<ParticleTemplate> ParticleTemplateList { get; set; }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Math;
 using EventHorizon.Zone.Core.Model.Structure;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using Xunit;
+using EventHorizon.Zone.Core.Model.Math;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Math
 {

@@ -1,7 +1,7 @@
 
 using System.Numerics;
-using EventHorizon.Game.Server.Zone.Math;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
+using EventHorizon.Zone.Core.Model.Math;
 using Xunit;
 using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
 

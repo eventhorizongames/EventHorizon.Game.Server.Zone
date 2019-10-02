@@ -1,8 +1,6 @@
 using EventHorizon.Game.Server.Zone.Core.Ping;
-using EventHorizon.Game.Server.Zone.Map.Create;
-using EventHorizon.Game.Server.Zone.State;
-using EventHorizon.Game.Server.Zone.State.Impl;
 using EventHorizon.Schedule;
+using EventHorizon.Zone.Core.Events.Map.Create;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -14,14 +12,19 @@ namespace EventHorizon.Game.Server.Zone.Setup
     {
         public static void AddServerSetup(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<IServerState, ServerState>()
+            services
+                // .AddSingleton<IServerMap, ServerMap>()
                 .AddSingleton<IScheduledTask, PingCoreServerScheduledTask>();
         }
         public static void UseSetupServer(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new CreateMapEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider
+                    .GetService<IMediator>()
+                    .Publish(
+                        new CreateMapEvent()
+                    ).GetAwaiter().GetResult();
             }
         }
     }
