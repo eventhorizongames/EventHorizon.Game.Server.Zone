@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Zone.Info.Api;
 using EventHorizon.Zone.Core.Model.Player;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Info.Query
+namespace EventHorizon.Zone.System.Player.Events.Info
 {
     public struct QueryForPlayerZoneInfo : IRequest<IDictionary<string, object>>
     {

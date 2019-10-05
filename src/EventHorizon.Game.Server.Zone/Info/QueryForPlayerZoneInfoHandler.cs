@@ -13,9 +13,15 @@ using EventHorizon.Zone.System.Gui.Events.Layout;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Map;
+using EventHorizon.Zone.System.Player.Events.Info;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
+    /// <summary>
+    /// This will eventually be moved into Loaders per the 
+    ///  module that contains state that should be sent 
+    ///  during a Zone's Player Info Request.
+    /// </summary>
     public struct QueryForPlayerZoneInfoHandler : IRequestHandler<QueryForPlayerZoneInfo, IDictionary<string, object>>
     {
         readonly IMediator _mediator;
