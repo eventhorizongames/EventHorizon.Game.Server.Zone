@@ -76,7 +76,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_Wander.json"
                 },
                 "ActorMoveToPosition": {
                     "X": -35.0,

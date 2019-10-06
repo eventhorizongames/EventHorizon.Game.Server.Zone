@@ -108,11 +108,11 @@ namespace EventHorizon.Game.Server.Zone
 
             // Core Services
             services.AddLoad(Configuration);
-            services.AddPlayer(Configuration);
+            services.AddServerSetup(Configuration);
             services.AddZoneCore(Configuration);
             services.AddCoreMap();
-            services.AddServerSetup(Configuration);
-            services.AddEntity();
+            services.AddCoreEntity();
+            services.AddPlayer(Configuration);
 
             services.AddZoneAdmin();
             services.AddParticle();
@@ -160,6 +160,7 @@ namespace EventHorizon.Game.Server.Zone
             var extensionAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
                     typeof(CoreMapExtensions).Assembly,
+                    typeof(CoreEntityExtensions).Assembly,
                     typeof(CoreServerActionExtensions).Assembly,
                     typeof(I18nExtensions).Assembly,
                     typeof(EventHorizonIdentityExtensions).Assembly,

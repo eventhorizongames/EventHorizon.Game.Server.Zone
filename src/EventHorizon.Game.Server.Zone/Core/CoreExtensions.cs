@@ -1,20 +1,17 @@
-using System.Reflection;
-using EventHorizon.Game.Server.Zone.Admin.SystemWatcher;
 using EventHorizon.Game.Server.Zone.Core.Connection;
 using EventHorizon.Game.Server.Zone.Core.Connection.Impl;
 using EventHorizon.Game.Server.Zone.Core.DirectoryService;
-using EventHorizon.Game.Server.Zone.Core.IdPool;
-using EventHorizon.Game.Server.Zone.Core.IdPool.Impl;
+using EventHorizon.Game.Server.Zone.Core.Id;
 using EventHorizon.Game.Server.Zone.Core.Info;
 using EventHorizon.Game.Server.Zone.Core.Json;
 using EventHorizon.Game.Server.Zone.Core.Model;
-using EventHorizon.Game.Server.Zone.Core.RandomNumber;
 using EventHorizon.Game.Server.Zone.Core.RandomNumber.Impl;
 using EventHorizon.Game.Server.Zone.Core.Register;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.Id;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Model.RandomNumber;
@@ -33,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddTransient<DirectoryResolver, ServerDirectoryResolver>()
                 .AddTransient<IJsonFileLoader, JsonFileLoader>()
                 .AddTransient<IJsonFileSaver, JsonFileSaver>()
-                .AddSingleton<IIdPool, IdPoolImpl>()
+                .AddSingleton<IdPool, InMemoryStaticIdPool>()
                 .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()
                 .AddSingleton<IServerProperty, ServerPropertyImpl>()
                 .AddSingleton<ServerInfo, ZoneServerInfo>()

@@ -14,6 +14,7 @@ using EventHorizon.Zone.System.ServerModule.Fetch;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Zone.System.Player.Events.Info;
+using EventHorizon.Zone.Core.Model.Entity.State;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
@@ -27,13 +28,14 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
         readonly IMediator _mediator;
         readonly IMapGraph _map;
         readonly IMapMesh _mapMesh;
-        readonly IEntityRepository _entityRepository;
+        readonly EntityRepository _entityRepository;
         readonly IPerformanceTracker _performanceTracker;
+        
         public QueryForPlayerZoneInfoHandler(
             IMediator mediator,
             IMapGraph map,
             IMapMesh mapMesh,
-            IEntityRepository entityRepository,
+            EntityRepository entityRepository,
             IPerformanceTracker performanceTracker
         )
         {

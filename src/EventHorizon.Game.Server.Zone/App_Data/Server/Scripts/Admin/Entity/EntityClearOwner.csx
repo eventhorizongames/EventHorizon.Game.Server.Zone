@@ -14,8 +14,9 @@
 using System.Linq;
 using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-using EventHorizon.Game.Server.Zone.Entity.Find;
+// using EventHorizon.Zone.System.Admin.Model;
 
 var command = Data.Command;
 if (command.Parts.Count != 1)

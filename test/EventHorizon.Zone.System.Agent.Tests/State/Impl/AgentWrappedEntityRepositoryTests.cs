@@ -5,6 +5,7 @@ using EventHorizon.Zone.System.Agent.Model;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.State.Impl;
+using EventHorizon.Zone.Core.Model.Entity.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 {
@@ -51,7 +52,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 expectedAgent3
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             entityRepositoryMock.Setup(
                 mock => mock.All()
@@ -99,7 +100,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 otherEntity1,
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             entityRepositoryMock.Setup(
                 mock => mock.All()
@@ -161,7 +162,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 otherAgent2
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             entityRepositoryMock.Setup(
                 mock => mock.All()
@@ -218,7 +219,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 otherAgent2
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             entityRepositoryMock.Setup(
                 mock => mock.All()
@@ -254,7 +255,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 Id = 3,
                 Type = EntityType.AGENT
             };
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             // When
             var agentRepository = new AgentWrappedEntityRepository(

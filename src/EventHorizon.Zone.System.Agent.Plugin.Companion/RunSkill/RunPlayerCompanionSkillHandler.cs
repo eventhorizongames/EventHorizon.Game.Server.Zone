@@ -8,18 +8,19 @@ using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Model;
 using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+using EventHorizon.Zone.Core.Model.Entity.State;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.RunSkill
 {
     public struct RunPlayerCompanionSkillHandler : INotificationHandler<RunPlayerCompanionSkillEvent>
     {
         readonly IMediator _mediator;
-        readonly IEntityRepository _entityRepository;
+        readonly EntityRepository _entityRepository;
         readonly I18nResolver _i18nResolver;
 
         public RunPlayerCompanionSkillHandler(
             IMediator mediator,
-            IEntityRepository entityRepository,
+            EntityRepository entityRepository,
             I18nResolver i18nResolver
         )
         {

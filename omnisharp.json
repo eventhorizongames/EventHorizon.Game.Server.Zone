@@ -1,0 +1,6 @@
+{
+    "script": {
+        "enabled": true,
+        "RspFilePath": "script.rsp"
+    }
+}

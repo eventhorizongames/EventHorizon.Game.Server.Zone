@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.State;
+using EventHorizon.Zone.Core.Model.Entity.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
 {
@@ -25,7 +26,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
                 expected,
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
             entityRepositoryMock.Setup(a => a.All()).ReturnsAsync(entityList);
 
             // When
@@ -47,7 +48,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
             var expected = default(PlayerEntity);
             var entityList = new List<IObjectEntity>();
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
             entityRepositoryMock.Setup(a => a.All()).ReturnsAsync(entityList);
             entityRepositoryMock.Setup(a => a.Add(It.IsAny<PlayerEntity>())).ReturnsAsync(expected);
 
@@ -73,7 +74,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
             };
 
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             // When
             var playerRepository = new PlayerRepository(
@@ -97,7 +98,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
                 Id = inputId
             };
 
-            var entityRepositoryMock = new Mock<IEntityRepository>();
+            var entityRepositoryMock = new Mock<EntityRepository>();
 
             // When
             var playerRepository = new PlayerRepository(
