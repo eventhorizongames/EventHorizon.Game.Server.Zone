@@ -108,24 +108,27 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
 
-            // Core Services
+            // Zone Services
             services.AddLoad(Configuration);
             services.AddServerSetup(Configuration);
             services.AddZoneCore(Configuration);
-            services.AddCoreMap();
-            services.AddCoreEntity();
             services.AddPlayer(Configuration);
-
             services.AddZoneAdmin();
             services.AddParticle();
-            services.AddCoreServerAction();
+            services.AddTimer();
 
             services.AddScheduler((sender, args) =>
             {
                 Console.WriteLine(args.Exception.Message);
                 args.SetObserved();
             });
-            services.AddTimer();
+
+            // Core Services
+            services
+                .AddCoreMap()
+                .AddCoreEntity()
+                .AddCoreClient()
+                .AddCoreServerAction();
 
             // External Services, Systems, and Plugins
             services
@@ -165,6 +168,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(Startup).Assembly,
                     typeof(CoreMapExtensions).Assembly,
                     typeof(CoreEntityExtensions).Assembly,
+                    typeof(CoreClientExtensions).Assembly,
                     typeof(CoreServerActionExtensions).Assembly,
                     typeof(I18nExtensions).Assembly,
                     typeof(EventHorizonIdentityExtensions).Assembly,
