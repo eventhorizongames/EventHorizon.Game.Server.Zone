@@ -1,16 +1,7 @@
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.Exceptions;
-using EventHorizon.Game.Server.Zone.Core.Register.Model;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
-using IdentityModel.Client;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Handler
 {
@@ -19,15 +10,24 @@ namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Handler
         private readonly IServerProperty _serverProperty;
         private readonly IConfiguration _configuration;
 
-        public FillServerPropertiesHandler(IServerProperty serverProperty, IConfiguration configuration)
+        public FillServerPropertiesHandler(
+            IServerProperty serverProperty, 
+            IConfiguration configuration
+        )
         {
             _serverProperty = serverProperty;
             _configuration = configuration;
         }
 
-        public Task Handle(FillServerPropertiesEvent notification, CancellationToken cancellationToken)
+        public Task Handle(
+            FillServerPropertiesEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
-            _serverProperty.Set(ServerPropertyKeys.HOST, _configuration["HOST"]);
+            _serverProperty.Set(
+                ServerPropertyKeys.HOST, 
+                _configuration["HOST"]
+            );
             return Task.CompletedTask;
         }
     }

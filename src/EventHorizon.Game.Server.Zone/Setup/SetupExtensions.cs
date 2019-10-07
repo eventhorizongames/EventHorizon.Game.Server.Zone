@@ -1,4 +1,4 @@
-using EventHorizon.Game.Server.Zone.Core.Ping;
+using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
 using EventHorizon.Schedule;
 using EventHorizon.Zone.Core.Events.Map.Create;
 using MediatR;
@@ -10,15 +10,20 @@ namespace EventHorizon.Game.Server.Zone.Setup
 {
     public static class ServerSetupExtensions
     {
-        public static void AddServerSetup(this IServiceCollection services, IConfiguration configuration)
+        public static void AddServerSetup(
+            this IServiceCollection services, 
+            IConfiguration configuration
+        )
         {
             services
-                // .AddSingleton<IServerMap, ServerMap>()
                 .AddSingleton<IScheduledTask, PingCoreServerScheduledTask>();
         }
-        public static void UseSetupServer(this IApplicationBuilder app)
+
+        public static void UseSetupServer(
+            this IApplicationBuilder app
+        )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()

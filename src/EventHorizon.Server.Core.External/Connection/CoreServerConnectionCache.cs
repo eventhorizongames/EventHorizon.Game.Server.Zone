@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Connections.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace EventHorizon.Game.Server.Core.Player.Connection
+namespace EventHorizon.Server.Core.External.Connection
 {
-    public interface IConnectionCache
+    public interface CoreServerConnectionCache
     {
+        Task Stop();
         Task<HubConnection> GetConnection(
             string url, 
             Action<HttpConnectionOptions> configureHttpConnection

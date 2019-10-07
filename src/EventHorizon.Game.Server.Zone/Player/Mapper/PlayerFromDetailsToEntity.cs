@@ -1,14 +1,9 @@
 
-using System;
 using System.Collections.Generic;
 using EventHorizon.Game.Server.Core.Player.Model;
-using EventHorizon.Game.Server.Zone.Core.Model;
-using EventHorizon.Game.Server.Zone.Entity.Model;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using EventHorizon.Game.Server.Zone.Player.Model;
 
 namespace EventHorizon.Game.Server.Zone.Player.Mapper
 {

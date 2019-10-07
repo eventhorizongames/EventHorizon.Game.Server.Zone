@@ -3,13 +3,13 @@ using Moq;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Schedule;
-using EventHorizon.Game.Server.Zone.Core.Ping;
 using MediatR;
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using System.Threading;
 using EventHorizon.Zone.Core.Events.Map.Create;
+using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Setup
 {

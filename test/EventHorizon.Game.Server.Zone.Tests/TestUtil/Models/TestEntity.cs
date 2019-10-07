@@ -1,11 +1,6 @@
-using Xunit;
-using Moq;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Game.Server.Zone.Core.Model;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Core;
-using System;
 
 namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Models
 {
