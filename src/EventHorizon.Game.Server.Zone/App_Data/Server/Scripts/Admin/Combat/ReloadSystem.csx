@@ -16,8 +16,10 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.Combat.Load;
 
-var command = Data.Command;
-await Services.Mediator.Publish(new LoadCombatSystemEvent());
+var command = Data.Get<IAdminCommand>("Command");
+await Services.Mediator.Publish(
+    new LoadCombatSystemEvent()
+);
 
 return new AdminCommandScriptResponse(
     true, // Success

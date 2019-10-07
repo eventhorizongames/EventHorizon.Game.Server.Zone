@@ -16,7 +16,7 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Game.Server.Zone.Server.Load;
 
-var command = Data.Command;
+var command = Data.Get<IAdminCommand>("Command");
 await Services.Mediator.Send(
     new LoadServerScriptsCommand()
 );

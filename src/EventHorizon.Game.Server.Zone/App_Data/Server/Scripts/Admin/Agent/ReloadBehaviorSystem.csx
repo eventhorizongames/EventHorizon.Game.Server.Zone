@@ -16,7 +16,9 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 
-await Services.Mediator.Send(new LoadAgentBehaviorSystem());
+await Services.Mediator.Send(
+    new LoadAgentBehaviorSystem()
+);
 
 return new AdminCommandScriptResponse(
     true, // Success

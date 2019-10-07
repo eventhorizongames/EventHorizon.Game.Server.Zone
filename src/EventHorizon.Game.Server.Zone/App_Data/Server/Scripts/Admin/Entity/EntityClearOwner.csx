@@ -18,7 +18,7 @@ using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 // using EventHorizon.Zone.System.Admin.Model;
 
-var command = Data.Command;
+var command = Data.Get<IAdminCommand>("Command");
 if (command.Parts.Count != 1)
 {
     return new AdminCommandScriptResponse(
@@ -31,7 +31,10 @@ var globalId = command.Parts[0];
 var entityList = await Services.Mediator.Send(
         new QueryForEntities
         {
-            Query = (a => a.Type != EntityType.PLAYER && a.GlobalId == globalId)
+            Query = (
+                entity => entity.Type != EntityType.PLAYER 
+                && entity.GlobalId == globalId
+            )
         }
     );
 if (entityList.Count() != 1)
@@ -42,8 +45,9 @@ if (entityList.Count() != 1)
     );
 }
 
-entityList.First().GetProperty<dynamic>("ownerState")["ownerId"] = "";
-entityList.First().GetProperty<dynamic>("ownerState")["canBeCaptured"] = true;
+var ownerState = entityList.First().GetProperty<dynamic>("ownerState");
+ownerState["ownerId"] = "";
+ownerState["canBeCaptured"] = true;
 
 return new AdminCommandScriptResponse(
     true, // Success

@@ -15,7 +15,7 @@ using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Game.I18n.Loader;
 
-var command = Data.Command;
+var command = Data.Get<IAdminCommand>("Command");
 await Services.Mediator.Publish(
     new I18nLoadEvent()
 );

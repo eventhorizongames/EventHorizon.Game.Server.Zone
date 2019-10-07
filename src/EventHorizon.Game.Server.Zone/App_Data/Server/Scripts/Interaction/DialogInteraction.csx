@@ -24,16 +24,23 @@
 
 using EventHorizon.Zone.System.Interaction.Model.Client;
 using EventHorizon.Zone.System.Interaction.Events.Client;
+using EventHorizon.Zone.System.Interaction.Model;
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.Core.Model.Entity;
 
-Services.Mediator.Publish(
+var player = Data.Get<PlayerEntity>("Player");
+var interaction = Data.Get<InteractionItem>("Interaction");
+var target = Data.Get<IObjectEntity>("Target");
+await Services.Mediator.Publish(
     new SendSingleInteractionClientActionEvent(
-        Data.Player.ConnectionId,
+        player.ConnectionId,
         new InteractionClientActionData(
             "Systems.Dialog.OPEN_DIALOG_TREE_COMMAND",
-            new {
-                DialogTreeId = Data.Interaction.Data["dialogTreeId"] as string,
-                PlayerId = Data.Player.Id,
-                NpcId = Data.Target.Id
+            new
+            {
+                DialogTreeId = interaction.Data["dialogTreeId"] as string,
+                PlayerId = player.Id,
+                NpcId = target.Id
             }
         )
     )

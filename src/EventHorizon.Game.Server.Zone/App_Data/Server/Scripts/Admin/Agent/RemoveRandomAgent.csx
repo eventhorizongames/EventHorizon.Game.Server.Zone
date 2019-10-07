@@ -23,7 +23,8 @@ var agentList = await Services.Mediator.Send(
     new GetAgentListEvent()
 );
 var count = 1;
-var countToCreateString = Data.Command.Parts.FirstOrDefault();
+var command = Data.Get<IAdminCommand>("Command");
+var countToCreateString = command.Parts.FirstOrDefault();
 if (!int.TryParse(
     countToCreateString,
     out count
@@ -34,9 +35,11 @@ if (!int.TryParse(
 
 for (int i = 0; i < count; i++)
 {
-    await Services.Mediator.Send(new UnRegisterAgent(
-        agentList.LastOrDefault().AgentId
-    ));
+    await Services.Mediator.Send(
+        new UnRegisterAgent(
+            agentList.LastOrDefault().AgentId
+        )
+    );
 }
 
 return new AdminCommandScriptResponse(

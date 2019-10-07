@@ -16,7 +16,9 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.Interaction.Script.Load;
 
-await Services.Mediator.Send(new LoadInteractionScriptsCommand());
+await Services.Mediator.Send(
+    new LoadInteractionScriptsCommand()
+);
 
 return new AdminCommandScriptResponse(
     true, // Success

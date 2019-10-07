@@ -85,7 +85,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         public class SystemServerScriptData
         {
             public ServerScriptServices Services { get; }
-            public dynamic Data { get; }
+            public DynamicData Data { get; }
             public SystemServerScriptData(
                 ServerScriptServices services,
                 IDictionary<string, object> data
@@ -98,51 +98,35 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             }
         }
 
-        public class DynamicData : DynamicObject
+        public struct DynamicData
         {
-            readonly IDictionary<string, object> _properties;
+            private IDictionary<string, object> _data;
 
             public DynamicData(
-                IDictionary<string, object> properties
+                IDictionary<string, object> data
             )
             {
-                _properties = properties;
-            }
-            public override bool TryGetMember(
-                GetMemberBinder binder,
-                out object result
-            )
-            {
-                if (_properties.ContainsKey(binder.Name))
-                {
-                    result = _properties[binder.Name];
-                    return true;
-                }
-                else
-                {
-                    result = "Invalid Property!";
-                    return false;
-                }
+                _data = data;
             }
 
-            public override bool TrySetMember(
-                SetMemberBinder binder,
+            public void Set(
+                string name,
                 object value
             )
             {
-                _properties[binder.Name] = value;
-                return true;
+                _data[name] = value;
             }
-
-            public override bool TryInvokeMember(
-                InvokeMemberBinder binder,
-                object[] args,
-                out object result
+            public T Get<T>(
+                string name
             )
             {
-                dynamic method = _properties[binder.Name];
-                result = method(args[0].ToString(), args[1].ToString());
-                return true;
+                if (!_data.ContainsKey(
+                    name
+                ))
+                {
+                    return default(T);
+                }
+                return (T)_data[name];
             }
         }
 

@@ -16,7 +16,7 @@ using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 
 using EventHorizon.Zone.System.ServerModule.Load;
 
-var command = Data.Command;
+var command = Data.Get<IAdminCommand>("Command");
 await Services.Mediator.Publish(
     new LoadServerModuleSystemEvent()
 );

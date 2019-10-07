@@ -15,8 +15,10 @@ using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
 using EventHorizon.Zone.System.Gui.Load;
 
-var command = Data.Command;
-await Services.Mediator.Send(new LoadSystemGuiCommand());
+var command = Data.Get<IAdminCommand>("Command");
+await Services.Mediator.Send(
+    new LoadSystemGuiCommand()
+);
 
 return new AdminCommandScriptResponse(
     true, // Success
