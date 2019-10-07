@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EventHorizon.Game.Server.Zone
+namespace EventHorizon.Identity
 {
     public static class EventHorizonIdentityExtensions
     {

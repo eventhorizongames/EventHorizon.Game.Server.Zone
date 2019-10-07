@@ -1,9 +1,6 @@
-using EventHorizon.Game.Server.Zone;
 using Xunit;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Identity.Client;
 

@@ -48,6 +48,7 @@
         <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
         <ProjectReference Include="..\EventHorizon.Scheduler\EventHorizon.Scheduler.csproj" />
         <ProjectReference Include="..\EventHorizon.Identity\EventHorizon.Identity.csproj" />
+        <ProjectReference Include="..\EventHorizon.Server.Core.External\EventHorizon.Server.Core.External.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" />

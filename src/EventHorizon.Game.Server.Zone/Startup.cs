@@ -13,9 +13,11 @@ using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.Setup;
+using EventHorizon.Identity;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
 using EventHorizon.Schedule;
+using EventHorizon.Server.Core;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills;
 using EventHorizon.Zone.System.Editor.ExternalHub;
@@ -126,8 +128,10 @@ namespace EventHorizon.Game.Server.Zone
             services.AddTimer();
 
             // External Services, Systems, and Plugins
-            services.AddI18n()
+            services
+                .AddI18n()
                 .AddEventHorizonIdentity(Configuration)
+                .AddServerCoreExternal()
                 .AddSystemServerScripts()
                 .AddSystemEditor()
                 .AddSystemBackup()
