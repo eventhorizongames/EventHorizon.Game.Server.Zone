@@ -1,15 +1,14 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Admin.Command;
-using EventHorizon.Zone.Core.Events.Admin.Command.Respond;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.Core.Model.Admin;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Zone.System.Combat.Skill.Find;
 using MediatR;
 using EventHorizon.Zone.System.Combat.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
 
 namespace EventHorizon.Zone.System.Combat.Admin.Skill
 {
@@ -38,7 +37,7 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
             if (command.Parts.Count != 2)
             {
                 await _mediator.Send(
-                    new ResponseToAdminCommand(
+                    new RespondToAdminCommand(
                         notification.ConnectionId,
                         new StandardAdminCommandResponse(
                             command.Command,
@@ -58,7 +57,7 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
             if (!player.IsFound())
             {
                 await _mediator.Send(
-                    new ResponseToAdminCommand(
+                    new RespondToAdminCommand(
                         notification.ConnectionId,
                         new StandardAdminCommandResponse(
                             command.Command,
@@ -79,7 +78,7 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
             if (!skill.IsFound())
             {
                 await _mediator.Send(
-                    new ResponseToAdminCommand(
+                    new RespondToAdminCommand(
                         notification.ConnectionId,
                         new StandardAdminCommandResponse(
                             command.Command,
@@ -117,7 +116,7 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
                 // });
             }
             await _mediator.Send(
-                new ResponseToAdminCommand(
+                new RespondToAdminCommand(
                     notification.ConnectionId,
                     new StandardAdminCommandResponse(
                         command.Command,

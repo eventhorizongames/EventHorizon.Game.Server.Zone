@@ -12,11 +12,10 @@
 /// </summary>
 
 using System.Linq;
-using EventHorizon.Zone.Core.Model.Admin;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-// using EventHorizon.Zone.System.Admin.Model;
 
 var command = Data.Get<IAdminCommand>("Command");
 if (command.Parts.Count != 1)

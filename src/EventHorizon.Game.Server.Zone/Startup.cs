@@ -3,11 +3,9 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using EventHorizon.Game.I18n;
-using EventHorizon.Game.Server.Zone.Admin.Bus;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
-using EventHorizon.Game.Server.Zone.Entity;
 using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Player.Bus;
@@ -19,6 +17,7 @@ using EventHorizon.Performance.Impl;
 using EventHorizon.Schedule;
 using EventHorizon.Server.Core;
 using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Admin.ExternalHub;
 using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills;
 using EventHorizon.Zone.System.Editor.ExternalHub;
 using EventHorizon.Zone.System.ModelState;
@@ -108,63 +107,8 @@ namespace EventHorizon.Game.Server.Zone
 
             services.AddSingleton<IPerformanceTracker, PerformanceTracker>();
 
-            // Zone Services
-            services.AddLoad(Configuration);
-            services.AddServerSetup(Configuration);
-            services.AddZoneCore(Configuration);
-            services.AddPlayer(Configuration);
-            services.AddZoneAdmin();
-            services.AddParticle();
-            services.AddTimer();
-
-            services.AddScheduler((sender, args) =>
-            {
-                Console.WriteLine(args.Exception.Message);
-                args.SetObserved();
-            });
-
-            // Core Services
-            services
-                .AddCoreMap()
-                .AddCoreEntity()
-                .AddCoreClient()
-                .AddCoreServerAction();
-
-            // External Services, Systems, and Plugins
-            services
-                .AddI18n()
-                .AddEventHorizonIdentity(Configuration)
-                .AddServerCoreExternal()
-                .AddSystemServerScripts()
-                .AddSystemEditor()
-                .AddSystemBackup()
-                .AddSystemGui()
-                .AddSystemGuiPluginEditor()
-                .AddSystemCombat()
-                .AddSystemCombatPluginEditor()
-                .AddSystemParticlePluginEditor()
-                .AddSystemModelState()
-                .AddSystemServerModule()
-                .AddSystemServerModulePluginEditor()
-                .AddSystemEntityModule()
-                .AddSystemEntityModulePluginEditor()
-                .AddSystemAgent(Configuration)
-                .AddSystemAgentPluginAi()
-                .AddSystemAgentPluginMove()
-                .AddSystemAgentPluginBehavior()
-                .AddSystemAgentPluginBehaviorEditor()
-                .AddSystemClientAssets()
-                .AddSystemClientAssetsPluginEditor()
-                .AddSystemClientEntities()
-                .AddSystemClientEntitiesPluginEditor()
-                .AddSystemClientScripts()
-                .AddSystemPlayer()
-                .AddSystemAgentPluginCompanion()
-                .AddPlugins(HostingEnvironment)
-                .AddSystemInteraction();
-
             // To be moved into extension startup
-            var extensionAssemblyList = new Assembly[] {
+            var systemProvidedAssemblyList = new Assembly[] {
                     typeof(Startup).Assembly,
                     typeof(CoreMapExtensions).Assembly,
                     typeof(CoreEntityExtensions).Assembly,
@@ -173,6 +117,8 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(I18nExtensions).Assembly,
                     typeof(EventHorizonIdentityExtensions).Assembly,
                     typeof(PluginExtensions).Assembly,
+                    typeof(SystemAdminExtensions).Assembly,
+                    typeof(SystemAdminPluginCommandExtensions).Assembly,
                     typeof(SystemServerScriptsExtensions).Assembly,
                     typeof(SystemEditorExtensions).Assembly,
                     typeof(SystemBackupExtensions).Assembly,
@@ -201,9 +147,69 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemInteractionExtensions).Assembly,
             };
 
+            // Zone Services
+            services.AddLoad(Configuration);
+            services.AddServerSetup(Configuration);
+            services.AddZoneCore(
+                Configuration,
+                systemProvidedAssemblyList
+            );
+            services.AddPlayer(Configuration);
+            services.AddZoneAdmin();
+            services.AddParticle();
+            services.AddTimer();
+
+            services.AddScheduler((sender, args) =>
+            {
+                Console.WriteLine(args.Exception.Message);
+                args.SetObserved();
+            });
+
+            // Core Services
+            services
+                .AddCoreMap()
+                .AddCoreEntity()
+                .AddCoreClient()
+                .AddCoreServerAction();
+
+            // External Services, Systems, and Plugins
+            services
+                .AddI18n()
+                .AddEventHorizonIdentity(Configuration)
+                .AddServerCoreExternal()
+                .AddSystemServerScripts()
+                .AddSystemAdmin()
+                .AddSystemAdminPluginCommand()
+                .AddSystemEditor()
+                .AddSystemBackup()
+                .AddSystemGui()
+                .AddSystemGuiPluginEditor()
+                .AddSystemCombat()
+                .AddSystemCombatPluginEditor()
+                .AddSystemParticlePluginEditor()
+                .AddSystemModelState()
+                .AddSystemServerModule()
+                .AddSystemServerModulePluginEditor()
+                .AddSystemEntityModule()
+                .AddSystemEntityModulePluginEditor()
+                .AddSystemAgent(Configuration)
+                .AddSystemAgentPluginAi()
+                .AddSystemAgentPluginMove()
+                .AddSystemAgentPluginBehavior()
+                .AddSystemAgentPluginBehaviorEditor()
+                .AddSystemClientAssets()
+                .AddSystemClientAssetsPluginEditor()
+                .AddSystemClientEntities()
+                .AddSystemClientEntitiesPluginEditor()
+                .AddSystemClientScripts()
+                .AddSystemPlayer()
+                .AddSystemAgentPluginCompanion()
+                .AddPlugins(HostingEnvironment)
+                .AddSystemInteraction();
+
             services
                 .AddMediatR(
-                    extensionAssemblyList
+                    systemProvidedAssemblyList
                 );
         }
 
@@ -228,6 +234,9 @@ namespace EventHorizon.Game.Server.Zone
             app.UseEventHorizonIdentity();
             app.UseZoneCore();
             app.UseSetupServer();
+
+            app.UseSystemAdmin();
+            app.UseSystemAdminPluginCommand();
 
             app.UseSystemServerScripts();
             app.UseSystemEditor();
@@ -277,7 +286,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseStaticFiles();
             app.UseSignalR(routes =>
             {
-                routes.MapHub<AdminBus>("/admin");
+                routes.MapHub<AdminHub>("/admin");
                 routes.MapHub<PlayerHub>("/playerHub");
 
                 routes.MapHub<SystemEditorHub>("/systemEditor");

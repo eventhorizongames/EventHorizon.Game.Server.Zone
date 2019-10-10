@@ -1,0 +1,4 @@
+{
+    "command": "run-this-command",
+    "scriptFile": "Test_Command_Script.csx"
+}

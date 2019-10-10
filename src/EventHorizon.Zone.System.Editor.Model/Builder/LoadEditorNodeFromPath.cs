@@ -6,11 +6,12 @@ namespace EventHorizon.Zone.System.Editor.Model.Builder
 {
     public static class LoadEditorNodeFromPath
     {
+        public const string DEFAULT_NODE_TYPE = "EDITOR_CONTENT";
         public static Task<IEditorNode> Create(
             string rootFolderName,
             string rootFolderPath,
             string directoryToLoadPath,
-            string nodeType = "EDITOR_CONTENT"
+            string nodeType = DEFAULT_NODE_TYPE
         )
         {
             return Create(

@@ -11,10 +11,9 @@
 /// - I18n: I18nLookup;
 /// </summary>
 
-using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
-using EventHorizon.Zone.Core.Model.Admin;
-
 using System.Linq;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Events.Register;
 

@@ -11,10 +11,9 @@
 /// - I18n: I18nLookup;
 /// </summary>
 
-using EventHorizon.Zone.Core.Model.Admin;
-using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-using EventHorizon.Game.Server.Zone.Server.Load;
 
 var command = Data.Get<IAdminCommand>("Command");
 await Services.Mediator.Send(

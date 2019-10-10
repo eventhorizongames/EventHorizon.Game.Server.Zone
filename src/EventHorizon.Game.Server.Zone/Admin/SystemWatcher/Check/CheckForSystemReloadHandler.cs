@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.Command.Model;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
-using EventHorizon.Zone.Core.Events.Admin.Command;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Check
                 _logger.LogInformation("Running System Reload");
                 await _mediator.Publish(
                     new AdminCommandEvent(
-                        AdminCommandFromString.CreateFromString(
+                        BuildAdminCommand.FromString(
                             "reload-system"
                         ),
                         null

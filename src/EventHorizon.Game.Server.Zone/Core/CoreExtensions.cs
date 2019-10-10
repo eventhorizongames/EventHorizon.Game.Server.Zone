@@ -1,3 +1,4 @@
+using System.Reflection;
 using EventHorizon.Game.Server.Zone.Core.DirectoryService;
 using EventHorizon.Game.Server.Zone.Core.Id;
 using EventHorizon.Game.Server.Zone.Core.Info;
@@ -23,7 +24,11 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class CoreExtensions
     {
-        public static void AddZoneCore(this IServiceCollection services, IConfiguration configuration)
+        public static void AddZoneCore(
+            this IServiceCollection services,
+            IConfiguration configuration,
+            Assembly[] systemProvidedAssemblyList
+        )
         {
             services
                 .AddTransient<DirectoryResolver, ServerDirectoryResolver>()
@@ -32,12 +37,18 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<IdPool, InMemoryStaticIdPool>()
                 .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()
                 .AddSingleton<IServerProperty, ServerPropertyImpl>()
+                .AddSingleton<SystemProvidedAssemblyList>(
+                    new StandardSystemProvidedAssemblyList(
+                        systemProvidedAssemblyList
+                    )
+                )
                 .AddSingleton<ServerInfo, ZoneServerInfo>()
                 .Configure<AuthSettings>(configuration.GetSection("Auth"))
                 .Configure<CoreSettings>(configuration.GetSection("Core"))
                 .AddSingleton<IDateTimeService, DateTimeService.DateTimeService>()
             ;
         }
+
         public static void UseZoneCore(this IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())

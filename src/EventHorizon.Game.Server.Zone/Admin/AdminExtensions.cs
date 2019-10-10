@@ -1,5 +1,3 @@
-using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.Load;
-using EventHorizon.Game.Server.Zone.Admin.Command.Scripts.State;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
 using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Timer;
@@ -15,7 +13,6 @@ namespace EventHorizon.Game.Server.Zone.Core
         public static IServiceCollection AddZoneAdmin(this IServiceCollection services)
         {
             return services
-                .AddSingleton<AdminCommandRepository, AdminCommandInMemoryRepository>()
                 .AddSingleton<ISystemWatcherState, SystemWatcherState>()
                 .AddTransient<ITimerTask, WatcherReloadSystemTimer>()
             ;
@@ -27,10 +24,6 @@ namespace EventHorizon.Game.Server.Zone.Core
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()
                     .Publish(new StartWatchingSystemEvent())
-                    .GetAwaiter().GetResult();
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Send(new LoadAdminCommands())
                     .GetAwaiter().GetResult();
             }
             return app;
