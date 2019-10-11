@@ -1,17 +1,12 @@
-using System;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Identity;
-using MediatR;
-using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using EventHorizon.Zone.System.Player.Connection;
 
-namespace EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing
+namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {
-    public class PlayerTestingConnectionFactory : IPlayerConnectionFactory
+    public class PlayerTestingConnectionFactory : PlayerServerConnectionFactory
     {
         readonly ILogger _logger;
         readonly ILoggerFactory _loggerFactory;
@@ -23,21 +18,21 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing
             IServerProperty serverProperty,
             IJsonFileLoader fileLoader)
         {
-            _logger = loggerFactory.CreateLogger<PlayerConnectionFactory>();
+            _logger = loggerFactory.CreateLogger<PlayerTestingConnectionFactory>();
 
             _loggerFactory = loggerFactory;
             _serverProperty = serverProperty;
             _fileLoader = fileLoader;
         }
 
-        public Task<IPlayerConnection> GetConnection()
+        public Task<PlayerServerConnection> GetConnection()
         {
             return Task.FromResult(
                 new PlayerTestingConnection(
                     _loggerFactory.CreateLogger<PlayerTestingConnection>(),
                     _serverProperty,
                     _fileLoader
-                ) as IPlayerConnection);
+                ) as PlayerServerConnection);
         }
     }
 }

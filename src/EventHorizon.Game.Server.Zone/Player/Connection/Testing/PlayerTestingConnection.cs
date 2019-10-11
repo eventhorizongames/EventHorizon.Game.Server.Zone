@@ -1,22 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
-using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
-using MediatR;
-using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using IOPath = System.IO.Path;
+using EventHorizon.Zone.System.Player.Connection;
+using System.IO;
 
-namespace EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing
+namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {
-    public class PlayerTestingConnection : IPlayerConnection
+    public class PlayerTestingConnection : PlayerServerConnection
     {
         readonly ILogger _logger;
         readonly IServerProperty _serverProperty;
@@ -58,7 +51,7 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Impl.Testing
         private async Task<PlayerDetails> CreateTestEntity(string id)
         {
             var player = await _fileLoader.GetFile<PlayerDetails>(
-                IOPath.Combine(
+                Path.Combine(
                     "App_Data",
                     "Testing.Player.json"
                 )
