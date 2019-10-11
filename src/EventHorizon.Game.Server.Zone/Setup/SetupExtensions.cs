@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Setup
     public static class ServerSetupExtensions
     {
         public static void AddServerSetup(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             IConfiguration configuration
         )
         {

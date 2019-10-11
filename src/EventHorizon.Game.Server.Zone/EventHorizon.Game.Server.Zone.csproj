@@ -63,8 +63,10 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Behavior\EventHorizon.Zone.System.Agent.Plugin.Behavior.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor.csproj" />
 
+        <ProjectReference Include="..\EventHorizon.Zone.System.Watcher\EventHorizon.Zone.System.Watcher.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup\EventHorizon.Zone.System.Backup.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Editor\EventHorizon.Zone.System.Editor.csproj" />
+
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj" />

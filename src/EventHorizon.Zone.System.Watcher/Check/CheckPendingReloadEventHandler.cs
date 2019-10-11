@@ -1,33 +1,36 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.SystemWatcher.State;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+using EventHorizon.Zone.System.Watcher.State;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Check
+namespace EventHorizon.Zone.System.Watcher.Check
 {
-    public struct CheckForSystemReloadHandler : INotificationHandler<CheckForSystemReloadEvent>
+    public struct CheckPendingReloadEventHandler : INotificationHandler<CheckPendingReloadEvent>
     {
         readonly IMediator _mediator;
         readonly ILogger _logger;
-        readonly ISystemWatcherState _systemWatcherState;
+        readonly PendingReloadState _pendingReload;
 
-        public CheckForSystemReloadHandler(
+        public CheckPendingReloadEventHandler(
             IMediator mediator,
-            ILogger<CheckForSystemReloadHandler> logger,
-            ISystemWatcherState systemWatcherState
+            ILogger<CheckPendingReloadEventHandler> logger,
+            PendingReloadState pendingReload
         )
         {
             _mediator = mediator;
             _logger = logger;
-            _systemWatcherState = systemWatcherState;
+            _pendingReload = pendingReload;
         }
 
-        public async Task Handle(CheckForSystemReloadEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            CheckPendingReloadEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
-            if (_systemWatcherState.PendingReload)
+            if (_pendingReload.IsPending)
             {
                 _logger.LogInformation("Running System Reload");
                 await _mediator.Publish(
@@ -38,7 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.SystemWatcher.Check
                         null
                     )
                 );
-                _systemWatcherState.RemovePendingReload();
+                _pendingReload.RemovePending();
             }
         }
     }
