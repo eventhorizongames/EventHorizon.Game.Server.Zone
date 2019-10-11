@@ -1,11 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Bus;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using EventHorizon.Zone.System.Player.Events.Info;
 using EventHorizon.Zone.System.Player.Events.Zone;
+using EventHorizon.Zone.System.Player.ExternalHub;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {

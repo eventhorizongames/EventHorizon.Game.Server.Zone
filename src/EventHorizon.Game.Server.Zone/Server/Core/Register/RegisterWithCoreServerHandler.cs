@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Server.Core.External.Connection;
 using EventHorizon.Server.Core.External.Connection.Model;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 using EventHorizon.Zone.Core.Model.Settings;
 using MediatR;
 using Microsoft.Extensions.Logging;

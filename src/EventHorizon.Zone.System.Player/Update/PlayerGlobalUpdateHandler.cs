@@ -23,7 +23,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Update.Handler
         {
             // TODO: Add palyer to a future to be updated queue, right now is currently setup to run synchronize when who called it.
             var connection = await _connectionFactory.GetConnection();
-            await connection.UpdatePlayer(
+            await connection.SendAction(
+                "UpdatePlayer", 
                 PlayerFromEntityToDetails.Map(
                     notification.Player
                 )

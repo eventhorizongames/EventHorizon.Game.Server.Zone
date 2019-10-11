@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 

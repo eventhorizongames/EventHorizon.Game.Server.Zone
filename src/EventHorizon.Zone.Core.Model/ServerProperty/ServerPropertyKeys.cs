@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Core.ServerProperty
+namespace EventHorizon.Zone.Core.Model.ServerProperty
 {
     public static class ServerPropertyKeys
     {

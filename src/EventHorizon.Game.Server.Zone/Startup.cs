@@ -21,6 +21,7 @@ using EventHorizon.Zone.System.Admin.ExternalHub;
 using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills;
 using EventHorizon.Zone.System.Editor.ExternalHub;
 using EventHorizon.Zone.System.ModelState;
+using EventHorizon.Zone.System.Player.ExternalHub;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

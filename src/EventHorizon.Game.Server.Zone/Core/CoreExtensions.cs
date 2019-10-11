@@ -15,6 +15,7 @@ using EventHorizon.Zone.Core.Model.Id;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Model.RandomNumber;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -37,24 +38,36 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<IdPool, InMemoryStaticIdPool>()
                 .AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>()
                 .AddSingleton<IServerProperty, ServerPropertyImpl>()
+                .AddSingleton<ServerInfo, ZoneServerInfo>()
+                .AddSingleton<IDateTimeService, DateTimeService.DateTimeService>()
                 .AddSingleton<SystemProvidedAssemblyList>(
                     new StandardSystemProvidedAssemblyList(
                         systemProvidedAssemblyList
                     )
+                ).Configure<AuthSettings>(
+                    configuration.GetSection("Auth")
+                ).Configure<CoreSettings>(
+                    configuration.GetSection("Core")
                 )
-                .AddSingleton<ServerInfo, ZoneServerInfo>()
-                .Configure<AuthSettings>(configuration.GetSection("Auth"))
-                .Configure<CoreSettings>(configuration.GetSection("Core"))
-                .AddSingleton<IDateTimeService, DateTimeService.DateTimeService>()
             ;
         }
 
-        public static void UseZoneCore(this IApplicationBuilder app)
+        public static void UseZoneCore(
+            this IApplicationBuilder app
+        )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new FillServerPropertiesEvent()).GetAwaiter().GetResult();
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new RegisterWithCoreServerEvent()).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider
+                    .GetService<IMediator>()
+                    .Publish(
+                        new FillServerPropertiesEvent()
+                    ).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider
+                    .GetService<IMediator>()
+                    .Publish(
+                        new RegisterWithCoreServerEvent()
+                    ).GetAwaiter().GetResult();
             }
         }
     }

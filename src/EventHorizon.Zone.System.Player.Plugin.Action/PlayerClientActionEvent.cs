@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Player.Action
+namespace EventHorizon.Zone.System.Player.Plugin.Action
 {
     public class PlayerClientActionEvent : INotification
     {

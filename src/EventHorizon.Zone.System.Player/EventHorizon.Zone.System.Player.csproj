@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +15,8 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.ExternalHub\EventHorizon.Zone.System.Player.ExternalHub.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Connection\EventHorizon.Zone.System.Player.Connection.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Interaction.Events\EventHorizon.Zone.System.Interaction.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Interaction.Model\EventHorizon.Zone.System.Interaction.Model.csproj" />

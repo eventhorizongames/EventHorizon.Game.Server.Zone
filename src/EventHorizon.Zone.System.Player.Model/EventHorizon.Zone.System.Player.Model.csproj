@@ -8,4 +8,8 @@
         <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+    </ItemGroup>
+
 </Project>

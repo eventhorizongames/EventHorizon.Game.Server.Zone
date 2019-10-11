@@ -1,16 +1,16 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
-using EventHorizon.Game.Server.Zone.Player.Model;
 using MediatR;
 using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.System.Player.Events.Connected;
 using EventHorizon.Zone.System.Player.Events.Details;
 using EventHorizon.Zone.System.Player.Events.Update;
 using EventHorizon.Zone.System.Player.Events.Zone;
+using EventHorizon.Zone.Core.Model.ServerProperty;
+using EventHorizon.Zone.System.Player.Model.Action;
 
 namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
 {
@@ -36,7 +36,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
         )
         {
             // Check for player on this zone server
-            var playerAction = PlayerAction.CONNECTION_ID;
+            var playerAction = StandardPlayerAction.CONNECTION_ID;
             var player = await _player.FindById(
                 notification.Id
             );
@@ -67,7 +67,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
                         ),
                     }
                 );
-                playerAction = PlayerAction.REGISTERED;
+                playerAction = StandardPlayerAction.REGISTERED;
             }
 
             // Update players ConnectionId

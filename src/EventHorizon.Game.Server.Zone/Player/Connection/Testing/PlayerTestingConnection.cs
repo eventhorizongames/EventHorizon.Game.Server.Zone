@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Json;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Player.Connection;
 using System.IO;
 using EventHorizon.Zone.System.Player.Model.Details;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 
 namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {
@@ -57,7 +57,9 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
                 )
             );
             player.Id = id;
-            player.Position.CurrentZone = _serverProperty.Get<string>(ServerPropertyKeys.SERVER_ID);
+            player.Position.CurrentZone = _serverProperty.Get<string>(
+                ServerPropertyKeys.SERVER_ID
+            );
 
             return player;
         }

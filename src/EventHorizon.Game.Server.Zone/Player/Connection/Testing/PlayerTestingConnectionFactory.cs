@@ -3,6 +3,7 @@ using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Json;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Player.Connection;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 
 namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {

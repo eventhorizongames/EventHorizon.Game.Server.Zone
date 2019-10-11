@@ -1,5 +1,5 @@
-using System.Linq;
 using System.Collections.Concurrent;
+using EventHorizon.Zone.Core.Model.ServerProperty;
 
 namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Impl
 {

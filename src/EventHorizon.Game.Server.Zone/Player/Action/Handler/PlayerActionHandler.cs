@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
 using EventHorizon.Game.Server.Zone.Player.Actions.StopPlayer;
 using EventHorizon.Zone.System.Player.Events.ClientAction;
+using EventHorizon.Zone.System.Player.Plugin.Action;
 
 namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
 {
@@ -31,7 +32,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
             CancellationToken cancellationToken
         )
         {
-            var player = await _playerRepository.FindById(notification.PlayerId);
+            var player = await _playerRepository.FindById(
+                notification.PlayerId
+            );
             switch (notification.Action)
             {
                 // TODO: Move this Run into the Player System Move Plugin
