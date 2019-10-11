@@ -34,6 +34,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
             var player = await _playerRepository.FindById(notification.PlayerId);
             switch (notification.Action)
             {
+                // TODO: Move this Run into the Player System Move Plugin
                 case PlayerActions.MOVE:
                     await _mediator.Send(new MovePlayerEvent()
                     {
@@ -41,11 +42,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         MoveDirection = notification.Data
                     });
                     break;
+                // TODO: Move this Run into the Player System Move Plugin
                 case PlayerActions.STOP:
                     await _mediator.Send(new StopPlayer(
                         player
                     ));
                     break;
+                // TODO: Move this Run into the Combat System
                 case PlayerActions.RUN_SKILL:
                     var parsedObject = GetDataAsRunSkillData(notification.Data);
                     await _mediator.Publish(
@@ -59,6 +62,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         }
                     );
                     break;
+                // TODO: Move this Run into the Combat System
                 case PlayerActions.RUN_SKILL_ON_COMPANION:
                     var parsedCompanionObject = GetDataAsRunSkillData(notification.Data);
                     await _mediator.Publish(
@@ -72,6 +76,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Action.Handler
                         )
                     );
                     break;
+                // TODO: Move this Run into the Interaction System
                 case PlayerActions.INTERACT:
                     var interactionEntityId = (long)notification.Data;
                     await _mediator.Publish(
