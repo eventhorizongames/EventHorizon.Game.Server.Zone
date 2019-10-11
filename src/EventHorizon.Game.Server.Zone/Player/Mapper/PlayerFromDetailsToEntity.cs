@@ -1,15 +1,17 @@
 
 using System.Collections.Generic;
-using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Model.Details;
 
 namespace EventHorizon.Game.Server.Zone.Player.Mapper
 {
     public class PlayerFromDetailsToEntity
     {
-        public static PlayerEntity MapToNew(PlayerDetails details)
+        public static PlayerEntity MapToNew(
+            PlayerDetails details
+        )
         {
             return new PlayerEntity
             {

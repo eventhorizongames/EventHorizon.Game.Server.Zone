@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Core.Player.Model;
+using EventHorizon.Zone.System.Player.Model.Details;
 
 namespace EventHorizon.Zone.System.Player.Connection
 {

@@ -34,10 +34,9 @@ namespace EventHorizon.Zone.System.Agent.UnRegister
             }
 
             await _mediator.Publish(
-                new UnRegisterEntityEvent
-                {
-                    Entity = agent,
-                }
+                new UnRegisterEntityEvent(
+                    agent
+                )
             );
 
             await _mediator.Publish(

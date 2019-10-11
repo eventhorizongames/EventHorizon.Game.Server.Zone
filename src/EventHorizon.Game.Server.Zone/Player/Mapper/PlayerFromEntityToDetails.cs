@@ -1,6 +1,7 @@
-using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Model.Details;
+using EventHorizon.Zone.System.Player.Model.Position;
 
 namespace EventHorizon.Game.Server.Zone.Player.Mapper
 {

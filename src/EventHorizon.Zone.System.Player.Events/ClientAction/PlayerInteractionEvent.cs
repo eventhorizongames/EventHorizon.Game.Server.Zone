@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Player.Events.ClientAction
         public PlayerInteractionEvent(
             PlayerEntity player, 
             long interactionEntityId
-        ) : this()
+        )
         {
             Player = player;
             InteractionEntityId = interactionEntityId;

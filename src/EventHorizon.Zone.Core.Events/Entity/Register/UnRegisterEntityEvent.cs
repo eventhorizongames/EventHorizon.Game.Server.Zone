@@ -5,6 +5,13 @@ namespace EventHorizon.Zone.Core.Events.Entity.Register
 {
     public struct UnRegisterEntityEvent : INotification
     {
-        public IObjectEntity Entity { get; set; }
+        public IObjectEntity Entity { get; }
+
+        public UnRegisterEntityEvent(
+            IObjectEntity entity
+        )
+        {
+            Entity = entity;
+        }
     }
 }

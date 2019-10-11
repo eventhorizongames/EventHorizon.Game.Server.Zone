@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Json;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Player.Connection;
 using System.IO;
+using EventHorizon.Zone.System.Player.Model.Details;
 
 namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {

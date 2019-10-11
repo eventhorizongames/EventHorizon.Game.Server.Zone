@@ -5,6 +5,7 @@ using EventHorizon.Game.Server.Zone.Player.Bus;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using EventHorizon.Zone.System.Player.Events.Info;
+using EventHorizon.Zone.System.Player.Events.Zone;
 
 namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
 {

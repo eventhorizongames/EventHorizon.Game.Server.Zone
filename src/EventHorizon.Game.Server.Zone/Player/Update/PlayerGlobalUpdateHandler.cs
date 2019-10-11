@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
 using EventHorizon.Zone.System.Player.Connection;
+using EventHorizon.Zone.System.Player.Events.Update;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Update.Handler

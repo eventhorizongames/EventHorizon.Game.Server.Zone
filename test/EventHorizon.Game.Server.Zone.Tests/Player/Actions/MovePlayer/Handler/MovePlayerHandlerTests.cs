@@ -9,13 +9,13 @@ using MediatR;
 using EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer;
 using System.Threading;
 using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Game.Server.Zone.Player.Update;
 using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Events.Map;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
+using EventHorizon.Zone.System.Player.Events.Update;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 {
@@ -171,10 +171,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Actions.MovePlayer.Handler
 
             // When
 
-            PlayerGlobalUpdateEvent actualUpdateEvent = new PlayerGlobalUpdateEvent
-            {
-                Player = inputPlayer
-            };
+            var actualUpdateEvent = new PlayerGlobalUpdateEvent(
+                inputPlayer
+            );
 
             mediatorMock.Setup(a => a.Publish(It.IsAny<PlayerGlobalUpdateEvent>(), CancellationToken.None))
                 .Callback<PlayerGlobalUpdateEvent, CancellationToken>((updateEvent, CancellationToken) =>

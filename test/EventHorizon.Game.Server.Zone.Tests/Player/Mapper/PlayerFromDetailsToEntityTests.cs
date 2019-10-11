@@ -1,11 +1,10 @@
 using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Core.Player.Model;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Game.Server.Zone.Player.Mapper;
 using System.Dynamic;
+using EventHorizon.Zone.System.Player.Model.Details;
+using EventHorizon.Zone.System.Player.Model.Position;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Mapper
 {

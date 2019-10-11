@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace EventHorizon.Game.Server.Core.Player.Model
+namespace EventHorizon.Zone.System.Player.Model.Position
 {
     public class PlayerPositionState
     {

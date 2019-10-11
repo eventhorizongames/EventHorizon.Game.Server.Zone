@@ -34,10 +34,9 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
             );
 
             await unregisterEntityHandler.Handle(
-                new UnRegisterEntityEvent
-                {
-                    Entity = expectedEntity.Object
-                },
+                new UnRegisterEntityEvent(
+                    expectedEntity.Object
+                ),
                 CancellationToken.None
             );
 

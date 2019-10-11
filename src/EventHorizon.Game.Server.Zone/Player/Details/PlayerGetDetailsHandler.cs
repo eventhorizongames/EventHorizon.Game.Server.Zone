@@ -1,10 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Core.Player.Connection;
-using EventHorizon.Game.Server.Core.Player.Model;
 using EventHorizon.Zone.System.Player.Connection;
+using EventHorizon.Zone.System.Player.Events.Details;
+using EventHorizon.Zone.System.Player.Model.Details;
 using MediatR;
-using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Game.Player.Events.Details.Handler
 {

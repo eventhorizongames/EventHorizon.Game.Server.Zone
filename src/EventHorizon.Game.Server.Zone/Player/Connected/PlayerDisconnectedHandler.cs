@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Events.Connected;
 using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
@@ -28,10 +29,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             if (player.IsFound())
             {
                 await _mediator.Publish(
-                    new UnRegisterEntityEvent
-                    {
-                        Entity = player
-                    }
+                    new UnRegisterEntityEvent(
+                        player
+                    )
                 );
             }
         }

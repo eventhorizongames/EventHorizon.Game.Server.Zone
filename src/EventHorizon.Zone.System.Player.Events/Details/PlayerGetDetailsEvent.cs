@@ -1,7 +1,7 @@
-using EventHorizon.Game.Server.Core.Player.Model;
 using MediatR;
+using EventHorizon.Zone.System.Player.Model.Details;
 
-namespace EventHorizon.Game.Player.Events.Details
+namespace EventHorizon.Zone.System.Player.Events.Details
 {
     public class PlayerGetDetailsEvent : IRequest<PlayerDetails>
     {

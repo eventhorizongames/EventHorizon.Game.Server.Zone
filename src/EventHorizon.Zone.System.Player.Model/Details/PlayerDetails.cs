@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using EventHorizon.Zone.System.Player.Model.Position;
 
-namespace EventHorizon.Game.Server.Core.Player.Model
+namespace EventHorizon.Zone.System.Player.Model.Details
 {
     public struct PlayerDetails
     {

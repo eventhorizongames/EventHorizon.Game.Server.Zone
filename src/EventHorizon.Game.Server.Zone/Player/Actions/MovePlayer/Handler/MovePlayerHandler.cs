@@ -10,6 +10,7 @@ using EventHorizon.Game.Server.Zone.Player.Model;
 using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Map;
+using EventHorizon.Zone.System.Player.Events.Update;
 
 namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
 {
@@ -40,7 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
         {
             var player = request.Player;
             // Player time to move has not expired or can is not set to Move, ignore request
-            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0 
+            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0
                 || !player.Position.CanMove
             )
             {
@@ -136,10 +137,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Actions.MovePlayer.Handler
                 player
             );
             await _mediator.Publish(
-                new PlayerGlobalUpdateEvent
-                {
-                    Player = player,
-                }
+                new PlayerGlobalUpdateEvent(
+                    player
+                )
             );
 
             await _mediator.Publish(
