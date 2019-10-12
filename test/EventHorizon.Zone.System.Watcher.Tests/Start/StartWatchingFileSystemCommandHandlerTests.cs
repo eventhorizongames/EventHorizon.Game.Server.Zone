@@ -140,6 +140,8 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
         }
 
         [Fact]
+        [Trait("WindowsOnly", "True")]
+        // This test will only work on Linux when File System Pooling is enabled.
         public async Task TestShouldCreateEventForOnChangeCallbacksWhenFileSystemChangesCreatedOrDeleted()
         {
             // Given

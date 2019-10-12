@@ -10,7 +10,7 @@ $ReportOutputFile = "$ReportOutputDirectory/lcov.info"
 Write-Host "Script Ran from directory $ScriptRanFromDir"
 
 ## Using dotnet test and collect coverage
-dotnet test --filter Category!=Performance /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=$GeneratedCoverageDirectory 
+dotnet test --filter "Category!=Performance & WindowsOnly!=True" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=$GeneratedCoverageDirectory 
 
 ## Use NodeJS to merge lcov files
 mkdir $ReportOutputDirectory -ErrorAction SilentlyContinue
