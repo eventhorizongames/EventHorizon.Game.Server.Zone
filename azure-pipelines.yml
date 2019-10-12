@@ -7,9 +7,8 @@ variables:
   BuildPlatform: x64
   disable.coverage.autogenerate: true
   Parameters.RestoreBuildProjects: '*.sln'
-  Parameters.TestProjects: '*.sln'
   back.Parameters.RestoreBuildProjects: '**/*.csproj'
-  back.Parameters.TestProjects: '**/*[Tt]ests/*.csproj'
+  Parameters.TestProjects: '**/*[Tt]ests/*.csproj'
 
 steps:
 - task: UseDotNet@2
