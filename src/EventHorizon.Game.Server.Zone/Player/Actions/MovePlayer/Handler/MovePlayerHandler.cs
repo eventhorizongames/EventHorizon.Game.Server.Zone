@@ -7,7 +7,6 @@ using EventHorizon.Zone.Core.Events.Map;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Game.Server.Zone.Player.Model;
-using EventHorizon.Game.Server.Zone.Player.Update;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Zone.System.Player.Events.Update;

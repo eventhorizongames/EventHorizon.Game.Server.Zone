@@ -1,11 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Player.Mapper;
 using EventHorizon.Zone.System.Player.Connection;
 using EventHorizon.Zone.System.Player.Events.Update;
+using EventHorizon.Zone.System.Player.Mapper;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Player.Update.Handler
+namespace EventHorizon.Zone.System.Player.Update
 {
     public class PlayerGlobalUpdateHandler : INotificationHandler<PlayerGlobalUpdateEvent>
     {

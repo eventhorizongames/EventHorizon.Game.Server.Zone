@@ -7,7 +7,7 @@ using EventHorizon.Zone.System.Player.Events.Info;
 using EventHorizon.Zone.System.Player.Events.Zone;
 using EventHorizon.Zone.System.Player.ExternalHub;
 
-namespace EventHorizon.Game.Server.Zone.Player.Zone.Handler
+namespace EventHorizon.Zone.System.Player.Zone
 {
     public struct SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {

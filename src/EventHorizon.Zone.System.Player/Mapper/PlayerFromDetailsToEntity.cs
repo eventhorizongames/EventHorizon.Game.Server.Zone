@@ -5,7 +5,7 @@ using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Player.Model.Details;
 
-namespace EventHorizon.Game.Server.Zone.Player.Mapper
+namespace EventHorizon.Zone.System.Player.Mapper
 {
     public class PlayerFromDetailsToEntity
     {

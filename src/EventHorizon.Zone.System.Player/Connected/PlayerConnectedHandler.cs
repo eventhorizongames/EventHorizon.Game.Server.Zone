@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Mapper;
 using MediatR;
 using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.System.Player.Events.Connected;
@@ -11,23 +10,24 @@ using EventHorizon.Zone.System.Player.Events.Update;
 using EventHorizon.Zone.System.Player.Events.Zone;
 using EventHorizon.Zone.Core.Model.ServerProperty;
 using EventHorizon.Zone.System.Player.Model.Action;
+using EventHorizon.Zone.System.Player.Mapper;
 
-namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
+namespace EventHorizon.Zone.System.Player.Connected
 {
     public class PlayerConnectedHandler : INotificationHandler<PlayerConnectedEvent>
     {
-        readonly IServerProperty _serverProperty;
         readonly IMediator _mediator;
+        readonly IServerProperty _serverProperty;
         readonly IPlayerRepository _player;
 
         public PlayerConnectedHandler(
-            IServerProperty serverProperty,
             IMediator mediator,
+            IServerProperty serverProperty,
             IPlayerRepository player
         )
         {
-            _serverProperty = serverProperty;
             _mediator = mediator;
+            _serverProperty = serverProperty;
             _player = player;
         }
         public async Task Handle(
@@ -43,10 +43,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Connected.Handler
             if (!player.IsFound())
             {
                 var globalPlayer = await _mediator.Send(
-                    new PlayerGetDetailsEvent
-                    {
-                        Id = notification.Id
-                    }
+                    new PlayerGetDetailsEvent(
+                        notification.Id
+                    )
                 );
                 if (!globalPlayer.Position.CurrentZone.Equals(
                         _serverProperty.Get<string>(

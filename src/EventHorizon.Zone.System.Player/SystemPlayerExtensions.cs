@@ -1,5 +1,4 @@
 
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,17 +8,15 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static IServiceCollection AddSystemPlayer(
             this IServiceCollection services
-        )
-        {
-            return services;
-        }
-        public static void UseSystemPlayer(
+        ) => services;
+
+        public static IApplicationBuilder UseSystemPlayer(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
-                
+                return app;
             }
         }
     }
