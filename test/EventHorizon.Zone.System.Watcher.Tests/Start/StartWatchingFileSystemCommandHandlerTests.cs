@@ -180,17 +180,17 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 ),
                 CancellationToken.None
             );
-            // Create File (1 - Created, 2 - Access)
+            // Create File (1 - Created)
             File.WriteAllText(
                 jsonTestFile,
                 "This is test text"
             );
-            // Change File (3 - Write, 4 - Access)
+            // Change File (2 - Write)
             File.WriteAllText(
                 jsonTestFile,
                 "This Is new Text"
             );
-            // Delete File (5 - Deleted)
+            // Delete File (3 - Deleted)
             File.Delete(
                 jsonTestFile
             );
@@ -198,7 +198,9 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
             // Then
             reloadStateMock.Verify(
                 mock => mock.SetToPending(),
-                Times.Exactly(5)
+                // Can be Called greater than 3 times based on env used for testing
+                // But should be at least three for the main types of actions done.
+                Times.AtLeast(3)
             );
         }
         
