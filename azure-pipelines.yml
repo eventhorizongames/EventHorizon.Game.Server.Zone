@@ -7,8 +7,7 @@ variables:
   BuildPlatform: x64
   disable.coverage.autogenerate: true
   Parameters.RestoreBuildProjects: '*.sln'
-  back.Parameters.RestoreBuildProjects: '**/*.csproj'
-  Parameters.TestProjects: '**/*[Tt]ests/*.csproj'
+  Parameters.TestProjects: '*.sln'
 
 steps:
 - task: UseDotNet@2
@@ -98,6 +97,5 @@ steps:
     containerRegistry: eventHorizonGamesConnection
     dockerFile: Dockerfile.devops
     repository: ehz/game/server/zone
-    # arguments: '--build-arg BUILD_CONFIGURATION=$(BuildConfiguration)'
     tags: |
       latest
