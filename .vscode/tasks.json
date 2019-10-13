@@ -16,8 +16,14 @@
             "args": ["build", "/p:Configuration=Release"]
         },
         {
-            "label": "test",
+            "label": "test_all",
             "command": "${workspaceFolder}/_scripts/run.main.test.report.ps1",
+            "type": "shell",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "command": "${workspaceFolder}/_scripts/run.file.test.report.ps1 ${relativeFile}",
             "type": "shell",
             "problemMatcher": "$msCompile",
             "group": {

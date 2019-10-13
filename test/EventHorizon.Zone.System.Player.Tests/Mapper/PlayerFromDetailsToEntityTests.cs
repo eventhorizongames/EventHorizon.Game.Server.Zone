@@ -76,7 +76,35 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
                 actual.TagList,
                 tag => Assert.Equal(expectedTag1, tag)
             );
+        }
+        [Fact]
+        public void TestShouldReturnPlayerEntityWithEmptyConnectionIdWhenDetailsDoesNotContainAConnectionId()
+        {
+            // Given
+            var playerId = "player-id";
+            var expected = "";
+            var data = new Dictionary<string, object>();
 
+            var input = new PlayerDetails
+            {
+                Id = playerId,
+                Position = new PlayerPositionState
+                {
+                    
+                },
+                Data = data
+            };
+
+            // When
+            var actual = PlayerFromDetailsToEntity.MapToNew(
+                input
+            );
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual.ConnectionId
+            );
         }
     }
 }
