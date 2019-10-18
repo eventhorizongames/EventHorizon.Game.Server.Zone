@@ -2,7 +2,6 @@
 using EventHorizon.Zone.System.Player.Connection;
 using EventHorizon.Zone.System.Player.Connection.Internal;
 using EventHorizon.Zone.System.Player.Connection.Model;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +12,7 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static IServiceCollection AddSystemPlayerConnection(
             this IServiceCollection services,
+            // TODO: Update to use Action<PlayerServerConnectionSettings> options
             IConfiguration configuration
         )
         {
@@ -30,8 +30,8 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                return app;
             }
+            return app;
         }
     }
 }

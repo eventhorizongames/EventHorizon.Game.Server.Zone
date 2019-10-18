@@ -4,14 +4,14 @@ using EventHorizon.Zone.Core.Model.ServerProperty;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace EventHorizon.Game.Server.Zone.Core.ServerProperty.Handler
+namespace EventHorizon.Zone.Core.ServerProperty.Fill
 {
-    public class FillServerPropertiesHandler : INotificationHandler<FillServerPropertiesEvent>
+    public class FillHostServerPropertyHandler : INotificationHandler<FillServerPropertiesEvent>
     {
         private readonly IServerProperty _serverProperty;
         private readonly IConfiguration _configuration;
 
-        public FillServerPropertiesHandler(
+        public FillHostServerPropertyHandler(
             IServerProperty serverProperty, 
             IConfiguration configuration
         )

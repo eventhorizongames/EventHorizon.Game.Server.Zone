@@ -2,9 +2,9 @@ using EventHorizon.Zone.Core.Model.Info;
 using Microsoft.AspNetCore.Hosting;
 using IOPath = System.IO.Path;
 
-namespace EventHorizon.Game.Server.Zone.Core.Info
+namespace EventHorizon.Zone.Core.Info
 {
-    public class ZoneServerInfo : ServerInfo
+    public class HostingEnvironmentServerInfo : ServerInfo
     {
         public string AppDataPath { get; }
         public string SystemPath { get; }
@@ -18,7 +18,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Info
         public string ServerPath { get; }
         public string ServerScriptsPath { get; }
 
-        public ZoneServerInfo(
+        public HostingEnvironmentServerInfo(
             IHostingEnvironment hostingEnvironment
         )
         {

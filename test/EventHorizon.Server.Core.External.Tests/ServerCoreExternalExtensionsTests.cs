@@ -1,7 +1,10 @@
 
+using System;
 using EventHorizon.Server.Core.External.Connection;
 using EventHorizon.Server.Core.External.Connection.Internal;
+using EventHorizon.Server.Core.External.Model;
 using EventHorizon.Tests.TestUtils;
+using Microsoft.Extensions.Options;
 using Xunit;
 
 namespace EventHorizon.Server.Core.Tests
@@ -12,26 +15,35 @@ namespace EventHorizon.Server.Core.Tests
         public void TestShouldConfigureServiceCollectionWithExpectedServices()
         {
             // Given
+            Action<CoreSettings> configureCoreSettings = options => { };
+
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
             ServerCoreExternalExtensions.AddServerCoreExternal(
-                serviceCollectionMock
+                serviceCollectionMock,
+                configureCoreSettings
             );
 
             // Then
-            Assert.Collection(
+            Assert.Contains(
                 serviceCollectionMock,
                 service =>
-                {
-                    Assert.Equal(typeof(CoreServerConnectionCache), service.ServiceType);
-                    Assert.Equal(typeof(SystemCoreServerConnectionCache), service.ImplementationType);
-                },
+                    service.ServiceType == typeof(CoreServerConnectionCache)
+                    &&
+                    service.ImplementationType == typeof(SystemCoreServerConnectionCache)
+            );
+            Assert.Contains(
+                serviceCollectionMock,
                 service =>
-                {
-                    Assert.Equal(typeof(CoreServerConnectionFactory), service.ServiceType);
-                    Assert.Equal(typeof(SystemCoreServerConnectionFactory), service.ImplementationType);
-                }
+                    service.ServiceType == typeof(CoreServerConnectionFactory)
+                    &&
+                    service.ImplementationType == typeof(SystemCoreServerConnectionFactory)
+            );
+            Assert.Contains(
+                serviceCollectionMock,
+                service =>
+                    service.ServiceType == typeof(IConfigureOptions<CoreSettings>)
             );
         }
     }

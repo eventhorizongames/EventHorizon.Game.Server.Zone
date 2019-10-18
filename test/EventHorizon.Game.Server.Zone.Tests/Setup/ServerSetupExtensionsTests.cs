@@ -22,7 +22,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            ServerSetupExtensions.AddServerSetup(serviceCollectionMock, null);
+            ServerSetupExtensions.AddServerSetup(
+                serviceCollectionMock
+            );
 
             // Then
             Assert.Collection(
@@ -44,22 +46,53 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
             var mediatorMock = new Mock<IMediator>();
 
             var serviceProviderMock = new Mock<IServiceProvider>();
-            serviceProviderMock.Setup(serviceProvider => serviceProvider.GetService(typeof(IMediator))).Returns(mediatorMock.Object);
+            serviceProviderMock.Setup(
+                mock => mock.GetService(
+                    typeof(IMediator)
+                )
+            ).Returns(
+                mediatorMock.Object
+            );
             var serviceScopeMock = new Mock<IServiceScope>();
-            serviceScopeMock.SetupGet(serviceScope => serviceScope.ServiceProvider).Returns(serviceProviderMock.Object);
+            serviceScopeMock.SetupGet(
+                mock => mock.ServiceProvider
+            ).Returns(
+                serviceProviderMock.Object
+            );
             var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-            serviceScopeFactoryMock.Setup(a => a.CreateScope()).Returns(serviceScopeMock.Object);
+            serviceScopeFactoryMock.Setup(
+                mock => mock.CreateScope()
+            ).Returns(
+                serviceScopeMock.Object
+            );
             var applicationServicesMock = new Mock<IServiceProvider>();
-            applicationServicesMock.Setup(a => a.GetService(typeof(IServiceScopeFactory))).Returns(serviceScopeFactoryMock.Object);
+            applicationServicesMock.Setup(
+                mock => mock.GetService(
+                    typeof(IServiceScopeFactory)
+                )
+            ).Returns(
+                serviceScopeFactoryMock.Object
+            );
 
             var applicationBuilderMock = new Mock<IApplicationBuilder>();
-            applicationBuilderMock.Setup(a => a.ApplicationServices).Returns(applicationServicesMock.Object);
+            applicationBuilderMock.Setup(
+                mock => mock.ApplicationServices
+            ).Returns(
+                applicationServicesMock.Object
+            );
 
             // When
-            ServerSetupExtensions.UseSetupServer(applicationBuilderMock.Object);
+            ServerSetupExtensions.UseServerSetup(
+                applicationBuilderMock.Object
+            );
 
             // Then
-            mediatorMock.Verify(mediator => mediator.Publish(expectedLoadZoneAgentStateEvent, CancellationToken.None));
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    expectedLoadZoneAgentStateEvent, 
+                    CancellationToken.None
+                )
+            );
         }
     }
 }

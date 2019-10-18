@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Json;
 using Newtonsoft.Json;
 
-namespace EventHorizon.Game.Server.Zone.Core.Json
+namespace EventHorizon.Zone.Core.Json
 {
-    public class JsonFileLoader : IJsonFileLoader
+    public class NewtonsoftJsonFileLoader : IJsonFileLoader
     {
         public async Task<T> GetFile<T>(
             string fileName

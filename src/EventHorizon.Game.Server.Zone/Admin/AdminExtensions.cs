@@ -7,12 +7,13 @@ namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class AdminExtensions
     {
-        public static IServiceCollection AddZoneAdmin(this IServiceCollection services)
-        {
-            return services
-            ;
-        }
-        public static IApplicationBuilder UseZoneAdmin(this IApplicationBuilder app)
+        public static IServiceCollection AddServerAdmin(
+            this IServiceCollection services
+        ) => services;
+        
+        public static IApplicationBuilder UseServerAdmin(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.CreateServiceScope())
             {

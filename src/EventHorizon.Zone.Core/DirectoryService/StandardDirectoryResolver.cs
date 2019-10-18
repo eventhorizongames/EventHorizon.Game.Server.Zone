@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.IO;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 
-namespace EventHorizon.Game.Server.Zone.Core.DirectoryService
+namespace EventHorizon.Zone.Core.DirectoryService
 {
-    public class ServerDirectoryResolver : DirectoryResolver
+    public class StandardDirectoryResolver : DirectoryResolver
     {
         public IEnumerable<string> GetDirectories(
             string path

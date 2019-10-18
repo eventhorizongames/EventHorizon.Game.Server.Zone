@@ -10,7 +10,10 @@ namespace EventHorizon.Game.Server.Zone.Player
 {
     public static class PlayerExtensions
     {
-        public static IServiceCollection AddPlayer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServerPlayer(
+            this IServiceCollection services,
+            IConfiguration configuration
+        )
         {
             services
                 .AddTransient<IPlayerRepository, PlayerRepository>()
@@ -27,12 +30,14 @@ namespace EventHorizon.Game.Server.Zone.Player
             return services;
         }
 
-        public static IApplicationBuilder UsePlayer(this IApplicationBuilder app)
+        public static IApplicationBuilder UseServerPlayer(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                return app;
             }
+            return app;
         }
     }
 }

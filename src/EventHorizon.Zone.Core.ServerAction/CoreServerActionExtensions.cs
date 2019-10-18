@@ -9,12 +9,9 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static IServiceCollection AddCoreServerAction(
             this IServiceCollection services
-        )
-        {
-            return services
-                .AddSingleton<IServerActionQueue, ServerActionQueue>()
-                .AddSingleton<ITimerTask, RunServerActionsTimerTask>()
-            ;
-        }
+        ) => services
+            .AddSingleton<IServerActionQueue, ServerActionQueue>()
+            .AddSingleton<ITimerTask, RunServerActionsTimerTask>()
+        ;
     }
 }

@@ -3,11 +3,10 @@ using System.Text;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Json;
 using Newtonsoft.Json;
-using IOPath = System.IO.Path;
 
-namespace EventHorizon.Game.Server.Zone.Core.Json
+namespace EventHorizon.Zone.Core.Json
 {
-    public class JsonFileSaver : IJsonFileSaver
+    public class NewtonsoftJsonFileSaver : IJsonFileSaver
     {
         public async Task SaveToFile(
             string directory,
@@ -33,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Core.Json
                 directory
             );
             using (var file = File.Create(
-                IOPath.Combine(
+                Path.Combine(
                     directory,
                     fileName
                 )

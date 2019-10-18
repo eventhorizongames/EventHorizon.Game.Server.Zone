@@ -1,8 +1,9 @@
 using Xunit;
-using Microsoft.Extensions.Configuration;
-using Moq;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Identity.Client;
+using EventHorizon.Identity.Model;
+using System;
+using Microsoft.Extensions.Options;
 
 namespace EventHorizon.Identity.Tests
 {
@@ -14,13 +15,12 @@ namespace EventHorizon.Identity.Tests
             // Given
             var serviceCollection = new ServiceCollectionMock();
             var expected = serviceCollection;
-
-            var configurationMock = new Mock<IConfiguration>();
+            Action<AuthSettings> configureAuthSettings = options => { };
 
             // When
             var actual = EventHorizonIdentityExtensions.AddEventHorizonIdentity(
                 serviceCollection,
-                configurationMock.Object
+                configureAuthSettings
             );
 
             // Then
@@ -28,13 +28,17 @@ namespace EventHorizon.Identity.Tests
                 expected,
                 actual
             );
-            Assert.Collection(
+            Assert.Contains(
                 actual,
                 service =>
-                {
-                    Assert.Equal(typeof(ITokenClientFactory), service.ServiceType);
-                    Assert.Equal(typeof(CachingTokenClientFactory), service.ImplementationType);
-                }
+                    service.ServiceType == typeof(ITokenClientFactory)
+                    &&
+                    service.ImplementationType == typeof(CachingTokenClientFactory)
+            );
+            Assert.Contains(
+                actual,
+                service =>
+                    service.ServiceType == typeof(IConfigureOptions<AuthSettings>)
             );
         }
         [Fact]

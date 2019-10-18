@@ -1,6 +1,6 @@
 using EventHorizon.Zone.Core.Model.Id;
 
-namespace EventHorizon.Game.Server.Zone.Core.Id
+namespace EventHorizon.Zone.Core.Id
 {
     public class InMemoryStaticIdPool : IdPool
     {

@@ -4,14 +4,15 @@ using EventHorizon.Game.Server.Zone.Settings.Load;
 using EventHorizon.Zone.Core.Model.Settings;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {
     public static class LoadExtensions
     {
-        public static IServiceCollection AddLoad(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddServerLoad(
+            this IServiceCollection services
+        )
         {
             var zoneSettingsFactory = new ZoneSettingsFactory();
             return services
@@ -24,15 +25,19 @@ namespace EventHorizon.Game.Server.Zone.Core
                 )
             ;
         }
-        public static void UseLoad(this IApplicationBuilder app)
+        public static IApplicationBuilder UseServerLoad(
+            this IApplicationBuilder app
+        )
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                mediator.Publish(
-                    new LoadZoneSettingsEvent()
-                ).GetAwaiter().GetResult();
+                serviceScope.ServiceProvider
+                    .GetService<IMediator>()
+                    .Publish(
+                        new LoadZoneSettingsEvent()
+                    ).GetAwaiter().GetResult();
             }
+            return app;
         }
     }
 }

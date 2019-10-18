@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.Model.Json;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Player.Connection;
@@ -17,7 +16,8 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
         public PlayerTestingConnectionFactory(
             ILoggerFactory loggerFactory,
             IServerProperty serverProperty,
-            IJsonFileLoader fileLoader)
+            IJsonFileLoader fileLoader
+        )
         {
             _logger = loggerFactory.CreateLogger<PlayerTestingConnectionFactory>();
 
@@ -33,7 +33,8 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
                     _loggerFactory.CreateLogger<PlayerTestingConnection>(),
                     _serverProperty,
                     _fileLoader
-                ) as PlayerServerConnection);
+                ) as PlayerServerConnection
+            );
         }
     }
 }

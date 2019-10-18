@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Core.ServerProperty
+namespace EventHorizon.Zone.Core.ServerProperty.Fill
 {
     public class FillServerPropertiesEvent : INotification
     {
