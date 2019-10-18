@@ -1,6 +1,6 @@
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Player.Plugin.Action;
+using EventHorizon.Zone.System.Player.Plugin.Action.Events;
 using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Zone.System.Player.ExternalHub
@@ -9,14 +9,12 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
     {
         public async Task PlayerAction(
             string actionName,
-            dynamic actionData
+            IDictionary<string, object> actionData
         )
         {
             await _mediator.Publish(
-                new PlayerActionEvent(
-                    Context.User.Claims.FirstOrDefault(
-                        claim => claim.Type == "sub"
-                    )?.Value,
+                new RunPlayerServerAction(
+                    GetPlayerId(),
                     actionName,
                     actionData
                 )

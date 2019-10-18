@@ -13,7 +13,7 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
         
-        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action\EventHorizon.Zone.System.Player.Plugin.Action.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj" />
     </ItemGroup>
 
 </Project>

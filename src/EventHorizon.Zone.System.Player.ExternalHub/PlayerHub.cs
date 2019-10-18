@@ -19,12 +19,18 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
         {
             _mediator = mediator;
         }
-        
+
         public override async Task OnConnectedAsync()
         {
+            var playerId = GetPlayerId();
+            if (playerId == null)
+            {
+                this.Context.Abort();
+                return;
+            }
             await _mediator.Publish(
                 new PlayerConnectedEvent(
-                    Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value,
+                    playerId,
                     Context.ConnectionId
                 )
             );
@@ -34,11 +40,24 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             Exception exception
         )
         {
+            var playerId = GetPlayerId();
+            if (playerId == null)
+            {
+                return;
+            }
             await _mediator.Publish(
                 new PlayerDisconnectedEvent(
-                    Context.User.Claims.FirstOrDefault(a => a.Type == "sub")?.Value
+                    playerId
                 )
             );
+        }
+
+        private string GetPlayerId()
+        {
+            return Context.User.Claims
+                .FirstOrDefault(
+                    claim => claim.Type == "sub"
+                )?.Value;
         }
     }
 }

@@ -11,10 +11,13 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+
     <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
     <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
 
     <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj" />
+    <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Model\EventHorizon.Zone.System.Player.Plugin.Action.Model.csproj" />
   </ItemGroup>
 
 </Project>

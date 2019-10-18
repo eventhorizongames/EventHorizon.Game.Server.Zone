@@ -144,6 +144,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemClientEntitiesPluginEditorExtensions).Assembly,
                     typeof(SystemClientScriptsExtensions).Assembly,
                     typeof(SystemPlayerExtensions).Assembly,
+                    typeof(SystemPlayerPluginActionExtensions).Assembly,
                     typeof(SystemGuiExtensions).Assembly,
                     typeof(SystemGuiPluginEditorExtensions).Assembly,
                     typeof(SystemInteractionExtensions).Assembly,
@@ -206,6 +207,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemClientEntitiesPluginEditor()
                 .AddSystemClientScripts()
                 .AddSystemPlayer()
+                .AddSystemPlayerPluginAction()
                 .AddSystemAgentPluginCompanion()
                 .AddPlugins(HostingEnvironment)
                 .AddSystemInteraction();
@@ -236,6 +238,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseI18n();
             app.UseEventHorizonIdentity();
             app.UseZoneCore();
+            app.UsePlayer();
             app.UseZoneAdmin();
             app.UseSetupServer();
 
@@ -279,6 +282,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemClientScripts();
 
             app.UseSystemPlayer();
+            app.UseSystemPlayerPluginAction();
 
             app.UseSystemAgentPluginCompanion();
 

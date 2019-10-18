@@ -1,16 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Model\EventHorizon.Zone.System.Player.Plugin.Action.Model.csproj" />
     </ItemGroup>
 
 </Project>

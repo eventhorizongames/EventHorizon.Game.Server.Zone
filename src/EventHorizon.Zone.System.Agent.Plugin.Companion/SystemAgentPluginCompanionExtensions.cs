@@ -11,13 +11,15 @@ namespace EventHorizon.Game.Server.Zone
         {
             return services;
         }
-        public static void UseSystemAgentPluginCompanion(
+        public static IApplicationBuilder UseSystemAgentPluginCompanion(
             this IApplicationBuilder app
         )
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
+                
             }
+            return app;
         }
     }
 }
