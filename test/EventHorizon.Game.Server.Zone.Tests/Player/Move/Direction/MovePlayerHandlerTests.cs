@@ -16,13 +16,14 @@ using EventHorizon.Zone.System.Player.Events.Update;
 using EventHorizon.Game.Server.Zone.Player.Action.Direction;
 using EventHorizon.Game.Server.Zone.Player.Move.Model;
 using EventHorizon.Zone.Core.Events.Client.Actions;
+using EventHorizon.Game.Server.Zone.Player.Move.Direction;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 {
     public class MovePlayerHandlerTests
     {
         [Fact]
-        public async Task TestHandle_ShouldIgnorePlayerMoveToPositionWhenNextMoveRequestIsNotTime()
+        public async Task TestShouldIgnorePlayerMoveToPositionWhenNextMoveRequestIsNotTime()
         {
             // Given
             var expected = new Vector3(100);
@@ -59,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 new MovePlayerEvent
                 {
                     Player = inputPlayer,
-                }, 
+                },
                 CancellationToken.None
             );
 
@@ -79,7 +80,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
         [InlineData(MoveDirections.Forward, 0, 5)]
         [InlineData(MoveDirections.Backwards, 0, -5)]
         [InlineData(9999, 0, 0)]
-        public async Task TestHandle_ShouldReturnMoveDirection(
+        public async Task TestShouldReturnMoveDirection(
             long inputMoveDirection,
             float expectedXPosition,
             float expectedZPosition
@@ -88,8 +89,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
             // Given
             var tileDimensions = 5;
             var currentPosition = Vector3.Zero;
-            var playerMapNode = new MapNode(currentPosition);
-            var moveToPostion = new Vector3(expectedXPosition, 0, expectedZPosition);
+            var playerMapNode = new MapNode(
+                currentPosition
+            );
+            var moveToPostion = new Vector3(
+                expectedXPosition,
+                0,
+                expectedZPosition
+            );
 
             var inputPlayer = new PlayerEntity
             {
@@ -97,16 +104,30 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 {
                     CanMove = true,
                     CurrentPosition = currentPosition,
-                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),
-                    MoveToPosition = new Vector3(0, 0, 0),
+                    NextMoveRequest = DateTime.Now.Subtract(
+                        TimeSpan.FromDays(1)
+                    ),
+                    MoveToPosition = new Vector3(
+                        0,
+                        0,
+                        0
+                    ),
                 }
             };
 
-            var expected = new Vector3(expectedXPosition, 0, expectedZPosition);
+            var expected = new Vector3(
+                expectedXPosition,
+                0,
+                expectedZPosition
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
-            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
+            dateTimeMock.Setup(
+                mock => mock.Now
+            ).Returns(
+                DateTime.Now
+            );
             var mapDetailsMock = new Mock<IMapDetails>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -116,10 +137,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 tileDimensions
             );
 
-            mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
-            {
-                Position = moveToPostion,
-            }, CancellationToken.None)).ReturnsAsync(playerMapNode);
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetMapNodeAtPositionEvent
+                    {
+                        Position = moveToPostion,
+                    },
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                playerMapNode
+            );
 
             // When
             var movePlayerHandler = new MovePlayerHandler(
@@ -129,18 +157,21 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 playerRepositoryMock.Object
             );
 
-            await movePlayerHandler.Handle(new MovePlayerEvent
-            {
-                Player = inputPlayer,
-                MoveDirection = inputMoveDirection
-            }, CancellationToken.None);
+            await movePlayerHandler.Handle(
+                new MovePlayerEvent
+                {
+                    Player = inputPlayer,
+                    MoveDirection = inputMoveDirection
+                },
+                CancellationToken.None
+            );
 
             // Then
             // Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public async Task TestHandle_ShouldGlobalUpdatePlayer()
+        public async Task TestShouldGlobalUpdatePlayer()
         {
             // Given
             var inputMoveDirection = MoveDirections.Forward;
@@ -148,8 +179,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 
             var tileDimensions = 5;
             var currentPosition = Vector3.Zero;
-            var playerMapNode = new MapNode(currentPosition);
-            var moveToPostion = new Vector3(0, 0, tileDimensions);
+            var playerMapNode = new MapNode(
+                currentPosition
+            );
+            var moveToPostion = new Vector3(
+                0,
+                0,
+                tileDimensions
+            );
 
             var inputPlayer = new PlayerEntity
             {
@@ -158,17 +195,31 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 {
                     CanMove = true,
                     CurrentPosition = currentPosition,
-                    NextMoveRequest = DateTime.Now.Subtract(TimeSpan.FromDays(1)),
-                    MoveToPosition = new Vector3(0, 0, 0),
+                    NextMoveRequest = DateTime.Now.Subtract(
+                        TimeSpan.FromDays(1)
+                    ),
+                    MoveToPosition = new Vector3(
+                        0,
+                        0,
+                        0
+                    ),
                 }
             };
 
             var expectedCurrentPosition = new Vector3(0);
-            var expectedMoveToPosition = new Vector3(0, 0, 5);
+            var expectedMoveToPosition = new Vector3(
+                0,
+                0,
+                5
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
-            dateTimeMock.Setup(a => a.Now).Returns(DateTime.Now);
+            dateTimeMock.Setup(
+                mock => mock.Now
+            ).Returns(
+                DateTime.Now
+            );
             var mapDetailsMock = new Mock<IMapDetails>();
             var playerRepositoryMock = new Mock<IPlayerRepository>();
 
@@ -178,22 +229,36 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 tileDimensions
             );
 
-            mediatorMock.Setup(a => a.Send(new GetMapNodeAtPositionEvent
-            {
-                Position = moveToPostion,
-            }, CancellationToken.None)).ReturnsAsync(playerMapNode);
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetMapNodeAtPositionEvent
+                    {
+                        Position = moveToPostion,
+                    },
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                playerMapNode
+            );
 
             // When
-
             var actualUpdateEvent = new PlayerGlobalUpdateEvent(
                 inputPlayer
             );
 
-            mediatorMock.Setup(a => a.Publish(It.IsAny<PlayerGlobalUpdateEvent>(), CancellationToken.None))
-                .Callback<PlayerGlobalUpdateEvent, CancellationToken>((updateEvent, CancellationToken) =>
+            mediatorMock.Setup(
+                mock => mock.Publish(
+                    It.IsAny<PlayerGlobalUpdateEvent>(),
+                    CancellationToken.None
+                )
+            ).Callback<PlayerGlobalUpdateEvent, CancellationToken>(
+                (updateEvent, CancellationToken) =>
                 {
                     actualUpdateEvent = updateEvent;
-                }).Returns(Task.CompletedTask);
+                }
+            ).Returns(
+                Task.CompletedTask
+            );
 
             var movePlayerHandler = new MovePlayerHandler(
                 mediatorMock.Object,
@@ -202,26 +267,45 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 playerRepositoryMock.Object
             );
 
-            await movePlayerHandler.Handle(new MovePlayerEvent
-            {
-                Player = inputPlayer,
-                MoveDirection = inputMoveDirection
-            }, CancellationToken.None);
+            await movePlayerHandler.Handle(
+                new MovePlayerEvent
+                {
+                    Player = inputPlayer,
+                    MoveDirection = inputMoveDirection
+                },
+                CancellationToken.None
+            );
 
             // Then
-            Assert.Equal(expectedCurrentPosition, actualUpdateEvent.Player.Position.CurrentPosition);
-            Assert.Equal(expectedMoveToPosition, actualUpdateEvent.Player.Position.MoveToPosition);
+            Assert.Equal(
+                expectedCurrentPosition,
+                actualUpdateEvent.Player.Position.CurrentPosition
+            );
+            Assert.Equal(
+                expectedMoveToPosition,
+                actualUpdateEvent.Player.Position.MoveToPosition
+            );
 
-            playerRepositoryMock.Verify(a => a.Update(PlayerAction.POSITION, actualUpdateEvent.Player));
+            playerRepositoryMock.Verify(
+                mock => mock.Update(
+                    PlayerAction.POSITION,
+                    actualUpdateEvent.Player
+                )
+            );
 
-            mediatorMock.Verify(a => a.Publish(new ClientActionEntityClientMoveToAllEvent
-            {
-                Data = new EntityClientMoveData
-                {
-                    EntityId = expectedEntityId,
-                    MoveTo = expectedMoveToPosition
-                }
-            }, CancellationToken.None));
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    new ClientActionEntityClientMoveToAllEvent
+                    {
+                        Data = new EntityClientMoveData
+                        {
+                            EntityId = expectedEntityId,
+                            MoveTo = expectedMoveToPosition
+                        }
+                    },
+                    CancellationToken.None
+                )
+            );
         }
     }
 }
