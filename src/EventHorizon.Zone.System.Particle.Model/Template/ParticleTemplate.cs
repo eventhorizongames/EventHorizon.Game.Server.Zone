@@ -1,4 +1,6 @@
-namespace EventHorizon.Zone.Core.Model.Particle
+using EventHorizon.Zone.System.Particle.Model.Settings;
+
+namespace EventHorizon.Zone.System.Particle.Model.Template
 {
     public struct ParticleTemplate
     {

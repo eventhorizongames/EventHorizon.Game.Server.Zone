@@ -1,11 +1,11 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Particle.Add;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.Core.Model.Particle;
 using EventHorizon.Zone.System.Combat.Particle.Event;
+using EventHorizon.Zone.System.Particle.Events.Add;
+using EventHorizon.Zone.System.Particle.Model.Template;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Particle.Handler
@@ -15,6 +15,7 @@ namespace EventHorizon.Zone.System.Combat.Particle.Handler
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
         readonly ServerInfo _serverInfo;
+
         public LoadCombatParticleSystemHandler(
             IMediator mediator,
             IJsonFileLoader fileLoader,
@@ -25,6 +26,7 @@ namespace EventHorizon.Zone.System.Combat.Particle.Handler
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
+
         public Task Handle(
             LoadCombatParticleSystemEvent notification,
             CancellationToken cancellationToken
@@ -77,11 +79,10 @@ namespace EventHorizon.Zone.System.Combat.Particle.Handler
                     effectFile.Extension
                 );
                 await _mediator.Publish(
-                    new AddParticleTemplateEvent
-                    {
-                        Id = particleTemplate.Id,
-                        Template = particleTemplate
-                    }
+                    new AddParticleTemplateEvent(
+                        particleTemplate.Id,
+                        particleTemplate
+                    )
                 );
             }
         }

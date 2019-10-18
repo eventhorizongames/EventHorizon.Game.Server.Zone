@@ -36,8 +36,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" /> -->
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" /> -->
         <ProjectReference Include="..\EventHorizon.Zone.Core.Map\EventHorizon.Zone.Core.Map.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Entity\EventHorizon.Zone.Core.Entity.csproj" />
@@ -55,8 +55,8 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command\EventHorizon.Zone.System.Admin.Plugin.Command.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" />
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" /> -->
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" /> -->
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Ai\EventHorizon.Zone.System.Agent.Plugin.Ai.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Move\EventHorizon.Zone.System.Agent.Plugin.Move.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Companion\EventHorizon.Zone.System.Agent.Plugin.Companion.csproj" />
@@ -70,27 +70,34 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj" />
+        
+        <ProjectReference Include="..\EventHorizon.Zone.System.Particle\EventHorizon.Zone.System.Particle.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Plugin.Editor\EventHorizon.Zone.System.Particle.Plugin.Editor.csproj" />
+        
         <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule.Plugin.Editor\EventHorizon.Zone.System.ServerModule.Plugin.Editor.csproj" />
+        
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule.Plugin.Editor\EventHorizon.Zone.System.EntityModule.Plugin.Editor.csproj" />
+        
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
+        
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets.Plugin.Editor\EventHorizon.Zone.System.ClientAssets.Plugin.Editor.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities.Plugin.Editor\EventHorizon.Zone.System.ClientEntities.Plugin.Editor.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Player\EventHorizon.Zone.System.Player.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" /> -->
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" /> -->
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.ExternalHub\EventHorizon.Zone.System.Player.ExternalHub.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Connection\EventHorizon.Zone.System.Player.Connection.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action\EventHorizon.Zone.System.Player.Plugin.Action.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" /> -->
+        <!-- <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" /> -->
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj" />
     </ItemGroup>

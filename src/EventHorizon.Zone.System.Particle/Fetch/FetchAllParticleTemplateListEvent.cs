@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Particle;
+using EventHorizon.Zone.System.Particle.Model.Template;
 using MediatR;
 
-namespace EventHorizon.Game.Server.Zone.Particle.Fetch
+namespace EventHorizon.Zone.System.Particle.Fetch
 {
     public struct FetchAllParticleTemplateListEvent : IRequest<IEnumerable<ParticleTemplate>>
     {

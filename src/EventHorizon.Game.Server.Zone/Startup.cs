@@ -6,9 +6,7 @@ using EventHorizon.Game.I18n;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
-using EventHorizon.Game.Server.Zone.Particle;
 using EventHorizon.Game.Server.Zone.Player;
-using EventHorizon.Game.Server.Zone.Player.Bus;
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Identity;
@@ -126,6 +124,7 @@ namespace EventHorizon.Game.Server.Zone
                     typeof(SystemBackupExtensions).Assembly,
                     typeof(SystemCombatExtensions).Assembly,
                     typeof(SystemCombatPluginEditorExtensions).Assembly,
+                    typeof(SystemParticleExtensions).Assembly,
                     typeof(SystemParticlePluginEditorExtensions).Assembly,
                     typeof(SystemModelExtensions).Assembly,
                     typeof(SystemServerModuleExtensions).Assembly,
@@ -159,7 +158,6 @@ namespace EventHorizon.Game.Server.Zone
             );
             services.AddPlayer(Configuration);
             services.AddZoneAdmin();
-            services.AddParticle();
             services.AddTimer();
 
             services.AddScheduler((sender, args) =>
@@ -188,9 +186,10 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemBackup()
                 .AddSystemGui()
                 .AddSystemGuiPluginEditor()
+                .AddSystemParticle()
+                .AddSystemParticlePluginEditor()
                 .AddSystemCombat()
                 .AddSystemCombatPluginEditor()
-                .AddSystemParticlePluginEditor()
                 .AddSystemModelState()
                 .AddSystemServerModule()
                 .AddSystemServerModulePluginEditor()
@@ -259,6 +258,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemCombat();
             app.UseSystemCombatPluginEditor();
 
+            app.UseSystemParticle();
             app.UseSystemParticlePluginEditor();
 
             app.UseSystemServerModule();
@@ -285,8 +285,6 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemPlayerPluginAction();
 
             app.UseSystemAgentPluginCompanion();
-
-            app.UseParticle();
 
             app.UsePlugins();
             app.UseSystemInteraction();

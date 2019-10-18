@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n.Fetch;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Particle.Fetch;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.ClientAssets.Fetch;
@@ -15,6 +13,7 @@ using MediatR;
 using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Zone.System.Player.Events.Info;
 using EventHorizon.Zone.Core.Model.Entity.State;
+using EventHorizon.Zone.System.Particle.Fetch;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {

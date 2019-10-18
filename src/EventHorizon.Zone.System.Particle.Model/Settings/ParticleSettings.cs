@@ -1,6 +1,7 @@
 using System.Numerics;
+using EventHorizon.Zone.Core.Model.Graphics;
 
-namespace EventHorizon.Zone.Core.Model.Particle
+namespace EventHorizon.Zone.System.Particle.Model.Settings
 {
     public struct ParticleSettings
     {

@@ -1,4 +1,4 @@
-namespace EventHorizon.Zone.Core.Model.Particle
+namespace EventHorizon.Zone.Core.Model.Graphics
 {
     public struct Color4
     {
