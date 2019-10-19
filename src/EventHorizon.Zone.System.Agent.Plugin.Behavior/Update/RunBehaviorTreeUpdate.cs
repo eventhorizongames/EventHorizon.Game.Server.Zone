@@ -41,7 +41,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Update
                 );
                 foreach (var actorId in behaviorTreeActorIdList)
                 {
-                    // TODO: Look at making this fire and forget.
                     await _kernel.Tick(
                         behaviorTreeShape,
                         await _mediator.Send(

@@ -116,7 +116,6 @@ namespace EventHorizon.Game.Server.Zone
             // This is used system wide services;
             // 1. For Scripting reference resolution.
             // 2. MediatR Handler Setup.
-            // TODO: To be moved into extension startup
             var systemProvidedAssemblyList = new Assembly[] {
                 
                 // Base

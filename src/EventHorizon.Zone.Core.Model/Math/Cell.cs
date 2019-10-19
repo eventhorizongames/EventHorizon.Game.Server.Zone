@@ -89,7 +89,6 @@ namespace EventHorizon.Zone.Core.Model.Math
         {
             lock (UPDATE_LOCK)
             {
-                // TODO: see if we can remove points from cell when moving into Children.
                 if (this.Children.Count > 0)
                 {
                     this.AddToChildren(point);
@@ -276,7 +275,7 @@ namespace EventHorizon.Zone.Core.Model.Math
             {
                 foreach (var point in Search_Points)
                 {
-                    var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this.
+                    var dist = Vector3.Distance(position, point.Value.Position);
                     if (dist <= bestDist)
                     {
                         if (dist == 0 && options.NotSelf)
@@ -331,7 +330,7 @@ namespace EventHorizon.Zone.Core.Model.Math
             {
                 foreach (var point in Search_Points)
                 {
-                    var dist = Vector3.Distance(position, point.Value.Position); // TODO: Might need to flip this
+                    var dist = Vector3.Distance(position, point.Value.Position);
                     if (dist <= radius)
                     {
                         if (dist == 0 && options.NotSelf)

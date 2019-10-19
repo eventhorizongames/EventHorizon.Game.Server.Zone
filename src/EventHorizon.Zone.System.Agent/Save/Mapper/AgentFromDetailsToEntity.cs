@@ -22,7 +22,6 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
             bool isGlobal = false
         )
         {
-            // TODO: Add validation to details.
             return new AgentEntity(
                 details.Data
             )
@@ -39,7 +38,6 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
                     CurrentZone = details.Position.CurrentZone,
                     ZoneTag = details.Position.ZoneTag,
 
-                    // NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
                     MoveToPosition = details.Position.CurrentPosition,
                 },
                 TagList = details.TagList

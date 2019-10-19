@@ -62,7 +62,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 if (entityCount > 25)
                 {
                     _logger.LogWarning("Agent Movement List is over 25.");
-                    // TODO: Look at triggering an circuit
+                    // FUTURE-CIRCUIT: Look at triggering an circuit
                     // The circuit should keep tabs on how many times this is triggered and if
                     //  a certain threshold is reached do something to fixed the to many agents running warnings.
                     break;

@@ -49,8 +49,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     childNode.Status
                 ))
                 {
-                    // TODO: on move to base class this will be
-                    //  ConcurrentSelectorInterpreter specific behavior.
                     foundFailed++;
                     if (foundFailed >= behaviorTreeState.ActiveTraversal.FailGate)
                     {

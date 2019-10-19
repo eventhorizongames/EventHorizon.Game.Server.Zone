@@ -27,7 +27,6 @@ namespace EventHorizon.Zone.Core.Entity.Register
             CancellationToken cancellationToken
         )
         {
-            // TODO: Add a validation of Registered Entity
             var entity = await _entityRepository.Add(
                 notification.Entity
             );

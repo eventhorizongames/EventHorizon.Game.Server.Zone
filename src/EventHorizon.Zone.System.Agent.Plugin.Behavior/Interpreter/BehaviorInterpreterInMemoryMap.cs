@@ -42,7 +42,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             BehaviorNodeType type
         )
         {
-            // TODO: Add validation check?
             return _interpreterMap[type];
         }
     }

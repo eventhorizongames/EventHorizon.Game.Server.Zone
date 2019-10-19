@@ -21,7 +21,6 @@ namespace EventHorizon.Zone.System.Player.Update
             CancellationToken cancellationToken
         )
         {
-            // TODO: Add palyer to a future to be updated queue, right now is currently setup to run synchronize when who called it.
             var connection = await _connectionFactory.GetConnection();
             await connection.SendAction(
                 "UpdatePlayer", 

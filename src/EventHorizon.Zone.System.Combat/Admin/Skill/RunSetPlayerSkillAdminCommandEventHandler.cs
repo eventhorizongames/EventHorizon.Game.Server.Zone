@@ -9,6 +9,7 @@ using MediatR;
 using EventHorizon.Zone.System.Combat.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.Player.Events.Update;
 
 namespace EventHorizon.Zone.System.Combat.Admin.Skill
 {
@@ -109,11 +110,11 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
                     EntitySkillAction.ADD_SKILL,
                     player
                 );
-                // TODO: This is not exposed, look at making Player Update an Event that will do this
-                // await _mediator.Publish(new PlayerGlobalUpdateEvent
-                // {
-                //     Player = player,
-                // });
+                await _mediator.Publish(
+                    new PlayerGlobalUpdateEvent(
+                        player
+                    )
+                );
             }
             await _mediator.Send(
                 new RespondToAdminCommand(

@@ -24,7 +24,6 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
         }
         public async Task Handle(LoadZoneSettingsEvent notification, CancellationToken cancellationToken)
         {
-            // TODO: Move loading to a Persistence service
             if (SettingsFileExists())
             {
                 using (var settingsFile = File.OpenText(GetSettingsFileName()))

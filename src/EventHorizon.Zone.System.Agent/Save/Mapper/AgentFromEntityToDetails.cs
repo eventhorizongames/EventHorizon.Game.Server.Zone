@@ -8,7 +8,6 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
     {
         public static AgentDetails Map(AgentEntity entity)
         {
-            // TODO: Add validation to Entity.
             return new AgentDetails
             {
                 Id = entity.AgentId,

@@ -60,24 +60,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
                         && typeof(AgentWrappedEntityRepository) == service.Value.ImplementationType;
                 }
             );
-            // TODO: Moved to Move Plugin
-            // Assert.Contains(
-            //     serviceCollectionMock.Services,
-            //     service =>
-            //     {
-            //         return typeof(IMoveAgentRepository) == service.Value.ServiceType
-            //             && typeof(MoveAgentRepository) == service.Value.ImplementationType;
-            //     }
-            // );
-            // TODO: Moved to Move Plugin
-            // Assert.Contains(
-            //     serviceCollectionMock.Services,
-            //     service =>
-            //     {
-            //         return typeof(ITimerTask) == service.Value.ServiceType
-            //             && typeof(MoveRegisteredAgentsTimer) == service.Value.ImplementationType;
-            //     }
-            // );
             Assert.Contains(
                 serviceCollectionMock.Services,
                 service =>

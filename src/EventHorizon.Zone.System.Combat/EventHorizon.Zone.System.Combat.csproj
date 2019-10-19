@@ -21,6 +21,7 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />

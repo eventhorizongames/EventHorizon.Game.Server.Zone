@@ -7,7 +7,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
     {
         public IList<BehaviorNode> GetActiveTraversalChildren()
         {
-            // TODO: Optimize this by making it a dictionary lookup
             return _shape.GetChildren(_activeTraversalToken);
         }
     }
