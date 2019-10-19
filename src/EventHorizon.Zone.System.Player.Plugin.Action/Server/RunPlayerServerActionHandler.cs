@@ -29,13 +29,11 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Server
             CancellationToken cancellationToken
         )
         {
-            // TODO: Validate Player
             var player = await _playerRepository.FindById(
                 notification.PlayerId
             );
             if (!player.IsFound())
             {
-                // Just Ignore any not found player.
                 return;
             }
             var actionList = _playerActionRepository.Where(

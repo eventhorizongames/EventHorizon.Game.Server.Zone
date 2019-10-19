@@ -104,10 +104,11 @@ namespace EventHorizon.Game.Server.Zone
                 )
             );
 
-            // Organized into Base, Server, Core, System, Plugin, Dynamic Plugins
+            // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
+            // Also Sorted based on Load order
             // Base -- These are common functionality; I18n, Identity Integrations, etc...
-            // Server -- From the Zone Server Base Project
             // Core -- From the Zone Core Services
+            // Server -- From the Zone Server Base Project
             // System -- These are which Systems should be setup for this Zone Server
             // Plugin -- These are Extended functionality for Systems.
             // Dynamically Loaded Plugins -- These are Extra features, but not needed by Systems to function.
@@ -117,8 +118,6 @@ namespace EventHorizon.Game.Server.Zone
             // 2. MediatR Handler Setup.
             // TODO: To be moved into extension startup
             var systemProvidedAssemblyList = new Assembly[] {
-                // Server
-                typeof(Startup).Assembly,
                 
                 // Base
                 typeof(I18nExtensions).Assembly,
@@ -130,6 +129,9 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(CoreEntityExtensions).Assembly,
                 typeof(CoreClientExtensions).Assembly,
                 typeof(CoreServerActionExtensions).Assembly,
+                
+                // Server
+                typeof(Startup).Assembly,
 
                 // System/Plugin
                 typeof(SystemWatcherExtensions).Assembly,
@@ -209,13 +211,6 @@ namespace EventHorizon.Game.Server.Zone
                     )
                 );
 
-            // Server
-            services.AddServerLoad();
-            services.AddServerSetup();
-            services.AddServerCore();
-            services.AddServerPlayer(Configuration);
-            services.AddServerAdmin();
-
             // Core
             services
                 .AddCore(
@@ -225,6 +220,13 @@ namespace EventHorizon.Game.Server.Zone
                 .AddCoreEntity()
                 .AddCoreMap()
                 .AddCoreServerAction();
+
+            // Server
+            services.AddServerLoad();
+            services.AddServerSetup();
+            services.AddServerCore();
+            services.AddServerPlayer(Configuration);
+            services.AddServerAdmin();
 
             // System/Plugin
             services
@@ -295,10 +297,11 @@ namespace EventHorizon.Game.Server.Zone
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
 
-            // Organized into Base, Server, Core, System, Plugin, Dynamic Plugins
+            // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
+            // Also Sorted based on Load order
             // Base -- These are common functionality; I18n, Identity Integrations, etc...
-            // Server -- From the Zone Server Base Project
             // Core -- From the Zone Core Services
+            // Server -- From the Zone Server Base Project
             // System -- These are which Systems should be setup for this Zone Server
             // Plugin -- These are Extended functionality for Systems.
             // Dynamically Loaded Plugins -- These are Extra features, but not needed by Systems to function.
@@ -307,15 +310,15 @@ namespace EventHorizon.Game.Server.Zone
             app.UseI18n();
             app.UseEventHorizonIdentity();
 
+            // Core
+            app.UseCore();
+
             // Server
             app.UseServerLoad();
             app.UseServerSetup();
             app.UseServerCore();
             app.UseServerPlayer();
             app.UseServerAdmin();
-
-            // Core
-            app.UseCore();
 
             // System/Plugin
             app.UseSystemWatcher();
