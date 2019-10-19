@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Run;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Run;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Run
 {
-    public class RunAdminCommandFromScriptHandlerTests
+    public class RunAdminCommandScriptHandlerTests
     {
         [Fact]
         public async Task TestShouldNotRunAnyServerScriptsWhenCommandScriptsListIsEmpty()
@@ -31,7 +31,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
             var command = "command";
             var adminCommandMock = new Mock<IAdminCommand>();
 
-            var loggerMock = new Mock<ILogger<RunAdminCommandFromScriptHandler>>();
+            var loggerMock = new Mock<ILogger<RunAdminCommandScriptHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var repositoryMock = new Mock<AdminCommandRepository>();
 
@@ -44,7 +44,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
             );
 
             // When
-            var handler = new RunAdminCommandFromScriptHandler(
+            var handler = new RunAdminCommandScriptHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 repositoryMock.Object
@@ -98,7 +98,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
                     data
                 );
 
-            var loggerMock = new Mock<ILogger<RunAdminCommandFromScriptHandler>>();
+            var loggerMock = new Mock<ILogger<RunAdminCommandScriptHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var repositoryMock = new Mock<AdminCommandRepository>();
 
@@ -124,7 +124,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
             );
 
             // When
-            var handler = new RunAdminCommandFromScriptHandler(
+            var handler = new RunAdminCommandScriptHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 repositoryMock.Object
@@ -177,7 +177,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
                 responseMessage
             );
 
-            var loggerMock = new Mock<ILogger<RunAdminCommandFromScriptHandler>>();
+            var loggerMock = new Mock<ILogger<RunAdminCommandScriptHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var repositoryMock = new Mock<AdminCommandRepository>();
 
@@ -218,7 +218,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
             );
 
             // When
-            var handler = new RunAdminCommandFromScriptHandler(
+            var handler = new RunAdminCommandScriptHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 repositoryMock.Object
@@ -272,7 +272,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
                 responseMessage
             );
 
-            var loggerMock = new Mock<ILogger<RunAdminCommandFromScriptHandler>>();
+            var loggerMock = new Mock<ILogger<RunAdminCommandScriptHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var repositoryMock = new Mock<AdminCommandRepository>();
 
@@ -332,7 +332,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Run
             );
 
             // When
-            var handler = new RunAdminCommandFromScriptHandler(
+            var handler = new RunAdminCommandScriptHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 repositoryMock.Object

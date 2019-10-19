@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
@@ -5,9 +6,8 @@ using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Events.Node;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
-using IOPath = System.IO.Path;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Editor
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Editor
 {
     public struct FillAdminCommandsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
@@ -38,15 +38,15 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Editor
                     EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
-                    // Add the script node as a child to it.
-                    await CreateScriptNode(
+                    // Add the Command node as a child to it.
+                    await CreateCommandNode(
                         rootFolder
                     )
                 )
             );
         }
 
-        private async Task<IEditorNode> CreateScriptNode(
+        private async Task<IEditorNode> CreateCommandNode(
             string rootFolder
         )
         {
@@ -54,7 +54,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Editor
                 new QueryForEditorNodeFromPath(
                     rootFolder,
                     _serverInfo.AdminPath,
-                    IOPath.Combine(
+                    Path.Combine(
                         _serverInfo.AdminPath,
                         "Commands"
                     )

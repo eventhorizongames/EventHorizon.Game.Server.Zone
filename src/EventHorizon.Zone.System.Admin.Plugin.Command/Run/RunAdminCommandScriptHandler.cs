@@ -5,22 +5,22 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Run
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Run
 {
-    public struct RunAdminCommandFromScriptHandler : INotificationHandler<AdminCommandEvent>
+    public struct RunAdminCommandScriptHandler : INotificationHandler<AdminCommandEvent>
     {
         private const string INVALID_RUN_ERROR_CODE = "base_script_response";
 
         readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly AdminCommandRepository _adminCommandRepository;
-        public RunAdminCommandFromScriptHandler(
-            ILogger<RunAdminCommandFromScriptHandler> logger,
+        public RunAdminCommandScriptHandler(
+            ILogger<RunAdminCommandScriptHandler> logger,
             IMediator mediator,
             AdminCommandRepository adminCommandRepository
         )
@@ -35,17 +35,17 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Run
             CancellationToken cancellationToken
         )
         {
-            var commandScriptList = _adminCommandRepository.Where(
+            var commandList = _adminCommandRepository.Where(
                 request.Command.Command
             );
 
-            foreach (var commandScript in commandScriptList)
+            foreach (var commandInstance in commandList)
             {
                 try
                 {
                     var response = await _mediator.Send(
                         new RunServerScriptCommand(
-                            commandScript.ScriptFile,
+                            commandInstance.ScriptFile,
                             new Dictionary<string, object>()
                             {
                                 { "Command", request.Command },
@@ -71,7 +71,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Run
                     _logger.LogError(
                         ex,
                         "Problem Running Command",
-                        commandScript
+                        commandInstance
                     );
                 }
             }

@@ -1,4 +1,4 @@
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model
 {
     public struct AdminCommandInstance
     {

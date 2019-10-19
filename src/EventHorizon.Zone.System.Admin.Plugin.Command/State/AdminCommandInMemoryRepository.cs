@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 {
     public class AdminCommandInMemoryRepository : AdminCommandRepository
     {

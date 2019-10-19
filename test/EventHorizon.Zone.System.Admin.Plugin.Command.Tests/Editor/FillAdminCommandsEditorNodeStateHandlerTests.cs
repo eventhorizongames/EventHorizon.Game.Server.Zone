@@ -2,7 +2,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Editor;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Editor;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Events.Node;
 using EventHorizon.Zone.System.Editor.Model;
@@ -10,7 +10,7 @@ using MediatR;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Editor
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Editor
 {
     public class FillAdminCommandsEditorNodeStateHandlerTests
     {

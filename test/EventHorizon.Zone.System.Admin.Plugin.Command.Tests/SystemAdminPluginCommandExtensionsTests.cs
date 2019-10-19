@@ -3,9 +3,9 @@ using EventHorizon.Tests.TestUtils;
 using EventHorizon.Game.Server.Zone;
 using Moq;
 using MediatR;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Load;
 using System.Threading;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {

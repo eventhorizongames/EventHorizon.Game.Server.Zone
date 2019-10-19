@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 {
     public interface AdminCommandRepository
     {

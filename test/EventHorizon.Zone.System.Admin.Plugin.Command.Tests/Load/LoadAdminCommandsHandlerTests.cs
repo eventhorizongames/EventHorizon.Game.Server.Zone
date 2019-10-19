@@ -4,13 +4,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.Load;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 using Moq;
 using Xunit;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Load
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Load
 {
     public class LoadAdminCommandsHandlerTests
     {
@@ -21,7 +21,6 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.Load
             var expected = new AdminCommandInstance();
             var adminPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Scripts",
                 "Load"
             );
 

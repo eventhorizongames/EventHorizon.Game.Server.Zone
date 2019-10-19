@@ -1,9 +1,8 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Scripts.State;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 using Xunit;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Scripts.State
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.State
 {
     public class AdminCommandInMemoryRepositoryTests
     {
