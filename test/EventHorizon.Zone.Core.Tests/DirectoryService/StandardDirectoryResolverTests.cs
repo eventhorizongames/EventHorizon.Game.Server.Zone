@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using EventHorizon.Zone.Core.DirectoryService;
 using Xunit;
@@ -33,6 +34,8 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
             var directoryResolver = new StandardDirectoryResolver();
             var actual = directoryResolver.GetDirectories(
                 path
+            ).OrderBy(
+                directory => directory
             );
 
             // Then
@@ -69,9 +72,11 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
             var directoryResolver = new StandardDirectoryResolver();
             var actual = directoryResolver.GetFiles(
                 path
+            ).OrderBy(
+                file => file
             );
 
-            // Then
+            // Then 
             Assert.Collection(
                 actual,
                 file => Assert.Equal(expectedFile1, file),
