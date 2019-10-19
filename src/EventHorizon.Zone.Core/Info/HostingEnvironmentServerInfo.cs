@@ -1,6 +1,6 @@
+using System.IO;
 using EventHorizon.Zone.Core.Model.Info;
 using Microsoft.AspNetCore.Hosting;
-using IOPath = System.IO.Path;
 
 namespace EventHorizon.Zone.Core.Info
 {
@@ -61,7 +61,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data"
             );
@@ -70,7 +70,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "System"
@@ -80,7 +80,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "__Backup__"
@@ -90,7 +90,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Admin"
@@ -100,17 +100,27 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Plugins"
+            );
+        }
+        private string GenerateI18nPath(
+            IHostingEnvironment hostingEnvironment
+        )
+        {
+            return Path.Combine(
+                hostingEnvironment.ContentRootPath,
+                "App_Data",
+                "I18n"
             );
         }
         private string GenerateClientPath(
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Client"
@@ -120,7 +130,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Client",
@@ -131,7 +141,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Client",
@@ -142,27 +152,17 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Server"
-            );
-        }
-        private string GenerateI18nPath(
-            IHostingEnvironment hostingEnvironment
-        )
-        {
-            return IOPath.Combine(
-                hostingEnvironment.ContentRootPath,
-                "App_Data",
-                "I18n"
             );
         }
         private string GenerateServerScriptsPath(
             IHostingEnvironment hostingEnvironment
         )
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 hostingEnvironment.ContentRootPath,
                 "App_Data",
                 "Server",

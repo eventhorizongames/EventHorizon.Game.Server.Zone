@@ -2,7 +2,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.ServerProperty.Fill
 {
-    public class FillServerPropertiesEvent : INotification
+    public struct FillServerPropertiesEvent : INotification
     {
         
     }

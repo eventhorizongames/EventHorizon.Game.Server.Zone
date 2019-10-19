@@ -8,22 +8,9 @@ namespace EventHorizon.Zone.Core.RandomNumber
     {
         private static readonly RandomNumberGenerator RANDOM = RandomNumberGenerator.Create();
 
-        public int Next()
-        {
-            var data = new byte[sizeof(int)];
-            RANDOM.GetBytes(
-                data
-            );
-            return BitConverter
-                .ToInt32(
-                    data, 
-                    0
-                ) & (
-                    int.MaxValue - 1
-                );
-        }
-
-        public int Next(int maxValue)
+        public int Next(
+            int maxValue
+        )
         {
             return Next(
                 0, 
@@ -45,7 +32,7 @@ namespace EventHorizon.Zone.Core.RandomNumber
             );
         }
 
-        public double NextDouble()
+        private double NextDouble()
         {
             var data = new byte[sizeof(uint)];
             RANDOM.GetBytes(
