@@ -20,7 +20,6 @@ namespace EventHorizon.Game.Server.Zone
             return services
                 .AddSingleton<ITimerTask, BehaviorTreeUpdateTriggerTimerTask>()
 
-                .AddSingleton<ActorBehaviorScriptRepository, InMemoryActorBehaviorScriptRepository>()
                 .AddSingleton<ActorBehaviorTreeRepository, InMemoryActorBehaviorTreeRepository>()
 
                 .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>()

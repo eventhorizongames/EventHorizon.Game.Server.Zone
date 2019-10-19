@@ -17,15 +17,18 @@
 
 using System.Numerics;
 using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Ai.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 
+var actor = Data.Get<IObjectEntity>("Actor");
+
 // Get Map Nodes around Agent, within distance
 var mapNodes = await Services.Mediator.Send(
     new GetMapNodesAroundPositionEvent(
-        Actor.Position.CurrentPosition,
-        Actor.GetProperty<AgentWanderState>(
+        actor.Position.CurrentPosition,
+        actor.GetProperty<AgentWanderState>(
             AgentWanderState.WANDER_NAME
         ).LookDistance
     )
@@ -40,7 +43,7 @@ var randomNodeIndex = Services.Random.Next(0, mapNodes.Count - 1);
 var node = mapNodes[randomNodeIndex];
 
 // Add MoveToNode to Actor State
-Actor.SetProperty<Vector3>(
+actor.SetProperty<Vector3>(
     "ActorMoveToPosition",
     node.Position
 // new Vector3(

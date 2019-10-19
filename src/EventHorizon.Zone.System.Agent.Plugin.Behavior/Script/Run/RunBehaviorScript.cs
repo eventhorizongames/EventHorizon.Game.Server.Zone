@@ -20,29 +20,5 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
             Actor = actor;
             ScriptId = scriptId;
         }
-
-        public struct RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
-        {
-            readonly ActorBehaviorScriptRepository _scriptRepository;
-            readonly ServerScriptServices _scriptServices;
-            public RunBehaviorScriptHandler(
-                ActorBehaviorScriptRepository scriptRepository,
-                ServerScriptServices scriptServices
-            )
-            {
-                _scriptRepository = scriptRepository;
-                _scriptServices = scriptServices;
-            }
-
-            public Task<BehaviorScriptResponse> Handle(
-                RunBehaviorScript request,
-                CancellationToken cancellationToken
-            ) => _scriptRepository.Find(
-                    request.ScriptId
-                ).Run(
-                    _scriptServices,
-                    request.Actor
-                );
-        }
     }
 }

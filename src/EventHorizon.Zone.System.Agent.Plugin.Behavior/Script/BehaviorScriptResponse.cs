@@ -1,10 +1,15 @@
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Server.Scripts.Model;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
 {
-    public struct BehaviorScriptResponse
+    public struct BehaviorScriptResponse : ServerScriptResponse
     {
         public BehaviorNodeStatus Status { get; }
+
+        public bool Success => true;
+        public string Message => string.Empty;
+
         public BehaviorScriptResponse(
             BehaviorNodeStatus status
         )

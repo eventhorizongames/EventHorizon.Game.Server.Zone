@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
@@ -7,11 +9,10 @@ using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Builder;
+using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadDefaultActorBehaviorTree;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
@@ -36,16 +37,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
-            var actorBehaviorScriptRepositoryMock = new Mock<ActorBehaviorScriptRepository>();
+            var systemProvidedAssemblyListMock = new Mock<SystemProvidedAssemblyList>();
 
             serverInfoMock.SetupGet(
-                serverInfo => serverInfo.SystemPath
+                mock => mock.SystemPath
             ).Returns(
                 systemPath
             );
 
             fileLoaderMock.Setup(
-                fileLoader => fileLoader.GetFile<SerializedAgentBehaviorTree>(
+                mock => mock.GetFile<SerializedAgentBehaviorTree>(
                     defaultBehaviorShapePath
                 )
             ).ReturnsAsync(
@@ -55,13 +56,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 }
             );
 
+            systemProvidedAssemblyListMock.Setup(
+                mock => mock.List
+            ).Returns(
+                new List<Assembly>()
+            );
+
             // When
             var loadDefaultActorBehaviorTreeHandler = new LoadDefaultActorBehaviorTreeHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
                 actorBehaviorTreeRepositoryMock.Object,
-                actorBehaviorScriptRepositoryMock.Object
+                systemProvidedAssemblyListMock.Object
             );
 
             await loadDefaultActorBehaviorTreeHandler.Handle(
@@ -78,9 +85,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             );
             mediatorMock.Verify(
                 mediator => mediator.Send(
-                    new BuildBehaviorScript(
-                        "$DEFAULT$SCRIPT",
-                        "return new BehaviorScriptResponse(BehaviorNodeStatus.SUCCESS);"
+                    It.Is<RegisterServerScriptCommand>(
+                        command => command.FileName == "$DEFAULT$SCRIPT"
+                                &&
+                                command.Path == string.Empty
+                                &&
+                                command.ScriptString == "return new BehaviorScriptResponse(BehaviorNodeStatus.SUCCESS);"
                     ),
                     CancellationToken.None
                 )

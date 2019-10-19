@@ -55,17 +55,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 service =>
                 {
                     Assert.Equal(
-                        typeof(ActorBehaviorScriptRepository), 
-                        service.ServiceType
-                    );
-                    Assert.Equal(
-                        typeof(InMemoryActorBehaviorScriptRepository), 
-                        service.ImplementationType
-                    );
-                },
-                service =>
-                {
-                    Assert.Equal(
                         typeof(ActorBehaviorTreeRepository), 
                         service.ServiceType
                     );

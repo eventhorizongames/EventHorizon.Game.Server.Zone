@@ -27,9 +27,11 @@ using EventHorizon.Zone.System.Agent.Plugin.Ai.Model;
 using EventHorizon.Zone.Core.Events.Map;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.Core.Model.Entity;
 
+var actor = Data.Get<IObjectEntity>("Actor");
 
-Nullable<DateTime> nextRunDate = Actor.GetProperty<DateTime?>("NextRunTime");
+Nullable<DateTime> nextRunDate = actor.GetProperty<DateTime?>("NextRunTime");
 if (!nextRunDate.HasValue)
 {
     // Not Found, so lets make once so we wait some time
@@ -39,7 +41,7 @@ if (!nextRunDate.HasValue)
         )
     );
     // Add MoveToNode to Actor State
-    Actor.SetProperty<DateTime?>(
+    actor.SetProperty<DateTime?>(
         "NextRunTime",
         nextRunDate
     );
@@ -54,7 +56,7 @@ var canRunNext = DateTime.Now.CompareTo(
 
 if (canRunNext)
 {
-    Actor.SetProperty<DateTime?>(
+    actor.SetProperty<DateTime?>(
         "NextRunTime",
         null
     );

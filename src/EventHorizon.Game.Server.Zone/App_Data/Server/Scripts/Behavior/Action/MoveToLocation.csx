@@ -24,18 +24,21 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.Client.DataType;
+using EventHorizon.Zone.Core.Model.Entity;
+
+var actor = Data.Get<IObjectEntity>("Actor");
 
 // Check for Actor already moving
 var isAgentMoving = await Services.Mediator.Send(
     new IsAgentMoving(
-        Actor.Id
+        actor.Id
     )
 );
 
 // In not running startup new Move Behavior from MoveTo data in Action
 if (!isAgentMoving)
 {
-    var toPosition = Actor.GetProperty<Vector3>("ActorMoveToPosition");
+    var toPosition = actor.GetProperty<Vector3>("ActorMoveToPosition");
     if (toPosition == default(Vector3)) // TODO: Find better way to check Vector3
     {
         return new BehaviorScriptResponse(
@@ -45,7 +48,7 @@ if (!isAgentMoving)
     Services.Mediator.Send(
         new MoveAgentToPositionEvent
         {
-            AgentId = Actor.Id,
+            AgentId = actor.Id,
             ToPosition = toPosition
         }
     ).ConfigureAwait(false);
@@ -53,7 +56,7 @@ if (!isAgentMoving)
     // Set the ActorMoveToPosition to null, 
     //  this way when next update comes through it will be a 
     //  SUCCESS if agent is not moving.
-    Actor.SetProperty<Vector3>(
+    actor.SetProperty<Vector3>(
         "ActorMoveToPosition",
         default(Vector3)
     );

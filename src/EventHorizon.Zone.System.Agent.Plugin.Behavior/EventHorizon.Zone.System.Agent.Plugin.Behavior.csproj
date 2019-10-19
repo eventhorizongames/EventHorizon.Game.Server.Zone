@@ -9,7 +9,6 @@
         <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
         <PackageReference Include="Mediatr" Version="7.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="3.2.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +18,8 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" />

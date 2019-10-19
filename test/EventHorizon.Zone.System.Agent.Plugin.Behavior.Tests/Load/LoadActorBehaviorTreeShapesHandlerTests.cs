@@ -11,7 +11,6 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadActorBehaviorScripts;
 using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadActorBehaviorTreeShapes;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
@@ -79,43 +78,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                     expectedTreeId2,
                     It.IsAny<ActorBehaviorTreeShape>()
                 ),
-                Times.Once()
-            );
-        }
-        [Fact]
-        public async Task ShouldClearRepositoryOnHandle()
-        {
-            // Given
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
-            var agentBehaviorScriptRepositoryMock = new Mock<ActorBehaviorScriptRepository>();
-
-            serverInfoMock.Setup(
-                serverInfo => serverInfo.ServerPath
-            ).Returns(
-                Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "Load"
-                )
-            );
-
-            // When
-            var loadServerModuleSystemHandler = new LoadActorBehaviorScriptsHandler(
-                mediatorMock.Object,
-                serverInfoMock.Object,
-                jsonFileLoaderMock.Object,
-                agentBehaviorScriptRepositoryMock.Object
-            );
-
-            await loadServerModuleSystemHandler.Handle(
-                new LoadActorBehaviorScripts(),
-                CancellationToken.None
-            );
-
-            // Then
-            agentBehaviorScriptRepositoryMock.Verify(
-                repository => repository.Clear(),
                 Times.Once()
             );
         }
