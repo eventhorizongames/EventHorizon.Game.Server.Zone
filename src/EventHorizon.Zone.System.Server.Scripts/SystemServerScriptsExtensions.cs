@@ -1,6 +1,6 @@
-using EventHorizon.Game.Server.Zone.Admin.Server.State;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.Model;
+using EventHorizon.Zone.System.Server.Scripts.State;
 using EventHorizon.Zone.System.Server.Scripts.System;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -16,19 +16,22 @@ namespace EventHorizon.Game.Server.Zone
         {
             return services
                 .AddSingleton<ServerScriptRepository, ServerScriptInMemoryRepository>()
+                .AddSingleton<ServerScriptDetailsRepository, ServerScriptDetailsInMemoryRepository>()
                 .AddTransient<ServerScriptServices, SystemServerScriptServices>()
             ;
         }
+        
         public static IApplicationBuilder UseSystemServerScripts(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()
-                    .Send(new LoadServerScriptsCommand())
-                    .GetAwaiter().GetResult();
+                    .Send(
+                        new LoadServerScriptsCommand()
+                    ).GetAwaiter().GetResult();
             }
             return app;
         }

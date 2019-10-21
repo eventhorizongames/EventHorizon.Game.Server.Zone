@@ -14,11 +14,6 @@ public class Services
 
 public static class Data
 {
-    public static void Set(
-        string name,
-        object value
-    )
-    { }
     public static T Get<T>(
         string name
     ) => default(T);

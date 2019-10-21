@@ -1,19 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.ServerAction;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Client.Messsage;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Zone.System.Combat.Skill.State;
 using EventHorizon.Zone.System.Combat.Script;
 using EventHorizon.Zone.System.Combat.Skill.Validation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Numerics;
+using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
 {
@@ -23,20 +21,18 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
         readonly IMediator _mediator;
         readonly IScriptServices _scriptServices;
         readonly IDateTimeService _dateTime;
-        readonly ISkillEffectScriptRepository _skillEffectScriptRepository;
+
         public RunSkillEffectWithTargetOfEntityHandler(
             ILogger<RunSkillEffectWithTargetOfEntityHandler> logger,
             IMediator mediator,
             IScriptServices scriptServices,
-            IDateTimeService dateTime,
-            ISkillEffectScriptRepository skillEffectScriptRepository
+            IDateTimeService dateTime
         )
         {
             _logger = logger;
             _mediator = mediator;
             _scriptServices = scriptServices;
             _dateTime = dateTime;
-            _skillEffectScriptRepository = skillEffectScriptRepository;
         }
 
         public async Task Handle(RunSkillEffectWithTargetOfEntityEvent notification, CancellationToken cancellationToken)
@@ -113,7 +109,8 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                     new AddServerActionEvent(
                         _dateTime.Now.AddMilliseconds(
                             effect.Duration
-                        ), new RunSkillEffectWithTargetOfEntityEvent
+                        ), 
+                        new RunSkillEffectWithTargetOfEntityEvent
                         {
                             ConnectionId = connectionId,
                             SkillEffect = nextEffect,
@@ -121,7 +118,8 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                             Target = target,
                             Skill = skill,
                             State = state
-                        })
+                        }
+                    )
                 ).ConfigureAwait(false);
             }
         }
@@ -166,18 +164,32 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
             IDictionary<string, object> state
         )
         {
-            var effectResponse =
-                await FindScript(
-                    effect.Effect
-                ).Run(
-                    _scriptServices,
-                    caster,
-                    target,
-                    skill,
-                    targetPosition,
-                    effect.Data,
-                    state
-                );
+
+            var effectResponse = (SkillEffectScriptResponse)await _mediator.Send(
+                new RunServerScriptCommand(
+                    effect.Effect,
+                    new Dictionary<string, object>()
+                    {
+                        { "Caster", caster },
+                        { "Target", target },
+                        { "Skill", skill },
+                        { "TargetPosition", targetPosition },
+                        { "EffectData", effect.Data },
+                        { "PriorState", state },
+                    }
+                )
+            );
+            // await FindScript(
+            //     effect.Effect
+            // ).Run(
+            //     _scriptServices,
+            //     caster,
+            //     target,
+            //     skill,
+            //     targetPosition,
+            //     effect.Data,
+            //     state
+            // ) as SkillEffectScriptResponse;
 
             // Run Client Action events
             foreach (var clientEvent in effectResponse.ActionList)
@@ -190,16 +202,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                 ).ConfigureAwait(false);
             }
             return effectResponse.State;
-        }
-
-        private SkillEffectScript FindScript(string effect)
-        {
-            var effectScript = _skillEffectScriptRepository.Find(effect);
-            if (effectScript.Equals(default(SkillEffectScript)))
-            {
-                throw new KeyNotFoundException(effect);
-            }
-            return effectScript;
         }
     }
 }

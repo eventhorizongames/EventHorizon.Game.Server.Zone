@@ -9,16 +9,27 @@
 /// Services: { I18n: I18nLookup; }
 /// </summary>
 
-var validationResponse = (SkillValidatorResponse)PriorState["ValidationResponse"];
+using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
+var skill = Data.Get<SkillInstance>("Skill");
+var effectData = Data.Get<IDictionary<string, object>>("EffectData");
+var priorState = Data.Get<IDictionary<string, object>>("PriorState");
+
+var validationResponse = (SkillValidatorResponse)priorState["ValidationResponse"];
 var actionData = new
 {
-    MessageCode = (string)Data["messageCode"],
-    MessageTemplate = Services.I18n.Lookup("default", (string)Data["messageTemplateKey"]),
+    MessageCode = (string)effectData["messageCode"],
+    MessageTemplate = Services.I18n.Lookup("default", (string)effectData["messageTemplateKey"]),
     TemplateData = new
     {
-        CasterName = Caster.Name,
-        TargetName = Target.Name,
-        SkillName = Skill.Name,
+        CasterName = caster.Name,
+        TargetName = target.Name,
+        SkillName = skill.Name,
         SkillFailedReason = Services.I18n.Lookup("default", validationResponse.ErrorMessageTemplateKey),
         ErrorData = validationResponse.ErrorMessageTemplateData
     }

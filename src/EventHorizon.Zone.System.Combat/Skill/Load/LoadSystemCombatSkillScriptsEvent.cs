@@ -19,18 +19,17 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
             {
                 _mediator = mediator;
             }
-            public Task Handle(
+            public async Task Handle(
                 LoadSystemCombatSkillScriptsEvent notification,
                 CancellationToken cancellationToken
             )
             {
-                _mediator.Send(
+                await _mediator.Send(
                     new LoadCombatSkillEffectScripts()
                 );
-                _mediator.Send(
+                await _mediator.Send(
                     new LoadCombatSkillValidatorScripts()
                 );
-                return Task.CompletedTask;
             }
         }
     }

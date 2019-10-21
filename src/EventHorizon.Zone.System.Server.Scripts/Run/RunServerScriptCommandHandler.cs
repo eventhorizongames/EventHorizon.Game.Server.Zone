@@ -41,9 +41,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
                     request.Data
                 );
             }
-            catch (
-                ServerScriptNotFound ex
-            )
+            catch (ServerScriptNotFound ex)
             {
                 _logger.LogError(
                     ex,
@@ -57,9 +55,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
                     ) as ServerScriptResponse
                 );
             }
-            catch (
-                Exception ex
-            )
+            catch (Exception ex)
             {
                 _logger.LogError(
                     ex,

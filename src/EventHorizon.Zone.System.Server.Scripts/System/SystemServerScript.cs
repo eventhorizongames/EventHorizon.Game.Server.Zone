@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Server.Scripts.Exceptions;
@@ -7,9 +6,8 @@ using EventHorizon.Zone.System.Server.Scripts.Model;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.CSharp.RuntimeBinder;
-using IOPath = System.IO.Path;
 using System.Reflection;
-using System.Dynamic;
+using System.IO;
 
 namespace EventHorizon.Zone.System.Server.Scripts.System
 {
@@ -34,6 +32,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 }
             );
         }
+
         private struct ScriptDetails
         {
             public string FileName { get; set; }
@@ -44,7 +43,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         }
 
         public string Id { get; }
-        public string ScriptAsString { get; }
         private ScriptRunner<ServerScriptResponse> _runner;
 
         private bool IsFound()
@@ -60,11 +58,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 details.Path,
                 details.FileName
             );
-            this.ScriptAsString = details.ScriptAsString;
             this._runner = CreateRunner(
                 details
             );
         }
+        
         public async Task<ServerScriptResponse> Run(
             ServerScriptServices services,
             IDictionary<string, object> data
@@ -109,13 +107,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 _data = data;
             }
 
-            public void Set(
-                string name,
-                object value
-            )
-            {
-                _data[name] = value;
-            }
             public T Get<T>(
                 string name
             )
@@ -140,7 +131,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 string.Join(
                     "_",
                     path.Split(
-                        IOPath.DirectorySeparatorChar
+                        Path.DirectorySeparatorChar
                     )
                 ),
                 fileName
@@ -172,13 +163,13 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                     .Create<ServerScriptResponse>(
                         details.ScriptAsString,
                         scriptOptions,
-                        typeof(SystemServerScriptData))
-                    .CreateDelegate();
+                        typeof(SystemServerScriptData)
+                    ).CreateDelegate();
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException(
-                    $"Exception with  {details.Path} | {details.FileName}",
+                    $"Exception with {details.Path} | {details.FileName}",
                     ex
                 );
             }

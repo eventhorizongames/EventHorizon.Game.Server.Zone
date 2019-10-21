@@ -2,11 +2,12 @@ using System.Collections.Concurrent;
 using System.Linq;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 
-namespace EventHorizon.Game.Server.Zone.Admin.Server.State
+namespace EventHorizon.Zone.System.Server.Scripts.State
 {
     public class ServerScriptInMemoryRepository : ServerScriptRepository
     {
-        private static readonly ConcurrentDictionary<string, ServerScript> MAP = new ConcurrentDictionary<string, ServerScript>();
+        private readonly ConcurrentDictionary<string, ServerScript> MAP = new ConcurrentDictionary<string, ServerScript>();
+
         public void Add(
             ServerScript script
         )
@@ -17,10 +18,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.Server.State
                 (key, old) => script
             );
         }
-        public void Clear()
-        {
-            MAP.Clear();
-        }
+
         public ServerScript Find(
             string id
         )

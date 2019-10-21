@@ -1,0 +1,4 @@
+// DO NOT FIX
+// This script is made to throw a complication error
+
+I am some very invalid syntax!!!

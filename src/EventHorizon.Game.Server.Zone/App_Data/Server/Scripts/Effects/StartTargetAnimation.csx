@@ -1,8 +1,17 @@
-var animation = Data["animation"];
+using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
+var effectData = Data.Get<IDictionary<string, object>>("EffectData");
+
+var animation = effectData["animation"];
 
 var actionData = new
 {
-    EntityId = Target.Id,
+    EntityId = target.Id,
     Animation = animation
 };
 var action = new ClientSkillActionEvent

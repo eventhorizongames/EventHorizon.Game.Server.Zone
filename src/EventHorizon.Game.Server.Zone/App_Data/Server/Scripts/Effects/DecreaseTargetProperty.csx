@@ -3,28 +3,39 @@
 /// </summary>
 /// <returns></returns>
 
-var propertyName = (string)Data["propertyName"];
-var valueProperty = (string)Data["valueProperty"];
+using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Events.Life;
+using EventHorizon.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
+var effectData = Data.Get<IDictionary<string, object>>("EffectData");
+
+var propertyName = (string)effectData["propertyName"];
+var valueProperty = (string)effectData["valueProperty"];
 // TODO: Use the modifiers to change value amount.
-var modifierPropertyName = (string)Data["modifierPropertyName"];
-var modifierValueProperty = (string)Data["modifierValueProperty"];
-var modifierBase = (long)Data["modifierBase"];
+var modifierPropertyName = (string)effectData["modifierPropertyName"];
+var modifierValueProperty = (string)effectData["modifierValueProperty"];
+var modifierBase = (long)effectData["modifierBase"];
 
-var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName)[valueProperty];
-var modiferPropertyValue = Caster.GetProperty<dynamic>(modifierPropertyName)[modifierValueProperty];
+var casterPropertyValue = caster.GetProperty<dynamic>(propertyName)[valueProperty];
+var modiferPropertyValue = caster.GetProperty<dynamic>(modifierPropertyName)[modifierValueProperty];
 
 
-var decreaseLifeEvent = new DecreaseLifePropertyEvent
-{
-    EntityId = Target.Id,
-    Property = valueProperty,
-    Points = modifierBase
-};
-Services.Mediator.Publish(decreaseLifeEvent);
+await Services.Mediator.Publish(
+    new DecreaseLifePropertyEvent
+    {
+        EntityId = target.Id,
+        Property = valueProperty,
+        Points = modifierBase
+    }
+);
 
 var actionData = new
 {
-    Id = Target.Id,
+    Id = target.Id,
     PropertyName = propertyName.LowercaseFirstChar(),
     ValueProperty = valueProperty.LowercaseFirstChar(),
     Amount = modifierBase

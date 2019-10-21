@@ -13,6 +13,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
         public string ScriptString { get; }
         public IEnumerable<Assembly> ReferenceAssemblies { get; }
         public IEnumerable<string> Imports { get; }
+        public IEnumerable<string> TagList { get; }
 
         public RegisterServerScriptCommand(
             string fileName,
@@ -20,27 +21,46 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
             string scriptString
         )
         {
-            this.FileName = fileName;
-            this.Path = path;
-            this.ScriptString = scriptString;
-            this.ReferenceAssemblies = Enumerable.Empty<Assembly>();
-            this.Imports = Enumerable.Empty<string>();
+            FileName = fileName;
+            Path = path;
+            ScriptString = scriptString;
+            ReferenceAssemblies = Enumerable.Empty<Assembly>();
+            Imports = Enumerable.Empty<string>();
+            TagList = Enumerable.Empty<string>();
         }
 
         public RegisterServerScriptCommand(
             string fileName,
             string path,
             string scriptString,
-            IEnumerable<Assembly> ReferenceAssemblies,
-            IEnumerable<string> Imports
+            IEnumerable<Assembly> referenceAssemblies,
+            IEnumerable<string> imports
         ) : this(
             fileName,
             path,
             scriptString
         )
         {
-            this.ReferenceAssemblies = ReferenceAssemblies;
-            this.Imports = Imports;
+            ReferenceAssemblies = referenceAssemblies;
+            Imports = imports;
+        }
+
+        public RegisterServerScriptCommand(
+            string fileName,
+            string path,
+            string scriptString,
+            IEnumerable<Assembly> referenceAssemblies,
+            IEnumerable<string> imports,
+            IEnumerable<string> tagList
+        ) : this(
+            fileName,
+            path,
+            scriptString
+        )
+        {
+            ReferenceAssemblies = referenceAssemblies;
+            Imports = imports;
+            TagList = tagList;
         }
 
     }
