@@ -8,8 +8,12 @@
 /// Data: { }
 /// </summary>
 
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
 
-var canBeCaptured = Target.GetProperty<dynamic>("ownerState")["canBeCaptured"];
+var target = Data.Get<IObjectEntity>("Target");
+
+var canBeCaptured = target.GetProperty<dynamic>("ownerState")["canBeCaptured"];
 
 if (!canBeCaptured)
 {

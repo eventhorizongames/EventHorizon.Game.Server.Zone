@@ -15,15 +15,15 @@ using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
 {
-    public class RunSkillEffectWithTargetOfEntityHandler : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
+    public class RunSkillEffectWithTargetOfEntityEventHandler : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly IScriptServices _scriptServices;
         readonly IDateTimeService _dateTime;
 
-        public RunSkillEffectWithTargetOfEntityHandler(
-            ILogger<RunSkillEffectWithTargetOfEntityHandler> logger,
+        public RunSkillEffectWithTargetOfEntityEventHandler(
+            ILogger<RunSkillEffectWithTargetOfEntityEventHandler> logger,
             IMediator mediator,
             IScriptServices scriptServices,
             IDateTimeService dateTime
@@ -35,7 +35,10 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
             _dateTime = dateTime;
         }
 
-        public async Task Handle(RunSkillEffectWithTargetOfEntityEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            RunSkillEffectWithTargetOfEntityEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
             var connectionId = notification.ConnectionId;
             var effect = notification.SkillEffect;
@@ -86,7 +89,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                             Skill = skill,
                             State = failedState
                         }
-                    ).ConfigureAwait(false);
+                    );
                 }
                 return;
             }
@@ -120,7 +123,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                             State = state
                         }
                     )
-                ).ConfigureAwait(false);
+                );
             }
         }
 
@@ -164,7 +167,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
             IDictionary<string, object> state
         )
         {
-
             var effectResponse = (SkillEffectScriptResponse)await _mediator.Send(
                 new RunServerScriptCommand(
                     effect.Effect,
@@ -179,17 +181,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                     }
                 )
             );
-            // await FindScript(
-            //     effect.Effect
-            // ).Run(
-            //     _scriptServices,
-            //     caster,
-            //     target,
-            //     skill,
-            //     targetPosition,
-            //     effect.Data,
-            //     state
-            // ) as SkillEffectScriptResponse;
 
             // Run Client Action events
             foreach (var clientEvent in effectResponse.ActionList)
@@ -199,7 +190,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                     {
                         Data = clientEvent
                     }
-                ).ConfigureAwait(false);
+                );
             }
             return effectResponse.State;
         }

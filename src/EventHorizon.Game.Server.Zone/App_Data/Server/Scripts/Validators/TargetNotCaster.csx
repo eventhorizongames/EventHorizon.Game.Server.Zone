@@ -6,7 +6,13 @@
 /// Data: { }
 /// </summary>
 
-if (Target.Id != Caster.Id)
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
+
+if (target.Id != caster.Id)
 {
     return new SkillValidatorResponse
     {

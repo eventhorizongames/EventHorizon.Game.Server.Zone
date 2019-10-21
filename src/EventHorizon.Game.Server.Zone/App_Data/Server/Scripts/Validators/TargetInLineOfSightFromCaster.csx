@@ -6,6 +6,8 @@
 /// Data: { }
 /// </summary>
 
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
 // TODO: Implement this, if feel like it.
 return new SkillValidatorResponse
 {

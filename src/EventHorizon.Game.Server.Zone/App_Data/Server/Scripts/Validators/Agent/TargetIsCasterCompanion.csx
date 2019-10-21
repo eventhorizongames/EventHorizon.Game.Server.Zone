@@ -8,10 +8,15 @@
 /// Data: { }
 /// </summary>
 
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
 
-var targetOwnerId = Target.GetProperty<dynamic>("ownerState")["ownerId"];
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
 
-if (targetOwnerId == Caster.GlobalId)
+var targetOwnerId = target.GetProperty<dynamic>("ownerState")["ownerId"];
+
+if (targetOwnerId == caster.GlobalId)
 {
     return new SkillValidatorResponse
     {

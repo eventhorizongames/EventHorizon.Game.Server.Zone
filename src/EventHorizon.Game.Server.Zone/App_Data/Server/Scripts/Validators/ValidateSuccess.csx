@@ -7,7 +7,13 @@
 /// Services: { Random: IRandomNumberGenerator; }
 /// </summary>
 
-var precent = (long)Data["percent"];
+using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var validatorData = Data.Get<IDictionary<string, object>>("ValidatorData");
+
+var precent = (long)validatorData["percent"];
 var randomNumber = Services.Random.Next(100);
 
 if (randomNumber <= precent)

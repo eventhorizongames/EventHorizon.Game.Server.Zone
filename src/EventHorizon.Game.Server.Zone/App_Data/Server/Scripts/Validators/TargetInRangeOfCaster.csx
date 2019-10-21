@@ -7,12 +7,21 @@
 /// Services: { Vector3: Vector3; }
 /// </summary>
 
-var min = (long)Data["min"];
-var max = (long)Data["max"];
+using System.Collections.Generic;
+using System.Numerics;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var target = Data.Get<IObjectEntity>("Target");
+var validatorData = Data.Get<IDictionary<string, object>>("ValidatorData");
+
+var min = (long)validatorData["min"];
+var max = (long)validatorData["max"];
 
 var distance = Vector3.Distance(
-    Caster.Position.CurrentPosition,
-    Target.Position.CurrentPosition
+    caster.Position.CurrentPosition,
+    target.Position.CurrentPosition
 );
 
 if (distance >= min && distance <= max)

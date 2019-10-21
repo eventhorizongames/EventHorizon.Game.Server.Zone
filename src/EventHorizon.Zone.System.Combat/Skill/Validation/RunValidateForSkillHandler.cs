@@ -1,24 +1,23 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Skill.Model;
 using EventHorizon.Zone.System.Combat.Script;
-using EventHorizon.Zone.System.Combat.Skill.State;
 using MediatR;
+using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Validation
 {
     public class RunValidateForSkillHandler : IRequestHandler<RunValidateForSkillEvent, SkillValidatorResponse>
     {
-        readonly ISkillValidatorScriptRepository _validatorScriptRepository;
+        readonly IMediator _mediator;
         readonly IScriptServices _scriptServices;
         public RunValidateForSkillHandler(
-            ISkillValidatorScriptRepository validatorScriptRepository,
+            IMediator mediator,
             IScriptServices scriptServices
         )
         {
-            _validatorScriptRepository = validatorScriptRepository;
+            _mediator = mediator;
             _scriptServices = scriptServices;
         }
         public async Task<SkillValidatorResponse> Handle(
@@ -28,17 +27,20 @@ namespace EventHorizon.Zone.System.Combat.Skill.Validation
         {
             foreach (var validator in request.Skill.ValidatorList)
             {
-                var script = _validatorScriptRepository.Find(
-                    validator.Validator
+                var response = (SkillValidatorResponse)await _mediator.Send(
+                    new RunServerScriptCommand(
+                        validator.Validator,
+                        new Dictionary<string, object>()
+                        {
+                            { "Caster", request.Caster },
+                            { "Target", request.Target },
+                            { "Skill", request.Skill },
+                            { "TargetPosition", request.TargetPosition },
+                            { "ValidatorData", validator.Data },
+                        }
+                    )
                 );
-                var response = await script.Run(
-                    _scriptServices,
-                    request.Caster,
-                    request.Target,
-                    request.Skill,
-                    request.TargetPosition,
-                    validator.Data
-                );
+
                 if (!response.Success)
                 {
                     return response;

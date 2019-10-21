@@ -6,11 +6,18 @@
 /// Data: { propertyName: string; valueProperty: string; cost: number; }
 /// </summary>
 
-var propertyName = (string)Data["propertyName"];
-var valueProperty = (string)Data["valueProperty"];
-var cost = (long)Data["cost"];
+using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
 
-var casterPropertyValue = Caster.GetProperty<dynamic>(propertyName)[valueProperty];
+var caster = Data.Get<IObjectEntity>("Caster");
+var validatorData = Data.Get<IDictionary<string, object>>("ValidatorData");
+
+var propertyName = (string)validatorData["propertyName"];
+var valueProperty = (string)validatorData["valueProperty"];
+var cost = (long)validatorData["cost"];
+
+var casterPropertyValue = caster.GetProperty<dynamic>(propertyName)[valueProperty];
 
 if (casterPropertyValue >= cost)
 {

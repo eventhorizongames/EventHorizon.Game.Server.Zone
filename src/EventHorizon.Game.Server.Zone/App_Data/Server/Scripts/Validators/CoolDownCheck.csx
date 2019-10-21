@@ -8,10 +8,16 @@
 /// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
 /// </summary>
 
-var skillState = Caster.GetProperty<dynamic>("skillState");
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Model;
+
+var caster = Data.Get<IObjectEntity>("Caster");
+var skill = Data.Get<SkillInstance>("Skill");
+
+var skillState = caster.GetProperty<dynamic>("skillState");
 
 var skillReady = Services.DateTime.Now > skillState
-                .SkillList[Skill.Id]
+                .SkillList[skill.Id]
                 .CooldownFinishes;
 
 if (skillReady)
