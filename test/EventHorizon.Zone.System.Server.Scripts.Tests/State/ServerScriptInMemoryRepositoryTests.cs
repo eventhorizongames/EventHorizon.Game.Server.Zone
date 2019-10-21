@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using EventHorizon.Zone.System.Server.Scripts.State;
-using Moq;
 using Xunit;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
@@ -10,7 +9,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
     public class ServerScriptInMemoryRepositoryTests
     {
         [Fact]
-        public async Task TestShouldBeFindScriptBasedOnIdWhenAddedToRepository()
+        public void TestShouldBeFindScriptBasedOnIdWhenAddedToRepository()
         {
             // Given
             var scriptId = "script-id";

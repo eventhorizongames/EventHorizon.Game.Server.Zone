@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using EventHorizon.Zone.System.Server.Scripts.Model.Details;
 using EventHorizon.Zone.System.Server.Scripts.State;
 using Xunit;
@@ -8,7 +7,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
     public class ServerScriptDetailsInMemoryRepositoryTests
     {
         [Fact]
-        public async Task TestShouldAddScriptDetailsWhenAddedById()
+        public void TestShouldAddScriptDetailsWhenAddedById()
         {
             // Given
             var scriptId = "script-id";
