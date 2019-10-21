@@ -8,21 +8,22 @@ namespace EventHorizon.Zone.Core.Json
 {
     public class NewtonsoftJsonFileSaver : IJsonFileSaver
     {
-        public async Task SaveToFile(
+        public Task SaveToFile(
             string directory,
             string fileName,
             object value
         )
         {
-            await WriteToFile(
+            WriteToFile(
                 directory,
                 fileName,
                 JsonConvert.SerializeObject(
                     value
                 )
             );
+            return Task.CompletedTask;
         }
-        private async Task WriteToFile(
+        private void WriteToFile(
             string directory,
             string fileName,
             string jsonString
@@ -31,19 +32,13 @@ namespace EventHorizon.Zone.Core.Json
             Directory.CreateDirectory(
                 directory
             );
-            using (var file = File.Create(
+            File.WriteAllText(
                 Path.Combine(
                     directory,
                     fileName
-                )
-            ))
-            {
-                await file.WriteAsync(
-                    Encoding.UTF8.GetBytes(
-                        jsonString
-                    )
-                );
-            }
+                ),
+                jsonString
+            );
         }
     }
 }

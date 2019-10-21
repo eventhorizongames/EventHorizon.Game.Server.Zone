@@ -20,7 +20,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 
         public void Clear()
         {
-            INSTANCE_MAP.Clear();
+            while (INSTANCE_MAP.TryTake(out _)) { }
         }
 
         public IEnumerable<AdminCommandInstance> Where(
