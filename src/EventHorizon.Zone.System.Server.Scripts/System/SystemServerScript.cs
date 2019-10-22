@@ -62,7 +62,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 details
             );
         }
-        
+
         public async Task<ServerScriptResponse> Run(
             ServerScriptServices services,
             IDictionary<string, object> data
@@ -126,16 +126,26 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             string fileName
         )
         {
-            return string.Join(
+            var id = string.Join(
                 "_",
                 string.Join(
                     "_",
                     path.Split(
-                        Path.DirectorySeparatorChar
+                        new char[] { Path.DirectorySeparatorChar },
+                        StringSplitOptions.RemoveEmptyEntries
                     )
                 ),
                 fileName
             );
+            if (id.StartsWith(
+                "_"
+            ))
+            {
+                return id.Substring(
+                    1
+                );
+            }
+            return id;
         }
 
         private static ScriptRunner<ServerScriptResponse> CreateRunner(

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -65,6 +66,46 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             Assert.Equal(
                 expected,
                 actual.Message
+            );
+        }
+
+        [Theory]
+        [ClassData(typeof(TestClassDataGenerator))]
+        public void TestShouldNotContainUnderscoreWhenCreatingAPathlessScript(
+            string path
+        )
+        {
+            // Given
+            var fileName = "file-name";
+            var scriptAsString = LoadScriptFileAsString(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "System",
+                "TestingScripts",
+                "TestSystemServerScript.csx"
+            );
+            var expected = "file-name";
+
+            var serverScriptServices = new SystemServerScriptServices(
+                new Mock<IMediator>().Object,
+                new Mock<IRandomNumberGenerator>().Object,
+                new Mock<IDateTimeService>().Object,
+                new Mock<I18nLookup>().Object
+            );
+
+            // When
+            var serverScript = SystemServerScript.Create(
+                fileName,
+                path,
+                scriptAsString,
+                new List<Assembly>(),
+                new List<string>()
+            );
+            var actual = serverScript.Id;
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual
             );
         }
 
@@ -271,6 +312,27 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                     filePath
                 )
             );
+        }
+
+        public class TestClassDataGenerator : IEnumerable<object[]>
+        {
+            public IEnumerator<object[]> GetEnumerator()
+            {
+                yield return new object[]
+                {
+                    "",
+                };
+                yield return new object[]
+                {
+                    $"{Path.DirectorySeparatorChar}"
+                };
+                yield return new object[]
+                {
+                    $"{Path.DirectorySeparatorChar}{Path.DirectorySeparatorChar}"
+                };
+            }
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
     }
 }
