@@ -38,27 +38,28 @@ var isAgentMoving = await Services.Mediator.Send(
 // In not running startup new Move Behavior from MoveTo data in Action
 if (!isAgentMoving)
 {
-    var toPosition = actor.GetProperty<Vector3>("ActorMoveToPosition");
-    if (toPosition == default(Vector3)) // TODO: Find better way to check Vector3
+    var toPositionNullable = actor.GetProperty<Vector3?>("ActorMoveToPosition");
+    if (!toPositionNullable.HasValue) // TODO: Find better way to check Vector3
     {
         return new BehaviorScriptResponse(
             BehaviorNodeStatus.SUCCESS
         );
     }
-    Services.Mediator.Send(
+    var toPosition = toPositionNullable.Value;
+    await Services.Mediator.Send(
         new MoveAgentToPositionEvent
         {
             AgentId = actor.Id,
             ToPosition = toPosition
         }
-    ).ConfigureAwait(false);
+    );
 
-    // Set the ActorMoveToPosition to null, 
+    // Set the ActorMoveToPosition to "null", 
     //  this way when next update comes through it will be a 
     //  SUCCESS if agent is not moving.
-    actor.SetProperty<Vector3>(
+    actor.SetProperty<Vector3?>(
         "ActorMoveToPosition",
-        default(Vector3)
+        null
     );
 }
 

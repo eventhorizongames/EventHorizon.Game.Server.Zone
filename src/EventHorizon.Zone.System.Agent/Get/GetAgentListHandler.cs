@@ -22,7 +22,10 @@ namespace EventHorizon.Zone.System.Agent.Get
             CancellationToken cancellationToken
         )
         {
-            return _agentRepository.All();
+            return (request.Query != null) 
+                ? _agentRepository.Where(
+                    request.Query
+                ) : _agentRepository.All();
         }
     }
 }

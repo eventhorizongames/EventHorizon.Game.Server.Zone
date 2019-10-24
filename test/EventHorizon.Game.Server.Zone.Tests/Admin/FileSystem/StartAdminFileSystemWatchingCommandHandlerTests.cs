@@ -24,6 +24,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var mediatorMock = new Mock<IMediator>();
 
             serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                ""
+            );
+
+            serverInfoMock.Setup(
                 mock => mock.ServerPath
             ).Returns(
                 path
@@ -59,6 +65,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 
             var serverInfoMock = new Mock<ServerInfo>();
             var mediatorMock = new Mock<IMediator>();
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                ""
+            );
 
             serverInfoMock.Setup(
                 mock => mock.AdminPath
@@ -98,6 +110,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var mediatorMock = new Mock<IMediator>();
 
             serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                ""
+            );
+
+            serverInfoMock.Setup(
                 mock => mock.I18nPath
             ).Returns(
                 path
@@ -135,7 +153,54 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var mediatorMock = new Mock<IMediator>();
 
             serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                ""
+            );
+
+            serverInfoMock.Setup(
                 mock => mock.ClientPath
+            ).Returns(
+                path
+            );
+
+            // When
+            var handler = new StartAdminFileSystemWatchingCommandHandler(
+                serverInfoMock.Object,
+                mediatorMock.Object
+            );
+            await handler.Handle(
+                new StartAdminFileSystemWatchingCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expected,
+                    CancellationToken.None
+                )
+            );
+        }
+        
+        [Fact]
+        public async Task TestShouldSendEventsForWatchingAgentReloadPathWhenEventIsHandled()
+        {
+            // Given
+            var path = "path-to-app-data";
+            var expected = new StartWatchingFileSystemCommand(
+                System.IO.Path.Combine(
+                    path,
+                    "Agent",
+                    "Reload"
+                )
+            );
+
+            var serverInfoMock = new Mock<ServerInfo>();
+            var mediatorMock = new Mock<IMediator>();
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
             ).Returns(
                 path
             );

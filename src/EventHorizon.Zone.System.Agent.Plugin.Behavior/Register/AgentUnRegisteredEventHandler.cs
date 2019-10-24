@@ -1,46 +1,30 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
     public struct AgentUnRegisteredEventHandler : INotificationHandler<AgentUnRegisteredEvent>
     {
-        readonly IMediator _mediator;
+        readonly ActorBehaviorTreeRepository _repository;
         public AgentUnRegisteredEventHandler(
-            IMediator mediator
+            ActorBehaviorTreeRepository repository
         )
         {
-            _mediator = mediator;
+            _repository = repository;
         }
 
-        public async Task Handle(
+        public Task Handle(
             AgentUnRegisteredEvent notification,
             CancellationToken cancellationToken
         )
         {
-            var agent = await _mediator.Send(
-                new FindAgentByIdEvent(
-                    notification.AgentId
-                )
+            _repository.UnRegisterActor(
+                notification.EntityId
             );
-            if (!agent.IsFound())
-            {
-                return;
-            }
-
-            await _mediator.Send(
-                new UnRegisterActorWithBehaviorTreeUpdate(
-                    agent.Id,
-                    agent.GetProperty<AgentBehavior>(
-                        AgentBehavior.PROPERTY_NAME
-                    ).TreeId
-                )
-            );
+            return Task.CompletedTask;
         }
     }
 }

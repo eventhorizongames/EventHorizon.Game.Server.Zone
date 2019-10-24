@@ -1,0 +1,24 @@
+{
+    "id": "Assets_Dialog_ExplainThatWorld.001.json",
+    "type": "DIALOG",
+    "name": "Explains the world to the player.",
+    "data": {
+        "root": {
+            "titleKey": "dialog:DEFAULT:npc_name",
+            "title": "${npc.name}",
+            "titleData": {},
+            "textKey": "dialog:ExplainThatWorld:001:text",
+            "text": "Hello ${player.name}, let me explain some things to you...",
+            "textData": {},
+            "actions": [
+                {
+                    "textKey": "dialog:ExplainThatWorld:next",
+                    "text": "...",
+                    "textData": {},
+                    "actionType": "next",
+                    "nextNodeKey": "Assets_Dialog_ExplainThatWorld.002.json"
+                }
+            ]
+        }
+    }
+}

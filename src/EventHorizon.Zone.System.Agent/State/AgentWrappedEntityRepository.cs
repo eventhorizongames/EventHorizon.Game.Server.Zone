@@ -5,8 +5,9 @@ using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.Core.Model.Entity.State;
+using System;
 
-namespace EventHorizon.Zone.System.Agent.State.Impl
+namespace EventHorizon.Zone.System.Agent.State
 {
     public class AgentWrappedEntityRepository : IAgentRepository
     {
@@ -54,6 +55,15 @@ namespace EventHorizon.Zone.System.Agent.State.Impl
             return _entityRepository.Update(
                 action,
                 agent
+            );
+        }
+
+        public async Task<IEnumerable<AgentEntity>> Where(
+            Func<AgentEntity, bool> query
+        )
+        {
+            return (await All()).Where(
+                query
             );
         }
     }

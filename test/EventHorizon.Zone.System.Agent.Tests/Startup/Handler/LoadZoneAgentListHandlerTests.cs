@@ -27,6 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             var expectedAppDataPath = "some-content-path/App_Data";
             var expectedAgentFileName = IOPath.Combine(
                 expectedAppDataPath,
+                "Agent",
                 "Agent.state.json"
             );
             var expectedTag = "server-tag";

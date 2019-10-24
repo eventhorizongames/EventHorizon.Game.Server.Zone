@@ -13,6 +13,11 @@
         "dialog:News:selection_001": "Gossip around the area?",
         "dialog:News:selection_002": "Any more news?",
         "dialog:News:selection_003": "Bye, Bye...",
+        "dialog:DEFAULT:npc_name": "${npc.name}",
+        "dialog:ExplainThatWorld:next": "...",
+        "dialog:ExplainThatWorld:kay": "Kay!",
+        "dialog:ExplainThatWorld:001:text": "Hello ${player.name}, let me explain some things to you...",
+        "dialog:ExplainThatWorld:002:text": "You are here to capture me some Immortals, go then, NOW!",
         "empty": ""
     }
 }

@@ -6,6 +6,7 @@ using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Events.Register;
 using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
 using MediatR;
@@ -20,8 +21,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
         public async Task TestShouldSendUnRegisterUpdateEventWhenAgentIsFound()
         {
             // Given
-            var agentId = "agent-id-001";
             var agentEntityId = 1L;
+            var agentId = "agent-id-001";
             var treeId = "tree-id";
             var expected = new UnRegisterActorWithBehaviorTreeUpdate(
                 agentEntityId,
@@ -41,76 +42,26 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
                 }
             );
 
-            var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new FindAgentByIdEvent(
-                        agentId
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                agentEntity
-            );
+            var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
 
             // When
             var handler = new AgentUnRegisteredEventHandler(
-                mediatorMock.Object
+                actorBehaviorTreeRepositoryMock.Object
             );
 
             await handler.Handle(
                 new AgentUnRegisteredEvent(
+                    agentEntityId,
                     agentId
                 ),
                 CancellationToken.None
             );
 
             // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
+            actorBehaviorTreeRepositoryMock.Verify(
+                mock => mock.UnRegisterActor(
+                    agentEntityId
                 )
-            );
-        }
-        [Fact]
-        public async Task TestShouldNotSendUnRegisterUpdateEventWhenAgentIsNotFound()
-        {
-            // Given
-            var agentId = "agent-id-001";
-            var agentEntity = default(AgentEntity);
-
-            var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new FindAgentByIdEvent(
-                        agentId
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                agentEntity
-            );
-
-            // When
-            var handler = new AgentUnRegisteredEventHandler(
-                mediatorMock.Object
-            );
-
-            await handler.Handle(
-                new AgentUnRegisteredEvent(
-                    agentId
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    It.IsAny<UnRegisterActorWithBehaviorTreeUpdate>(),
-                    CancellationToken.None
-                ),
-                Times.Never()
             );
         }
     }

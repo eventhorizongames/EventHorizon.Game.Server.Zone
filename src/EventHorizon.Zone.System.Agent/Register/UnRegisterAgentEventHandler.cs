@@ -41,6 +41,7 @@ namespace EventHorizon.Zone.System.Agent.UnRegister
 
             await _mediator.Publish(
                 new AgentUnRegisteredEvent(
+                    agent.Id,
                     agent.AgentId
                 )
             );

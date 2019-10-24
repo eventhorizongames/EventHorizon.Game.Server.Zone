@@ -1,6 +1,5 @@
 using Xunit;
 using Moq;
-using Microsoft.AspNetCore.Hosting;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Agent.Save;
 using System.Threading.Tasks;
@@ -9,10 +8,8 @@ using EventHorizon.Zone.System.Agent.Model;
 using IOPath = System.IO.Path;
 using System.Collections.Generic;
 using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.Core.Model.Settings;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Agent.Save.Events;
 using EventHorizon.Zone.System.Agent.Connection.Model;
@@ -55,7 +52,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 "App_Data"
             );
             var expectedDirectory = IOPath.Combine(
-                expectedAppDataPath
+                expectedAppDataPath,
+                "Agent"
             );
             var expectedFileName = "Agent.state.json";
 

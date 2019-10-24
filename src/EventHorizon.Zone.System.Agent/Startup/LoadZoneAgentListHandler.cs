@@ -79,6 +79,7 @@ namespace EventHorizon.Zone.System.Agent.Startup
         {
             return IOPath.Combine(
                 _serverInfo.AppDataPath,
+                "Agent",
                 "Agent.state.json"
             );
         }

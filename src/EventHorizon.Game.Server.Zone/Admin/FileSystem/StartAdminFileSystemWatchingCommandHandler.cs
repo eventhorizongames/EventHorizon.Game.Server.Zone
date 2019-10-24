@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
@@ -50,6 +51,17 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
                         _serverInfo.ClientPath
+                    )
+            );
+            
+            // Add File System Watcher for Agent Reload Path
+            await _mediator.Send(
+                new StartWatchingFileSystemCommand(
+                        Path.Combine(
+                            _serverInfo.AppDataPath,
+                            "Agent",
+                            "Reload"
+                        )
                     )
             );
 

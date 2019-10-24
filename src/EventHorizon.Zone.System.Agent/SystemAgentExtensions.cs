@@ -8,7 +8,7 @@ using EventHorizon.Zone.System.Agent.Events.Startup;
 using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Schedule;
 using EventHorizon.Zone.System.Agent.Save;
-using EventHorizon.Zone.System.Agent.State.Impl;
+using EventHorizon.Zone.System.Agent.State;
 
 namespace EventHorizon.Game.Server.Zone
 {

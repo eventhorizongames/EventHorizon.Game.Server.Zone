@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Zone.Core.Model.DateTimeService;
+using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.RandomNumber;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.Exceptions;
@@ -40,6 +41,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             };
 
             var serverScriptServices = new SystemServerScriptServices(
+                new Mock<ServerInfo>().Object,
                 new Mock<IMediator>().Object,
                 new Mock<IRandomNumberGenerator>().Object,
                 new Mock<IDateTimeService>().Object,
@@ -86,6 +88,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             var expected = "file-name";
 
             var serverScriptServices = new SystemServerScriptServices(
+                new Mock<ServerInfo>().Object,
                 new Mock<IMediator>().Object,
                 new Mock<IRandomNumberGenerator>().Object,
                 new Mock<IDateTimeService>().Object,
@@ -128,6 +131,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             var data = new Dictionary<string, object>();
 
             var serverScriptServices = new SystemServerScriptServices(
+                new Mock<ServerInfo>().Object,
                 new Mock<IMediator>().Object,
                 new Mock<IRandomNumberGenerator>().Object,
                 new Mock<IDateTimeService>().Object,
@@ -161,6 +165,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             var data = new Dictionary<string, object>();
 
             var serverScriptServices = new SystemServerScriptServices(
+                new Mock<ServerInfo>().Object,
                 new Mock<IMediator>().Object,
                 new Mock<IRandomNumberGenerator>().Object,
                 new Mock<IDateTimeService>().Object,
@@ -213,6 +218,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 { "I18nKey", i18nKey },
             };
 
+            var serverInfoMock = new Mock<ServerInfo>();
             var mediatorMock = new Mock<IMediator>();
             var randomMock = new Mock<IRandomNumberGenerator>();
             randomMock.Setup(
@@ -240,6 +246,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
 
             // When
             var serverScriptServices = new SystemServerScriptServices(
+                serverInfoMock.Object,
                 mediatorMock.Object,
                 randomMock.Object,
                 dateTimeServiceMock.Object,

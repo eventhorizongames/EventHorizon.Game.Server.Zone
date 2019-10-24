@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
@@ -174,6 +173,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         public IEnumerable<string> TreeIdList()
         {
             return MAP.Keys;
+        }
+
+        public void UnRegisterActor(
+            long actorId
+        )
+        {
+            foreach (var container in MAP.Values)
+            {
+                container.RemoveActor(
+                    actorId
+                );
+            }
         }
     }
 }

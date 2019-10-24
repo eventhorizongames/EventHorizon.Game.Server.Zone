@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Model;
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.State.Impl;
 using EventHorizon.Zone.Core.Model.Entity.State;
+using EventHorizon.Zone.System.Agent.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 {
@@ -83,6 +83,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 )
             );
         }
+
         [Fact]
         public async Task TestAll_ShouldReturnNoAgentsWhenEntityRepositoryDoesNotContainAgentEntity()
         {
@@ -120,6 +121,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 actual
             );
         }
+
         [Fact]
         public async Task TestFindById_ShouldReturnAgentWithPassedId()
         {
@@ -185,6 +187,142 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 actual
             );
         }
+
+        [Fact]
+        public async Task TestShouldReturnAgentWhenAgentIdIsRequeted()
+        {
+            // Given
+            var agentId = "agent-id";
+            var expectedAgent = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = agentId,
+                Type = EntityType.AGENT
+            };
+            var otherAgent1 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-2",
+                Type = EntityType.AGENT
+            };
+            var otherAgent2 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-3",
+                Type = EntityType.AGENT
+            };
+            var otherEntity1 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-4000",
+                Type = EntityType.PLAYER
+            };
+
+            var expectedEntityList = new List<IObjectEntity>()
+            {
+                expectedAgent,
+                otherEntity1,
+                otherAgent1,
+                otherAgent2
+            };
+
+            var entityRepositoryMock = new Mock<EntityRepository>();
+
+            entityRepositoryMock.Setup(
+                mock => mock.All()
+            ).ReturnsAsync(
+                expectedEntityList
+            );
+
+            // When
+            var agentRepository = new AgentWrappedEntityRepository(
+                entityRepositoryMock.Object
+            );
+
+            var actual = await agentRepository.FindByAgentId(
+                agentId
+            );
+
+            // Then
+            Assert.Equal(
+                expectedAgent, 
+                actual
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldReturnAgentsBasedOnQueryWhenWhereIsUsedOnRepository()
+        {
+            // Given
+            var expectedAgent1 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-1",
+                IsGlobal = true,
+                Type = EntityType.AGENT
+            };
+            var expectedAgent2 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-2",
+                IsGlobal = true,
+                Type = EntityType.AGENT
+            };
+            var otherAgent1 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-3",
+                IsGlobal = false,
+                Type = EntityType.AGENT
+            };
+            var otherEntity1 = new AgentEntity(
+                new Dictionary<string, object>()
+            )
+            {
+                AgentId = "agent-id-4000",
+                Type = EntityType.PLAYER
+            };
+
+            var expectedEntityList = new List<IObjectEntity>()
+            {
+                expectedAgent1,
+                expectedAgent2,
+                otherEntity1,
+                otherAgent1,
+            };
+
+            var entityRepositoryMock = new Mock<EntityRepository>();
+
+            entityRepositoryMock.Setup(
+                mock => mock.All()
+            ).ReturnsAsync(
+                expectedEntityList
+            );
+
+            // When
+            var agentRepository = new AgentWrappedEntityRepository(
+                entityRepositoryMock.Object
+            );
+
+            var actual = await agentRepository.Where(
+                agent => agent.IsGlobal
+            );
+
+            // Then
+            Assert.Collection(
+                actual,
+                actualAgent => Assert.Equal(expectedAgent1, actualAgent),
+                actualAgent => Assert.Equal(expectedAgent2, actualAgent)
+            );
+        }
+
         [Fact]
         public async Task TestFindById_ShouldReturnDefaultAgentWhenPassedIdIsNotFound()
         {
@@ -243,6 +381,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 actual
             );
         }
+
         [Fact]
         public async Task TestFUpdate_ShouldPassParametersToEntityRepository()
         {

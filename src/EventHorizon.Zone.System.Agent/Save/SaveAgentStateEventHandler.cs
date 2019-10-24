@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Performance;
@@ -81,7 +82,10 @@ namespace EventHorizon.Zone.System.Agent.Save
         }
         private string GetAgentDataDirectory()
         {
-            return _serverInfo.AppDataPath;
+            return Path.Combine(
+                _serverInfo.AppDataPath,
+                "Agent"
+            );
         }
         private string GetAgentFileName()
         {

@@ -13,9 +13,9 @@ using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.Connection;
 using EventHorizon.Zone.System.Agent.Connection.Factory;
 using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.State.Impl;
 using EventHorizon.Zone.System.Agent.Events.Startup;
 using EventHorizon.Tests.TestUtils;
+using EventHorizon.Zone.System.Agent.State;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {

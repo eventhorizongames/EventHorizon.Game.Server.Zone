@@ -1,0 +1,23 @@
+{
+    "id": "Assets_Dialog_ExplainThatWorld.002.json",
+    "type": "DIALOG",
+    "name": "Explains the world to the player.",
+    "data": {
+        "root": {
+            "titleKey": "dialog:DEFAULT:npc_name",
+            "title": "${npc.name}",
+            "titleData": {},
+            "textKey": "dialog:ExplainThatWorld:002:text",
+            "text": "You are here to capture me some Immortals, go then, NOW!",
+            "textData": {},
+            "actions": [
+                {
+                    "textKey": "dialog:ExplainThatWorld:kay",
+                    "text": "Kay!",
+                    "textData": {},
+                    "actionType": "done"
+                }
+            ]
+        }
+    }
+}

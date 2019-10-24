@@ -33,9 +33,9 @@ eventsToRemove.forEach(eventData => {
 
 $services.commandService.send({
     type: {
-        key: "GUI.DISPOSE_OF_GUI_CONTROL_COMMAND",
+        key: "Engine.Gui.DISPOSE_OF_GUI_COMMAND",
     },
     data: {
-        controlId: $data.guiControlId,
+        id: $data.guiId,
     },
 });

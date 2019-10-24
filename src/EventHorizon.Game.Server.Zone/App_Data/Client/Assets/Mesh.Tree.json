@@ -1,11 +1,11 @@
 {
     "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
-    "type": "MESH",
+    "type": "SCRIPT",
     "name": "A Tree",
     "data": {
-        "type": "SPHERE",
-        "segments": 16,
-        "diameter": 2,
-        "heightOffset": -1.2
+        "script": "Asset_Tree_Create.js",
+        "branchSize": 4,
+        "trunkSize": 4,
+        "radius": 1
     }
 }
