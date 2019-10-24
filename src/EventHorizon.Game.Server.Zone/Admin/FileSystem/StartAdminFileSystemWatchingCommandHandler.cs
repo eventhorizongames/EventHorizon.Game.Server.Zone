@@ -32,7 +32,7 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
                         _serverInfo.ServerPath
                     )
             );
-            
+
             // Add File System Watcher for Admin Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
@@ -46,22 +46,31 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
                         _serverInfo.I18nPath
                     )
             );
-            
+
             // Add File System Watcher for Client Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
                         _serverInfo.ClientPath
                     )
             );
-            
+
             // Add File System Watcher for Agent Reload Path
+            var agentReloadPath = Path.Combine(
+                _serverInfo.AppDataPath,
+                "Agent",
+                "Reload"
+            );
+            if (!Directory.Exists(
+                agentReloadPath
+            ))
+            {
+                Directory.CreateDirectory(
+                    agentReloadPath
+                );
+            }
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        Path.Combine(
-                            _serverInfo.AppDataPath,
-                            "Agent",
-                            "Reload"
-                        )
+                        agentReloadPath
                     )
             );
 
