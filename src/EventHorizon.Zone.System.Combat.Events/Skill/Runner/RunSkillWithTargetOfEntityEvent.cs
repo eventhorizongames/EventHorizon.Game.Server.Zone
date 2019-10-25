@@ -23,7 +23,6 @@ namespace EventHorizon.Zone.System.Combat.Events.Skill.Runner
         {
             ConnectionId = player.ConnectionId;
             Player = player;
-            CasterId = player.Id;
             return this;
         }
 
@@ -34,6 +33,10 @@ namespace EventHorizon.Zone.System.Combat.Events.Skill.Runner
             SkillId = data.GetValueOrDefault(
                 "skillId",
                 ""
+            );
+            CasterId = data.GetValueOrDefault(
+                "casterId",
+                Player.Id
             );
             TargetId = data.GetValueOrDefault(
                 "targetId",

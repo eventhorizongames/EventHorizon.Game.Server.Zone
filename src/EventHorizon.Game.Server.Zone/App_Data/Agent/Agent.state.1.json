@@ -1,7 +1,7 @@
 {
     "AgentList": [
         {
-            "Id": "fb0cedbd-513f-441d-a9ee-306d13cfed7c",
+            "Id": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
             "Name": "Steve the Helper",
             "Position": {
                 "CanMove": true,
@@ -87,7 +87,7 @@
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -107,8 +107,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -117,8 +117,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -149,20 +149,20 @@
             }
         },
         {
-            "Id": "620aa015-9245-4d3d-a45d-ed94410ffaba",
+            "Id": "015fca9d-215f-49d7-a590-c2b39e2ea657",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -6.0,
+                    "X": 3.0,
                     "Y": 0.0,
-                    "Z": -2.0
+                    "Z": -36.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:18.0819651Z",
+                "NextMoveRequest": "2019-10-25T02:49:39.0367155Z",
                 "MoveToPosition": {
-                    "X": -6.0,
+                    "X": 3.0,
                     "Y": 0.0,
-                    "Z": -1.0
+                    "Z": -35.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -221,15 +221,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:26.2750998-05:00",
+                "NextRunTime": "2019-10-24T21:49:52.8385725-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -249,8 +249,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -259,144 +259,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "95de4247-9733-4bf9-ba83-6f9dc5d9049e",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": -18.0,
-                    "Y": 0.0,
-                    "Z": -58.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:25.4901858Z",
-                "MoveToPosition": {
-                    "X": -19.0,
-                    "Y": 0.0,
-                    "Z": -58.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": null,
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 1556422401,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_MoveToLocation.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "1556422401": {
-                            "Token": 1556422401,
+                        "-1056216041": {
+                            "Token": -1056216041,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -405,23 +269,23 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1109214076": {
+                            "Token": -1109214076,
                             "Type": {
-                                "Name": "ACTION"
+                                "Name": "SEQUENCE_SELECTOR"
                             },
-                            "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Status": "RUNNING",
+                            "Fire": null,
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "-588667474": {
-                            "Token": -588667474,
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
-                            "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_FindNewMoveLocation.csx",
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -429,29 +293,32 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
-                    "ShapeQueue": []
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
                 },
                 "ActorMoveToPosition": null
             }
         },
         {
-            "Id": "d483f2e1-06b0-4488-a81d-aa8529e88dfc",
+            "Id": "cd3e60f2-1fc8-4093-8f08-30f093194f5f",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -41.0,
+                    "X": 23.0,
                     "Y": 0.0,
-                    "Z": -11.0
+                    "Z": -33.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:16.4888797Z",
+                "NextMoveRequest": "2019-10-25T02:49:42.551475Z",
                 "MoveToPosition": {
-                    "X": -42.0,
+                    "X": 23.0,
                     "Y": 0.0,
-                    "Z": -11.0
+                    "Z": -34.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -510,15 +377,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:31.5736368-05:00",
+                "NextRunTime": "2019-10-24T21:49:58.6361133-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -538,8 +405,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -548,8 +415,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -562,729 +449,32 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": [
-                        -588667474,
-                        1556422401
+                        -891906990,
+                        522814866
                     ]
                 },
                 "ActorMoveToPosition": null
             }
         },
         {
-            "Id": "89b83497-c84e-43b8-af8f-188b85fc1922",
+            "Id": "5169a391-8074-4dd9-8217-6c751b875cd6",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 8.0,
+                    "X": -17.0,
                     "Y": 0.0,
-                    "Z": -57.0
+                    "Z": 20.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:17.489464Z",
-                "MoveToPosition": {
-                    "X": 9.0,
-                    "Y": 0.0,
-                    "Z": -57.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:25.5735336-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "c3002901-5888-4435-962b-c86f06ddbab6",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": -24.0,
-                    "Y": 0.0,
-                    "Z": 51.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:20.0835454Z",
-                "MoveToPosition": {
-                    "X": -24.0,
-                    "Y": 0.0,
-                    "Z": 52.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:35.1839708-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "0bde6a44-46b9-4fb7-8f1c-59282a950ebd",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": 22.0,
-                    "Y": 0.0,
-                    "Z": 37.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:20.5978426Z",
-                "MoveToPosition": {
-                    "X": 21.0,
-                    "Y": 0.0,
-                    "Z": 37.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:29.6828882-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "580551fd-2459-406c-8501-e9aabafc4f5d",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": 31.0,
-                    "Y": 0.0,
-                    "Z": 6.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:23.2861307Z",
-                "MoveToPosition": {
-                    "X": 31.0,
-                    "Y": 0.0,
-                    "Z": 7.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:27.3866334-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "9fcba885-91d1-4101-a09e-04d85791eea9",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": 49.0,
-                    "Y": 0.0,
-                    "Z": 37.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:25.4913744Z",
-                "MoveToPosition": {
-                    "X": 48.0,
-                    "Y": 0.0,
-                    "Z": 37.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": null,
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 1556422401,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_MoveToLocation.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "1556422401": {
-                            "Token": 1556422401,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "-588667474": {
-                            "Token": -588667474,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_FindNewMoveLocation.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": []
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "77f259d0-2bcb-4579-ae4d-b75c11b0a9da",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": -16.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:15.4897795Z",
+                "NextMoveRequest": "2019-10-25T02:49:44.6000458Z",
                 "MoveToPosition": {
                     "X": -16.0,
                     "Y": 0.0,
-                    "Z": 1.0
+                    "Z": 20.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -1343,15 +533,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:28.5741252-05:00",
+                "NextRunTime": "2019-10-24T21:49:57.7912445-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -1371,8 +561,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -1381,8 +571,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1395,32 +605,32 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": [
-                        -588667474,
-                        1556422401
+                        -891906990,
+                        522814866
                     ]
                 },
                 "ActorMoveToPosition": null
             }
         },
         {
-            "Id": "334f2bad-43a4-4176-a6ab-550adb9fdcf0",
+            "Id": "e8e2f212-b241-44f0-a753-a5b2dea16349",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -19.0,
+                    "X": 15.0,
                     "Y": 0.0,
-                    "Z": 17.0
+                    "Z": -14.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:18.9891009Z",
+                "NextMoveRequest": "2019-10-25T02:49:44.4115552Z",
                 "MoveToPosition": {
-                    "X": -19.0,
+                    "X": 15.0,
                     "Y": 0.0,
-                    "Z": 18.0
+                    "Z": -13.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -1479,15 +689,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:30.0745158-05:00",
+                "NextRunTime": "2019-10-24T21:49:59.4959153-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -1507,8 +717,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -1517,8 +727,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1531,32 +761,32 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": [
-                        -588667474,
-                        1556422401
+                        -891906990,
+                        522814866
                     ]
                 },
                 "ActorMoveToPosition": null
             }
         },
         {
-            "Id": "6877ef79-4116-43c3-8c91-ee02c97d9b88",
+            "Id": "4b7a7e6a-6332-43b5-a492-6cc92876c534",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 40.0,
+                    "X": -1.0,
                     "Y": 0.0,
-                    "Z": 29.0
+                    "Z": 41.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:09.7853855Z",
+                "NextMoveRequest": "2019-10-25T02:49:46.7085716Z",
                 "MoveToPosition": {
-                    "X": 40.0,
+                    "X": 0.0,
                     "Y": 0.0,
-                    "Z": 30.0
+                    "Z": 41.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -1615,15 +845,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:25.8864889-05:00",
+                "NextRunTime": "2019-10-24T21:50:04.792896-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -1643,8 +873,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -1653,8 +883,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1667,32 +917,32 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": [
-                        -588667474,
-                        1556422401
+                        -891906990,
+                        522814866
                     ]
                 },
                 "ActorMoveToPosition": null
             }
         },
         {
-            "Id": "9eeedd8b-4769-4b18-9ea7-1839782ca7c5",
+            "Id": "fc3ca413-0282-46b0-b364-5a36202e3f0b",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 4.0,
+                    "X": 33.0,
                     "Y": 0.0,
-                    "Z": 21.0
+                    "Z": 35.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:25.4887364Z",
+                "NextMoveRequest": "2019-10-25T02:49:47.0046027Z",
                 "MoveToPosition": {
-                    "X": 5.0,
+                    "X": 34.0,
                     "Y": 0.0,
-                    "Z": 21.0
+                    "Z": 35.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -1751,7 +1001,1099 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:50:00.0889196-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "a3c09ca4-4d9a-455a-b884-45ee5bf45060",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -5.0,
+                    "Y": 0.0,
+                    "Z": 25.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:47.4105927Z",
+                "MoveToPosition": {
+                    "X": -5.0,
+                    "Y": 0.0,
+                    "Z": 26.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:50:01.495987-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "ec230bfd-9dd9-4bfb-9c7a-71448407ddf0",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 38.0,
+                    "Y": 0.0,
+                    "Z": 43.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:41.6462001Z",
+                "MoveToPosition": {
+                    "X": 37.0,
+                    "Y": 0.0,
+                    "Z": 43.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:49:54.729254-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "8acf1017-a9e1-47da-bffa-0c41adb35fa0",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": -29.0,
+                    "Y": 0.0,
+                    "Z": -14.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:40.2386669Z",
+                "MoveToPosition": {
+                    "X": -30.0,
+                    "Y": 0.0,
+                    "Z": -14.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:49:57.3391114-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "617c9699-7813-44be-9550-a926b8d520a5",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 60.0,
+                    "Y": 0.0,
+                    "Z": 23.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:48.3014831Z",
+                "MoveToPosition": {
+                    "X": 60.0,
+                    "Y": 0.0,
+                    "Z": 24.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:49:56.4021813-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1056216041": {
+                            "Token": -1056216041,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "9f3cb4e4-73a7-4ff7-a6fa-0a18db8f7900",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 47.0,
+                    "Y": 0.0,
+                    "Z": 48.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:43.8005202Z",
+                "MoveToPosition": {
+                    "X": 47.0,
+                    "Y": 0.0,
+                    "Z": 49.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:49:52.9027498-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "ab207189-6026-43ff-ba32-cb5816618d92",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 54.0,
+                    "Y": 0.0,
+                    "Z": -11.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:49.1133363Z",
+                "MoveToPosition": {
+                    "X": 54.0,
+                    "Y": 0.0,
+                    "Z": -10.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-10-24T21:49:57.1975781-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -243198132,
+                        "Type": {
+                            "Name": "ACTION"
+                        },
+                        "Status": "RUNNING",
+                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null
+                        },
+                        "Status": null,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "NodeList": null
+                    },
+                    "NodeMap": {
+                        "2015705661": {
+                            "Token": 2015705661,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1056216041": {
+                            "Token": -1056216041,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        -1109214076
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": [
+                        -891906990,
+                        522814866
+                    ]
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "4ee4bf3a-32bd-48e8-a06f-06d4f10a7b7c",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 44.0,
+                    "Y": 0.0,
+                    "Z": 24.0
+                },
+                "NextMoveRequest": "2019-10-25T02:49:50.7073269Z",
+                "MoveToPosition": {
+                    "X": 43.0,
+                    "Y": 0.0,
+                    "Z": 24.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_Wander.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillList": {
+                        "fireball": {
+                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
+                        },
+                        "moveto": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
+                        },
+                        "capturetarget": {
+                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
+                        }
+                    }
+                },
+                "interactionState": {
+                    "Active": false,
                     "List": null
                 },
                 "NextRunTime": null,
@@ -1759,7 +2101,7 @@
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 1556422401,
+                        "Token": 522814866,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -1779,8 +2121,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -1789,8 +2131,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "1556422401": {
-                            "Token": 1556422401,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "522814866": {
+                            "Token": 522814866,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1799,8 +2161,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1809,8 +2171,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "-588667474": {
-                            "Token": -588667474,
+                        "-891906990": {
+                            "Token": -891906990,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -1823,7 +2185,7 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": []
@@ -1832,143 +2194,7 @@
             }
         },
         {
-            "Id": "1dfd32af-51ee-4674-9b7c-3007b644f961",
-            "Name": "First Ever NPC",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
-                    "X": 2.0,
-                    "Y": 0.0,
-                    "Z": -16.0
-                },
-                "NextMoveRequest": "2019-10-22T23:25:13.8949619Z",
-                "MoveToPosition": {
-                    "X": 2.0,
-                    "Y": 0.0,
-                    "Z": -15.0
-                },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "modelState": {
-                    "AnimationList": [],
-                    "Mesh": {
-                        "Type": "SPHERE",
-                        "AssetId": "SPHERE"
-                    }
-                },
-                "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
-                },
-                "interactionState": {
-                    "Active": true,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:29.9794442-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
-                    ]
-                },
-                "ActorMoveToPosition": null
-            }
-        },
-        {
-            "Id": "17e29223-2f79-4ab5-9875-13994659f751",
+            "Id": "24321bf7-d181-416b-8d8b-ebfe0626ecda",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2040,14 +2266,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2067,8 +2293,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2077,8 +2303,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2097,7 +2323,7 @@
             }
         },
         {
-            "Id": "747a76b3-6ef7-4e38-9e7a-d9addd0d99fb",
+            "Id": "9b89ada0-63b2-4750-9449-a1b3693873e8",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2169,14 +2395,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2196,8 +2422,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2206,8 +2432,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2226,7 +2452,7 @@
             }
         },
         {
-            "Id": "25bb453a-d75a-472c-a340-581cf079e4ca",
+            "Id": "79765d37-299f-4f0f-8c67-39238d69c4b9",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2298,14 +2524,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2325,8 +2551,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2335,8 +2561,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2355,7 +2581,7 @@
             }
         },
         {
-            "Id": "f2197f2b-cb78-4e56-81a6-50ae85a16ffb",
+            "Id": "e9e09d2f-e9e5-440f-8f06-91fc3c98c3e4",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2427,14 +2653,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2454,8 +2680,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2464,8 +2690,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2484,7 +2710,7 @@
             }
         },
         {
-            "Id": "87e7ba8e-3eb9-4a09-a98d-f76503ab985e",
+            "Id": "a1bc3a1e-3257-4314-84b0-e32425dce24e",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2556,14 +2782,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2583,8 +2809,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2593,8 +2819,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2613,7 +2839,7 @@
             }
         },
         {
-            "Id": "ee914c14-abd4-4700-a507-d74699f85922",
+            "Id": "702ca048-19b5-4cdd-ba9d-2ac7be472f1d",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2685,14 +2911,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2712,8 +2938,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2722,8 +2948,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2742,7 +2968,7 @@
             }
         },
         {
-            "Id": "b1294904-f4c1-45d6-9c73-505ed386b924",
+            "Id": "4527c6c6-29e5-489d-8d2c-5d021dad4789",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2814,14 +3040,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2841,8 +3067,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2851,8 +3077,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -2871,7 +3097,7 @@
             }
         },
         {
-            "Id": "dfa2be68-84e4-4194-bed5-79159f040412",
+            "Id": "dfa4d363-4546-4c42-b662-0e80e242950c",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -2943,14 +3169,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -2970,8 +3196,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -2980,8 +3206,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3000,7 +3226,7 @@
             }
         },
         {
-            "Id": "4ce8ecc9-e652-4bc8-986f-9df41a27e446",
+            "Id": "4250181c-4fb2-4bca-8775-a2a83b2d7367",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3072,14 +3298,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3099,8 +3325,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3109,8 +3335,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3129,7 +3355,7 @@
             }
         },
         {
-            "Id": "ab1f380d-e906-4a36-adbd-4555a30d5984",
+            "Id": "f873ec1c-232d-44d7-98d4-c040fb5ff720",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3201,14 +3427,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3228,8 +3454,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3238,8 +3464,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3258,7 +3484,7 @@
             }
         },
         {
-            "Id": "10bf18dd-b682-453c-9933-93b6a00db510",
+            "Id": "d4abdef3-209c-4b16-9202-55f6b6e53dc7",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3330,14 +3556,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3357,8 +3583,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3367,8 +3593,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3387,7 +3613,7 @@
             }
         },
         {
-            "Id": "6253fbff-8c29-4cb0-955e-1c3b74865b4e",
+            "Id": "a4c0a555-8e7e-47ae-9163-1c03d91a7eab",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3459,14 +3685,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3486,8 +3712,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3496,8 +3722,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3516,7 +3742,7 @@
             }
         },
         {
-            "Id": "fbb614bc-8f6c-4152-b50c-a834ac17c3fc",
+            "Id": "63daa989-b706-4eee-832c-6424c1bb32b1",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3588,14 +3814,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3615,8 +3841,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3625,8 +3851,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3645,7 +3871,7 @@
             }
         },
         {
-            "Id": "7c9ba9f6-b32f-46d4-b273-5efce6518e2e",
+            "Id": "1ce24c93-eeb7-41e5-b834-d9218522a618",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3717,14 +3943,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3744,8 +3970,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3754,8 +3980,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3774,7 +4000,7 @@
             }
         },
         {
-            "Id": "6130de3f-ce1b-487e-bf8b-1168e812ed3f",
+            "Id": "091bc25a-59fb-4041-b1ed-8adb31ff861a",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3846,14 +4072,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -3873,8 +4099,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -3883,8 +4109,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -3903,7 +4129,7 @@
             }
         },
         {
-            "Id": "5198607b-2b59-4b29-b88e-45a66324574d",
+            "Id": "9f399144-5b30-46b8-afd9-0f1ae80c0770",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -3975,14 +4201,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4002,8 +4228,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4012,8 +4238,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4032,7 +4258,7 @@
             }
         },
         {
-            "Id": "a3e4ccf8-d5c9-4d51-b0d8-9549e819c6a2",
+            "Id": "c5ff753a-7b74-4ba4-b392-dcd95f96b0ad",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4104,14 +4330,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4131,8 +4357,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4141,8 +4367,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4161,7 +4387,7 @@
             }
         },
         {
-            "Id": "aaf6fdd0-cec3-4e3f-b94c-bc334949744d",
+            "Id": "4f92d0cf-82b8-483c-a61c-fa3a054c218a",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4233,14 +4459,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4260,8 +4486,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4270,8 +4496,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4290,7 +4516,7 @@
             }
         },
         {
-            "Id": "9c3beb73-477a-4077-a59b-34404784512a",
+            "Id": "4894bbbf-5a6a-4900-828d-5862453c0439",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4362,14 +4588,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4389,8 +4615,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4399,8 +4625,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4419,7 +4645,7 @@
             }
         },
         {
-            "Id": "11974f01-a91a-4772-b4dd-2f4268022b16",
+            "Id": "ee813388-090a-4591-b8a2-cca423ca0ed4",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4491,14 +4717,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4518,8 +4744,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4528,8 +4754,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4548,7 +4774,7 @@
             }
         },
         {
-            "Id": "29536cee-73a3-441a-95e7-ec069aea44b7",
+            "Id": "fefad5a5-1c8f-4df9-a893-2d41fb304b04",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4620,14 +4846,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4647,8 +4873,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4657,8 +4883,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4677,7 +4903,7 @@
             }
         },
         {
-            "Id": "3c6d7647-e8b3-4ae8-8118-7950d5fac644",
+            "Id": "767c5eb8-1583-47c3-9bee-d890d0a1f4d7",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4749,14 +4975,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4776,8 +5002,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4786,8 +5012,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4806,7 +5032,7 @@
             }
         },
         {
-            "Id": "46705946-343c-47f6-9ec9-c7219e4ea765",
+            "Id": "f65294aa-b32a-4457-abbb-322784b66e09",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -4878,14 +5104,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -4905,8 +5131,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -4915,8 +5141,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -4935,7 +5161,7 @@
             }
         },
         {
-            "Id": "16a5a95d-9e84-4e61-96e0-ccb8cd297ac5",
+            "Id": "7229f124-0fe0-43c8-bafb-0e696275a4a2",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5007,14 +5233,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5034,8 +5260,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5044,8 +5270,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5064,7 +5290,7 @@
             }
         },
         {
-            "Id": "dc1ae55f-3d95-45bb-a6e8-fc63cbd88bfe",
+            "Id": "ddfe1380-e841-4224-93d0-e17f5dde64fa",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5136,14 +5362,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5163,8 +5389,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5173,8 +5399,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5193,7 +5419,7 @@
             }
         },
         {
-            "Id": "87ea9540-4f88-4b72-ab8e-b03771b9a6be",
+            "Id": "403597a7-b9e4-4bb1-8844-e2d4560b344b",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5265,14 +5491,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5292,8 +5518,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5302,8 +5528,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5322,7 +5548,7 @@
             }
         },
         {
-            "Id": "80d802bc-6010-40e0-9660-3f3dd5e18ccf",
+            "Id": "7c9f6ccf-d5e6-4b38-b5a2-6c74cc4e7d90",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5394,14 +5620,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5421,8 +5647,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5431,8 +5657,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5451,7 +5677,7 @@
             }
         },
         {
-            "Id": "f8c79b56-abc0-42fc-be6b-987ff64be6e7",
+            "Id": "902c2d5a-72ce-47ec-8e92-19cf79c91410",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5523,14 +5749,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5550,8 +5776,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5560,8 +5786,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5580,7 +5806,7 @@
             }
         },
         {
-            "Id": "08fe735a-eb16-41ab-8542-53a51391fcb0",
+            "Id": "dbe0c322-a129-4d30-82c2-205a45759b76",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5652,14 +5878,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5679,8 +5905,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5689,8 +5915,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5709,7 +5935,7 @@
             }
         },
         {
-            "Id": "57d0891f-4231-42c8-ba99-039d84ba56f3",
+            "Id": "0175049c-34ba-47a2-a92b-10ff66a69cb8",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
@@ -5781,14 +6007,14 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 634907211,
+                        "Token": -1794333815,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5808,8 +6034,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
+                        "-216877143": {
+                            "Token": -216877143,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5818,8 +6044,8 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "634907211": {
-                            "Token": 634907211,
+                        "-1794333815": {
+                            "Token": -1794333815,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5838,20 +6064,20 @@
             }
         },
         {
-            "Id": "988316e1-74a8-4835-ac3c-227fa8625af9",
+            "Id": "e97ca408-7159-4107-850b-10dd89249214",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -26.0,
+                    "X": -28.0,
                     "Y": 0.0,
-                    "Z": 27.0
+                    "Z": 48.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:25.0833652Z",
+                "NextMoveRequest": "2019-10-25T02:49:40.8477196Z",
                 "MoveToPosition": {
-                    "X": -26.0,
+                    "X": -27.0,
                     "Y": 0.0,
-                    "Z": 28.0
+                    "Z": 48.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -5910,15 +6136,15 @@
                     }
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": null
                 },
-                "NextRunTime": "2019-10-22T18:25:35.1851853-05:00",
+                "NextRunTime": "2019-10-24T21:49:53.9343056-05:00",
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": 456082935,
+                        "Token": -243198132,
                         "Type": {
                             "Name": "ACTION"
                         },
@@ -5938,8 +6164,8 @@
                         "NodeList": null
                     },
                     "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
+                        "2015705661": {
+                            "Token": 2015705661,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR"
                             },
@@ -5948,8 +6174,28 @@
                             "FailGate": 0,
                             "NodeList": null
                         },
-                        "456082935": {
-                            "Token": 456082935,
+                        "-1322906322": {
+                            "Token": -1322906322,
+                            "Type": {
+                                "Name": "ACTION"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-1109214076": {
+                            "Token": -1109214076,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR"
+                            },
+                            "Status": "RUNNING",
+                            "Fire": null,
+                            "FailGate": 0,
+                            "NodeList": null
+                        },
+                        "-243198132": {
+                            "Token": -243198132,
                             "Type": {
                                 "Name": "ACTION"
                             },
@@ -5962,12 +6208,12 @@
                     "TraversalStack": [],
                     "LastTraversalStack": [],
                     "NextTraversalStack": [
-                        -1545080343
+                        -1109214076
                     ],
                     "IsValid": true,
                     "ShapeQueue": [
-                        -588667474,
-                        1556422401
+                        -891906990,
+                        522814866
                     ]
                 },
                 "ActorMoveToPosition": null

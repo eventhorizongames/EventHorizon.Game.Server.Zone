@@ -2,7 +2,7 @@
     "AgentList": [
         {
             "Id": "fb0cedbd-513f-441d-a9ee-306d13cfed7c",
-            "Name": "Steve the Helper",
+            "Name": "The Helper",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
@@ -188,100 +188,20 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Wander.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "ALIVE"
-                    },
-                    "HealthPoints": 100,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 100,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-22T02:50:35.1457502Z"
-                        },
-                        "moveto": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687755-05:00"
-                        },
-                        "capturetarget": {
-                            "CooldownFinishes": "2019-10-21T21:49:26.9687778-05:00"
-                        }
-                    }
+                    "TreeId": "Behaviors_Idle.json"
                 },
                 "interactionState": {
-                    "Active": false,
-                    "List": null
-                },
-                "NextRunTime": "2019-10-22T18:25:26.2750998-05:00",
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 456082935,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "-1545080343": {
-                            "Token": -1545080343,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "456082935": {
-                            "Token": 456082935,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
-                            "FailGate": 0,
-                            "NodeList": null
+                    "Active": true,
+                    "List": [
+                        {
+                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "DistanceToPlayer": 5,
+                            "Data": {
+                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
+                            }
                         }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [
-                        -1545080343
-                    ],
-                    "IsValid": true,
-                    "ShapeQueue": [
-                        -588667474,
-                        1556422401
                     ]
-                },
-                "ActorMoveToPosition": null
+                }
             }
         }
     ]

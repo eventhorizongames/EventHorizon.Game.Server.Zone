@@ -1,4 +1,5 @@
 {
+    "Comments": "Used by PlayerTestingConnection to create a local only player, overriding the Player Server connection request for a player.",
     "Id": "test-player",
     "Name": "Test_Player",
     "Locale": "en_US",
