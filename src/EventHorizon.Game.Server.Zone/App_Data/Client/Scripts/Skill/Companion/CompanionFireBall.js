@@ -8,7 +8,7 @@
  */
 
 const entity = $data;
-const skillId = "fireball";
+const skillId = "Skills_FireBall.json";
 const noSelectionsMessage = $services.i18n["noSelectionsMessage"];
 
 $utils.runClientScript(

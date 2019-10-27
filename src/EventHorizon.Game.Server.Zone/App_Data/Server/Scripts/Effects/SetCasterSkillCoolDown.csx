@@ -10,8 +10,10 @@
 /// </summary>
 /// <returns></returns>
 using System.Collections.Generic;
+using System.Linq;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Zone.System.Combat.Skill.Model;
 
 var caster = Data.Get<IObjectEntity>("Caster");
@@ -21,14 +23,19 @@ var effectData = Data.Get<IDictionary<string, object>>("EffectData");
 
 var coolDown = (long)effectData["coolDown"];
 
-var casterSkillState = caster.GetProperty<dynamic>("skillState");
-var skillState = casterSkillState.SkillList[skill.Id];
+var casterSkillState = caster.GetProperty<SkillState>("skillState");
+var skillDetails = casterSkillState.SkillMap.Get(
+    skill.Id
+);
 
-skillState.CooldownFinishes = Services.DateTime.Now
+skillDetails.CooldownFinishes = Services.DateTime.Now
     .AddMilliseconds(
         coolDown
     );
-casterSkillState.SkillList[skill.Id] = skillState;
+casterSkillState.SkillMap.Set(
+    skillDetails
+);
+
 
 return new SkillEffectScriptResponse
 {

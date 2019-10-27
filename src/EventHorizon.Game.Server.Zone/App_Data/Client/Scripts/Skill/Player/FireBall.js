@@ -7,7 +7,7 @@
  * $data: IObjectEntity;
  */
 
-const skillId = "fireball";
+const skillId = "Skills_FireBall.json";
 const entity = $data;
 const noSelectedTargetMessage = $services.i18n["noTargetSelected"];
 

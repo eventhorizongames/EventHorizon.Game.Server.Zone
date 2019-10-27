@@ -60,13 +60,6 @@
                     "Experience": 0,
                     "AllTimeExperience": 3
                 },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-10-21T05:19:12.867357Z"
-                        }
-                    }
-                },
                 "modelState": {
                     "AnimationList": [],
                     "Mesh": {

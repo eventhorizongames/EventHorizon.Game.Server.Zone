@@ -14,6 +14,29 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 {
     public class StartAdminFileSystemWatchingCommandHandlerTests
     {
+        string appDataPath = IOPath.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Admin",
+            "FileSystem"
+        );
+        string testingReloadPath = "";
+        public StartAdminFileSystemWatchingCommandHandlerTests()
+        {
+            testingReloadPath = IOPath.Combine(
+                appDataPath,
+                "Agent",
+                "Reload"
+            );
+            if (Directory.Exists(
+                testingReloadPath
+            ))
+            {
+                Directory.Delete(
+                    testingReloadPath,
+                    true
+                );
+            }
+        }
         [Fact]
         public async Task TestShouldSendEventsForWatchingServerPathWhenEventIsHandled()
         {
@@ -107,16 +130,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
         public async Task TestShouldCreateDirectoryForAgentReloadWhenStartingWatchOfPath()
         {
             // Given
-            var appDataPath = IOPath.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Admin",
-                "FileSystem"
-            );
-            var path = IOPath.Combine(
-                appDataPath,
-                "Agent",
-                "Reload"
-            );
+            var path = testingReloadPath;
 
             var serverInfoMock = new Mock<ServerInfo>();
             var mediatorMock = new Mock<IMediator>();
@@ -131,10 +145,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var handler = new StartAdminFileSystemWatchingCommandHandler(
                 serverInfoMock.Object,
                 mediatorMock.Object
-            );
-            Directory.Delete(
-                path,
-                true
             );
             Assert.False(
                 Directory.Exists(

@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Entity.State
     {
         public static readonly string PROPERTY_NAME = "skillState";
 
-        public IDictionary<string, EntitySkillState> SkillList { get; set; }
+        public SkillStateMap SkillMap { get; set; }
 
         public object this[string index]
         {
@@ -15,9 +15,9 @@ namespace EventHorizon.Zone.System.Combat.Skill.Entity.State
             {
                 switch (index)
                 {
-                    case "skillList":
-                    case "SkillList":
-                        return SkillList;
+                    case "skillMap":
+                    case "SkillMap":
+                        return SkillMap;
                     default:
                         return null;
                 }
@@ -26,9 +26,9 @@ namespace EventHorizon.Zone.System.Combat.Skill.Entity.State
             {
                 switch (index)
                 {
-                    case "skillList":
-                    case "SkillList":
-                        SkillList = (IDictionary<string, EntitySkillState>)value;
+                    case "skillMap":
+                    case "SkillMap":
+                        SkillMap = (SkillStateMap)value;
                         break;
                     default:
                         break;
@@ -38,28 +38,25 @@ namespace EventHorizon.Zone.System.Combat.Skill.Entity.State
 
         public static readonly SkillState NEW = new SkillState
         {
-            SkillList = new Dictionary<string, EntitySkillState>()
+            SkillMap = new SkillStateMap
             {
+                List = new List<SkillStateDetails>()
                 {
-                    "fireball",
-                    new EntitySkillState
+                    new SkillStateDetails
                     {
+                        Id = "Skills_FireBall.json",
                         CooldownFinishes = DateTime.Now
-                    }
-                },
-                {
-                    "moveto",
-                    new EntitySkillState
+                    },
+                    new SkillStateDetails
                     {
+                        Id = "Skills_MoveTo.json",
                         CooldownFinishes = DateTime.Now
-                    }
-                },
-                {
-                    "capturetarget",
-                    new EntitySkillState
+                    },
+                    new SkillStateDetails
                     {
+                        Id = "Skills_CaptureTarget.json",
                         CooldownFinishes = DateTime.Now
-                    }
+                    },
                 }
             }
         };

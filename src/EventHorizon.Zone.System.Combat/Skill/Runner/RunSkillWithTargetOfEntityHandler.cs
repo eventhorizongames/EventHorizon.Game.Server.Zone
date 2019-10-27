@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,7 +94,10 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
             var skillState = caster.GetProperty<SkillState>(SkillState.PROPERTY_NAME);
 
             // Make Sure Caster can cast Skill
-            if (CasterDoesNotHaveSkill(skillState, skill.Id))
+            if (CasterDoesNotHaveSkill(
+                skillState,
+                skill.Id
+            ))
             {
                 // Send Message to Caster, Code: does_not_have_skill
                 await _mediator.Publish(
@@ -121,7 +123,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                             )
                         }
                     }
-                ).ConfigureAwait(false);
+                );
                 return;
             }
 
@@ -188,11 +190,16 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
             }
         }
 
-        private bool CasterDoesNotHaveSkill(SkillState skillState, string skillId)
+        private bool CasterDoesNotHaveSkill(
+            SkillState skillState,
+            string skillId
+        )
         {
             return !skillState
-                .SkillList
-                .ContainsKey(skillId);
+                .SkillMap
+                .Contains(
+                    skillId
+                );
         }
     }
 }

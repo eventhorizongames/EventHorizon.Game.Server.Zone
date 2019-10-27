@@ -19,7 +19,11 @@
         "CurrentZone": "...",
         "ZoneTag": "testing"
     },
-    "TagList": ["npc", "wandering", "weak"],
+    "TagList": [
+        "npc",
+        "wandering",
+        "weak"
+    ],
     "Data": {
         "name": "canhorn",
         "locale": "en_US",
@@ -44,13 +48,21 @@
             "AllTimeExperience": 3
         },
         "skillState": {
-            "skillList": {
-                "fireball": {
-                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
-                },
-                "moveto": {
-                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
-                }
+            "skillMap": {
+                "list": [
+                    {
+                        "id": "Skills_FireBall.json",
+                        "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                    },
+                    {
+                        "id": "Skills_MoveTo.json",
+                        "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                    },
+                    {
+                        "id": "Skills_CaptureTarget.json",
+                        "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                    }
+                ]
             }
         },
         "modelState": {

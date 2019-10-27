@@ -7,7 +7,7 @@
  * $data: IObjectEntity;
  */
 
-const skillId = "capturetarget_withvalidation";
+const skillId = "Skills_CaptureTarget.json";
 const entity = $data;
 const noSelectedTargetMessage = $services.i18n["noTargetToCaptureSelected"];
 

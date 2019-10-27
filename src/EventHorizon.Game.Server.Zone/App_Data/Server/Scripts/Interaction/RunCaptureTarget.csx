@@ -37,7 +37,7 @@ await Services.Mediator.Publish(
     {
         Player = player,
         ConnectionId = player.ConnectionId,
-        SkillId = "capturetarget_withvalidation",
+        SkillId = "Skills_CaptureTarget.json",
         CasterId = player.Id,
         TargetId = target.Id
     }

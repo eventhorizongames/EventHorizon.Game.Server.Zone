@@ -94,15 +94,15 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
             var playerSkillState = player.GetProperty<SkillState>(
                 SkillState.PROPERTY_NAME
             );
-            if (!playerSkillState.SkillList.ContainsKey(
+            if (playerSkillState.SkillMap.Contains(
                 skill.Id
             ))
             {
                 // Add the skill
-                playerSkillState.SkillList.Add(
-                    skill.Id,
-                    new EntitySkillState
+                playerSkillState.SkillMap.Set(
+                    new SkillStateDetails
                     {
+                        Id = skill.Id,
                         CooldownFinishes = DateTime.UtcNow
                     }
                 );

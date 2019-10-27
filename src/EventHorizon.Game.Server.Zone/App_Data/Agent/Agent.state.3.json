@@ -61,13 +61,6 @@
                     "Experience": 0,
                     "AllTimeExperience": 3
                 },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
-                        }
-                    }
-                },
                 "modelState": {
                     "AnimationList": [],
                     "Mesh": {
@@ -212,13 +205,6 @@
                     "AttackLevel": 1,
                     "Experience": 0,
                     "AllTimeExperience": 3
-                },
-                "skillState": {
-                    "SkillList": {
-                        "fireball": {
-                            "CooldownFinishes": "2019-06-14T18:04:14.0149854Z"
-                        }
-                    }
                 },
                 "modelState": {
                     "AnimationList": [],

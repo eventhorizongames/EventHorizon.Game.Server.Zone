@@ -43,30 +43,78 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
                 _serverInfo.ClientPath,
                 "Skills"
             );
-            var skillDirectory = new DirectoryInfo(
-                skillPath
+
+
+            // Start Loading Skills from Root Client Skill Directory
+            await this.LoadFromDirectoryInfo(
+                _serverInfo.ClientPath + Path.DirectorySeparatorChar,
+                new DirectoryInfo(
+                    skillPath
+                ),
+                this.DoSomethingAsync
+            );
+        }
+        
+        public async Task DoSomethingAsync(
+            string rootPath,
+            DirectoryInfo directoryInfo,
+            FileInfo fileInfo
+        )
+        {
+            var loadedSkill = await _fileLoader.GetFile<SkillInstance>(
+                fileInfo.FullName
             );
 
-            foreach (var skillFile in skillDirectory.GetFiles())
-            {
-                try
-                {
-                    // TODO: Update this to recursive loop through Directories to load in skills.
-                    var loadedSkill = await _fileLoader.GetFile<SkillInstance>(
-                        skillFile.FullName
-                    );
-                    loadedSkill.Id = SkillInstance.CreateIdFromFileName(
-                        skillFile.Name
-                    );
+            loadedSkill.Id = SkillInstance.GenerateId(
+                rootPath.MakePathRelative(
+                    fileInfo.DirectoryName
+                ),
+                fileInfo.Name
+            );
 
-                    _skillRepository.Set(
-                        loadedSkill
-                    );
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Failed to load {FileName}.", skillFile.FullName);
-                }
+            _skillRepository.Set(
+                loadedSkill
+            );
+        }
+
+        private async Task LoadFromDirectoryInfo(
+            string rootPath,
+            DirectoryInfo directoryInfo,
+            Func<string, DirectoryInfo, FileInfo, Task> onFileInfo
+        )
+        {
+            // Load Scripts from Sub-Directories
+            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
+            {
+                // Load Files From Directories
+                await this.LoadFromDirectoryInfo(
+                    rootPath,
+                    subDirectoryInfo,
+                    onFileInfo
+                );
+            }
+            // Load script files into Repository
+            await this.LoadFileIntoRepository(
+                rootPath,
+                directoryInfo,
+                onFileInfo
+            );
+        }
+
+
+        private async Task LoadFileIntoRepository(
+            string rootPath,
+            DirectoryInfo directoryInfo,
+            Func<string, DirectoryInfo, FileInfo, Task> onFileInfo
+        )
+        {
+            foreach (var fileInfo in directoryInfo.GetFiles())
+            {
+                await onFileInfo(
+                    rootPath,
+                    directoryInfo,
+                    fileInfo
+                );
             }
         }
     }

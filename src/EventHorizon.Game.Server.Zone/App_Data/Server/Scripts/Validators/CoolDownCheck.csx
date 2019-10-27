@@ -8,17 +8,20 @@
 /// Services: { Mediator: IMediator; DateTime: IDateTimeService; }
 /// </summary>
 
+using System.Linq;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Combat.Skill.Entity.State;
 using EventHorizon.Zone.System.Combat.Skill.Model;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var skill = Data.Get<SkillInstance>("Skill");
 
-var skillState = caster.GetProperty<dynamic>("skillState");
+var skillState = caster.GetProperty<SkillState>("skillState");
 
 var skillReady = Services.DateTime.Now > skillState
-                .SkillList[skill.Id]
-                .CooldownFinishes;
+                .SkillMap.Get(
+                    skill.Id
+                ).CooldownFinishes;
 
 if (skillReady)
 {

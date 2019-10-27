@@ -1,14 +1,35 @@
+using System;
+using System.IO;
+
 namespace EventHorizon.Zone.System.Combat.Skill.Model
 {
     public struct SkillInstance
     {
-        public static string CreateIdFromFileName(
+        public static string GenerateId(
+            string path,
             string fileName
         )
         {
-            return fileName.Split(
-                '.'
-            )[0].ToLower();
+            var id = string.Join(
+                "_",
+                string.Join(
+                    "_",
+                    path.Split(
+                        new char[] { Path.DirectorySeparatorChar },
+                        StringSplitOptions.RemoveEmptyEntries
+                    )
+                ),
+                fileName
+            );
+            if (id.StartsWith(
+                "_"
+            ))
+            {
+                return id.Substring(
+                    1
+                );
+            }
+            return id;
         }
 
         public string Id { get; set; }

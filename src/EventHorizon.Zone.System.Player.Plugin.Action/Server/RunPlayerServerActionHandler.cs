@@ -44,10 +44,10 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Server
             {
                 await _mediator.Publish(
                     action.ActionEvent
-                        .SetData(
-                            notification.Data
-                        ).SetPlayer(
+                        .SetPlayer(
                             player
+                        ).SetData(
+                            notification.Data
                         )
                 );
             }
