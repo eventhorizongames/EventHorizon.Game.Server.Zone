@@ -13,5 +13,19 @@ Write-Host "Script Ran from directory $ScriptRanFromDir"
 dotnet test --filter "Category!=Performance & WindowsOnly!=True" /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=$GeneratedCoverageDirectory 
 
 ## Use NodeJS to merge lcov files
+### Create Reporting Directory
 mkdir $ReportOutputDirectory -ErrorAction SilentlyContinue
+
+### Fix issue with generated SF key in coverage.lcov files.
+### They are currently mixing drive cases, C: and c:, so the files are duplicated incorrectly.
+$MainDrive = "C".ToUpper()
+$MainDriveLower = "C".ToLower()
+$CoverageFiles = Get-ChildItem -Filter "*coverage.lcov*" -Recurse 
+foreach ($CoverageFile in $CoverageFiles) {
+    $CoverageFilePath = $CoverageFile.FullName
+    Write-Host "Updating Coverage File $CoverageFilePath"
+    ((Get-Content -path $CoverageFilePath -Raw) -replace "${MainDrive}:\\", "${MainDriveLower}:\") | Set-Content -Path $CoverageFilePath
+}
+
+### RUn the Merging of LCOV files
 npx lcov-result-merger $ReportFilePattern $ReportOutputFile

@@ -7,11 +7,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
     public class InMemoryActorBehaviorTreeRepository : ActorBehaviorTreeRepository
     {
-        private static readonly ActorBehaviorTreeShape DEFAULT_TREE_SHAPE = new ActorBehaviorTreeShape
+        private readonly ActorBehaviorTreeShape DEFAULT_TREE_SHAPE = new ActorBehaviorTreeShape
         {
             NodeList = new List<BehaviorNode>().AsReadOnly()
         };
-        private static readonly ConcurrentDictionary<string, ActorBehaviorTreeContainer> MAP = new ConcurrentDictionary<string, ActorBehaviorTreeContainer>();
+        private readonly ConcurrentDictionary<string, ActorBehaviorTreeContainer> MAP = new ConcurrentDictionary<string, ActorBehaviorTreeContainer>();
 
         private struct ActorBehaviorTreeContainer
         {

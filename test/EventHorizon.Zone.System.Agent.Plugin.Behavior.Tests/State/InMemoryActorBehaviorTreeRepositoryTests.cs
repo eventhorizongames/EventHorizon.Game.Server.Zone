@@ -28,6 +28,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 actual
             );
         }
+        
         [Fact]
         public void ShouldReturnListOfActorIdsAfterAddWhenAddedToRegisteredTree()
         {
@@ -60,6 +61,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 )
             );
         }
+
         [Fact]
         public void ShouldRemoveActorIdFromRegisteredTreeIdWhenContainedInRepository()
         {
@@ -105,6 +107,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 actual
             );
         }
+
         [Fact]
         public void ShouldReturnRegisteredTreeWhenRegistered()
         {
@@ -147,6 +150,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 )
             );
         }
+
         [Fact]
         public void ShouldMergeTheExistingActorListWhenRegisteringNewTree()
         {
@@ -223,6 +227,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 )
             );
         }
+
         [Fact]
         public void ShouldRunSuccessfullyWhenTreeIdIsNotRegistered()
         {
@@ -246,6 +251,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 actual.NodeList.IsReadOnly
             );
         }
+
         [Fact]
         public void ShouldRegisterDefaultTreeReadonlyTreeWhenTreeIdIsNotFound()
         {
@@ -272,6 +278,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 actual.NodeList.IsReadOnly
             );
         }
+
         [Fact]
         public void ShouldReturnRegisteredTreeShapeAfterRegistered()
         {
@@ -296,6 +303,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 actual
             );
         }
+
         [Fact]
         public void ShouldReturnEnumerableOfTreeIds()
         {
@@ -321,6 +329,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 )
             );
         }
+
         [Fact]
         public void ShouldReturnDefaultTreeShapeWhenNotFound()
         {
@@ -336,6 +345,53 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
             // Then
             Assert.Empty(
                 actual.NodeList
+            );
+        }
+
+        [Fact]
+        public void TestShouldUnRegisterActorIdWhenActorIdIsPartOfTreeId()
+        {
+            // Given
+            var treeId1 = "tree-id-1";
+            var treeId2 = "tree-id-2";
+            var actorId = 1L;
+
+            // When
+            var repository = new InMemoryActorBehaviorTreeRepository();
+            repository.RegisterActorToTree(
+                actorId,
+                treeId1
+            );
+            repository.RegisterActorToTree(
+                actorId,
+                treeId2
+            );
+            
+            Assert.NotEmpty(
+                repository.ActorIdList(
+                    treeId1
+                )
+            );
+            Assert.NotEmpty(
+                repository.ActorIdList(
+                    treeId2
+                )
+            );
+
+            repository.UnRegisterActor(
+                actorId
+            );
+            
+            // Then
+            Assert.Empty(
+                repository.ActorIdList(
+                    treeId1
+                )
+            );
+            Assert.Empty(
+                repository.ActorIdList(
+                    treeId2
+                )
             );
         }
     }
