@@ -29,6 +29,7 @@ using EventHorizon.Zone.Core.Model.Entity;
 var actor = Data.Get<IObjectEntity>("Actor");
 
 // Check for Actor already moving
+// TODO: Move this check out of here and into another Behavior Action/Condition Script
 var isAgentMoving = await Services.Mediator.Send(
     new IsAgentMoving(
         actor.Id

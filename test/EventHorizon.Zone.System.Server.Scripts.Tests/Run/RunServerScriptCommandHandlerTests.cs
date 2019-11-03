@@ -96,7 +96,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
                     data
                 )
             ).Throws(
-                new ServerScriptNotFound()
+                new ServerScriptNotFound(
+                    scriptId,
+                    "Script not found"
+                )
             );
 
             // When

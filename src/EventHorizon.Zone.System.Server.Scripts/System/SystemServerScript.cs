@@ -70,7 +70,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         {
             if (!IsFound())
             {
-                throw new ServerScriptNotFound();
+                throw new ServerScriptNotFound(
+                    null,
+                    "SystemServerScript is not a valid script."
+                );
             }
             return await _runner(
                 new SystemServerScriptData(

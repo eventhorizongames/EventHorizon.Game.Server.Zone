@@ -1,6 +1,8 @@
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.System;
 
+var appDataPath = Services.ServerInfo.AppDataPath;
+
 var randomMaxValue = Data.Get<int>("RandomMaxValue");
 var randomValue = Services.Random.Next(
     randomMaxValue
@@ -21,5 +23,5 @@ await Services.Mediator.Send(
 
 return new SystemServerScriptResponse(
     true,
-    $"Random: {randomValue} | DateTime: {nowString} | I18n: {i18nValue}"
+    $"ServerInfo.AppDataPath: {appDataPath} Random: {randomValue} | DateTime: {nowString} | I18n: {i18nValue}"
 );

@@ -68,7 +68,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "ActorMoveToPosition": {
                     "X": 0.0,
@@ -2057,7 +2057,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_Wander.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2173,7 +2173,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2289,7 +2289,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2405,7 +2405,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2521,7 +2521,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2637,7 +2637,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2753,7 +2753,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2869,7 +2869,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -2985,7 +2985,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3101,7 +3101,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3217,7 +3217,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3333,7 +3333,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3449,7 +3449,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3565,7 +3565,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3681,7 +3681,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3797,7 +3797,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -3913,7 +3913,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4029,7 +4029,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4145,7 +4145,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4261,7 +4261,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4377,7 +4377,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4493,7 +4493,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4609,7 +4609,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4725,7 +4725,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4841,7 +4841,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -4957,7 +4957,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -5073,7 +5073,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -5189,7 +5189,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -5305,7 +5305,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {
@@ -5421,7 +5421,7 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "lifeState": {
                     "Condition": {

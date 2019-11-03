@@ -41,6 +41,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
+            behaviorTreeState = behaviorTreeState.Report(
+                "Condition Interpreter START"
+            );
             if (CheckIfStatusReadyOrRunning(
                 behaviorTreeState.ActiveNode.Status
             ))
@@ -56,30 +59,37 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     result.Status
                 ))
                 {
-                    return behaviorTreeState.SetStatusOnActiveNode(
-                        result.Status
+                    return behaviorTreeState
+                        .SetStatusOnActiveNode(
+                            result.Status
+                        ).SetTraversalToCheck(
+                        // Set Active proccessing node back to Traversal, 
+                        // This is the parent of this node, triggering validation of status.
+                        ).Report(
+                            "Condition Interpreter EXIT"
+                        );
+                }
+
+                return behaviorTreeState
+                    .SetStatusOnActiveNode(
+                        BehaviorNodeStatus.FAILED
+                    ).SetStatusOnTraversalNode(
+                        BehaviorNodeStatus.FAILED
                     ).SetTraversalToCheck(
                     // Set Active proccessing node back to Traversal, 
                     // This is the parent of this node, triggering validation of status.
+                    ).Report(
+                        "Condition Interpreter EXIT"
                     );
-                }
-
-                return behaviorTreeState.SetStatusOnActiveNode(
-                    BehaviorNodeStatus.FAILED
-                ).SetStatusOnTraversalNode(
-                    BehaviorNodeStatus.FAILED
-                ).PopActiveTraversalNode(
-                // Conditions stop the running of the current traversal on failure.
-                ).SetTraversalToCheck(
-                // Set Active proccessing node back to Traversal, 
-                // This is the parent of this node, triggering validation of status.
-                );
             }
             // If not READY/RUNNING, reset active Node to Traversal Node.
-            return behaviorTreeState.SetTraversalToCheck(
-            // Set Active proccessing node back to Traversal, 
-            // This is the parent of this node, triggering validation of status.
-            );
+            return behaviorTreeState
+                .SetTraversalToCheck(
+                // Set Active proccessing node back to Traversal, 
+                // This is the parent of this node, triggering validation of status.
+                ).Report(
+                    "Condition Interpreter EXIT"
+                );
         }
 
         private async Task<BehaviorScriptResponse> RunScript(

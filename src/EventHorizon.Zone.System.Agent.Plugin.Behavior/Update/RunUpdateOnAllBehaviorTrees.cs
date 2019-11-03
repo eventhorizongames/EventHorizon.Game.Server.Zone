@@ -14,16 +14,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Update
         public class RunUpdateOnAllBehaviorTreesHandler : INotificationHandler<RunUpdateOnAllBehaviorTrees>
         {
             readonly ILogger _logger;
+            readonly IMediator _mediator;
             readonly ActorBehaviorTreeRepository _repository;
             readonly IServiceScopeFactory _serviceScopeFactory;
 
             public RunUpdateOnAllBehaviorTreesHandler(
                 ILogger<RunUpdateOnAllBehaviorTreesHandler> logger,
+                IMediator mediator,
                 ActorBehaviorTreeRepository repository,
                 IServiceScopeFactory serviceScopeFactory
             )
             {
                 this._logger = logger;
+                _mediator = mediator;
                 this._repository = repository;
                 this._serviceScopeFactory = serviceScopeFactory;
             }
@@ -33,25 +36,31 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Update
                 var treeIdList = _repository.TreeIdList();
                 if (treeIdList.Count() > 0)
                 {
-                    Parallel.ForEach(treeIdList, async (treeId) =>
-                    {
-                        using (var serviceScope = _serviceScopeFactory.CreateScope())
-                        {
-                            var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                            try
-                            {
-                                await mediator.Publish(new RunBehaviorTreeUpdate(
-                                    treeId
-                                )).ConfigureAwait(false);
-                            }
-                            catch (Exception ex)
-                            {
-                                _logger.LogError(ex, "{TreeId} failed Run.", treeId);
-                            }
-                        }
-                    });
+                    Task.WaitAll(
+                        treeIdList.Select(
+                            treeId => RunBehaviorTreeUpdateByTreeId(
+                                treeId
+                            )
+                        ).ToArray()
+                    );
                 }
                 return Task.CompletedTask;
+            }
+
+            private async Task RunBehaviorTreeUpdateByTreeId(
+                string treeId
+            )
+            {
+                try
+                {
+                    await _mediator.Publish(new RunBehaviorTreeUpdate(
+                        treeId
+                    ));
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "{TreeId} failed Run.", treeId);
+                }
             }
         }
     }

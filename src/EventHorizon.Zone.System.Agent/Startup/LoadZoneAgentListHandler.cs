@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Connection;
 using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
-using Microsoft.AspNetCore.Hosting;
-using IOPath = System.IO.Path;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Agent.Events.Register;
 using EventHorizon.Zone.System.Agent.Events.Startup;
@@ -68,7 +66,7 @@ namespace EventHorizon.Zone.System.Agent.Startup
                     {
                         Agent = AgentFromDetailsToEntity.MapToNew(
                             agent,
-                            Guid.NewGuid().ToString()
+                            agent.Id ?? Guid.NewGuid().ToString()
                         ),
                     }
                 );
@@ -77,7 +75,7 @@ namespace EventHorizon.Zone.System.Agent.Startup
         }
         private string GetAgentFileName()
         {
-            return IOPath.Combine(
+            return Path.Combine(
                 _serverInfo.AppDataPath,
                 "Agent",
                 "Agent.state.json"

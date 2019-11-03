@@ -8,6 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         public string Status { get; set; }
         public string Fire { get; set; }
         public int FailGate { get; set; }
+        public bool Reset { get; set; }
         public IList<SerializedBehaviorNode> NodeList { get; set; }
     }
 }

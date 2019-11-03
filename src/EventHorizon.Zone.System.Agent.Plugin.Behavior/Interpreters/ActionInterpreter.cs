@@ -35,6 +35,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
+            behaviorTreeState = behaviorTreeState.Report(
+                "Action Interpreter START",
+                new { behaviorTreeState.ActiveNode }
+            );
             if (BehaviorNodeStatus.READY.Equals(
                 behaviorTreeState.ActiveNode.Status
             ) || BehaviorNodeStatus.RUNNING.Equals(
@@ -47,18 +51,22 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     {
                         var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
                         // When Ready run first pass
-                        return behaviorTreeState.SetStatusOnActiveNode(
-                            BehaviorNodeStatus.VISITING
-                        ).SetStatusOnActiveNode(
-                            // The response from the script fire will fill the status
-                            //  of the Active Node
-                            (await mediator.Send(
-                                new RunBehaviorScript(
-                                    actor,
-                                    behaviorTreeState.ActiveNode.Fire
-                                )
-                            )).Status
-                        ).SetTraversalToCheck();
+                        return behaviorTreeState
+                            .SetStatusOnActiveNode(
+                                BehaviorNodeStatus.VISITING
+                            ).SetStatusOnActiveNode(
+                                // The response from the script fire will fill the status
+                                //  of the Active Node
+                                (await mediator.Send(
+                                    new RunBehaviorScript(
+                                        actor,
+                                        behaviorTreeState.ActiveNode.Fire
+                                    )
+                                )).Status
+                            ).SetTraversalToCheck()
+                            .Report(
+                                "Action Interpreter EXIT"
+                            );
                     }
                 }
                 catch (Exception ex)
@@ -67,12 +75,20 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         "Exception during Run of Action",
                         ex
                     );
-                    return behaviorTreeState.SetStatusOnActiveNode(
-                        BehaviorNodeStatus.FAILED
-                    ).SetTraversalToCheck();
+                    return behaviorTreeState
+                        .SetStatusOnActiveNode(
+                            BehaviorNodeStatus.FAILED
+                        ).SetTraversalToCheck()
+                        .Report(
+                            "Action Interpreter EXIT"
+                        );
                 }
             }
-            return behaviorTreeState.SetTraversalToCheck();
+            return behaviorTreeState
+                .SetTraversalToCheck()
+                .Report(
+                    "Action Interpreter EXIT"
+                );
         }
     }
 }

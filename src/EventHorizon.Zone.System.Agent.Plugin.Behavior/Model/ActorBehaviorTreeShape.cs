@@ -5,6 +5,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
     public struct ActorBehaviorTreeShape
     {
+        private static IList<BehaviorNode> EMPTY_LIST = new List<BehaviorNode>().AsReadOnly();
+
         public IList<BehaviorNode> NodeList { get; set; }
         public bool IsValid => NodeList != null;
 
@@ -27,7 +29,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             int nodeToken
         )
         {
-            return NodeList.First(a => a.Token == nodeToken).ClearNodeList();
+            return NodeList.First(
+                node => node.Token == nodeToken
+            ).ClearNodeList();
         }
 
         private void FlattenNodeListIntoShape(
@@ -53,7 +57,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         )
         {
             // PERF: Optimize this by making it a dictionary lookup
-            return NodeList.First(a => a.Token == nodeToken).NodeList;
+            return NodeList?.FirstOrDefault(
+                node => node.Token == nodeToken
+            ).NodeList ?? EMPTY_LIST;
         }
     }
 }

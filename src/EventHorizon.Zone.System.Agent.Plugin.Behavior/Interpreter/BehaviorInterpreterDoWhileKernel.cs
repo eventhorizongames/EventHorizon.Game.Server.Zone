@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Reporter.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
@@ -9,12 +10,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
     public class BehaviorInterpreterDoWhileKernel : BehaviorInterpreterKernel
     {
         readonly BehaviorInterpreterMap _interpreterMap;
+        readonly ReportTracker _reportTracker;
+
         public BehaviorInterpreterDoWhileKernel(
-            BehaviorInterpreterMap interpreterMap
+            BehaviorInterpreterMap interpreterMap,
+            ReportTracker reportTracker
         )
         {
             _interpreterMap = interpreterMap;
+            _reportTracker = reportTracker;
         }
+
         public async Task<BehaviorTreeState> Tick(
             ActorBehaviorTreeShape shape,
             IObjectEntity actor
@@ -23,8 +29,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             var treeState = GetActorState(
                 shape,
                 actor
-            ).PopActiveNodeFromQueue();
-
+            )/*.SetReportTracker( // Uncomment this to activate Reporting for BT State.
+                $"{actor.Id}_{actor.Name}",
+                _reportTracker
+            ) */.PopActiveNodeFromQueue()
+            .ClearReport()
+            .Report(
+                "Kernel Tick START"
+            );
             do
             {
                 // Run the state through the Interperters.
@@ -37,12 +49,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
 
                 while (treeState.CheckTraversal)
                 {
+                    treeState = treeState.SetCheckTraversal(
+                        false
+                    ).ActivateNode(
+                        treeState.ActiveTraversal.Token
+                    );
                     treeState = await _interpreterMap.InterperterByType(
-                        treeState.SetCheckTraversal(
-                            false
-                        ).ActivateNode(
-                            treeState.ActiveTraversal.Token
-                        ).ActiveTraversal.Type
+                        treeState.ActiveTraversal.Type
                     ).Run(
                         actor,
                         treeState
@@ -51,7 +64,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             } while (treeState.ContainsNext);
             actor.SetProperty(
                 "BehaviorTreeState",
-                treeState
+                treeState.Report(
+                    "Kernel Tick ENDING"
+                )
             );
             return treeState;
         }

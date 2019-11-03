@@ -4,6 +4,7 @@ using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using Xunit;
+using System.Collections.Generic;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
@@ -81,22 +82,23 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 .Root(
                     new SerializedBehaviorNode
                     {
-                        Status = BehaviorNodeStatus.VISITING.ToString()
+                        Status = BehaviorNodeStatus.VISITING.ToString(),
+                        NodeList = new List<SerializedBehaviorNode>()
                     }
                 ).AddNode(
                     new SerializedBehaviorNode
                     {
-                        Status = BehaviorNodeStatus.SUCCESS.ToString()
+                        Status = BehaviorNodeStatus.SUCCESS.ToString(),
                     }
                 ).AddNode(
                     new SerializedBehaviorNode
                     {
-                        Status = BehaviorNodeStatus.SUCCESS.ToString()
+                        Status = BehaviorNodeStatus.SUCCESS.ToString(),
                     }
                 ).AddNode(
                     new SerializedBehaviorNode
                     {
-                        Status = BehaviorNodeStatus.FAILED.ToString()
+                        Status = BehaviorNodeStatus.FAILED.ToString(),
                     }
                 )
                 .Build()

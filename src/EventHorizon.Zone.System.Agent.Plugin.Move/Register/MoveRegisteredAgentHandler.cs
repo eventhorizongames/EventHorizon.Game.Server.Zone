@@ -90,22 +90,17 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 EntityAction.POSITION,
                 agent
             );
-            using (_performanceTracker.Track(
-                "ClientActionEntityClientMoveToAllEvent"
-            ))
-            {
-                // Send update to Client for Entity
-                await _mediator.Publish(
-                    new ClientActionEntityClientMoveToAllEvent
+            // Send update to Client for Entity
+            await _mediator.Publish(
+                new ClientActionEntityClientMoveToAllEvent
+                {
+                    Data = new EntityClientMoveData
                     {
-                        Data = new EntityClientMoveData
-                        {
-                            EntityId = entityId,
-                            MoveTo = moveTo
-                        },
-                    }
-                );
-            }
+                        EntityId = entityId,
+                        MoveTo = moveTo
+                    },
+                }
+            );
             if (path.Count == 0)
             {
                 await RemoveAgent(
@@ -122,36 +117,26 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             AgentEntity entity
         )
         {
-            using (_performanceTracker.Track(
-                "AgentFinishedMoveEvent"
-            ))
-            {
-                entity.Path = null;
-                await _mediator.Publish(
-                    new AgentFinishedMoveEvent
-                    {
-                        EntityId = entity.Id,
-                    }
-                );
-            }
+            entity.Path = null;
+            await _mediator.Publish(
+                new AgentFinishedMoveEvent
+                {
+                    EntityId = entity.Id,
+                }
+            );
         }
         private async Task QueueForNextUpdateCycle(
             long entityId,
             Queue<Vector3> path
         )
         {
-            using (_performanceTracker.Track(
-                "QueueForNextUpdateCycle"
-            ))
-            {
-                await _mediator.Publish(
-                    new QueueAgentToMoveEvent
-                    {
-                        EntityId = entityId,
-                        Path = path
-                    }
-                );
-            }
+            await _mediator.Publish(
+                new QueueAgentToMoveEvent
+                {
+                    EntityId = entityId,
+                    Path = path
+                }
+            );
         }
     }
 }

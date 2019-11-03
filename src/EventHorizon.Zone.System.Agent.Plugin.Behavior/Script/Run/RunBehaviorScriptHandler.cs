@@ -30,7 +30,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
         {
             try
             {
-                return (BehaviorScriptResponse)await _mediator.Send(
+                var result = await _mediator.Send(
                     new RunServerScriptCommand(
                         request.ScriptId,
                         new Dictionary<string, object>()
@@ -38,6 +38,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
                             { "Actor", request.Actor },
                         }
                     )
+                );
+                if (result is BehaviorScriptResponse)
+                {
+                    return (BehaviorScriptResponse)result;
+                }
+                _logger.LogError(
+                    "Behavior Script result was not expected type:  \n | request.ScriptId: {RequestScriptId} \n | result.Message: {ResultMessage}",
+                    request.ScriptId,
+                    result.Message
+                );
+                return new BehaviorScriptResponse(
+                    BehaviorNodeStatus.FAILED
                 );
             }
             catch (Exception ex)

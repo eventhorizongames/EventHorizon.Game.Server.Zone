@@ -33,5 +33,28 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
                 actual.Message
             );
         }
+
+        [Fact]
+        public void TestShouldShowTokenAndTypeWhenToStringIsCalled()
+        {
+            // Given
+            var type = BehaviorNodeType.ACTION;
+
+            // When
+            var actual = new BehaviorNode(
+                new SerializedBehaviorNode
+                {
+                    Type = type.ToString()
+                }
+            );
+            var token = actual.Token;
+            var expected = $"{token} : {type}";
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual.ToString()
+            );
+        }
     }
 }

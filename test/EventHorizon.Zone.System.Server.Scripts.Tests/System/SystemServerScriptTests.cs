@@ -205,7 +205,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             var expectedNow = now.ToString();
             var expectedRandom = 1234;
             var expectedI18n = "I18nValue";
-            var scriptMessage = $"Random: {expectedRandom} | DateTime: {expectedNow} | I18n: {expectedI18n}";
+            var expectedAppDataPath = "app-data-path";
+            var scriptMessage = $"ServerInfo.AppDataPath: {expectedAppDataPath} Random: {expectedRandom} | DateTime: {expectedNow} | I18n: {expectedI18n}";
             var expected = new SystemServerScriptResponse(
                 true,
                 scriptMessage
@@ -219,6 +220,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             };
 
             var serverInfoMock = new Mock<ServerInfo>();
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                expectedAppDataPath
+            );
             var mediatorMock = new Mock<IMediator>();
             var randomMock = new Mock<IRandomNumberGenerator>();
             randomMock.Setup(

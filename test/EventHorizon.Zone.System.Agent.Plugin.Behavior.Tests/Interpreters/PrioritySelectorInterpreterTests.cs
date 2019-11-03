@@ -4,6 +4,7 @@ using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using Xunit;
+using System.Collections.Generic;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
@@ -55,19 +56,20 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             Assert.Collection(
                 actual.NodeMap.Values,
                 node => Assert.Equal(
-                    expectedTraversal, 
+                    expectedTraversal,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedFirstChildNode, 
+                    expectedFirstChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedRunningNode, 
+                    expectedRunningNode,
                     node.Status
                 )
             );
         }
+
         [Fact]
         public async Task ShouldReturnErrorStatusWhenNoChildrenAreInTraversal()
         {
@@ -101,6 +103,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 )
             );
         }
+
         [Fact]
         public async Task ShouldReturnRunningStatusWhenChildrenAreRunning()
         {
@@ -141,10 +144,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                     node.Status
                 )
             );
-            Assert.True(
-                actual.CheckTraversal
-            );
         }
+
         [Fact]
         public async Task ShouldRunNextNodeWhenChildHasReadyStatusAndNoSuccessOrRunning()
         {
@@ -194,6 +195,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 actual.CheckTraversal
             );
         }
+
         [Fact]
         public async Task ShouldReturnErrorStatusWhenChildrenAreAlsoError()
         {
@@ -237,6 +239,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 )
             );
         }
+
         [Fact]
         public async Task ShouldKeepVisitingTraversalWhenChildIsReadyStatus()
         {
@@ -280,24 +283,30 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 )
             );
         }
+
         [Fact]
-        public async Task ShouldKeepVisitingTraversalWhenChildIsFailedStatus()
+        public async Task ShouldErrorTraversalWhenAllChildenAreFailedStatus()
         {
             // Given
-            var expectedTraversalStatus = BehaviorNodeStatus.VISITING.ToString();
+            var expectedTraversalStatus = BehaviorNodeStatus.ERROR.ToString();
             var expectedChildStatus = BehaviorNodeStatus.FAILED.ToString();
             var actor = new DefaultEntity();
+            var childNode = new SerializedBehaviorNode
+            {
+                Status = BehaviorNodeStatus.FAILED.ToString()
+            };
             var state = new BehaviorTreeStateBuilder()
                 .Root(
                     new SerializedBehaviorNode
                     {
-                        Status = BehaviorNodeStatus.VISITING.ToString()
+                        Status = BehaviorNodeStatus.VISITING.ToString(),
+                        NodeList = new List<SerializedBehaviorNode>
+                        {
+                            childNode
+                        }
                     }
                 ).AddNode(
-                    new SerializedBehaviorNode
-                    {
-                        Status = BehaviorNodeStatus.FAILED.ToString()
-                    }
+                    childNode
                 )
                 .Build()
                 .PopActiveNodeFromQueue()
@@ -323,6 +332,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 )
             );
         }
+
         [Fact]
         public async Task ShouldKeepVisitingTraversalWhenChildIsVisitingStatus()
         {
@@ -362,6 +372,50 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 ),
                 node => Assert.Equal(
                     expectedChildStatus,
+                    node.Status
+                )
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldReturnVisitingStatusWhenTransversalIsSetToResetAndContainedInLastTraversal()
+        {
+            // Given
+            var expected = BehaviorNodeStatus.VISITING.ToString();
+            var actor = new DefaultEntity();
+            var currentTraversalNode = new SerializedBehaviorNode
+            {
+                Reset = true,
+                Status = BehaviorNodeStatus.READY.ToString()
+            };
+            var state = new BehaviorTreeStateBuilder()
+                .Root(
+                    currentTraversalNode
+                )
+                .Build()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack();
+
+            state.LastTraversalStack.Add(
+                state.ActiveTraversal.Token
+            );
+
+            // When
+            var actionInterpreter = new PrioritySelectorInterpreter();
+            var actual = await actionInterpreter.Run(
+                actor,
+                state
+            );
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual.ActiveNode.Status
+            );
+            Assert.Collection(
+                actual.NodeMap.Values,
+                node => Assert.Equal(
+                    expected,
                     node.Status
                 )
             );

@@ -77,6 +77,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             // When
             var moveRegisteredAgentsHandler = new RunUpdateOnAllBehaviorTreesHandler(
                 loggerMock.Object,
+                mediatorMock.Object,
                 actorBehaviorTreeRepositoryMock.Object,
                 serviceScopeFactoryMock.Object
             );
@@ -173,6 +174,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             // When
             var moveRegisteredAgentsHandler = new RunUpdateOnAllBehaviorTreesHandler(
                 loggerMock.Object,
+                mediatorMock.Object,
                 actorBehaviorTreeRepositoryMock.Object,
                 serviceScopeFactoryMock.Object
             );

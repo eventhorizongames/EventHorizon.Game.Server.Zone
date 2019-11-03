@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.TestUtils;
+using EventHorizon.Zone.Core.Reporter.Model;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
@@ -107,7 +108,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                         conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
-                )
+                ),
+                new Mock<ReportTracker>().Object
             );
 
             // When
@@ -183,7 +185,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                         conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
-                )
+                ),
+                new Mock<ReportTracker>().Object
             );
 
             // When
@@ -255,7 +258,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                         conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
-                )
+                ),
+                new Mock<ReportTracker>().Object
             );
 
             // When
@@ -362,7 +366,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                         conditionInterpreterLoggerMock.Object,
                         serviceScopeFactoryMock.Object
                     )
-                )
+                ),
+                new Mock<ReportTracker>().Object
             );
 
             var state = await interpreter.Tick(

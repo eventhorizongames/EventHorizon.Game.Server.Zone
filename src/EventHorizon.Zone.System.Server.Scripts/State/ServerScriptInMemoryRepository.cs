@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
+using EventHorizon.Zone.System.Server.Scripts.Exceptions;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 
 namespace EventHorizon.Zone.System.Server.Scripts.State
@@ -13,8 +14,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
         )
         {
             MAP.AddOrUpdate(
-                script.Id, 
-                script, 
+                script.Id,
+                script,
                 (key, old) => script
             );
         }
@@ -23,9 +24,17 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             string id
         )
         {
-            return MAP.Values.FirstOrDefault(
+            var script = MAP.Values.FirstOrDefault(
                 a => a.Id == id
             );
+            if (script == null)
+            {
+                throw new ServerScriptNotFound(
+                    id,
+                    "ServerScriptInMemoryRepository did not find the script."
+                );
+            }
+            return script;
         }
     }
 }

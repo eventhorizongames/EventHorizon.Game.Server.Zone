@@ -20,6 +20,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
+            behaviorTreeState = behaviorTreeState.Report(
+                "Priority Selector Interpreter START"
+            );
             if (behaviorTreeState.ContainedInLastTraversal(
                 behaviorTreeState.ActiveNode.Token
             ))
@@ -31,7 +34,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     .RemoveNodeFromLastTraversalStack(
                         behaviorTreeState.ActiveNode.Token
                     )
-                    .PushActiveNodeToTraversalStack()
+                    .PushActiveNodeToTraversalStack();
+                if (behaviorTreeState.ActiveNode.Reset)
+                {
+                    return Task.FromResult(
+                        behaviorTreeState
+                            .Report(
+                                "Priority Selector Interpreter EXIT"
+                            )
+                    );
+                }
+                behaviorTreeState = behaviorTreeState
                     .PopActiveNodeFromQueue();
                 while (
                     behaviorTreeState.IsActiveNodeValidAndNotRunning()
@@ -44,6 +57,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                 }
                 return Task.FromResult(
                     behaviorTreeState
+                        .Report(
+                            "Priority Selector Interpreter EXIT"
+                        )
                 );
             }
 
@@ -57,6 +73,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     )
                     .PushActiveNodeToTraversalStack()
                     .SetNextActiveNode()
+                    .Report(
+                        "Priority Selector Interpreter EXIT"
+                    )
                 );
             }
 
@@ -77,12 +96,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         ).AddActiveTraversalToNextStack(
                         // This add the Active Traversal to the Next Stack State
                         // The next stack state will be used in next tick/update calls
-                        ).PopActiveTraversalNode(
-                        // This will pop the current Active Traversal off the stack
-                        // This will allow for the Parent node to run processing.
                         ).SetTraversalToCheck(
                         // This will make the current Traversal Node Active
                         //  and ready for processing and validation
+                        ).PopActiveTraversalNode(
+                        // This will pop the current Active Traversal off the stack
+                        // This will allow for the Parent node to run processing.
+                        ).Report(
+                            "Priority Selector Interpreter EXIT"
                         )
                     );
                 }
@@ -101,12 +122,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         ).PopActiveTraversalNode(
                         // This will pop the current Active Traversal off the stack
                         // This will allow for the Parent node to run processing.
+                        ).Report(
+                            "Priority Selector Interpreter EXIT"
                         )
                     );
                 }
                 else if (BehaviorNodeStatus.READY.Equals(
-                    childNode.Status
-                ) || BehaviorNodeStatus.FAILED.Equals(
                     childNode.Status
                 ) || BehaviorNodeStatus.VISITING.Equals(
                     childNode.Status
@@ -116,6 +137,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         behaviorTreeState.SetNextActiveNode(
                         // This will set the next child node, in this Traversal node,
                         //  to be processed.
+                        ).Report(
+                            "Priority Selector Interpreter EXIT"
                         )
                     );
                 }
@@ -130,6 +153,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                 //  and ready for processing/validation
                 ).PopActiveTraversalNode(
                 // This will pop the current Active Traversal off the stack
+                ).Report(
+                    "Priority Selector Interpreter EXIT"
                 )
             );
         }

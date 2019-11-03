@@ -48,6 +48,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.Core.Client\EventHorizon.Zone.Core.Client.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Entity\EventHorizon.Zone.Core.Entity.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Map\EventHorizon.Zone.Core.Map.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Reporter\EventHorizon.Zone.Core.Reporter.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Server.Core.External\EventHorizon.Server.Core.External.csproj" />

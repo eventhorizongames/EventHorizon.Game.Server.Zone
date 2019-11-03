@@ -1,0 +1,50 @@
+{
+    "name": "Run From Player",
+    "description": "This is the behavior tree will run from closets player and wander if they are not in-sight.",
+    "root": {
+        "type": "PRIORITY_SELECTOR",
+        "reset": true,
+        "nodeList": [
+            {
+                "comment": "Will look for player, if found will run from.",
+                "type": "SEQUENCE_SELECTOR",
+                "nodeList": [
+                    {
+                        "type": "CONDITION",
+                        "fire": "Behavior_Condition_FindClosetsPlayer.csx"
+                    },
+                    {
+                        "type": "ACTION",
+                        "fire": "Behavior_Player_RunFromPlayer.csx"
+                    },
+                    {
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_MoveToLocation.csx"
+                    }
+                ]
+            },
+            {
+                "comment": "Will wander around the area.",
+                "type": "SEQUENCE_SELECTOR",
+                "nodeList": [
+                    {
+                        "comments": "Wait an amount of time before moving on.",
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_WaitSomeTime.csx"
+                    },
+                    {
+                        "comments": "This will return a action to populate the Agents move to path.",
+                        "comments2": "If the path is filled it will",
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_FindNewMoveLocation.csx"
+                    },
+                    {
+                        "comments": "This will will return a differed state of Actor movement.",
+                        "type": "ACTION",
+                        "fire": "Behavior_Action_MoveToLocation.csx"
+                    }
+                ]
+            }
+        ]
+    }
+}

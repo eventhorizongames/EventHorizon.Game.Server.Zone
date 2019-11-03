@@ -43,42 +43,39 @@ namespace EventHorizon.Zone.System.Agent.Save
             CancellationToken cancellationToken
         )
         {
-            using (var tracker = _performanceTracker.Track("Saving Agent State"))
+            var saveAgentList = new List<AgentDetails>();
+            foreach (var agent in await _agentRepository.All())
             {
-                var saveAgentList = new List<AgentDetails>();
-                foreach (var agent in await _agentRepository.All())
+                // Update "GLOBAL" agents, Add "LOCAL" to list to be saved.
+                if (agent.IsGlobal)
                 {
-                    // Update "GLOBAL" agents, Add "LOCAL" to list to be saved.
-                    if (agent.IsGlobal)
-                    {
-                        _agentConnection.UpdateAgent(
-                            AgentFromEntityToDetails.Map(
-                                agent
-                            )
-                        ).ConfigureAwait(
-                            false
-                        ).GetAwaiter();
-                    }
-                    else
-                    {
-                        saveAgentList.Add(
-                            AgentFromEntityToDetails.Map(
-                                agent
-                            )
-                        );
-                    }
+                    _agentConnection.UpdateAgent(
+                        AgentFromEntityToDetails.Map(
+                            agent
+                        )
+                    ).ConfigureAwait(
+                        false
+                    ).GetAwaiter();
                 }
-
-                // Save "LOCAL" agents
-                await _fileSaver.SaveToFile(
-                    GetAgentDataDirectory(),
-                    GetAgentFileName(),
-                    new AgentSaveState
-                    {
-                        AgentList = saveAgentList
-                    }
-                );
+                else
+                {
+                    saveAgentList.Add(
+                        AgentFromEntityToDetails.Map(
+                            agent
+                        )
+                    );
+                }
             }
+
+            // Save "LOCAL" agents
+            await _fileSaver.SaveToFile(
+                GetAgentDataDirectory(),
+                GetAgentFileName(),
+                new AgentSaveState
+                {
+                    AgentList = saveAgentList
+                }
+            );
         }
         private string GetAgentDataDirectory()
         {

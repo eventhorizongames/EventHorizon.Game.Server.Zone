@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
@@ -21,6 +20,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             BehaviorTreeState behaviorTreeState
         )
         {
+            behaviorTreeState = behaviorTreeState.Report(
+                "Concurrent Selector Interpreter START"
+            );
             if (BehaviorNodeStatus.READY.Equals(
                 behaviorTreeState.ActiveNode.Status
             ))
@@ -31,6 +33,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         BehaviorNodeStatus.VISITING
                     ).PushActiveNodeToTraversalStack()
                     .SetNextActiveNode()
+                    .Report(
+                        "Concurrent Selector Interpreter EXIT"
+                    )
                 );
             }
 
@@ -52,19 +57,20 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     foundFailed++;
                     if (foundFailed >= behaviorTreeState.ActiveTraversal.FailGate)
                     {
+                        behaviorTreeState = behaviorTreeState.SetStatusOnTraversalNode(
+                            BehaviorNodeStatus.FAILED
+                        ).SetTraversalToCheck(
+                        // This will make the current Traversal Node Active
+                        //  and ready for processing/validation
+                        ).PopActiveTraversalNode(
+                        // Because of failure we pop out of the Traversal node
+                        // This will make the Parent Node the Current Traversal
+                        );
                         return Task.FromResult(
-                            behaviorTreeState.SetStatusOnTraversalNode(
-                                BehaviorNodeStatus.FAILED
-                            ).SetTraversalToCheck(
-                            // This will make the current Traversal Node Active
-                            //  and ready for processing/validation
-                            ).PopActiveTraversalNode(
-                            // Because of failure we pop out of the Traversal node
-                            // This will make the Parent Node the Current Traversal
-                            ).AdvanceQueueToAfterPassedToken(
-                                behaviorTreeState.GetActiveTraversalChildren()
-                                    .Last()
-                                    .Token
+                            behaviorTreeState.AdvanceQueueToAfterPassedToken(
+                                behaviorTreeState.GetActiveTraversalLastChild()
+                            ).Report(
+                                "Concurrent Selector Interpreter EXIT"
                             )
                         );
                     }
@@ -91,6 +97,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     behaviorTreeState.SetNextActiveNode(
                     // This will set the next node to be processed.
                     // In this case should be the next Child
+                    ).Report(
+                        "Concurrent Selector Interpreter EXIT"
                     )
                 );
             }
@@ -112,6 +120,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     ).PopActiveTraversalNode(
                     // This will pop the current Active Traversal off the stack
                     // This will allow for the Parent node to run processing.
+                    ).Report(
+                        "Concurrent Selector Interpreter EXIT"
                     )
                 );
             }
@@ -125,6 +135,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                 //  and ready for processing/validation
                 ).PopActiveTraversalNode(
                 // This will pop the current Active Traversal off the stack
+                ).Report(
+                    "Concurrent Selector Interpreter EXIT"
                 )
             );
         }

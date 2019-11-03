@@ -9,9 +9,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         public int Token { get; }
         public BehaviorNodeType Type { get; }
         public string Status { get; private set; }
+        public IList<BehaviorNode> NodeList { get; private set; }
+        public bool IsTraversal { get; }
         public string Fire { get; }
         public int FailGate { get; }
-        public IList<BehaviorNode> NodeList { get; private set; }
+        public bool Reset { get; }
 
         public BehaviorNode ClearNodeList()
         {
@@ -26,7 +28,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             if (serailzedNode == null)
             {
                 throw new ArgumentException(
-                    "BehaviorNode requires a valid SerializedBehaviorNode", 
+                    "BehaviorNode requires a valid SerializedBehaviorNode",
                     "serailzedNode"
                 );
             }
@@ -35,9 +37,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
                 serailzedNode.Type
             );
             this.Status = serailzedNode.Status;
+
+            this.NodeList = new List<BehaviorNode>();
+            this.IsTraversal = this.Type.IsTraversal;
+
             this.Fire = serailzedNode.Fire;
             this.FailGate = serailzedNode.FailGate;
-            this.NodeList = new List<BehaviorNode>();
+            this.Reset = serailzedNode.Reset;
+
             if (serailzedNode.NodeList != null)
             {
                 this.NodeList = serailzedNode.NodeList
@@ -55,6 +62,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         {
             this.Status = status;
             return this;
+        }
+
+
+        public override string ToString()
+        {
+            return $"{Token} : {Type}";
         }
     }
 }

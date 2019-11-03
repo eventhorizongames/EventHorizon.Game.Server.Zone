@@ -15,6 +15,7 @@ namespace EventHorizon.Zone.Core.Map.Find
     {
         readonly IMediator _mediator;
         readonly IMapGraph _map;
+
         public FindPathHandler(
             IMediator mediator,
             IMapGraph map
@@ -23,16 +24,24 @@ namespace EventHorizon.Zone.Core.Map.Find
             _mediator = mediator;
             _map = map;
         }
-        public async Task<Queue<Vector3>> Handle(FindPathEvent request, CancellationToken cancellationToken)
+        
+        public async Task<Queue<Vector3>> Handle(
+            FindPathEvent request, 
+            CancellationToken cancellationToken
+        )
         {
-            var fromMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
-            {
-                Position = request.From,
-            });
-            var toMapNode = await _mediator.Send(new GetMapNodeAtPositionEvent
-            {
-                Position = request.To,
-            });
+            var fromMapNode = await _mediator.Send(
+                new GetMapNotDenseNodeAtPosition
+                {
+                    Position = request.From,
+                }
+            );
+            var toMapNode = await _mediator.Send(
+                new GetMapNotDenseNodeAtPosition
+                {
+                    Position = request.To,
+                }
+            );
 
             return AStarSearch.CreatePath(
                 _map,
