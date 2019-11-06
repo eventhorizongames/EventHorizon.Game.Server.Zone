@@ -7,7 +7,6 @@ using System.Threading;
 using MediatR;
 using System;
 using static EventHorizon.TimerService.TimerWrapper;
-using Microsoft.Extensions.Logging.Internal;
 using System.Threading.Tasks;
 
 namespace EventHorizon.TimerService.Tests.TimerService
@@ -343,9 +342,10 @@ namespace EventHorizon.TimerService.Tests.TimerService
         }
 
         [Fact]
-        public void TestOnExceptionDuringCallToOnRunEventShouldLogErrorMessage()
+        public void ShouldNotBubbleExceptionAndStillFinishWhenExceptionisThrownOnEventFiring()
         {
             // Given
+            var expected = false;
             var timerState = new TimerState();
             var tag = "tag";
             var inputPeriod = 100;
@@ -414,25 +414,16 @@ namespace EventHorizon.TimerService.Tests.TimerService
             );
 
             // Then
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        value => value.ToString()
-                            .StartsWith(
-                                $"Timer Exception. \nTimerState: \n | Id: {timerState.Id} \n | Guid: {timerState.Guid} \n | Tag: {tag}"
-                            )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
+            Assert.Equal(
+                expected,
+                timerState.IsRunning
             );
         }
         [Fact]
         public void TestOnLongRunningCallShouldLogWarningMessage()
         {
             // Given
+            var expected = false;
             var timerState = new TimerState();
             var tag = "tag";
             var inputPeriod = 10;
@@ -502,19 +493,9 @@ namespace EventHorizon.TimerService.Tests.TimerService
             );
 
             // Then
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Warning,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        value => value.ToString()
-                            .StartsWith(
-                                $"Timer ran long. \nTimerState: \n | Id: {timerState.Id} \n | Guid: {timerState.Guid} \n | Tag: {tag}"
-                            )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
+            Assert.Equal(
+                expected,
+                timerState.IsRunning
             );
         }
     }

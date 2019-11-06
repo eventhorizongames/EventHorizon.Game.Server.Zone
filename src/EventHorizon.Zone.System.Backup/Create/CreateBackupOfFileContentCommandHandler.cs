@@ -13,7 +13,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Backup.Create
 {
-    public struct CreateBackupOfFileContentCommandHandler : IRequestHandler<CreateBackupOfFileContentCommand, BackupFileResponse>
+    public class CreateBackupOfFileContentCommandHandler : IRequestHandler<CreateBackupOfFileContentCommand, BackupFileResponse>
     {
         private static DateTime JAVASCRIPT_OFFSET = new DateTime(
             1970,

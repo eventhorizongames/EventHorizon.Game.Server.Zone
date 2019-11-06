@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Plugin.Editor.Skills.Query
 {
-    public struct EditorSystemCombatSkillScriptsFileQueryHandler : IRequestHandler<EditorSystemCombatSkillScriptsFileQuery, EditorSystemCombatSkillScriptsFile>
+    public class EditorSystemCombatSkillScriptsFileQueryHandler : IRequestHandler<EditorSystemCombatSkillScriptsFileQuery, EditorSystemCombatSkillScriptsFile>
     {
         readonly IMediator _mediator;
 

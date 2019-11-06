@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
-    public struct LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
+    public class LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
-    public struct LoadActorBehaviorScriptsHandler : IRequestHandler<LoadActorBehaviorScripts>
+    public class LoadActorBehaviorScriptsHandler : IRequestHandler<LoadActorBehaviorScripts>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

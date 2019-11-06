@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace EventHorizon.Game.Server.Zone.Plugin
 {
@@ -13,7 +14,7 @@ namespace EventHorizon.Game.Server.Zone.Plugin
     {
         public static IServiceCollection AddPlugins(
             this IServiceCollection services,
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostingEnvironment
         )
         {
             return services

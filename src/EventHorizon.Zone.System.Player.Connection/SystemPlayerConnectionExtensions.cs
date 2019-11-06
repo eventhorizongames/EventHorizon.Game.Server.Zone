@@ -24,14 +24,5 @@ namespace EventHorizon.Game.Server.Zone
                 )
             ;
         }
-        public static IApplicationBuilder UseSystemPlayerConnection(
-            this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-            }
-            return app;
-        }
     }
 }

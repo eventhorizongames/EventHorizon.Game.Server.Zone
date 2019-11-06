@@ -9,7 +9,7 @@ using EventHorizon.Zone.System.Agent.Events.Register;
 
 namespace EventHorizon.Zone.System.Agent.UnRegister
 {
-    public struct UnRegisterAgentHandler : IRequestHandler<UnRegisterAgent>
+    public class UnRegisterAgentHandler : IRequestHandler<UnRegisterAgent>
     {
         readonly IMediator _mediator;
         public UnRegisterAgentHandler(

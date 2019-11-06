@@ -8,7 +8,6 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Update;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Xunit;
 using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Update.RunUpdateOnAllBehaviorTrees;
@@ -87,16 +86,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             );
 
             // Then
-            loggerMock.Verify(
-                logger => logger.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(v => v.ToString().Contains("failed Run.")),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                ),
-                Times.Never()
-            );
             mediatorMock.Verify(
                 mediator => mediator.Publish(
                     expectedRunBehaviorTreeUpdate1,
@@ -117,7 +106,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             );
         }
         [Fact]
-        public async Task OnErrorShouldLogTheTreeName()
+        public async Task ShouldNotBubbleErrorsWhenExceptionIsThrown()
         {
             // Given
             var treeId1 = "tree-1";
@@ -184,15 +173,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             );
 
             // Then
-            loggerMock.Verify(
-                logger => logger.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(v => v.ToString().Contains("tree-1 failed Run.")),
-                    expectedError,
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
         }
     }
 }

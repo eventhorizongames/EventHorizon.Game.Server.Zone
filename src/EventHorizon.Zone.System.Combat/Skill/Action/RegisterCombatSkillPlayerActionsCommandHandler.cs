@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Action
 {
-    public struct RegisterCombatSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    public class RegisterCombatSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
     {
         readonly IMediator _mediator;
         readonly IdPool _idPool;

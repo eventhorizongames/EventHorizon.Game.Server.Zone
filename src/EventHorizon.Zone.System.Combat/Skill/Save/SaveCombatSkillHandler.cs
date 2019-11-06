@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Save
 {
-    public struct SaveCombatSkillHandler : IRequestHandler<SaveCombatSkillEvent, SkillInstance>
+    public class SaveCombatSkillHandler : IRequestHandler<SaveCombatSkillEvent, SkillInstance>
     {
         readonly ISkillRepository _skillRepository;
         public SaveCombatSkillHandler(

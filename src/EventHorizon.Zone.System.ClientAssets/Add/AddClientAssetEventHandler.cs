@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientAssets.Add
 {
-    public struct AddClientAssetEventHandler : INotificationHandler<AddClientAssetEvent>
+    public class AddClientAssetEventHandler : INotificationHandler<AddClientAssetEvent>
     {
         readonly ClientAssetRepository _assetRepository;
         public AddClientAssetEventHandler(

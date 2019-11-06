@@ -1,40 +1,25 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Backup.Events;
+using EventHorizon.Zone.System.Editor.Events.Save;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EventHorizon.Zone.System.Editor.Delete
+namespace EventHorizon.Zone.System.Editor.Save
 {
-    public class DeleteEditorFile : IRequest<EditorResponse>
-    {
-        public IList<string> FilePath { get; }
-        public string FileName { get; }
-
-        public DeleteEditorFile(
-            IList<string> path,
-            string fileName
-        )
-        {
-            FilePath = path;
-            FileName = fileName;
-        }
-    }
-
-    public struct DeleteEditorFileHandler : IRequestHandler<DeleteEditorFile, EditorResponse>
+    public class SaveEditorFileContentHandler : IRequestHandler<SaveEditorFileContent, EditorResponse>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
 
-        public DeleteEditorFileHandler(
-            ILogger<DeleteEditorFileHandler> logger,
+        public SaveEditorFileContentHandler(
+            ILogger<SaveEditorFileContentHandler> logger,
             IMediator mediator,
             ServerInfo serverInfo
         )
@@ -45,7 +30,7 @@ namespace EventHorizon.Zone.System.Editor.Delete
         }
 
         public async Task<EditorResponse> Handle(
-            DeleteEditorFile request,
+            SaveEditorFileContent request,
             CancellationToken cancellationToken
         )
         {
@@ -73,7 +58,16 @@ namespace EventHorizon.Zone.System.Editor.Delete
                         )
                     );
                 }
-                fileInfo.Delete();
+
+                if (!fileInfo.Directory.Exists)
+                {
+                    fileInfo.Directory.Create();
+                }
+
+                File.WriteAllText(
+                    fileInfo.FullName,
+                    request.Content
+                );
 
                 return new EditorResponse(
                     true
@@ -82,7 +76,7 @@ namespace EventHorizon.Zone.System.Editor.Delete
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Delete Editor File.",
+                    "Failed to Save Editor File Content.",
                     ex
                 );
                 return new EditorResponse(

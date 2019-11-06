@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Particle.Add
 {
-    public struct AddParticleTemplateHandler : INotificationHandler<AddParticleTemplateEvent>
+    public class AddParticleTemplateHandler : INotificationHandler<AddParticleTemplateEvent>
     {
         readonly ParticleTemplateRepository _repository;
         public AddParticleTemplateHandler(

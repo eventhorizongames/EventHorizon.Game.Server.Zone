@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Watcher.Start
 {
-    public struct StartWatchingFileSystemCommandHandler : IRequestHandler<StartWatchingFileSystemCommand>
+    public class StartWatchingFileSystemCommandHandler : IRequestHandler<StartWatchingFileSystemCommand>
     {
         readonly PendingReloadState _pendingReload;
         readonly FileSystemWatcherState _watcherState;

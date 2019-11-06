@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Player.Interaction.Run
 {
-    public struct RunEntityInteractionActionEventHandler : INotificationHandler<RunEntityInteractionActionEvent>
+    public class RunEntityInteractionActionEventHandler : INotificationHandler<RunEntityInteractionActionEvent>
     {
         readonly IMediator _mediator;
         public RunEntityInteractionActionEventHandler(

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Watcher.Check
 {
-    public struct CheckPendingReloadEventHandler : INotificationHandler<CheckPendingReloadEvent>
+    public class CheckPendingReloadEventHandler : INotificationHandler<CheckPendingReloadEvent>
     {
         readonly IMediator _mediator;
         readonly ILogger _logger;

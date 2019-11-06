@@ -1,13 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Admin.ExternalHub;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Respond
+namespace EventHorizon.Zone.System.Admin.ExternalHub.Respond
 {
-    public struct RespondToAdminCommandHandler : IRequestHandler<RespondToAdminCommand, bool>
+    public class RespondToAdminCommandHandler : IRequestHandler<RespondToAdminCommand, bool>
     {
         readonly IHubContext<AdminHub> _hubContext;
         public RespondToAdminCommandHandler(

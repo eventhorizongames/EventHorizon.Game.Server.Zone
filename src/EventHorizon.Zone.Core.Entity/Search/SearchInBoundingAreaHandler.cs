@@ -9,7 +9,7 @@ using EventHorizon.Zone.Core.Entity.State;
 
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public struct SearchInBoundingAreaHandler : IRequestHandler<SearchInBoundingAreaCommand, IEnumerable<long>>
+    public class SearchInBoundingAreaHandler : IRequestHandler<SearchInBoundingAreaCommand, IEnumerable<long>>
     {
         readonly EntitySearchTree _entitySearchTree;
         public SearchInBoundingAreaHandler(

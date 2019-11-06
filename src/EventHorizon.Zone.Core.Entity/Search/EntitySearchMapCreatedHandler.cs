@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public struct EntitySearchMapCreatedHandler : INotificationHandler<MapCreatedEvent>
+    public class EntitySearchMapCreatedHandler : INotificationHandler<MapCreatedEvent>
     {
         readonly IMapDetails _mapDetails;
         readonly EntitySearchTree _searchTree;

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
 {
-    public struct StopPlayerEventHandler : INotificationHandler<StopPlayerEvent>
+    public class StopPlayerEventHandler : INotificationHandler<StopPlayerEvent>
     {
         readonly IMediator _mediator;
         

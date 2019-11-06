@@ -11,7 +11,7 @@ using EventHorizon.Zone.Core.Model.Map;
 
 namespace EventHorizon.Zone.Core.Map.Find
 {
-    public struct FindPathHandler : IRequestHandler<FindPathEvent, Queue<Vector3>>
+    public class FindPathHandler : IRequestHandler<FindPathEvent, Queue<Vector3>>
     {
         readonly IMediator _mediator;
         readonly IMapGraph _map;

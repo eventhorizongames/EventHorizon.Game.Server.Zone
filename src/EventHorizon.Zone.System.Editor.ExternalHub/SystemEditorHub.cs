@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Editor.Create;
-using EventHorizon.Zone.System.Editor.Delete;
-using EventHorizon.Zone.System.Editor.Events;
+using EventHorizon.Zone.System.Editor.Events.Create;
+using EventHorizon.Zone.System.Editor.Events.Delete;
+using EventHorizon.Zone.System.Editor.Events.Save;
+using EventHorizon.Zone.System.Editor.Events.State;
 using EventHorizon.Zone.System.Editor.Model;
-using EventHorizon.Zone.System.Editor.Save;
-using EventHorizon.Zone.System.Editor.State;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -33,7 +32,7 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
             return Task.CompletedTask;
         }
 
-        public Task<EditorState> GetEditorState()
+        public Task<IEditorNodeList> GetEditorState()
         {
             return _mediator.Send(
                 new GetEditorState()

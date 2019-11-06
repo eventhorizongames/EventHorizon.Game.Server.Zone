@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public struct RemoveSearchEntityOnUnregisteredHandler : INotificationHandler<EntityUnRegisteredEvent>
+    public class RemoveSearchEntityOnUnregisteredHandler : INotificationHandler<EntityUnRegisteredEvent>
     {
         readonly EntitySearchTree _entitySearchTree;
         public RemoveSearchEntityOnUnregisteredHandler(

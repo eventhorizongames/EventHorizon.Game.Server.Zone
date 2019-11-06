@@ -12,7 +12,7 @@ using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
 
 namespace EventHorizon.Zone.System.Interaction.Run
 {
-    public struct RunInteractionCommandHandler : IRequestHandler<RunInteractionCommand>
+    public class RunInteractionCommandHandler : IRequestHandler<RunInteractionCommand>
     {
         readonly IMediator _mediator;
         public RunInteractionCommandHandler(

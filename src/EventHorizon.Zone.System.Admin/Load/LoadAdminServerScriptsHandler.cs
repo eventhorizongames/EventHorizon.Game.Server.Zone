@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Load
 {
-    public struct LoadAdminServerScriptsHandler : IRequestHandler<LoadServerScriptsCommand>
+    public class LoadAdminServerScriptsHandler : IRequestHandler<LoadServerScriptsCommand>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

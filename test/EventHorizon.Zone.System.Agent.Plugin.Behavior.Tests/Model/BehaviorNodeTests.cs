@@ -11,7 +11,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
         {
             // Given
             var expectedParam = "serailzedNode";
-            var expectedMessage = $"BehaviorNode requires a valid SerializedBehaviorNode{Environment.NewLine}Parameter name: serailzedNode";
+            var expectedMessage = $"BehaviorNode requires a valid SerializedBehaviorNode (Parameter 'serailzedNode')";
 
             // When
             Action testAction = () => new BehaviorNode(null);

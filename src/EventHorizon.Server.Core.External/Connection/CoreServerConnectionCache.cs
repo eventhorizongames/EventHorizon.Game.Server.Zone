@@ -9,8 +9,9 @@ namespace EventHorizon.Server.Core.External.Connection
     {
         Task Stop();
         Task<HubConnection> GetConnection(
-            string url, 
-            Action<HttpConnectionOptions> configureHttpConnection
+            string url,
+            Action<HttpConnectionOptions> configureHttpConnection,
+            Func<Exception, Task> onClosed
         );
     }
 }

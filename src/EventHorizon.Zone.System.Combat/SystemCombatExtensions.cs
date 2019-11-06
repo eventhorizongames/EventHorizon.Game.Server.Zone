@@ -10,6 +10,8 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using EventHorizon.Zone.System.Combat.Load;
 using Microsoft.AspNetCore.Builder;
+using EventHorizon.Zone.System.Combat.Level;
+using EventHorizon.Zone.System.Combat.Level.Upgrade;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {
@@ -23,6 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<ISkillRepository, SkillRepository>()
                 .AddSingleton<IEntityQueue<ChangeEntityLife>, EntityQueue<ChangeEntityLife>>()
                 .AddSingleton<IEntityQueue<EntityLevelUp>, EntityQueue<EntityLevelUp>>()
+                .AddSingleton<ILevelStateUpgrade, LevelStateUpgrade>()
                 .AddSingleton<ILifeStateChange, LifeStateChange>()
 
                 .AddTransient<IScriptServices, ScriptServices>()

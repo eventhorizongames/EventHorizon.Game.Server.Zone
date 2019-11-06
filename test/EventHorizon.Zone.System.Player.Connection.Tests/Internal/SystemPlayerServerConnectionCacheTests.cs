@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Player.Connection.Internal;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Xunit;
 
@@ -23,7 +22,6 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
         {
             // Given
             var url = "http://player_server_url";
-            var expected = "Error connecting to player hub";
 
             var loggerMock = new Mock<ILogger<SystemPlayerServerConnectionCache>>();
 
@@ -40,20 +38,6 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
             // Then
             await Assert.ThrowsAsync<HttpRequestException>(
                 connectionAction
-            );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
             );
         }
 

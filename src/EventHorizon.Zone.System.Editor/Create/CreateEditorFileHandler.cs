@@ -1,39 +1,24 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.System.Editor.Events.Create;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EventHorizon.Zone.System.Editor.Delete
+namespace EventHorizon.Zone.System.Editor.Create
 {
-    public struct DeleteEditorFolder : IRequest<EditorResponse>
-    {
-        public IList<string> FolderPath { get; }
-        public string FolderName { get; }
-
-        public DeleteEditorFolder(
-            IList<string> path,
-            string folderName
-        )
-        {
-            FolderPath = path;
-            FolderName = folderName;
-        }
-    }
-
-    public struct DeleteEditorFolderHandler : IRequestHandler<DeleteEditorFolder, EditorResponse>
+    public class CreateEditorFileHandler : IRequestHandler<CreateEditorFile, EditorResponse>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
 
-        public DeleteEditorFolderHandler(
-            ILogger<DeleteEditorFolderHandler> logger,
+        public CreateEditorFileHandler(
+            ILogger<CreateEditorFileHandler> logger,
             IMediator mediator,
             ServerInfo serverInfo
         )
@@ -44,33 +29,36 @@ namespace EventHorizon.Zone.System.Editor.Delete
         }
 
         public Task<EditorResponse> Handle(
-            DeleteEditorFolder request,
+            CreateEditorFile request,
             CancellationToken cancellationToken
         )
         {
             try
             {
-                var folderPath = Path.Combine(
+                var filePath = Path.Combine(
                     _serverInfo.AppDataPath,
                     Path.Combine(
-                        request.FolderPath.ToArray()
+                        request.FilePath.ToArray()
                     ),
-                    request.FolderName
+                    request.FileName
                 );
-                var folderInfo = new DirectoryInfo(
-                    folderPath
+                var fileInfo = new FileInfo(
+                    filePath
                 );
-                if (folderInfo.GetFiles().Length > 0
-                    || folderInfo.GetDirectories().Length > 0)
+                if (fileInfo.Exists)
                 {
                     return Task.FromResult(
                         new EditorResponse(
                             false,
-                            "folder_not_empty"
+                            "file_already_exists"
                         )
                     );
                 }
-                folderInfo.Delete();
+                if (!fileInfo.Directory.Exists)
+                {
+                    fileInfo.Directory.Create();
+                }
+                using (fileInfo.Create()) { }
 
                 return Task.FromResult(
                     new EditorResponse(
@@ -81,7 +69,7 @@ namespace EventHorizon.Zone.System.Editor.Delete
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Delete Editor File.",
+                    "Failed to Create Editor File.",
                     ex
                 );
                 return Task.FromResult(

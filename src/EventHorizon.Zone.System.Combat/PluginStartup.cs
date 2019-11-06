@@ -1,11 +1,9 @@
-using EventHorizon.Game.Server.Zone.Plugin;
-using EventHorizon.Zone.System.Combat.Events;
 using EventHorizon.Zone.System.Combat.Load;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat
 {
-    public class PluginStartup : IPluginStartup
+    public class PluginStartup
     {
         public string[] DependentPluginList()
         {

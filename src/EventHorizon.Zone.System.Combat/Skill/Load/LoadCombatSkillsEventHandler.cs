@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Load
 {
-    public struct LoadCombatSkillsEventHandler : INotificationHandler<LoadCombatSkillsEvent>
+    public class LoadCombatSkillsEventHandler : INotificationHandler<LoadCombatSkillsEvent>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;

@@ -5,6 +5,7 @@ using EventHorizon.Server.Core.External.Connection.Internal;
 using EventHorizon.Server.Core.External.Model;
 using MediatR;
 using Microsoft.AspNetCore.Http.Connections.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -47,7 +48,8 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
                 loggerFactoryMock.Object,
                 mediatorMock.Object,
                 optionsMock.Object,
-                connectionCacheMock.Object
+                connectionCacheMock.Object,
+                new Mock<IServiceScopeFactory>().Object
             );
 
             var actual = await factory.GetConnection();
@@ -59,7 +61,8 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
             connectionCacheMock.Verify(
                 mock => mock.GetConnection(
                     $"{server}/zoneCore",
-                    It.IsAny<Action<HttpConnectionOptions>>()
+                    It.IsAny<Action<HttpConnectionOptions>>(),
+                    It.IsAny<Func<Exception, Task>>()
                 )
             );
         }

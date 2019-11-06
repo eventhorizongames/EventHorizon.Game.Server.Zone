@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Load
 {
-    public struct LoadCombatSkillEffectScriptsHandler : IRequestHandler<LoadCombatSkillEffectScripts>
+    public class LoadCombatSkillEffectScriptsHandler : IRequestHandler<LoadCombatSkillEffectScripts>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

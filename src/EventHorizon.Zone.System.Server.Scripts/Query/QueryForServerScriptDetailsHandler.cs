@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Query
 {
-    public struct QueryForServerScriptDetailsHandler : IRequestHandler<QueryForServerScriptDetails, IEnumerable<ServerScriptDetails>>
+    public class QueryForServerScriptDetailsHandler : IRequestHandler<QueryForServerScriptDetails, IEnumerable<ServerScriptDetails>>
     {
         readonly ServerScriptDetailsRepository _repository;
 

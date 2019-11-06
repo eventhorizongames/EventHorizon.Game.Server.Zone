@@ -11,7 +11,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
 {
-    public struct MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
+    public class MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
     {
         readonly IMediator _mediator;
         readonly IPerformanceTracker _performanceTracker;

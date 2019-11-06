@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public struct EntityPositionChangedHandler : INotificationHandler<EntityActionEvent>
+    public class EntityPositionChangedHandler : INotificationHandler<EntityActionEvent>
     {
         readonly EntitySearchTree _searchTree;
         public EntityPositionChangedHandler(

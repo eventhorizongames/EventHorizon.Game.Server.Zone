@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Get
 {
-    public struct FindAgentByIdHandler : IRequestHandler<FindAgentByIdEvent, AgentEntity>
+    public class FindAgentByIdHandler : IRequestHandler<FindAgentByIdEvent, AgentEntity>
     {
         readonly IAgentRepository _agentRepository;
         public FindAgentByIdHandler(

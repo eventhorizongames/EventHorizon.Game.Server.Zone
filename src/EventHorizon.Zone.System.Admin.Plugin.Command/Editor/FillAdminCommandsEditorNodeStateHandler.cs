@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Editor
 {
-    public struct FillAdminCommandsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillAdminCommandsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

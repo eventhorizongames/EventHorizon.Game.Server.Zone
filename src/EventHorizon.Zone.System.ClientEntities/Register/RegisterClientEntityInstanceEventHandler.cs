@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientEntities.Register
 {
-    public struct RegisterClientEntityInstanceEventHandler : INotificationHandler<RegisterClientEntityInstanceEvent>
+    public class RegisterClientEntityInstanceEventHandler : INotificationHandler<RegisterClientEntityInstanceEvent>
     {
         readonly IMediator _mediator;
         readonly ClientEntityInstanceRepository _clientEntityRepository;

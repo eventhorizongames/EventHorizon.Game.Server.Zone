@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Load
 {
-    public struct LoadSystemCombatSkillScriptsEventHandler : INotificationHandler<LoadSystemCombatSkillScriptsEvent>
+    public class LoadSystemCombatSkillScriptsEventHandler : INotificationHandler<LoadSystemCombatSkillScriptsEvent>
     {
         readonly IMediator _mediator;
 

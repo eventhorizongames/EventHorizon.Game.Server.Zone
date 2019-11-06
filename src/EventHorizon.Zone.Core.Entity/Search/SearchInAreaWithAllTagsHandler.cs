@@ -10,7 +10,7 @@ using EventHorizon.Zone.Core.Events.Entity.Search;
 
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public struct SearchInAreaWithAllTagsHandler : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
+    public class SearchInAreaWithAllTagsHandler : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
     {
         readonly EntitySearchTree _entitySearchTree;
         public SearchInAreaWithAllTagsHandler(

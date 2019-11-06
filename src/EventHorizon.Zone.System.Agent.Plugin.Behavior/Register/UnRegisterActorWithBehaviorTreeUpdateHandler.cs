@@ -5,7 +5,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
-    public struct UnRegisterActorWithBehaviorTreeUpdateHandler : IRequestHandler<UnRegisterActorWithBehaviorTreeUpdate>
+    public class UnRegisterActorWithBehaviorTreeUpdateHandler : IRequestHandler<UnRegisterActorWithBehaviorTreeUpdate>
     {
         readonly ActorBehaviorTreeRepository _repository;
         public UnRegisterActorWithBehaviorTreeUpdateHandler(

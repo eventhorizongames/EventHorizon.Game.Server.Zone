@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Update
             string treeId
         ) => TreeId = treeId;
 
-        public struct RunBehaviorTreeUpdateHandler : INotificationHandler<RunBehaviorTreeUpdate>
+        public class RunBehaviorTreeUpdateHandler : INotificationHandler<RunBehaviorTreeUpdate>
         {
             readonly IMediator _mediator;
             readonly ActorBehaviorTreeRepository _repository;

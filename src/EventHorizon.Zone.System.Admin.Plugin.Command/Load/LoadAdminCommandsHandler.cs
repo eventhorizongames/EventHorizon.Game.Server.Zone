@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Load
 {
-    public struct LoadAdminCommandsHandler : IRequestHandler<LoadAdminCommands>
+    public class LoadAdminCommandsHandler : IRequestHandler<LoadAdminCommands>
     {
         readonly ServerInfo _serverInfo;
         readonly AdminCommandRepository _adminCommandRepository;

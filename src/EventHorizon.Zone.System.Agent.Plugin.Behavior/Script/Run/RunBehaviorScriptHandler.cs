@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
 {
-    public struct RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
+    public class RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;

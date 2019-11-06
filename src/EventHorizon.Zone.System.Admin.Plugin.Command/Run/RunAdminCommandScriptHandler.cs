@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Run
 {
-    public struct RunAdminCommandScriptHandler : INotificationHandler<AdminCommandEvent>
+    public class RunAdminCommandScriptHandler : INotificationHandler<AdminCommandEvent>
     {
         private const string INVALID_RUN_ERROR_CODE = "base_script_response";
 

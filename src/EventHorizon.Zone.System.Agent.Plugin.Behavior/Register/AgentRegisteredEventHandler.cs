@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
-    public struct AgentRegisteredEventHandler : INotificationHandler<AgentRegisteredEvent>
+    public class AgentRegisteredEventHandler : INotificationHandler<AgentRegisteredEvent>
     {
         readonly IMediator _mediator;
         public AgentRegisteredEventHandler(

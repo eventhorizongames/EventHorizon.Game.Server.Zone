@@ -9,7 +9,7 @@ using MediatR;
 namespace EventHorizon.Game.Server.Zone.Server.Editor
 {
     // TODO: Move this out into a Server.Scripts.Plugin.Editor Project
-    public struct FillServerScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillServerScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 

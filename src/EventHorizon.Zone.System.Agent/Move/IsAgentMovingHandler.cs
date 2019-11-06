@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Move
 {
-    public struct IsAgentMovingHandler : IRequestHandler<IsAgentMoving, bool>
+    public class IsAgentMovingHandler : IRequestHandler<IsAgentMoving, bool>
     {
         readonly IAgentRepository _agentRepository;
         public IsAgentMovingHandler(

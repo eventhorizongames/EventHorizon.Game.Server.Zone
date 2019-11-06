@@ -1,10 +1,11 @@
 using System;
+using System.Net;
 using System.Threading.Tasks;
 using EventHorizon.Server.Core.External.Connection.Internal;
+using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Xunit;
 
@@ -20,7 +21,6 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
         public void TestShouldLogErrorWhenGenericActionIsCalled()
         {
             // Given
-            var expected = "Generic On Action failed";
             var actionName = "action-name";
             Action<TestResult> actionToRun = result => { };
 
@@ -41,27 +41,12 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
             Assert.Throws<NullReferenceException>(
                 action
             );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
         }
 
         [Fact]
         public void TestShouldLogErrorWhenActionIsCalled()
         {
             // Given
-            var expected = "On Action failed";
             var actionName = "action-name";
             Action actionToRun = () => { };
 
@@ -82,27 +67,12 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
             Assert.Throws<NullReferenceException>(
                 action
             );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
         }
 
         [Fact]
         public async Task TestShouldLogErrorWhenGenericSendActionIsCalled()
         {
             // Given
-            var expected = "Generic Send Action failed";
             var actionName = "action-name";
             var actionArgs = new[] { "arg1" };
 
@@ -123,27 +93,12 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
             await Assert.ThrowsAsync<NullReferenceException>(
                 action
             );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
         }
 
         [Fact]
         public async Task TestShouldLogErrorWhenSendActionIsCalled()
         {
             // Given
-            var expected = "Send Action failed";
             var actionName = "action-name";
             var actionArgs = new[] { "arg1" };
 
@@ -164,20 +119,6 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
             await Assert.ThrowsAsync<NullReferenceException>(
                 action
             );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
         }
 
         public struct TestResult
@@ -191,6 +132,7 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
                 : base(
                     new Mock<IConnectionFactory>().Object,
                     new Mock<IHubProtocol>().Object,
+                    new Mock<EndPoint>().Object,
                     new Mock<IServiceProvider>().Object,
                     new Mock<ILoggerFactory>().Object
                 )

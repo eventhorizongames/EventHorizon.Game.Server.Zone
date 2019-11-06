@@ -10,7 +10,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Map.Cost
 {
-    public struct ChangeEdgeCostForNodeAtPositionCommandHandler : IRequestHandler<ChangeEdgeCostForNodeAtPositionCommand, bool>
+    public class ChangeEdgeCostForNodeAtPositionCommandHandler : IRequestHandler<ChangeEdgeCostForNodeAtPositionCommand, bool>
     {
         readonly IMediator _mediator;
         readonly IMapGraph _map;

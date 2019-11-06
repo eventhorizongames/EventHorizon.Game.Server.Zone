@@ -35,7 +35,8 @@ namespace EventHorizon.Server.Core.External.Connection.Internal
 
         public async Task<HubConnection> GetConnection(
             string url,
-            Action<HttpConnectionOptions> configureHttpConnection
+            Action<HttpConnectionOptions> configureHttpConnection,
+            Func<Exception, Task> onClosed
         )
         {
             if (_connection == null)
@@ -52,8 +53,9 @@ namespace EventHorizon.Server.Core.External.Connection.Internal
                     {
                         _connection = null;
                         // TODO: Add publish of Connection Closed Event
-                        return Task.FromResult(0);
+                        return Task.CompletedTask;
                     };
+                    _connection.Closed += onClosed;
                     await _connection.StartAsync();
                 }
                 catch (Exception ex)

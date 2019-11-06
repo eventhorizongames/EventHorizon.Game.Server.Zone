@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.Core.Model.Math
         public static int MAX_LEVEL = 8;
         private float _maxDistance;
         private Cell<T> _root;
-        public int Accuracy { get; internal set; } = 0;
+        public int Accuracy { get; internal set; }
 
         public Octree(Vector3 position, Vector3 size, int accuracy)
         {

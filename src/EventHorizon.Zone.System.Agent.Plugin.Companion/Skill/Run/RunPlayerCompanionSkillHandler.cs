@@ -13,7 +13,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
 {
-    public struct RunPlayerCompanionSkillHandler : INotificationHandler<RunPlayerCompanionSkillEvent>
+    public class RunPlayerCompanionSkillHandler : INotificationHandler<RunPlayerCompanionSkillEvent>
     {
         readonly IMediator _mediator;
         readonly EntityRepository _entityRepository;

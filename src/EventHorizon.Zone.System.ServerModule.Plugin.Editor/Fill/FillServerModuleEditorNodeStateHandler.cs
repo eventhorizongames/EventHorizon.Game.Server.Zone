@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ServerModule.Plugin.Editor
 {
-    public struct FillServerModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillServerModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 

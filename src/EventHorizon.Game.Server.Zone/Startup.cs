@@ -27,19 +27,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace EventHorizon.Game.Server.Zone
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             HostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment HostingEnvironment { get; }
+        public IWebHostEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -64,15 +65,17 @@ namespace EventHorizon.Game.Server.Zone
                     options.ApiName = Configuration["Auth:ApiName"];
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
                 });
-            services.AddMvc();
+            services.AddRazorPages();
             services.AddSignalR()
-                .AddJsonProtocol(config =>
+                .AddNewtonsoftJsonProtocol(config =>
                 {
                     config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    config.PayloadSerializerSettings
-                        .Converters.Add(
-                            new DefaultStringEnumConverter(0)
-                        );
+                    // This might cause errors in the SignalR connection request/reposes, since they will not longer be default of 0
+                    // config.PayloadSerializerSettings
+                    //     .Converters.Add(
+                    //         new DefaultStringEnumConverter(0)
+                    //     );
+                    config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 });
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -139,6 +142,7 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(SystemBackupExtensions).Assembly,
 
                 typeof(SystemAdminExtensions).Assembly,
+                typeof(SystemAdminExternalHubExtensions).Assembly,
                 typeof(SystemAdminPluginCommandExtensions).Assembly,
 
                 typeof(SystemServerScriptsExtensions).Assembly,
@@ -275,7 +279,8 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemPlayer()
                 .AddSystemPlayerPluginAction()
 
-                .AddSystemInteraction();
+                .AddSystemInteraction()
+            ;
 
             // Dynamically Loaded Plugins
             services
@@ -287,7 +292,7 @@ namespace EventHorizon.Game.Server.Zone
                 );
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
 
             if (env.IsDevelopment())
@@ -295,8 +300,11 @@ namespace EventHorizon.Game.Server.Zone
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRouting();
+
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
+            app.UseAuthorization();
 
             // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
             // Also Sorted based on Load order
@@ -372,17 +380,18 @@ namespace EventHorizon.Game.Server.Zone
             app.UsePlugins();
 
             app.UseStaticFiles();
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<AdminHub>("/admin");
-                routes.MapHub<PlayerHub>("/playerHub");
+            app.UseEndpoints(
+                routes =>
+                {
+                    routes.MapHub<AdminHub>("/admin");
+                    routes.MapHub<PlayerHub>("/playerHub");
 
-                routes.MapHub<SystemEditorHub>("/systemEditor");
-                routes.MapHub<SkillsEditorHub>("/skillsEditor");
+                    routes.MapHub<SystemEditorHub>("/systemEditor");
+                    routes.MapHub<SkillsEditorHub>("/skillsEditor");
 
-                // routes.MapHub<EditorHub>("/editor");
-            });
-            app.UseMvc();
+                    // routes.MapHub<EditorHub>("/editor");
+                }
+            );
         }
     }
 }

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
 {
-    public struct StartAdminFileSystemWatchingCommandHandler : IRequestHandler<StartAdminFileSystemWatchingCommand>
+    public class StartAdminFileSystemWatchingCommandHandler : IRequestHandler<StartAdminFileSystemWatchingCommand>
     {
         readonly ServerInfo _serverInfo;
         readonly IMediator _mediator;

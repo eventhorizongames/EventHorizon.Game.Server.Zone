@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Player.Interaction.Action
 {
-    public struct RegisterPlayerInteractionActionsHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    public class RegisterPlayerInteractionActionsHandler : INotificationHandler<ReadyForPlayerActionRegistration>
     {
         readonly IMediator _mediator;
         readonly IdPool _idPool;

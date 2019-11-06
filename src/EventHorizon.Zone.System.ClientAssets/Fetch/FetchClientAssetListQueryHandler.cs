@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientAssets.Fetch
 {
-    public struct FetchClientAssetListQueryHandler : IRequestHandler<FetchClientAssetListQuery, IEnumerable<IClientAsset>>
+    public class FetchClientAssetListQueryHandler : IRequestHandler<FetchClientAssetListQuery, IEnumerable<IClientAsset>>
     {
         readonly ClientAssetRepository _assetRepository;
         public FetchClientAssetListQueryHandler(

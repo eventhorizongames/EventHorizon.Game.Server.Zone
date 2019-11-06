@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Hosting;
 using Serilog;
+using Microsoft.Extensions.Hosting;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -15,17 +8,20 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args).Build().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseSerilog((ctx, cfg) => cfg
-                    .Enrich.WithProperty("EnvironmentName", ctx.HostingEnvironment.EnvironmentName)
-                    .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
-                    .Enrich.WithProperty("ServiceName", "Zone")
-                    .ReadFrom.Configuration(ctx.Configuration))
-                .Build();
+        public static IHostBuilder BuildWebHost(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+
+                    webBuilder.UseSerilog((ctx, cfg) => cfg
+                        .Enrich.WithProperty("EnvironmentName", ctx.HostingEnvironment.EnvironmentName)
+                        .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
+                        .Enrich.WithProperty("ServiceName", "Zone")
+                        .ReadFrom.Configuration(ctx.Configuration));
+                });
     }
 }

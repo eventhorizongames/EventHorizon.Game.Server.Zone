@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using EventHorizon.Server.Core.External.Connection.Internal;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 using Xunit;
 
@@ -23,7 +22,6 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
         {
             // Given
             var url = "http://core_server_url";
-            var expected = "Error connecting to player hub";
 
             var loggerMock = new Mock<ILogger<SystemCoreServerConnectionCache>>();
 
@@ -34,26 +32,13 @@ namespace EventHorizon.Server.Core.External.Tests.Connection.Internal
 
             Func<Task> connectionAction = async () => await connectionCache.GetConnection(
                 url,
-                options => { }
+                options => { },
+                (ex) => Task.CompletedTask
             );
 
             // Then
             await Assert.ThrowsAsync<HttpRequestException>(
                 connectionAction
-            );
-
-            loggerMock.Verify(
-                mock => mock.Log(
-                    LogLevel.Error,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            expected
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
             );
         }
 

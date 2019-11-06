@@ -6,10 +6,10 @@
 
     <ItemGroup>
         <PackageReference Include="Mediatr" Version="7.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup>

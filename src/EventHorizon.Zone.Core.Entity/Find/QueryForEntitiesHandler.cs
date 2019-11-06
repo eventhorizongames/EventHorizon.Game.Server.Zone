@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Entity.Find
 {
-    public struct QueryForEntitiesHandler : IRequestHandler<QueryForEntities, IEnumerable<IObjectEntity>>
+    public class QueryForEntitiesHandler : IRequestHandler<QueryForEntities, IEnumerable<IObjectEntity>>
     {
         readonly EntityRepository _entityRepository;
         

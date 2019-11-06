@@ -9,7 +9,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Particle.Plugin.Editor.Fill
 {
-    public struct FillParticleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillParticleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 

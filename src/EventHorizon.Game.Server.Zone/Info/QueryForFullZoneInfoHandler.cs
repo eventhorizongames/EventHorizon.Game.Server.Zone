@@ -21,7 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     ///  module that contains state that should be sent 
     ///  during a Zone's Full Info Request.
     /// </summary>
-    public struct QueryForFullZoneInfoHandler : IRequestHandler<QueryForFullZoneInfo, IDictionary<string, object>>
+    public class QueryForFullZoneInfoHandler : IRequestHandler<QueryForFullZoneInfo, IDictionary<string, object>>
     {
         readonly IMediator _mediator;
         readonly IMapGraph _map;

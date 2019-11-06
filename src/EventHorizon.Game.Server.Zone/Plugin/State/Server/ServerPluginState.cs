@@ -8,6 +8,7 @@ using EventHorizon.Game.Server.Zone.Plugin.Model;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using IOPath = System.IO.Path;
 
 namespace EventHorizon.Game.Server.Zone.Plugin.State.Server
@@ -25,11 +26,11 @@ namespace EventHorizon.Game.Server.Zone.Plugin.State.Server
             }
         }
 
-        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IHostEnvironment _hostingEnvironment;
         readonly PluginLoader _pluginLoader;
         readonly IServiceCollection _services;
 
-        public ServerPluginState(IHostingEnvironment hostingEnvironment, IServiceCollection services, PluginLoader pluginLoader)
+        public ServerPluginState(IHostEnvironment hostingEnvironment, IServiceCollection services, PluginLoader pluginLoader)
         {
             _hostingEnvironment = hostingEnvironment;
             _pluginLoader = pluginLoader;

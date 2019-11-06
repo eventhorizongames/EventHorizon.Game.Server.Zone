@@ -7,7 +7,7 @@ using EventHorizon.Zone.System.Player.Plugin.Action.State;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Server
 {
-    public struct RunPlayerServerActionHandler : INotificationHandler<RunPlayerServerAction>
+    public class RunPlayerServerActionHandler : INotificationHandler<RunPlayerServerAction>
     {
         readonly IMediator _mediator;
         readonly IPlayerRepository _playerRepository;

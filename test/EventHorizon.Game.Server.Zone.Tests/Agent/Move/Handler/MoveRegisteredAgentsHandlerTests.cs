@@ -6,7 +6,6 @@ using System.Threading;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using Microsoft.Extensions.Logging.Internal;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.System.Agent.Move.Register;
@@ -110,6 +109,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 )
             );
         }
+        
         [Fact]
         public async Task TestHandle_ShouldNotPublishToMoveRegisteredAgentWhenNothingIsInAgentRepository()
         {
@@ -152,8 +152,64 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                 Times.Never()
             );
         }
+
         [Fact]
-        public async Task TestHandle_ShouldLogWarningWhenAgentCountListIsOver25Agents()
+        public async Task TestShouldNotBubbleExceptionsWhenMoveRegisteredAgentEventThrownsAnyException()
+        {
+            // Given
+            var entityIdList = new List<long>();
+
+            var mediatorMock = new Mock<IMediator>();
+            var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
+            var moveRepositoryMock = new Mock<IMoveAgentRepository>();
+
+            for (long i = 0; i < 26; i++)
+            {
+                entityIdList.Add(i);
+                moveRepositoryMock.Setup(
+                    moveRepository => moveRepository.Dequeue(
+                        out i
+                    )
+                ).Returns(true);
+            }
+
+            mediatorMock.Setup(
+                mock => mock.Publish(
+                    It.IsAny<MoveRegisteredAgentEvent>(),
+                    CancellationToken.None
+                )
+            ).ThrowsAsync(
+                new Exception(
+                    "error"
+                )
+            );
+
+            // When
+            var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                moveRepositoryMock.Object,
+                new Mock<IPerformanceTracker>().Object
+            );
+            await moveRegisteredAgentsHandler.Handle(
+                new MoveRegisteredAgentsEvent(),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<MoveRegisteredAgentEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.AtLeast(
+                    25
+                )
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldNotThrowExceptionWhenAgentCountListIsOver25Agents()
         {
             // Given
             var entityIdList = new List<long>();
@@ -185,30 +241,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             );
 
             // Then
-            loggerMock.Verify(
-                logger => logger.Log(
-                    LogLevel.Warning,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            "Agent Movement List is over 10."
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
-                )
-            );
-            loggerMock.Verify(
-                logger => logger.Log(
-                    LogLevel.Warning,
-                    It.IsAny<EventId>(),
-                    It.Is<FormattedLogValues>(
-                        v => v.ToString().Contains(
-                            "Agent Movement List is over 25."
-                        )
-                    ),
-                    It.IsAny<Exception>(),
-                    It.IsAny<Func<object, Exception, string>>()
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<MoveRegisteredAgentEvent>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.AtLeast(
+                    25
                 )
             );
         }

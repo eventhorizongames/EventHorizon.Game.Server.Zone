@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Interaction.Script.Load
 {
-    public struct LoadInteractionScriptsCommandHandler : IRequestHandler<LoadInteractionScriptsCommand>
+    public class LoadInteractionScriptsCommandHandler : IRequestHandler<LoadInteractionScriptsCommand>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

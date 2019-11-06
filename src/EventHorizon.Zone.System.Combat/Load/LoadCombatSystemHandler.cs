@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Load
 {
-    public struct LoadCombatSystemHandler : INotificationHandler<LoadCombatSystemEvent>
+    public class LoadCombatSystemHandler : INotificationHandler<LoadCombatSystemEvent>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;

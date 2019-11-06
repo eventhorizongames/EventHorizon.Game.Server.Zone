@@ -2,6 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Core.Register;
+using EventHorizon.Game.Server.Zone.Server.Core.Check;
+using EventHorizon.Game.Server.Zone.Server.Core.Register;
 using EventHorizon.Game.Server.Zone.Server.Core.Stop;
 using EventHorizon.Server.Core.External.Connection;
 using MediatR;
@@ -27,12 +29,19 @@ namespace EventHorizon.Game.Server.Zone.Server.Core.Ping
         }
 
         public async Task Handle(
-            PingCoreServerEvent notification, 
+            PingCoreServerEvent notification,
             CancellationToken cancellationToken
         )
         {
             try
             {
+                if (!await _mediator.Send(
+                    new QueryForRegistrationWithCoreServer()
+                ))
+                {
+                    return;
+                }
+
                 var connection = await _connectionFactory.GetConnection();
                 await connection.Ping();
                 _logger.LogWarning(
@@ -42,14 +51,13 @@ namespace EventHorizon.Game.Server.Zone.Server.Core.Ping
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Zone Core Server Ping failed", 
+                    "Zone Core Server Ping failed",
                     ex
                 );
+                // TODO: Publish Server Connection Check Failed
+                // Have a service pick this up and try to reconnect to core server is not started.
                 await _mediator.Publish(
-                    new StopCoreServerConnectionEvent()
-                );
-                await _mediator.Publish(
-                    new RegisterWithCoreServerEvent()
+                    new CheckCoreServerConnectionEvent() // This will check to make sure that the server is connected
                 );
             }
         }

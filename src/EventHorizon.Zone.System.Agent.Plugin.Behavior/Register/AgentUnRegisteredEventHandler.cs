@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
-    public struct AgentUnRegisteredEventHandler : INotificationHandler<AgentUnRegisteredEvent>
+    public class AgentUnRegisteredEventHandler : INotificationHandler<AgentUnRegisteredEvent>
     {
         readonly ActorBehaviorTreeRepository _repository;
         public AgentUnRegisteredEventHandler(

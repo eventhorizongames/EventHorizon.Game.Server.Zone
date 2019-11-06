@@ -7,7 +7,7 @@ $ReportFilePattern = "**/$GeneratedCoverageFile"
 $ReportOutputDirectory = "test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports"
 $ReportOutputFile = "$ReportOutputDirectory/lcov.info"
 $projectName = $fileName.Replace("test\", "").Replace("src\", "").Split("\")[0];
-if(!$projectName.EndsWith(".Tests")) {
+if (!$projectName.EndsWith(".Tests")) {
     $projectName += ".Tests";
 }
 $projectPath = "test/$projectName";

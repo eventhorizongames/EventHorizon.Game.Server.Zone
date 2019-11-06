@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
-    public struct SystemServerScriptRegisteredEventHandler : INotificationHandler<ServerScriptRegisteredEvent>
+    public class SystemServerScriptRegisteredEventHandler : INotificationHandler<ServerScriptRegisteredEvent>
     {
         readonly ServerScriptDetailsRepository _serverScriptDetailsRepository;
 

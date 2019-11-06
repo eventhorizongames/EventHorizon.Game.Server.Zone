@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Run
 {
-    public struct RunServerScriptCommandHandler : IRequestHandler<RunServerScriptCommand, ServerScriptResponse>
+    public class RunServerScriptCommandHandler : IRequestHandler<RunServerScriptCommand, ServerScriptResponse>
     {
         readonly ILogger _logger;
         readonly ServerScriptRepository _serverScriptRepository;

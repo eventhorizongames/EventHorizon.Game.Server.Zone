@@ -18,20 +18,25 @@ namespace EventHorizon.Zone.Core.Tests.Json
         public NewtonsoftJsonFileSaverTests()
         {
             // Remove existing test file
-            var fullFileName = Path.Combine(
+            var fileFullName = Path.Combine(
                 directory,
                 fileName
             );
-            File.Delete(
-                fullFileName
-            );
+            if (File.Exists(
+                fileFullName
+            ))
+            {
+                File.Delete(
+                    fileFullName
+                );
+            }
         }
 
         [Fact]
         public async Task TestShouldSaveSerializedRepresentationWhenObjectIsPassedToSpecifiedDirectoryAndFileName()
         {
             // Given 
-            var fullFileName = Path.Combine(
+            var fileFullName = Path.Combine(
                 directory,
                 fileName
             );
@@ -43,7 +48,7 @@ namespace EventHorizon.Zone.Core.Tests.Json
             // Verify File is not there
             Assert.False(
                 File.Exists(
-                    fullFileName
+                    fileFullName
                 )
             );
 
@@ -59,7 +64,7 @@ namespace EventHorizon.Zone.Core.Tests.Json
             // Then
             Assert.True(
                 File.Exists(
-                    fullFileName
+                    fileFullName
                 )
             );
         }

@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Reload
 {
-    public struct ReloadAdminCommandsHandler : INotificationHandler<AdminCommandEvent>
+    public class ReloadAdminCommandsHandler : INotificationHandler<AdminCommandEvent>
     {
         readonly IMediator _mediator;
         

@@ -9,7 +9,7 @@ using MediatR;
 namespace EventHorizon.Zone.System.Client.Scripts.Editor
 {
     // TODO: Move this into a Client.Scripts.Editor Project
-    public struct FillClientScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillClientScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
         readonly ServerInfo _serverInfo;
 

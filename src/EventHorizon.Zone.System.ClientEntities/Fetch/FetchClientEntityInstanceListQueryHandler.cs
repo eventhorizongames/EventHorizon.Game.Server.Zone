@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ClientEntities.Fetch
 {
-    public struct FetchClientEntityInstanceListQueryHandler : IRequestHandler<FetchClientEntityInstanceListQuery, IEnumerable<IClientEntityInstance>>
+    public class FetchClientEntityInstanceListQueryHandler : IRequestHandler<FetchClientEntityInstanceListQuery, IEnumerable<IClientEntityInstance>>
     {
         readonly ClientEntityInstanceRepository _entityInstanceRepository;
         public FetchClientEntityInstanceListQueryHandler(

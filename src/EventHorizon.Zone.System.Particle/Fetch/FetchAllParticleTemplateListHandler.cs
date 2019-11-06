@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Particle.Fetch
 {
-    public struct FetchAllParticleTemplateListHandler : IRequestHandler<FetchAllParticleTemplateListEvent, IEnumerable<ParticleTemplate>>
+    public class FetchAllParticleTemplateListHandler : IRequestHandler<FetchAllParticleTemplateListEvent, IEnumerable<ParticleTemplate>>
     {
         readonly ParticleTemplateRepository _repository;
         public FetchAllParticleTemplateListHandler(

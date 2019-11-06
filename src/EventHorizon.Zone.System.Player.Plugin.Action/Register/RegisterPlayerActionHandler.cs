@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
 {
-    public struct RegisterPlayerActionHandler : IRequestHandler<RegisterPlayerAction>
+    public class RegisterPlayerActionHandler : IRequestHandler<RegisterPlayerAction>
     {
         readonly ILogger _logger;
         readonly PlayerActionRepository _actionRepository;

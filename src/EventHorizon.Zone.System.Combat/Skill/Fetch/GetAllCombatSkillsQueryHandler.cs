@@ -8,7 +8,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Skill.Fetch
 {
-    public struct GetAllCombatSkillsQueryHandler : IRequestHandler<GetAllCombatSkillsQuery, IList<SkillInstance>>
+    public class GetAllCombatSkillsQueryHandler : IRequestHandler<GetAllCombatSkillsQuery, IList<SkillInstance>>
     {
         readonly ISkillRepository _skillRepository;
         public GetAllCombatSkillsQueryHandler(

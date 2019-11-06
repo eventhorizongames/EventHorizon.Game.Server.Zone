@@ -9,7 +9,7 @@ using EventHorizon.Zone.System.Player.ExternalHub;
 
 namespace EventHorizon.Zone.System.Player.Zone
 {
-    public struct SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
+    public class SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
         readonly IMediator _mediator;
         readonly IHubContext<PlayerHub> _hubContext;

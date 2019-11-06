@@ -17,7 +17,7 @@ using EventHorizon.Zone.Core.Model.Info;
 
 namespace EventHorizon.Zone.Core.Map.Create
 {
-    public struct CreateMapHandler : INotificationHandler<CreateMapEvent>
+    public class CreateMapHandler : INotificationHandler<CreateMapEvent>
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;

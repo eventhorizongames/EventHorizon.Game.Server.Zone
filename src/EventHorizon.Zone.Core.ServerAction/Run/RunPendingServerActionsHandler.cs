@@ -6,7 +6,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.ServerAction.Run
 {
-    public struct RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
+    public class RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
     {
         readonly IMediator _mediator;
         readonly IServerActionQueue _serverActionQueue;

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace EventHorizon.Identity.AccessToken
 {
-    public struct RequestIdentityAccessTokenHandler : IRequestHandler<RequestIdentityAccessTokenEvent, string>
+    public class RequestIdentityAccessTokenHandler : IRequestHandler<RequestIdentityAccessTokenEvent, string>
     {
         readonly IConfiguration _configuration;
         readonly ITokenClientFactory _tokenClientFactory;

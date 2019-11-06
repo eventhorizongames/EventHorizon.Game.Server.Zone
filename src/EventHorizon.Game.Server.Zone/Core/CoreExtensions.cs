@@ -1,4 +1,5 @@
 using EventHorizon.Game.Server.Zone.Core.Register;
+using EventHorizon.Game.Server.Zone.Server.Core.State;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,9 @@ namespace EventHorizon.Game.Server.Zone.Core
     {
         public static IServiceCollection AddServerCore(
             this IServiceCollection services
-        ) => services;
+        ) => services
+            .AddSingleton<ServerCoreCheckState, SystemServerCoreCheckState>()
+        ;
 
         public static void UseServerCore(
             this IApplicationBuilder app

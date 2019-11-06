@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Reporter.Save
 {
-    public struct SavePendingReportItemsEventHandler : INotificationHandler<SavePendingReportItemsEvent>
+    public class SavePendingReportItemsEventHandler : INotificationHandler<SavePendingReportItemsEvent>
     {
         readonly ServerInfo _serverInfo;
         readonly ReportRepository _repository;

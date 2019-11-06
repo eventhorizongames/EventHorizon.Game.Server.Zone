@@ -13,7 +13,7 @@ using EventHorizon.Zone.System.Player.Events.Update;
 
 namespace EventHorizon.Zone.System.Combat.Admin.Skill
 {
-    public struct RunSetPlayerSkillAdminCommandEventHandler : INotificationHandler<AdminCommandEvent>
+    public class RunSetPlayerSkillAdminCommandEventHandler : INotificationHandler<AdminCommandEvent>
     {
         readonly IMediator _mediator;
         readonly IPlayerRepository _playerRepository;

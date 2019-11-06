@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
-    public struct SystemRegisterServerScriptCommandHandler : IRequestHandler<RegisterServerScriptCommand>
+    public class SystemRegisterServerScriptCommandHandler : IRequestHandler<RegisterServerScriptCommand>
     {
         readonly IMediator _mediator;
         readonly ServerScriptRepository _serverScriptRepository;
