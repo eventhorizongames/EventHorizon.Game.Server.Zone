@@ -16,10 +16,12 @@ namespace EventHorizon.Game.Server.Zone.Server.Core.Check
         readonly ServerCoreCheckState _serverCoreCheckState;
 
         public CheckCoreServerConnectionEventHandler(
-            IMediator mediator
+            IMediator mediator,
+            ServerCoreCheckState serverCoreCheckState
         )
         {
             _mediator = mediator;
+            _serverCoreCheckState = serverCoreCheckState;
         }
 
         public async Task Handle(

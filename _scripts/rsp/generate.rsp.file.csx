@@ -37,7 +37,7 @@ foreach (var fileName in allServiesFiles)
 
 // Generate EventHorizon Zone Core DLL dependencies
 var allCoreFiles = Directory.GetFiles(
-    "src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp2.2/",
+    "src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp3.0/",
     "EventHorizon.*.dll",
     SearchOption.TopDirectoryOnly
 );
@@ -47,7 +47,7 @@ foreach (var fileName in allCoreFiles)
     var file = new FileInfo(
         fileName
     );
-    var stringToWrite = $"/r:src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp2.2/{file.Name}";
+    var stringToWrite = $"/r:src/EventHorizon.Game.Server.Zone/bin/Debug/netcoreapp3.0/{file.Name}";
     if (!fileContentLines.ContainsKey($"load.{file.Name}"))
     {
         fileContentLines.Add(
