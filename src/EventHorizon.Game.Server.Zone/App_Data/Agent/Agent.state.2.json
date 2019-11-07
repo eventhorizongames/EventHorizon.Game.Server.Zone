@@ -1,8 +1,8 @@
 {
     "AgentList": [
         {
-            "Id": "fb0cedbd-513f-441d-a9ee-306d13cfed7c",
-            "Name": "The Helper",
+            "Id": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
+            "Name": "Steve the Helper",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
@@ -25,7 +25,7 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "steve",
+                    "OwnerId": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
                     "CanBeCaptured": false
                 },
                 "movementState": {
@@ -76,57 +76,6 @@
                     "Z": 0.0
                 },
                 "NextRunTime": null,
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": 634907211,
-                        "Type": {
-                            "Name": "ACTION"
-                        },
-                        "Status": "SUCCESS",
-                        "Fire": "$DEFAULT$SCRIPT",
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null
-                        },
-                        "Status": null,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "NodeList": null
-                    },
-                    "NodeMap": {
-                        "1448002460": {
-                            "Token": 1448002460,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR"
-                            },
-                            "Status": "SUCCESS",
-                            "Fire": null,
-                            "FailGate": 0,
-                            "NodeList": null
-                        },
-                        "634907211": {
-                            "Token": 634907211,
-                            "Type": {
-                                "Name": "ACTION"
-                            },
-                            "Status": "SUCCESS",
-                            "Fire": "$DEFAULT$SCRIPT",
-                            "FailGate": 0,
-                            "NodeList": null
-                        }
-                    },
-                    "TraversalStack": [],
-                    "LastTraversalStack": [],
-                    "NextTraversalStack": [],
-                    "IsValid": true,
-                    "ShapeQueue": []
-                },
                 "interactionState": {
                     "Active": true,
                     "List": [
@@ -142,20 +91,19 @@
             }
         },
         {
-            "Id": "620aa015-9245-4d3d-a45d-ed94410ffaba",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": -6.0,
+                    "X": 26.0,
                     "Y": 0.0,
-                    "Z": -2.0
+                    "Z": 51.0
                 },
-                "NextMoveRequest": "2019-10-22T23:25:18.0819651Z",
+                "NextMoveRequest": "2019-10-31T03:15:48.2118311Z",
                 "MoveToPosition": {
-                    "X": -6.0,
+                    "X": 25.0,
                     "Y": 0.0,
-                    "Z": -1.0
+                    "Z": 51.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -167,8 +115,8 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": null,
-                    "CanBeCaptured": true
+                    "OwnerId": "6cad9c65-d7d7-40c6-9aa5-f3ad1426fa44",
+                    "CanBeCaptured": false
                 },
                 "wander": {
                     "LookDistance": 25
@@ -181,10 +129,10 @@
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "interactionState": {
-                    "Active": true,
+                    "Active": false,
                     "List": [
                         {
                             "ScriptId": "Interaction_RunCaptureTarget.csx",
@@ -194,7 +142,146 @@
                             }
                         }
                     ]
-                }
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 99,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
+                            }
+                        ]
+                    }
+                },
+                "NextRunTime": null,
+                "ActorMoveToPosition": {
+                    "X": 29.0,
+                    "Y": 0.0,
+                    "Z": 27.0
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 7
+            }
+        },
+        {
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 26.0,
+                    "Y": 0.0,
+                    "Z": 51.0
+                },
+                "NextMoveRequest": "2019-10-31T03:15:48.2118311Z",
+                "MoveToPosition": {
+                    "X": 25.0,
+                    "Y": 0.0,
+                    "Z": 51.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "6cad9c65-d7d7-40c6-9aa5-f3ad1426fa44",
+                    "CanBeCaptured": false
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_RunFromPlayer.json"
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": [
+                        {
+                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "DistanceToPlayer": 5,
+                            "Data": {
+                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
+                            }
+                        }
+                    ]
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 99,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
+                            }
+                        ]
+                    }
+                },
+                "NextRunTime": null,
+                "ActorMoveToPosition": {
+                    "X": 29.0,
+                    "Y": 0.0,
+                    "Z": 27.0
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 7
             }
         }
     ]
