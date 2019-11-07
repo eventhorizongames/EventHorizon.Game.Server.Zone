@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 ENV BUILD_CONFIGURATION Release
 COPY src/EventHorizon.Game.Server.Zone/bin/${BUILD_CONFIGURATION}/netcoreapp3.0/publish/. ./
