@@ -7,6 +7,7 @@ using EventHorizon.Zone.Core.DirectoryService;
 using EventHorizon.Zone.Core.Id;
 using EventHorizon.Zone.Core.Info;
 using EventHorizon.Zone.Core.Json;
+using EventHorizon.Zone.Core.Lifetime.State;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.Id;
@@ -82,6 +83,11 @@ namespace EventHorizon.Zone.Core.Tests
                 {
                     Assert.Equal(typeof(IRandomNumberGenerator), service.ServiceType);
                     Assert.Equal(typeof(CryptographyRandomNumberGenerator), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(ServerLifetimeState), service.ServiceType);
+                    Assert.Equal(typeof(StandardServerLifetimeState), service.ImplementationType);
                 },
                 service =>
                 {
