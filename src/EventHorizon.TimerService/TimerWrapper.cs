@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,7 +41,17 @@ namespace EventHorizon.TimerService
             _timer?.Dispose();
         }
 
+
         public void OnRunTask(
+            object state
+        )
+        {
+            OnRunTaskAsync(
+                state
+            ).GetAwaiter().GetResult();
+        }
+
+        private async Task OnRunTaskAsync(
             object state
         )
         {
@@ -59,7 +70,11 @@ namespace EventHorizon.TimerService
                 return;
             }
 
-            lock (timerState.LOCK)
+            if (!await timerState.LOCK.WaitAsync(0))
+            {
+                return;
+            }
+            try
             {
                 timerState.Guid = Guid.NewGuid();
                 timerState.IsRunning = true;
@@ -68,10 +83,24 @@ namespace EventHorizon.TimerService
                 {
                     try
                     {
-                        serviceScope.ServiceProvider.GetService<IMediator>().Publish(
-                            this._timerTask.OnRunEvent,
-                            CancellationToken.None
-                        ).GetAwaiter().GetResult();
+                        var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+                        if (this._timerTask.OnValidationEvent != null)
+                        {
+                            if (await mediator.Send(
+                                this._timerTask.OnValidationEvent
+                            ))
+                            {
+                                await mediator.Publish(
+                                    this._timerTask.OnRunEvent
+                                );
+                            }
+                        }
+                        else
+                        {
+                            mediator.Publish(
+                                this._timerTask.OnRunEvent
+                            ).GetAwaiter().GetResult();
+                        }
                     }
                     catch (
                         Exception ex
@@ -109,15 +138,19 @@ namespace EventHorizon.TimerService
                 timerState.IsRunning = false;
                 timerState.StartDate = DateTime.UtcNow;
             }
+            finally
+            {
+                timerState.LOCK.Release();
+            }
         }
+    }
 
-        public class TimerState
-        {
-            public object LOCK { get; internal set; } = new object();
-            public string Id { get; internal set; } = Guid.NewGuid().ToString();
-            public Guid Guid { get; internal set; }
-            public bool IsRunning { get; set; }
-            public DateTime StartDate { get; set; }
-        }
+    public class TimerState
+    {
+        public SemaphoreSlim LOCK { get; internal set; } = new SemaphoreSlim(1, 1);
+        public string Id { get; internal set; } = Guid.NewGuid().ToString();
+        public Guid Guid { get; internal set; }
+        public bool IsRunning { get; set; }
+        public DateTime StartDate { get; set; }
     }
 }

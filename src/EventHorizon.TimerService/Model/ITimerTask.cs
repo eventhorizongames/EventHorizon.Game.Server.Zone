@@ -6,6 +6,7 @@ namespace EventHorizon.TimerService
     {
         int Period { get; }
         string Tag { get; }
+        IRequest<bool> OnValidationEvent { get; }
         INotification OnRunEvent { get; }
     }
 }

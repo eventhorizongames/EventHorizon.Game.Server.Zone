@@ -12,7 +12,6 @@ using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Identity;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
-using EventHorizon.Schedule;
 using EventHorizon.Server.Core;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Admin.ExternalHub;
@@ -193,15 +192,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<IPerformanceTracker, PerformanceTracker>()
                 .AddTimer()
                 .AddI18n()
-                .AddScheduler(
-                    (sender, args) =>
-                    {
-                        Console.WriteLine(
-                            args.Exception.Message
-                        );
-                        args.SetObserved();
-                    }
-                ).AddEventHorizonIdentity(
+                .AddEventHorizonIdentity(
                     options => Configuration.GetSection(
                         "Auth"
                     ).Bind(
@@ -378,6 +369,8 @@ namespace EventHorizon.Game.Server.Zone
 
             // Dynamically Loaded Plugins
             app.UsePlugins();
+
+            app.UseFinishStartingCore();
 
             app.UseStaticFiles();
             app.UseEndpoints(

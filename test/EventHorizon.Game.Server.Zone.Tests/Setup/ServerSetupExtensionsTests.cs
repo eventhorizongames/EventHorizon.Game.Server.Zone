@@ -2,7 +2,6 @@ using Xunit;
 using Moq;
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.Game.Server.Zone.Setup;
-using EventHorizon.Schedule;
 using MediatR;
 using System;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using System.Threading;
 using EventHorizon.Zone.Core.Events.Map.Create;
 using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
+using EventHorizon.TimerService;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Setup
 {
@@ -31,8 +31,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
                 serviceCollectionMock,
                 service =>
                 {
-                    Assert.Equal(typeof(IScheduledTask), service.ServiceType);
-                    Assert.Equal(typeof(PingCoreServerScheduledTask), service.ImplementationType);
+                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
+                    Assert.Equal(typeof(PingCoreServerTimerTask), service.ImplementationType);
                 }
             );
         }

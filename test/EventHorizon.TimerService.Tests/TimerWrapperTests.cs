@@ -273,6 +273,201 @@ namespace EventHorizon.TimerService.Tests.TimerService
         }
 
         [Fact]
+        public void TestShouldNotCallMoveRegisteredAgentsEventWhenOnValidationEventReturnFalse()
+        {
+            // Given
+            var inputTimerState = new TimerState();
+            var inputPeriod = 100;
+            var onValidationEventResponse = false;
+            var expectedNeverPublishedEvent = new TestNotificationEvent();
+
+            var mediatorMock = new Mock<IMediator>();
+            var serviceScopeMock = new Mock<IServiceScope>();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+
+            var loggerMock = new Mock<ILogger>();
+            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
+            var timerTaskMock = new Mock<ITimerTask>();
+            var onValidationEventMock = new Mock<IRequest<bool>>();
+
+            serviceProviderMock.Setup(
+                mock => mock.GetService(
+                    typeof(IMediator)
+                )
+            ).Returns(
+                mediatorMock.Object
+            );
+            serviceScopeMock.Setup(
+                mock => mock.ServiceProvider
+            ).Returns(
+                serviceProviderMock.Object
+            );
+            serviceScopeFactoryMock.Setup(
+                mock => mock.CreateScope()
+            ).Returns(
+                serviceScopeMock.Object
+            );
+
+            timerTaskMock.Setup(
+                mock => mock.OnRunEvent
+            ).Returns(
+                expectedNeverPublishedEvent
+            );
+            timerTaskMock.Setup(
+                mock => mock.Period
+            ).Returns(
+                inputPeriod
+            );
+            timerTaskMock.Setup(
+                mock => mock.OnValidationEvent
+            ).Returns(
+                onValidationEventMock.Object
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    onValidationEventMock.Object,
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                onValidationEventResponse
+            );
+
+            // When
+            _timerWrapper = new TimerWrapper(
+                loggerMock.Object,
+                serviceScopeFactoryMock.Object,
+                timerTaskMock.Object
+            );
+
+            _timerWrapper.OnRunTask(
+                inputTimerState
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish<INotification>(
+                    expectedNeverPublishedEvent,
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldNotGetPastTimerStateLockWhenTimerStateLockIsAlreadyLocked()
+        {
+            // Given
+            var inputTimerState = new TimerState();
+            // Grab the lock on the timer
+            await inputTimerState.LOCK.WaitAsync(0);
+            
+            var loggerMock = new Mock<ILogger>();
+            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
+            var timerTaskMock = new Mock<ITimerTask>();
+            var onValidationEventMock = new Mock<IRequest<bool>>();
+
+            // When
+            _timerWrapper = new TimerWrapper(
+                loggerMock.Object,
+                serviceScopeFactoryMock.Object,
+                timerTaskMock.Object
+            );
+
+            _timerWrapper.OnRunTask(
+                inputTimerState
+            );
+
+            // Then
+            serviceScopeFactoryMock.Verify(
+                mock => mock.CreateScope(),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public void TestShouldCallMoveRegisteredAgentsEventWhenOnValidationEventReturnTrue()
+        {
+            // Given
+            var inputTimerState = new TimerState();
+            var inputPeriod = 100;
+            var onValidationEventResponse = true;
+            var expectedNeverPublishedEvent = new TestNotificationEvent();
+
+            var mediatorMock = new Mock<IMediator>();
+            var serviceScopeMock = new Mock<IServiceScope>();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+
+            var loggerMock = new Mock<ILogger>();
+            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
+            var timerTaskMock = new Mock<ITimerTask>();
+            var onValidationEventMock = new Mock<IRequest<bool>>();
+
+            serviceProviderMock.Setup(
+                mock => mock.GetService(
+                    typeof(IMediator)
+                )
+            ).Returns(
+                mediatorMock.Object
+            );
+            serviceScopeMock.Setup(
+                mock => mock.ServiceProvider
+            ).Returns(
+                serviceProviderMock.Object
+            );
+            serviceScopeFactoryMock.Setup(
+                mock => mock.CreateScope()
+            ).Returns(
+                serviceScopeMock.Object
+            );
+
+            timerTaskMock.Setup(
+                mock => mock.OnRunEvent
+            ).Returns(
+                expectedNeverPublishedEvent
+            );
+            timerTaskMock.Setup(
+                mock => mock.Period
+            ).Returns(
+                inputPeriod
+            );
+            timerTaskMock.Setup(
+                mock => mock.OnValidationEvent
+            ).Returns(
+                onValidationEventMock.Object
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    onValidationEventMock.Object,
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                onValidationEventResponse
+            );
+
+            // When
+            _timerWrapper = new TimerWrapper(
+                loggerMock.Object,
+                serviceScopeFactoryMock.Object,
+                timerTaskMock.Object
+            );
+
+            _timerWrapper.OnRunTask(
+                inputTimerState
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish<INotification>(
+                    expectedNeverPublishedEvent,
+                    CancellationToken.None
+                ),
+                Times.AtLeastOnce()
+            );
+        }
+
+        [Fact]
         public void TestOnMoveRegisteredAgents_ShouldLogWarningWhenTimerIsRuning()
         {
             // Given
@@ -334,9 +529,9 @@ namespace EventHorizon.TimerService.Tests.TimerService
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish<INotification>(
-                    It.IsAny<INotification>(), 
+                    It.IsAny<INotification>(),
                     CancellationToken.None
-                ), 
+                ),
                 Times.Never()
             );
         }
@@ -419,6 +614,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
                 timerState.IsRunning
             );
         }
+
         [Fact]
         public void TestOnLongRunningCallShouldLogWarningMessage()
         {

@@ -41,7 +41,6 @@
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
         <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
-        <ProjectReference Include="..\EventHorizon.Scheduler\EventHorizon.Scheduler.csproj" />
         <ProjectReference Include="..\EventHorizon.Identity\EventHorizon.Identity.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Core\EventHorizon.Zone.Core.csproj" />

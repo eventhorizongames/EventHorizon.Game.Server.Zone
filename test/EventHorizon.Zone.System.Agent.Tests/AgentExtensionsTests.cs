@@ -3,7 +3,6 @@ using Moq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using EventHorizon.Schedule;
 using EventHorizon.Zone.System.Agent.Save;
 using Microsoft.AspNetCore.Builder;
 using System;
@@ -16,6 +15,7 @@ using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.System.Agent.Events.Startup;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Zone.System.Agent.State;
+using EventHorizon.TimerService;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {
@@ -64,8 +64,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(IScheduledTask) == service.Value.ServiceType
-                        && typeof(SaveAgentStateScheduledTask) == service.Value.ImplementationType;
+                    return typeof(ITimerTask) == service.Value.ServiceType
+                        && typeof(SaveAgentStateTimerTask) == service.Value.ImplementationType;
                 }
             );
             Assert.Contains(

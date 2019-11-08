@@ -1,5 +1,5 @@
 using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
-using EventHorizon.Schedule;
+using EventHorizon.TimerService;
 using EventHorizon.Zone.Core.Events.Map.Create;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +12,7 @@ namespace EventHorizon.Game.Server.Zone.Setup
         public static IServiceCollection AddServerSetup(
             this IServiceCollection services
         ) => services
-            .AddSingleton<IScheduledTask, PingCoreServerScheduledTask>()
+            .AddSingleton<ITimerTask, PingCoreServerTimerTask>()
         ;
 
         public static IApplicationBuilder UseServerSetup(

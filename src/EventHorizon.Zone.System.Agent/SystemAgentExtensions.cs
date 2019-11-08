@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using EventHorizon.Zone.System.Agent;
 using EventHorizon.Zone.System.Agent.Events.Startup;
 using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Schedule;
 using EventHorizon.Zone.System.Agent.Save;
 using EventHorizon.Zone.System.Agent.State;
+using EventHorizon.TimerService;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -24,7 +24,7 @@ namespace EventHorizon.Game.Server.Zone
                     configuration.GetSection("Agent")
                 )
                 .AddTransient<IAgentRepository, AgentWrappedEntityRepository>()
-                .AddSingleton<IScheduledTask, SaveAgentStateScheduledTask>()
+                .AddSingleton<ITimerTask, SaveAgentStateTimerTask>()
                 .AddAgentConnection();
         }
         public static IApplicationBuilder UseSystemAgent(

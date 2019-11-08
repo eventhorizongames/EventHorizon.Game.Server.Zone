@@ -1,9 +1,11 @@
 using System.Reflection;
 using EventHorizon.Zone.Core.DateTimeService;
 using EventHorizon.Zone.Core.DirectoryService;
+using EventHorizon.Zone.Core.Events.Lifetime;
 using EventHorizon.Zone.Core.Id;
 using EventHorizon.Zone.Core.Info;
 using EventHorizon.Zone.Core.Json;
+using EventHorizon.Zone.Core.Lifetime.State;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.Id;
@@ -38,6 +40,7 @@ namespace EventHorizon.Game.Server.Zone
             .AddTransient<IJsonFileLoader, NewtonsoftJsonFileLoader>()
             .AddTransient<IJsonFileSaver, NewtonsoftJsonFileSaver>()
             .AddSingleton<IRandomNumberGenerator, CryptographyRandomNumberGenerator>()
+            .AddSingleton<ServerLifetimeState, StandardServerLifetimeState>()
             .AddSingleton<IServerProperty, InMemoryServerProperty>()
         ;
 
@@ -51,6 +54,21 @@ namespace EventHorizon.Game.Server.Zone
                     .GetService<IMediator>()
                     .Publish(
                         new FillServerPropertiesEvent()
+                    ).GetAwaiter().GetResult();
+            }
+            return app;
+        }
+
+        public static IApplicationBuilder UseFinishStartingCore(
+            this IApplicationBuilder app
+        )
+        {
+            using (var serviceScope = app.CreateServiceScope())
+            {
+                serviceScope.ServiceProvider
+                    .GetService<IMediator>()
+                    .Send(
+                        new FinishServerStartCommand()
                     ).GetAwaiter().GetResult();
             }
             return app;
