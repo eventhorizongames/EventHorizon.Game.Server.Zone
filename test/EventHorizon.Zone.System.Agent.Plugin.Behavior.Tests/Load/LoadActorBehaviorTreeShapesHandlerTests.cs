@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;
 using Moq;
 using Xunit;
-using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Load.LoadActorBehaviorTreeShapes;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
@@ -21,8 +23,29 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
         public async Task ShouldAddTreesShapesFromDirectoryToRepository()
         {
             // Given
-            var expectedTreeId1 = "Behaviors_Sub_SubBehaviorTreeToLoad.json";
-            var expectedTreeId2 = "Behaviors_BehaviorTreeToLoad.json";
+            var expectedTreeId = "Behaviors_BehaviorTreeToLoad.json";
+
+            Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
+            IDictionary<string, object> arguments = null;
+            var serverPath = Path.Combine(
+                "root"
+            );
+            var behaviorsPath = Path.Combine(
+                serverPath,
+                "Behaviors"
+            );
+            var fileName = "BehaviorTreeToLoad.json";
+            var fileFullName = Path.Combine(
+                behaviorsPath,
+                fileName
+            );
+            var fileExtension = ".exe";
+            var fileInfo = new StandardFileInfo(
+                fileName,
+                behaviorsPath,
+                fileFullName,
+                fileExtension
+            );
             var serializedAgentBehaviorTree = new SerializedAgentBehaviorTree
             {
                 Root = new SerializedBehaviorNode
@@ -37,13 +60,24 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
 
             serverInfoMock.Setup(
-                serverInfo => serverInfo.ServerPath
+                mock => mock.ServerPath
             ).Returns(
-                Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "Load"
-                )
+                serverPath
             );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<LoadFileRecursivelyFromDirectory>(),
+                    CancellationToken.None
+                )
+            ).Callback<IRequest<Unit>, CancellationToken>(
+                (evt, token) =>
+                {
+                    onProcessFile = ((LoadFileRecursivelyFromDirectory)evt).OnProcessFile;
+                    arguments = ((LoadFileRecursivelyFromDirectory)evt).Arguments;
+                }
+            );
+
             jsonFileLoaderMock.Setup(
                 loader => loader.GetFile<SerializedAgentBehaviorTree>(
                     It.IsAny<string>()
@@ -64,18 +98,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 new LoadActorBehaviorTreeShapes(),
                 CancellationToken.None
             );
+            Assert.NotNull(
+                onProcessFile
+            );
+
+            await onProcessFile(
+                fileInfo,
+                arguments
+            );
 
             // Then
             actorBehaviorTreeRepositoryMock.Verify(
                 repository => repository.RegisterTree(
-                    expectedTreeId1,
-                    It.IsAny<ActorBehaviorTreeShape>()
-                ),
-                Times.Once()
-            );
-            actorBehaviorTreeRepositoryMock.Verify(
-                repository => repository.RegisterTree(
-                    expectedTreeId2,
+                    expectedTreeId,
                     It.IsAny<ActorBehaviorTreeShape>()
                 ),
                 Times.Once()

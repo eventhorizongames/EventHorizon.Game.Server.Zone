@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         private int _activeNodeToken;
         private int _activeTraversalToken;
         private ActorBehaviorTreeShape _shape;
-        
+
         private string _reportId;
         private ReportTracker _reportTracker;
 
@@ -26,10 +26,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         public BehaviorNode ActiveTraversal => GetNode(
             _activeTraversalToken
         );
+
         public IDictionary<int, BehaviorNode> NodeMap { get; private set; }
-        public IList<int> TraversalStack { get; private set; }
-        public IList<int> LastTraversalStack { get; private set; }
-        public IList<int> NextTraversalStack { get; }
+        private IList<int> TraversalStack { get; set; }
+        private IList<int> LastTraversalStack { get; set; }
+        private IList<int> NextTraversalStack { get; set; }
 
         public BehaviorTreeState(
             ActorBehaviorTreeShape shape
@@ -53,7 +54,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             );
         }
         public bool IsValid => _shape.IsValid;
-        public Queue<int> ShapeQueue { get; private set; }
+        private Queue<int> ShapeQueue { get; set; }
 
         public bool IsActiveNodeValidAndNotRunning()
         {
@@ -84,9 +85,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             // This set the last traversal State into the current for this state.
             LastTraversalStack = NextTraversalStack.Reverse().ToList();
             // Clear the next traversal state to be rebuilt next run.
-            NextTraversalStack.Clear();
+            NextTraversalStack = new List<int>();
             // Clear the traversal stack
-            TraversalStack.Clear();
+            TraversalStack = new List<int>();
 
             return this;
         }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-var publishedFolder = "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.0/publish";
+var publishedFolder = "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish";
 // Remove the Publish folder for Script Services
 Directory.Delete(
     publishedFolder,

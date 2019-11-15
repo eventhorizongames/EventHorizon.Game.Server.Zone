@@ -11,13 +11,15 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
         public static ClientScript Create(
             string scriptsPath,
             string path,
-            string fileName
+            string fileName,
+            string scriptString
         )
         {
             return new ClientScript(
                 scriptsPath,
                 path,
-                fileName
+                fileName,
+                scriptString
             );
         }
 
@@ -29,20 +31,18 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
         private ClientScript(
             string scriptsPath,
             string path,
-            string fileName
+            string fileName,
+            string scriptString
         )
         {
             this.Name = fileName;
             this.ScriptFileName = fileName;
             this.ScriptPath = path;
-            this.ScriptString = "";
+            this.ScriptString = scriptString;
 
             this.Name = this.GenerateName(
                 path,
                 fileName
-            );
-            this.ScriptString = this.LoadContent(
-                scriptsPath
             );
         }
 
@@ -61,31 +61,6 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
                 ),
                 fileName
             );
-        }
-
-        public string LoadContent(
-            string scriptsPath
-        )
-        {
-            try
-            {
-                var fileName = Path.Combine(
-                    scriptsPath,
-                    this.ScriptPath,
-                    this.ScriptFileName
-                );
-                using (var file = File.OpenText(fileName))
-                {
-                    return file.ReadToEnd();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidOperationException(
-                    $"Exception with {Name}",
-                    ex
-                );
-            }
         }
     }
 }

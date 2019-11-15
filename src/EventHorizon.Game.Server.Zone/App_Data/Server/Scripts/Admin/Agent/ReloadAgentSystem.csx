@@ -1,5 +1,7 @@
-
+using System.Linq;
 using System.IO;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Events.Register;
 using EventHorizon.Zone.System.Agent.Save.Mapper;
@@ -7,8 +9,12 @@ using EventHorizon.Zone.System.Agent.Save.Model;
 using Newtonsoft.Json;
 
 // Check to see if Agent/Reload contains any files
-var reloadDirectory = new DirectoryInfo(GetReloadAgentFileDirectory());
-var containsFiles = reloadDirectory.GetFiles().Length > 0;
+var reloadDirectoryFiles = await Services.Mediator.Send(
+    new GetListOfFilesFromDirectory(
+        GetReloadAgentFileDirectory()
+    )
+);
+var containsFiles = reloadDirectoryFiles.Count() > 0;
 
 if (containsFiles)
 {
@@ -30,11 +36,12 @@ if (containsFiles)
 
     // Take all files found in the Reload Folder,
     //  then Register them into the Agent System.
-    var reloadFiles = reloadDirectory.GetFiles();
-    foreach (var file in reloadFiles)
+    foreach (var file in reloadDirectoryFiles)
     {
-        var text = File.ReadAllText(
-            file.FullName
+        var text =  await Services.Mediator.Send(
+            new ReadAllTextFromFile(
+                file.FullName
+            )
         );
         var agentState = JsonConvert.DeserializeObject<AgentSaveState>(
             text
@@ -52,7 +59,11 @@ if (containsFiles)
             );
         }
         // Remove the File from Agent/Reload Folder
-        file.Delete();
+        await Services.Mediator.Send(
+            new DeleteFile(
+                file.FullName
+            )
+        );
     }
 
 }

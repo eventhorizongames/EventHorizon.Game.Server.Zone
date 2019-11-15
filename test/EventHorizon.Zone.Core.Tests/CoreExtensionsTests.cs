@@ -3,18 +3,19 @@ using System.Threading;
 using EventHorizon.Game.Server.Zone;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Zone.Core.DateTimeService;
-using EventHorizon.Zone.Core.DirectoryService;
 using EventHorizon.Zone.Core.Id;
 using EventHorizon.Zone.Core.Info;
 using EventHorizon.Zone.Core.Json;
 using EventHorizon.Zone.Core.Lifetime.State;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Id;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Model.RandomNumber;
 using EventHorizon.Zone.Core.Model.ServerProperty;
+using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
 using EventHorizon.Zone.Core.RandomNumber;
 using EventHorizon.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.ServerProperty.Fill;
@@ -52,7 +53,12 @@ namespace EventHorizon.Zone.Core.Tests
                 service =>
                 {
                     Assert.Equal(typeof(DirectoryResolver), service.ServiceType);
-                    Assert.Equal(typeof(StandardDirectoryResolver), service.ImplementationType);
+                    Assert.Equal(typeof(LocalFileSystemDirectoryResolver), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(FileResolver), service.ServiceType);
+                    Assert.Equal(typeof(LocalFileSystemFileResolver), service.ImplementationType);
                 },
                 service =>
                 {

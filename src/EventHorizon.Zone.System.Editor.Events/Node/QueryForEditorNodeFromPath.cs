@@ -1,37 +1,38 @@
+using System.Collections.Generic;
 using EventHorizon.Zone.System.Editor.Model;
-using EventHorizon.Zone.System.Editor.Model.Builder;
 using MediatR;
 
 namespace EventHorizon.Zone.System.Editor.Events.Node
 {
     public struct QueryForEditorNodeFromPath : IRequest<IEditorNode>
     {
-        public string RootFolderName { get; }
-        public string RootFolderPath { get; }
-        public string DirectoryToLoadPath { get; }
+        public IList<string> NodePath { get; }
+        public string RootDirectoryFullName { get; }
+        public string DirectoryToLoadFullName { get; }
         public string NodeType { get; }
-        
+
         public QueryForEditorNodeFromPath(
-            string rootFolderName,
-            string rootFolderPath,
-            string diretoryToLoadPath
+            IList<string> nodePath,
+            string rootDirectoryFullName,
+            string diretoryToLoadFullName
         )
         {
-            RootFolderName = rootFolderName;
-            RootFolderPath = rootFolderPath;
-            DirectoryToLoadPath = diretoryToLoadPath;
-            NodeType = LoadEditorNodeFromPath.DEFAULT_NODE_TYPE;
+            NodePath = nodePath;
+            RootDirectoryFullName = rootDirectoryFullName;
+            DirectoryToLoadFullName = diretoryToLoadFullName;
+            NodeType = null;
         }
+
         public QueryForEditorNodeFromPath(
-            string rootFolderName,
-            string rootFolderPath,
-            string diretoryToLoadPath,
+            IList<string> nodePath,
+            string rootDirectoryFullName,
+            string diretoryToLoadFullName,
             string nodeType
         )
         {
-            RootFolderName = rootFolderName;
-            RootFolderPath = rootFolderPath;
-            DirectoryToLoadPath = diretoryToLoadPath;
+            NodePath = nodePath;
+            RootDirectoryFullName = rootDirectoryFullName;
+            DirectoryToLoadFullName = diretoryToLoadFullName;
             NodeType = nodeType;
         }
     }

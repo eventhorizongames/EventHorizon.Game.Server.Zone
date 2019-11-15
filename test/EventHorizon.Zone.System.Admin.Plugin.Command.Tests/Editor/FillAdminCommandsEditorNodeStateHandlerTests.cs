@@ -19,14 +19,11 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Editor
         {
             // Given
             var adminPath = "Scripts_Admin";
-            var expectedRootNodeName = "Admin";
-            var expectedQuery = new QueryForEditorNodeFromPath(
-                expectedRootNodeName,
+            var expectedNodeName = "Admin";
+            var expectedRootDirectoryFullName = adminPath;
+            var expectedDirectoryToLoadFullName = Path.Combine(
                 adminPath,
-                Path.Combine(
-                    adminPath,
-                    "Commands"
-                )
+                "Commands"
             );
 
             var editorNodeListMock = new Mock<IEditorNodeList>();
@@ -40,7 +37,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Editor
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    expectedQuery,
+                    It.IsAny<QueryForEditorNodeFromPath>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -68,23 +65,28 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Editor
                 mock => mock.AddNode(
                     It.Is<IEditorNode>(
                         editorNode =>
-                            editorNode.Name == expectedRootNodeName
-                            &&
-                            editorNode.Properties.ContainsKey(
-                                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY
-                            )
-                            &&
-                            !((bool)editorNode.Properties[
-                                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY
-                            ])
-                            &&
-                            editorNode.Children.Count == 1
+                            editorNode.Name == expectedNodeName
+                    &&
+                    editorNode.Properties.ContainsKey(
+                        EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY
+                    )
+                    &&
+                    !((bool)editorNode.Properties[
+                        EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY
+                    ])
+                    &&
+                    editorNode.Children.Count == 1
                     )
                 )
             );
             mediatorMock.Verify(
                 mock => mock.Send(
-                    expectedQuery,
+                    It.Is<QueryForEditorNodeFromPath>(
+                        query => query.NodePath.Contains(
+                            expectedNodeName
+                        ) && query.RootDirectoryFullName == expectedRootDirectoryFullName
+                        && query.DirectoryToLoadFullName == expectedDirectoryToLoadFullName
+                    ),
                     CancellationToken.None
                 )
             );

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Admin.Load;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
@@ -20,103 +21,99 @@ namespace EventHorizon.Zone.System.Admin.Tests.Load
         public async Task TestName()
         {
             // Given
-            var expectedTestDataList = new List<TestData>()
-            {
-                new TestData(
-                    "SubLoadedScript.csx",
-                    $"Admin{Path.DirectorySeparatorChar}SubDirectory",
-                    "// Sub Script Comment"
-                ),
-                new TestData(
-                    "LoadedScript.csx",
-                    "Admin",
-                    "// Script Comment"
-                ),
-            };
-            var expectedReferenceAssemblies = typeof(LoadAdminServerScriptsHandlerTests).Assembly;
-            var testingScriptsPath = Path.Combine(
+            Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
+            IDictionary<string, object> arguments = null;
+            var serverScriptsPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Load"
+                "server-scripts-path"
             );
+            var interactionDirectoryFullName = Path.Combine(
+                serverScriptsPath,
+                "Interaction"
+            );
+            var interactionFileName = "LoadedScript.csx";
+            var interactionFileFullName = Path.Combine(
+                interactionDirectoryFullName,
+                interactionFileName
+            );
+            var interactionFileContent = "// Script Comment";
+            var fileExtension = ".exe";
+            var interactionFileInfo = new StandardFileInfo(
+                interactionFileName,
+                interactionDirectoryFullName,
+                interactionFileFullName,
+                fileExtension
+            );
+
+            var expectedInteractionFileName = interactionFileName;
+            var expectedInteractionPath = "Interaction";
+            var expectedInteractionFileContent = interactionFileContent;
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
-            var systemAssemblyListMock = new Mock<SystemProvidedAssemblyList>();
+            var systemProvidedAssemblyListMock = new Mock<SystemProvidedAssemblyList>();
 
             serverInfoMock.Setup(
                 mock => mock.ServerScriptsPath
             ).Returns(
-                testingScriptsPath
+                serverScriptsPath
             );
 
-            systemAssemblyListMock.Setup(
-                mock => mock.List
-            ).Returns(
-                new List<Assembly>
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<LoadFileRecursivelyFromDirectory>(),
+                    CancellationToken.None
+                )
+            ).Callback<IRequest<Unit>, CancellationToken>(
+                (evt, token) =>
                 {
-                    expectedReferenceAssemblies
+                    onProcessFile = ((LoadFileRecursivelyFromDirectory)evt).OnProcessFile;
+                    arguments = ((LoadFileRecursivelyFromDirectory)evt).Arguments;
                 }
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ReadAllTextFromFile(
+                        interactionFileFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                interactionFileContent
             );
 
             // When
             var handler = new LoadAdminServerScriptsHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
-                systemAssemblyListMock.Object
+                systemProvidedAssemblyListMock.Object
             );
 
             await handler.Handle(
                 new LoadServerScriptsCommand(),
                 CancellationToken.None
             );
+            Assert.NotNull(
+                onProcessFile
+            );
 
-            for (int i = 0; i < mediatorMock.Invocations.Count; i++)
-            {
-                var expected = expectedTestDataList[i];
-                var actualRegisterCommand = (RegisterServerScriptCommand)mediatorMock.Invocations[i].Arguments[0];
+            await onProcessFile(
+                interactionFileInfo,
+                arguments
+            );
 
-                // Then
-                Assert.Equal(
-                    expected.FileName,
-                    actualRegisterCommand.FileName
-                );
-                Assert.Equal(
-                    expected.FilePath,
-                    actualRegisterCommand.Path
-                );
-                Assert.Equal(
-                    expected.FileContent,
-                    actualRegisterCommand.ScriptString
-                );
-                Assert.Collection(
-                    actualRegisterCommand.ReferenceAssemblies,
-                    item => Assert.Equal(
-                        expectedReferenceAssemblies,
-                        item
-                    )
-                );
-                Assert.Empty(
-                    actualRegisterCommand.Imports
-                );
-            }
-        }
-
-        struct TestData
-        {
-            public string FileName { get; }
-            public string FilePath { get; }
-            public string FileContent { get; }
-
-            public TestData(
-                string fileName,
-                string filePath,
-                string fileContent
-            )
-            {
-                this.FileName = fileName;
-                this.FilePath = filePath;
-                this.FileContent = fileContent;
-            }
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.Is<RegisterServerScriptCommand>(
+                        command => command.FileName == expectedInteractionFileName
+                            && command.Path == expectedInteractionPath
+                            && command.ScriptString == expectedInteractionFileContent
+                    ),
+                    CancellationToken.None
+                )
+            );
         }
     }
 }

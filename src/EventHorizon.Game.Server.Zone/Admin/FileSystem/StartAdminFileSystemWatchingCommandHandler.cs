@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Watcher.Events.Start;
 using MediatR;
@@ -9,16 +10,16 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
 {
     public class StartAdminFileSystemWatchingCommandHandler : IRequestHandler<StartAdminFileSystemWatchingCommand>
     {
-        readonly ServerInfo _serverInfo;
         readonly IMediator _mediator;
+        readonly ServerInfo _serverInfo;
 
         public StartAdminFileSystemWatchingCommandHandler(
-            ServerInfo serverInfo,
-            IMediator mediator
+            IMediator mediator,
+            ServerInfo serverInfo
         )
         {
-            _serverInfo = serverInfo;
             _mediator = mediator;
+            _serverInfo = serverInfo;
         }
 
         public async Task<Unit> Handle(
@@ -29,29 +30,29 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
             // Add File System Watcher for Server Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        _serverInfo.ServerPath
-                    )
+                    _serverInfo.ServerPath
+                )
             );
 
             // Add File System Watcher for Admin Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        _serverInfo.AdminPath
-                    )
+                    _serverInfo.AdminPath
+                )
             );
 
             // Add File System Watcher for I18n Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        _serverInfo.I18nPath
-                    )
+                    _serverInfo.I18nPath
+                )
             );
 
             // Add File System Watcher for Client Path
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        _serverInfo.ClientPath
-                    )
+                    _serverInfo.ClientPath
+                )
             );
 
             // Add File System Watcher for Agent Reload Path
@@ -60,18 +61,22 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
                 "Agent",
                 "Reload"
             );
-            if (!Directory.Exists(
-                agentReloadPath
+            if (!await _mediator.Send(
+                new DoesDirectoryExist(
+                    agentReloadPath
+                )
             ))
             {
-                Directory.CreateDirectory(
-                    agentReloadPath
+                await _mediator.Send(
+                    new CreateDirectory(
+                        agentReloadPath
+                    )
                 );
             }
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                        agentReloadPath
-                    )
+                    agentReloadPath
+                )
             );
 
             return Unit.Value;

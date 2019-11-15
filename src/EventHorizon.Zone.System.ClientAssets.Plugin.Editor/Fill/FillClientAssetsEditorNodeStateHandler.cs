@@ -3,20 +3,23 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Editor.Events;
+using EventHorizon.Zone.System.Editor.Events.Node;
 using EventHorizon.Zone.System.Editor.Model;
-using EventHorizon.Zone.System.Editor.Model.Builder;
 using MediatR;
 
 namespace EventHorizon.Zone.System.ClientAssets.Plugin.Editor.Fill
 {
     public class FillClientAssetsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
 
         public FillClientAssetsEditorNodeStateHandler(
+            IMediator mediator,
             ServerInfo serverInfo
         )
         {
+            _mediator = mediator;
             _serverInfo = serverInfo;
         }
 
@@ -49,15 +52,17 @@ namespace EventHorizon.Zone.System.ClientAssets.Plugin.Editor.Fill
         )
         {
             // Create Script Node
-            return (await LoadEditorNodeFromPath.Create(
-                rootFolder,
-                _serverInfo.ClientPath,
-                Path.Combine(
+            return (await _mediator.Send(
+                new QueryForEditorNodeFromPath(
+                    new string[] { rootFolder },
                     _serverInfo.ClientPath,
-                    "Assets"
+                    Path.Combine(
+                        _serverInfo.ClientPath,
+                        "Assets"
+                    )
                 )
             )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                 false
             );
         }

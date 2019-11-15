@@ -52,7 +52,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Editor
         {
             return (await _mediator.Send(
                 new QueryForEditorNodeFromPath(
-                    rootFolder,
+                    new string[] { rootFolder },
                     _serverInfo.AdminPath,
                     Path.Combine(
                         _serverInfo.AdminPath,

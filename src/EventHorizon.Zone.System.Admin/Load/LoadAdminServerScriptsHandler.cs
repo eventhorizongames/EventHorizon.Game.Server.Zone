@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Server.Scripts.Events.Load;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
@@ -25,72 +28,51 @@ namespace EventHorizon.Zone.System.Admin.Load
             _systemAssemblyList = systemAssemblyList;
         }
 
-        public async Task<Unit> Handle(
+        public Task<Unit> Handle(
             LoadServerScriptsCommand request,
             CancellationToken cancellationToken
+        ) => _mediator.Send(
+            new LoadFileRecursivelyFromDirectory(
+                Path.Combine(
+                    _serverInfo.ServerScriptsPath,
+                    "Admin"
+                ),
+                OnProcessFile,
+                new Dictionary<string, object>
+                {
+                    {
+                        "RootPath",
+                        $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
+                    }
+                }
+            )
+        );
+
+        private async Task OnProcessFile(
+            StandardFileInfo fileInfo,
+            IDictionary<string, object> arguments
         )
         {
-            // Start Loading Script from Root Client Scripts Directory
-            await this.LoadFromDirectoryInfo(
-                _serverInfo.ServerScriptsPath + Path.DirectorySeparatorChar,
-                new DirectoryInfo(
-                    Path.Combine(
-                        _serverInfo.ServerScriptsPath,
-                        "Admin"
-                    )
-                )
-            );
-
-            return Unit.Value;
-        }
-
-        private async Task LoadFromDirectoryInfo(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
-            // Load Scripts from Sub-Directories
-            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
-            {
-                // Load Files From Directories
-                await this.LoadFromDirectoryInfo(
-                    scriptsPath,
-                    subDirectoryInfo
-                );
-            }
-            // Load script files into Repository
-            await this.LoadFileIntoRepository(
-                scriptsPath,
-                directoryInfo
-            );
-        }
-
-
-        private async Task LoadFileIntoRepository(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
+            var rootPath = arguments["RootPath"] as string;
             var scriptReferenceAssemblies = _systemAssemblyList.List;
             var scriptImports = new string[] {
             };
-            foreach (var fileInfo in directoryInfo.GetFiles())
-            {
-                // Register Script with Platform
-                await _mediator.Send(
-                    new RegisterServerScriptCommand(
-                        fileInfo.Name,
-                        scriptsPath.MakePathRelative(
-                            fileInfo.DirectoryName
-                        ),
-                        File.ReadAllText(
+            // Register Script with Platform
+            await _mediator.Send(
+                new RegisterServerScriptCommand(
+                    fileInfo.Name,
+                    rootPath.MakePathRelative(
+                        fileInfo.DirectoryName
+                    ),
+                    await _mediator.Send(
+                        new ReadAllTextFromFile(
                             fileInfo.FullName
-                        ),
-                        scriptReferenceAssemblies,
-                        scriptImports
-                    )
-                );
-            }
+                        )
+                    ),
+                    scriptReferenceAssemblies,
+                    scriptImports
+                )
+            );
         }
     }
 }

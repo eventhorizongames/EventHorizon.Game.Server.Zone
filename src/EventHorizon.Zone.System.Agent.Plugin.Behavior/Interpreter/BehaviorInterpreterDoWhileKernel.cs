@@ -29,10 +29,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             var treeState = GetActorState(
                 shape,
                 actor
-            )/*.SetReportTracker( // Uncomment this to activate Reporting for BT State.
+            ).SetReportTracker( // Uncomment this to activate Reporting for BT State.
                 $"{actor.Id}_{actor.Name}",
                 _reportTracker
-            ) */.PopActiveNodeFromQueue()
+            ).PopActiveNodeFromQueue()
             .ClearReport()
             .Report(
                 "Kernel Tick START"

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.ServerModule.Model;
@@ -10,6 +10,9 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.ServerModule.Load
 {
+    /// <summary>
+    /// TODO: Make this recursive Loading
+    /// </summary>
     public class LoadServerModuleSystemHandler : INotificationHandler<LoadServerModuleSystemEvent>
     {
         readonly IMediator _mediator;
@@ -30,12 +33,16 @@ namespace EventHorizon.Zone.System.ServerModule.Load
             _serverModuleRepository = serverModuleRepository;
         }
 
-        public async Task Handle(LoadServerModuleSystemEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            LoadServerModuleSystemEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
             await GetServerModuleList(
                 GetServerScriptsPath()
             );
         }
+
         private string GetServerScriptsPath()
         {
             return Path.Combine(
@@ -43,11 +50,16 @@ namespace EventHorizon.Zone.System.ServerModule.Load
                 "ServerModule"
             );
         }
+        
         private async Task GetServerModuleList(
             string path
         )
         {
-            foreach (var file in new DirectoryInfo(path).GetFiles())
+            foreach (var file in await _mediator.Send(
+                new GetListOfFilesFromDirectory(
+                    path
+                )
+            ))
             {
                 AddServerModuleScript(
                     await GetServerModuleFile(
@@ -56,6 +68,7 @@ namespace EventHorizon.Zone.System.ServerModule.Load
                 );
             }
         }
+        
         private Task<ServerModuleScripts> GetServerModuleFile(
             string fullName
         )
@@ -64,6 +77,7 @@ namespace EventHorizon.Zone.System.ServerModule.Load
                 fullName
             );
         }
+
         private void AddServerModuleScript(
             ServerModuleScripts serverModule
         )

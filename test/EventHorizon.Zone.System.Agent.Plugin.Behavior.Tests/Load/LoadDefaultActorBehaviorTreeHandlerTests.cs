@@ -4,6 +4,8 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
@@ -22,6 +24,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
         public async Task ShouldRegisterDefaultBehaviorTreeShapeWhenCalled()
         {
             // Given
+            var expectedName = "$DEFAULT$SCRIPT";
+            var fileName = $"{expectedName}.csx";
+            var expectedPath = "";
+            var expectedFileContent = "file-content";
             var systemPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Load",
@@ -32,12 +38,28 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 "Behaviors",
                 "$DEFAULT$SHAPE.json"
             );
+            var defaultBehaviorScriptPath = Path.Combine(
+                systemPath,
+                "Behaviors",
+                fileName
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
             var systemProvidedAssemblyListMock = new Mock<SystemProvidedAssemblyList>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ReadAllTextFromFile(
+                        defaultBehaviorScriptPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expectedFileContent
+            );
 
             serverInfoMock.SetupGet(
                 mock => mock.SystemPath
@@ -86,11 +108,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             mediatorMock.Verify(
                 mediator => mediator.Send(
                     It.Is<RegisterServerScriptCommand>(
-                        command => command.FileName == "$DEFAULT$SCRIPT"
-                                &&
-                                command.Path == string.Empty
-                                &&
-                                command.ScriptString == "return new BehaviorScriptResponse(BehaviorNodeStatus.SUCCESS);"
+                        command => 
+                            command.FileName == expectedName
+                            &&
+                            command.Path == expectedPath
+                            &&
+                            command.ScriptString == expectedFileContent
                     ),
                     CancellationToken.None
                 )

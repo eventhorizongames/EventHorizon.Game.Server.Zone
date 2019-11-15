@@ -378,7 +378,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
         }
 
         [Fact]
-        public async Task TestShouldReturnVisitingStatusWhenTransversalIsSetToResetAndContainedInLastTraversal()
+        public async Task TestShouldReturnVisitingActiveTraversalStatusWhenTransversalIsSetToResetAndContainedInLastTraversal()
         {
             // Given
             var expected = BehaviorNodeStatus.VISITING.ToString();
@@ -388,17 +388,25 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 Reset = true,
                 Status = BehaviorNodeStatus.READY.ToString()
             };
+            var shape = new ActorBehaviorTreeShape(
+                new SerializedAgentBehaviorTree
+                {
+                    Root = currentTraversalNode
+                }
+            );
             var state = new BehaviorTreeStateBuilder()
                 .Root(
                     currentTraversalNode
                 )
                 .Build()
-                .PopActiveNodeFromQueue()
-                .PushActiveNodeToTraversalStack();
-
-            state.LastTraversalStack.Add(
-                state.ActiveTraversal.Token
-            );
+                .SetShape(
+                    shape
+                ).PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack()   
+                .AddActiveTraversalToNextStack()
+                .SetShape(
+                    shape
+                ).PopActiveTraversalNode();
 
             // When
             var actionInterpreter = new PrioritySelectorInterpreter();
@@ -410,7 +418,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             // Then
             Assert.Equal(
                 expected,
-                actual.ActiveNode.Status
+                actual.ActiveTraversal.Status
             );
             Assert.Collection(
                 actual.NodeMap.Values,

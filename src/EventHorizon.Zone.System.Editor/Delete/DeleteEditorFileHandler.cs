@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Backup.Events;
 using EventHorizon.Zone.System.Editor.Events.Delete;
@@ -36,29 +37,36 @@ namespace EventHorizon.Zone.System.Editor.Delete
         {
             try
             {
-                var filePath = Path.Combine(
+                var fileFullName = Path.Combine(
                     _serverInfo.AppDataPath,
                     Path.Combine(
                         request.FilePath.ToArray()
                     ),
                     request.FileName
                 );
-                var fileInfo = new FileInfo(
-                    filePath
-                );
-                if (fileInfo.Exists)
+                if (await _mediator.Send(
+                    new DoesFileExist(
+                        fileFullName
+                    )
+                ))
                 {
                     await _mediator.Send(
                         new CreateBackupOfFileContentCommand(
                             request.FilePath,
                             request.FileName,
-                            File.ReadAllText(
-                                fileInfo.FullName
+                            await _mediator.Send(
+                                new ReadAllTextFromFile(
+                                    fileFullName
+                                )
                             )
                         )
                     );
                 }
-                fileInfo.Delete();
+                await _mediator.Send(
+                    new DeleteFile(
+                        fileFullName
+                    )
+                );
 
                 return new EditorResponse(
                     true
@@ -67,8 +75,10 @@ namespace EventHorizon.Zone.System.Editor.Delete
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Delete Editor File.",
-                    ex
+                    ex,
+                    "Failed to Delete Editor File. {FilePath} | {FileName}",
+                    request.FilePath,
+                    request.FileName
                 );
                 return new EditorResponse(
                     false,

@@ -5,18 +5,21 @@ using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Model;
 using EventHorizon.Game.Server.Zone.I18n.Loader;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
+using MediatR;
 using Moq;
 using Xunit;
+using EventHorizon.Zone.Core.Model.FileService;
 
 namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 {
     public class I18nLoadHandlerTests
     {
         [Fact]
-        public async Task TestHandle_ShouldCallI18nRepositoryWithExpectedLocaleAndTranslationList()
+        public async Task TestShouldCallI18nRepositoryWithExpectedLocaleAndTranslationList()
         {
             //Given
             var i18nLoadEvent = new I18nLoadEvent();
@@ -28,9 +31,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 
             var i18nPath = "/path/to/assets/folder";
             var localeFileName = "file.json";
-            var fileList = new List<string>()
+            var localeFileFullName = $"{i18nPath}/{localeFileName}";
+            var fileExtension = ".json";
+            var fileList = new List<StandardFileInfo>()
             {
-                localeFileName
+                new StandardFileInfo(
+                    localeFileName,
+                    i18nPath,
+                    localeFileFullName,
+                    fileExtension
+                )
             };
             var localeFile = new I18nFile
             {
@@ -38,28 +48,38 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
                 TranslationList = expectedTranslationList,
             };
 
+            var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
-            serverInfoMock.Setup(a => a.I18nPath).Returns(i18nPath);
-            var directoryResolverMock = new Mock<DirectoryResolver>();
-            directoryResolverMock.Setup(
-                a => a.GetFiles(
-                    i18nPath
-                )
-            ).Returns(fileList);
             var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var i18nRepositoryMock = new Mock<I18nRepository>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetListOfFilesFromDirectory(
+                        i18nPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                fileList
+            );
+            serverInfoMock.Setup(
+                mock => mock.I18nPath
+            ).Returns(
+                i18nPath
+            );
             jsonFileLoaderMock.Setup(
                 a => a.GetFile<I18nFile>(
-                    localeFileName
+                    localeFileFullName
                 )
             ).ReturnsAsync(
                 localeFile
             );
-            var i18nRepositoryMock = new Mock<I18nRepository>();
 
             //When
             var i18nLoadHandler = new I18nLoadHandler(
+                mediatorMock.Object,
                 serverInfoMock.Object,
-                directoryResolverMock.Object,
                 jsonFileLoaderMock.Object,
                 i18nRepositoryMock.Object
             );
@@ -94,9 +114,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 
             var i18nPath1 = "/path/to/assets/folder1";
             var localeFileName1 = "file1.json";
-            var fileList1 = new List<string>()
+            var localeFileFullName1 = $"{i18nPath1}/{localeFileName1}";
+            var file1Extension = ".json";
+            var fileList1 = new List<StandardFileInfo>()
             {
-                localeFileName1
+                new StandardFileInfo(
+                    localeFileName1,
+                    i18nPath1,
+                    localeFileFullName1,
+                    file1Extension
+                )
             };
             var localeFile1 = new I18nFile
             {
@@ -104,60 +131,92 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
                 TranslationList = expectedTranslation1List,
             };
             var i18nPath2 = "/path/to/assets/folder2";
+            var parentFullName = "/path/to/assets";
             var localeFileName2 = "file2.json";
-            var fileList2 = new List<string>()
+            var localeFileFullName2 = $"{i18nPath2}/{localeFileName2}";
+            var file2Extension = ".json";
+            var fileList2 = new List<StandardFileInfo>()
             {
-                localeFileName2
+                new StandardFileInfo(
+                    localeFileName2,
+                    i18nPath2,
+                    localeFileFullName2,
+                    file2Extension
+                )
             };
             var localeFile2 = new I18nFile
             {
                 Locale = expectedLocale,
                 TranslationList = expectedTranslation2List,
             };
+            var i18nPathList = new List<StandardDirectoryInfo>
+            {
+                new StandardDirectoryInfo(
+                    i18nPath2,
+                    i18nPath2,
+                    parentFullName
+                )
+            };
 
+            var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
-            serverInfoMock.Setup(a => a.I18nPath).Returns(i18nPath1);
-            var directoryResolverMock = new Mock<DirectoryResolver>();
-            directoryResolverMock.Setup(
-                a => a.GetFiles(
-                    i18nPath1
-                )
-            ).Returns(fileList1);
-            directoryResolverMock.Setup(
-                a => a.GetFiles(
-                    i18nPath2
-                )
-            ).Returns(fileList2);
-            directoryResolverMock.Setup(
-                a => a.GetDirectories(
-                    i18nPath1
-                )
-            ).Returns(
-                new List<string>() {
-                    i18nPath2
-                }
-            );
             var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var i18nRepositoryMock = new Mock<I18nRepository>();
+
+            serverInfoMock.Setup(
+                mock => mock.I18nPath
+            ).Returns(
+                i18nPath1
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetListOfFilesFromDirectory(
+                        i18nPath1
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                fileList1
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetListOfFilesFromDirectory(
+                        i18nPath2
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                fileList2
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new GetListOfDirectoriesFromDirectory(
+                        i18nPath1
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                i18nPathList
+            );
             jsonFileLoaderMock.Setup(
-                a => a.GetFile<I18nFile>(
-                    localeFileName1
+                mock => mock.GetFile<I18nFile>(
+                    localeFileFullName1
                 )
             ).ReturnsAsync(
                 localeFile1
             );
             jsonFileLoaderMock.Setup(
-                a => a.GetFile<I18nFile>(
-                    localeFileName2
+                mock => mock.GetFile<I18nFile>(
+                    localeFileFullName2
                 )
             ).ReturnsAsync(
                 localeFile2
             );
-            var i18nRepositoryMock = new Mock<I18nRepository>();
 
             //When
             var i18nLoadHandler = new I18nLoadHandler(
+                mediatorMock.Object,
                 serverInfoMock.Object,
-                directoryResolverMock.Object,
                 jsonFileLoaderMock.Object,
                 i18nRepositoryMock.Object
             );

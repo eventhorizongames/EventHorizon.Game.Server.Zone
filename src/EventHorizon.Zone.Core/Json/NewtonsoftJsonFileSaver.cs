@@ -1,6 +1,8 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Json;
 using Newtonsoft.Json;
 
@@ -8,37 +10,42 @@ namespace EventHorizon.Zone.Core.Json
 {
     public class NewtonsoftJsonFileSaver : IJsonFileSaver
     {
+        readonly DirectoryResolver _directoryResolver;
+        readonly FileResolver _fileResolver;
+
+        public NewtonsoftJsonFileSaver(
+            DirectoryResolver directoryResolver,
+            FileResolver fileResolver
+        )
+        {
+            _directoryResolver = directoryResolver;
+            _fileResolver = fileResolver;
+        }
+
         public Task SaveToFile(
-            string directory,
-            string fileName,
+            string directoryFullName,
+            string fileFullName,
             object value
         )
         {
-            WriteToFile(
-                directory,
-                fileName,
+            if (!_directoryResolver.DoesDirectoryExist(
+                directoryFullName
+            ))
+            {
+                _directoryResolver.CreateDirectory(
+                    directoryFullName
+                );
+            }
+            _fileResolver.WriteAllText(
+                Path.Combine(
+                    directoryFullName,
+                    fileFullName
+                ),
                 JsonConvert.SerializeObject(
                     value
                 )
             );
             return Task.CompletedTask;
-        }
-        private void WriteToFile(
-            string directory,
-            string fileName,
-            string jsonString
-        )
-        {
-            Directory.CreateDirectory(
-                directory
-            );
-            File.WriteAllText(
-                Path.Combine(
-                    directory,
-                    fileName
-                ),
-                jsonString
-            );
         }
     }
 }

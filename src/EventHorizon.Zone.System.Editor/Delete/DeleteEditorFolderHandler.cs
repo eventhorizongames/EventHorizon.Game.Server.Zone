@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Editor.Events.Delete;
 using EventHorizon.Zone.System.Editor.Model;
@@ -28,39 +29,33 @@ namespace EventHorizon.Zone.System.Editor.Delete
             _serverInfo = serverInfo;
         }
 
-        public Task<EditorResponse> Handle(
+        public async Task<EditorResponse> Handle(
             DeleteEditorFolder request,
             CancellationToken cancellationToken
         )
         {
             try
             {
-                var folderPath = Path.Combine(
-                    _serverInfo.AppDataPath,
-                    Path.Combine(
-                        request.FolderPath.ToArray()
-                    ),
-                    request.FolderName
-                );
-                var folderInfo = new DirectoryInfo(
-                    folderPath
-                );
-                if (folderInfo.GetFiles().Length > 0
-                    || folderInfo.GetDirectories().Length > 0)
-                {
-                    return Task.FromResult(
-                        new EditorResponse(
-                            false,
-                            "folder_not_empty"
+                if (!await _mediator.Send(
+                    new DeleteDirectory(
+                        Path.Combine(
+                            _serverInfo.AppDataPath,
+                            Path.Combine(
+                                request.FolderPath.ToArray()
+                            ),
+                            request.FolderName
                         )
+                    )
+                ))
+                {
+                    return new EditorResponse(
+                        false,
+                        "folder_not_empty"
                     );
                 }
-                folderInfo.Delete();
 
-                return Task.FromResult(
-                    new EditorResponse(
-                        true
-                    )
+                return new EditorResponse(
+                    true
                 );
             }
             catch (Exception ex)
@@ -69,11 +64,9 @@ namespace EventHorizon.Zone.System.Editor.Delete
                     "Failed to Delete Editor File.",
                     ex
                 );
-                return Task.FromResult(
-                    new EditorResponse(
-                        false,
-                        "server_exception"
-                    )
+                return new EditorResponse(
+                    false,
+                    "server_exception"
                 );
             }
         }

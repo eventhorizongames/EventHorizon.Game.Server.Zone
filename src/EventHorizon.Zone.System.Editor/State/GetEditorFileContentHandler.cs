@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Editor.Events.State;
 using EventHorizon.Zone.System.Editor.Model;
@@ -14,45 +15,50 @@ namespace EventHorizon.Zone.System.Editor.State
     /// </summary>
     public class GetEditorFileContentHandler : IRequestHandler<GetEditorFileContent, StandardEditorFile>
     {
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
+
         public GetEditorFileContentHandler(
+            IMediator mediator,
             ServerInfo serverInfo
         )
         {
+            _mediator = mediator;
             _serverInfo = serverInfo;
         }
-        public Task<StandardEditorFile> Handle(
+
+        public async Task<StandardEditorFile> Handle(
             GetEditorFileContent request,
             CancellationToken cancellationToken
         )
         {
-            var filePath = Path.Combine(
+            var fileFullName = Path.Combine(
                 _serverInfo.AppDataPath,
                 Path.Combine(
                     request.FilePath.ToArray()
                 ),
                 request.FileName
             );
-            if (File.Exists(
-                filePath
+            if (await _mediator.Send(
+                new DoesFileExist(
+                    fileFullName
+                )
             ))
             {
-                return Task.FromResult(
-                    new StandardEditorFile(
-                        request.FileName,
-                        request.FilePath,
-                        File.ReadAllText(
-                            filePath
+                return new StandardEditorFile(
+                    request.FileName,
+                    request.FilePath,
+                    await _mediator.Send(
+                        new ReadAllTextFromFile(
+                            fileFullName
                         )
                     )
                 );
             }
-            return Task.FromResult(
-                new StandardEditorFile(
-                    "__invalid__",
-                    new string[] { "__invalid__" },
-                    "__invalid__"
-                )
+            return new StandardEditorFile(
+                "__invalid__",
+                new string[] { "__invalid__" },
+                "__invalid__"
             );
         }
     }

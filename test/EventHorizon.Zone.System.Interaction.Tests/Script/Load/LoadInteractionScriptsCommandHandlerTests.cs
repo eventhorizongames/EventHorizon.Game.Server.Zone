@@ -4,6 +4,10 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Interaction.Script.Load;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
@@ -19,25 +23,36 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
         public async Task TestShouldRegisterScriptsFromServerScriptsPath()
         {
             // Given
-            var expectedTestDataList = new List<TestData>()
-            {
-                new TestData(
-                    "SubLoadedScript.csx",
-                    $"Interaction{Path.DirectorySeparatorChar}SubDirectory",
-                    "// Sub Script Comment"
-                ),
-                new TestData(
-                    "LoadedScript.csx",
-                    "Interaction",
-                    "// Script Comment"
-                ),
-            };
-            var expectedReferenceAssemblies = typeof(LoadInteractionScriptsCommandHandler).Assembly;
-            var testingScriptsPath = Path.Combine(
+            Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
+            IDictionary<string, object> arguments = null;
+            var serverScriptsPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Script",
-                "Load"
+                "server-scripts-path"
             );
+            var interactionDirectoryFullName = Path.Combine(
+                serverScriptsPath,
+                "Interaction"
+            );
+            var interactionFileName = "LoadedScript.csx";
+            var interactionFileFullName = Path.Combine(
+                interactionDirectoryFullName,
+                interactionFileName
+            );
+            var interactionFileContent = "// Script Comment";
+            var fileExtension = ".exe";
+            var interactionFileInfo = new StandardFileInfo(
+                interactionFileName,
+                interactionDirectoryFullName,
+                interactionFileFullName,
+                fileExtension
+            );
+
+            var expectedTestData1 = new TestData(
+                interactionFileName,
+                "Interaction",
+                interactionFileContent
+            );
+            var expectedReferenceAssemblies = typeof(LoadInteractionScriptsCommandHandler).Assembly;
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
@@ -45,7 +60,31 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
             serverInfoMock.Setup(
                 mock => mock.ServerScriptsPath
             ).Returns(
-                testingScriptsPath
+                serverScriptsPath
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<LoadFileRecursivelyFromDirectory>(),
+                    CancellationToken.None
+                )
+            ).Callback<IRequest<Unit>, CancellationToken>(
+                (evt, token) =>
+                {
+                    onProcessFile = ((LoadFileRecursivelyFromDirectory)evt).OnProcessFile;
+                    arguments = ((LoadFileRecursivelyFromDirectory)evt).Arguments;
+                }
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ReadAllTextFromFile(
+                        interactionFileFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                interactionFileContent
             );
 
             // When
@@ -58,36 +97,26 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
                 new LoadInteractionScriptsCommand(),
                 CancellationToken.None
             );
+            Assert.NotNull(
+                onProcessFile
+            );
 
-            for (int i = 0; i < mediatorMock.Invocations.Count; i++)
-            {
-                var expected = expectedTestDataList[i];
-                var actualRegisterCommand = (RegisterServerScriptCommand)mediatorMock.Invocations[i].Arguments[0];
+            await onProcessFile(
+                interactionFileInfo,
+                arguments
+            );
 
-                // Then
-                Assert.Equal(
-                    expected.FileName,
-                    actualRegisterCommand.FileName
-                );
-                Assert.Equal(
-                    expected.FilePath,
-                    actualRegisterCommand.Path
-                );
-                Assert.Equal(
-                    expected.FileContent,
-                    actualRegisterCommand.ScriptString
-                );
-                Assert.Collection(
-                    actualRegisterCommand.ReferenceAssemblies,
-                    item => Assert.Equal(
-                        expectedReferenceAssemblies,
-                        item
-                    )
-                );
-                Assert.Empty(
-                    actualRegisterCommand.Imports
-                );
-            }
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.Is<RegisterServerScriptCommand>(
+                        command => command.FileName == expectedTestData1.FileName
+                            && command.Path == expectedTestData1.FilePath
+                            && command.ScriptString == expectedTestData1.FileContent
+                    ),
+                    CancellationToken.None
+                )
+            );
         }
 
         struct TestData

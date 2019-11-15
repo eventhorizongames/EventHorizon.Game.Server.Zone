@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;
@@ -22,74 +25,53 @@ namespace EventHorizon.Zone.System.Interaction.Script.Load
             _serverInfo = serverInfo;
         }
 
-        public async Task<Unit> Handle(
+        public Task<Unit> Handle(
             LoadInteractionScriptsCommand request,
             CancellationToken cancellationToken
+        ) => _mediator.Send(
+            new LoadFileRecursivelyFromDirectory(
+                Path.Combine(
+                    _serverInfo.ServerScriptsPath,
+                    "Interaction"
+                ),
+                OnProcessFile,
+                new Dictionary<string, object>
+                {
+                    {
+                        "RootPath",
+                        $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
+                    }
+                }
+            )
+        );
+
+        private async Task OnProcessFile(
+            StandardFileInfo fileInfo,
+            IDictionary<string, object> arguments
         )
         {
-            var interactionPath = Path.Combine(
-                _serverInfo.ServerScriptsPath,
-                "Interaction"
-            );
-            // Start Loading Script from Root Client Scripts Directory
-            await this.LoadFromDirectoryInfo(
-                $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}",
-                new DirectoryInfo(
-                    interactionPath
+            var rootPath = arguments["RootPath"] as string;
+            var scriptReferenceAssemblies = new Assembly[] {
+                typeof(LoadInteractionScriptsCommandHandler).Assembly // TODO: Update this to SystemProvidedAssemblyList
+            };
+            var scriptImports = new string[] {
+            };
+            // Register Script with Platform
+            await _mediator.Send(
+                new RegisterServerScriptCommand(
+                    fileInfo.Name,
+                    rootPath.MakePathRelative(
+                        fileInfo.DirectoryName
+                    ),
+                    await _mediator.Send(
+                        new ReadAllTextFromFile(
+                            fileInfo.FullName
+                        )
+                    ),
+                    scriptReferenceAssemblies,
+                    scriptImports
                 )
             );
-            return Unit.Value;
-        }
-
-        private async Task LoadFromDirectoryInfo(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
-            // Load Scripts from Sub-Directories
-            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
-            {
-                // Load Files From Directories
-                await this.LoadFromDirectoryInfo(
-                    scriptsPath,
-                    subDirectoryInfo
-                );
-            }
-            // Load script files into Repository
-            await this.LoadFileIntoRepository(
-                scriptsPath,
-                directoryInfo
-            );
-        }
-
-
-        private async Task LoadFileIntoRepository(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
-            foreach (var fileInfo in directoryInfo.GetFiles())
-            {
-                var scriptReferenceAssemblies = new Assembly[] {
-                    typeof(LoadInteractionScriptsCommandHandler).Assembly
-                };
-                var scriptImports = new string[] {
-                };
-                // Register Script with Platform
-                await _mediator.Send(
-                    new RegisterServerScriptCommand(
-                        fileInfo.Name,
-                        scriptsPath.MakePathRelative(
-                            fileInfo.DirectoryName
-                        ),
-                        File.ReadAllText(
-                            fileInfo.FullName
-                        ),
-                        scriptReferenceAssemblies,
-                        scriptImports
-                    )
-                );
-            }
         }
     }
 }

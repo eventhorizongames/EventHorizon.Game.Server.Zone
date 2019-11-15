@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Combat.Skill.Model;
@@ -34,33 +38,33 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
             _skillRepository = skillRepository;
         }
 
-        public async Task Handle(
+        public Task Handle(
             LoadCombatSkillsEvent notification,
             CancellationToken cancellationToken
-        )
-        {
-            var skillPath = Path.Combine(
-                _serverInfo.ClientPath,
-                "Skills"
-            );
-
-
-            // Start Loading Skills from Root Client Skill Directory
-            await this.LoadFromDirectoryInfo(
-                _serverInfo.ClientPath + Path.DirectorySeparatorChar,
-                new DirectoryInfo(
-                    skillPath
+        ) => _mediator.Send(
+            new LoadFileRecursivelyFromDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Skills"
                 ),
-                this.DoSomethingAsync
-            );
-        }
-        
-        public async Task DoSomethingAsync(
-            string rootPath,
-            DirectoryInfo directoryInfo,
-            FileInfo fileInfo
+                OnProcessFile,
+                new Dictionary<string, object>
+                {
+                    {
+                        "RootPath",
+                        // $"{_serverInfo.ClientPath}{Path.DirectorySeparatorChar}"
+                        _serverInfo.ClientPath
+                    }
+                }
+            )
+        );
+
+        private async Task OnProcessFile(
+            StandardFileInfo fileInfo,
+            IDictionary<string, object> arguments
         )
         {
+            var rootPath = arguments["RootPath"] as string;
             var loadedSkill = await _fileLoader.GetFile<SkillInstance>(
                 fileInfo.FullName
             );
@@ -75,47 +79,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
             _skillRepository.Set(
                 loadedSkill
             );
-        }
-
-        private async Task LoadFromDirectoryInfo(
-            string rootPath,
-            DirectoryInfo directoryInfo,
-            Func<string, DirectoryInfo, FileInfo, Task> onFileInfo
-        )
-        {
-            // Load Scripts from Sub-Directories
-            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
-            {
-                // Load Files From Directories
-                await this.LoadFromDirectoryInfo(
-                    rootPath,
-                    subDirectoryInfo,
-                    onFileInfo
-                );
-            }
-            // Load script files into Repository
-            await this.LoadFileIntoRepository(
-                rootPath,
-                directoryInfo,
-                onFileInfo
-            );
-        }
-
-
-        private async Task LoadFileIntoRepository(
-            string rootPath,
-            DirectoryInfo directoryInfo,
-            Func<string, DirectoryInfo, FileInfo, Task> onFileInfo
-        )
-        {
-            foreach (var fileInfo in directoryInfo.GetFiles())
-            {
-                await onFileInfo(
-                    rootPath,
-                    directoryInfo,
-                    fileInfo
-                );
-            }
         }
     }
 }

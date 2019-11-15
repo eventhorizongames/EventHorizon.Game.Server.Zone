@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
@@ -58,11 +59,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                 new RegisterServerScriptCommand(
                     defaultScriptName,
                     string.Empty,
-                    File.ReadAllText(
-                        Path.Combine(
-                            _serverInfo.SystemPath,
-                            "Behaviors",
-                            $"{defaultScriptName}.csx"
+                    await _mediator.Send(
+                        new ReadAllTextFromFile(
+                            Path.Combine(
+                                _serverInfo.SystemPath,
+                                "Behaviors",
+                                $"{defaultScriptName}.csx"
+                            )
                         )
                     ),
                     _systemAssemblyList.List,

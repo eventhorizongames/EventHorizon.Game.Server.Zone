@@ -1,34 +1,31 @@
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.I18n;
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Model;
-using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using MediatR;
-using IOPath = System.IO.Path;
 
 namespace EventHorizon.Game.Server.Zone.I18n.Loader
 {
     public class I18nLoadHandler : INotificationHandler<I18nLoadEvent>
     {
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
-        readonly DirectoryResolver _directoryResolver;
         readonly IJsonFileLoader _fileLoader;
         readonly I18nRepository _i18nRepository;
 
         public I18nLoadHandler(
+            IMediator mediator,
             ServerInfo serverInfo,
-            DirectoryResolver directoryResolver,
             IJsonFileLoader fileLoader,
             I18nRepository i18nRepository
         )
         {
+            _mediator = mediator;
             _serverInfo = serverInfo;
-            _directoryResolver = directoryResolver;
             _fileLoader = fileLoader;
             _i18nRepository = i18nRepository;
         }
@@ -39,9 +36,7 @@ namespace EventHorizon.Game.Server.Zone.I18n.Loader
         )
         {
             await LoadDirectoryIntoRepository(
-                IOPath.Combine(
-                    _serverInfo.I18nPath
-                )
+                _serverInfo.I18nPath
             );
         }
 
@@ -50,13 +45,15 @@ namespace EventHorizon.Game.Server.Zone.I18n.Loader
         )
         {
             // Read all i18n files of path
-            foreach (var i18nFileName in _directoryResolver.GetFiles(
-                path
+            foreach (var i18nFileInfo in await _mediator.Send(
+                new GetListOfFilesFromDirectory(
+                    path
+                )
             ))
             {
                 // Add i18n translation list into i18nRepository
                 var i18nFile = await _fileLoader.GetFile<I18nFile>(
-                    i18nFileName
+                    i18nFileInfo.FullName
                 );
                 _i18nRepository.SetRepository(
                     i18nFile.Locale,
@@ -64,12 +61,14 @@ namespace EventHorizon.Game.Server.Zone.I18n.Loader
                 );
             }
             // Read through the directories of path
-            foreach (var directoryPath in _directoryResolver.GetDirectories(
-                path
+            foreach (var directoryInfo in await _mediator.Send(
+                new GetListOfDirectoriesFromDirectory(
+                    path
+                )
             ))
             {
                 await this.LoadDirectoryIntoRepository(
-                    directoryPath
+                    directoryInfo.FullName
                 );
             }
         }

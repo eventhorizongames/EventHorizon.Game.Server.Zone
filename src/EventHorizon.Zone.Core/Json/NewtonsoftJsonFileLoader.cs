@@ -1,5 +1,5 @@
-using System.IO;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Json;
 using Newtonsoft.Json;
 
@@ -7,31 +7,33 @@ namespace EventHorizon.Zone.Core.Json
 {
     public class NewtonsoftJsonFileLoader : IJsonFileLoader
     {
-        public async Task<T> GetFile<T>(
-            string fileName
+        readonly FileResolver _fileResolver;
+
+        public NewtonsoftJsonFileLoader(
+            FileResolver fileResolver
         )
         {
-            if (AssetsFileExists(
-                fileName
+            _fileResolver = fileResolver;
+        }
+
+        public Task<T> GetFile<T>(
+            string fileFullName
+        )
+        {
+            if (!_fileResolver.DoesFileExist(
+                fileFullName
             ))
             {
-                using (var settingsFile = File.OpenText(
-                    fileName
-                ))
-                {
-                    return JsonConvert.DeserializeObject<T>(
-                        await settingsFile.ReadToEndAsync()
-                    );
-                }
+                return Task.FromResult(
+                    default(T)
+                );
             }
-            return default(T);
-        }
-        private bool AssetsFileExists(
-            string fileName
-        )
-        {
-            return File.Exists(
-                fileName
+            return Task.FromResult(
+                JsonConvert.DeserializeObject<T>(
+                    _fileResolver.GetFileText(
+                        fileFullName
+                    )
+                )
             );
         }
     }

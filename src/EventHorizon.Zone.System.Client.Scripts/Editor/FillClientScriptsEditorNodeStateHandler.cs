@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Model.Builder;
 using EventHorizon.Zone.System.Editor.Events;
+using EventHorizon.Zone.System.Editor.Events.Node;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
 
@@ -11,12 +11,15 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
     // TODO: Move this into a Client.Scripts.Editor Project
     public class FillClientScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
 
         public FillClientScriptsEditorNodeStateHandler(
+            IMediator mediator,
             ServerInfo serverInfo
         )
         {
+            _mediator = mediator;
             _serverInfo = serverInfo;
         }
 
@@ -47,10 +50,12 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
             string rootFolder
         )
         {
-            var node = (await LoadEditorNodeFromPath.Create(
-                rootFolder,
-                _serverInfo.ClientPath,
-                _serverInfo.ClientScriptsPath
+            var node = (await _mediator.Send(
+                new QueryForEditorNodeFromPath(
+                    new string[] { rootFolder },
+                    _serverInfo.ClientPath,
+                    _serverInfo.ClientScriptsPath
+                )
             )).AddProperty(
                 EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY, 
                 false

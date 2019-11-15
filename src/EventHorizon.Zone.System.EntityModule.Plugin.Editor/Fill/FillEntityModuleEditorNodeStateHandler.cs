@@ -3,21 +3,24 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Model.Builder;
 using EventHorizon.Zone.System.Editor.Events;
 using EventHorizon.Zone.System.Editor.Model;
 using MediatR;
+using EventHorizon.Zone.System.Editor.Events.Node;
 
 namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
 {
     public class FillEntityModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
 
         public FillEntityModuleEditorNodeStateHandler(
+            IMediator mediator,
             ServerInfo serverInfo
         )
         {
+            _mediator = mediator;
             _serverInfo = serverInfo;
         }
 
@@ -68,13 +71,15 @@ namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
             string modulesFolder
         )
         {
-            return (await LoadEditorNodeFromPath.Create(
-                new List<string> { rootFolder, modulesFolder },
-                _serverInfo.ClientPath,
-                Path.Combine(
+            return (await _mediator.Send(
+                new QueryForEditorNodeFromPath(
+                    new List<string> { rootFolder, modulesFolder },
                     _serverInfo.ClientPath,
-                    modulesFolder,
-                    "Base"
+                    Path.Combine(
+                        _serverInfo.ClientPath,
+                        modulesFolder,
+                        "Base"
+                    )
                 )
             )).AddProperty(
                 EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
@@ -87,13 +92,15 @@ namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
             string modulesFolder
         )
         {
-            return (await LoadEditorNodeFromPath.Create(
-                new List<string> { rootFolder, modulesFolder },
-                _serverInfo.ClientPath,
-                Path.Combine(
+            return (await _mediator.Send(
+                new QueryForEditorNodeFromPath(
+                    new List<string> { rootFolder, modulesFolder },
                     _serverInfo.ClientPath,
-                    modulesFolder,
-                    "Player"
+                    Path.Combine(
+                        _serverInfo.ClientPath,
+                        modulesFolder,
+                        "Player"
+                    )
                 )
             )).AddProperty(
                 EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,

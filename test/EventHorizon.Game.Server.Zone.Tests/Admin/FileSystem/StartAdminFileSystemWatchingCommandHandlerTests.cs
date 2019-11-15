@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Game.Server.Zone.Admin.FileSystem;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Watcher.Events.Start;
 using MediatR;
@@ -14,250 +15,31 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 {
     public class StartAdminFileSystemWatchingCommandHandlerTests
     {
-        string appDataPath = IOPath.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            "Admin",
-            "FileSystem"
-        );
-        string testingReloadPath = "";
-        public StartAdminFileSystemWatchingCommandHandlerTests()
-        {
-            testingReloadPath = IOPath.Combine(
-                appDataPath,
-                "Agent",
-                "Reload"
-            );
-            if (Directory.Exists(
-                testingReloadPath
-            ))
-            {
-                Directory.Delete(
-                    testingReloadPath,
-                    true
-                );
-            }
-        }
         [Fact]
         public async Task TestShouldSendEventsForWatchingServerPathWhenEventIsHandled()
         {
             // Given
-            var path = "path-to-server";
-            var expected = new StartWatchingFileSystemCommand(
-                path
-            );
+            var serverPath = "path-to-server";
+            var adminPath = "path-to-admin";
+            var i18nPath = "path-to-i18n";
+            var clientPath = "path-to-client";
+            var appDataPath = "path-to-app-data";
 
-            var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                ""
+            var expectedServer = new StartWatchingFileSystemCommand(
+                serverPath
             );
-
-            serverInfoMock.Setup(
-                mock => mock.ServerPath
-            ).Returns(
-                path
+            var expectedAdmin = new StartWatchingFileSystemCommand(
+                adminPath
             );
-
-            // When
-            var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
+            var expectedI18n = new StartWatchingFileSystemCommand(
+                i18nPath
             );
-            await handler.Handle(
-                new StartAdminFileSystemWatchingCommand(),
-                CancellationToken.None
+            var expectedClient = new StartWatchingFileSystemCommand(
+                clientPath
             );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldSendEventsForWatchingAdminPathWhenEventIsHandled()
-        {
-            // Given
-            var appDataPath = IOPath.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Admin",
-                "FileSystem"
-            );
-            var path = IOPath.Combine(
-                appDataPath,
-                "Agent",
-                "Reload"
-            );
-            var expected = new StartWatchingFileSystemCommand(
-                path
-            );
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
-
-            // When
-            var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new StartAdminFileSystemWatchingCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldCreateDirectoryForAgentReloadWhenStartingWatchOfPath()
-        {
-            // Given
-            var path = testingReloadPath;
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
-
-            // When
-            var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
-            );
-            Assert.False(
-                Directory.Exists(
-                    path
-                )
-            );
-            await handler.Handle(
-                new StartAdminFileSystemWatchingCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            Assert.True(
-                Directory.Exists(
-                    path
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldSendEventsForWatchingI18nPathWhenEventIsHandled()
-        {
-            // Given
-            var path = "path-to-i18n";
-            var expected = new StartWatchingFileSystemCommand(
-                path
-            );
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                ""
-            );
-
-            serverInfoMock.Setup(
-                mock => mock.I18nPath
-            ).Returns(
-                path
-            );
-
-            // When
-            var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new StartAdminFileSystemWatchingCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldSendEventsForWatchingClientPathWhenEventIsHandled()
-        {
-            // Given
-            var path = "path-to-client";
-            var expected = new StartWatchingFileSystemCommand(
-                path
-            );
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                ""
-            );
-
-            serverInfoMock.Setup(
-                mock => mock.ClientPath
-            ).Returns(
-                path
-            );
-
-            // When
-            var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new StartAdminFileSystemWatchingCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldSendEventsForWatchingAgentReloadPathWhenEventIsHandled()
-        {
-            // Given
-            var path = "path-to-app-data";
-            var expected = new StartWatchingFileSystemCommand(
-                System.IO.Path.Combine(
-                    path,
+            var expectedAgent = new StartWatchingFileSystemCommand(
+                IOPath.Combine(
+                    appDataPath,
                     "Agent",
                     "Reload"
                 )
@@ -267,15 +49,40 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var mediatorMock = new Mock<IMediator>();
 
             serverInfoMock.Setup(
+                mock => mock.ServerPath
+            ).Returns(
+                serverPath
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.AdminPath
+            ).Returns(
+                adminPath
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.I18nPath
+            ).Returns(
+                i18nPath
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.ClientPath
+            ).Returns(
+                clientPath
+            );
+
+            serverInfoMock.Setup(
                 mock => mock.AppDataPath
             ).Returns(
-                path
+                appDataPath
             );
+
 
             // When
             var handler = new StartAdminFileSystemWatchingCommandHandler(
-                serverInfoMock.Object,
-                mediatorMock.Object
+                mediatorMock.Object,
+                serverInfoMock.Object
             );
             await handler.Handle(
                 new StartAdminFileSystemWatchingCommand(),
@@ -285,7 +92,87 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    expected,
+                    expectedServer,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedAdmin,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedI18n,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedClient,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedAgent,
+                    CancellationToken.None
+                )
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldCreateDirectoryForAgentReloadWhenAgentReloadDirectoryDoesNotExist()
+        {
+            // Given
+            var appDataPath = IOPath.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Admin",
+                "FileSystem"
+            );
+            var agentReloadPath = IOPath.Combine(
+                appDataPath,
+                "Agent",
+                "Reload"
+            );
+
+            var serverInfoMock = new Mock<ServerInfo>();
+            var mediatorMock = new Mock<IMediator>();
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                appDataPath
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesDirectoryExist(
+                        agentReloadPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                false
+            );
+
+            // When
+            var handler = new StartAdminFileSystemWatchingCommandHandler(
+                mediatorMock.Object,
+                serverInfoMock.Object
+            );
+            await handler.Handle(
+                new StartAdminFileSystemWatchingCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new CreateDirectory(
+                        agentReloadPath
+                    ),
                     CancellationToken.None
                 )
             );

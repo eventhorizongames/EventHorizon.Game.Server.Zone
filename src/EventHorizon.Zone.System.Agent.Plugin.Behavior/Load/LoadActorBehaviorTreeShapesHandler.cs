@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
@@ -29,67 +32,50 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
             _actorBehaviorTreeRepository = actorBehaviorTreeRepository;
         }
 
-        public async Task<Unit> Handle(
+        public Task<Unit> Handle(
             LoadActorBehaviorTreeShapes request,
             CancellationToken cancellationToken
+        ) => _mediator.Send(
+            new LoadFileRecursivelyFromDirectory(
+                Path.Combine(
+                    _serverInfo.ServerPath,
+                    "Behaviors"
+                ),
+                OnProcessFile,
+                new Dictionary<string, object>
+                {
+                    {
+                        "RootPath",
+                        $"{_serverInfo.ServerPath}{Path.DirectorySeparatorChar}"
+                    }
+                }
+            )
+        );
+
+        private async Task OnProcessFile(
+            StandardFileInfo fileInfo,
+            IDictionary<string, object> arguments
         )
         {
-            await this.LoadFromDirectoryInfo(
-                _serverInfo.ServerPath,
-                new DirectoryInfo(
-                    Path.Combine(
-                        _serverInfo.ServerPath,
-                        "Behaviors"
+            var rootPath = arguments["RootPath"] as string;
+            var treeId = GenerateName(
+                rootPath.MakePathRelative(
+                    fileInfo.DirectoryName
+                ), fileInfo.Name
+            );
+            _actorBehaviorTreeRepository.RegisterTree(
+                treeId,
+                new ActorBehaviorTreeShape(
+                    await _fileLoader.GetFile<SerializedAgentBehaviorTree>(
+                        fileInfo.FullName
                     )
                 )
             );
-
-            return Unit.Value;
         }
 
-        private async Task LoadFromDirectoryInfo(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
-            // Load Scripts from Sub-Directories
-            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
-            {
-                // Load Files From Directories
-                await this.LoadFromDirectoryInfo(
-                    scriptsPath,
-                    subDirectoryInfo
-                );
-            }
-            // Load script files into Repository
-            await this.LoadFileIntoRepository(
-                scriptsPath,
-                directoryInfo
-            );
-        }
-        private async Task LoadFileIntoRepository(
-            string scriptsPath,
-            DirectoryInfo directoryInfo
-        )
-        {
-            foreach (var treeShapeFile in directoryInfo.GetFiles())
-            {
-                var treeId = GenerateName(
-                    $"{scriptsPath}{Path.DirectorySeparatorChar}".MakePathRelative(
-                        treeShapeFile.DirectoryName
-                    ), treeShapeFile.Name
-                );
-                _actorBehaviorTreeRepository.RegisterTree(
-                    treeId,
-                    new ActorBehaviorTreeShape(
-                        await _fileLoader.GetFile<SerializedAgentBehaviorTree>(
-                            treeShapeFile.FullName
-                        )
-                    )
-                );
-            }
-        }
-
+        /// <summary>
+        /// TODO: Move this to a Model, maybe a NameGenerator abstraction.
+        /// </summary>
         private static string GenerateName(
             string path,
             string fileName

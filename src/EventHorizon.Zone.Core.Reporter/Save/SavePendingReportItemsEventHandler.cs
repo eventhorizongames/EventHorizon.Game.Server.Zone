@@ -1,90 +1,95 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Reporter.Model;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.Core.Reporter.Save
 {
     public class SavePendingReportItemsEventHandler : INotificationHandler<SavePendingReportItemsEvent>
     {
+        readonly ILogger _logger;
+        readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
         readonly ReportRepository _repository;
 
         public SavePendingReportItemsEventHandler(
+            ILogger<SavePendingReportItemsEventHandler> logger,
+            IMediator mediator,
             ServerInfo serverInfo,
             ReportRepository repository
         )
         {
+            _logger = logger;
+            _mediator = mediator;
             _serverInfo = serverInfo;
             _repository = repository;
         }
 
-        public Task Handle(
+        public async Task Handle(
             SavePendingReportItemsEvent notification,
             CancellationToken cancellationToken
         )
         {
             var reportingPath = GetReportingPath();
-            var reports = _repository.TakeAll();
-            if (!Directory.Exists(
-                reportingPath
+
+            if (!await _mediator.Send(
+                new CreateDirectory(
+                    reportingPath
+                )
             ))
             {
-                new DirectoryInfo(
+                _logger.LogError(
+                    "Failed to create Reporting directory. {ReportingPath}",
                     reportingPath
-                ).Create();
+                );
+                return;
             }
+            
+            var reports = _repository.TakeAll();
             foreach (var report in reports)
             {
-                var reportFile = Path.Combine(
+                var reportFileFullName = Path.Combine(
                     reportingPath,
                     $"Reporting_{report.Id}.log"
                 );
-                if (File.Exists(
-                    reportFile
-                ))
+                var reportFileText = "";
+                using (var streamWriter = new StringWriter())
                 {
-                    using (var streamWriter = new FileInfo(
-                        reportFile
-                    ).AppendText())
-                    {
-                        AppendReportItemList(
-                            report,
-                            streamWriter
-                        );
-                    }
+                    AppendReportItemList(
+                        report,
+                        streamWriter
+                    );
+                    reportFileText = streamWriter.ToString();
                 }
-                else
-                {
-                    using (var streamWriter = new FileInfo(
-                        reportFile
-                    ).CreateText())
-                    {
-                        AppendReportItemList(
-                            report,
-                            streamWriter
-                        );
-                    }
-                }
-
+                await _mediator.Send(
+                    new AppendTextToFile(
+                        reportFileFullName,
+                        reportFileText
+                    )
+                );
             }
-            return Task.CompletedTask;
         }
 
-        private static void AppendReportItemList(Report report, StreamWriter streamWriter)
+        private static void AppendReportItemList(
+            Report report, 
+            StringWriter writer
+        )
         {
             foreach (var reportItem in report.ItemList)
             {
-                streamWriter.WriteLine("---");
+                writer.WriteLine("---");
 
-                streamWriter.WriteLine(reportItem.Message);
-                streamWriter.WriteLine(reportItem.Data);
+                writer.WriteLine(reportItem.Message);
+                writer.WriteLine(reportItem.Data);
 
-                streamWriter.WriteLine("---");
-                streamWriter.WriteLine();
-                streamWriter.WriteLine();
+                writer.WriteLine("---");
+                writer.WriteLine();
+                writer.WriteLine();
             }
         }
 

@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Reporter.Model;
 using EventHorizon.Zone.Core.Reporter.Save;
-using FluentAssertions;
+using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -14,73 +17,192 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
 {
     public class SavePendingReportItemsEventHandlerTests
     {
-        string savePath;
-
-        public SavePendingReportItemsEventHandlerTests()
+        [Fact]
+        public async Task TestShouldNotSaveReportsWhenReportingDirectoryIsNotCreated()
         {
-            savePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Save",
-                "ReportingTestDirectory"
+            // Given
+            var appDataPath = "app-data-path";
+            var reportingPath = Path.Combine(
+                appDataPath,
+                "Reporting"
             );
 
-            if (Directory.Exists(
-                savePath
-            ))
+            var loggerMock = new Mock<ILogger<SavePendingReportItemsEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var reportRepositoryMock = new Mock<ReportRepository>();
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                appDataPath
+            );
+
+            // When
+            var handler = new SavePendingReportItemsEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                reportRepositoryMock.Object
+            );
+            await handler.Handle(
+                new SavePendingReportItemsEvent(),
+                CancellationToken.None
+            );
+
+            // Then
+            reportRepositoryMock.Verify(
+                mock => mock.TakeAll(),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldNotWriteTextToFileWhenNoReportsAreReturned()
+        {
+            // Given
+            var appDataPath = "app-data-path";
+            var reportingPath = Path.Combine(
+                appDataPath,
+                "Reporting"
+            );
+            var emptyReportList = new List<Report>();
+
+            var loggerMock = new Mock<ILogger<SavePendingReportItemsEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var reportRepositoryMock = new Mock<ReportRepository>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<CreateDirectory>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                appDataPath
+            );
+
+            reportRepositoryMock.Setup(
+                mock => mock.TakeAll()
+            ).Returns(
+                emptyReportList
+            );
+
+            // When
+            var handler = new SavePendingReportItemsEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                reportRepositoryMock.Object
+            );
+            await handler.Handle(
+                new SavePendingReportItemsEvent(),
+                CancellationToken.None
+            );
+
+            // Then
+            reportRepositoryMock.Verify(
+                mock => mock.TakeAll()
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<AppendTextToFile>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldWriteTextToFileWhenReportsAreReturned()
+        {
+            // Given
+            var appDataPath = "app-data-path";
+            var reportingPath = Path.Combine(
+                appDataPath,
+                "Reporting"
+            );
+
+            var report1Id = "report-1-Id";
+            var report1Message = "report-1-Message";
+            var report1Data = "report-1-Data";
+            var report2Id = "report-2-Id";
+
+            var expectedReport1FileFullName = Path.Combine(
+                reportingPath,
+                "Reporting_report-1-Id.log"
+            );
+            var expectedReport1Text = String.Join(
+                "",
+                new string[] {
+                    "---",
+                    Environment.NewLine,
+                    report1Message,
+                    Environment.NewLine,
+                    report1Data,
+                    Environment.NewLine,
+                    "---",
+                    Environment.NewLine,
+                    Environment.NewLine,
+                    Environment.NewLine,
+                }
+            ); 
+            var expectedReport2FileFullName = Path.Combine(
+                reportingPath,
+                "Reporting_report-2-Id.log"
+            );
+            var expectedReport2Text = "";
+            var reportList = new List<Report>()
             {
-                Directory.Delete(
-                    savePath,
-                    true
-                );
-            }
+                new Report(
+                    report1Id
+                ).AddItem(
+                    new ReportItem(
+                        report1Message,
+                        report1Data
+                    )
+                ),
+                new Report(
+                    report2Id
+                ),
+            };
 
-            Directory.CreateDirectory(
-                savePath
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldSaveReportsToFileWhenReportRepositoryContainsReports()
-        {
-            // Given
-            var reportId = "report-id";
-            var expectedFileName = "Reporting_report-id.log";
-            var filePath = Path.Combine(
-                savePath,
-                "Reporting",
-                expectedFileName
-            );
-            var expectedMessageText = "Some Message Text to Help pinpoint it is added!";
-            var dataText = "We will be passing in some text";
-            var expectedDataText = $@"{dataText}";
-
+            var loggerMock = new Mock<ILogger<SavePendingReportItemsEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var reportRepositoryMock = new Mock<ReportRepository>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<CreateDirectory>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
 
             serverInfoMock.Setup(
                 mock => mock.AppDataPath
             ).Returns(
-                savePath
+                appDataPath
             );
 
             reportRepositoryMock.Setup(
                 mock => mock.TakeAll()
             ).Returns(
-                new List<Report>
-                {
-                    new Report(
-                        reportId
-                    ).AddItem(
-                        new ReportItem(
-                            expectedMessageText,
-                            dataText
-                        )
-                    )
-                }
+                reportList
             );
 
             // When
             var handler = new SavePendingReportItemsEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
                 serverInfoMock.Object,
                 reportRepositoryMock.Object
             );
@@ -89,132 +211,25 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
                 CancellationToken.None
             );
 
-            var actual = File.ReadAllText(
-                filePath
-            );
-
             // Then
-            actual
-                .Should()
-                .ContainAll(
-                    new string[]
-                    {
-                        expectedMessageText,
-                        expectedDataText
-                    }
-                );
-        }
-
-        [Fact]
-        public async Task TestShouldAppendReportsToFileWhenTheReportAlreadyExists()
-        {
-            // Given
-            var reportId = "report-id";
-            var expectedFileName = "Reporting_report-id.log";
-            var filePath = Path.Combine(
-                savePath,
-                "Reporting",
-                expectedFileName
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new AppendTextToFile(
+                        expectedReport1FileFullName,
+                        expectedReport1Text
+                    ),
+                    CancellationToken.None
+                )
             );
-            var expectedMessageText1 = "Some Message Text to Help pinpoint it is added!";
-            var expectedMessageText2 = "This is some other text that should help to check appending";
-            var expectedDataText1 = "We will be passing in some text";
-            var expectedDataText2 = "This is the second data text that should be in file";
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var reportRepositoryMock = new Mock<ReportRepository>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                savePath
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new AppendTextToFile(
+                        expectedReport2FileFullName,
+                        expectedReport2Text
+                    ),
+                    CancellationToken.None
+                )
             );
-
-            reportRepositoryMock.Setup(
-                mock => mock.TakeAll()
-            ).Returns(
-                new List<Report>
-                {
-                    new Report(
-                        reportId
-                    ).AddItem(
-                        new ReportItem(
-                            expectedMessageText1,
-                            expectedDataText1
-                        )
-                    )
-                }
-            );
-
-            // When
-            var handler = new SavePendingReportItemsEventHandler(
-                serverInfoMock.Object,
-                reportRepositoryMock.Object
-            );
-            await handler.Handle(
-                new SavePendingReportItemsEvent(),
-                CancellationToken.None
-            );
-
-            var existing = File.ReadAllText(
-                filePath
-            );
-            existing
-                .Should()
-                .ContainAll(
-                    new string[]
-                    {
-                        expectedMessageText1,
-                        expectedDataText1
-                    }
-                ).And
-                .NotContainAll(
-                    new string[]
-                    {
-                        expectedMessageText2,
-                        expectedDataText2
-                    }
-                );
-
-            // Update mock to add another different record
-            reportRepositoryMock.Setup(
-                mock => mock.TakeAll()
-            ).Returns(
-                new List<Report>
-                {
-                    new Report(
-                        reportId
-                    ).AddItem(
-                        new ReportItem(
-                            expectedMessageText2,
-                            expectedDataText2
-                        )
-                    )
-                }
-            );
-
-            // Call a second time to append new text
-            await handler.Handle(
-                new SavePendingReportItemsEvent(),
-                CancellationToken.None
-            );
-
-            var actual = File.ReadAllText(
-                filePath
-            );
-
-            // Then
-            actual
-                .Should()
-                .ContainAll(
-                    new string[]
-                    {
-                        expectedMessageText1,
-                        expectedDataText1,
-                        expectedMessageText2,
-                        expectedDataText2
-                    }
-                );
         }
     }
 }

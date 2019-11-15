@@ -14,6 +14,7 @@ using EventHorizon.Zone.Core.Map.State;
 using EventHorizon.Performance;
 using System.IO;
 using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Events.FileService;
 
 namespace EventHorizon.Zone.Core.Map.Create
 {
@@ -43,7 +44,10 @@ namespace EventHorizon.Zone.Core.Map.Create
             _performanceTracker = performanceTracker;
         }
 
-        public async Task Handle(CreateMapEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            CreateMapEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
             using (_performanceTracker.Track(
                 "Create Map"
@@ -193,27 +197,25 @@ namespace EventHorizon.Zone.Core.Map.Create
 
         private async Task<ZoneMapDetails> GetZoneMapDetails()
         {
-            if (DoesZoneMapDetailsFileNotExist())
+            var stateFile = GetStateFileName();
+            if (!await _mediator.Send(
+                new DoesFileExist(
+                    stateFile
+                )
+            ))
             {
                 _logger.LogError(
                     "Failed to load Zone Map Details. {ZoneMapDetailsFilePath}",
-                    GetZoneMapDetailsFileName()
+                    stateFile
                 );
                 return default(ZoneMapDetails);
             }
             return await _fileLoader.GetFile<ZoneMapDetails>(
-                GetZoneMapDetailsFileName()
+                stateFile
             );
         }
 
-        private bool DoesZoneMapDetailsFileNotExist()
-        {
-            return !File.Exists(
-                GetZoneMapDetailsFileName()
-            );
-        }
-
-        private string GetZoneMapDetailsFileName()
+        private string GetStateFileName()
         {
             return Path.Combine(
                 _serverInfo.AppDataPath,

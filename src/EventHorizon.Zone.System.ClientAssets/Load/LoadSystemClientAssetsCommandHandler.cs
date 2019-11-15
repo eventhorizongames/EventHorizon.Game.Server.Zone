@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.ClientAssets.Add;
@@ -26,47 +27,34 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        public async Task<Unit> Handle(
-            LoadSystemClientAssetsCommand request,
+
+        public Task<Unit> Handle(
+            LoadSystemClientAssetsCommand notification,
             CancellationToken cancellationToken
+        ) => _mediator.Send(
+            new LoadFileRecursivelyFromDirectory(
+                 Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Assets"
+                ),
+                OnProcessFile,
+                null
+            )
+        );
+
+        private async Task OnProcessFile(
+            StandardFileInfo fileInfo,
+            IDictionary<string, object> _
         )
         {
-            await GetClientAssetsFromDirectory(
-                new DirectoryInfo(
-                    GetEntityAssetsPath()
-                )
+            await _mediator.Publish(
+                new AddClientAssetEvent
+                {
+                    ClientAsset = await _fileLoader.GetFile<ClientAsset>(
+                        fileInfo.FullName
+                    )
+                }
             );
-            return Unit.Value;
-        }
-        private string GetEntityAssetsPath()
-        {
-            return Path.Combine(
-                _serverInfo.ClientPath,
-                "Assets"
-            );
-        }
-        private async Task GetClientAssetsFromDirectory(
-            DirectoryInfo directoryInfo
-        )
-        {
-            foreach (var subDirectoryInfo in directoryInfo.GetDirectories())
-            {
-                // Load Files From Directories
-                await this.GetClientAssetsFromDirectory(
-                    subDirectoryInfo
-                );
-            }
-            foreach (var fileInfo in directoryInfo.GetFiles())
-            {
-                await _mediator.Publish(
-                    new AddClientAssetEvent
-                    {
-                        ClientAsset = await _fileLoader.GetFile<ClientAsset>(
-                            fileInfo.FullName
-                        )
-                    }
-                );
-            }
         }
     }
 }

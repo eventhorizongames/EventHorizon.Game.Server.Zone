@@ -285,7 +285,7 @@ namespace EventHorizon.Game.Server.Zone
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-
+            app.UseStartingCore();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

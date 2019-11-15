@@ -2,58 +2,47 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Json;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
+using Moq;
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Json
 {
     public class NewtonsoftJsonFileSaverTests
     {
-        string directory = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            "Json",
-            "TestData-Saver"
-        );
-        string fileName = "TestFile.json";
-
-        public NewtonsoftJsonFileSaverTests()
-        {
-            // Remove existing test file
-            var fileFullName = Path.Combine(
-                directory,
-                fileName
-            );
-            if (File.Exists(
-                fileFullName
-            ))
-            {
-                File.Delete(
-                    fileFullName
-                );
-            }
-        }
-
         [Fact]
         public async Task TestShouldSaveSerializedRepresentationWhenObjectIsPassedToSpecifiedDirectoryAndFileName()
         {
             // Given 
-            var fileFullName = Path.Combine(
-                directory,
-                fileName
-            );
+            var directory = "directory";
+            var fileName = "file-name";
             var testData = new TestDataFile
             {
                 TestProperty = "test-property-value"
             };
+            var expectedFileFullName = Path.Combine(
+                directory,
+                fileName
+            );
+            var expectedText = @"{""TestProperty"":""test-property-value""}";
 
-            // Verify File is not there
-            Assert.False(
-                File.Exists(
-                    fileFullName
+            var directoryResolverMock = new Mock<DirectoryResolver>();
+            var fileResolverMock = new Mock<FileResolver>();
+
+            directoryResolverMock.Setup(
+                mock => mock.CreateDirectory(
+                    directory
                 )
+            ).Returns(
+                true
             );
 
             // When
-            var jsonFileSaver = new NewtonsoftJsonFileSaver();
+            var jsonFileSaver = new NewtonsoftJsonFileSaver(
+                directoryResolverMock.Object,
+                fileResolverMock.Object
+            );
 
             await jsonFileSaver.SaveToFile(
                 directory,
@@ -62,9 +51,10 @@ namespace EventHorizon.Zone.Core.Tests.Json
             );
 
             // Then
-            Assert.True(
-                File.Exists(
-                    fileFullName
+            fileResolverMock.Verify(
+                mock => mock.WriteAllText(
+                    expectedFileFullName,
+                    expectedText
                 )
             );
         }

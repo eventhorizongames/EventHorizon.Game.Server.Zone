@@ -15,7 +15,7 @@ var fileContentLines = new Dictionary<string, string>()
 
 // Generate EventHorizon Script Services DLL dependencies
 var allServiesFiles = Directory.GetFiles(
-    "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.0/publish",
+    "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish",
     "*.dll",
     SearchOption.TopDirectoryOnly
 );
@@ -25,7 +25,7 @@ foreach (var fileName in allServiesFiles)
     var file = new FileInfo(
         fileName
     );
-    var stringToWrite = $"/r:src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.0/publish/{file.Name}";
+    var stringToWrite = $"/r:src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish/{file.Name}";
     if (!fileContentLines.ContainsKey($"load.{file.Name}"))
     {
         fileContentLines.Add(

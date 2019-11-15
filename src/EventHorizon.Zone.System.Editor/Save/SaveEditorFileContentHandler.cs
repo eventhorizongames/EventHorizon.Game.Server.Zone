@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Backup.Events;
 using EventHorizon.Zone.System.Editor.Events.Save;
@@ -36,37 +38,42 @@ namespace EventHorizon.Zone.System.Editor.Save
         {
             try
             {
-                var filePath = Path.Combine(
+                var fileFullName = Path.Combine(
                     _serverInfo.AppDataPath,
                     Path.Combine(
                         request.FilePath.ToArray()
                     ),
                     request.FileName
                 );
-                var fileInfo = new FileInfo(
-                    filePath
+                var fileInfo = await _mediator.Send(
+                    new GetFileInfo(
+                        fileFullName
+                    )
                 );
-                if (fileInfo.Exists)
+                if (await _mediator.Send(
+                    new DoesFileExist(
+                        fileInfo.FullName
+                    )
+                ))
                 {
                     await _mediator.Send(
                         new CreateBackupOfFileContentCommand(
                             request.FilePath,
                             request.FileName,
-                            File.ReadAllText(
-                                fileInfo.FullName
+                            await _mediator.Send(
+                                new ReadAllTextFromFile(
+                                    fileInfo.FullName
+                                )
                             )
                         )
                     );
                 }
 
-                if (!fileInfo.Directory.Exists)
-                {
-                    fileInfo.Directory.Create();
-                }
-
-                File.WriteAllText(
-                    fileInfo.FullName,
-                    request.Content
+                await _mediator.Send(
+                    new WriteAllTextToFile(
+                        fileInfo.FullName,
+                        request.Content
+                    )
                 );
 
                 return new EditorResponse(
@@ -76,8 +83,10 @@ namespace EventHorizon.Zone.System.Editor.Save
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Save Editor File Content.",
-                    ex
+                    ex,
+                    "Failed to Save Editor File Content. {FilePath} | {FileName}",
+                    request.FilePath,
+                    request.FileName
                 );
                 return new EditorResponse(
                     false,

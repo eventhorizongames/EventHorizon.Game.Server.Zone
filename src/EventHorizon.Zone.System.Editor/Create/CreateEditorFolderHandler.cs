@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Editor.Events.Create;
 using EventHorizon.Zone.System.Editor.Model;
@@ -28,7 +30,7 @@ namespace EventHorizon.Zone.System.Editor.Create
             _serverInfo = serverInfo;
         }
 
-        public Task<EditorResponse> Handle(
+        public async Task<EditorResponse> Handle(
             CreateEditorFolder request,
             CancellationToken cancellationToken
         )
@@ -42,37 +44,54 @@ namespace EventHorizon.Zone.System.Editor.Create
                     ),
                     request.FolderName
                 );
-                var folderInfo = new DirectoryInfo(
-                    folderPath
-                );
-                if (folderInfo.Exists)
+                if (await _mediator.Send(
+                    new DoesDirectoryExist(
+                        folderPath
+                    )
+                ))
                 {
-                    return Task.FromResult(
-                        new EditorResponse(
-                            false,
-                            "folder_already_exists"
-                        )
+                    _logger.LogError(
+                        "Directory already exists. {FilePath} | {FolderName}",
+                        request.FilePath,
+                        request.FolderName
+                    );
+                    return new EditorResponse(
+                        false,
+                        "folder_already_exists"
                     );
                 }
-                folderInfo.Create();
-
-                return Task.FromResult(
-                    new EditorResponse(
-                        true
+                if (!await _mediator.Send(
+                    new CreateDirectory(
+                        folderPath
                     )
+                ))
+                {
+                    _logger.LogError(
+                        "Directory failed to create. {FilePath} | {FolderName}",
+                        request.FilePath,
+                        request.FolderName
+                    );
+                    return new EditorResponse(
+                        false,
+                        "folder_failed_to_create"
+                    );
+                }
+
+                return new EditorResponse(
+                    true
                 );
             }
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Create Editor Folder.",
-                    ex
+                    ex,
+                    "Failed to Create Editor Directory.",
+                    request.FilePath,
+                    request.FolderName
                 );
-                return Task.FromResult(
-                    new EditorResponse(
-                        false,
-                        "server_exception"
-                    )
+                return new EditorResponse(
+                    false,
+                    "server_exception"
                 );
             }
         }
