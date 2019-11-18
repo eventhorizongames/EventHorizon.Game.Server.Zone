@@ -126,29 +126,61 @@ namespace EventHorizon.Extensions.Tests
                 },
                 new object[] {
                     new TestData(
-                        "http://localhost\\RootDirectory",
-                        "http://localhost\\RootDirectory\\OffRootDirectory",
+                        Path.Combine(
+                            "http://localhost",
+                            "RootDirectory"
+                        ),
+                        Path.Combine(
+                            "http://localhost", 
+                            "RootDirectory", 
+                            "OffRootDirectory"
+                        ),
                         "OffRootDirectory"
                     )
                 },
                 new object[] {
                     new TestData(
-                        "\\localhost\\RootDirectory",
-                        "\\localhost\\RootDirectory\\OffRootDirectory",
+                        Path.Combine(
+                            Path.DirectorySeparatorChar.ToString(),
+                            "localhost", 
+                            "RootDirectory"
+                        ),
+                        Path.Combine(
+                            Path.DirectorySeparatorChar.ToString(),
+                            "localhost", 
+                            "RootDirectory",
+                            "OffRootDirectory"
+                        ),
                         "OffRootDirectory"
                     )
                 },
                 new object[] {
                     new TestData(
-                        "localhost\\RootDirectory",
-                        "\\localhost\\RootDirectory\\OffRootDirectory",
+                        Path.Combine(
+                            "localhost",
+                            "RootDirectory"
+                        ),
+                        Path.Combine(
+                            Path.DirectorySeparatorChar.ToString(),
+                            "localhost", 
+                            "RootDirectory",
+                            "OffRootDirectory"
+                        ),
                         "OffRootDirectory"
                     )
                 },
                 new object[] {
                     new TestData(
-                        "\\localhost\\RootDirectory\\OffRootDirectory",
-                        "localhost\\RootDirectory",
+                        Path.Combine(
+                            Path.DirectorySeparatorChar.ToString(),
+                            "localhost", 
+                            "RootDirectory",
+                            "OffRootDirectory"
+                        ),
+                        Path.Combine(
+                            "localhost",
+                            "RootDirectory"
+                        ),
                         ".."
                     )
                 },
