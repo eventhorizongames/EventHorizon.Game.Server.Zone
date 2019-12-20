@@ -4,6 +4,7 @@ namespace EventHorizon.Zone.System.Editor.Model
 {
     public interface IEditorNode
     {
+        string Id { get; }
         string Name { get; }
         bool IsFolder { get; }
         IList<string> Path { get; }
