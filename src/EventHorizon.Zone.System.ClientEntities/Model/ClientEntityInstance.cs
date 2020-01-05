@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using EventHorizon.Zone.System.ClientEntities.Api;
@@ -9,6 +10,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public Vector3 Position { get; set; }
+        public Nullable<Vector3> Rotation { get; set; }
+        public Nullable<Vector3> Scaling { get; set; }
+        public Nullable<float> ScalingDeterminant { get; set; }
         public string AssetId { get; set; }
         public IDictionary<string, object> Properties { get; set; }
     }

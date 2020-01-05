@@ -1,0 +1,11 @@
+{
+    "id": "ED22B145-1DE8-4C23-A928-0887D24BADB8",
+    "name": "Home",
+    "position": { "X": 0.0, "Y": -0.6, "Z": 35.0 },
+    "rotation": { "X": 0.0, "Y": 0.0, "Z": 0.0 },
+    "scalingDeterminant": 0.2,
+    "assetId": "11B335CD-8D63-4001-ADDC-A866EEE1E416",
+    "properties": {
+        "dense": true
+    }
+}
