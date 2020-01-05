@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
                     new StandardEditorNode(
                         modulesFolder,
                         true,
-                        new string[] { rootFolder, modulesFolder },
+                        new string[] { rootFolder },
                         "FOLDER" // TODO: Move this into a constants class
                     ).AddProperty(
                         // Disable context menu support on the root node.
