@@ -27,6 +27,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Hosting;
+using EventHorizon.Monitoring;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -123,6 +124,8 @@ namespace EventHorizon.Game.Server.Zone
                 // Base
                 typeof(I18nExtensions).Assembly,
                 typeof(EventHorizonIdentityExtensions).Assembly,
+                typeof(EventHorizonMonitoringExtensions).Assembly,
+                typeof(EventHorizonMonitoringApplicatinInsightsExtensions).Assembly,
 
                 // Core
                 typeof(CoreExtensions).Assembly,
@@ -204,7 +207,15 @@ namespace EventHorizon.Game.Server.Zone
                     ).Bind(
                         options
                     )
-                );
+                ).AddEventHorizonMonitoring()
+                .AddEventHorizonMonitoringApplicationInsights(
+                    options => Configuration.GetSection(
+                        "Monitoring:ApplicationInsights"
+                    ).Bind(
+                        options
+                    )
+                )
+            ;
 
             // Core
             services
