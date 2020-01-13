@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Monitoring.Model\EventHorizon.Monitoring.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Monitoring.Events\EventHorizon.Monitoring.Events.csproj" />
     </ItemGroup>
 

@@ -207,7 +207,12 @@ namespace EventHorizon.Game.Server.Zone
                     ).Bind(
                         options
                     )
-                ).AddEventHorizonMonitoring()
+                ).AddEventHorizonMonitoring(
+                    options => {
+                        options.Host = Configuration["HOST"] ?? "unset";
+                        options.ServerName = Configuration["ServerName"] ?? "Zone";
+                    }
+                )
                 .AddEventHorizonMonitoringApplicationInsights(
                     options => Configuration.GetSection(
                         "Monitoring:ApplicationInsights"

@@ -1,4 +1,5 @@
 using System;
+using EventHorizon.Monitoring.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,8 +8,12 @@ namespace EventHorizon.Monitoring
     public static class EventHorizonMonitoringExtensions
     {
         public static IServiceCollection AddEventHorizonMonitoring(
-            this IServiceCollection services
+            this IServiceCollection services,
+            Action<MonitoringServerConfiguration> options
         ) => services
+            .Configure<MonitoringServerConfiguration>(
+                options
+            )
         ;
 
         public static IApplicationBuilder UseEventHorizonMonitoring(
