@@ -1,3 +1,5 @@
+using System;
+
 namespace EventHorizon.Zone.System.ModelState
 {
     public struct EntityModelState
@@ -9,6 +11,7 @@ namespace EventHorizon.Zone.System.ModelState
             Mesh = ModelMesh.DEFAULT
         };
         public string[] AnimationList { get; set; }
+        public Nullable<float> ScalingDeterminant { get; set; }
         public ModelMesh Mesh { get; set; }
 
         public bool IsValid()

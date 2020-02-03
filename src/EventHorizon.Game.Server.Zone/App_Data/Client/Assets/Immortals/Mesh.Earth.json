@@ -1,0 +1,11 @@
+{
+    "id": "E2FD5A8E-0534-4769-BD3B-0645BE5CC9AB",
+    "type": "MESH",
+    "name": "Earth Type",
+    "data": {
+        "type": "GLTF",
+        "path": "/Assets/Meshes/Immortals/",
+        "file": "Earth_Immortal.gltf",
+        "heightOffset": -0.5
+    }
+}

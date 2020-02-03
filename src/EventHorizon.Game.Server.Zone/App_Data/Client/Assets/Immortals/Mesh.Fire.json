@@ -1,0 +1,11 @@
+{
+    "id": "7B002A90-64A0-400B-8EC9-7C10F83C5225",
+    "type": "MESH",
+    "name": "Fire Type",
+    "data": {
+        "type": "GLTF",
+        "path": "/Assets/Meshes/Immortals/",
+        "file": "Fire_Immortal.gltf",
+        "heightOffset": -0.5
+    }
+}
