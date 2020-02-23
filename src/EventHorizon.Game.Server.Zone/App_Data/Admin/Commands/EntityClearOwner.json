@@ -1,4 +1,7 @@
 {
     "command": "entity-clear-owner",
-    "scriptFile": "Admin_Entity_EntityClearOwner.csx"
+    "scriptFile": "Admin_Entity_EntityClearOwner.csx",
+    "args": {
+        "entityId": "The global ID of the entity to reset"
+    }
 }

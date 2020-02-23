@@ -42,9 +42,26 @@ namespace EventHorizon.Game.Server.Zone
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment HostingEnvironment { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
+        // Base -- These are common functionality; I18n, Identity Integrations, etc...
+        // Core -- From the Zone Core Services
+        // Server -- From the Zone Server Base Project
+        // System -- These are which Systems should be setup for this Zone Server
+        // Plugin -- These are Extended functionality for Systems.
+        // Dynamically Loaded Plugins -- These are Extra features, but not needed by Systems to function.
+        // THEN - By the package/library order
+        // - systemProvidedAssemblyList Registration
+        // - Add* Registration
+        //
+        // I want this file to be able to be generated dynamically from a script, 
+        //  that way it can be customized from an external tool and have a very basic setup.
+        // TODO: Re-factor ConfigureServices into Chunks
+        //  Consolidating the Add* logic from here into the module.
+        // TODO: Update extension methods to accept systemProvidedAssemblyList as a parameter.
+        // TODO: Update Extension methods to access Configuration as a Parameter.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: MAIN SERVER CONFIGURATION
             if (HostingEnvironment.IsDevelopment())
             {
                 // Enabled TLS 1.2
@@ -94,18 +111,16 @@ namespace EventHorizon.Game.Server.Zone
                                 Configuration
                                     .GetSection(
                                         "Cors:Hosts"
-                                    ).GetChildren(
-
-                                    ).AsEnumerable(
-
-                                    ).Select(
+                                    ).GetChildren()
+                                    .AsEnumerable()
+                                    .Select(
                                         a => a.Value
                                     ).ToArray()
-                            )
-                            .AllowCredentials();
+                            ).AllowCredentials();
                     }
                 )
             );
+            // TODO: END MAIN SERVER CONFIGURATION
 
             // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
             // Also Sorted based on Load order
@@ -125,7 +140,6 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(I18nExtensions).Assembly,
                 typeof(EventHorizonIdentityExtensions).Assembly,
                 typeof(EventHorizonMonitoringExtensions).Assembly,
-                typeof(EventHorizonMonitoringApplicatinInsightsExtensions).Assembly,
 
                 // Core
                 typeof(CoreExtensions).Assembly,
@@ -208,26 +222,36 @@ namespace EventHorizon.Game.Server.Zone
                         options
                     )
                 ).AddEventHorizonMonitoring(
-                    options => {
+                    options =>
+                    {
                         options.Host = Configuration["HOST"] ?? "unset";
                         options.ServerName = Configuration["ServerName"] ?? "Zone";
                     }
                 )
-                .AddEventHorizonMonitoringApplicationInsights(
+            ;
+            // Enabled ApplicationInsights
+            // TODO: Move this logic into AddEventHorizonMonitoringApplicationInsights
+            if (Configuration.GetValue<bool>(
+                "Monitoring:ApplicationInsights:Enabled"
+            ))
+            {
+                services.AddEventHorizonMonitoringApplicationInsights(
                     options => Configuration.GetSection(
                         "Monitoring:ApplicationInsights"
                     ).Bind(
                         options
                     )
-                )
-            ;
+                );
+                systemProvidedAssemblyList.Append(
+                    typeof(EventHorizonMonitoringApplicatinInsightsExtensions).Assembly
+                );
+            }
 
             // Core
             services
                 .AddCore(
                     systemProvidedAssemblyList
-                )
-                .AddCoreClient()
+                ).AddCoreClient()
                 .AddCoreEntity()
                 .AddCoreMap()
                 .AddCoreReporter()
@@ -290,13 +314,16 @@ namespace EventHorizon.Game.Server.Zone
             ;
 
             // Dynamically Loaded Plugins
-            services
-                .AddPlugins(HostingEnvironment);
+            services.AddPlugins(
+                HostingEnvironment
+            );
 
-            services
-                .AddMediatR(
-                    systemProvidedAssemblyList
-                );
+            // TODO: MORE CORE SERVER SETUP
+            // Has to be last in configuration.
+            //  so it picks up the systemProvidedAssemblyList after all services have added to it.
+            services.AddMediatR(
+                systemProvidedAssemblyList
+            );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

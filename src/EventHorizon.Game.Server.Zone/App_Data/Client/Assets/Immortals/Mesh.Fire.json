@@ -6,6 +6,7 @@
         "type": "GLTF",
         "path": "/Assets/Meshes/Immortals/",
         "file": "Fire_Immortal.gltf",
-        "heightOffset": -0.5
+        "_file": "Fire_Immortal.glb",
+        "heightOffset": -0.55
     }
 }

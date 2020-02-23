@@ -16,6 +16,9 @@ using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Events.Entity.Find;
+using EventHorizon.Zone.Core.Events.Entity.Update;
+using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
+using EventHorizon.Zone.System.Agent.Events.Update;
 
 var command = Data.Get<IAdminCommand>("Command");
 if (command.Parts.Count != 1)
@@ -31,7 +34,7 @@ var entityList = await Services.Mediator.Send(
         new QueryForEntities
         {
             Query = (
-                entity => entity.Type != EntityType.PLAYER 
+                entity => entity.Type != EntityType.PLAYER
                 && entity.GlobalId == globalId
             )
         }
@@ -44,9 +47,21 @@ if (entityList.Count() != 1)
     );
 }
 
-var ownerState = entityList.First().GetProperty<dynamic>("ownerState");
+var entity = entityList.First();
+var ownerState = entity.GetProperty<OwnerState>("ownerState");
 ownerState["ownerId"] = "";
 ownerState["canBeCaptured"] = true;
+
+entity.SetProperty<OwnerState>(
+    "ownerState",
+    ownerState
+);
+await Services.Mediator.Send(
+    new UpdateEntityCommand(
+        EntityAction.PROPERTY_CHANGED,
+        entity
+    )
+);
 
 return new AdminCommandScriptResponse(
     true, // Success

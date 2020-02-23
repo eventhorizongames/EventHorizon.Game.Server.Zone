@@ -1,20 +1,20 @@
 {
     "AgentList": [
         {
-            "Id": "a306a754-0b60-4497-ab3e-bd48552918ad",
+            "Id": "1ba8c107-2f33-447d-8628-2c9a3a2b0431",
             "Name": "Fire Type",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 56.0,
+                    "X": -7.0,
                     "Y": 0.0,
-                    "Z": 2.0
+                    "Z": -47.0
                 },
-                "NextMoveRequest": "2020-01-28T02:19:36.8720861Z",
+                "NextMoveRequest": "2020-02-18T02:12:27.3672828Z",
                 "MoveToPosition": {
-                    "X": 56.0,
+                    "X": -6.0,
                     "Y": 0.0,
-                    "Z": 1.0
+                    "Z": -47.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -26,7 +26,7 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "6cad9c65-d7d7-40c6-9aa5-f3ad1426fa44",
+                    "OwnerId": "066686b4-6ef4-4e74-8869-a27553031feb",
                     "CanBeCaptured": false
                 },
                 "wander": {
@@ -34,7 +34,7 @@
                 },
                 "modelState": {
                     "AnimationList": [],
-                    "scalingDeterminant": 0.2,
+                    "ScalingDeterminant": 0.2,
                     "Mesh": {
                         "Type": "MESH",
                         "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
@@ -44,7 +44,7 @@
                     "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "interactionState": {
-                    "Active": false,
+                    "Active": true,
                     "List": [
                         {
                             "ScriptId": "Interaction_RunCaptureTarget.csx",
@@ -59,7 +59,7 @@
                     "Condition": {
                         "Name": "ALIVE"
                     },
-                    "HealthPoints": 100,
+                    "HealthPoints": 95,
                     "MaxHealthPoints": 100,
                     "ActionPoints": 99,
                     "MaxActionPoints": 100,
@@ -90,14 +90,14 @@
                         ]
                     }
                 },
-                "NextRunTime": "2020-01-27T20:19:55.9713679-06:00",
+                "NextRunTime": null,
                 "ActorMoveToPosition": null,
-                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 26,
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": -1999964447,
+                        "Token": 866723107,
                         "Type": {
                             "Name": "PRIORITY_SELECTOR",
                             "IsTraversal": true
@@ -123,8 +123,8 @@
                         "Reset": false
                     },
                     "NodeMap": {
-                        "156151710": {
-                            "Token": 156151710,
+                        "-33057467": {
+                            "Token": -33057467,
                             "Type": {
                                 "Name": "ACTION",
                                 "IsTraversal": false
@@ -136,8 +136,138 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "-1999964447": {
-                            "Token": -1999964447,
+                        "-384844815": {
+                            "Token": -384844815,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-1946851535": {
+                            "Token": -1946851535,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-1991097994": {
+                            "Token": -1991097994,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "1645157503": {
+                            "Token": 1645157503,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-841724805": {
+                            "Token": -841724805,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "650907925": {
+                            "Token": 650907925,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "1485512665": {
+                            "Token": 1485512665,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-63425604": {
+                            "Token": -63425604,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-370626439": {
+                            "Token": -370626439,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "2003110722": {
+                            "Token": 2003110722,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "866723107": {
+                            "Token": 866723107,
                             "Type": {
                                 "Name": "PRIORITY_SELECTOR",
                                 "IsTraversal": true
@@ -149,8 +279,8 @@
                             "FailGate": 0,
                             "Reset": true
                         },
-                        "2002753327": {
-                            "Token": 2002753327,
+                        "-1612448336": {
+                            "Token": -1612448336,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR",
                                 "IsTraversal": true
@@ -162,8 +292,8 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "1209155239": {
-                            "Token": 1209155239,
+                        "1819306": {
+                            "Token": 1819306,
                             "Type": {
                                 "Name": "CONDITION",
                                 "IsTraversal": false
@@ -175,8 +305,8 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "-1120984935": {
-                            "Token": -1120984935,
+                        "1837356133": {
+                            "Token": 1837356133,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR",
                                 "IsTraversal": true
@@ -187,6 +317,32 @@
                             "Fire": null,
                             "FailGate": 0,
                             "Reset": false
+                        },
+                        "432467548": {
+                            "Token": 432467548,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "SUCCESS",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "1786518270": {
+                            "Token": 1786518270,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "SUCCESS",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_FindNewMoveLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
                         }
                     },
                     "IsValid": true
@@ -194,7 +350,7 @@
             }
         },
         {
-            "Id": "380339d1-9ffa-4c77-a7c8-2989efdad06d",
+            "Id": "99139e6b-b270-4369-b6c6-e098f76f3790",
             "Name": "Steve the Helper",
             "Position": {
                 "CanMove": true,
@@ -240,7 +396,7 @@
                     "Condition": {
                         "Name": "ALIVE"
                     },
-                    "HealthPoints": 5908,
+                    "HealthPoints": 5408,
                     "MaxHealthPoints": 10000,
                     "ActionPoints": 9796,
                     "MaxActionPoints": 10000,
@@ -255,6 +411,7 @@
                 },
                 "modelState": {
                     "AnimationList": [],
+                    "ScalingDeterminant": null,
                     "Mesh": {
                         "Type": "SPHERE",
                         "AssetId": "f2f1d5f6-cc0d-4094-aecf-scripted"
@@ -303,7 +460,7 @@
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": -951926040,
+                        "Token": 2083519666,
                         "Type": {
                             "Name": "SEQUENCE_SELECTOR",
                             "IsTraversal": true
@@ -329,8 +486,8 @@
                         "Reset": false
                     },
                     "NodeMap": {
-                        "-951926040": {
-                            "Token": -951926040,
+                        "2083519666": {
+                            "Token": 2083519666,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR",
                                 "IsTraversal": true
@@ -342,8 +499,8 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "656592022": {
-                            "Token": 656592022,
+                        "1693252380": {
+                            "Token": 1693252380,
                             "Type": {
                                 "Name": "ACTION",
                                 "IsTraversal": false
@@ -361,20 +518,20 @@
             }
         },
         {
-            "Id": "f8d2a049-fa1c-4c7b-9e88-e1af409c1f21",
+            "Id": "ab618f9e-f287-47a3-9c8b-b1039fc8c3e1",
             "Name": "First Ever NPC",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 59.0,
+                    "X": 53.0,
                     "Y": 0.0,
-                    "Z": 9.0
+                    "Z": -8.0
                 },
-                "NextMoveRequest": "2020-01-28T02:19:32.3710958Z",
+                "NextMoveRequest": "2020-02-18T02:12:27.3676658Z",
                 "MoveToPosition": {
-                    "X": 60.0,
+                    "X": 53.0,
                     "Y": 0.0,
-                    "Z": 9.0
+                    "Z": -7.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -386,7 +543,7 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "6cad9c65-d7d7-40c6-9aa5-f3ad1426fa44",
+                    "OwnerId": "9bbf1d65-b46d-4f5d-8de2-832b7375ed94",
                     "CanBeCaptured": false
                 },
                 "wander": {
@@ -394,7 +551,7 @@
                 },
                 "modelState": {
                     "AnimationList": [],
-                    "scalingDeterminant": 0.1,
+                    "ScalingDeterminant": 0.1,
                     "Mesh": {
                         "Type": "SPHERE",
                         "AssetId": "E2FD5A8E-0534-4769-BD3B-0645BE5CC9AB"
@@ -404,7 +561,7 @@
                     "TreeId": "Behaviors_RunFromPlayer.json"
                 },
                 "interactionState": {
-                    "Active": false,
+                    "Active": true,
                     "List": [
                         {
                             "ScriptId": "Interaction_RunCaptureTarget.csx",
@@ -421,7 +578,7 @@
                     },
                     "HealthPoints": 100,
                     "MaxHealthPoints": 100,
-                    "ActionPoints": 99,
+                    "ActionPoints": 0,
                     "MaxActionPoints": 100,
                     "Attack": 1
                 },
@@ -450,14 +607,14 @@
                         ]
                     }
                 },
-                "NextRunTime": "2020-01-27T20:19:41.4711159-06:00",
+                "NextRunTime": null,
                 "ActorMoveToPosition": null,
-                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 14,
                 "BehaviorTreeState": {
                     "ContainsNext": false,
                     "CheckTraversal": false,
                     "ActiveNode": {
-                        "Token": -1999964447,
+                        "Token": 866723107,
                         "Type": {
                             "Name": "PRIORITY_SELECTOR",
                             "IsTraversal": true
@@ -483,8 +640,21 @@
                         "Reset": false
                     },
                     "NodeMap": {
-                        "156151710": {
-                            "Token": 156151710,
+                        "1695060473": {
+                            "Token": 1695060473,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-384844815": {
+                            "Token": -384844815,
                             "Type": {
                                 "Name": "ACTION",
                                 "IsTraversal": false
@@ -496,8 +666,125 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "-1999964447": {
-                            "Token": -1999964447,
+                        "-1946851535": {
+                            "Token": -1946851535,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-1991097994": {
+                            "Token": -1991097994,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-541979078": {
+                            "Token": -541979078,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-841724805": {
+                            "Token": -841724805,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "650907925": {
+                            "Token": 650907925,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-1241879468": {
+                            "Token": -1241879468,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-63425604": {
+                            "Token": -63425604,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-370626439": {
+                            "Token": -370626439,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "2003110722": {
+                            "Token": 2003110722,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "866723107": {
+                            "Token": 866723107,
                             "Type": {
                                 "Name": "PRIORITY_SELECTOR",
                                 "IsTraversal": true
@@ -509,8 +796,8 @@
                             "FailGate": 0,
                             "Reset": true
                         },
-                        "2002753327": {
-                            "Token": 2002753327,
+                        "-1612448336": {
+                            "Token": -1612448336,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR",
                                 "IsTraversal": true
@@ -522,8 +809,8 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "1209155239": {
-                            "Token": 1209155239,
+                        "1819306": {
+                            "Token": 1819306,
                             "Type": {
                                 "Name": "CONDITION",
                                 "IsTraversal": false
@@ -535,8 +822,8 @@
                             "FailGate": 0,
                             "Reset": false
                         },
-                        "-1120984935": {
-                            "Token": -1120984935,
+                        "1837356133": {
+                            "Token": 1837356133,
                             "Type": {
                                 "Name": "SEQUENCE_SELECTOR",
                                 "IsTraversal": true
@@ -547,6 +834,32 @@
                             "Fire": null,
                             "FailGate": 0,
                             "Reset": false
+                        },
+                        "432467548": {
+                            "Token": 432467548,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "SUCCESS",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "1786518270": {
+                            "Token": 1786518270,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "SUCCESS",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_FindNewMoveLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
                         }
                     },
                     "IsValid": true
@@ -554,4 +867,4 @@
             }
         }
     ]
-}
+}}
