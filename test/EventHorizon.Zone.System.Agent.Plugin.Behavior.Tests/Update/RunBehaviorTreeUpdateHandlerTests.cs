@@ -40,7 +40,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             {
                 Id = actorId2
             };
-            var expectedBehaviorTreeShap = new ActorBehaviorTreeShape();
+            var expectedBehaviorTreeShap = new ActorBehaviorTreeShape
+            {
+                NodeList = new List<BehaviorNode>
+                {
+                    new BehaviorNode(),
+                },
+            };
 
             var loggerMock = new Mock<ILogger<RunBehaviorTreeUpdateHandler>>();
             var mediatorMock = new Mock<IMediator>();
@@ -109,6 +115,48 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
                 kernel => kernel.Tick(
                     expectedBehaviorTreeShap,
                     expectedActor2
+                )
+            );
+        }
+        [Fact]
+        public async Task ShouldRemoveInvalidBehaviorTreeWhenTreeIsInvalid()
+        {
+            // Given
+            var treeId = "tree-id";
+            var expectedTreeId = treeId;
+            var invalidBehaviorTreeShape = new ActorBehaviorTreeShape();
+
+            var loggerMock = new Mock<ILogger<RunBehaviorTreeUpdateHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
+            var behaviorInterpreterKernelMock = new Mock<BehaviorInterpreterKernel>();
+
+            actorBehaviorTreeRepositoryMock.Setup(
+                repository => repository.FindTreeShape(
+                    treeId
+                )
+            ).Returns(
+                invalidBehaviorTreeShape
+            );
+
+            // When
+            var runBehaviorTreeUpdateHandler = new RunBehaviorTreeUpdateHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                actorBehaviorTreeRepositoryMock.Object,
+                behaviorInterpreterKernelMock.Object
+            );
+            await runBehaviorTreeUpdateHandler.Handle(
+                new RunBehaviorTreeUpdate(
+                    treeId
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actorBehaviorTreeRepositoryMock.Verify(
+                mock => mock.RemoveTreeShape(
+                    expectedTreeId
                 )
             );
         }
