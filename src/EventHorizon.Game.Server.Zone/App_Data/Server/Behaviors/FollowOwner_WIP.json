@@ -1,0 +1,62 @@
+{
+    "name": "Follow Owner",
+    "description": "",
+    "root": {
+        "type": "PRIORITY_SELECTOR",
+        "reset": true,
+        "nodeList": [
+            {
+                "comment": "Will Check Owner State",
+                "type": "SEQUENCE_SELECTOR",
+                "nodeList": [
+                    {
+                        "type": "CONDITION",
+                        "fire": "Behavior_Owner_HasNoOwner.csx"
+                    },
+                    {
+                        "type": "ACTION",
+                        "fire": "Behavior_Owner_ResetToRunFromPlayer.csx"
+                    }
+                ]
+            },
+            {
+                "type": "PRIORITY_SELECTOR",
+                "reset": true,
+                "nodeList": [
+                    {
+                        "comment": "Run Far Distance sub behavior",
+                        "type": "SEQUENCE_SELECTOR",
+                        "nodeList": [
+                            {
+                                "type": "CONDITION",
+                                "fire": "Behavior_Owner_IsFarFromOwner.csx"
+                            }
+                        ]
+                    },
+                    {
+                        "comment": "Will wander around the area.",
+                        "type": "SEQUENCE_SELECTOR",
+                        "nodeList": [
+                            {
+                                "comments": "Wait an amount of time before moving on.",
+                                "type": "ACTION",
+                                "fire": "Behavior_Action_WaitSomeTime.csx"
+                            },
+                            {
+                                "comments": "This will return a action to populate the Agents move to path.",
+                                "comments2": "If the path is filled it will",
+                                "type": "ACTION",
+                                "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner.csx"
+                            },
+                            {
+                                "comments": "This will will return a differed state of Actor movement.",
+                                "type": "ACTION",
+                                "fire": "Behavior_Action_MoveToLocation.csx"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

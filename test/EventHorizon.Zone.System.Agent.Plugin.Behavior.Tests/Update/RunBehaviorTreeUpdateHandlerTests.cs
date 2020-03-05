@@ -8,6 +8,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Update;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 using static EventHorizon.Zone.System.Agent.Plugin.Behavior.Update.RunBehaviorTreeUpdate;
@@ -41,6 +42,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
             };
             var expectedBehaviorTreeShap = new ActorBehaviorTreeShape();
 
+            var loggerMock = new Mock<ILogger<RunBehaviorTreeUpdateHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
             var behaviorInterpreterKernelMock = new Mock<BehaviorInterpreterKernel>();
@@ -86,6 +88,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Update
 
             // When
             var runBehaviorTreeUpdateHandler = new RunBehaviorTreeUpdateHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 actorBehaviorTreeRepositoryMock.Object,
                 behaviorInterpreterKernelMock.Object

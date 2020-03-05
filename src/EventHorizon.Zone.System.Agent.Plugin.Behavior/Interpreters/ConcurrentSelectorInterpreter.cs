@@ -67,8 +67,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         // This will make the Parent Node the Current Traversal
                         );
                         return Task.FromResult(
-                            behaviorTreeState.AdvanceQueueToAfterPassedToken(
-                                behaviorTreeState.GetActiveTraversalLastChild()
+                            behaviorTreeState.AdvanceQueueToPassedToken(
+                                behaviorTreeState.GetTokenAfterLastChildOfTraversalNode()
                             ).Report(
                                 "Concurrent Selector Interpreter EXIT"
                             )

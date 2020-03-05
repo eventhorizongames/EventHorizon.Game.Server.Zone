@@ -1,7 +1,7 @@
 /// <summary>
-/// Name: Behavior_Action_WaitSomeTime.csx
+/// Name: Behavior_Player_RunFromPlayer.csx
 /// 
-/// This script will wait a random amount of time before giving a Success.
+/// 
 /// 
 /// Will Check for Running, 
 /// 
@@ -33,8 +33,8 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Structure;
 
 var actor = Data.Get<IObjectEntity>("Actor");
-var distanceToRunAway = 25; // TODO: Move this to Actor State
-var runToLocationDistance = 5; // TODO: Move this to Actor State
+var distanceToRunAway = 25; // TODO: Setting from Wild State : Distance To Run
+var runToLocationDistance = 5; // Delta around runaway node. TODO: Setting from Wild State : Run To Location Distance
 var runFromPlayerId = actor.GetProperty<long>("Behavior:RunFromPlayer.csx:RunFromPlayerId");
 
 // Get Player for Current Position 

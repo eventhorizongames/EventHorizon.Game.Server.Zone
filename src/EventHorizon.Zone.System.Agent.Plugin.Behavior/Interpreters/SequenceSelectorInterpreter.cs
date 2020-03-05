@@ -67,11 +67,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     )
                 );
             }
-
-            foreach (var childNodeToken in behaviorTreeState.GetActiveTraversalChildren())
+            foreach (var behaviorNode in behaviorTreeState.GetActiveTraversalChildren())
             {
+                // var childNodeToken = children[i];
                 var childNode = behaviorTreeState.GetNode(
-                    childNodeToken.Token
+                    behaviorNode.Token
                 );
 
                 if (BehaviorNodeStatus.FAILED.Equals(
@@ -85,10 +85,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                             BehaviorNodeStatus.ERROR.Equals(
                                 childNode.Status
                             ) ? BehaviorNodeStatus.ERROR : BehaviorNodeStatus.FAILED
-                        ).AdvanceQueueToAfterPassedToken(
-                            behaviorTreeState.GetActiveNodeLastChild()
-                        ).PopActiveNodeFromQueue()
-                        .PopActiveTraversalNode(
+                        ).AdvanceQueueToPassedToken(
+                            behaviorTreeState.GetTokenAfterLastChildOfActiveNode()
+                        ).PopActiveTraversalNode(
                         // Pop the current node from the stack.
                         // Since it failed it will now need to be processed by 
                         //  this nodes parent.
@@ -106,8 +105,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                             // Set to Running state so can be picked up latter for 
                             //  validation at a later time.
                             BehaviorNodeStatus.RUNNING
-                        ).AdvanceQueueToAfterPassedToken(
-                            behaviorTreeState.GetActiveNodeLastChild()
+                        ).AdvanceQueueToPassedToken(
+                            behaviorTreeState.GetTokenAfterLastChildOfActiveNode()
                         ).AddActiveTraversalToNextStack(
                         // This add the Active Traversal to the Next Stack State
                         // The next stack state will be used in next tick/update calls

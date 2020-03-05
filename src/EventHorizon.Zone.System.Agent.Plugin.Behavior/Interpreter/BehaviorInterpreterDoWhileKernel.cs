@@ -29,11 +29,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             var treeState = GetActorState(
                 shape,
                 actor
-            ).SetReportTracker( // Uncomment this to activate Reporting for BT State.
+            ).SetReportTracker( 
                 $"{actor.Id}_{actor.Name}",
                 _reportTracker
             ).PopActiveNodeFromQueue()
-            .ClearReport()
+            // .ClearReport() // Uncomment this to clear report for clean file.
             .Report(
                 "Kernel Tick START"
             );
@@ -63,7 +63,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
                 }
             } while (treeState.ContainsNext);
             actor.SetProperty(
-                "BehaviorTreeState",
+                BehaviorTreeState.PROPERTY_NAME,
                 treeState.Report(
                     "Kernel Tick ENDING"
                 )
@@ -77,7 +77,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
         )
         {
             var treeState = actor.GetProperty<BehaviorTreeState>(
-                "BehaviorTreeState"
+                BehaviorTreeState.PROPERTY_NAME
             );
             if (!treeState.IsValid)
             {

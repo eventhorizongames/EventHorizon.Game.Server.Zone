@@ -42,7 +42,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
         )
         {
             behaviorTreeState = behaviorTreeState.Report(
-                "Condition Interpreter START"
+                "Condition Interpreter START",
+                new { behaviorTreeState.ActiveNode }
             );
             if (CheckIfStatusReadyOrRunning(
                 behaviorTreeState.ActiveNode.Status

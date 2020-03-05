@@ -1,0 +1,8 @@
+{
+    "command": "set-agent-behavior",
+    "scriptFile": "Admin_Agent_Behavior_SetAgentBehavior.csx",
+    "args": {
+        "agentId": "The global Id of the agent to behavior will be set on.",
+        "behaviorTreeId": "The Id of the behavior tree."
+    }
+}

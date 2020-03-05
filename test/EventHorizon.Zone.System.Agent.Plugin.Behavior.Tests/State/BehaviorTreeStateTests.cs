@@ -36,7 +36,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
         {
             // Given
             var expectedTraversalChild = new BehaviorNode();
-            var expected = expectedTraversalChild.Token;
+            var expected = -1;
             var activeTraversalNode = new BehaviorNode(
                 new SerializedBehaviorNode()
             );
@@ -56,7 +56,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
             ).PopActiveNodeFromQueue()
             .PushActiveNodeToTraversalStack();
 
-            var actual = state.GetActiveTraversalLastChild();
+            var actual = state.GetTokenAfterLastChildOfTraversalNode();
 
             // Then
             Assert.Equal(

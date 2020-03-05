@@ -7,7 +7,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         public BehaviorTreeState SetStatusOnActiveNode(
             BehaviorNodeStatus status
         )
-        {
+        { // TODO: Create Unit Test
+            if (status.Equals(default(BehaviorNodeStatus))) 
+            {
+                status = BehaviorNodeStatus.ERROR;
+            }
             this.NodeMap[_activeNodeToken] = ActiveNode.UpdateStatus(
                 status.ToString()
             );

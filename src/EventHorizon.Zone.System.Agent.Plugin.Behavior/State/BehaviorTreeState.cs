@@ -8,6 +8,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
     public partial struct BehaviorTreeState
     {
+        public static readonly string PROPERTY_NAME = "BehaviorTreeState";
+
         private bool _checkTraversal;
         private int _activeNodeToken;
         private int _activeTraversalToken;
@@ -43,6 +45,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             _reportId = null;
             _reportTracker = null;
             ShapeQueue = new Queue<int>();
+            ShapeOrder = new int[0];
 
             NodeMap = new Dictionary<int, BehaviorNode>();
             TraversalStack = new List<int>();
@@ -55,6 +58,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         }
         public bool IsValid => _shape.IsValid;
         private Queue<int> ShapeQueue { get; set; }
+        private int[] ShapeOrder { get; set; }
 
         public bool IsActiveNodeValidAndNotRunning()
         {
@@ -121,7 +125,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             return this;
         }
 
-        public BehaviorTreeState AdvanceQueueToAfterPassedToken(
+        public BehaviorTreeState AdvanceQueueToPassedToken(
             int token
         )
         {
@@ -165,11 +169,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         )
         {
             ShapeQueue.Clear();
+            ShapeOrder = new int[shape.NodeList.Count];
+            var index = 0;
             foreach (var node in shape.NodeList)
             {
                 ShapeQueue.Enqueue(
                     node.Token
                 );
+                ShapeOrder[index] = node.Token;
+                index++;
             }
         }
     }

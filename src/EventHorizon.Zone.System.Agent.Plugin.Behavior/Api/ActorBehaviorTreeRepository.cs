@@ -13,6 +13,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api
         ActorBehaviorTreeShape FindTreeShape(
             string treeId
         );
+        void RemoveTreeShape(
+            string treeId
+        );
         void RegisterActorToTree(
             long actorId, 
             string treeId

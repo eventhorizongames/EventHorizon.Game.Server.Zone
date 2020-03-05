@@ -151,7 +151,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 null
             );
             actor.SetProperty(
-                "BehaviorTreeState",
+                BehaviorTreeState.PROPERTY_NAME,
                 new BehaviorTreeState(
                     treeShape
                 )
@@ -382,7 +382,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                     treeShape,
                     actor
                 );
-                actor.SetProperty<BehaviorTreeState>("BehaviorTreeState", state);
+                actor.SetProperty<BehaviorTreeState>(
+                    BehaviorTreeState.PROPERTY_NAME, 
+                    state
+                );
             }
 
             var elapsed = watch.ElapsedMilliseconds;

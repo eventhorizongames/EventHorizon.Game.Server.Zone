@@ -1,7 +1,7 @@
 /// <summary>
-/// Name: Behavior_Action_WaitSomeTime.csx
+/// Name: Behavior_Debugging_SlowDown.csx
 /// 
-/// This script will wait a random amount of time before giving a Success.
+/// This script will stay in RUNNING for 2 seconds.
 /// 
 /// Will Check for Running, 
 /// 
@@ -29,21 +29,17 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 
+System.Console.WriteLine("Slow Down Running...");
 var actor = Data.Get<IObjectEntity>("Actor");
 
-Nullable<DateTime> nextRunDate = actor.GetProperty<DateTime?>("NextRunTime");
+Nullable<DateTime> nextRunDate = actor.GetProperty<DateTime?>("SlowDown:NextRunTime");
 if (!nextRunDate.HasValue)
 {
     // Not Found, so lets make once so we wait some time
-    nextRunDate = DateTime.Now.AddSeconds(
-        Services.Random.Next(
-            1, // TODO: Pass this in from some setting
-            20 // TODO: Pass this in from some setting
-        )
-    );
+    nextRunDate = DateTime.Now.AddSeconds(2);
     // Add MoveToNode to Actor State
     actor.SetProperty<DateTime?>(
-        "NextRunTime",
+        "SlowDown:NextRunTime",
         nextRunDate
     );
     return new BehaviorScriptResponse(
@@ -58,7 +54,7 @@ var canRunNext = DateTime.Now.CompareTo(
 if (canRunNext)
 {
     actor.SetProperty<DateTime?>(
-        "NextRunTime",
+        "SlowDown:NextRunTime",
         null
     );
     return new BehaviorScriptResponse(

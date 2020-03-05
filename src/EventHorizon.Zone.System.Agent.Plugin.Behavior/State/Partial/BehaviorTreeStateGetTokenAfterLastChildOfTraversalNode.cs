@@ -6,13 +6,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
     public partial struct BehaviorTreeState
     {
-        public int GetActiveTraversalLastChild()
+        public int GetTokenAfterLastChildOfTraversalNode()
         {
             var children = GetActiveTraversalChildren();
             if (children.Count > 0)
             {
-                return GetActiveTraversalChildren()
-                    .Last().Token;
+                return GetNodeTokenAfterPassedToken(
+                    GetActiveTraversalChildren()
+                        .Last().Token
+                );
             }
             return -1;
         }

@@ -7,10 +7,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
     public class InMemoryActorBehaviorTreeRepository : ActorBehaviorTreeRepository
     {
-        private readonly ActorBehaviorTreeShape DEFAULT_TREE_SHAPE = new ActorBehaviorTreeShape
-        {
-            NodeList = new List<BehaviorNode>().AsReadOnly()
-        };
+        private readonly ActorBehaviorTreeShape INVALID_TREE_SHAPE = new ActorBehaviorTreeShape();
         private readonly ConcurrentDictionary<string, ActorBehaviorTreeContainer> MAP = new ConcurrentDictionary<string, ActorBehaviorTreeContainer>();
 
         private struct ActorBehaviorTreeContainer
@@ -94,9 +91,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 out container
             ))
             {
-                return DEFAULT_TREE_SHAPE;
+                return INVALID_TREE_SHAPE;
             }
             return container.Shape;
+        }
+        public void RemoveTreeShape(
+            string treeId
+        )
+        {
+            MAP.TryRemove(
+                treeId,
+                out _
+            );
         }
 
         public void RegisterActorToTree(
@@ -115,7 +121,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 // Register a default tree shape if not found.
                 RegisterTree(
                     treeId,
-                    DEFAULT_TREE_SHAPE
+                    INVALID_TREE_SHAPE
                 );
                 MAP.TryGetValue(
                     treeId,

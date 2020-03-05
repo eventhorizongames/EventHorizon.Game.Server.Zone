@@ -1,0 +1,92 @@
+/// <summary>
+/// This will publish the I18nLoadEvent.
+/// 
+/// Data: IDictionary<string, object>
+/// - Command
+///  - RawCommand: string;
+///  - Command: string;
+///  - Parts: IList<string>;
+/// Services: 
+/// - Mediator: IMediator;
+/// - I18n: I18nLookup;
+/// </summary>
+
+using System.Linq;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Agent.Events.Get;
+using EventHorizon.Zone.System.Agent.Events.Register;
+using EventHorizon.Zone.System.Agent.Save.Mapper;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
+using EventHorizon.Zone.Core.Events.Entity.Find;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_FollowOwner_WIP.json
+// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_RunFromPlayer.json
+// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_Idle.json
+// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_Wander.json
+var command = Data.Get<IAdminCommand>("Command");
+if (command.Parts.Count != 2)
+{
+    return new AdminCommandScriptResponse(
+        false, // Failure
+        "not_valid_command" // Message
+    );
+}
+var globalId = command.Parts[0];
+var behaviorTreeId = command.Parts[1];
+
+if (string.IsNullOrEmpty(behaviorTreeId) || string.IsNullOrEmpty(globalId))
+{
+    return new AdminCommandScriptResponse(
+        false, // Failure
+        "set_agent_behavior_args_invalid" // Message
+    );
+}
+
+var entityList = await Services.Mediator.Send(
+    new QueryForEntities
+    {
+        Query = entity => entity.GlobalId == globalId,
+    }
+);
+var entity = entityList.FirstOrDefault();
+if (!entity?.IsFound() ?? true)
+{
+    return new AdminCommandScriptResponse(
+        false, // Failed
+        "agent_not_found" // Message
+    );
+}
+
+var agentBehavior = entity.GetProperty<AgentBehavior>(
+    AgentBehavior.PROPERTY_NAME
+);
+
+agentBehavior.TreeId = behaviorTreeId;
+
+entity.SetProperty(
+    AgentBehavior.PROPERTY_NAME,
+    agentBehavior
+);
+
+var wasChanged = await Services.Mediator.Send(
+    new ChangeActorBehaviorTreeCommand(
+        entity,
+        behaviorTreeId
+    )
+);
+
+if (!wasChanged)
+{
+    return new AdminCommandScriptResponse(
+        false, // Success
+        "agent_behavior_change_failed" // Message
+    );
+}
+
+return new AdminCommandScriptResponse(
+    true, // Success
+    "agent_behavior_set" // Message
+);

@@ -58,13 +58,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             }
 
             var castedObj = (BehaviorNodeStatus)obj;
+            if (castedObj._supportedValues == null || castedObj._supportedValues == null)
+            {
+                return false;
+            }
 
             return this._supportedValues
                 .Where(
-                    value => castedObj._supportedValues
-                        .Contains(
-                            value
-                        )
+                    value => castedObj._supportedValues.Contains(
+                        value
+                    )
                 ).Count() > 0;
         }
 
