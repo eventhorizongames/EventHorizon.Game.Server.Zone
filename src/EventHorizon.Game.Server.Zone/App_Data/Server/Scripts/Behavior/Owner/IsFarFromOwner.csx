@@ -44,7 +44,15 @@ var distance = Vector3.Distance(
 
 System.Console.WriteLine("Distance from Actor to Owner: " + distance);
 
-// They are not far from teh owner, within delta
+if (distance >= delta)
+{
+    // They are far from their owner
+    return new BehaviorScriptResponse(
+        BehaviorNodeStatus.SUCCESS
+    );
+}
+
+// They are not far from their owner
 return new BehaviorScriptResponse(
     BehaviorNodeStatus.FAILED
 );
