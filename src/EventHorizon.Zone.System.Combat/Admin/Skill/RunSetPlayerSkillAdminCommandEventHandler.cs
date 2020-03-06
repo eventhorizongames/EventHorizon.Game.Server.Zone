@@ -110,11 +110,6 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
                     EntitySkillAction.ADD_SKILL,
                     player
                 );
-                await _mediator.Publish(
-                    new PlayerGlobalUpdateEvent(
-                        player
-                    )
-                );
             }
             await _mediator.Send(
                 new RespondToAdminCommand(

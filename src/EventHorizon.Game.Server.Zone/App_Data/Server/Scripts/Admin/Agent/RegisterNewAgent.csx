@@ -1,14 +1,11 @@
 /// <summary>
-/// This will publish the I18nLoadEvent.
+/// This script will register a new Agent.
+/// 
+/// Arg 1: Count to Create
 /// 
 /// Data: IDictionary<string, object>
-/// - Command
-///  - RawCommand: string;
-///  - Command: string;
-///  - Parts: IList<string>;
-/// Services: 
-/// - Mediator: IMediator;
-/// - I18n: I18nLookup;
+/// - Command: <see cref="EventHorizon.Zone.System.Admin.Plugin.Command.Model.IAdminCommand" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Linq;

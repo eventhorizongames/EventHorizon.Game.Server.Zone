@@ -75,11 +75,6 @@ namespace EventHorizon.Zone.System.Player.Connected
                 playerAction,
                 player
             );
-            await _mediator.Publish(
-                new PlayerGlobalUpdateEvent(
-                    player
-                )
-            );
 
             await _mediator.Send(
                 new SendZoneInfoToPlayerEvent(

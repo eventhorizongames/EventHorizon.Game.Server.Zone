@@ -1,7 +1,6 @@
 using EventHorizon.Zone.System.Combat.Life;
 using EventHorizon.Zone.System.Combat.Model.Level;
 using EventHorizon.Zone.System.Combat.Model.Life;
-using EventHorizon.Zone.System.Combat.Script;
 using EventHorizon.Zone.System.Combat.Skill.State;
 using EventHorizon.Zone.System.Combat.State;
 using EventHorizon.Zone.System.Combat.Timer;
@@ -28,7 +27,6 @@ namespace EventHorizon.Game.Server.Zone.Core
                 .AddSingleton<ILevelStateUpgrade, LevelStateUpgrade>()
                 .AddSingleton<ILifeStateChange, LifeStateChange>()
 
-                .AddTransient<IScriptServices, ScriptServices>()
                 .AddTransient<ITimerTask, UpdateEntityLifeTimer>()
                 .AddTransient<ITimerTask, EntityLevelUpTimer>()
             ;

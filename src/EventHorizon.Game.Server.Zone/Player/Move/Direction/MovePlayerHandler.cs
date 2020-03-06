@@ -137,11 +137,6 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                 PlayerAction.POSITION,
                 player
             );
-            await _mediator.Publish(
-                new PlayerGlobalUpdateEvent(
-                    player
-                )
-            );
 
             await _mediator.Publish(
                 new ClientActionEntityClientMoveToAllEvent

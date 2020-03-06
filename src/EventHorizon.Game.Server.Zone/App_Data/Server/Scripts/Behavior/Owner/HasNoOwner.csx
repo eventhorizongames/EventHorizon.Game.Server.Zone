@@ -11,16 +11,9 @@
 /// Else
 ///     Return FAILED
 /// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// Data:
+///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices"></see>
 /// </summary>
 
 using System.Linq;

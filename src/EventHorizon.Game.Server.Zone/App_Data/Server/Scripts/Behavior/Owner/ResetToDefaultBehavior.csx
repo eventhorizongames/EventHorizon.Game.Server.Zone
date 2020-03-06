@@ -4,16 +4,9 @@
 /// Will Set the Current Behavior Tree to RunFromPlayer
 /// Will Reset the State of the Actor Owner to Empty string
 /// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// Data:
+///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices"></see>
 /// </summary>
 
 using EventHorizon.Zone.Core.Model.Entity;
@@ -25,13 +18,13 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-System.Console.WriteLine("ResetToRunFromPlayer");
-var resetScriptId = "Behaviors_Idle.json";
-// TODO: Uncomment to get real behavior. Get Settings from Actor : Reset Behavior Id
-// var resetScriptId = "Behaviors_RunFromPlayer.json";
+System.Console.WriteLine("Reset To Default Behavior Tree");
 var actor = Data.Get<AgentEntity>("Actor");
 var agentBehaviorState = actor.GetProperty<AgentBehavior>(AgentBehavior.PROPERTY_NAME);
 var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+var companionState = actor.GetProperty<CompanionState>(CompanionState.PROPERTY_NAME);
+var resetScriptId = companionState.DefaultBehaviorTreeId;
+System.Console.WriteLine("DefaultBehaviorTreeId: " + resetScriptId);
 
 ownerState.CanBeCaptured = true;
 ownerState.OwnerId = string.Empty;
@@ -40,7 +33,6 @@ actor.SetProperty(
     OwnerState.PROPERTY_NAME,
     ownerState
 );
-// Behaviors_FollowOwner_WIP.json
 await Services.Mediator.Send(
     new AgentUpdateEntityCommand(
         actor,

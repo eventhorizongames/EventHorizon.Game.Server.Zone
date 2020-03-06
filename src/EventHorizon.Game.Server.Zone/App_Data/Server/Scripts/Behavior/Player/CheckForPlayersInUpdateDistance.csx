@@ -7,17 +7,9 @@
 /// The main purpose of this script is to return success/fail so the BT procssing
 ///  should continue the Actors processing.
 /// 
-/// Actor: { 
-///     Id: long;
-///     BehaviorState: IBehaviorState;
-///     ActorMoveToPosition: Vector3;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// Data:
+///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices"></see>
 /// </summary>
 
 // TODO: Do some logic. ;)

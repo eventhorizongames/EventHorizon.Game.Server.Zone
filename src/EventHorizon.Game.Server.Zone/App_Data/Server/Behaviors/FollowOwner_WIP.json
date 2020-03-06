@@ -15,7 +15,7 @@
                     },
                     {
                         "type": "ACTION",
-                        "fire": "Behavior_Owner_ResetToRunFromPlayer.csx"
+                        "fire": "Behavior_Owner_ResetToDefaultBehavior.csx"
                     }
                 ]
             },

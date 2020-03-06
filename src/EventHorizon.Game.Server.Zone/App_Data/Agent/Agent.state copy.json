@@ -1,20 +1,20 @@
 {
     "AgentList": [
         {
-            "Id": "1ba8c107-2f33-447d-8628-2c9a3a2b0431",
+            "Id": "aaae0ee3-8a12-4da3-bd84-4d98a564db3c",
             "Name": "Fire Type",
             "Position": {
                 "CanMove": true,
                 "CurrentPosition": {
-                    "X": 16.0,
+                    "X": 17.0,
                     "Y": 0.0,
-                    "Z": -20.0
+                    "Z": -31.0
                 },
-                "NextMoveRequest": "0001-01-01T00:00:00",
+                "NextMoveRequest": "2020-03-06T18:03:25.8717644Z",
                 "MoveToPosition": {
-                    "X": 16.0,
+                    "X": 17.0,
                     "Y": 0.0,
-                    "Z": -20.0
+                    "Z": -32.0
                 },
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
@@ -26,22 +26,23 @@
             ],
             "Data": {
                 "ownerState": {
-                    "OwnerId": "",
-                    "CanBeCaptured": true
+                    "OwnerId": "54c92394-b902-4d80-b6d7-67851c52bac8",
+                    "CanBeCaptured": false,
+                    "OwnerFollowDistance": 5
                 },
                 "wander": {
                     "LookDistance": 25
                 },
                 "modelState": {
                     "AnimationList": [],
-                    "ScalingDeterminant": 0.2,
+                    "ScalingDeterminant": 0.1,
                     "Mesh": {
                         "Type": "MESH",
                         "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
                     }
                 },
                 "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                    "TreeId": "Behaviors_FollowOwner.json"
                 },
                 "interactionState": {
                     "Active": false,
@@ -90,68 +91,13 @@
                         ]
                     }
                 },
-                "NextRunTime": null,
+                "NextRunTime": "2020-03-06T12:03:39.972175-06:00",
                 "ActorMoveToPosition": null,
-                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": -123994149,
-                        "Type": {
-                            "Name": "SEQUENCE_SELECTOR",
-                            "IsTraversal": true
-                        },
-                        "Status": "SUCCESS",
-                        "NodeList": null,
-                        "IsTraversal": true,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null,
-                            "IsTraversal": false
-                        },
-                        "Status": null,
-                        "NodeList": null,
-                        "IsTraversal": false,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "NodeMap": {
-                        "-123994149": {
-                            "Token": -123994149,
-                            "Type": {
-                                "Name": "SEQUENCE_SELECTOR",
-                                "IsTraversal": true
-                            },
-                            "Status": "SUCCESS",
-                            "NodeList": null,
-                            "IsTraversal": true,
-                            "Fire": null,
-                            "FailGate": 0,
-                            "Reset": false
-                        },
-                        "-1179444159": {
-                            "Token": -1179444159,
-                            "Type": {
-                                "Name": "ACTION",
-                                "IsTraversal": false
-                            },
-                            "Status": "SUCCESS",
-                            "NodeList": null,
-                            "IsTraversal": false,
-                            "Fire": "$DEFAULT$SCRIPT",
-                            "FailGate": 0,
-                            "Reset": false
-                        }
-                    },
-                    "IsValid": true
-                }
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 7,
+                "companionState": {
+                    "DefaultBehaviorTreeId": "Behaviors_RunFromPlayer.json"
+                },
+                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00"
             }
         }
     ]

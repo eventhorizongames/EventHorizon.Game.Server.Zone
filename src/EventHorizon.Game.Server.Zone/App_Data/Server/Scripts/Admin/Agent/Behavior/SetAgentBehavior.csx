@@ -1,14 +1,12 @@
 /// <summary>
-/// This will publish the I18nLoadEvent.
+/// This script will set the agent behavior.
+/// 
+/// Arg 1: Global Id
+/// Arg 2: Behavior Tree Id
 /// 
 /// Data: IDictionary<string, object>
-/// - Command
-///  - RawCommand: string;
-///  - Command: string;
-///  - Parts: IList<string>;
-/// Services: 
-/// - Mediator: IMediator;
-/// - I18n: I18nLookup;
+/// - Command: <see cref="EventHorizon.Zone.System.Admin.Plugin.Command.Model.IAdminCommand" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Linq;
@@ -60,16 +58,16 @@ if (!entity?.IsFound() ?? true)
     );
 }
 
-var agentBehavior = entity.GetProperty<AgentBehavior>(
-    AgentBehavior.PROPERTY_NAME
-);
+// var agentBehavior = entity.GetProperty<AgentBehavior>(
+//     AgentBehavior.PROPERTY_NAME
+// );
 
-agentBehavior.TreeId = behaviorTreeId;
+// agentBehavior.TreeId = behaviorTreeId;
 
-entity.SetProperty(
-    AgentBehavior.PROPERTY_NAME,
-    agentBehavior
-);
+// entity.SetProperty(
+//     AgentBehavior.PROPERTY_NAME,
+//     agentBehavior
+// );
 
 var wasChanged = await Services.Mediator.Send(
     new ChangeActorBehaviorTreeCommand(

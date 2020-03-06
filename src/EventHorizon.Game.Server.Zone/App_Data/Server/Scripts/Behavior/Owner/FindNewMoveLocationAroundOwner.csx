@@ -1,18 +1,11 @@
 /// <summary>
 /// Name: Behavior_Owner_FindNewMoveLocationAroundOwner.csx
 /// 
-/// This script will find the Owner position and choose a location near to move to.
-/// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// This script will find the Owner position and choose a location near to move.
+///
+/// Data:
+///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices"></see>
 /// </summary>
 
 using System.Linq;
@@ -28,6 +21,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 var actor = Data.Get<IObjectEntity>("Actor");
 // Get Owner
 var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+var ownerFollowDistance = 5; // TODO: Get this from Actor setting : Close To Owner Distance
 // Get Current Owner of Actor of type Player
 var ownerList = await Services.Mediator.Send(
     new QueryForEntities
@@ -46,7 +40,7 @@ var owner = ownerList.FirstOrDefault();
 var mapNodes = await Services.Mediator.Send(
     new GetMapNodesAroundPositionEvent(
         owner.Position.CurrentPosition,
-        5 // TODO: Get this from an Actor setting : Close To Owner Distance
+        ownerFollowDistance
     )
 );
 // If nothing is found, just fail the script.

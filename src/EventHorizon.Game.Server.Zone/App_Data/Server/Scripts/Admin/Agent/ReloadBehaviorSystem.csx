@@ -1,14 +1,9 @@
 /// <summary>
-/// This will publish the I18nLoadEvent.
+/// This will reload the Agent Behavior System.
 /// 
 /// Data: IDictionary<string, object>
-/// - Command
-///  - RawCommand: string;
-///  - Command: string;
-///  - Parts: IList<string>;
-/// Services: 
-/// - Mediator: IMediator;
-/// - I18n: I18nLookup;
+/// - Command: <see cref="EventHorizon.Zone.System.Admin.Plugin.Command.Model.IAdminCommand" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;

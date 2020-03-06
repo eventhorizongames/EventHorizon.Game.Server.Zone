@@ -1,0 +1,11 @@
+{
+    "command": "set-property-on-entity",
+    "scriptFile": "Admin_Entity_SetPropertyOnEntity.csx",
+    "args": {
+        "globalId": "The global Id of the entity to update property on.",
+        "stateToUpdate": "The name of the state to update.",
+        "propertyToUpdate": "The name of the property be updated.",
+        "propertyValue": "The Property value, has to be parsable into property type.",
+        "propertyType": "The property type: long, int, string, bool."
+    }
+}

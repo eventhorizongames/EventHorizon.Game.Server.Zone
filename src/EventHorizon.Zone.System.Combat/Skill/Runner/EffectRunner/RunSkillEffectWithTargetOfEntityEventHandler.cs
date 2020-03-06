@@ -6,7 +6,6 @@ using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Zone.System.Combat.Script;
 using EventHorizon.Zone.System.Combat.Skill.Validation;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -19,19 +18,16 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
     {
         readonly ILogger _logger;
         readonly IMediator _mediator;
-        readonly IScriptServices _scriptServices;
         readonly IDateTimeService _dateTime;
 
         public RunSkillEffectWithTargetOfEntityEventHandler(
             ILogger<RunSkillEffectWithTargetOfEntityEventHandler> logger,
             IMediator mediator,
-            IScriptServices scriptServices,
             IDateTimeService dateTime
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _scriptServices = scriptServices;
             _dateTime = dateTime;
         }
 

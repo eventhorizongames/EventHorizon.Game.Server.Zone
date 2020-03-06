@@ -1,14 +1,11 @@
 /// <summary>
-/// This will publish the I18nLoadEvent.
+/// This script will remove 1+ random Agent.
+/// 
+/// Arg 1: Count To Remove (default: 1)
 /// 
 /// Data: IDictionary<string, object>
-/// - Command
-///  - RawCommand: string;
-///  - Command: string;
-///  - Parts: IList<string>;
-/// Services: 
-/// - Mediator: IMediator;
-/// - I18n: I18nLookup;
+/// - Command: <see cref="EventHorizon.Zone.System.Admin.Plugin.Command.Model.IAdminCommand" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Linq;
@@ -43,5 +40,5 @@ for (int i = 0; i < count; i++)
 
 return new AdminCommandScriptResponse(
     true, // Success
-    "new_agent_registered" // Message
+    "random_agent_unregistered" // Message
 );

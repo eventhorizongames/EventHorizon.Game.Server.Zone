@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Zone.System.Combat.Script;
 using MediatR;
 using EventHorizon.Zone.System.Server.Scripts.Events.Run;
 
@@ -11,15 +10,12 @@ namespace EventHorizon.Zone.System.Combat.Skill.Validation
     public class RunValidateForSkillEffectHandler : IRequestHandler<RunValidateForSkillEffectEvent, IEnumerable<SkillValidatorResponse>>
     {
         readonly IMediator _mediator;
-        readonly IScriptServices _scriptServices;
 
         public RunValidateForSkillEffectHandler(
-            IMediator mediator,
-            IScriptServices scriptServices
+            IMediator mediator
         )
         {
             _mediator = mediator;
-            _scriptServices = scriptServices;
         }
         
         public async Task<IEnumerable<SkillValidatorResponse>> Handle(

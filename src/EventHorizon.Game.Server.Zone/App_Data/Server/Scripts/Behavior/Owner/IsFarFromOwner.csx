@@ -8,16 +8,9 @@
 /// if not
 ///  it will fail the check
 /// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// Data:
+///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices"></see>
 /// </summary>
 
 using System.Linq;
@@ -29,10 +22,13 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-var delta = 5; // TODO: Get this from Actor setting : Close To Owner Distance
 
 var actor = Data.Get<IObjectEntity>("Actor");
+// Get Owner
+var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+var ownerFollowDistance = 5; // TODO: Get this from Actor setting : Close To Owner Distance
 var owner = await GetOwner(
+    ownerState,
     actor
 );
 
@@ -44,7 +40,7 @@ var distance = Vector3.Distance(
 
 System.Console.WriteLine("Distance from Actor to Owner: " + distance);
 
-if (distance >= delta)
+if (distance >= ownerFollowDistance)
 {
     // They are far from their owner
     return new BehaviorScriptResponse(
@@ -59,11 +55,10 @@ return new BehaviorScriptResponse(
 
 
 public async Task<IObjectEntity> GetOwner(
+    OwnerState ownerState,
     IObjectEntity actor
 )
 {
-    // Get Owner
-    var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
     // Get Current Owner of Actor of type Player
     var ownerList = await Services.Mediator.Send(
         new QueryForEntities

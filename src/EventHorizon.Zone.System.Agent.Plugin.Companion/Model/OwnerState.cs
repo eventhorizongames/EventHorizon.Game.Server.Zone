@@ -6,6 +6,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
 
         public string OwnerId { get; set; }
         public bool CanBeCaptured { get; set; }
+        public int OwnerFollowDistance { get; set; }
 
         public object this[string index]
         {
@@ -17,6 +18,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
                         return this.OwnerId;
                     case "canBeCaptured":
                         return this.CanBeCaptured;
+                    case "ownerFollowDistance":
+                        return this.OwnerFollowDistance;
 
                     default:
                         return null;
@@ -31,6 +34,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
                         break;
                     case "canBeCaptured":
                         this.CanBeCaptured = (bool)value;
+                        break;
+                    case "ownerFollowDistance":
+                        this.OwnerFollowDistance = (int)value;
                         break;
 
                     default:

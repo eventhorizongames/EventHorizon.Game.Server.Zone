@@ -1,3 +1,11 @@
+/// <summary>
+/// This script will reload the Agent System.
+/// 
+/// Data: IDictionary<string, object>
+/// - Command: <see cref="EventHorizon.Zone.System.Admin.Plugin.Command.Model.IAdminCommand" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
+/// </summary>
+
 using System.Linq;
 using System.IO;
 using EventHorizon.Zone.Core.Events.DirectoryService;
