@@ -1,6 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Events.Move;
+using EventHorizon.Zone.System.Agent.Model.Path;
 using EventHorizon.Zone.System.Agent.Model.State;
 using MediatR;
 
@@ -22,7 +24,9 @@ namespace EventHorizon.Zone.System.Agent.Move
         {
             return (await _agentRepository.FindById(
                 request.EntityId
-            )).Path?.Count > 0;
+            )).GetProperty<PathState>(
+                PathState.PROPERTY_NAME
+            ).Path?.Count > 0;
         }
     }
 }

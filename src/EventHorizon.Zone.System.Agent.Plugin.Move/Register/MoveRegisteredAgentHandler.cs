@@ -2,41 +2,34 @@ using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Performance;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Agent.Events.Move;
 using EventHorizon.Zone.System.Agent.Model.State;
 using System.Collections.Generic;
 using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+using EventHorizon.Zone.Core.Events.Entity.Movement;
+using EventHorizon.Zone.System.Agent.Model.Path;
+using EventHorizon.Zone.Core.Events.Entity.Update;
 
 namespace EventHorizon.Zone.System.Agent.Move.Register
 {
     public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>
     {
-        public const int AGENT_MOVE_MULTIPLIER = 10;
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly IDateTimeService _dateTime;
-        readonly IAgentRepository _agentRepository;
-        readonly IPerformanceTracker _performanceTracker;
+        private readonly IMediator _mediator;
+        private readonly IDateTimeService _dateTime;
+        private readonly IAgentRepository _agentRepository;
+
         public MoveRegisteredAgentHandler(
-            ILogger<MoveRegisteredAgentHandler> logger,
             IMediator mediator,
             IDateTimeService dateTime,
-            IAgentRepository agentRepository,
-            IPerformanceTracker performanceTracker
+            IAgentRepository agentRepository
         )
         {
-            _logger = logger;
             _mediator = mediator;
             _dateTime = dateTime;
             _agentRepository = agentRepository;
-            _performanceTracker = performanceTracker;
         }
 
         public async Task Handle(
@@ -48,11 +41,15 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             var agent = await _agentRepository.FindById(
                 entityId
             );
-            var path = agent.Path;
+            var pathState = agent.GetProperty<PathState>(
+                PathState.PROPERTY_NAME
+            );
+            var path = pathState.Path;
             if (path == null)
             {
                 await RemoveAgent(
-                    agent
+                    agent,
+                    pathState
                 );
                 return;
             }
@@ -65,6 +62,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             {
                 await QueueForNextUpdateCycle(
                     entityId,
+                    pathState.MoveTo,
                     path
                 );
                 return;
@@ -72,52 +70,50 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             if (path.Count <= 0)
             {
                 await RemoveAgent(
-                    agent
+                    agent,
+                    pathState
                 );
                 return;
             }
-            var moveTo = path.Dequeue();
 
-            // TODO: Create Position update logic service
-            var newPosition = agent.Position;
-            newPosition.CurrentPosition = agent.Position.MoveToPosition;
-            newPosition.MoveToPosition = moveTo;
-            newPosition.NextMoveRequest = _dateTime.Now.AddMilliseconds(
-                AGENT_MOVE_MULTIPLIER
+            await _mediator.Send(
+                new MoveEntityToPositionCommand(
+                    agent,
+                    path.Dequeue(),
+                    false
+                )
             );
-            agent.Position = newPosition;
-            await _agentRepository.Update(
-                EntityAction.POSITION,
-                agent
-            );
-            // Send update to Client for Entity
-            await _mediator.Publish(
-                new ClientActionEntityClientMoveToAllEvent
-                {
-                    Data = new EntityClientMoveData
-                    {
-                        EntityId = entityId,
-                        MoveTo = moveTo
-                    },
-                }
-            );
+
             if (path.Count == 0)
             {
                 await RemoveAgent(
-                    agent
+                    agent,
+                    pathState
                 );
                 return;
             }
             await QueueForNextUpdateCycle(
                 entityId,
+                pathState.MoveTo,
                 path
             );
         }
         private async Task RemoveAgent(
-            AgentEntity entity
+            AgentEntity entity,
+            PathState pathState
         )
         {
-            entity.Path = null;
+            pathState.Path = null;
+            entity.SetProperty(
+                PathState.PROPERTY_NAME,
+                pathState
+            );
+            await _mediator.Send(
+                new UpdateEntityCommand(
+                    AgentAction.PATH,
+                    entity
+                )
+            );
             await _mediator.Publish(
                 new AgentFinishedMoveEvent
                 {
@@ -127,6 +123,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
         }
         private async Task QueueForNextUpdateCycle(
             long entityId,
+            Vector3 moveTo,
             Queue<Vector3> path
         )
         {
@@ -134,7 +131,8 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 new QueueAgentToMoveEvent
                 {
                     EntityId = entityId,
-                    Path = path
+                    MoveTo = moveTo,
+                    Path = path,
                 }
             );
         }

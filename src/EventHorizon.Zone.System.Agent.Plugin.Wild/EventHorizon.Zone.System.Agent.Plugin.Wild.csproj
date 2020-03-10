@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Mediatr" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Model\EventHorizon.Zone.System.Player.Plugin.Action.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -20,10 +20,6 @@ using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 
-// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_FollowOwner_WIP.json
-// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_RunFromPlayer.json
-// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_Idle.json
-// set-agent-behavior db7035c9-2ac5-4bba-9a1a-e4f220223879 Behaviors_Wander.json
 var command = Data.Get<IAdminCommand>("Command");
 if (command.Parts.Count != 2)
 {
@@ -57,17 +53,6 @@ if (!entity?.IsFound() ?? true)
         "agent_not_found" // Message
     );
 }
-
-// var agentBehavior = entity.GetProperty<AgentBehavior>(
-//     AgentBehavior.PROPERTY_NAME
-// );
-
-// agentBehavior.TreeId = behaviorTreeId;
-
-// entity.SetProperty(
-//     AgentBehavior.PROPERTY_NAME,
-//     agentBehavior
-// );
 
 var wasChanged = await Services.Mediator.Send(
     new ChangeActorBehaviorTreeCommand(

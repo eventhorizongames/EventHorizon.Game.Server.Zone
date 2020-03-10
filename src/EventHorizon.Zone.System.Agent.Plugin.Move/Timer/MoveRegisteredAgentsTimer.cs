@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Timer
 {
     public class MoveRegisteredAgentsTimer : ITimerTask
     {
-        public int Period { get; } = 100;
+        public int Period { get; } = 50;
         public string Tag { get; } = "MoveRegisteredAgents";
         public IRequest<bool> OnValidationEvent { get; } = new IsServerStarted();
         public INotification OnRunEvent { get; } = new MoveRegisteredAgentsEvent();

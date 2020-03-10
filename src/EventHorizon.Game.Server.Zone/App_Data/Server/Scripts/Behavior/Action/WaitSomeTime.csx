@@ -7,19 +7,17 @@
 /// 
 /// If Running
 ///     Check state of timer
+///     If Finished
+///         Return Success
+///     Else 
+///         Return Running
 /// Else
 ///     Set new future TimeSpan
-/// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+///     Return Running
+///  
+/// Data: 
+/// - Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Numerics;

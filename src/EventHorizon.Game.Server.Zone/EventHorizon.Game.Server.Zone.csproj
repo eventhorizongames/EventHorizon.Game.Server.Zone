@@ -68,6 +68,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Ai\EventHorizon.Zone.System.Agent.Plugin.Ai.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Move\EventHorizon.Zone.System.Agent.Plugin.Move.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Wild\EventHorizon.Zone.System.Agent.Plugin.Wild.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Companion\EventHorizon.Zone.System.Agent.Plugin.Companion.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Behavior\EventHorizon.Zone.System.Agent.Plugin.Behavior.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor.csproj" />

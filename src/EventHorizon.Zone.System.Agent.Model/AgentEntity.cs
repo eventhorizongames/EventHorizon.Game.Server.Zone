@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Numerics;
 using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 
@@ -56,9 +55,6 @@ namespace EventHorizon.Zone.System.Agent.Model
             }
         }
 
-        // Volatile Entity Data
-        public Queue<Vector3> Path { get; set; }
-
         public AgentEntity(
             Dictionary<string, object> rawData
         )
@@ -72,7 +68,6 @@ namespace EventHorizon.Zone.System.Agent.Model
             Position = default(PositionState);
             TagList = null;
             Name = string.Empty;
-            Path = null;
         }
 
         public bool IsFound()

@@ -1,19 +1,19 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using MediatR;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using EventHorizon.Zone.System.Player.Events.Details;
-using EventHorizon.Zone.System.Player.Events.Update;
-using EventHorizon.Zone.System.Player.Events.Zone;
-using EventHorizon.Zone.Core.Model.ServerProperty;
-using EventHorizon.Zone.System.Player.Model.Action;
-using EventHorizon.Zone.System.Player.Mapper;
-
 namespace EventHorizon.Zone.System.Player.Connected
 {
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Player;
+    using MediatR;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.System.Player.Events.Connected;
+    using EventHorizon.Zone.System.Player.Events.Details;
+    using EventHorizon.Zone.System.Player.Events.Zone;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+    using EventHorizon.Zone.System.Player.Model.Action;
+    using EventHorizon.Zone.System.Player.Mapper;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+
     public class PlayerConnectedHandler : INotificationHandler<PlayerConnectedEvent>
     {
         readonly IMediator _mediator;
@@ -71,9 +71,11 @@ namespace EventHorizon.Zone.System.Player.Connected
 
             // Update players ConnectionId
             player.ConnectionId = notification.ConnectionId;
-            await _player.Update(
-                playerAction,
-                player
+            await _mediator.Send(
+                new UpdateEntityCommand(
+                    playerAction,
+                    player
+                )
             );
 
             await _mediator.Send(

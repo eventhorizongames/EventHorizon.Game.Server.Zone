@@ -183,6 +183,7 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(SystemAgentExtensions).Assembly,
                 typeof(SystemAgentPluginAiExtensions).Assembly,
                 typeof(SystemAgentPluginMoveExtensions).Assembly,
+                typeof(SystemAgentPluginWildExtensions).Assembly,
                 typeof(SystemAgentPluginBehaviorExtensions).Assembly,
                 typeof(SystemAgentPluginBehaviorEditorExtensions).Assembly,
                 typeof(SystemAgentPluginCompanionExtensions).Assembly,
@@ -295,6 +296,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemAgent(Configuration)
                 .AddSystemAgentPluginAi()
                 .AddSystemAgentPluginMove()
+                .AddSystemAgentPluginWild()
                 .AddSystemAgentPluginBehavior()
                 .AddSystemAgentPluginBehaviorEditor()
                 .AddSystemAgentPluginCompanion()
@@ -393,6 +395,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemAgent();
             app.UseSystemAgentPluginAi();
             app.UseSystemAgentPluginMove();
+            app.UseSystemAgentPluginWild();
             app.UseSystemAgentPluginBehavior();
             app.UseSystemAgentPluginBehaviorEditor();
             app.UseSystemAgentPluginCompanion();

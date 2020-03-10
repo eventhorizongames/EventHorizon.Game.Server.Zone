@@ -8,5 +8,6 @@ namespace EventHorizon.Zone.System.Agent.Events.Move
     {
         public long EntityId { get; set; }
         public Queue<Vector3> Path { get; set; }
+        public Vector3 MoveTo { get; set; }
     }
 }

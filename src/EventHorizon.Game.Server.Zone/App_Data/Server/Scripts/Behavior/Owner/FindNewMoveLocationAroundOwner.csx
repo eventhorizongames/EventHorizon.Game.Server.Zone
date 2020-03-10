@@ -21,7 +21,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 var actor = Data.Get<IObjectEntity>("Actor");
 // Get Owner
 var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
-var ownerFollowDistance = 5; // TODO: Get this from Actor setting : Close To Owner Distance
+var ownerFollowDistance = ownerState.OwnerFollowDistance;
 // Get Current Owner of Actor of type Player
 var ownerList = await Services.Mediator.Send(
     new QueryForEntities

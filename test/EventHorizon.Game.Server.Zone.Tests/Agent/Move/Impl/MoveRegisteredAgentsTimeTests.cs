@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Impl
         public void TestStart_ShouldPublishMoveRegisteredAgentsEventAfterSetAmountOfTime()
         {
             // Given
-            var expectedPeriod = 100;
+            var expectedPeriod = 50;
             var expectedEvent = new MoveRegisteredAgentsEvent();
 
             // When
@@ -21,6 +21,5 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Impl
             Assert.Equal(expectedPeriod, actual.Period);
             Assert.Equal(expectedEvent, actual.OnRunEvent);
         }
-
     }
 }

@@ -213,6 +213,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring.App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring.Model", "src\EventHorizon.Monitoring.Model\EventHorizon.Monitoring.Model.csproj", "{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Wild", "src\EventHorizon.Zone.System.Agent.Plugin.Wild\EventHorizon.Zone.System.Agent.Plugin.Wild.csproj", "{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1462,6 +1464,18 @@ Global
 		{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}.Release|x64.Build.0 = Release|Any CPU
 		{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}.Release|x86.ActiveCfg = Release|Any CPU
 		{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}.Release|x86.Build.0 = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|x64.Build.0 = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Debug|x86.Build.0 = Debug|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|x64.ActiveCfg = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|x64.Build.0 = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|x86.ActiveCfg = Release|Any CPU
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE} = {FE232CB9-E002-4898-9117-E3162928E341}
@@ -1567,5 +1581,6 @@ Global
 		{9C279C27-F9D0-4358-8CAB-A0582BA3D5EB} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{9C08A06D-2374-4F0E-8808-73C18A70D35E} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8} = {FE232CB9-E002-4898-9117-E3162928E341}
+		{41ADC3FD-BE57-438F-84F7-28703C4E7C1A} = {FE232CB9-E002-4898-9117-E3162928E341}
 	EndGlobalSection
 EndGlobal

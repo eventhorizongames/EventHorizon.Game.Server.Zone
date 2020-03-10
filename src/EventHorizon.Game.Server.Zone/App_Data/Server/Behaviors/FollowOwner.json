@@ -24,6 +24,22 @@
                 "reset": true,
                 "nodeList": [
                     {
+                        "comment": "Check if the Actor's Owner is Moved outside of a delta from their",
+                        "comment2": "Last Path Position, if so stop movement.",
+                        "type": "SEQUENCE_SELECTOR",
+                        "nodeList": [
+                            {
+                                "type": "CONDITION",
+                                "fire": "Behavior_Owner_OwnerFarFromMoveToPosition.csx"
+                            },
+                            {
+                                "comments": "This should stop the actor from moving.",
+                                "type": "ACTION",
+                                "fire": "Behavior_Owner_StopActor.csx"
+                            }
+                        ]
+                    },
+                    {
                         "comment": "Run Far Distance sub behavior",
                         "type": "SEQUENCE_SELECTOR",
                         "nodeList": [

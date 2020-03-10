@@ -46,10 +46,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
             });
 
             // Register Path for Agent entity
+            // This will remove the first node, since it is not needed.
+            // This not needed since it should be able to move to its next node no matter where it is.
+            // TODO: This should be move into a SmoothPathCommand.
+            path.Dequeue();
+
             await _mediator.Publish(new QueueAgentToMoveEvent
             {
                 EntityId = agent.Id,
-                Path = path
+                Path = path,
+                MoveTo = request.ToPosition,
             });
             return Unit.Value;
         }

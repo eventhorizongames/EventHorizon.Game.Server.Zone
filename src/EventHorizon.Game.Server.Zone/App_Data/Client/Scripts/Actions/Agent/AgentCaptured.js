@@ -1,5 +1,5 @@
 /**
- * Action Id: agent_capturede
+ * Action Id: agent_captured
  *
  * $services:
  * - EntityRepository

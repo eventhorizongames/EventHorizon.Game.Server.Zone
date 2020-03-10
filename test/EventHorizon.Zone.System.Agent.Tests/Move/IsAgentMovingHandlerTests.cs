@@ -4,10 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Agent.Events.Move;
 using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model.Path;
 using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.System.Agent.Move;
 using Moq;
 using Xunit;
+using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Zone.System.Agent.Tests.Move
 {
@@ -23,10 +25,15 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
                     Vector3.Zero
                 }
             );
-            var agent = new AgentEntity
-            {
-                Path = path
-            };
+            var agent = new AgentEntity(
+                new Dictionary<string, object>
+                {
+                    { PathState.PROPERTY_NAME, new PathState{ Path = path } }
+                }
+            );
+            agent.PopulateData<PathState>(
+                PathState.PROPERTY_NAME
+            );
 
             var agentRepositoryMock = new Mock<IAgentRepository>();
 
@@ -60,10 +67,21 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
         {
             // Given
             var entityId = 2L;
-            var agent = new AgentEntity
-            {
-                Path = null
-            };
+            var agent = new AgentEntity(
+                new Dictionary<string, object>
+                {
+                    {
+                        PathState.PROPERTY_NAME,
+                        new PathState
+                        {
+                            Path = null
+                        }
+                    }
+                }
+            );
+            agent.PopulateData<PathState>(
+                PathState.PROPERTY_NAME
+            );
 
             var agentRepositoryMock = new Mock<IAgentRepository>();
 
@@ -91,16 +109,27 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
                 actual
             );
         }
-        
+
         [Fact]
         public async Task TestShouldReturnFalseWhenAgentPathIsEmpty()
         {
             // Given
             var entityId = 2L;
-            var agent = new AgentEntity
-            {
-                Path = new Queue<Vector3>()
-            };
+            var agent = new AgentEntity(
+                new Dictionary<string, object>
+                {
+                    {
+                        PathState.PROPERTY_NAME,
+                        new PathState
+                        {
+                            Path = new Queue<Vector3>()
+                        }
+                    }
+                }
+            );
+            agent.PopulateData<PathState>(
+                PathState.PROPERTY_NAME
+            );
 
             var agentRepositoryMock = new Mock<IAgentRepository>();
 

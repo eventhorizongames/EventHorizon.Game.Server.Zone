@@ -1,8 +1,8 @@
 /// <summary>
-/// Name: Behavior_Owner_ResetToRunFromPlayer.csx
+/// Name: Behavior_Owner_ResetToDefaultBehavior.csx
 /// 
-/// Will Set the Current Behavior Tree to RunFromPlayer
-/// Will Reset the State of the Actor Owner to Empty string
+/// Will update the Actor with no owner.
+/// Will update behavior tree for the current actor to the CompanionState's DefaultBehaviorTreeId
 /// 
 /// Data:
 ///     Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 
@@ -18,13 +18,11 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-System.Console.WriteLine("Reset To Default Behavior Tree");
 var actor = Data.Get<AgentEntity>("Actor");
 var agentBehaviorState = actor.GetProperty<AgentBehavior>(AgentBehavior.PROPERTY_NAME);
 var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
 var companionState = actor.GetProperty<CompanionState>(CompanionState.PROPERTY_NAME);
 var resetScriptId = companionState.DefaultBehaviorTreeId;
-System.Console.WriteLine("DefaultBehaviorTreeId: " + resetScriptId);
 
 ownerState.CanBeCaptured = true;
 ownerState.OwnerId = string.Empty;

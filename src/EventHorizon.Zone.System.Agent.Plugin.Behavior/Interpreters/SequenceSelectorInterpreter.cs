@@ -11,7 +11,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
     /// 
     /// If one or multiple fail the whole sequence fails, too. 
     /// 
-    /// Without a reset or without finishing the last child node a sequence stores the last running child to immediately return to it on the next update.
+    /// Without a reset or without finishing the last child node
+    ///  a sequence stores the last running child to immediately
+    ///  return to it on the next update.
     /// </summary>
     public class SequenceSelectorInterpreter : BehaviorInterpreter
     {
@@ -34,7 +36,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     .RemoveNodeFromLastTraversalStack(
                         behaviorTreeState.ActiveNode.Token
                     )
-                    .PushActiveNodeToTraversalStack()
+                    .PushActiveNodeToTraversalStack();
+                if (behaviorTreeState.ActiveNode.Reset)
+                {
+                    return Task.FromResult(
+                        behaviorTreeState
+                            .Report(
+                                "Sequence Selector Interpreter : Reset - EXIT"
+                            )
+                    );
+                }
+                behaviorTreeState = behaviorTreeState
                     .PopActiveNodeFromQueue();
                 while (
                     behaviorTreeState.IsActiveNodeValidAndNotRunning()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Register;
+using EventHorizon.Zone.Core.Events.Entity.Update;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.ServerProperty;
@@ -65,10 +66,13 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             );
 
             // Then
-            playerRepositoryMock.Verify(
-                mock => mock.Update(
-                    expectedPlayerAction,
-                    expected
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new UpdateEntityCommand(
+                        expectedPlayerAction,
+                        expected
+                    ),
+                    CancellationToken.None
                 )
             );
         }
@@ -153,10 +157,13 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             );
 
             // Then
-            playerRepositoryMock.Verify(
-                mock => mock.Update(
-                    expectedPlayerAction,
-                    expected
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new UpdateEntityCommand(
+                        expectedPlayerAction,
+                        expected
+                    ),
+                    CancellationToken.None
                 )
             );
         }
@@ -229,10 +236,10 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 expected,
                 exceptionDetails.Message
             );
-            playerRepositoryMock.Verify(
-                mock => mock.Update(
-                    It.IsAny<EntityAction>(),
-                    It.IsAny<PlayerEntity>()
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<UpdateEntityCommand>(),
+                    It.IsAny<CancellationToken>()
                 ),
                 Times.Never()
             );

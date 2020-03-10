@@ -11,7 +11,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
     ///
     /// A pre-specified number of children needs to fail to make the concurrent node fail, too.
     /// 
-    /// Instead of running its child nodes truly in parallel to each other there might be a specific traversal order which can be exploited when adding conditions(see below) to a concurrent node because an early failing condition prevents its following concurrent siblings from running.
+    /// Instead of running its child nodes truly in parallel to each other there might be a
+    ///  specific traversal order which can be exploited when adding conditions(see below)
+    ///  to a concurrent node because an early failing condition prevents its following
+    ///  concurrent siblings from running.
     /// </summary>
     public partial class ConcurrentSelectorInterpreter : BehaviorInterpreter
     {
@@ -57,18 +60,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     foundFailed++;
                     if (foundFailed >= behaviorTreeState.ActiveTraversal.FailGate)
                     {
-                        behaviorTreeState = behaviorTreeState.SetStatusOnTraversalNode(
-                            BehaviorNodeStatus.FAILED
-                        ).SetTraversalToCheck(
-                        // This will make the current Traversal Node Active
-                        //  and ready for processing/validation
-                        ).PopActiveTraversalNode(
-                        // Because of failure we pop out of the Traversal node
-                        // This will make the Parent Node the Current Traversal
-                        );
                         return Task.FromResult(
-                            behaviorTreeState.AdvanceQueueToPassedToken(
+                            behaviorTreeState.SetStatusOnTraversalNode(
+                                BehaviorNodeStatus.FAILED
+                            ).AdvanceQueueToPassedToken(
                                 behaviorTreeState.GetTokenAfterLastChildOfTraversalNode()
+                            ).SetTraversalToCheck(
+                            // This will make the current Traversal Node Active
+                            //  and ready for processing/validation
+                            ).PopActiveTraversalNode(
+                            // Because of failure we pop out of the Traversal node
+                            // This will make the Parent Node the Current Traversal
                             ).Report(
                                 "Concurrent Selector Interpreter EXIT"
                             )

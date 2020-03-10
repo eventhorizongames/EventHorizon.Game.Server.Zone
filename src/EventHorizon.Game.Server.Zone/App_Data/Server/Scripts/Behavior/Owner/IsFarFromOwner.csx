@@ -22,11 +22,10 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-
 var actor = Data.Get<IObjectEntity>("Actor");
 // Get Owner
 var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
-var ownerFollowDistance = 5; // TODO: Get this from Actor setting : Close To Owner Distance
+var ownerFollowDistance = ownerState.OwnerFollowDistance;
 var owner = await GetOwner(
     ownerState,
     actor
@@ -37,8 +36,6 @@ var distance = Vector3.Distance(
     actor.Position.CurrentPosition,
     owner.Position.CurrentPosition
 );
-
-System.Console.WriteLine("Distance from Actor to Owner: " + distance);
 
 if (distance >= ownerFollowDistance)
 {

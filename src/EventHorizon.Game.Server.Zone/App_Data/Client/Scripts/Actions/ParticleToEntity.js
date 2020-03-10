@@ -1,6 +1,6 @@
 /**
  * Action Id: particle_to_entity
- * 
+ *
  * $services:
  * - EntityRepository
  * $utils:
@@ -20,7 +20,7 @@ const particleEntity = $services.entityBuilder.createParticleEmitter(
     "Particle_Flame", // TODO: Move this Skill Configuration
     startingEntity.position,
     // Speed
-    5 // TODO: Move this Skill Configuration
+    3 // TODO: Move this Skill Configuration
 );
 // Set to where the particle should move
 particleEntity.moveTo(endingEntity.position);

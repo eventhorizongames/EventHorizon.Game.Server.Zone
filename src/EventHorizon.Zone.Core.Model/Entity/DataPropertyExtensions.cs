@@ -55,7 +55,13 @@ namespace EventHorizon.Zone.Core.Model.Entity
         {
             var rawData = entity.RawData;
             var data = entity.Data;
-            if (!rawData.ContainsKey(prop))
+            // Is Already Populated
+            if (data.ContainsKey(prop))
+            {
+                // Return already populated prop.
+                return entity.GetProperty<T>(prop);
+            }
+            else if (!rawData.ContainsKey(prop))
             {
                 data[prop] = defaultValue;
             }

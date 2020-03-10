@@ -24,10 +24,12 @@ using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Events.Entity.Find;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Structure;
+using EventHorizon.Zone.System.Agent.Plugin.Wild.Model;
 
 var actor = Data.Get<IObjectEntity>("Actor");
-var distanceToRunAway = 25; // TODO: Setting from Wild State : Distance To Run
-var runToLocationDistance = 5; // Delta around runaway node. TODO: Setting from Wild State : Run To Location Distance
+var wildState = actor.GetProperty<AgentWildState>(AgentWildState.PROPERTY_NAME);
+var distanceToRunAway = wildState.DistanceToRunAway;
+var deltaToPosition = wildState.DeltaDistance; 
 var runFromPlayerId = actor.GetProperty<long>("Behavior:RunFromPlayer.csx:RunFromPlayerId");
 
 // Get Player for Current Position 
@@ -48,7 +50,7 @@ var positionToMove = GetPositionToMoveTo(
 // Send Move request to position
 var node = await GetNodeEntity(
     positionToMove,
-    runToLocationDistance
+    deltaToPosition
 );
 if (node == null)
 {
@@ -99,17 +101,17 @@ private Vector3 GetPositionToMoveTo(
 /// Lookup the closest node to the positionToMove.
 /// </summary>
 /// <param name="positionToMove">Position in the world.</param>
-/// <param name="runToLocationDistance">How far away from positionToMove the node can be.</param>
+/// <param name="deltaToPosition">How far away from positionToMove the node can be.</param>
 /// <returns>The node found, otherwise null.</returns>
 private async Task<IOctreeEntity> GetNodeEntity(
     Vector3 positionToMove,
-    int runToLocationDistance
+    int deltaToPosition
 )
 {
     var mapNodes = await Services.Mediator.Send(
         new GetMapNodesAroundPositionEvent(
             positionToMove,
-            runToLocationDistance
+            deltaToPosition
         )
     );
     if (mapNodes.Count == 0)

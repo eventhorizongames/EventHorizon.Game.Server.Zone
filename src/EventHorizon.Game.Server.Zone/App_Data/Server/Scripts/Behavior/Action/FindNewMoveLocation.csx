@@ -2,17 +2,10 @@
 /// Name: Behavior_Action_FindNewMoveLocation.csx
 /// 
 /// This script should check the state of the 
-/// 
-/// Actor: { 
-///     Id: long; 
-///     BehaviorState: IBehaviorState;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+///
+/// Data: 
+/// - Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Numerics;
@@ -46,9 +39,6 @@ var node = mapNodes[randomNodeIndex];
 actor.SetProperty<Vector3>(
     "ActorMoveToPosition",
     node.Position
-// new Vector3(
-//     0,0,0
-// )
 );
 
 return new BehaviorScriptResponse(

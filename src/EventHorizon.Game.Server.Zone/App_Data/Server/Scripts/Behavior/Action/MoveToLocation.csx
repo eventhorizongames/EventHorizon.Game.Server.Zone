@@ -1,19 +1,11 @@
 /// <summary>
 /// Name: Behavior_Action_MoveToLocation.csx
 /// 
-/// This script will move the Actor to the specified location
+/// This script will move the Actor to the Vector3 of the entity property: ActorMoveToPosition
 /// 
-/// Actor: { 
-///     Id: long;
-///     BehaviorState: IBehaviorState;
-///     ActorMoveToPosition: Vector3;
-/// } 
-/// Services: { 
-///     Mediator: IMediator; 
-///     Random: IRandomNumberGenerator; 
-///     DateTime: IDateTimeService; 
-///     I18n: I18nLookup; 
-/// }
+/// Data: 
+/// - Actor: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" />
+/// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
 using System.Numerics;
@@ -40,7 +32,7 @@ var isAgentMoving = await Services.Mediator.Send(
 if (!isAgentMoving)
 {
     var toPositionNullable = actor.GetProperty<Vector3?>("ActorMoveToPosition");
-    if (!toPositionNullable.HasValue) // TODO: Find better way to check Vector3
+    if (!toPositionNullable.HasValue)
     {
         return new BehaviorScriptResponse(
             BehaviorNodeStatus.SUCCESS

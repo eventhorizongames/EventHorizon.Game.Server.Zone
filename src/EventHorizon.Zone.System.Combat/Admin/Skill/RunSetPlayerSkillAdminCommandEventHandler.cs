@@ -1,18 +1,18 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Skill.Entity.State;
-using EventHorizon.Zone.System.Combat.Skill.Find;
-using MediatR;
-using EventHorizon.Zone.System.Combat.Model;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-using EventHorizon.Zone.System.Player.Events.Update;
-
 namespace EventHorizon.Zone.System.Combat.Admin.Skill
 {
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Skill.Entity.State;
+    using EventHorizon.Zone.System.Combat.Skill.Find;
+    using MediatR;
+    using EventHorizon.Zone.System.Combat.Model;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+
     public class RunSetPlayerSkillAdminCommandEventHandler : INotificationHandler<AdminCommandEvent>
     {
         readonly IMediator _mediator;
@@ -106,9 +106,11 @@ namespace EventHorizon.Zone.System.Combat.Admin.Skill
                         CooldownFinishes = DateTime.UtcNow
                     }
                 );
-                await _playerRepository.Update(
-                    EntitySkillAction.ADD_SKILL,
-                    player
+                await _mediator.Send(
+                    new UpdateEntityCommand(
+                        EntitySkillAction.ADD_SKILL,
+                        player
+                    )
                 );
             }
             await _mediator.Send(

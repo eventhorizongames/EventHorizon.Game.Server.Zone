@@ -3,6 +3,7 @@ using EventHorizon.Zone.System.Server.Scripts.Model;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script
 {
+    // TODO: Move this to under the Model Namespace
     public struct BehaviorScriptResponse : ServerScriptResponse
     {
         public BehaviorNodeStatus Status { get; }

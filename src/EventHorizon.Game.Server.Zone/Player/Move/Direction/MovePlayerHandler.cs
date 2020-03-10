@@ -1,38 +1,31 @@
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Events.Map;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Game.Server.Zone.Player.Model;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Zone.System.Player.Events.Update;
-using EventHorizon.Game.Server.Zone.Player.Move.Model;
-using EventHorizon.Game.Server.Zone.Player.Action.Direction;
-
 namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
 {
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Map;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using MediatR;
+    using EventHorizon.Zone.Core.Model.Map;
+    using EventHorizon.Game.Server.Zone.Player.Move.Model;
+    using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+
     public class MovePlayerHandler : INotificationHandler<MovePlayerEvent>
     {
         readonly IMediator _mediator;
         readonly IDateTimeService _dateTime;
         readonly IMapDetails _mapDetails;
-        readonly IPlayerRepository _playerRepository;
 
         public MovePlayerHandler(
             IMediator mediator,
             IDateTimeService dateTime,
-            IMapDetails mapDetails,
-            IPlayerRepository playerRepository
+            IMapDetails mapDetails
         )
         {
             _mediator = mediator;
             _dateTime = dateTime;
             _mapDetails = mapDetails;
-            _playerRepository = playerRepository;
         }
 
         public async Task Handle(
@@ -46,7 +39,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                 || !player.Position.CanMove
             )
             {
-                return;// player.Position.MoveToPosition;
+                return;
             }
             var currentPosition = player.Position.MoveToPosition;
             var direction = request.MoveDirection;
@@ -104,49 +97,13 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                     moveTo = player.Position.MoveToPosition;
                     break;
             }
-            // Check for Dense playerMoveToMapNode
-            var playerMoveToMapNode = await _mediator.Send(
-                new GetMapNodeAtPositionEvent
-                {
-                    Position = moveTo,
-                }
-            );
-            if (playerMoveToMapNode.Info.ContainsKey("dense")
-                && (int)playerMoveToMapNode.Info["dense"] > 0
-            )
-            {
-                // TODO: Send message to player they cannot move to position, it is a wall ;)
-                // await _mediator.Publish(new ClientActionEntityClientMoveToAllEvent
-                // {
-                //     Data = new EntityClientMoveData
-                //     {
-                //         EntityId = player.Id,
-                //         MoveTo = moveTo
-                //     },
-                // });
-                return; //moveTo;
-            }
-            var newPosition = player.Position;
-            newPosition.CurrentPosition = player.Position.MoveToPosition;
-            newPosition.MoveToPosition = moveTo;
-            newPosition.NextMoveRequest = _dateTime.Now.AddMilliseconds(
-                MoveConstants.MOVE_DELAY_IN_MILLISECOND
-            );
-            player.Position = newPosition;
-            await _playerRepository.Update(
-                PlayerAction.POSITION,
-                player
-            );
 
-            await _mediator.Publish(
-                new ClientActionEntityClientMoveToAllEvent
-                {
-                    Data = new EntityClientMoveData
-                    {
-                        EntityId = player.Id,
-                        MoveTo = moveTo
-                    },
-                }
+            await _mediator.Send(
+                new MoveEntityToPositionCommand(
+                    player,
+                    moveTo,
+                    true
+                )
             );
         }
     }

@@ -1,3 +1,4 @@
 ﻿{
-    "Tag": "home"
+    "tag": "home",
+    "baseMovementTimeOffset": 100
 }
