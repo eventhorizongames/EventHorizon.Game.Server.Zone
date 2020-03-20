@@ -4,6 +4,8 @@
     "position": { "X": -25.0, "Y": 0.0, "Z": 0.0 },
     "assetId": "f2f1d5f6-cc0d-4094-aecf-scripted",
     "properties": {
-        "dense": true
+        "dense": true,
+        "resolveHeight": true,
+        "heightOffset": 0
     }
 }

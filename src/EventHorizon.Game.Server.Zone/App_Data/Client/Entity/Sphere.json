@@ -13,6 +13,8 @@
             "X": 10.0,
             "Y": 10.0,
             "Z": 10.0
-        }
+        },
+        "resolveHeight": true,
+        "heightOffset": 5
     }
 }
