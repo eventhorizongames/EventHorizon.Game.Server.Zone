@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Core;
-
 namespace EventHorizon.Zone.Core.Model.Entity
 {
+    using System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Core;
+
     public struct DefaultEntity : IObjectEntity
     {
+        private static DefaultEntity NULL = default(DefaultEntity);
         public const string DEFAULT_GLOBAL_ID = "no_global_id";
         public long Id { get; set; }
         public string GlobalId
@@ -18,11 +19,26 @@ namespace EventHorizon.Zone.Core.Model.Entity
 
         public EntityType Type { get { return EntityType.OTHER; } }
 
-        public PositionState Position { get; set; }
+        public TransformState Transform { get; set; }
         public IList<string> TagList { get; set; }
 
         private Dictionary<string, object> _data;
         private Dictionary<string, object> _rawData;
+        private object p;
+
+        public DefaultEntity(
+            Dictionary<string, object> rawData
+        ) : this()
+        {
+            Id = 0L;
+            Name = null;
+            // GlobalId = null;
+            Transform = default(TransformState);
+            TagList = null;
+            _data = new Dictionary<string, object>();
+            _rawData = rawData ?? new Dictionary<string, object>();
+        }
+
         public Dictionary<string, object> RawData
         {
             get
@@ -48,7 +64,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
 
         public bool IsFound()
         {
-            return false;
+            return !this.Equals(NULL);
         }
 
         public override bool Equals(object obj)

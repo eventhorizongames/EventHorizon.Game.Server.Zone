@@ -39,7 +39,7 @@ var owner = ownerList.FirstOrDefault();
 // Get Map Nodes around Owner Position, within distance
 var mapNodes = await Services.Mediator.Send(
     new GetMapNodesAroundPositionEvent(
-        owner.Position.CurrentPosition,
+        owner.Transform.Position,
         ownerFollowDistance
     )
 );

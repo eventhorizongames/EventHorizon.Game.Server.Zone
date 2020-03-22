@@ -22,7 +22,7 @@ namespace EventHorizon.Zone.Core.Model.Player
         public string Name { get; set; }
         public string Locale { get; set; }
         public EntityType Type { get; set; }
-        public PositionState Position { get; set; }
+        public TransformState Transform { get; set; }
         public IList<string> TagList { get; set; }
         public string ConnectionId { get; set; }
 

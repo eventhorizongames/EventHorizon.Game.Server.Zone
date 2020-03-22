@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
 {
+    using System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using Xunit;
+
     public class DefaultEntityTests
     {
         [Fact]
@@ -15,8 +13,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             //Given
             var expectedId = 0;
             var expectedType = EntityType.OTHER;
-            var expectedPosition = default(
-                PositionState
+            var expectedTransform = default(
+                TransformState
             );
             Dictionary<string, object> expectedData = new Dictionary<string, object>();
 
@@ -36,8 +34,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
                 actual.Type
             );
             Assert.Equal(
-                expectedPosition,
-                actual.Position
+                expectedTransform,
+                actual.Transform
             );
             Assert.Null(
                 actual.TagList

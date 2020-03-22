@@ -1,13 +1,17 @@
-using System.Collections.Concurrent;
-using EventHorizon.Zone.Core.Reporter.Model;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System;
-
 namespace EventHorizon.Zone.Core.Reporter.Tracker
 {
+    using System.Collections.Concurrent;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using System.Collections.Generic;
+    using System;
+    using System.Text.Json;
+
     public class ToRepositoryReportTracker : ReportTracker, ReportRepository
     {
+        private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+        };
         private ConcurrentDictionary<string, Report> REPORTS = new ConcurrentDictionary<string, Report>();
 
         public void Clear(
@@ -33,12 +37,11 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             object data
         )
         {
-
             var reportItem = new ReportItem(
                 $"{DateTime.UtcNow.ToString()} - {message}",
-                JsonConvert.SerializeObject(
+                JsonSerializer.Serialize(
                     data,
-                    Formatting.Indented
+                    JSON_OPTIONS
                 )
             );
             REPORTS.AddOrUpdate(
@@ -48,7 +51,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
                 ).AddItem(
                     reportItem
                 ),
-                (key, current) => current.AddItem(
+                (_, current) => current.AddItem(
                     reportItem
                 )
             );

@@ -1,20 +1,21 @@
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Entity;
-using MediatR;
-using EventHorizon.Zone.System.Agent.Events.Move;
-using EventHorizon.Zone.System.Agent.Model.State;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-using EventHorizon.Zone.Core.Events.Entity.Movement;
-using EventHorizon.Zone.System.Agent.Model.Path;
-using EventHorizon.Zone.Core.Events.Entity.Update;
-
 namespace EventHorizon.Zone.System.Agent.Move.Register
 {
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using MediatR;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.System.Agent.Model.Path;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Core;
+
     public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>
     {
         private readonly IMediator _mediator;
@@ -54,10 +55,13 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 return;
             }
             // Agent time to move has not expired or can is not set to Move, ignore request
+            var locationState = agent.GetProperty<LocationState>(
+                LocationState.PROPERTY_NAME
+            );
             if (
-                agent.Position.NextMoveRequest.CompareTo(
+                locationState.NextMoveRequest.CompareTo(
                     _dateTime.Now
-                ) >= 0 || !agent.Position.CanMove
+                ) >= 0 || !locationState.CanMove
             )
             {
                 await QueueForNextUpdateCycle(

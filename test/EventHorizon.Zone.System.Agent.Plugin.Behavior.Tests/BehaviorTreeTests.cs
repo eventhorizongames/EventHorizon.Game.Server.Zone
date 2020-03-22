@@ -19,7 +19,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using EventHorizon.Tests.TestUtils;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Reporter.Model;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
@@ -77,7 +76,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
-            var actor = new TestObjectEntity(
+            var actor = new DefaultEntity(
                 null
             );
 
@@ -120,7 +119,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(node.Status, expected),
                 node => Assert.Equal(node.Status, expected),
                 node => Assert.Equal(node.Status, expected),
@@ -147,7 +146,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             var treeShape = new ActorBehaviorTreeShape(
                 agentBehaviorTree
             );
-            var actor = new TestObjectEntity(
+            var actor = new DefaultEntity(
                 null
             );
             actor.SetProperty(
@@ -197,7 +196,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(node.Status, expected),
                 node => Assert.Equal(node.Status, expected),
                 node => Assert.Equal(node.Status, expected),
@@ -228,7 +227,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 agentBehaviorTree
             );
 
-            var actor = new TestObjectEntity(
+            var actor = new DefaultEntity(
                 null
             );
 
@@ -270,7 +269,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(node.Status, expectedStatus),
                 node => Assert.Equal(node.Status, expectedStatus),
                 node => Assert.Equal(node.Status, expectedStatus)
@@ -328,7 +327,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             /*  Actor BT Data
             This is the Data for a specific instance.
             Saved between Interpreter Ticks for specific Actor. */
-            var actor = new TestObjectEntity(
+            var actor = new DefaultEntity(
                 null
             );
 

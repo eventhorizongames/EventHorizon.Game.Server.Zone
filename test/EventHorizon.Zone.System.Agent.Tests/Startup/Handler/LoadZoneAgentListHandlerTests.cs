@@ -33,11 +33,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             var expectedTag = "server-tag";
             var expectedAgentDetails1 = new AgentDetails
             {
-                Position = new PositionState()
+                Transform = new TransformState()
             };
             var expectedAgentDetails2 = new AgentDetails
             {
-                Position = new PositionState()
+                Transform = new TransformState()
             };
             var expectedAgentList = new List<AgentDetails>()
             {

@@ -42,8 +42,8 @@ var player = await Services.Mediator.Send(
 
 // Get Direction away from Player
 var positionToMove = GetPositionToMoveTo(
-    player.Position.CurrentPosition,
-    actor.Position.CurrentPosition,
+    player.Transform.Position,
+    actor.Transform.Position,
     distanceToRunAway
 );
 

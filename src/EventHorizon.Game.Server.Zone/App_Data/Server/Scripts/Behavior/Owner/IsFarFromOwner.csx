@@ -33,8 +33,8 @@ var owner = await GetOwner(
 
 // Get distance between actor to owner
 var distance = Vector3.Distance(
-    actor.Position.CurrentPosition,
-    owner.Position.CurrentPosition
+    actor.Transform.Position,
+    owner.Transform.Position
 );
 
 if (distance >= ownerFollowDistance)

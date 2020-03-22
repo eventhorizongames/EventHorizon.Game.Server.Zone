@@ -19,6 +19,8 @@ using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Player.Move.Direction;
 using EventHorizon.Zone.Core.Events.Entity.Update;
 using EventHorizon.Zone.Core.Events.Entity.Movement;
+using EventHorizon.Zone.Core.Model.Entity;
+using System.Collections.Generic;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 {
@@ -29,15 +31,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
         {
             // Given
             var expected = new Vector3(100);
-            var inputPlayer = new PlayerEntity
-            {
-                Position = new PositionState
+            var inputPlayer = new PlayerEntity();
+            inputPlayer.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = true,
                     NextMoveRequest = DateTime.Now.AddDays(1),
                     MoveToPosition = expected
                 }
-            };
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
@@ -98,12 +101,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 expectedZPosition
             );
 
-            var inputPlayer = new PlayerEntity
+            var inputPlayer = new PlayerEntity()
             {
-                Position = new PositionState
+                Transform = new TransformState
+                {
+                    Position = currentPosition,
+                },
+                RawData = new Dictionary<string, object>(),
+            };
+            inputPlayer.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = true,
-                    CurrentPosition = currentPosition,
                     NextMoveRequest = DateTime.Now.Subtract(
                         TimeSpan.FromDays(1)
                     ),
@@ -113,7 +123,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                         0
                     ),
                 }
-            };
+            );
 
             var expected = new Vector3(
                 expectedXPosition,

@@ -21,30 +21,19 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
             // Given
             var inputEntityAction = EntityAction.POSITION;
             var expectedEntityId = 123;
-            var expectedCurrentPosition = new Vector3(20);
+            var expectedPosition = new Vector3(20);
             var expectedTagList = new List<string>();
 
-            var expectedEntityMock = new Mock<IObjectEntity>();
-            var entitySearchTreeMock = new Mock<EntitySearchTree>();
-
-            expectedEntityMock.Setup(
-                mock => mock.Id
-            ).Returns(
-                expectedEntityId
-            );
-            expectedEntityMock.Setup(
-                mock => mock.Position
-            ).Returns(
-                new PositionState
+            var inputEntity = new DefaultEntity()
+            {
+                Id = expectedEntityId,
+                Transform = new TransformState
                 {
-                    CurrentPosition = expectedCurrentPosition
-                }
-            );
-            expectedEntityMock.Setup(
-                mock => mock.TagList
-            ).Returns(
-                expectedTagList
-            );
+                    Position = expectedPosition
+                },
+                TagList = expectedTagList
+            };
+            var entitySearchTreeMock = new Mock<EntitySearchTree>();
 
             // When
             var entityPositionChangedHandler = new EntityPositionChangedHandler(
@@ -55,7 +44,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
                 new EntityActionEvent
                 {
                     Action = inputEntityAction,
-                    Entity = expectedEntityMock.Object
+                    Entity = inputEntity
                 },
                 CancellationToken.None
             );
@@ -65,7 +54,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
                 mock => mock.Add(
                     new SearchEntity(
                         expectedEntityId,
-                        expectedCurrentPosition,
+                        expectedPosition,
                         expectedTagList
                     )
                 )

@@ -93,7 +93,8 @@ namespace EventHorizon.Game.Server.Zone
                     //         new DefaultStringEnumConverter(0)
                     //     );
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-                });
+                })
+            ;
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {

@@ -31,7 +31,7 @@ var decreaseLifeEvent = new DecreaseLifePropertyEvent
     Property = valueProperty,
     Points = modifierBase
 };
-Services.Mediator.Publish(decreaseLifeEvent);
+await Services.Mediator.Publish(decreaseLifeEvent);
 
 var actionData = new
 {

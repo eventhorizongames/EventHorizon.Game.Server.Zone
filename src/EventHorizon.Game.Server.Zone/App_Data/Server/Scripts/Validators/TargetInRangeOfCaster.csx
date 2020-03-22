@@ -20,8 +20,8 @@ var min = (long)validatorData["min"];
 var max = (long)validatorData["max"];
 
 var distance = Vector3.Distance(
-    caster.Position.CurrentPosition,
-    target.Position.CurrentPosition
+    caster.Transform.Position,
+    target.Transform.Position
 );
 
 if (distance >= min && distance <= max)

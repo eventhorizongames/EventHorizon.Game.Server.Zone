@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using System.Threading;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Model.Id;
 using EventHorizon.Zone.Core.Entity.State;
 using EventHorizon.Zone.Core.Events.Entity.Action;
@@ -21,8 +20,8 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Given
             var expectedEntityId1 = 1L;
             var expectedEntityId2 = 2L;
-            var inputEntity1 = new TestObjectEntity();
-            var inputEntity2 = new TestObjectEntity();
+            var inputEntity1 = new DefaultEntity();
+            var inputEntity2 = new DefaultEntity();
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IdPool>();
@@ -63,8 +62,8 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Given
             var expectedEntityId1 = 1020L;
             var entityId2 = 12300L;
-            var inputEntity1 = new TestObjectEntity();
-            var inputEntity2 = new TestObjectEntity();
+            var inputEntity1 = new DefaultEntity();
+            var inputEntity2 = new DefaultEntity();
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IdPool>();
@@ -106,13 +105,13 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Given
             var expectedEntityId1 = 1L;
             var expectedEntityId2 = 2L;
-            var inputEntity1 = new TestObjectEntity();
-            var inputEntity2 = new TestObjectEntity();
-            var expectedEntity1 = new TestObjectEntity
+            var inputEntity1 = new DefaultEntity();
+            var inputEntity2 = new DefaultEntity();
+            var expectedEntity1 = new DefaultEntity
             {
                 Id = expectedEntityId1
             };
-            var expectedEntity2 = new TestObjectEntity
+            var expectedEntity2 = new DefaultEntity
             {
                 Id = expectedEntityId2
             };
@@ -142,14 +141,14 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             );
 
             // Then
-            var actualEntity1 = (TestObjectEntity)await entityRepository.FindById(
+            var actualEntity1 = (DefaultEntity)await entityRepository.FindById(
                 expectedEntityId1
             );
             Assert.Equal(
                 expectedEntity1,
                 actualEntity1
             );
-            var actualEntity2 = (TestObjectEntity)await entityRepository.FindById(
+            var actualEntity2 = (DefaultEntity)await entityRepository.FindById(
                 expectedEntityId2
             );
             Assert.Equal(
@@ -188,7 +187,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Given
             var expectedEntityId = 1L;
             var expectedEntityAction = EntityAction.POSITION;
-            var expectedEntity = new TestObjectEntity
+            var expectedEntity = new DefaultEntity
             {
                 Id = expectedEntityId
             };
@@ -236,7 +235,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Given
             var expectedEntityId = 1L;
             var expectedEntityAction = EntityAction.REMOVE;
-            var expectedEntity = new TestObjectEntity
+            var expectedEntity = new DefaultEntity
             {
                 Id = expectedEntityId
             };

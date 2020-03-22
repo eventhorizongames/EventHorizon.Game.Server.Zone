@@ -36,21 +36,27 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             )
             {
                 Id = inputId,
-                Position = new PositionState
+                Transform = new TransformState
+                {
+                    Position = new Vector3(
+                        4,
+                        4,
+                        4
+                    ),
+                },
+            };
+            expectedAgent.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = true,
                     NextMoveRequest = DateTime.Now.Subtract(
                         TimeSpan.FromMinutes(1)
                     ),
-                    CurrentPosition = new Vector3(
-                        4,
-                        4,
-                        4
-                    ),
                     CurrentZone = "current-zone",
                     ZoneTag = "current-tag"
-                },
-            };
+                }
+            );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
                 new PathState
@@ -215,15 +221,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             )
             {
                 Id = inputId,
-                Position = new PositionState
+            };
+            expectedAgent.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     NextMoveRequest = DateTime.Now.Add(
                         TimeSpan.FromMinutes(
                             1
                         )
                     ),
-                },
-            };
+                }
+            );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
                 new PathState
@@ -237,7 +246,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            
+
             agentRepositoryMock.Setup(
                 repository => repository.FindById(
                     inputId
@@ -299,7 +308,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             )
             {
                 Id = inputId,
-                Position = new PositionState
+            };
+            expectedAgent.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = true,
                     NextMoveRequest = DateTime.Now.Subtract(
@@ -307,8 +319,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                             1
                         )
                     ),
-                },
-            };
+                }
+            );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
                 new PathState
@@ -386,7 +398,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             )
             {
                 Id = inputId,
-                Position = new PositionState
+                Transform = new TransformState
+                {
+                    Position = new Vector3(
+                        4,
+                        4,
+                        4
+                    ),
+                },
+            };
+            expectedAgent.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = true,
                     NextMoveRequest = DateTime.Now.Subtract(
@@ -394,15 +417,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
                             1
                         )
                     ),
-                    CurrentPosition = new Vector3(
-                        4,
-                        4,
-                        4
-                    ),
                     CurrentZone = "current-zone",
                     ZoneTag = "current-tag"
-                },
-            };
+                }
+            );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
                 new PathState
@@ -424,7 +442,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Move.Handler
             var mediatorMock = new Mock<IMediator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            
+
             dateTimeMock.Setup(
                 dateTime => dateTime.Now
             ).Returns(

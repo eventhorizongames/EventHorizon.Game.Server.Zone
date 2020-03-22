@@ -1,13 +1,11 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using Xunit;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using Xunit;
     public class ConcurrentSelectorInterpreterTests
     {
 
@@ -44,13 +42,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 )
             );
@@ -95,17 +93,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
-                    expectedTraversal, 
+                    expectedTraversal,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedReadNode, 
+                    expectedReadNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedFailedNode, 
+                    expectedFailedNode,
                     node.Status
                 )
             );
@@ -214,13 +212,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 )
             );

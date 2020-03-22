@@ -8,7 +8,6 @@ using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Model.Settings;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using IOPath = System.IO.Path;
 
 namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler

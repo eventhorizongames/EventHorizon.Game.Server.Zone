@@ -13,6 +13,7 @@ namespace EventHorizon.Zone.System.Player.Connected
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Mapper;
     using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.System.Player.Model.Details;
 
     public class PlayerConnectedHandler : INotificationHandler<PlayerConnectedEvent>
     {
@@ -47,12 +48,9 @@ namespace EventHorizon.Zone.System.Player.Connected
                         notification.Id
                     )
                 );
-                if (!globalPlayer.Position.CurrentZone.Equals(
-                        _serverProperty.Get<string>(
-                            ServerPropertyKeys.SERVER_ID
-                        )
-                    )
-                )
+                if (IsPlayerOnThisServer(
+                    globalPlayer
+                ))
                 {
                     throw new Exception("Player is not part of this server.");
                 }
@@ -84,5 +82,13 @@ namespace EventHorizon.Zone.System.Player.Connected
                 )
             );
         }
+
+        private bool IsPlayerOnThisServer(
+            PlayerDetails globalPlayer
+        ) => !globalPlayer.Location.CurrentZone?.Equals(
+            _serverProperty.Get<string>(
+                ServerPropertyKeys.SERVER_ID
+            )
+        ) ?? false;
     }
 }

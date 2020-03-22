@@ -162,7 +162,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expected, 
                     node.Status
@@ -228,7 +228,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expected, 
                     node.Status

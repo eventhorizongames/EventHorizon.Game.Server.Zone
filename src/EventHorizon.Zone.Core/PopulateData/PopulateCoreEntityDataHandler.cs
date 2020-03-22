@@ -6,6 +6,7 @@ namespace EventHorizon.Zone.Core.PopulateData
     using MediatR;
     using EventHorizon.Zone.Core.Events.Entity.Data;
     using EventHorizon.Zone.Core.Model.Entity.Movement;
+    using EventHorizon.Zone.Core.Model.Core;
 
     public class PopulateCoreEntityDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {
@@ -15,6 +16,12 @@ namespace EventHorizon.Zone.Core.PopulateData
         )
         {
             var entity = request.Entity;
+
+            // Populates the Movement State on the Entity from loaded data.
+            entity.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                LocationState.NEW
+            );
 
             // Populates the Movement State on the Entity from loaded data.
             entity.PopulateData<MovementState>(

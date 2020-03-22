@@ -41,13 +41,13 @@ if (actorPathState.Path == null)
 }
 // This will is the position they are moving to.
 var ownerMoveTo = actorPathState.MoveTo;
-var ownerCurrentPosition = owner.Position;
+var ownerCurrentPosition = owner.Transform.Position;
 // Get distance between Owner Move To and Current Position.
 var distance = Vector3.Distance(
     ownerMoveTo,
-    owner.Position.CurrentPosition
+    ownerCurrentPosition
 );
-System.Console.WriteLine("Owner Distance: " + owner.Position.CurrentPosition);
+System.Console.WriteLine("Owner Distance: " + ownerCurrentPosition);
 System.Console.WriteLine("Owner Distance: " + ownerMoveTo);
 System.Console.WriteLine("Owner Distance: " + distance);
 // Check still within delta

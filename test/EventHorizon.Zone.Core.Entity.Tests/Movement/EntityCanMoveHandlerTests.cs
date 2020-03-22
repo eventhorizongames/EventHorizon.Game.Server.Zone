@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Entity.Movement;
 using EventHorizon.Zone.Core.Events.Entity.Movement;
+using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity.State;
 using Moq;
@@ -23,7 +23,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Movement
                     It.IsAny<long>()
                 )
             ).ReturnsAsync(
-                default(TestObjectEntity)
+                default(DefaultEntity)
             );
 
             // When
@@ -53,20 +53,23 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Movement
         {
             // Given
             var entityId = 100L;
-            var expected = new Model.Core.PositionState
+            var expected = new Model.Core.LocationState
             {
                 CanMove = true
             };
-            var entity = new TestObjectEntity(
+            var entity = new DefaultEntity(
                 new Dictionary<string, object>()
             )
             {
                 Id = entityId,
-                Position = new Model.Core.PositionState
+            };
+            entity.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                new LocationState
                 {
                     CanMove = false
                 }
-            };
+            );
 
             var entityRepositoryMock = new Mock<EntityRepository>();
             entityRepositoryMock.Setup(
@@ -92,9 +95,11 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Movement
             // Then
             entityRepositoryMock.Verify(
                 mock => mock.Update(
-                    EntityAction.POSITION,
+                    EntityAction.PROPERTY_CHANGED,
                     It.Is<IObjectEntity>(
-                        actualEntity => actualEntity.Position.Equals(
+                        actualEntity => actualEntity.GetProperty<LocationState>(
+                            LocationState.PROPERTY_NAME
+                        ).Equals(
                             expected
                         )
                     )

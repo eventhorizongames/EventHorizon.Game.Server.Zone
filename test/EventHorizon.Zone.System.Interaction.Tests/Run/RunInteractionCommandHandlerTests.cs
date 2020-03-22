@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
@@ -48,7 +47,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                default(TestObjectEntity)
+                default(DefaultEntity)
             );
 
             // When
@@ -88,7 +87,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                new TestObjectEntity()
+                new DefaultEntity()
             );
 
             // When
@@ -130,7 +129,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
             {
                 ConnectionId = "connection-id"
             };
-            var interactionEntity = new TestObjectEntity(
+            var interactionEntity = new DefaultEntity(
                 new Dictionary<string, object>()
             )
             {
@@ -195,7 +194,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
             {
                 ConnectionId = "connection-id"
             };
-            var interactionEntity = new TestObjectEntity(
+            var interactionEntity = new DefaultEntity(
                 new Dictionary<string, object>()
             )
             {

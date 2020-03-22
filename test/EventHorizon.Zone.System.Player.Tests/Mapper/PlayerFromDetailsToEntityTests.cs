@@ -1,12 +1,12 @@
-using Xunit;
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.System.Player.Model.Position;
-using EventHorizon.Zone.System.Player.Mapper;
-
 namespace EventHorizon.Zone.System.Player.Tests.Mapper
 {
+    using Xunit;
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using EventHorizon.Zone.System.Player.Mapper;
+    using EventHorizon.Zone.Core.Model.Core;
+
     public class PlayerFromDetailsToEntityTests
     {
         [Fact]
@@ -16,9 +16,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             var expectedId = -1;
             var expectedPlayerId = "123";
             var expectedConnectionId = "123-123-123";
-            var expectedCurrentPosition = Vector3.Zero;
-            var expectedCurrentZone = "current-zone";
-            var expectedZoneTag = "zone-tag";
+            var expectedPosition = Vector3.Zero;
             var expectedData = new Dictionary<string, object>();
             expectedData.Add(
                 "ConnectionId",
@@ -29,11 +27,9 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             var input = new PlayerDetails
             {
                 Id = expectedPlayerId,
-                Position = new PlayerPositionState
+                Transform = new TransformState
                 {
-                    Position = expectedCurrentPosition,
-                    CurrentZone = expectedCurrentZone,
-                    ZoneTag = expectedZoneTag,
+                    Position = expectedPosition,
                 },
                 Data = expectedData
             };
@@ -57,20 +53,8 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
                 actual.ConnectionId
             );
             Assert.Equal(
-                expectedCurrentPosition,
-                actual.Position.CurrentPosition
-            );
-            Assert.Equal(
-                expectedCurrentPosition,
-                actual.Position.MoveToPosition
-            );
-            Assert.Equal(
-                expectedCurrentZone,
-                actual.Position.CurrentZone
-            );
-            Assert.Equal(
-                expectedZoneTag,
-                actual.Position.ZoneTag
+                expectedPosition,
+                actual.Transform.Position
             );
             Assert.Collection(
                 actual.TagList,
@@ -88,10 +72,6 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             var input = new PlayerDetails
             {
                 Id = playerId,
-                Position = new PlayerPositionState
-                {
-                    
-                },
                 Data = data
             };
 

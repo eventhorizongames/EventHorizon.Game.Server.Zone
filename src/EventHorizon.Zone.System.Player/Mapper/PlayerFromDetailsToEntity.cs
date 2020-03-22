@@ -21,15 +21,7 @@ namespace EventHorizon.Zone.System.Player.Mapper
                 Locale = details.Locale,
                 ConnectionId = GetConnectionId(details),
                 Type = EntityType.PLAYER,
-                Position = new PositionState
-                {
-                    CanMove = true,
-                    CurrentPosition = details.Position.Position,
-                    // NextMoveRequest = DateTime.Now.AddMilliseconds(MoveConstants.MOVE_DELAY_IN_MILLISECOND),
-                    MoveToPosition = details.Position.Position,
-                    CurrentZone = details.Position.CurrentZone,
-                    ZoneTag = details.Position.ZoneTag,
-                },
+                Transform = details.Transform,
                 RawData = details.Data,
                 TagList = new List<string> { "player" }
             };

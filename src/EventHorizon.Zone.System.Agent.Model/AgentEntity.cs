@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.System.Agent.Model
         }
         public EntityType Type { get; set; }
 
-        public PositionState Position { get; set; }
+        public TransformState Transform { get; set; }
         public IList<string> TagList { get; set; }
 
         public string Name { get; set; }
@@ -65,7 +65,7 @@ namespace EventHorizon.Zone.System.Agent.Model
             IsGlobal = false;
             AgentId = string.Empty;
             Type = EntityType.AGENT;
-            Position = default(PositionState);
+            Transform = default(TransformState);
             TagList = null;
             Name = string.Empty;
         }

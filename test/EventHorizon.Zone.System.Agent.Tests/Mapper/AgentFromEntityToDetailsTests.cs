@@ -6,6 +6,7 @@ using EventHorizon.Zone.Core.Model.Core;
 using System.Collections.Generic;
 using EventHorizon.Zone.System.Agent.Connection.Model;
 using EventHorizon.Zone.System.Agent.Save.Mapper;
+using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
@@ -16,9 +17,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
         {
             // Given
             var expectedName = "Agent 001";
-            var expectedPosition = new PositionState
+            var expectedTransform = new TransformState
             {
-                CurrentPosition = Vector3.Zero,
+                Position = Vector3.Zero,
+            };
+            var expectedLocation = new LocationState
+            {
                 CurrentZone = "current-zone",
                 ZoneTag = "test"
             };
@@ -27,14 +31,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             )
             {
                 Name = expectedName,
-                Position = expectedPosition,
-                RawData = new Dictionary<string, object>()
+                Transform = expectedTransform,
             };
+            inputAgent.PopulateData<LocationState>(
+                LocationState.PROPERTY_NAME,
+                expectedLocation
+            );
             var expectedDetails = new AgentDetails
             {
                 Name = expectedName,
-                Position = expectedPosition,
-                Data = new Dictionary<string, object>()
+                Transform = expectedTransform,
+                Location = expectedLocation,
             };
 
             // When
@@ -42,9 +49,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 
             // Then
             Assert.Equal(expectedName, actual.Name);
-            Assert.Equal(expectedPosition, actual.Position);
+            Assert.Equal(expectedTransform, actual.Transform);
+            Assert.Equal(expectedLocation, actual.Location);
             Assert.Null(actual.TagList);
-            Assert.Empty(actual.Data);
+            Assert.Collection(
+                actual.Data,
+                actualData => Assert.Equal(
+                    actualData.Value,
+                    expectedLocation
+                )                
+            );
         }
     }
 }

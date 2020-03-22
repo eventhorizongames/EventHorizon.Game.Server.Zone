@@ -43,6 +43,8 @@ namespace EventHorizon.Game.Server.Zone
             )
             .AddTransient<IJsonFileLoader, NewtonsoftJsonFileLoader>()
             .AddTransient<IJsonFileSaver, NewtonsoftJsonFileSaver>()
+            // .AddTransient<IJsonFileLoader, TextJsonFileLoader>()
+            // .AddTransient<IJsonFileSaver, TextJsonFileSaver>()
             .AddSingleton<IRandomNumberGenerator, CryptographyRandomNumberGenerator>()
             .AddSingleton<ServerLifetimeState, StandardServerLifetimeState>()
             .AddSingleton<IServerProperty, InMemoryServerProperty>()

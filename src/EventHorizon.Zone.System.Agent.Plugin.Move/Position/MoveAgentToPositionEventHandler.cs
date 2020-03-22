@@ -41,7 +41,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
             // Get Path to node
             path = await _mediator.Send(new FindPathEvent
             {
-                From = agent.Position.CurrentPosition,
+                From = agent.Transform.Position,
                 To = request.ToPosition
             });
 

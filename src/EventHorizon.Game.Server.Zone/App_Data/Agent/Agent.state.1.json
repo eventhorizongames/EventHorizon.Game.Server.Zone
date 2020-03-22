@@ -19,6 +19,19 @@
                 "CurrentZone": "...",
                 "ZoneTag": "testing"
             },
+            "transform": {
+                "position": {
+                    "X": 19.0,
+                    "Y": 0.0,
+                    "Z": -38.0
+                },
+                "rotation": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "scalingDeterminant": 0.2
+            },
             "TagList": [
                 "npc",
                 "wandering",

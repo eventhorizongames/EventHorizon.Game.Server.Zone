@@ -10,6 +10,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
     using EventHorizon.Game.Server.Zone.Player.Move.Model;
     using EventHorizon.Game.Server.Zone.Player.Action.Direction;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Core;
 
     public class MovePlayerHandler : INotificationHandler<MovePlayerEvent>
     {
@@ -34,22 +36,26 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
         )
         {
             var player = request.Player;
+            var transform = player.Transform;
+            var locationState = player.GetProperty<LocationState>(
+                LocationState.PROPERTY_NAME
+            );
             // Player time to move has not expired or can is not set to Move, ignore request
-            if (player.Position.NextMoveRequest.CompareTo(_dateTime.Now) >= 0
-                || !player.Position.CanMove
+            if (locationState.NextMoveRequest.CompareTo(_dateTime.Now) >= 0
+                || !locationState.CanMove
             )
             {
                 return;
             }
-            var currentPosition = player.Position.MoveToPosition;
+            var currentMoveToPosition = locationState.MoveToPosition;
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(
                 new GetMapNodeAtPositionEvent
                 {
-                    Position = currentPosition,
+                    Position = currentMoveToPosition,
                 }
             );
-            var moveTo = player.Position.MoveToPosition;
+            var moveTo = locationState.MoveToPosition;
 
             switch (direction)
             {
@@ -94,7 +100,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                     );
                     break;
                 default:
-                    moveTo = player.Position.MoveToPosition;
+                    moveTo = locationState.MoveToPosition;
                     break;
             }
 

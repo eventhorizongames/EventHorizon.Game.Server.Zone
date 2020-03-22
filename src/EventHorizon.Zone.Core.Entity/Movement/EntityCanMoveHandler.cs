@@ -1,12 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Movement;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Movement
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using MediatR;
+
     public class EntityCanMoveHandler : INotificationHandler<EntityCanMoveEvent>
     {
         readonly EntityRepository _entityRepository;
@@ -17,7 +18,7 @@ namespace EventHorizon.Zone.Core.Entity.Movement
             _entityRepository = entityRepository;
         }
         public async Task Handle(
-            EntityCanMoveEvent notification, 
+            EntityCanMoveEvent notification,
             CancellationToken cancellationToken
         )
         {
@@ -28,11 +29,16 @@ namespace EventHorizon.Zone.Core.Entity.Movement
             {
                 return;
             }
-            var newPosition = entity.Position;
-            newPosition.CanMove = true;
-            entity.Position = newPosition;
+            var locationState = entity.GetProperty<LocationState>(
+                LocationState.PROPERTY_NAME
+            );
+            locationState.CanMove = true;
+            entity.SetProperty(
+                LocationState.PROPERTY_NAME,
+                locationState
+            );
             await _entityRepository.Update(
-                EntityAction.POSITION, 
+                EntityAction.PROPERTY_CHANGED,
                 entity
             );
         }

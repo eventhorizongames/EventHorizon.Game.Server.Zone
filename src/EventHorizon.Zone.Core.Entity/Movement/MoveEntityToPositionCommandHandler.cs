@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.Core.Entity.Movement
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Model.Client.DataType;
+    using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.Movement;
@@ -55,15 +56,24 @@ namespace EventHorizon.Zone.Core.Entity.Movement
                 }
             }
             var entity = request.Entity;
-            var newPosition = entity.Position;
-            newPosition.CurrentPosition = entity.Position.MoveToPosition;
-            newPosition.MoveToPosition = request.MoveTo;
-            newPosition.NextMoveRequest = _dateTimeService.Now.AddMilliseconds(
+            var transform = entity.Transform;
+            var locationState = entity.GetProperty<LocationState>(
+                LocationState.PROPERTY_NAME
+            );
+            transform.Position = locationState.MoveToPosition;
+            locationState.MoveToPosition = request.MoveTo;
+            locationState.NextMoveRequest = _dateTimeService.Now.AddMilliseconds(
                 (int)(_zoneSettings.BaseMovementTimeOffset * (1 / this.GetMovementSpeedMultiplier(
                     entity
                 )))
             );
-            entity.Position = newPosition;
+            // Set Transform
+            entity.Transform = transform;
+            // Set Property LocationState
+            entity.SetProperty(
+                LocationState.PROPERTY_NAME,
+                locationState
+            );
 
             // Update Entity Command
             await _mediator.Send(

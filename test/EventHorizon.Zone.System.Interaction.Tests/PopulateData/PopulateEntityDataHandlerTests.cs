@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using EventHorizon.Plugin.Zone.Interaction.PopulateData;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Events.Entity.Data;
 using Xunit;
 using EventHorizon.Zone.Core.Model.Entity;
@@ -23,7 +22,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
                 List = null
             };
             var data = new Dictionary<string, object>();
-            var entity = new TestObjectEntity(data);
+            var entity = new DefaultEntity(data);
 
             // When
             var handler = new PopulateEntityDataHandler();

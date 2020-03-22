@@ -54,7 +54,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversal,
                     node.Status
@@ -96,7 +96,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversal,
                     node.Status
@@ -134,7 +134,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedStatus,
                     node.Status
@@ -177,7 +177,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedStatus,
                     node.Status
@@ -228,7 +228,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversalStatus,
                     node.Status
@@ -272,7 +272,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversalStatus,
                     node.Status
@@ -321,7 +321,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversalStatus,
                     node.Status
@@ -365,7 +365,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 
             // Then
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expectedTraversalStatus,
                     node.Status
@@ -421,7 +421,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 actual.ActiveTraversal.Status
             );
             Assert.Collection(
-                actual.NodeMap.Values,
+                actual.NodeList(),
                 node => Assert.Equal(
                     expected,
                     node.Status

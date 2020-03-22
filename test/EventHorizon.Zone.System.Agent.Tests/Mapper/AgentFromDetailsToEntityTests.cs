@@ -18,11 +18,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var inputAgent = new AgentDetails
             {
                 Name = "Agent 001",
-                Position = new PositionState
+                Transform = new TransformState
                 {
-                    CurrentPosition = Vector3.Zero,
-                    CurrentZone = "current-zone",
-                    ZoneTag = "test"
+                    Position = Vector3.Zero,
                 },
                 Data = new Dictionary<string, object>(),
             };
@@ -30,24 +28,20 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var expectedId = -1;
             var expectedType = EntityType.AGENT;
             var expectedName = inputAgent.Name;
-            var expectedCurrentPosition = inputAgent.Position.CurrentPosition;
-            var expectedCurrentZone = inputAgent.Position.CurrentZone;
-            var expectedZoneTag = inputAgent.Position.ZoneTag;
-
-            var expectedMoveToPosition = inputAgent.Position.CurrentPosition;
+            var expectedPosition = inputAgent.Transform.Position;
             var expectedData = inputAgent.Data;
 
             // When
             var actual = AgentFromDetailsToEntity.MapToNew(inputAgent, agentId);
 
             // Then
+            var actualLocationState = actual.GetProperty<LocationState>(
+                LocationState.PROPERTY_NAME
+            );
             Assert.Equal(expectedId, actual.Id);
             Assert.Equal(expectedType, actual.Type);
             Assert.Equal(expectedName, actual.Name);
-            Assert.Equal(expectedCurrentPosition, actual.Position.CurrentPosition);
-            Assert.Equal(expectedCurrentZone, actual.Position.CurrentZone);
-            Assert.Equal(expectedZoneTag, actual.Position.ZoneTag);
-            Assert.Equal(expectedMoveToPosition, actual.Position.MoveToPosition);
+            Assert.Equal(expectedPosition, actual.Transform.Position);
             Assert.Equal(expectedData, actual.Data);
         }
     }

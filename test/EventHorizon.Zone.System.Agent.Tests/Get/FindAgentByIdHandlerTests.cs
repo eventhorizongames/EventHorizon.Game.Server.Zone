@@ -16,7 +16,9 @@ namespace EventHorizon.Zone.System.Agent.Tests.Get
         {
             // Given
             var agentId = "agent-id";
-            var agent = new AgentEntity
+            var agent = new AgentEntity(
+                null
+            )
             {
                 AgentId = agentId
             };

@@ -61,7 +61,7 @@ private async Task<long> GetIdOfPlayerInArea(
     var entityList = await Services.Mediator.Send(
             new SearchInAreaWithTagEvent
             {
-                SearchPositionCenter = actor.Position.CurrentPosition,
+                SearchPositionCenter = actor.Transform.Position,
                 SearchRadius = distance,
                 TagList = new List<string> { "player" }
             }

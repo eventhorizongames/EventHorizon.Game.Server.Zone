@@ -20,7 +20,7 @@ var actor = Data.Get<IObjectEntity>("Actor");
 // Get Map Nodes around Agent, within distance
 var mapNodes = await Services.Mediator.Send(
     new GetMapNodesAroundPositionEvent(
-        actor.Position.CurrentPosition,
+        actor.Transform.Position,
         actor.GetProperty<AgentWanderState>(
             AgentWanderState.WANDER_NAME
         ).LookDistance

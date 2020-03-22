@@ -1,14 +1,13 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Events.Entity.Action;
-using EventHorizon.Zone.Core.Model.Entity;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Search
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Action;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using MediatR;
+
     public class EntityPositionChangedHandler : INotificationHandler<EntityActionEvent>
     {
         readonly EntitySearchTree _searchTree;
@@ -42,14 +41,14 @@ namespace EventHorizon.Zone.Core.Entity.Search
             _searchTree.Remove(
                 new SearchEntity(
                     entity.Id,
-                    entity.Position.CurrentPosition,
+                    entity.Transform.Position,
                     entity.TagList
                 )
             );
             _searchTree.Add(
                 new SearchEntity(
                     entity.Id,
-                    entity.Position.CurrentPosition,
+                    entity.Transform.Position,
                     entity.TagList
                 )
             );

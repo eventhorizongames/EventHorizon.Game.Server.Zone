@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
         string Name { get; set; }
         string GlobalId { get; }
         EntityType Type { get; }
-        PositionState Position { get; set; }
+        TransformState Transform { get; set; }
         IList<string> TagList { get; set; }
         Dictionary<string, object> Data { get; }
         Dictionary<string, object> RawData { get; set; }

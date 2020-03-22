@@ -29,10 +29,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             _activeTraversalToken
         );
 
-        public IDictionary<int, BehaviorNode> NodeMap { get; private set; }
+        private IDictionary<int, BehaviorNode> NodeMap { get; set; }
         private IList<int> TraversalStack { get; set; }
         private IList<int> LastTraversalStack { get; set; }
         private IList<int> NextTraversalStack { get; set; }
+
+        public IEnumerable<BehaviorNode> NodeList() => NodeMap.Values;
 
         public BehaviorTreeState(
             ActorBehaviorTreeShape shape

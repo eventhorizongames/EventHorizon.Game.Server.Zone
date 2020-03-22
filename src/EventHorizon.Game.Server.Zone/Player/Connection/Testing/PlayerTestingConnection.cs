@@ -1,14 +1,14 @@
-using System;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Json;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Zone.System.Player.Connection;
-using System.IO;
-using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.Core.Model.ServerProperty;
-
 namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {
+    using System;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Json;
+    using Microsoft.Extensions.Logging;
+    using EventHorizon.Zone.System.Player.Connection;
+    using System.IO;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+
     public class PlayerTestingConnection : PlayerServerConnection
     {
         readonly ILogger _logger;
@@ -29,6 +29,7 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
         public void OnAction<T>(string actionName, Action<T> action)
         {
         }
+        
         public void OnAction(string actionName, Action action)
         {
         }
@@ -48,7 +49,9 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
             return Task.CompletedTask;
         }
 
-        private async Task<PlayerDetails> CreateTestEntity(string id)
+        private async Task<PlayerDetails> CreateTestEntity(
+            string id
+        )
         {
             var player = await _fileLoader.GetFile<PlayerDetails>(
                 Path.Combine(
@@ -57,9 +60,11 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
                 )
             );
             player.Id = id;
-            player.Position.CurrentZone = _serverProperty.Get<string>(
+            var locationState = player.Location;
+            locationState.CurrentZone = _serverProperty.Get<string>(
                 ServerPropertyKeys.SERVER_ID
             );
+            player.Location = locationState;
 
             return player;
         }

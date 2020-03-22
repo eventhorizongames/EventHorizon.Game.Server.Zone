@@ -8,6 +8,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         /// <returns>Update Tree State.</returns>
         public BehaviorTreeState SetTraversalToCheck()
         {
+            if (TraversalStack.Count == 0)
+            {
+                return this.SetCheckTraversal(
+                    false
+                );
+            }
             return this.SetCheckTraversal(
                 true
             );

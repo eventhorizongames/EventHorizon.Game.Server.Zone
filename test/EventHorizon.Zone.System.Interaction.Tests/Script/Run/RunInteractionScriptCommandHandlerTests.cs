@@ -1,6 +1,5 @@
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.TestUtils;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Interaction.Model;
@@ -25,7 +24,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Run
                 ScriptId = expectedScriptId
             };
             var player = new PlayerEntity();
-            var interactionEntity = new TestObjectEntity();
+            var interactionEntity = new DefaultEntity();
             var expectedDictionaryArguments = new TestData[] {
                 new TestData(
                     "Interaction",

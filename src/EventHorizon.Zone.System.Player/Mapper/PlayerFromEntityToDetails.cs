@@ -1,10 +1,10 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.System.Player.Model.Position;
-
 namespace EventHorizon.Zone.System.Player.Mapper
 {
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Model.Details;
+
     public class PlayerFromEntityToDetails
     {
         public static PlayerDetails Map(PlayerEntity entity)
@@ -14,12 +14,10 @@ namespace EventHorizon.Zone.System.Player.Mapper
                 Id = entity.PlayerId,
                 Name = entity.Name,
                 Locale = entity.Locale,
-                Position = new PlayerPositionState
-                {
-                    Position = entity.Position.CurrentPosition,
-                    CurrentZone = entity.Position.CurrentZone,
-                    ZoneTag = entity.Position.ZoneTag,
-                },
+                Transform = entity.Transform,
+                Location = entity.GetProperty<LocationState>(
+                    LocationState.PROPERTY_NAME
+                ),
                 Data = entity.AllData(),
             };
         }

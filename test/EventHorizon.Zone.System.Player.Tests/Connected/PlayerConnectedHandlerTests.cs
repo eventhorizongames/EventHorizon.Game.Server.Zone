@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.Core.Events.Entity.Update;
+using EventHorizon.Zone.Core.Model.Core;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.ServerProperty;
@@ -12,7 +13,6 @@ using EventHorizon.Zone.System.Player.Events.Connected;
 using EventHorizon.Zone.System.Player.Events.Details;
 using EventHorizon.Zone.System.Player.Model.Action;
 using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.System.Player.Model.Position;
 using MediatR;
 using Moq;
 using Xunit;
@@ -97,11 +97,11 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             };
             var globalPlayerDetails = new PlayerDetails
             {
-                Position = new PlayerPositionState
+                Location = new LocationState
                 {
                     CurrentZone = currentZoneServerId
                 },
-                Data = new Dictionary<string, object>()
+                Data = new Dictionary<string, object>(),
             };
 
             var mediatorMock = new Mock<IMediator>();
@@ -178,7 +178,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             var expected = "Player is not part of this server.";
             var globalPlayerDetails = new PlayerDetails
             {
-                Position = new PlayerPositionState
+                Location = new LocationState
                 {
                     CurrentZone = "not-current-zone"
                 },
