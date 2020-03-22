@@ -1,19 +1,19 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class ConditionInterpreterTests
     {
         [Fact]
@@ -25,7 +25,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             var state = new BehaviorTreeStateBuilder()
                 .Root(new SerializedBehaviorNode
                 {
-                    Status = BehaviorNodeStatus.READY.ToString()
+                    Status = BehaviorNodeStatus.RUNNING.ToString()
                 })
                 .Build()
                 .PopActiveNodeFromQueue();
@@ -64,6 +64,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 actual.ActiveNode.Status
             );
         }
+
         [Fact]
         public async Task ShouldSetTravesalToCheckWhenActiveNodeIsRunning()
         {
@@ -72,9 +73,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             var state = new BehaviorTreeStateBuilder()
                 .Root(new SerializedBehaviorNode
                 {
-                    Status = BehaviorNodeStatus.READY.ToString()
-                })
-                .Build()
+                    Status = BehaviorNodeStatus.VISITING.ToString()
+                }).AddNode(new SerializedBehaviorNode
+                {
+                    Status = BehaviorNodeStatus.RUNNING.ToString()
+                }).Build()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack()
                 .PopActiveNodeFromQueue();
 
             var loggerMock = new Mock<ILogger<ConditionInterpreter>>();
@@ -164,11 +169,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             Assert.Collection(
                 actual.NodeList(),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 )
             );
@@ -230,22 +235,25 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             Assert.Collection(
                 actual.NodeList(),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expected, 
+                    expected,
                     node.Status
                 )
             );
         }
+
         [Fact]
         public async Task ShouldSetTravesalToCheckWhenActiveNodeIsNotRunningOrReady()
         {
             // Given
             var actor = new DefaultEntity();
             var state = StandardBehaviorTreeState
-                .CreateSingleNode()
+                .CreateNodeWithTraversal()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack()
                 .PopActiveNodeFromQueue()
                 .SetStatusOnActiveNode(
                     BehaviorNodeStatus.FAILED

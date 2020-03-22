@@ -1,16 +1,16 @@
-using System;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class ActionInterpreterTests
     {
         [Fact]
@@ -50,6 +50,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 actual.ActiveNode.Status
             );
         }
+
         [Fact]
         public async Task ShouldSetTravesalToCheckForActiveNodeToFailedOnAnyError()
         {
@@ -57,7 +58,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             var expected = BehaviorNodeStatus.FAILED.ToString();
             var actor = new DefaultEntity();
             var state = StandardBehaviorTreeState
-                .CreateSingleNode()
+                .CreateNodeWithTraversal()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack()
                 .PopActiveNodeFromQueue();
 
             var loggerMock = new Mock<ILogger<ActionInterpreter>>();
@@ -86,6 +89,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 actual.CheckTraversal
             );
         }
+
         [Fact]
         public async Task ShouldSetTravesalToCheckWhenActiveNodeNotReadyOrRunning()
         {
@@ -93,7 +97,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             var expected = BehaviorNodeStatus.FAILED.ToString();
             var actor = new DefaultEntity();
             var state = StandardBehaviorTreeState
-                .CreateSingleNode()
+                .CreateNodeWithTraversal()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack()
                 .PopActiveNodeFromQueue()
                 .SetStatusOnActiveNode(
                     BehaviorNodeStatus.FAILED
