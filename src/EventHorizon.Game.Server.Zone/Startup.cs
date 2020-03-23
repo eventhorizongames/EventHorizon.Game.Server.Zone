@@ -87,11 +87,6 @@ namespace EventHorizon.Game.Server.Zone
                 .AddNewtonsoftJsonProtocol(config =>
                 {
                     config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    // This might cause errors in the SignalR connection request/reposes, since they will not longer be default of 0
-                    // config.PayloadSerializerSettings
-                    //     .Converters.Add(
-                    //         new DefaultStringEnumConverter(0)
-                    //     );
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 })
             ;

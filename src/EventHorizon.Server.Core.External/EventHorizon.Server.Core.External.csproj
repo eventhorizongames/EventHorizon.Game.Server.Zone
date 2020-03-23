@@ -5,12 +5,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Server.Core.External.Events\EventHorizon.Server.Core.External.Events.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Identity\EventHorizon.Identity.csproj" />
     </ItemGroup>

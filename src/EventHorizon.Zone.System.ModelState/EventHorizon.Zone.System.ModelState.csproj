@@ -5,9 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mediatr" Version="7.0.0" />
+        <PackageReference Include="Mediatr" Version="8.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>

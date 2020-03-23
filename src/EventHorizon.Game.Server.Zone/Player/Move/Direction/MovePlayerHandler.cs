@@ -47,7 +47,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
             {
                 return;
             }
-            var currentMoveToPosition = locationState.MoveToPosition;
+            var currentMoveToPosition = transform.Position;
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(
                 new GetMapNodeAtPositionEvent
@@ -55,7 +55,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                     Position = currentMoveToPosition,
                 }
             );
-            var moveTo = locationState.MoveToPosition;
+            var moveTo = transform.Position;
 
             switch (direction)
             {
@@ -100,7 +100,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
                     );
                     break;
                 default:
-                    moveTo = locationState.MoveToPosition;
+                    moveTo = transform.Position;
                     break;
             }
 

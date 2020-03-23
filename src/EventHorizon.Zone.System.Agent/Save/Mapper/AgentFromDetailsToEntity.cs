@@ -11,16 +11,11 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
             AgentDetails details
         )
         {
-            var entity = MapToNew(
+            return MapToNew(
                 details,
                 details.Id,
                 true
             );
-            entity.SetProperty(
-                LocationState.PROPERTY_NAME,
-                details.Location
-            );
-            return entity;
         }
 
         public static AgentEntity MapToNew(
@@ -29,7 +24,7 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
             bool isGlobal = false
         )
         {
-            return new AgentEntity(
+            var entity = new AgentEntity(
                 details.Data
             )
             {
@@ -41,6 +36,14 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
                 Transform = details.Transform,
                 TagList = details.TagList
             };
+            entity.SetProperty(
+                LocationState.PROPERTY_NAME,
+                LocationState.New(
+                    details.Location.CurrentZone,
+                    details.Location.ZoneTag
+                )
+            );
+            return entity;
         }
     }
 }

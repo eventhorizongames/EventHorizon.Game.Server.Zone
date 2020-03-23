@@ -1,23 +1,23 @@
-using Xunit;
-using Moq;
-using MediatR;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using IOPath = System.IO.Path;
-using System.Threading;
-using EventHorizon.Zone.System.Agent.Startup;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-using EventHorizon.Zone.System.Agent.Save.Model;
-using EventHorizon.Zone.Core.Model.Settings;
-using EventHorizon.Zone.System.Agent.Events.Startup;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Agent.Events.Register;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {
+    using Xunit;
+    using Moq;
+    using MediatR;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using IOPath = System.IO.Path;
+    using System.Threading;
+    using EventHorizon.Zone.System.Agent.Startup;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
+    using EventHorizon.Zone.System.Agent.Save.Model;
+    using EventHorizon.Zone.Core.Model.Settings;
+    using EventHorizon.Zone.System.Agent.Events.Startup;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+
     public class LoadZoneAgentListHandlerTests
     {
         [Fact]
@@ -33,11 +33,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
             var expectedTag = "server-tag";
             var expectedAgentDetails1 = new AgentDetails
             {
-                Transform = new TransformState()
+                Transform = new TransformState(),
             };
             var expectedAgentDetails2 = new AgentDetails
             {
-                Transform = new TransformState()
+                Transform = new TransformState(),
             };
             var expectedAgentList = new List<AgentDetails>()
             {

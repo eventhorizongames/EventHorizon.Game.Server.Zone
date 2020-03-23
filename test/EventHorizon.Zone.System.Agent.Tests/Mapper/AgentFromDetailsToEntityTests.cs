@@ -1,14 +1,13 @@
-using Xunit;
-using Moq;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-using EventHorizon.Zone.System.Agent.Save.Mapper;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
+    using Xunit;
+    using global::System.Numerics;
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+
     public class AgentFromDetailsToEntityTests
     {
         [Fact]
@@ -28,7 +27,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var expectedId = -1;
             var expectedType = EntityType.AGENT;
             var expectedName = inputAgent.Name;
-            var expectedPosition = inputAgent.Transform.Position;
+            var expectedPosition = Vector3.Zero;
             var expectedData = inputAgent.Data;
 
             // When

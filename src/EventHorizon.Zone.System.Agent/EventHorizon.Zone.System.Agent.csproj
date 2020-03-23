@@ -5,11 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mediatr" Version="7.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.0.0" />
+        <PackageReference Include="Mediatr" Version="8.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="3.1.2" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>

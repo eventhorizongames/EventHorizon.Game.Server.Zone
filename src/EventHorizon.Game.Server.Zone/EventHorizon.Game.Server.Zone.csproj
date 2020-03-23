@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,19 +11,19 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="7.0.0" />
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="3.0.0" />
-        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.12.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.0.0" />
+        <PackageReference Include="MediatR" Version="8.0.1" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="3.1.2" />
+        <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.2" />
 
-        <PackageReference Include="Serilog.AspNetCore" Version="3.1.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
         <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
         <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
-        <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.0" />
+        <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.1" />
         <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     </ItemGroup>
 
@@ -37,7 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        
+
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
@@ -75,18 +75,18 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle\EventHorizon.Zone.System.Particle.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Plugin.Editor\EventHorizon.Zone.System.Particle.Plugin.Editor.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ServerModule.Plugin.Editor\EventHorizon.Zone.System.ServerModule.Plugin.Editor.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.EntityModule.Plugin.Editor\EventHorizon.Zone.System.EntityModule.Plugin.Editor.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets.Plugin.Editor\EventHorizon.Zone.System.ClientAssets.Plugin.Editor.csproj" />
 
@@ -101,9 +101,9 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Interaction\EventHorizon.Zone.System.Interaction.csproj" />
-        
+
         <ProjectReference Include="..\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj" />
     </ItemGroup>
 

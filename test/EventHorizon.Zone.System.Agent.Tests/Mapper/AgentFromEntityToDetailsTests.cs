@@ -1,15 +1,13 @@
-using Xunit;
-using Moq;
-using EventHorizon.Zone.System.Agent.Model;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Core;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-using EventHorizon.Zone.System.Agent.Save.Mapper;
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
+    using Xunit;
+    using EventHorizon.Zone.System.Agent.Model;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Model.Core;
+    using System.Collections.Generic;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public class AgentFromEntityToDetailsTests
     {
         [Fact]
@@ -31,18 +29,15 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             )
             {
                 Name = expectedName,
-                Transform = expectedTransform,
+                Transform = new TransformState
+                {
+                    Position = Vector3.Zero,
+                },
             };
             inputAgent.PopulateData<LocationState>(
                 LocationState.PROPERTY_NAME,
                 expectedLocation
             );
-            var expectedDetails = new AgentDetails
-            {
-                Name = expectedName,
-                Transform = expectedTransform,
-                Location = expectedLocation,
-            };
 
             // When
             var actual = AgentFromEntityToDetails.Map(inputAgent);
@@ -57,7 +52,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 actualData => Assert.Equal(
                     actualData.Value,
                     expectedLocation
-                )                
+                )
             );
         }
     }

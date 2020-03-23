@@ -22,9 +22,11 @@ namespace EventHorizon.Game.Server.Zone.Server.Core.Register
         )
         {
             return Task.FromResult(
-                _serverProperty.Get<string>(
-                    ServerPropertyKeys.SERVER_ID
-                ) != null
+                !string.IsNullOrEmpty(
+                    _serverProperty.Get<string>(
+                        ServerPropertyKeys.SERVER_ID
+                    )
+                )
             );
         }
     }

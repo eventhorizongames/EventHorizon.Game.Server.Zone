@@ -1,24 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Events.Entity.Update;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.Core.Model.ServerProperty;
-using EventHorizon.Zone.System.Player.Connected;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using EventHorizon.Zone.System.Player.Events.Details;
-using EventHorizon.Zone.System.Player.Model.Action;
-using EventHorizon.Zone.System.Player.Model.Details;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Connected
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+    using EventHorizon.Zone.System.Player.Connected;
+    using EventHorizon.Zone.System.Player.Events.Connected;
+    using EventHorizon.Zone.System.Player.Events.Details;
+    using EventHorizon.Zone.System.Player.Model.Action;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class PlayerConnectedHandlerTests
     {
         [Fact]

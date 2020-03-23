@@ -1,11 +1,9 @@
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.Core.Model.Player
 {
+    using System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public struct PlayerEntity : IObjectEntity
     {
         private static PlayerEntity NULL = default(PlayerEntity);

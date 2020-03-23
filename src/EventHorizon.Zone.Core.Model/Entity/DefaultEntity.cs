@@ -24,7 +24,6 @@ namespace EventHorizon.Zone.Core.Model.Entity
 
         private Dictionary<string, object> _data;
         private Dictionary<string, object> _rawData;
-        private object p;
 
         public DefaultEntity(
             Dictionary<string, object> rawData

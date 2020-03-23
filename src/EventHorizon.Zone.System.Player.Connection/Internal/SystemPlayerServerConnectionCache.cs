@@ -1,11 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.Http.Connections.Client;
-
 namespace EventHorizon.Zone.System.Player.Connection.Internal
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.AspNetCore.SignalR.Client;
+    using Microsoft.AspNetCore.Http.Connections.Client;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class SystemPlayerServerConnectionCache : PlayerServerConnectionCache, IDisposable
     {
         readonly ILogger _logger;
@@ -43,6 +44,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
                 try
                 {
                     _connection = new HubConnectionBuilder()
+                        .AddNewtonsoftJsonProtocol()
                         .WithUrl(
                             url,
                             configureHttpConnection

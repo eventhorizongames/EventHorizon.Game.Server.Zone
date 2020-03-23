@@ -1,8 +1,8 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;

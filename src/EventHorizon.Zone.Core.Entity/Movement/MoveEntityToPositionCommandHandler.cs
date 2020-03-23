@@ -60,7 +60,7 @@ namespace EventHorizon.Zone.Core.Entity.Movement
             var locationState = entity.GetProperty<LocationState>(
                 LocationState.PROPERTY_NAME
             );
-            transform.Position = locationState.MoveToPosition;
+            transform.Position = request.MoveTo;
             locationState.MoveToPosition = request.MoveTo;
             locationState.NextMoveRequest = _dateTimeService.Now.AddMilliseconds(
                 (int)(_zoneSettings.BaseMovementTimeOffset * (1 / this.GetMovementSpeedMultiplier(
