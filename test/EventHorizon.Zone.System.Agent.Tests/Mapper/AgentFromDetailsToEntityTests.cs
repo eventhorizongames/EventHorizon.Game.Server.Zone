@@ -28,20 +28,25 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
             var expectedType = EntityType.AGENT;
             var expectedName = inputAgent.Name;
             var expectedPosition = Vector3.Zero;
-            var expectedData = inputAgent.Data;
 
             // When
             var actual = AgentFromDetailsToEntity.MapToNew(inputAgent, agentId);
-
-            // Then
             var actualLocationState = actual.GetProperty<LocationState>(
                 LocationState.PROPERTY_NAME
             );
+
+            // Then
             Assert.Equal(expectedId, actual.Id);
             Assert.Equal(expectedType, actual.Type);
             Assert.Equal(expectedName, actual.Name);
             Assert.Equal(expectedPosition, actual.Transform.Position);
-            Assert.Equal(expectedData, actual.Data);
+            Assert.Collection(
+                actual.Data,
+                actualData => Assert.Equal(
+                    actualLocationState,
+                    (LocationState)actualData.Value
+                )
+            );
         }
     }
 }
