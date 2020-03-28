@@ -357,7 +357,7 @@ namespace EventHorizon.Game.Server.Zone
             // Server
             app.UseServerLoad();
             app.UseServerSetup();
-            app.UseServerCore();
+            app.UseServerCore(); // Should be moved to bottom, so it will register with the Core Server after it is loaded.
             app.UseServerPlayer();
             app.UseServerAdmin();
 

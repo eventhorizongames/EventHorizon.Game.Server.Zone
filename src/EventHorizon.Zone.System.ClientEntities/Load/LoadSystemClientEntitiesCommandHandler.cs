@@ -1,19 +1,19 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.ClientEntities.Model;
-using EventHorizon.Zone.System.ClientEntities.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ClientEntities.Load
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.ClientEntities.Register;
+    using MediatR;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+
     /// <summary>
     /// TODO: Load Recursively from root path
+    /// This will require update to the Plugin Editor for ClientEntities
     /// </summary>
     public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystemClientEntitiesCommand>
     {
@@ -37,26 +37,27 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             CancellationToken cancellationToken
         )
         {
-            // Register ClientEntity Instances from Path
-            foreach (var clientEntityInstance in await GetClientEntityInstancesFromPath(
+            // Register ClientEntities from Path
+            foreach (var clientEntityDetails in await GetClientEntitiesFromPath(
                 _serverInfo.ClientEntityPath
             ))
             {
-                // Register clientEntity Instance from File
-                await _mediator.Publish(
-                    new RegisterClientEntityInstanceEvent
-                    {
-                        ClientEntityInstance = clientEntityInstance
-                    }
+                // Register clientEntity from File
+                await _mediator.Send(
+                    new RegisterClientEntityCommand(
+                        ClientEntityFromDetailsToEntity.Map(
+                            clientEntityDetails
+                        )
+                    )
                 );
             }
             return Unit.Value;
         }
-        private async Task<IList<ClientEntityInstance>> GetClientEntityInstancesFromPath(
+        private async Task<IList<ClientEntityDetails>> GetClientEntitiesFromPath(
             string path
         )
         {
-            var result = new List<ClientEntityInstance>();
+            var result = new List<ClientEntityDetails>();
             foreach (var fileInfo in await _mediator.Send(
                 new GetListOfFilesFromDirectory(
                     path
@@ -64,7 +65,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             ))
             {
                 result.Add(
-                    await _fileLoader.GetFile<ClientEntityInstance>(
+                    await _fileLoader.GetFile<ClientEntityDetails>(
                         fileInfo.FullName
                     )
                 );

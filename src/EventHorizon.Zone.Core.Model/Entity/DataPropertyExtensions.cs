@@ -50,7 +50,8 @@ namespace EventHorizon.Zone.Core.Model.Entity
         public static T PopulateData<T>(
             this IObjectEntity entity,
             string prop,
-            T defaultValue = default(T)
+            T defaultValue = default(T),
+            bool setDefaultValue = true
         )
         {
             var rawData = entity.RawData;
@@ -60,6 +61,10 @@ namespace EventHorizon.Zone.Core.Model.Entity
             {
                 // Return already populated prop.
                 return entity.GetProperty<T>(prop);
+            }
+            else if (!rawData.ContainsKey(prop) && !setDefaultValue)
+            {
+                return defaultValue;
             }
             else if (!rawData.ContainsKey(prop))
             {

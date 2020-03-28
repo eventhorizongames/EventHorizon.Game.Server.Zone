@@ -1,13 +1,27 @@
 {
     "id": "94C7B541-2C71-4543-B6A5-200CCA063F0A",
     "name": "Sphere OG",
-    "position": {
-        "X": 25.0,
-        "Y": 0.0,
-        "Z": 25.0
+    "transform": {
+        "position": {
+            "X": 25.0,
+            "Y": 0.0,
+            "Z": 25.0
+        },
+        "rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+        },
+        "scale": {
+            "X": 1.0,
+            "Y": 1.0,
+            "Z": 1.0
+        },
+        "scalingDeterminant": 1
     },
-    "assetId": "SPHERE_HUGE",
-    "properties": {
+    "tagList": [],
+    "data": {
+        "assetId": "SPHERE_HUGE",
         "dense": true,
         "densityBox": {
             "X": 10.0,

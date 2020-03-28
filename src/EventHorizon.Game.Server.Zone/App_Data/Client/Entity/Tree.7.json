@@ -1,9 +1,27 @@
 {
     "id": "007",
-    "name": "Tree 001",
-    "position": { "X": 25.0, "Y": 0.0, "Z": 7.0 },
-    "assetId": "f2f1d5f6-cc0d-4094-aecf-scripted",
-    "properties": {
+    "name": "Tree 007",
+    "transform": {
+        "position": {
+            "X": 25.0,
+            "Y": 0.0,
+            "Z": 7.0
+        },
+        "rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+        },
+        "scale": {
+            "X": 1.0,
+            "Y": 1.0,
+            "Z": 1.0
+        },
+        "scalingDeterminant": 1
+    },
+    "tagList": [],
+    "data": {
+        "assetId": "f2f1d5f6-cc0d-4094-aecf-scripted",
         "dense": true,
         "resolveHeight": true
     }

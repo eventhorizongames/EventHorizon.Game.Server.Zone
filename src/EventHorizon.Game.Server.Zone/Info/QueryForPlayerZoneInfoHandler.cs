@@ -5,7 +5,6 @@ using EventHorizon.Game.I18n.Fetch;
 using EventHorizon.Performance;
 using EventHorizon.Zone.System.Client.Scripts.Fetch;
 using EventHorizon.Zone.System.ClientAssets.Fetch;
-using EventHorizon.Zone.System.ClientEntities.Fetch;
 using EventHorizon.Zone.System.EntityModule.Fetch;
 using EventHorizon.Zone.System.Gui.Events.Layout;
 using EventHorizon.Zone.System.ServerModule.Fetch;
@@ -14,6 +13,7 @@ using EventHorizon.Zone.Core.Model.Map;
 using EventHorizon.Zone.System.Player.Events.Info;
 using EventHorizon.Zone.Core.Model.Entity.State;
 using EventHorizon.Zone.System.Particle.Fetch;
+using EventHorizon.Zone.System.ClientEntities.Query;
 
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
@@ -104,9 +104,9 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                     )
                 );
                 zoneInfo.Add(
-                    "ClientEntityInstanceList",
+                    "ClientEntityList",
                     await _mediator.Send(
-                        new FetchClientEntityInstanceListQuery()
+                        new QueryForAllClientEntityDetailsList()
                     )
                 );
                 zoneInfo.Add(
