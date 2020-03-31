@@ -64,10 +64,13 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
                 )
             ))
             {
+                var client = await _fileLoader.GetFile<ClientEntityDetails>(
+                    fileInfo.FullName
+                );
+                // TODO: Move the editor:Metadata:FullName into a constats file.
+                client.Data["editor:Metadata:FullName"] = fileInfo.FullName;
                 result.Add(
-                    await _fileLoader.GetFile<ClientEntityDetails>(
-                        fileInfo.FullName
-                    )
+                    client
                 );
             }
             return result;
