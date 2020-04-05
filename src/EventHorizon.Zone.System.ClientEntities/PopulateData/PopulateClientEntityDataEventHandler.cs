@@ -54,6 +54,7 @@ namespace EventHorizon.Zone.System.ClientEntities.PopulateData
     // TODO: Move to Model namespace
     public class ClientEntityMetadataTypes 
     {
+        public static ClientEntityMetadataTypes TYPE_DETAILS = new ClientEntityMetadataTypes();
         public Type assetId = typeof(string);
         public Type dense = typeof(bool);
         public Type densityBox = typeof(Nullable<Vector3>);

@@ -16,6 +16,7 @@ using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.ClientEntities.Load;
 
 var command = Data.Get<IAdminCommand>("Command");
+
 await Services.Mediator.Send(
     new LoadSystemClientEntitiesCommand()
 );

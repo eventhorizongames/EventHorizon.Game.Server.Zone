@@ -1,53 +1,53 @@
-namespace EventHorizon.Zone.System.ClientEntities.Register
+namespace EventHorizon.Zone.System.ClientEntities.Unregister
 {
-    using global::System.Numerics;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Map.Cost;
-    using MediatR;
-    using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.PopulateData;
+    using EventHorizon.Zone.System.ClientEntities.State;
+    using MediatR;
 
-    public class RegisterClientEntityCommandHandler : IRequestHandler<RegisterClientEntityCommand>
+    public class UnregisterClientEntityHandler : IRequestHandler<UnregisterClientEntity, bool>
     {
         private readonly IMediator _mediator;
-        private readonly ClientEntityRepository _clientEntityRepository;
+        private readonly ClientEntityRepository _repository;
 
-        public RegisterClientEntityCommandHandler(
+        public UnregisterClientEntityHandler(
             IMediator mediator,
-            ClientEntityRepository entityRepository
+            ClientEntityRepository repository
         )
         {
             _mediator = mediator;
-            _clientEntityRepository = entityRepository;
+            _repository = repository;
         }
 
-        public async Task<Unit> Handle(
-            RegisterClientEntityCommand request,
+        public async Task<bool> Handle(
+            UnregisterClientEntity request,
             CancellationToken cancellationToken
         )
         {
-            var entity = request.ClientEntity;
-            await _mediator.Publish(
-                new PopulateClientEntityDataEvent(
-                    entity
-                )
+            // Find existing entity from repository
+            var entity = _repository.Find(
+                request.Id
             );
-            _clientEntityRepository.Add(
-                entity
-            );
-            // At postion if they are dense, increase cost to get to node
+            if (!entity.IsFound())
+            {
+                return false;
+            }
+            // If Dense remove cost from nodes/edges 
             if (entity.ContainsProperty(
                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
             ))
             {
+                // If DensityBox remove cost from nodes/edges
                 if (entity.ContainsProperty(
                     nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox)
                 ))
                 {
                     await _mediator.Send(
-                        new ChangeEdgeCostForNodesAtPositionCommand(
+                        new RemoveEdgeCostForNodesAtPosition(
                             entity.Transform.Position,
                             entity.GetProperty<Vector3>(
                                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox)
@@ -55,19 +55,24 @@ namespace EventHorizon.Zone.System.ClientEntities.Register
                             500
                         )
                     );
-                    return Unit.Value;
+                    return true;
                 }
                 else
                 {
+                    // Else remove it for just this postion
                     await _mediator.Send(
-                        new ChangeEdgeCostForNodeAtPositionCommand(
+                        new RemoveEdgeCostForNodeAtPosition(
                             entity.Transform.Position,
                             500
                         )
                     );
                 }
             }
-            return Unit.Value;
+            // Remove from Repository 
+            _repository.Remove(
+                request.Id
+            );
+            return true;
         }
     }
 }

@@ -6,11 +6,11 @@ namespace EventHorizon.Zone.Core.Map.Cost
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using MediatR;
 
-    public class ChangeEdgeCostForNodesAtPositionCommandHandler : IRequestHandler<ChangeEdgeCostForNodesAtPositionCommand, bool>
+    public class RemoveEdgeCostForNodesAtPositionHandler : IRequestHandler<RemoveEdgeCostForNodesAtPosition, bool>
     {
         readonly IMediator _mediator;
-
-        public ChangeEdgeCostForNodesAtPositionCommandHandler(
+        
+        public RemoveEdgeCostForNodesAtPositionHandler(
             IMediator mediator
         )
         {
@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.Core.Map.Cost
         }
 
         public async Task<bool> Handle(
-            ChangeEdgeCostForNodesAtPositionCommand request,
+            RemoveEdgeCostForNodesAtPosition request,
             CancellationToken cancellationToken
         )
         {
@@ -29,10 +29,11 @@ namespace EventHorizon.Zone.Core.Map.Cost
                     request.BoundingBox
                 )
             );
+            
             foreach (var node in nodeList)
             {
                 await _mediator.Send(
-                    new ChangeEdgeCostForNodeAtPositionCommand(
+                    new RemoveEdgeCostForNodeAtPosition(
                         node,
                         request.Cost
                     )

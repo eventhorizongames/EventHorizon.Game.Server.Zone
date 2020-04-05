@@ -39,6 +39,13 @@ namespace EventHorizon.Zone.Core.Model.Entity
             entity.Data[prop] = value;
         }
 
+        public static bool ContainsProperty(
+            this IObjectEntity entity,
+            string prop
+        ) => entity.Data.ContainsKey(
+            prop
+        );
+
         /// <summary>
         /// Will populate the Raw Data into the state data of the entity.
         /// </summary>

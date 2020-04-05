@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Zone.Core.Map.Cost
+namespace EventHorizon.Zone.Core.Map.Cost
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -7,12 +7,12 @@
     using EventHorizon.Zone.Core.Model.Map;
     using MediatR;
 
-    public class ChangeEdgeCostForNodeAtPositionCommandHandler : IRequestHandler<ChangeEdgeCostForNodeAtPositionCommand, bool>
+    public class RemoveEdgeCostForNodeAtPositionHandler : IRequestHandler<RemoveEdgeCostForNodeAtPosition, bool>
     {
-        readonly IMediator _mediator;
-        readonly IMapGraph _map;
-
-        public ChangeEdgeCostForNodeAtPositionCommandHandler(
+        public readonly IMediator _mediator;
+        public readonly IMapGraph _map;
+        
+        public RemoveEdgeCostForNodeAtPositionHandler(
             IMediator mediator,
             IMapGraph map
         )
@@ -20,9 +20,9 @@
             _mediator = mediator;
             _map = map;
         }
-
+        
         public async Task<bool> Handle(
-            ChangeEdgeCostForNodeAtPositionCommand request,
+            RemoveEdgeCostForNodeAtPosition request,
             CancellationToken cancellationToken
         )
         {
@@ -36,8 +36,8 @@
             await _mediator.Send(
                 new UpdateDensityAndCostDetailsForNode(
                     node,
-                    1,
-                    request.Cost
+                    -1,
+                    -request.Cost
                 )
             );
 

@@ -15,15 +15,16 @@
 // TODO: Flush this out more.
 const startingEntity = $services.entityRepository.get($data.startEntityId);
 const endingEntity = $services.entityRepository.get($data.endingEntityId);
+
 // Create entity at Starting Location
 const particleEntity = $services.entityBuilder.createParticleEmitter(
     "Particle_Flame", // TODO: Move this Skill Configuration
-    startingEntity.position,
+    startingEntity.transform.position,
     // Speed
     3 // TODO: Move this Skill Configuration
 );
 // Set to where the particle should move
-particleEntity.moveTo(endingEntity.position);
+particleEntity.moveTo(endingEntity.transform.position);
 
 // Remove particleEntity after duration
 setTimeout(() => particleEntity.stop(), 3000); // TODO: Move this to Skill configuration

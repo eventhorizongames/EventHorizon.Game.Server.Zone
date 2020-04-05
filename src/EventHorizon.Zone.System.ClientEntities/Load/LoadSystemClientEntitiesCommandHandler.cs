@@ -10,6 +10,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
     using MediatR;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.ClientEntities.Query;
+    using EventHorizon.Zone.System.ClientEntities.Unregister;
 
     /// <summary>
     /// TODO: Load Recursively from root path
@@ -17,9 +19,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
     /// </summary>
     public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystemClientEntitiesCommand>
     {
-        readonly IMediator _mediator;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ServerInfo _serverInfo;
+        private readonly IMediator _mediator;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ServerInfo _serverInfo;
 
         public LoadSystemClientEntitiesCommandHandler(
             IMediator mediator,
@@ -37,6 +39,18 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             CancellationToken cancellationToken
         )
         {
+            // Unregister any existing
+            var existingEntityList = await _mediator.Send(
+                new QueryForAllClientEntityDetailsList()
+            );
+            foreach (var entity in existingEntityList)
+            {
+                await _mediator.Send(
+                    new UnregisterClientEntity(
+                        entity.Id
+                    )
+                );
+            }
             // Register ClientEntities from Path
             foreach (var clientEntityDetails in await GetClientEntitiesFromPath(
                 _serverInfo.ClientEntityPath

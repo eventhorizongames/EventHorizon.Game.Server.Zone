@@ -1,27 +1,28 @@
 {
-    "id": "ED22B145-1DE8-4C23-A928-0887D24BADB8",
-    "name": "Home",
-    "transform": {
-        "position": {
-            "X": 0.0,
-            "Y": -0.6,
-            "Z": 35.0
+    "Id": "ED22B145-1DE8-4C23-A928-0887D24BADB8",
+    "Name": "Home",
+    "Transform": {
+        "Position": {
+            "X": -19.0,
+            "Y": 4.4,
+            "Z": 29.0
         },
-        "rotation": {
-            "X": 0.0,
-            "Y": 0.0,
-            "Z": 0.0
+        "Rotation": {
+            "X": -0.05350519,
+            "Y": -0.17796254,
+            "Z": 0.010664247
         },
-        "scale": {
-            "X": 1.0,
-            "Y": 1.0,
-            "Z": 1.0
+        "Scaling": {
+            "X": 9.435963,
+            "Y": 9.435963,
+            "Z": 9.435963
         },
-        "scalingDeterminant": 0.2
+        "ScalingDeterminant": 1.0
     },
-    "tagList": ["house"],
-    "data": {
+    "TagList": null,
+    "Data": {
         "assetId": "11B335CD-8D63-4001-ADDC-A866EEE1E416",
-        "dense": true
+        "dense": true,
+        "editor:Metadata:FullName": "C:\\Repos\\EventHorizon.Game\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Entity\\Home.json"
     }
 }

@@ -4,14 +4,14 @@ namespace EventHorizon.Zone.Core.Events.Map.Cost
     using EventHorizon.Zone.Core.Model.Map;
     using MediatR;
 
-    public struct ChangeEdgeCostForNodeAtPositionCommand : IRequest<bool>
+    public struct RemoveEdgeCostForNodeAtPosition : IRequest<bool>
     {
         public bool IsNode { get; }
         public MapNode Node { get; }
         public Vector3 Position { get; }
         public int Cost { get; }
 
-        public ChangeEdgeCostForNodeAtPositionCommand(
+        public RemoveEdgeCostForNodeAtPosition(
             MapNode node,
             int cost
         )
@@ -22,7 +22,7 @@ namespace EventHorizon.Zone.Core.Events.Map.Cost
             Cost = cost;
         }
 
-        public ChangeEdgeCostForNodeAtPositionCommand(
+        public RemoveEdgeCostForNodeAtPosition(
             Vector3 position,
             int cost
         )

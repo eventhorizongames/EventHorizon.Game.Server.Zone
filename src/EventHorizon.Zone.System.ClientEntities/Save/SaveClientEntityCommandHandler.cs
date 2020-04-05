@@ -5,11 +5,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.System.Backup.Events;
-    using global::System.IO;
     using global::System;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.ClientEntities.Unregister;
 
     public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand>
     {
@@ -61,6 +61,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                     fileInfo.DirectoryName,
                     fileInfo.Name,
                     request.ClientEntity
+                );
+
+                await _mediator.Send(
+                    new UnregisterClientEntity(
+                        request.ClientEntity.Id
+                    )
                 );
 
                 await _mediator.Send(
