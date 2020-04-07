@@ -14,6 +14,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Client\EventHorizon.Zone.Core.Client.csproj" />
     </ItemGroup>
 
 </Project>

@@ -10,6 +10,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+    using EventHorizon.Zone.System.ClientEntities.Client;
+    using EventHorizon.Zone.System.ClientEntities.Model.Client;
 
     public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand>
     {
@@ -72,6 +74,14 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                 await _mediator.Send(
                     new RegisterClientEntityCommand(
                         ClientEntityFromDetailsToEntity.Map(
+                            request.ClientEntity
+                        )
+                    )
+                );
+
+                await _mediator.Publish(
+                    new SendClientEntityChangedClientActionToAllEvent(
+                        new ClientEntityChangedClientActionData(
                             request.ClientEntity
                         )
                     )
