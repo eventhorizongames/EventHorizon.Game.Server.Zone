@@ -39,6 +39,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister
             // If Dense remove cost from nodes/edges 
             if (entity.ContainsProperty(
                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
+            ) && entity.GetProperty<bool>(
+                nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
             ))
             {
                 // If DensityBox remove cost from nodes/edges

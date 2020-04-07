@@ -40,6 +40,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Register
             // At postion if they are dense, increase cost to get to node
             if (entity.ContainsProperty(
                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
+            ) && entity.GetProperty<bool>(
+                nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
             ))
             {
                 if (entity.ContainsProperty(
