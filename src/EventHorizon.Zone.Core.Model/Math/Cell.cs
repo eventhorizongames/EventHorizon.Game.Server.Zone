@@ -380,8 +380,8 @@ namespace EventHorizon.Zone.Core.Model.Math
                     var dist = Vector3.Distance(position, point.Value.Position);
                     if (rect1.x < rect2.x + rect2.width &&
                         rect1.x + rect1.width > rect2.x &&
-                        rect1.z < rect2.z + rect2.height &&
-                        rect1.z + rect1.height > rect2.z
+                        rect1.z < rect2.z + rect2.depth &&
+                        rect1.z + rect1.depth > rect2.z
                     )
                     {
                         if (dist == 0 && options.NotSelf)
