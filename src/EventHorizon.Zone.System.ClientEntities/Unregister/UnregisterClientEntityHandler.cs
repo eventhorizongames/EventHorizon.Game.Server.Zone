@@ -30,7 +30,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister
         {
             // Find existing entity from repository
             var entity = _repository.Find(
-                request.Id
+                request.GlobalId
             );
             if (!entity.IsFound())
             {
@@ -72,7 +72,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister
             }
             // Remove from Repository 
             _repository.Remove(
-                request.Id
+                request.GlobalId
             );
             return true;
         }

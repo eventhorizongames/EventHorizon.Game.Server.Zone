@@ -4,10 +4,10 @@ namespace EventHorizon.Zone.System.ClientEntities.Model.Client
 
     public struct ClientEntityChangedClientActionData : IClientActionData
     {
-        public ClientEntityDetails Details { get; }
+        public ClientEntity Details { get; }
 
         public ClientEntityChangedClientActionData(
-            ClientEntityDetails details
+            ClientEntity details
         )
         {
             Details = details;

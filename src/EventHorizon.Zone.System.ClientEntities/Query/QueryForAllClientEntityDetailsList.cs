@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.System.ClientEntities.Query
 {
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.ClientEntities.Model;
     using MediatR;
+    using EventHorizon.Zone.Core.Model.Entity;
 
-    public struct QueryForAllClientEntityDetailsList : IRequest<IEnumerable<ClientEntityDetails>>
+    public struct QueryForAllClientEntityDetailsList : IRequest<IEnumerable<IObjectEntity>>
     {
 
     }

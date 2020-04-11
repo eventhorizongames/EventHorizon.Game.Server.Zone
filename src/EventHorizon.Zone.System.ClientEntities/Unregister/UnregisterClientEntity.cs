@@ -4,13 +4,13 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister
 
     public class UnregisterClientEntity : IRequest<bool>
     {
-        public string Id { get; }
+        public string GlobalId { get; }
 
         public UnregisterClientEntity(
-            string id
+            string globalId
         )
         {
-            Id = id;
+            GlobalId = globalId;
         }
     }
 }

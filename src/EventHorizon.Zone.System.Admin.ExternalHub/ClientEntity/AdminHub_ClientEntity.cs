@@ -13,10 +13,10 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
     public partial class AdminHub : Hub
     {
         public Task ClientEntity_Save(
-            ClientEntityDetails clientEntityDetails
+            ClientEntity clientEntity
         ) => _mediator.Send(
             new SaveClientEntityCommand(
-                clientEntityDetails
+                clientEntity
             )
         );
     }

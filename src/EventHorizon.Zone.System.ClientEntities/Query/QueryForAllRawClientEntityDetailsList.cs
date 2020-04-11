@@ -4,7 +4,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Query
     using global::System.Collections.Generic;
     using MediatR;
 
-    public class QueryForAllRawClientEntityDetailsList : IRequest<IEnumerable<ClientEntityDetails>>
+    public class QueryForAllRawClientEntityDetailsList : IRequest<IEnumerable<ClientEntity>>
     {
 
     }

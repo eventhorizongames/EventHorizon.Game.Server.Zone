@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Save.Mapper
 {
+    using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
 
     public static class ClientEntityFromEntityToDetails
@@ -14,7 +15,7 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
                 Name = entity.Name,
                 Transform = entity.Transform,
                 TagList = entity.TagList,
-                Data = entity.Data,
+                Data = entity.AllData(),
             };
         }
     }

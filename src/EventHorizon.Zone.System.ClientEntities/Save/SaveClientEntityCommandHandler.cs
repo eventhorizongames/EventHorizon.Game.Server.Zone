@@ -34,7 +34,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
         {
             try
             {
-                var fileFullName = (string)request.ClientEntity.Data["editor:Metadata:FullName"];
+                request.ClientEntity.Data.Clear();
+                var fileFullName = request.ClientEntity.RawData["editor:Metadata:FullName"] as string;
                 var fileInfo = await _mediator.Send(
                     new GetFileInfo(
                         fileFullName
@@ -62,20 +63,20 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                 await _fileSaver.SaveToFile(
                     fileInfo.DirectoryName,
                     fileInfo.Name,
-                    request.ClientEntity
+                    ClientEntityFromEntityToDetails.Map(
+                        request.ClientEntity
+                    )
                 );
 
                 await _mediator.Send(
                     new UnregisterClientEntity(
-                        request.ClientEntity.Id
+                        request.ClientEntity.GlobalId
                     )
                 );
 
                 await _mediator.Send(
                     new RegisterClientEntityCommand(
-                        ClientEntityFromDetailsToEntity.Map(
-                            request.ClientEntity
-                        )
+                        request.ClientEntity
                     )
                 );
 

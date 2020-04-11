@@ -5,10 +5,10 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
 
     public class SaveClientEntityCommand : IRequest
     {
-        public ClientEntityDetails ClientEntity { get; }
+        public ClientEntity ClientEntity { get; }
 
         public SaveClientEntityCommand(
-            ClientEntityDetails clientEntity
+            ClientEntity clientEntity
         )
         {
             ClientEntity = clientEntity;

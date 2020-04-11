@@ -47,7 +47,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             {
                 await _mediator.Send(
                     new UnregisterClientEntity(
-                        entity.Id
+                        entity.GlobalId
                     )
                 );
             }
