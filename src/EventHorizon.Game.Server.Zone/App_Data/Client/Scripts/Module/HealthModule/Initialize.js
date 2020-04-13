@@ -28,7 +28,7 @@ const { $entity } = $data;
 const layoutId = "GUI_Module_HealthModule.json";
 $services.logger.debug("HealthModule_Initialize");
 
-$data.guiId = `health_module-${$entity.id}`;
+$data.guiId = `health_module-${$entity.entityId}`;
 
 $services.commandService.send(
     $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
@@ -53,6 +53,7 @@ $services.commandService.send(
 );
 
 function onEntityChanged({ entityId }) {
+    console.log("HealthModuleInitialize", { entityId });
     if ($entity.entityId !== entityId) {
         return;
     }
@@ -86,8 +87,9 @@ function getEntityPercent() {
     const lifeState = $entity.getProperty("lifeState");
     return (lifeState.healthPoints / lifeState.maxHealthPoints) * 100;
 }
-function onMeshSet({ id }) {
-    if ($entity.id !== id) {
+function onMeshSet({ clientId }) {
+    console.log("HealthModuleInitialize", { $entity, clientId });
+    if ($entity.clientId !== clientId) {
         return;
     }
 
