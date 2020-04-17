@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Reporter.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
 {
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
     public class BehaviorInterpreterDoWhileKernel : BehaviorInterpreterKernel
     {
         readonly BehaviorInterpreterMap _interpreterMap;
@@ -29,7 +29,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             var treeState = GetActorState(
                 shape,
                 actor
-            ).SetReportTracker( 
+            ).SetReportTracker(
                 $"{actor.Id}_{actor.Name}",
                 _reportTracker
             ).PopActiveNodeFromQueue()
@@ -62,13 +62,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
                     );
                 }
             } while (treeState.ContainsNext);
-            actor.SetProperty(
-                BehaviorTreeState.PROPERTY_NAME,
-                treeState.Report(
-                    "Kernel Tick ENDING"
-                )
+            return treeState.Report(
+                "Kernel Tick ENDING"
             );
-            return treeState;
         }
 
         private BehaviorTreeState GetActorState(

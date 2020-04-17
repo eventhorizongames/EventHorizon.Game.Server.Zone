@@ -1,12 +1,12 @@
-using System.Collections.Concurrent;
-using EventHorizon.Zone.System.Agent.Model.State;
-
 namespace EventHorizon.Zone.System.Agent.Move.Repository
 {
+    using global::System.Collections.Concurrent;
+    using EventHorizon.Zone.System.Agent.Model.State;
+
     public class MoveAgentRepository : IMoveAgentRepository
     {
-        private static readonly ConcurrentQueue<long> ENTITIES = new ConcurrentQueue<long>();
-        private static readonly ConcurrentQueue<long> TO_REGISTER = new ConcurrentQueue<long>();
+        private readonly ConcurrentQueue<long> ENTITIES = new ConcurrentQueue<long>();
+        private readonly ConcurrentQueue<long> TO_REGISTER = new ConcurrentQueue<long>();
 
         public void Register(long entityId)
         {

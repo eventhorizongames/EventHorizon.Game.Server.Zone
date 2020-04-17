@@ -1,11 +1,11 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.Core.Reporter.Model;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
+    using global::System;
+    using global::System.Linq;
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.Core.Reporter.Model;
+
     public partial struct BehaviorTreeState
     {
         public static readonly string PROPERTY_NAME = "BehaviorTreeState";
@@ -28,6 +28,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         public BehaviorNode ActiveTraversal => GetNode(
             _activeTraversalToken
         );
+
+        public string ShapeId => _shape.Id;
 
         private IDictionary<int, BehaviorNode> NodeMap { get; set; }
         private IList<int> TraversalStack { get; set; }
@@ -171,6 +173,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         )
         {
             ShapeQueue.Clear();
+            if (!shape.IsValid)
+            {
+                return;
+            }
             ShapeOrder = new int[shape.NodeList.Count];
             var index = 0;
             foreach (var node in shape.NodeList)

@@ -1,13 +1,13 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using Xunit;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using Xunit;
+
     public class SequenceSelectorInterpreterTests
     {
         [Fact]
@@ -64,11 +64,62 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedRunningNode, 
+                    expectedRunningNode,
                     node.Status
                 )
             );
         }
+
+        [Fact]
+        public async Task ShouldNotPopAnyOtherNodesWhenTraversalIsSetToReset()
+        {
+            // Given
+            var expectedTraversal = BehaviorNodeStatus.VISITING.ToString();
+            var actor = new DefaultEntity();
+            var state = new BehaviorTreeStateBuilder()
+                .Root(
+                    new SerializedBehaviorNode
+                    {
+                        Status = BehaviorNodeStatus.RUNNING.ToString(),
+                        Reset = true,
+                    }
+                ).AddNode(
+                    new SerializedBehaviorNode
+                    {
+                        Status = BehaviorNodeStatus.READY.ToString()
+                    }
+                ).AddNode(
+                    new SerializedBehaviorNode
+                    {
+                        Status = BehaviorNodeStatus.RUNNING.ToString()
+                    }
+                ).AddNode(
+                    new SerializedBehaviorNode
+                    {
+                        Status = BehaviorNodeStatus.READY.ToString()
+                    }
+                )
+                .BuildWithLastTraversalStack()
+                .PopActiveNodeFromQueue()
+                .PushActiveNodeToTraversalStack();
+
+            // When
+            var actionInterpreter = new SequenceSelectorInterpreter();
+            var actual = await actionInterpreter.Run(
+                actor,
+                state
+            );
+
+            // Then
+            Assert.Collection(
+                actual.NodeList(),
+                node => Assert.Equal(
+                    expectedTraversal,
+                    node.Status
+                )
+            );
+        }
+
         [Fact]
         public async Task ShouldSetStatusToFailedWhenChildIsNotSuccess()
         {
@@ -119,19 +170,20 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                     expectedTraversal, node.Status
                 ),
                 node => Assert.Equal(
-                    expectedFirstChildNode, 
+                    expectedFirstChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedSecondChildNode, 
+                    expectedSecondChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedThirdChildNode, 
+                    expectedThirdChildNode,
                     node.Status
                 )
             );
         }
+
         [Fact]
         public async Task ShouldSetStatusToErrorWhenChildIsNotSuccess()
         {
@@ -178,23 +230,24 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             Assert.Collection(
                 actual.NodeList(),
                 node => Assert.Equal(
-                    expectedTraversal, 
+                    expectedTraversal,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedFirstChildNode, 
+                    expectedFirstChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedSecondChildNode, 
+                    expectedSecondChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedThirdChildNode, 
+                    expectedThirdChildNode,
                     node.Status
                 )
             );
         }
+
         [Fact]
         public async Task ShouldSetStatusToRunningWhenChildIsNotSuccess()
         {
@@ -241,19 +294,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
             Assert.Collection(
                 actual.NodeList(),
                 node => Assert.Equal(
-                    expectedTraversal, 
+                    expectedTraversal,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedFirstChildNode, 
+                    expectedFirstChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedSecondChildNode, 
+                    expectedSecondChildNode,
                     node.Status
                 ),
                 node => Assert.Equal(
-                    expectedThirdChildNode, 
+                    expectedThirdChildNode,
                     node.Status
                 )
             );

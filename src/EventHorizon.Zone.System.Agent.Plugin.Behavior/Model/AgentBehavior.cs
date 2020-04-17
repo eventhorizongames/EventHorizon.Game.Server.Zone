@@ -1,10 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
+    using global::System;
+
     public struct AgentBehavior
     {
         public static readonly string PROPERTY_NAME = "behavior";
 
+        public bool IsEnabled { get; set; }
         public string TreeId { get; set; }
+        public DateTime NextTickRequest { get; set; }
 
         public object this[string index]
         {
@@ -12,8 +16,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             {
                 switch (index)
                 {
+                    case "isEnabled":
+                        return this.IsEnabled;
                     case "treeId":
                         return this.TreeId;
+                    case "nextTickRequest":
+                        return this.NextTickRequest;
 
                     default:
                         return null;
@@ -23,8 +31,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             {
                 switch (index)
                 {
+                    case "isEnabled":
+                        this.IsEnabled = (bool)value;
+                        break;
                     case "treeId":
                         this.TreeId = (string)value;
+                        break;
+                    case "nextTickRequest":
+                        this.NextTickRequest = (DateTime)value;
                         break;
 
                     default:
@@ -34,7 +48,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         }
         public static readonly AgentBehavior NEW = new AgentBehavior
         {
-            TreeId = "DEFAULT"
+            IsEnabled = true,
+            TreeId = "DEFAULT",
+            NextTickRequest = DateTime.MinValue,
         };
     }
 }

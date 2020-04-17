@@ -1,16 +1,16 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using MediatR;
+
     public class LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
     {
         readonly IMediator _mediator;
@@ -43,6 +43,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
             _actorBehaviorTreeRepository.RegisterTree(
                 "DEFAULT",
                 new ActorBehaviorTreeShape(
+                    "DEFAULT",
                     await _fileLoader.GetFile<SerializedAgentBehaviorTree>(
                         Path.Combine(
                             _serverInfo.SystemPath,
@@ -54,7 +55,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
             );
 
             // Register Default Script with Server
-            var defaultScriptName = "$DEFAULT$SCRIPT"; 
+            var defaultScriptName = "$DEFAULT$SCRIPT";
             await _mediator.Send(
                 new RegisterServerScriptCommand(
                     defaultScriptName,

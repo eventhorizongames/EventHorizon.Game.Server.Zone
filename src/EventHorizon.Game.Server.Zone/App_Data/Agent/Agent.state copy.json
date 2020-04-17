@@ -1,4 +1,204 @@
 {
     "AgentList": [
+        {
+            "Id": "c1dae474-2a84-4f1b-8f0d-73ed805eedbc",
+            "Name": "Fire Type",
+            "Transform": {
+                "Position": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": -4.0
+                },
+                "Rotation": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Scaling": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "ScalingDeterminant": 0.2
+            },
+            "Location": {
+                "CanMove": true,
+                "NextMoveRequest": "2020-04-14T00:04:05.3975661Z",
+                "MoveToPosition": {
+                    "X": 4.0,
+                    "Y": 0.0,
+                    "Z": -4.0
+                },
+                "CurrentZone": null,
+                "ZoneTag": null
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": "",
+                    "CanBeCaptured": true,
+                    "OwnerFollowDistance": 5
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "ScalingDeterminant": 0.05,
+                    "Mesh": {
+                        "Type": "MESH",
+                        "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_RunFromPlayer.json"
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": [
+                        {
+                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "DistanceToPlayer": 5,
+                            "Data": {
+                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
+                            }
+                        }
+                    ]
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 95,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 99,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
+                            }
+                        ]
+                    }
+                },
+                "NextRunTime": null,
+                "ActorMoveToPosition": {
+                    "X": -18.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 32,
+                "companionState": {
+                    "DefaultBehaviorTreeId": "Behaviors_RunFromPlayer.json"
+                },
+                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -1025401251,
+                        "Type": {
+                            "Name": "PRIORITY_SELECTOR",
+                            "IsTraversal": true
+                        },
+                        "Status": "RUNNING",
+                        "NodeList": null,
+                        "IsTraversal": true,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": true
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null,
+                            "IsTraversal": false
+                        },
+                        "Status": null,
+                        "NodeList": null,
+                        "IsTraversal": false,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "IsValid": true
+                },
+                "movementState": {
+                    "Speed": 0.5
+                },
+                "agentWildState": {
+                    "DistanceToRunAway": 25,
+                    "DeltaDistance": 5
+                },
+                "locationState": {
+                    "CanMove": true,
+                    "NextMoveRequest": "2020-04-14T00:04:05.3975661Z",
+                    "MoveToPosition": {
+                        "X": 4.0,
+                        "Y": 0.0,
+                        "Z": -4.0
+                    },
+                    "CurrentZone": null,
+                    "ZoneTag": null
+                },
+                "pathState": {
+                    "Path": [
+                        {
+                            "X": 3.0,
+                            "Y": 0.0,
+                            "Z": -4.0
+                        },
+                        {
+                            "X": 3.0,
+                            "Y": 0.0,
+                            "Z": -5.0
+                        },
+                        {
+                            "X": 3.0,
+                            "Y": 0.0,
+                            "Z": -6.0
+                        },
+                        {
+                            "X": 2.0,
+                            "Y": 0.0,
+                            "Z": -6.0
+                        },
+                        {
+                            "X": 1.0,
+                            "Y": 0.0,
+                            "Z": -6.0
+                        }
+                    ],
+                    "MoveTo": {
+                        "X": 1.0,
+                        "Y": 0.0,
+                        "Z": -6.0
+                    }
+                }
+            }
+        }
     ]
 }

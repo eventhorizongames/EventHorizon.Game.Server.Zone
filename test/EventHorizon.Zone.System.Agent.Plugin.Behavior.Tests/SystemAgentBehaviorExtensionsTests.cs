@@ -1,26 +1,27 @@
-using System;
-using System.Threading;
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.TimerService;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Moq;
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
+    using global::System;
+    using global::System.Threading;
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+    using Moq;
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class SystemAgentBehaviorExtensionsTests : TestFixtureBase
     {
-        public SystemAgentBehaviorExtensionsTests(ITestOutputHelper testOutputHelper) 
+        public SystemAgentBehaviorExtensionsTests(ITestOutputHelper testOutputHelper)
             : base(testOutputHelper)
         {
         }
@@ -44,66 +45,77 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 service =>
                 {
                     Assert.Equal(
-                        typeof(ITimerTask), 
+                        typeof(ITimerTask),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(BehaviorTreeUpdateTriggerTimerTask), 
+                        typeof(RunPendingActorBehaviorTicksTimer),
                         service.ImplementationType
                     );
                 },
                 service =>
                 {
                     Assert.Equal(
-                        typeof(ActorBehaviorTreeRepository), 
+                        typeof(ActorBehaviorTreeRepository),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(InMemoryActorBehaviorTreeRepository), 
+                        typeof(InMemoryActorBehaviorTreeRepository),
                         service.ImplementationType
                     );
                 },
                 service =>
                 {
                     Assert.Equal(
-                        typeof(BehaviorInterpreterMap), 
+                        typeof(ActorBehaviorTickQueue),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(BehaviorInterpreterInMemoryMap), 
+                        typeof(InMemoryActorBehaviorTickQueue),
                         service.ImplementationType
                     );
                 },
                 service =>
                 {
                     Assert.Equal(
-                        typeof(BehaviorInterpreterKernel), 
+                        typeof(BehaviorInterpreterMap),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(BehaviorInterpreterDoWhileKernel), 
+                        typeof(BehaviorInterpreterInMemoryMap),
                         service.ImplementationType
                     );
                 },
                 service =>
                 {
                     Assert.Equal(
-                        typeof(ActionBehaviorInterpreter), 
+                        typeof(BehaviorInterpreterKernel),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(ActionInterpreter), 
+                        typeof(BehaviorInterpreterDoWhileKernel),
                         service.ImplementationType
                     );
                 },
                 service =>
                 {
                     Assert.Equal(
-                        typeof(ConditionBehaviorInterpreter), 
+                        typeof(ActionBehaviorInterpreter),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(ConditionInterpreter), 
+                        typeof(ActionInterpreter),
+                        service.ImplementationType
+                    );
+                },
+                service =>
+                {
+                    Assert.Equal(
+                        typeof(ConditionBehaviorInterpreter),
+                        service.ServiceType
+                    );
+                    Assert.Equal(
+                        typeof(ConditionInterpreter),
                         service.ImplementationType
                     );
                 }
@@ -163,7 +175,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             // Then
             mediatorMock.Verify(
                 mediator => mediator.Send(
-                    expectedLoadAgentBehaviorSystemEvent, 
+                    expectedLoadAgentBehaviorSystemEvent,
                     CancellationToken.None
                 )
             );

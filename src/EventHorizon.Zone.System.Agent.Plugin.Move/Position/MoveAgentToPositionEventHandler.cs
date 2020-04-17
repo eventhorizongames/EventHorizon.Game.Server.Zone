@@ -1,20 +1,21 @@
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Path;
-using EventHorizon.Performance;
-using MediatR;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.Move;
-using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
 {
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Path;
+    using EventHorizon.Performance;
+    using MediatR;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
     public class MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
     {
-        readonly IMediator _mediator;
-        readonly IPerformanceTracker _performanceTracker;
+        private readonly IMediator _mediator;
+        private readonly IPerformanceTracker _performanceTracker;
+        
         public MoveAgentToPositionEventHandler(
             IMediator mediator,
             IPerformanceTracker performanceTracker
@@ -23,6 +24,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
             _mediator = mediator;
             _performanceTracker = performanceTracker;
         }
+
         public async Task<Unit> Handle(
             MoveAgentToPositionEvent request,
             CancellationToken cancellationToken
@@ -51,12 +53,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
             // TODO: This should be move into a SmoothPathCommand.
             path.Dequeue();
 
-            await _mediator.Publish(new QueueAgentToMoveEvent
-            {
-                EntityId = agent.Id,
-                Path = path,
-                MoveTo = request.ToPosition,
-            });
+            await _mediator.Send(
+                new QueueAgentToMove(
+                    agent.Id,
+                    path,
+                    request.ToPosition
+                )
+            );
             return Unit.Value;
         }
     }

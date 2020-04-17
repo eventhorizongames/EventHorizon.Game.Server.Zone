@@ -1,25 +1,45 @@
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
 {
+    using global::System;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using Xunit;
+
     public class AgentBehaviorTests
     {
         [Fact]
-        public void TestShouldBeAbleToAccessTreeIdThroughIndexBasedLookup()
+        public void TestShouldBeAbleToAccessPropertiesThroughIndexBasedLookup(
+        )
         {
-            // Given
-            var expected = "tree-id";
+            var expectedIsEnabled = true;
+            var isEnabledValue = true;
+            var isEnabledIndex = "isEnabled";
+
+            var expectedTreeId = "tree-id";
+            var treeIdValue = "tree-id";
             var treeIdIndex = "treeId";
+
+            var expectedNextTickRequest = DateTime.MinValue;
+            var nextTickRequestValue = DateTime.MinValue;
+            var nextTickRequestIndex = "nextTickRequest";
 
             // When
             var actual = new AgentBehavior();
-            actual[treeIdIndex] = "tree-id";
+            actual[isEnabledIndex] = isEnabledValue;
+            actual[treeIdIndex] = treeIdValue;
+            actual[nextTickRequestIndex] = nextTickRequestValue;
 
             // Then
             Assert.Equal(
-                expected,
+                expectedIsEnabled,
+                actual[isEnabledIndex]
+            );
+            Assert.Equal(
+                expectedTreeId,
                 actual[treeIdIndex]
+            );
+            Assert.Equal(
+                expectedNextTickRequest,
+                actual[nextTickRequestIndex]
             );
         }
 

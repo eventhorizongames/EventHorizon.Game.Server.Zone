@@ -24,11 +24,10 @@ var targetPosition = Data.Get<Vector3>("TargetPosition");
 var effectData = Data.Get<IDictionary<string, object>>("EffectData");
 
 await Services.Mediator.Send(
-    new MoveAgentToPositionEvent
-    {
-        AgentId = target.Id,
-        ToPosition = targetPosition
-    }
+    new MoveAgentToPositionEvent(
+        target.Id,
+        targetPosition
+    )
 );
 
 return new SkillEffectScriptResponse

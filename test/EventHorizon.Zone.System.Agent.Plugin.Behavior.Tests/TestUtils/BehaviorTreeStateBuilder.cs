@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
 {
+    using System.Collections.Generic;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
     public class BehaviorTreeStateBuilder
     {
         private static IList<SerializedBehaviorNode> EMPTY_LIST = new List<SerializedBehaviorNode>().AsReadOnly();
-        
+
         SerializedBehaviorNode _root;
         List<SerializedBehaviorNode> _nodeList;
 
@@ -61,6 +60,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
         {
             _root.NodeList = _nodeList;
             return new ActorBehaviorTreeShape(
+                "shape", // TODO: use real value
                 new SerializedAgentBehaviorTree
                 {
                     Root = _root

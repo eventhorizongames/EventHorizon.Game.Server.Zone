@@ -28,6 +28,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
         private static ActorBehaviorTreeShape CreateSingleNodeShape()
         {
             return new ActorBehaviorTreeShape(
+                "shape",
                 CreateSingleNodeSerializedTree()
             );
         }
@@ -35,6 +36,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
         private static ActorBehaviorTreeShape CreateNodeWithTraversalShape()
         {
             return new ActorBehaviorTreeShape(
+                "shape",
                 CreateNodeWithTraversalSerializedTree()
             );
         }

@@ -1,13 +1,13 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using Xunit;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using Xunit;
+
     public class PrioritySelectorInterpreterTests
     {
         [Fact]
@@ -389,6 +389,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 Status = BehaviorNodeStatus.READY.ToString()
             };
             var shape = new ActorBehaviorTreeShape(
+                "shape",
                 new SerializedAgentBehaviorTree
                 {
                     Root = currentTraversalNode
@@ -402,7 +403,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
                 .SetShape(
                     shape
                 ).PopActiveNodeFromQueue()
-                .PushActiveNodeToTraversalStack()   
+                .PushActiveNodeToTraversalStack()
                 .AddActiveTraversalToNextStack()
                 .SetShape(
                     shape

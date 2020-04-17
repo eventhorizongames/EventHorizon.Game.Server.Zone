@@ -1,13 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using MediatR;
+
     public class AgentRegisteredEventHandler : INotificationHandler<AgentRegisteredEvent>
     {
         readonly IMediator _mediator;
@@ -28,13 +29,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
                     notification.AgentId
                 )
             );
+
             if (!agent.IsFound())
             {
                 return;
             }
+
             await _mediator.Send(
-                new RegisterActorWithBehaviorTreeUpdate(
-                    agent.Id,
+                new ChangeActorBehaviorTreeCommand(
+                    agent,
                     agent.GetProperty<AgentBehavior>(
                         AgentBehavior.PROPERTY_NAME
                     ).TreeId

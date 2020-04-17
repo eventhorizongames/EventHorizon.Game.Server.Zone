@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Reporter.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+    using Moq;
+    using Xunit;
+
     public class BehaviorTreeStateTests
     {
         [Fact]
@@ -14,6 +15,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
         {
             // Given
             var treeShape = new ActorBehaviorTreeShape(
+                "shape",
                 new SerializedAgentBehaviorTree
                 {
                     Root = new SerializedBehaviorNode()
@@ -86,7 +88,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 expectedReportData
             );
             state.ClearReport();
-            
+
             // Then
             reportTrackerMock.Verify(
                 mock => mock.Track(
@@ -123,7 +125,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 expectedReportData
             );
             state.ClearReport();
-            
+
             // Then
             reportTrackerMock.Verify(
                 mock => mock.Track(
@@ -160,11 +162,68 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
                 reportData
             );
             state.ClearReport();
-            
+
             // Then
             Assert.True(
-                true, 
+                true,
                 "This will always be successful, if not it will throw an expection."
+            );
+        }
+
+        [Fact]
+        public void ShouldReturnTokenOfNodeAfterLastChildOfActiveNode()
+        {
+            // Given
+
+            var rootNode = new SerializedBehaviorNode
+            {
+                NodeList = new List<SerializedBehaviorNode>
+                {
+                    new SerializedBehaviorNode()
+                    {
+                        Type = "PRIORITY_SELECTOR",
+                        NodeList = new List<SerializedBehaviorNode>
+                        {
+                            new SerializedBehaviorNode
+                            {
+                                Type = "CONDITION",
+                            },
+                            new SerializedBehaviorNode
+                            {
+                                Type = "Action",
+                            },
+                        },
+                    },
+                    new SerializedBehaviorNode()
+                    {
+                        Type = "CONCURRENT_SELECTOR"
+                    }
+                }
+            };
+
+            var shape = new ActorBehaviorTreeShape(
+                "root-node",
+                new SerializedAgentBehaviorTree
+                {
+                    Root = rootNode
+                }
+            );
+
+            var lastNode = shape.NodeList.Last();
+            var expected = lastNode.Token;
+
+            // When
+            var state = new BehaviorTreeState(
+                shape
+            ).PopActiveNodeFromQueue() // Pop the root to Active
+            .PopActiveNodeFromQueue(); // Pop the first child of root to active
+
+            var actual = state.GetTokenAfterLastChildOfActiveNode();
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual
             );
         }
     }

@@ -1,0 +1,9 @@
+{
+    "id": "BOX",
+    "type": "MESH",
+    "name": "A Box",
+    "data": {
+        "type": "BOX",
+        "size": 2
+    }
+}

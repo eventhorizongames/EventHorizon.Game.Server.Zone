@@ -1,19 +1,19 @@
-
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class AgentRegisteredEventHandlerTests
     {
         [Fact]
@@ -23,10 +23,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
             var agentId = "agent-id-001";
             var agentEntityId = 1L;
             var treeId = "tree-id";
-            var expected = new RegisterActorWithBehaviorTreeUpdate(
-                agentEntityId,
-                treeId
-            );
             var agentEntity = new AgentEntity(
                 new Dictionary<string, object>()
             )
@@ -39,6 +35,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
                 {
                     TreeId = treeId
                 }
+            );
+            var expected = new ChangeActorBehaviorTreeCommand(
+                agentEntity,
+                treeId
             );
 
             var mediatorMock = new Mock<IMediator>();
@@ -73,6 +73,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
                 )
             );
         }
+
         [Fact]
         public async Task TestShouldNotSendRegisterUpdateEventWhenAgentIsNotFound()
         {
@@ -107,7 +108,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    It.IsAny<RegisterActorWithBehaviorTreeUpdate>(),
+                    It.IsAny<RegisterActorWithBehaviorTreeForNextTickCycle>(),
                     CancellationToken.None
                 ),
                 Times.Never()

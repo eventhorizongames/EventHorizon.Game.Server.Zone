@@ -1,28 +1,28 @@
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using Newtonsoft.Json;
-using Xunit;
-using Xunit.Abstractions;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-using Moq;
-using MediatR;
-using System.Threading;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.Core.Reporter.Model;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
+    using global::System;
+    using global::System.Diagnostics;
+    using global::System.IO;
+    using global::System.Text;
+    using global::System.Threading.Tasks;
+    using global::System.Threading;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using Newtonsoft.Json;
+    using Xunit;
+    using Xunit.Abstractions;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using Moq;
+    using MediatR;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.Reporter.Model;
+
     public class BehaviorTreeTests : TestFixtureBase
     {
         public BehaviorTreeTests(
@@ -74,6 +74,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             );
 
             var treeShape = new ActorBehaviorTreeShape(
+                "AllNodesShouldHaveSuccessStatus.json",
                 agentBehaviorTree
             );
             var actor = new DefaultEntity(
@@ -144,6 +145,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             );
 
             var treeShape = new ActorBehaviorTreeShape(
+                "AllNodesShouldHaveSuccessStatus.json",
                 agentBehaviorTree
             );
             var actor = new DefaultEntity(
@@ -224,6 +226,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 )
             );
             var treeShape = new ActorBehaviorTreeShape(
+                "ShouldRunScriptCommandsForActionNode.json",
                 agentBehaviorTree
             );
 
@@ -321,6 +324,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                 this is static and helps with the navigation of the tree
                 by the Interpreter. */
             var treeShape = new ActorBehaviorTreeShape(
+                "FollowPlayer.json",
                 agentBehaviorTree
             );
 
@@ -382,7 +386,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                     actor
                 );
                 actor.SetProperty<BehaviorTreeState>(
-                    BehaviorTreeState.PROPERTY_NAME, 
+                    BehaviorTreeState.PROPERTY_NAME,
                     state
                 );
             }

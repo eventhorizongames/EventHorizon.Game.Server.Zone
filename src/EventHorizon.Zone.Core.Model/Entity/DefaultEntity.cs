@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
 
     public struct DefaultEntity : IObjectEntity
     {
-        private static DefaultEntity NULL = default(DefaultEntity);
+        public static DefaultEntity NULL = default(DefaultEntity);
         public const string DEFAULT_GLOBAL_ID = "no_global_id";
         public long Id { get; set; }
         public string GlobalId
@@ -29,7 +29,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
             Dictionary<string, object> rawData
         ) : this()
         {
-            Id = 0L;
+            Id = -1L;
             Name = null;
             // GlobalId = null;
             Transform = default(TransformState);

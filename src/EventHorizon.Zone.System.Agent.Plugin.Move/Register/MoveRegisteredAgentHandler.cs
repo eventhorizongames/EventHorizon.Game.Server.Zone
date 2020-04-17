@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Move.Register
 {
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
@@ -131,13 +132,12 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             Queue<Vector3> path
         )
         {
-            await _mediator.Publish(
-                new QueueAgentToMoveEvent
-                {
-                    EntityId = entityId,
-                    MoveTo = moveTo,
-                    Path = path,
-                }
+            await _mediator.Send(
+                new QueueAgentToMove(
+                    entityId,
+                    path,
+                    moveTo
+                )
             );
         }
     }

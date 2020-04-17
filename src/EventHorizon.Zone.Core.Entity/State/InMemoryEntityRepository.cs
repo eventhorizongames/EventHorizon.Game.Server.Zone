@@ -52,7 +52,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             return Task.FromResult(
                 _entityMap.FirstOrDefault(
                     entity => entity.Key == id
-                ).Value ?? default(DefaultEntity)
+                ).Value ?? DefaultEntity.NULL
             );
         }
 

@@ -1,21 +1,21 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
-using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
-using EventHorizon.Zone.System.Interaction.Events;
-using EventHorizon.Zone.System.Interaction.Model;
-using EventHorizon.Zone.System.Interaction.Run;
-using EventHorizon.Zone.System.Interaction.Script.Run;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Interaction.Tests.Run
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+    using EventHorizon.Zone.System.Interaction.Events;
+    using EventHorizon.Zone.System.Interaction.Model;
+    using EventHorizon.Zone.System.Interaction.Run;
+    using EventHorizon.Zone.System.Interaction.Script.Run;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class RunInteractionCommandHandlerTests
     {
         [Fact]
@@ -47,7 +47,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                default(DefaultEntity)
+                DefaultEntity.NULL
             );
 
             // When

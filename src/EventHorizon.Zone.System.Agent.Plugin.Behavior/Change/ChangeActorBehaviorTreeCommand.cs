@@ -3,18 +3,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
     using EventHorizon.Zone.Core.Model.Entity;
     using MediatR;
 
-    public class ChangeActorBehaviorTreeCommand : IRequest<bool>
+    public struct ChangeActorBehaviorTreeCommand : IRequest<bool>
     {
         public IObjectEntity Entity { get; }
-        public string NewBehaviorTreeId { get; }
+        public string NewBehaviorTreeShapeId { get; }
 
         public ChangeActorBehaviorTreeCommand(
             IObjectEntity entity,
-            string newBehaviorTreeId
+            string newBehaviorTreeShapeId
         )
         {
             Entity = entity;
-            NewBehaviorTreeId = newBehaviorTreeId;
+            NewBehaviorTreeShapeId = newBehaviorTreeShapeId;
         }
     }
 }

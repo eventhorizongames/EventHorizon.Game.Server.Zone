@@ -1,16 +1,16 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using MediatR;
-using System.Threading;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Events.Entity.Action;
-using EventHorizon.Tests.TestUtils;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.State
 {
+    using Xunit;
+    using Moq;
+    using System.Threading.Tasks;
+    using MediatR;
+    using System.Threading;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Action;
+    using EventHorizon.Tests.TestUtils;
+
     [CleanupInMemoryEntityRepository]
     public class EntityRepositoryTests
     {
@@ -161,7 +161,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
         {
             // Given
             var inputId = 123;
-            var expectedEntity = default(DefaultEntity);
+            var expectedEntity = DefaultEntity.NULL;
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IdPool>();
@@ -239,7 +239,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             {
                 Id = expectedEntityId
             };
-            var expectedNotFoundEntity = default(DefaultEntity);
+            var expectedNotFoundEntity = DefaultEntity.NULL;
 
             var mediatorMock = new Mock<IMediator>();
             var idPoolMock = new Mock<IdPool>();

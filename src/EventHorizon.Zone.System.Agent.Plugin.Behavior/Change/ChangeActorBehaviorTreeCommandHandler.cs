@@ -1,26 +1,30 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Update;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+    using MediatR;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+
     public class ChangeActorBehaviorTreeCommandHandler : IRequestHandler<ChangeActorBehaviorTreeCommand, bool>
     {
         private readonly IMediator _mediator;
+        private readonly IDateTimeService _dateTime;
         private readonly ActorBehaviorTreeRepository _actorBehaviorTreeRepository;
 
         public ChangeActorBehaviorTreeCommandHandler(
             IMediator mediator,
+            IDateTimeService dateTime,
             ActorBehaviorTreeRepository actorBehaviorTreeRepository
         )
         {
             _mediator = mediator;
+            _dateTime = dateTime;
             _actorBehaviorTreeRepository = actorBehaviorTreeRepository;
         }
 
@@ -36,44 +40,31 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
                 return false;
             }
 
-            // Validate Behavior Tree is Valid
-            var treeShape = _actorBehaviorTreeRepository.FindTreeShape(
-                request.NewBehaviorTreeId
-            );
-            if (!treeShape.IsValid)
-            {
-                return false;
-            }
-
-            var agentBehavior = actor.GetProperty<AgentBehavior>(
-                AgentBehavior.PROPERTY_NAME
-            );
-
-            // Unregister current behavior tree to actor
-            _actorBehaviorTreeRepository.UnRegisterActor(
-                actor.Id
-            );
-
-            // Validate new behavior tree id exists
+            // Find behavior tree
             var newBehaviorTreeShape = _actorBehaviorTreeRepository.FindTreeShape(
-                request.NewBehaviorTreeId
+                request.NewBehaviorTreeShapeId
             );
-            if (!newBehaviorTreeShape.IsValid)
-            {
-                return false;
-            }
 
-            // Set actor behavior tree state to default, clearing it out.
-            actor.SetProperty<BehaviorTreeState>(
+            // Set actor behavior tree state to new shape, clearing it out.
+            actor = actor.SetProperty<BehaviorTreeState>(
                 BehaviorTreeState.PROPERTY_NAME,
                 new BehaviorTreeState(
                     newBehaviorTreeShape
                 )
             );
 
+            // The actors behavior
+            var agentBehavior = actor.GetProperty<AgentBehavior>(
+                AgentBehavior.PROPERTY_NAME
+            );
+
             // Update Actor Agent Behavior state
-            agentBehavior.TreeId = request.NewBehaviorTreeId;
-            actor.SetProperty(
+            agentBehavior.IsEnabled = true;
+            agentBehavior.TreeId = request.NewBehaviorTreeShapeId;
+            agentBehavior.NextTickRequest = _dateTime.Now.AddMilliseconds(
+                100
+            );
+            actor = actor.SetProperty(
                 AgentBehavior.PROPERTY_NAME,
                 agentBehavior
             );
@@ -84,11 +75,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
                 )
             );
 
-            // Register actor with new behavior tree
             await _mediator.Send(
-                new RegisterActorWithBehaviorTreeUpdate(
-                    actor.Id,
-                    request.NewBehaviorTreeId
+                new RegisterActorWithBehaviorTreeForNextTickCycle(
+                    request.NewBehaviorTreeShapeId,
+                    actor.Id
                 )
             );
 

@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
         public void Test_ShouldHaveExpectedValues()
         {
             //Given
-            var expectedId = 0;
+            var expectedId = 0L;
             var expectedType = EntityType.OTHER;
             var expectedTransform = default(
                 TransformState

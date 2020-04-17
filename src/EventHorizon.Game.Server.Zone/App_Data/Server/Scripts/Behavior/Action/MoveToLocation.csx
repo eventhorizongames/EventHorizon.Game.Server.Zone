@@ -40,11 +40,10 @@ if (!isAgentMoving)
     }
     var toPosition = toPositionNullable.Value;
     await Services.Mediator.Send(
-        new MoveAgentToPositionEvent
-        {
-            AgentId = actor.Id,
-            ToPosition = toPosition
-        }
+        new MoveAgentToPositionEvent(
+            actor.Id,
+            toPosition
+        )
     );
 
     // Set the ActorMoveToPosition to "null", 
