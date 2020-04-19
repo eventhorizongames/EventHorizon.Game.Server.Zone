@@ -34,9 +34,9 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
         )
         {
             _moveRepository.MergeRegisteredIntoQueue();
-            // PERF: Could be a problem in the future with a lot of Agents
+            // TODO: PERF: Could be a problem in the future with a lot of Agents
             // Solution: Move Agent processing to Shards/Partitioned Servers/Tasks of Agents
-            var entityCount = 0;
+            var runCount = 0;
             while (_moveRepository.Dequeue(out var entityId))
             {
                 // TODO: PERF: Work on getting this below 5ms average, currently 5-10ms
@@ -49,19 +49,25 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                         }
                     );
                 }
-                entityCount++;
-                if (entityCount > 10)
-                {
-                    _logger.LogWarning("Agent Movement List is over 10.");
-                }
-                if (entityCount > 25)
-                {
-                    _logger.LogWarning("Agent Movement List is over 25.");
-                    // FUTURE-CIRCUIT: Look at triggering an circuit
-                    // The circuit should keep tabs on how many times this is triggered and if
-                    //  a certain threshold is reached do something to fixed the to many agents running warnings.
-                    // break;
-                }
+                // TODO: Replace this with a timer,
+                //  should only run for as many as it can in a certain amount of time.
+                // FUTURE-CIRCUIT: Look at triggering an circuit
+                // The circuit should keep tabs on how many times this is triggered and if
+                //  a certain threshold is reached do something to fixed the to many agents running warnings.
+                runCount++;
+            }
+            // if (runCount > 10)
+            // {
+            //     _logger.LogWarning("MoveRegisteredAgentEvent Count is over 10.");
+            // }
+            if (runCount > 25)
+            {
+                _logger.LogWarning("MoveRegisteredAgentEvent Count is over 25.");
+                // FUTURE-CIRCUIT: Look at triggering an circuit
+                // The circuit should keep tabs on how many times this is triggered and if
+                //  a certain threshold is reached do something to fixed the to many agents running warnings.
+                //     // break;
+                _logger.LogWarning("MoveRegisteredAgentEvent Count is {Count}.", runCount);
             }
             return Task.CompletedTask;
         }

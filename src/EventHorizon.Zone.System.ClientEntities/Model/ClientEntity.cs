@@ -4,7 +4,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
 
-    public class ClientEntity : IObjectEntity
+    public struct ClientEntity : IObjectEntity
     {
         public string ClientEntityId { get; }
 
@@ -24,9 +24,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
         )
         {
             ClientEntityId = clientEntityId;
-            RawData = rawData;
+            Id = -1;
+            Name = string.Empty;
+            Transform = default(TransformState);
             TagList = new List<string>();
             Data = new Dictionary<string, object>();
+            RawData = rawData;
         }
 
         public bool IsFound() => !string.IsNullOrEmpty(

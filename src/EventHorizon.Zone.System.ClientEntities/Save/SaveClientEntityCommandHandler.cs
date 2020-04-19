@@ -12,19 +12,23 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     using EventHorizon.Zone.System.ClientEntities.Unregister;
     using EventHorizon.Zone.System.ClientEntities.Client;
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
+    using EventHorizon.Zone.System.ClientEntities.State;
 
     public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand>
     {
-        private readonly IJsonFileSaver _fileSaver;
         private readonly IMediator _mediator;
+        private readonly IJsonFileSaver _fileSaver;
+        private readonly ClientEntityRepository _repository;
 
         public SaveClientEntityCommandHandler(
             IMediator mediator,
-            IJsonFileSaver fileSaver
+            IJsonFileSaver fileSaver,
+            ClientEntityRepository repository
         )
         {
             _mediator = mediator;
             _fileSaver = fileSaver;
+            _repository = repository;
         }
 
         public async Task<Unit> Handle(
@@ -80,10 +84,14 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                     )
                 );
 
+                var registeredClientEntity = _repository.Find(
+                    request.ClientEntity.GlobalId
+                );
+
                 await _mediator.Publish(
                     new SendClientEntityChangedClientActionToAllEvent(
                         new ClientEntityChangedClientActionData(
-                            request.ClientEntity
+                            registeredClientEntity
                         )
                     )
                 );

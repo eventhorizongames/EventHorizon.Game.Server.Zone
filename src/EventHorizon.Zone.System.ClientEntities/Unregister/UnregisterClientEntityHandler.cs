@@ -5,9 +5,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister
     using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.System.ClientEntities.PopulateData;
     using EventHorizon.Zone.System.ClientEntities.State;
     using MediatR;
+    using EventHorizon.Zone.System.ClientEntities.Model;
 
     public class UnregisterClientEntityHandler : IRequestHandler<UnregisterClientEntity, bool>
     {

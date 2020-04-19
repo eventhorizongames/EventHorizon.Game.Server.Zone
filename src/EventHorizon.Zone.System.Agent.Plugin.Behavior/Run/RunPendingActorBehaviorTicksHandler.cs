@@ -51,14 +51,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                 // The circuit should keep tabs on how many times this is triggered and if
                 //  a certain threshold is reached do something to fixed the to many agents running warnings.
                 runCount++;
-                if (runCount > 10)
-                {
-                    _logger.LogWarning("ActorBehaviorTick Count is over 10.");
-                }
-                if (runCount > 25)
-                {
-                    _logger.LogWarning("ActorBehaviorTick Count is over 25.");
-                }
+            }
+            // if (runCount > 10)
+            // {
+            //     _logger.LogWarning("ActorBehaviorTick Count is over 10.");
+            // }
+            if (runCount > 25)
+            {
+                _logger.LogWarning("ActorBehaviorTick Count is over 25.");
+                _logger.LogWarning("RunActorBehaviorTick Count is {Count}.", runCount);
             }
             return Task.CompletedTask;
         }

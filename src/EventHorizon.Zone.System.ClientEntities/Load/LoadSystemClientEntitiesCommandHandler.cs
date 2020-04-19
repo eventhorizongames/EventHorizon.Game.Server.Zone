@@ -67,6 +67,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             }
             return Unit.Value;
         }
+        
         private async Task<IList<ClientEntityDetails>> GetClientEntitiesFromPath(
             string path
         )

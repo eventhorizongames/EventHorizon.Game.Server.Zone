@@ -1,7 +1,5 @@
 namespace EventHorizon.Game.Server.Zone
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using EventHorizon.Zone.System.ClientEntities.Load;
     using EventHorizon.Zone.System.ClientEntities.State;
     using MediatR;
@@ -18,9 +16,11 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<ClientEntityRepository, ClientEntityInMemoryRepository>()
             ;
         }
-        public static void UseSystemClientEntities(this IApplicationBuilder app)
+        public static void UseSystemClientEntities(
+            this IApplicationBuilder app
+        )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.CreateServiceScope())
             {
                 var mediator = serviceScope.ServiceProvider
                     .GetService<IMediator>();

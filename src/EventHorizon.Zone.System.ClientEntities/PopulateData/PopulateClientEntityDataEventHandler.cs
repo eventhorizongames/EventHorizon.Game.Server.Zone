@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientEntities.PopulateData
 {
     using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.ClientEntities.Model;
     using global::System;
     using global::System.Numerics;
     using global::System.Threading;
@@ -49,16 +50,5 @@ namespace EventHorizon.Zone.System.ClientEntities.PopulateData
 
             return Task.CompletedTask;
         }
-    }
-
-    // TODO: Move to Model namespace
-    public class ClientEntityMetadataTypes 
-    {
-        public static ClientEntityMetadataTypes TYPE_DETAILS = new ClientEntityMetadataTypes();
-        public Type assetId = typeof(string);
-        public Type dense = typeof(bool);
-        public Type densityBox = typeof(Nullable<Vector3>);
-        public Type resolveHeight = typeof(bool);
-        public Type heightOffset = typeof(long);
     }
 }

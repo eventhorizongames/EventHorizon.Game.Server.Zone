@@ -8,7 +8,6 @@ namespace EventHorizon.Zone.System.ClientEntities.State
     {
         private readonly ConcurrentDictionary<string, ClientEntity> INSTANCE_MAP = new ConcurrentDictionary<string, ClientEntity>();
 
-
         public ClientEntity Find(
             string id
         )
