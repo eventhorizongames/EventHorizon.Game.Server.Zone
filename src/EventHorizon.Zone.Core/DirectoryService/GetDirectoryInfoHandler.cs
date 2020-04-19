@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.DirectoryService
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using MediatR;
+
     public class GetDirectoryInfoHandler : IRequestHandler<GetDirectoryInfo, StandardDirectoryInfo>
     {
-        readonly DirectoryResolver _directoryResolver;
+        private readonly DirectoryResolver _directoryResolver;
 
         public GetDirectoryInfoHandler(
             DirectoryResolver directoryResolver
@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.Core.DirectoryService
         {
             _directoryResolver = directoryResolver;
         }
-        
+
         public Task<StandardDirectoryInfo> Handle(
             GetDirectoryInfo request,
             CancellationToken cancellationToken

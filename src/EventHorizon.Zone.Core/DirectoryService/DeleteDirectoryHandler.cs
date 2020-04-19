@@ -1,14 +1,15 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.DirectoryService
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using MediatR;
+
     public class DeleteDirectoryHandler : IRequestHandler<DeleteDirectory, bool>
     {
-        readonly DirectoryResolver _directoryResolver;
+        private readonly DirectoryResolver _directoryResolver;
 
         public DeleteDirectoryHandler(
             DirectoryResolver directoryResolver
@@ -29,13 +30,9 @@ namespace EventHorizon.Zone.Core.DirectoryService
                 _directoryResolver.DeleteDirectory(
                     request.DirectoryFullName
                 );
-                return Task.FromResult(
-                    true
-                );
+                return true.FromResult();
             }
-            return Task.FromResult(
-                false
-            );
+            return false.FromResult();
         }
     }
 }

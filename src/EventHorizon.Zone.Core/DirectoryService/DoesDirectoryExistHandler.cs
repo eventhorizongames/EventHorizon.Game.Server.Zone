@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.DirectoryService
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using MediatR;
+
     public class DoesDirectoryExistHandler : IRequestHandler<DoesDirectoryExist, bool>
     {
-        readonly DirectoryResolver _directoryResolver;
+        private readonly DirectoryResolver _directoryResolver;
 
         public DoesDirectoryExistHandler(
             DirectoryResolver directoryResolver
@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.Core.DirectoryService
         }
 
         public Task<bool> Handle(
-            DoesDirectoryExist request, 
+            DoesDirectoryExist request,
             CancellationToken cancellationToken
         ) => Task.FromResult(
             _directoryResolver.DoesDirectoryExist(
