@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Model.Entity;
@@ -17,7 +18,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Query
         {
             // Given
             var result = new List<ClientEntity>();
-            var expected = result as IEnumerable<IObjectEntity>;
+            var expected = result.Cast<IObjectEntity>();
 
             var clientEntityRepositoryMock = new Mock<ClientEntityRepository>();
 

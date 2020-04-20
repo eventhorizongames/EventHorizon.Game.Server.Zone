@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
 
     public struct ClientEntity : IObjectEntity
     {
-        public string ClientEntityId { get; }
+        public string ClientEntityId { get; set; }
 
         public string GlobalId => this.ClientEntityId;
         public EntityType Type => EntityType.OTHER;
@@ -15,7 +15,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
         public string Name { get; set; }
         public TransformState Transform { get; set; }
         public IList<string> TagList { get; set; }
-        public Dictionary<string, object> Data { get; }
+        public Dictionary<string, object> Data { get; set; }
         public Dictionary<string, object> RawData { get; set; }
 
         public ClientEntity(

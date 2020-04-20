@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Query
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.State;
     using global::System.Collections.Generic;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -24,7 +25,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Query
         )
         {
             return Task.FromResult(
-                _clientEntityRepository.All() as IEnumerable<IObjectEntity>
+                _clientEntityRepository.All()
+                    .Cast<IObjectEntity>()
             );
         }
     }
