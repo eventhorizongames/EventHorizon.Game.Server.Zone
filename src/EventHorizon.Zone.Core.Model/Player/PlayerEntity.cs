@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.Core.Model.Player
 {
-    using System.Collections.Generic;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
 
     public struct PlayerEntity : IObjectEntity
     {
@@ -24,25 +25,25 @@ namespace EventHorizon.Zone.Core.Model.Player
         public IList<string> TagList { get; set; }
         public string ConnectionId { get; set; }
 
-        private Dictionary<string, object> _data;
-        private Dictionary<string, object> _rawData;
-        public Dictionary<string, object> RawData
+        private ConcurrentDictionary<string, object> _data;
+        private ConcurrentDictionary<string, object> _rawData;
+        public ConcurrentDictionary<string, object> RawData
         {
             get
             {
-                return _rawData ?? new Dictionary<string, object>();
+                return _rawData ?? new ConcurrentDictionary<string, object>();
             }
             set
             {
-                _data = new Dictionary<string, object>();
+                _data = new ConcurrentDictionary<string, object>();
                 _rawData = value;
             }
         }
-        public Dictionary<string, object> Data
+        public ConcurrentDictionary<string, object> Data
         {
             get
             {
-                return _data ?? new Dictionary<string, object>();
+                return _data ?? new ConcurrentDictionary<string, object>();
             }
         }
 

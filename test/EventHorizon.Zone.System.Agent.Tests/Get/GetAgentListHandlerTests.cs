@@ -1,12 +1,13 @@
-using Xunit;
-using Moq;
-using EventHorizon.Zone.System.Agent.Model;
-using System.Collections.Generic;
+using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Get;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model.State;
+using Moq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Events.Get;
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
 {
@@ -18,13 +19,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
             // Given
             var agentRepositoryMock = new Mock<IAgentRepository>();
             var expectedAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 123
             };
             var expectedAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 321

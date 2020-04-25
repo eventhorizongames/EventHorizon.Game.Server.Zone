@@ -1,15 +1,14 @@
-using Xunit;
-using Moq;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Register.Handler;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.System.Agent.Events.Register;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Register.Handler;
+using MediatR;
+using Moq;
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
 {
@@ -22,7 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             var entityId = 123;
             var agentId = "agent-id";
             var inputAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = agentId
@@ -31,7 +30,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 agentId
             );
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = entityId
@@ -99,7 +98,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
         {
             // Given
             var inputAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             var mediatorMock = new Mock<IMediator>();
@@ -151,7 +150,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
             // Given
             var inputId = 123;
             var inputAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             var expectedRegisterEntityEvent = new RegisterEntityEvent
@@ -159,7 +158,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 Entity = inputAgent
             };
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId

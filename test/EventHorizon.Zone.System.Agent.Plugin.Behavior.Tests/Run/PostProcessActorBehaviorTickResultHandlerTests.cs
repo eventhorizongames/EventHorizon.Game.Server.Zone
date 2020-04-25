@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
     using global::System;
-    using global::System.Collections.Generic;
+    using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             );
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -107,7 +107,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             );
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
             var result = new BehaviorTreeState(
                 default
@@ -178,7 +178,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorBehaviorTreeShape
             );
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -257,7 +257,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorBehaviorTreeShape
             );
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -335,7 +335,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorBehaviorTreeShape
             );
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -425,7 +425,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorBehaviorTreeShape
             );
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId

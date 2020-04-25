@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-    using global::System.Collections.Generic;
+    using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -53,7 +53,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
         {
             //Given
             var inputEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 1L,
@@ -92,7 +92,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
         {
             //Given
             var inputEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 1L,
@@ -135,7 +135,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
         {
             //Given
             var inputEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 1L,
@@ -178,7 +178,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
         {
             //Given
             var inputEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 1L,
@@ -223,7 +223,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Change
             var expectedActorId = 1L;
             var expectedShapeId = "shape-id";
             var inputEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = expectedActorId,

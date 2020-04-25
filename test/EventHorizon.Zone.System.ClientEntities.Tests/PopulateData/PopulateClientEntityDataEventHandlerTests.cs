@@ -1,13 +1,14 @@
 namespace EventHorizon.Zone.System.ClientEntities.Tests.PopulateData
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.PopulateData;
+    using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.ClientEntities.Model;
-    using EventHorizon.Zone.System.ClientEntities.PopulateData;
     using Xunit;
-    using EventHorizon.Zone.Core.Model.Entity;
 
     public class PopulateClientEntityDataEventHandlerTests
     {
@@ -23,14 +24,16 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.PopulateData
 
             var clientEntity = new ClientEntity(
                 "client-entity",
-                new Dictionary<string, object>
-                {
-                    { "assetId", expectedAssetId },
-                    { "dense", expectedDense },
-                    { "densityBox", expectedDensityBox },
-                    { "resolveHeight", expectedResolveHeight },
-                    { "heightOffset", expectedheightOffset }
-                }
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { "assetId", expectedAssetId },
+                        { "dense", expectedDense },
+                        { "densityBox", expectedDensityBox },
+                        { "resolveHeight", expectedResolveHeight },
+                        { "heightOffset", expectedheightOffset }
+                    }
+                )
             );
 
             // When

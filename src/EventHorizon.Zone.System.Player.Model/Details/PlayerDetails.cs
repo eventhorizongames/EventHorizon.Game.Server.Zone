@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.System.Player.Model.Details
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.Core.Model.Core;
+    using global::System.Collections.Concurrent;
 
     public struct PlayerDetails
     {
@@ -10,7 +10,7 @@ namespace EventHorizon.Zone.System.Player.Model.Details
         public string Locale { get; set; }
         public TransformState Transform { get; set; }
         public LocationState Location { get; set; }
-        public Dictionary<string, object> Data { get; set; }
+        public ConcurrentDictionary<string, object> Data { get; set; }
 
         public bool IsNew()
         {

@@ -1,9 +1,5 @@
 namespace EventHorizon.Zone.System.Player.Tests.Connected
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Model.Core;
@@ -14,6 +10,10 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+    using global::System;
+    using global::System.Collections.Concurrent;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
     using Moq;
     using Xunit;
@@ -100,7 +100,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 {
                     CurrentZone = currentZoneServerId
                 },
-                Data = new Dictionary<string, object>(),
+                Data = new ConcurrentDictionary<string, object>(),
             };
 
             var mediatorMock = new Mock<IMediator>();
@@ -181,7 +181,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 {
                     CurrentZone = "not-current-zone"
                 },
-                Data = new Dictionary<string, object>()
+                Data = new ConcurrentDictionary<string, object>()
             };
 
             var mediatorMock = new Mock<IMediator>();

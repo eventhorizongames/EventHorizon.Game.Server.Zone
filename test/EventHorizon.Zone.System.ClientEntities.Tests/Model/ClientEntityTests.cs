@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.ClientEntities.Model;
 using FluentAssertions;
+using System.Collections.Concurrent;
 using Xunit;
 
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Model
@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Model
         {
             // Given
             var clientEntityId = "client-entity-id";
-            var rawData = new Dictionary<string, object>();
+            var rawData = new ConcurrentDictionary<string, object>();
             var expectedId = -1;
             var expectedType = EntityType.OTHER;
 

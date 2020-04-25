@@ -1,9 +1,5 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Find;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
@@ -12,6 +8,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+    using global::System;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
     using Moq;
@@ -27,7 +28,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var nextTickRequest = DateTime.MinValue.AddSeconds(5);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -184,7 +185,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             // Given
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
             var shapeId = "shape";
             var shape = new ActorBehaviorTreeShape(
@@ -258,7 +259,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var nextTickRequest = DateTime.MinValue.AddSeconds(10);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -347,7 +348,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var nextTickRequest = DateTime.MinValue.AddSeconds(10);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -439,7 +440,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var expectedNextTickRequest = now.AddSeconds(15);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -528,7 +529,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var nextTickRequest = DateTime.MinValue.AddSeconds(5);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -616,7 +617,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var nextTickRequest = DateTime.MinValue.AddSeconds(5);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId
@@ -708,7 +709,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var expectedNextTickRequest = now.AddMilliseconds(100);
             var actorId = 1L;
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId

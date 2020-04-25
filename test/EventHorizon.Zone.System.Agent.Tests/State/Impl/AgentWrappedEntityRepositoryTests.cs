@@ -1,11 +1,12 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Model;
-using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity.State;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.State;
+using Moq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 {
@@ -16,28 +17,28 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
         {
             // Given
             var expectedAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 1,
                 Type = EntityType.AGENT
             };
             var expectedAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 2,
                 Type = EntityType.AGENT
             };
             var expectedAgent3 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 3,
                 Type = EntityType.AGENT
             };
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 9999,
@@ -89,7 +90,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
         {
             // Given
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 9999,
@@ -128,28 +129,28 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
             // Given
             var inputId = 1L;
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,
                 Type = EntityType.AGENT
             };
             var otherAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 2,
                 Type = EntityType.AGENT
             };
             var otherAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 3,
                 Type = EntityType.AGENT
             };
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 9999,
@@ -194,28 +195,28 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
             // Given
             var agentId = "agent-id";
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = agentId,
                 Type = EntityType.AGENT
             };
             var otherAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-2",
                 Type = EntityType.AGENT
             };
             var otherAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-3",
                 Type = EntityType.AGENT
             };
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-4000",
@@ -259,7 +260,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
         {
             // Given
             var expectedAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-1",
@@ -267,7 +268,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 Type = EntityType.AGENT
             };
             var expectedAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-2",
@@ -275,7 +276,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 Type = EntityType.AGENT
             };
             var otherAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-3",
@@ -283,7 +284,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 Type = EntityType.AGENT
             };
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = "agent-id-4000",
@@ -329,21 +330,21 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
             // Given
             var inputId = 1L;
             var otherAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 2,
                 Type = EntityType.AGENT
             };
             var otherAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 3,
                 Type = EntityType.AGENT
             };
             var otherEntity1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 9999,
@@ -388,7 +389,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
             // Given
             var expectedEntityAction = EntityAction.POSITION;
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = 3,

@@ -2,7 +2,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 {
     using EventHorizon.Performance;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
-    using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -56,9 +55,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             // {
             //     _logger.LogWarning("ActorBehaviorTick Count is over 10.");
             // }
-            if (runCount > 25)
+            if (runCount > 100)
             {
-                _logger.LogWarning("ActorBehaviorTick Count is over 25.");
+                _logger.LogWarning("ActorBehaviorTick Count is over 100.");
                 _logger.LogWarning("RunActorBehaviorTick Count is {Count}.", runCount);
             }
             return Task.CompletedTask;

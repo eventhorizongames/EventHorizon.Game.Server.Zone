@@ -1,23 +1,24 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
 {
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.Path;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Move.Register;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
     using global::System;
+    using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Model;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.Core.Model.Entity;
     using MediatR;
     using Moq;
     using Xunit;
-    using EventHorizon.Zone.System.Agent.Model.State;
-    using EventHorizon.Zone.System.Agent.Events.Move;
-    using EventHorizon.Zone.System.Agent.Move.Register;
-    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-    using EventHorizon.Zone.System.Agent.Model.Path;
-    using EventHorizon.Zone.Core.Events.Entity.Movement;
 
     public class MoveRegisteredAgentHandlerTests
     {
@@ -32,7 +33,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 2
             );
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,
@@ -141,7 +142,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             // Given
             var inputId = 123L;
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,
@@ -217,7 +218,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             // Given
             var inputId = 123L;
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,
@@ -304,7 +305,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             // Given
             var inputId = 123L;
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,
@@ -394,7 +395,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             var inputId = 123;
             var expectedMoveTo = new Vector3(2, 2, 2);
             var expectedAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId,

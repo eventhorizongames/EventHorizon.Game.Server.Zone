@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
     using global::System;
-    using global::System.Collections.Generic;
+    using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorId
             );
             var actor = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = actorId,

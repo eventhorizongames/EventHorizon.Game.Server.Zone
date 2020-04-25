@@ -146,7 +146,7 @@
                     "IsValid": true
                 },
                 "movementState": {
-                    "Speed": 0.5
+                    "Speed": 1
                 },
                 "agentWildState": {
                     "DistanceToRunAway": 25,

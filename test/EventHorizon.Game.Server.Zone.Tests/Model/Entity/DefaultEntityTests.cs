@@ -1,8 +1,9 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
 {
-    using System.Collections.Generic;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using Xunit;
 
     public class DefaultEntityTests
@@ -73,7 +74,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             //When
             var defaultEntity = new DefaultEntity()
             {
-                RawData = new Dictionary<string, object>()
+                RawData = new ConcurrentDictionary<string, object>()
             };
             defaultEntity.Data["someProperty"] = expected;
             var actual = defaultEntity.GetProperty<string>(
@@ -94,15 +95,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             var expected = "Some Data Property";
 
             //When
+            var rawData = new ConcurrentDictionary<string, object>();
+            rawData["SomeData"] = expected;
             var defaultEntity = new DefaultEntity()
             {
-                RawData = new Dictionary<string, object>()
-                {
-                    {
-                        "SomeData",
-                        expected
-                    }
-                }
+                RawData = rawData,
             };
             defaultEntity.PopulateData<string>(
                 "SomeData"

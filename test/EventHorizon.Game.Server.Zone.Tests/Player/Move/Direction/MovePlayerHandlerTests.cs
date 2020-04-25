@@ -1,26 +1,21 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Player.Model;
-using System;
-using System.Numerics;
-using MediatR;
-using System.Threading;
-using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Events.Map;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.System.Player.Events.Update;
 using EventHorizon.Game.Server.Zone.Player.Action.Direction;
-using EventHorizon.Game.Server.Zone.Player.Move.Model;
-using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Game.Server.Zone.Player.Move.Direction;
-using EventHorizon.Zone.Core.Events.Entity.Update;
+using EventHorizon.Game.Server.Zone.Player.Move.Model;
 using EventHorizon.Zone.Core.Events.Entity.Movement;
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Core;
+using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Entity;
-using System.Collections.Generic;
+using EventHorizon.Zone.Core.Model.Map;
+using EventHorizon.Zone.Core.Model.Player;
+using MediatR;
+using Moq;
+using System;
+using System.Collections.Concurrent;
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 {
@@ -107,7 +102,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 {
                     Position = currentPosition,
                 },
-                RawData = new Dictionary<string, object>(),
+                RawData = new ConcurrentDictionary<string, object>(),
             };
             inputPlayer.PopulateData<LocationState>(
                 LocationState.PROPERTY_NAME,

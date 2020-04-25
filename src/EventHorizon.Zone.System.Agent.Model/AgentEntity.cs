@@ -1,9 +1,10 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.System.Agent.Model
 {
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+
     public struct AgentEntity : IObjectEntity
     {
         private static AgentEntity NULL = default(AgentEntity);
@@ -12,8 +13,8 @@ namespace EventHorizon.Zone.System.Agent.Model
             return NULL;
         }
 
-        private Dictionary<string, object> _data;
-        private Dictionary<string, object> _rawData;
+        private ConcurrentDictionary<string, object> _data;
+        private ConcurrentDictionary<string, object> _rawData;
 
         public long Id { get; set; }
         public bool IsGlobal { get; set; }
@@ -31,7 +32,7 @@ namespace EventHorizon.Zone.System.Agent.Model
         public IList<string> TagList { get; set; }
 
         public string Name { get; set; }
-        public Dictionary<string, object> RawData
+        public ConcurrentDictionary<string, object> RawData
         {
             get
             {
@@ -39,15 +40,15 @@ namespace EventHorizon.Zone.System.Agent.Model
             }
             set
             {
-                _data = new Dictionary<string, object>();
+                _data = new ConcurrentDictionary<string, object>();
                 _rawData = value;
                 if (_rawData == null)
                 {
-                    _rawData = new Dictionary<string, object>();
+                    _rawData = new ConcurrentDictionary<string, object>();
                 }
             }
         }
-        public Dictionary<string, object> Data
+        public ConcurrentDictionary<string, object> Data
         {
             get
             {
@@ -56,11 +57,11 @@ namespace EventHorizon.Zone.System.Agent.Model
         }
 
         public AgentEntity(
-            Dictionary<string, object> rawData
+            ConcurrentDictionary<string, object> rawData
         )
         {
-            _data = new Dictionary<string, object>();
-            _rawData = rawData ?? new Dictionary<string, object>();
+            _data = new ConcurrentDictionary<string, object>();
+            _rawData = rawData ?? new ConcurrentDictionary<string, object>();
             Id = -1L;
             IsGlobal = false;
             AgentId = string.Empty;

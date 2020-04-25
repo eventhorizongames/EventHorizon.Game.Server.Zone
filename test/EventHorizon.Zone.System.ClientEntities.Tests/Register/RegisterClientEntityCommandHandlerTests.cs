@@ -1,17 +1,18 @@
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.ClientEntities.Model;
-    using Xunit;
-    using Moq;
-    using MediatR;
-    using EventHorizon.Zone.System.ClientEntities.State;
-    using EventHorizon.Zone.System.ClientEntities.Register;
-    using global::System.Threading;
-    using global::System.Numerics;
-    using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Events.Map.Cost;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Register;
+    using EventHorizon.Zone.System.ClientEntities.State;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
 
     public class RegisterClientEntityCommandHandlerTests
     {
@@ -21,7 +22,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
             // Given
             var expected = new ClientEntity(
                 "client-entity",
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             var mediatorMock = new Mock<IMediator>();
@@ -61,11 +62,13 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
             );
             var clientEntity = new ClientEntity(
                 "client-entity",
-                new Dictionary<string, object>
-                {
-                    { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense), true },
-                    { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox), densityBox },
-                }
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense), true },
+                        { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox), densityBox },
+                    }
+                )
             );
             clientEntity.PopulateData<bool>(
                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
@@ -111,10 +114,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
             );
             var clientEntity = new ClientEntity(
                 "client-entity",
-                new Dictionary<string, object>
-                {
-                    { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense), true },
-                }
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense), true },
+                    }
+                )
             );
             clientEntity.PopulateData<bool>(
                 nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)

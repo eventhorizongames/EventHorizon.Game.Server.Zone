@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Agent.Connection.Model
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.Core.Model.Core;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
 
     public class AgentDetails
     {
@@ -10,6 +11,6 @@ namespace EventHorizon.Zone.System.Agent.Connection.Model
         public TransformState Transform { get; set;  }
         public LocationState Location { get; set; }
         public IList<string> TagList { get; set; }
-        public Dictionary<string, object> Data { get; set; }
+        public ConcurrentDictionary<string, object> Data { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 namespace EventHorizon.Zone.System.ClientEntities.Load
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.ClientEntities.Register;
-    using MediatR;
-    using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.Query;
+    using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
 
     /// <summary>
     /// TODO: Load Recursively from root path
@@ -83,7 +83,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
                     fileInfo.FullName
                 );
                 // TODO: Move the editor:Metadata:FullName into a constats file.
-                client.Data["editor:Metadata:FullName"] = fileInfo.FullName;
+                client.Data[ClientEntityConstants.METADATA_FILE_FULL_NAME] = fileInfo.FullName;
                 result.Add(
                     client
                 );

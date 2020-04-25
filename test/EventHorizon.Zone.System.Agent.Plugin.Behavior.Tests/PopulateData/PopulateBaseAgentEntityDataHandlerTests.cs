@@ -1,12 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Events.PopulateData;
 using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.PopulateData;
-using Xunit;
-using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using System.Collections.Generic;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.PopulateData;
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.PopulateData
 {
@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.PopulateData
             // Given
             var expected = "DEFAULT";
             var agent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
             var behaviorPropertyName = "behavior";
 

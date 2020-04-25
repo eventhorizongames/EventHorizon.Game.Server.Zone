@@ -1,20 +1,21 @@
 namespace EventHorizon.Zone.System.ClientEntities.Save
 {
-    using MediatR;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.Backup.Events;
+    using EventHorizon.Zone.System.ClientEntities.Client;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Model.Client;
+    using EventHorizon.Zone.System.ClientEntities.Register;
+    using EventHorizon.Zone.System.ClientEntities.State;
+    using EventHorizon.Zone.System.ClientEntities.Unregister;
+    using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.System.Backup.Events;
-    using global::System;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.ClientEntities.Register;
-    using EventHorizon.Zone.System.Agent.Save.Mapper;
-    using EventHorizon.Zone.System.ClientEntities.Unregister;
-    using EventHorizon.Zone.System.ClientEntities.Client;
-    using EventHorizon.Zone.System.ClientEntities.Model.Client;
-    using EventHorizon.Zone.System.ClientEntities.State;
+    using MediatR;
 
-    public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand>
+    public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand, SaveClientEntityResponse>
     {
         private readonly IMediator _mediator;
         private readonly IJsonFileSaver _fileSaver;
@@ -31,7 +32,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(
+        public async Task<SaveClientEntityResponse> Handle(
             SaveClientEntityCommand request,
             CancellationToken cancellationToken
         )
@@ -39,7 +40,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
             try
             {
                 request.ClientEntity.Data.Clear();
-                var fileFullName = request.ClientEntity.RawData["editor:Metadata:FullName"] as string;
+                var fileFullName = request.ClientEntity.RawData[ClientEntityConstants.METADATA_FILE_FULL_NAME] as string;
                 var fileInfo = await _mediator.Send(
                     new GetFileInfo(
                         fileFullName
@@ -95,12 +96,17 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                         )
                     )
                 );
+                return new SaveClientEntityResponse(
+                    true,
+                    registeredClientEntity
+                );
             }
             catch (Exception)
             {
-                throw;
+                return new SaveClientEntityResponse(
+                    "exception"
+                );
             }
-            return Unit.Value;
         }
     }
 }

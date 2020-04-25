@@ -1,12 +1,12 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
-    using Xunit;
-    using EventHorizon.Zone.System.Agent.Model;
-    using System.Numerics;
     using EventHorizon.Zone.Core.Model.Core;
-    using System.Collections.Generic;
-    using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using System.Collections.Concurrent;
+    using System.Numerics;
+    using Xunit;
 
     public class AgentFromEntityToDetailsTests
     {
@@ -25,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
                 ZoneTag = "test"
             };
             var inputAgent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Name = expectedName,

@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "EventHorizon.Game.Server.Zone": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5082",
+        "HOST": "http://localhost:5082"
+      },
+      "applicationUrl": "http://localhost:5082"
+    }
+  }
+}

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Json;
@@ -13,6 +9,10 @@ using EventHorizon.Zone.System.ClientEntities.Save;
 using EventHorizon.Zone.System.ClientEntities.State;
 using MediatR;
 using Moq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
@@ -27,10 +27,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
             var fullName = "full-name";
             var clientEntity = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>
-                {
-                    { "editor:Metadata:FullName", fullName }
-                }
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { "editor:Metadata:FullName", fullName }
+                    }
+                )
             );
             var expected = new ClientEntityChangedClientActionData(
                 clientEntity
@@ -83,10 +85,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
             var fullName = "full-name";
             var clientEntity = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>
-                {
-                    { "editor:Metadata:FullName", fullName }
-                }
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { "editor:Metadata:FullName", fullName }
+                    }
+                )
             );
             var expectedPath = new string[] { "Client", "Entity" };
             var expectedFileName = fileName;
@@ -168,10 +172,10 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
         }
 
         [Fact]
-        public async Task ShouldBubbleExceptionWhenAnyExceptionIsThrown()
+        public async Task ShouldReturnFailedResponseWithErrorCodeWhenExceptionIsThrown()
         {
             // Given
-            var expected = "Object reference not set to an instance of an object.";
+            var expected = "exception";
             var clientEntity = new ClientEntity(
                 "client-id",
                 null
@@ -187,20 +191,20 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
                 fileSaverMock.Object,
                 repositoryMock.Object
             );
-            Func<Task> action = () => handler.Handle(
+            var actual = await handler.Handle(
                 new SaveClientEntityCommand(
                     clientEntity
                 ),
                 CancellationToken.None
             );
-            var actual = await Assert.ThrowsAsync<NullReferenceException>(
-                action
-            );
 
             // Then
+            Assert.False(
+                actual.Success
+            );
             Assert.Equal(
                 expected,
-                actual.Message
+                actual.ErrorCode
             );
         }
     }

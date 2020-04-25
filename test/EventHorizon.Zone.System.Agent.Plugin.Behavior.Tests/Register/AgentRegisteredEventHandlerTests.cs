@@ -1,8 +1,5 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Register;
@@ -10,6 +7,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+    using global::System.Collections.Concurrent;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
     using Moq;
     using Xunit;
@@ -24,7 +24,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
             var agentEntityId = 1L;
             var treeId = "tree-id";
             var agentEntity = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = agentEntityId

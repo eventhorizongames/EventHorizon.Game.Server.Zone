@@ -8,6 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Position;
+    using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
@@ -56,7 +57,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
             var expectedAgentId = 1L;
             var agentPosition = new Vector3(2, 2, 2);
             var agent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = expectedAgentId,

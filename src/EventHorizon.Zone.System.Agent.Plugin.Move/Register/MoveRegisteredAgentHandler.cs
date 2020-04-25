@@ -1,21 +1,20 @@
 namespace EventHorizon.Zone.System.Agent.Move.Register
 {
-    using global::System;
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.Path;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Model;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using EventHorizon.Zone.Core.Model.Entity;
     using MediatR;
-    using EventHorizon.Zone.System.Agent.Events.Move;
-    using EventHorizon.Zone.System.Agent.Model.State;
-    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-    using EventHorizon.Zone.Core.Events.Entity.Movement;
-    using EventHorizon.Zone.System.Agent.Model.Path;
-    using EventHorizon.Zone.Core.Events.Entity.Update;
-    using EventHorizon.Zone.Core.Model.Core;
 
     public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>
     {
@@ -43,6 +42,10 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             var agent = await _agentRepository.FindById(
                 entityId
             );
+            if (!agent.IsFound())
+            {
+                return;
+            }
             var pathState = agent.GetProperty<PathState>(
                 PathState.PROPERTY_NAME
             );

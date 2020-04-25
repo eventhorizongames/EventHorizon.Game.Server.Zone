@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.Core.Model.Entity
 {
-    using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
-    using System.Text.Json;
-    using System.Buffers;
     using System;
+    using System.Buffers;
+    using System.Collections.Concurrent;
+    using System.Text.Json;
 
     public static class DataPropertyExtensions
     {
@@ -117,11 +117,11 @@ namespace EventHorizon.Zone.Core.Model.Entity
             return entity.GetProperty<T>(prop);
         }
 
-        public static Dictionary<string, object> AllData(
+        public static ConcurrentDictionary<string, object> AllData(
             this IObjectEntity entity
         )
         {
-            var data = new Dictionary<string, object>();
+            var data = new ConcurrentDictionary<string, object>();
             foreach (var prop in entity.RawData)
             {
                 data[prop.Key] = prop.Value;

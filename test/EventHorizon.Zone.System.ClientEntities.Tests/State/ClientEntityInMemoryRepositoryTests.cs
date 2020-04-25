@@ -1,9 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EventHorizon.Zone.System.ClientEntities.Model;
 using EventHorizon.Zone.System.ClientEntities.State;
 using FluentAssertions;
+using System.Collections.Concurrent;
 using Xunit;
 
 namespace EventHorizon.Zone.System.ClientEntities.Tests.State
@@ -37,7 +35,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.State
             var clientEntityId = "client-entity-id";
             var expected = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             // When
@@ -63,11 +61,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.State
             var clientEntityId = "client-entity-id";
             var first = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
             var expected = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             // When
@@ -95,11 +93,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.State
             // Given
             var expectedFirst = new ClientEntity(
                 "1-client-entity-first-id",
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
             var expectedSecond = new ClientEntity(
                 "2-client-entity-second-id",
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             // When
@@ -128,7 +126,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.State
             var clientEntityId = "client-entity-id";
             var expectedFirst = new ClientEntity(
                 clientEntityId,
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             );
 
             // When

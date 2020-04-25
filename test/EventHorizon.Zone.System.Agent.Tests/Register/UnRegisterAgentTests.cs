@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Model;
-using MediatR;
-using Moq;
-using Xunit;
+using EventHorizon.Zone.Core.Events.Entity.Register;
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.Core.Events.Entity.Register;
+using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.UnRegister;
-using System.Collections.Generic;
+using MediatR;
+using Moq;
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register
 {
@@ -73,7 +73,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register
             // Given
             var agentId = "123";
             var agent = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 AgentId = agentId

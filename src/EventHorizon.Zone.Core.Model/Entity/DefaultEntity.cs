@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.Core.Model.Entity
 {
-    using System.Collections.Generic;
     using EventHorizon.Zone.Core.Model.Core;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
 
     public struct DefaultEntity : IObjectEntity
     {
@@ -22,11 +23,11 @@ namespace EventHorizon.Zone.Core.Model.Entity
         public TransformState Transform { get; set; }
         public IList<string> TagList { get; set; }
 
-        private Dictionary<string, object> _data;
-        private Dictionary<string, object> _rawData;
+        private ConcurrentDictionary<string, object> _data;
+        private ConcurrentDictionary<string, object> _rawData;
 
         public DefaultEntity(
-            Dictionary<string, object> rawData
+            ConcurrentDictionary<string, object> rawData
         ) : this()
         {
             Id = -1L;
@@ -34,30 +35,30 @@ namespace EventHorizon.Zone.Core.Model.Entity
             // GlobalId = null;
             Transform = default(TransformState);
             TagList = null;
-            _data = new Dictionary<string, object>();
-            _rawData = rawData ?? new Dictionary<string, object>();
+            _data = new ConcurrentDictionary<string, object>();
+            _rawData = rawData ?? new ConcurrentDictionary<string, object>();
         }
 
-        public Dictionary<string, object> RawData
+        public ConcurrentDictionary<string, object> RawData
         {
             get
             {
-                return _rawData ?? (_rawData = new Dictionary<string, object>());
+                return _rawData ?? (_rawData = new ConcurrentDictionary<string, object>());
             }
             set
             {
                 if (_data == null)
-                    _data = new Dictionary<string, object>();
+                    _data = new ConcurrentDictionary<string, object>();
                 else
                     _data.Clear();
                 _rawData = value;
             }
         }
-        public Dictionary<string, object> Data
+        public ConcurrentDictionary<string, object> Data
         {
             get
             {
-                return _data ?? (_data = new Dictionary<string, object>());
+                return _data ?? (_data = new ConcurrentDictionary<string, object>());
             }
         }
 

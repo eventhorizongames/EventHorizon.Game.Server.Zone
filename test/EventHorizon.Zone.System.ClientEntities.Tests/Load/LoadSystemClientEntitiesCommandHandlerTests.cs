@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.FileService;
@@ -13,6 +10,10 @@ using EventHorizon.Zone.System.ClientEntities.Register;
 using EventHorizon.Zone.System.ClientEntities.Unregister;
 using MediatR;
 using Moq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
@@ -60,7 +61,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
                 (string path) => new ClientEntityDetails
                 {
                     Name = path,
-                    Data = new Dictionary<string, object>()
+                    Data = new ConcurrentDictionary<string, object>()
                 }
             );
 
@@ -101,7 +102,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
                 existingClientEntityList.Add(
                     new ClientEntity(
                         $"client-entity-{i}",
-                        new Dictionary<string, object>()
+                        new ConcurrentDictionary<string, object>()
                     )
                 );
             }

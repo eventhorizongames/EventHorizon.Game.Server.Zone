@@ -1,12 +1,12 @@
 namespace EventHorizon.Zone.System.Agent.Move.Register
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Performance;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
 
     public class MoveRegisteredAgentsHandler : INotificationHandler<MoveRegisteredAgentsEvent>
     {
@@ -60,13 +60,9 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             // {
             //     _logger.LogWarning("MoveRegisteredAgentEvent Count is over 10.");
             // }
-            if (runCount > 25)
+            if (runCount > 100)
             {
-                _logger.LogWarning("MoveRegisteredAgentEvent Count is over 25.");
-                // FUTURE-CIRCUIT: Look at triggering an circuit
-                // The circuit should keep tabs on how many times this is triggered and if
-                //  a certain threshold is reached do something to fixed the to many agents running warnings.
-                //     // break;
+                _logger.LogWarning("MoveRegisteredAgentEvent Count is over 100.");
                 _logger.LogWarning("MoveRegisteredAgentEvent Count is {Count}.", runCount);
             }
             return Task.CompletedTask;

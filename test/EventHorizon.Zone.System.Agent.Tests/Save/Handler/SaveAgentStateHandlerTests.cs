@@ -1,19 +1,20 @@
-using Xunit;
-using Moq;
 using EventHorizon.Performance;
-using EventHorizon.Zone.System.Agent.Save;
-using System.Threading.Tasks;
-using System.Threading;
-using EventHorizon.Zone.System.Agent.Model;
-using IOPath = System.IO.Path;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Model.State;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Agent.Save.Events;
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.Agent.Connection;
 using EventHorizon.Zone.System.Agent.Connection.Model;
+using EventHorizon.Zone.System.Agent.Model;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Save;
+using EventHorizon.Zone.System.Agent.Save.Events;
 using EventHorizon.Zone.System.Agent.Save.Model;
+using Moq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
+using IOPath = System.IO.Path;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
 {
@@ -26,19 +27,17 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var inputId1 = 123;
             var inputId2 = 321;
             var inputAgent1 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId1,
-                RawData = new Dictionary<string, object>(),
             };
             var inputAgent2 = new AgentEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = inputId2,
                 IsGlobal = true,
-                RawData = new Dictionary<string, object>(),
             };
             var inputAgentList = new List<AgentEntity>
             {

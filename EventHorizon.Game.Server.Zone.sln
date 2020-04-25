@@ -1,225 +1,227 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FE232CB9-E002-4898-9117-E3162928E341}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone", "src\EventHorizon.Game.Server.Zone\EventHorizon.Game.Server.Zone.csproj", "{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Zone", "src\EventHorizon.Game.Server.Zone\EventHorizon.Game.Server.Zone.csproj", "{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E21217AB-FD81-4F4D-8391-04C5DED1D324}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Server.Zone.Tests", "test\EventHorizon.Game.Server.Zone.Tests\EventHorizon.Game.Server.Zone.Tests.csproj", "{1BC6418A-D9D8-4092-AAAD-E77F0A35E9FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Zone.Tests", "test\EventHorizon.Game.Server.Zone.Tests\EventHorizon.Game.Server.Zone.Tests.csproj", "{1BC6418A-D9D8-4092-AAAD-E77F0A35E9FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Events", "src\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj", "{9D8FA792-86BA-46C2-839C-4B6B8162DB15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Events", "src\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj", "{9D8FA792-86BA-46C2-839C-4B6B8162DB15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Ai", "src\EventHorizon.Zone.System.Agent.Plugin.Ai\EventHorizon.Zone.System.Agent.Plugin.Ai.csproj", "{17F05F0A-85B5-4359-8E37-4C8B8CD71E09}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Ai", "src\EventHorizon.Zone.System.Agent.Plugin.Ai\EventHorizon.Zone.System.Agent.Plugin.Ai.csproj", "{17F05F0A-85B5-4359-8E37-4C8B8CD71E09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.I18n", "src\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj", "{366C5458-20AA-4753-ABAA-6628AF407FBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.I18n", "src\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj", "{366C5458-20AA-4753-ABAA-6628AF407FBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ServerModule", "src\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj", "{3B6BE15C-E4DE-4D32-93EF-884CF3C18B4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ServerModule", "src\EventHorizon.Zone.System.ServerModule\EventHorizon.Zone.System.ServerModule.csproj", "{3B6BE15C-E4DE-4D32-93EF-884CF3C18B4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Companion", "src\EventHorizon.Zone.System.Agent.Plugin.Companion\EventHorizon.Zone.System.Agent.Plugin.Companion.csproj", "{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Companion", "src\EventHorizon.Zone.System.Agent.Plugin.Companion\EventHorizon.Zone.System.Agent.Plugin.Companion.csproj", "{8C0118FC-D4E2-40E7-9EC9-42BE113B69FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Client.Scripts", "src\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj", "{A54BB3F5-9732-4C0A-8CD0-558C2CB41D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Client.Scripts", "src\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj", "{A54BB3F5-9732-4C0A-8CD0-558C2CB41D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.EntityModule", "src\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj", "{CF7551C8-3F5F-4622-B0B6-3B157D687625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.EntityModule", "src\EventHorizon.Zone.System.EntityModule\EventHorizon.Zone.System.EntityModule.csproj", "{CF7551C8-3F5F-4622-B0B6-3B157D687625}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Gui", "src\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj", "{93066DB1-AF83-459A-8C09-C94B998DC948}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Gui", "src\EventHorizon.Zone.System.Gui\EventHorizon.Zone.System.Gui.csproj", "{93066DB1-AF83-459A-8C09-C94B998DC948}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientEntities", "src\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj", "{C7BB78D1-6B46-49FC-A288-0A45C078F33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientEntities", "src\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj", "{C7BB78D1-6B46-49FC-A288-0A45C078F33C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets", "src\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj", "{B410FF60-6100-40AF-81A3-4C8A0B1C07F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientAssets", "src\EventHorizon.Zone.System.ClientAssets\EventHorizon.Zone.System.ClientAssets.csproj", "{B410FF60-6100-40AF-81A3-4C8A0B1C07F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Performance", "src\EventHorizon.Performance\EventHorizon.Performance.csproj", "{E409A459-51F7-4EC1-B4A8-79F478F7C141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Performance", "src\EventHorizon.Performance\EventHorizon.Performance.csproj", "{E409A459-51F7-4EC1-B4A8-79F478F7C141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Editor", "src\EventHorizon.Zone.System.Editor\EventHorizon.Zone.System.Editor.csproj", "{F2A566C4-5EBD-44D5-AFB2-440E4C5177E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Editor", "src\EventHorizon.Zone.System.Editor\EventHorizon.Zone.System.Editor.csproj", "{F2A566C4-5EBD-44D5-AFB2-440E4C5177E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Editor.Events", "src\EventHorizon.Zone.System.Editor.Events\EventHorizon.Zone.System.Editor.Events.csproj", "{D55FA41E-547A-4255-BA4D-98A8983EE6EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Editor.Events", "src\EventHorizon.Zone.System.Editor.Events\EventHorizon.Zone.System.Editor.Events.csproj", "{D55FA41E-547A-4255-BA4D-98A8983EE6EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Editor.Model", "src\EventHorizon.Zone.System.Editor.Model\EventHorizon.Zone.System.Editor.Model.csproj", "{4A9E6C1D-7967-4A38-8081-A360F7B2537F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Editor.Model", "src\EventHorizon.Zone.System.Editor.Model\EventHorizon.Zone.System.Editor.Model.csproj", "{4A9E6C1D-7967-4A38-8081-A360F7B2537F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player", "src\EventHorizon.Zone.System.Player\EventHorizon.Zone.System.Player.csproj", "{9AF4257C-5AC4-4E04-A1AD-CDCE8C677438}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player", "src\EventHorizon.Zone.System.Player\EventHorizon.Zone.System.Player.csproj", "{9AF4257C-5AC4-4E04-A1AD-CDCE8C677438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Events", "src\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj", "{163DBAFF-C9F5-4EA9-88C8-6A4CFC0CE5FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Events", "src\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj", "{163DBAFF-C9F5-4EA9-88C8-6A4CFC0CE5FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Model", "src\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj", "{531064EF-651F-43FC-8EE5-C3281E324E6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Model", "src\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj", "{531064EF-651F-43FC-8EE5-C3281E324E6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Backup", "src\EventHorizon.Zone.System.Backup\EventHorizon.Zone.System.Backup.csproj", "{83EBFC5F-2FC5-42D4-82EF-FF25E1BAC068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Backup", "src\EventHorizon.Zone.System.Backup\EventHorizon.Zone.System.Backup.csproj", "{83EBFC5F-2FC5-42D4-82EF-FF25E1BAC068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Backup.Events", "src\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj", "{FC712ACE-83CB-4F5E-8669-766A7554E911}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Backup.Events", "src\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj", "{FC712ACE-83CB-4F5E-8669-766A7554E911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Backup.Model", "src\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj", "{8824A68C-CF68-48A4-8ED5-443AC95AD079}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Backup.Model", "src\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj", "{8824A68C-CF68-48A4-8ED5-443AC95AD079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Interaction.Model", "src\EventHorizon.Zone.System.Interaction.Model\EventHorizon.Zone.System.Interaction.Model.csproj", "{6C64AFFD-4A25-4860-9491-CDA804942EC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Interaction.Model", "src\EventHorizon.Zone.System.Interaction.Model\EventHorizon.Zone.System.Interaction.Model.csproj", "{6C64AFFD-4A25-4860-9491-CDA804942EC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Interaction.Events", "src\EventHorizon.Zone.System.Interaction.Events\EventHorizon.Zone.System.Interaction.Events.csproj", "{A6B0FE4E-A4E3-4551-AD45-5EDD17BB2513}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Interaction.Events", "src\EventHorizon.Zone.System.Interaction.Events\EventHorizon.Zone.System.Interaction.Events.csproj", "{A6B0FE4E-A4E3-4551-AD45-5EDD17BB2513}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Interaction", "src\EventHorizon.Zone.System.Interaction\EventHorizon.Zone.System.Interaction.csproj", "{7DC4AA9D-9975-497D-AE95-C54AAF934207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Interaction", "src\EventHorizon.Zone.System.Interaction\EventHorizon.Zone.System.Interaction.csproj", "{7DC4AA9D-9975-497D-AE95-C54AAF934207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientEntities.Plugin.Editor", "src\EventHorizon.Zone.System.ClientEntities.Plugin.Editor\EventHorizon.Zone.System.ClientEntities.Plugin.Editor.csproj", "{6566F390-73D4-42C8-ADF5-E1E041DDBF50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientEntities.Plugin.Editor", "src\EventHorizon.Zone.System.ClientEntities.Plugin.Editor\EventHorizon.Zone.System.ClientEntities.Plugin.Editor.csproj", "{6566F390-73D4-42C8-ADF5-E1E041DDBF50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Gui.Plugin.Editor", "src\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj", "{790D09E8-EE0D-4923-A6B1-6CF5EF87E074}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Gui.Plugin.Editor", "src\EventHorizon.Zone.System.Gui.Plugin.Editor\EventHorizon.Zone.System.Gui.Plugin.Editor.csproj", "{790D09E8-EE0D-4923-A6B1-6CF5EF87E074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.EntityModule.Plugin.Editor", "src\EventHorizon.Zone.System.EntityModule.Plugin.Editor\EventHorizon.Zone.System.EntityModule.Plugin.Editor.csproj", "{CBF8FDAB-5147-4B99-9B72-3413E43FDD16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.EntityModule.Plugin.Editor", "src\EventHorizon.Zone.System.EntityModule.Plugin.Editor\EventHorizon.Zone.System.EntityModule.Plugin.Editor.csproj", "{CBF8FDAB-5147-4B99-9B72-3413E43FDD16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Particle.Plugin.Editor", "src\EventHorizon.Zone.System.Particle.Plugin.Editor\EventHorizon.Zone.System.Particle.Plugin.Editor.csproj", "{204F80C7-3854-4361-89A4-FEEB831A5BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Particle.Plugin.Editor", "src\EventHorizon.Zone.System.Particle.Plugin.Editor\EventHorizon.Zone.System.Particle.Plugin.Editor.csproj", "{204F80C7-3854-4361-89A4-FEEB831A5BEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ServerModule.Plugin.Editor", "src\EventHorizon.Zone.System.ServerModule.Plugin.Editor\EventHorizon.Zone.System.ServerModule.Plugin.Editor.csproj", "{8ADECEDD-877A-4AF3-BED3-D432EDBF3E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ServerModule.Plugin.Editor", "src\EventHorizon.Zone.System.ServerModule.Plugin.Editor\EventHorizon.Zone.System.ServerModule.Plugin.Editor.csproj", "{8ADECEDD-877A-4AF3-BED3-D432EDBF3E6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Gui.Events", "src\EventHorizon.Zone.System.Gui.Events\EventHorizon.Zone.System.Gui.Events.csproj", "{AF6E4C38-9E25-4FF7-AF9C-A13A93742671}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Gui.Events", "src\EventHorizon.Zone.System.Gui.Events\EventHorizon.Zone.System.Gui.Events.csproj", "{AF6E4C38-9E25-4FF7-AF9C-A13A93742671}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Gui.Model", "src\EventHorizon.Zone.System.Gui.Model\EventHorizon.Zone.System.Gui.Model.csproj", "{A9188E91-F71C-4CDA-A815-9C4E540B0D82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Gui.Model", "src\EventHorizon.Zone.System.Gui.Model\EventHorizon.Zone.System.Gui.Model.csproj", "{A9188E91-F71C-4CDA-A815-9C4E540B0D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts", "src\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj", "{22B90A57-C7F3-495A-9725-E9D27E0A8D79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts", "src\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj", "{22B90A57-C7F3-495A-9725-E9D27E0A8D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Events", "src\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj", "{99F79068-9275-460D-AD97-726A761B3496}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Events", "src\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj", "{99F79068-9275-460D-AD97-726A761B3496}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Model", "src\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj", "{CD5A79AC-6E11-4CC6-AB5A-89CEC7E2DD0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Model", "src\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj", "{CD5A79AC-6E11-4CC6-AB5A-89CEC7E2DD0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.TimerService", "src\EventHorizon.TimerService\EventHorizon.TimerService.csproj", "{BE565A65-3C91-4306-A7DB-101B9EFDF80A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.TimerService", "src\EventHorizon.TimerService\EventHorizon.TimerService.csproj", "{BE565A65-3C91-4306-A7DB-101B9EFDF80A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ModelState", "src\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj", "{9DDF610B-3CDC-40C6-9F68-43AFE6F65E8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ModelState", "src\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj", "{9DDF610B-3CDC-40C6-9F68-43AFE6F65E8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Editor", "src\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj", "{2CC2B77F-D524-4431-8017-47F032E6220C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Editor", "src\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj", "{2CC2B77F-D524-4431-8017-47F032E6220C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Events", "src\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj", "{96EA61E3-5A88-4460-A431-D64C6F3376F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Events", "src\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj", "{96EA61E3-5A88-4460-A431-D64C6F3376F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Model", "src\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj", "{3F93BECF-04AD-4094-8117-321E7DEF97B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Model", "src\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj", "{3F93BECF-04AD-4094-8117-321E7DEF97B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat", "src\EventHorizon.Zone.System.Combat\EventHorizon.Zone.System.Combat.csproj", "{49B4FD71-3DA5-4F42-B4F4-762A3208324C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat", "src\EventHorizon.Zone.System.Combat\EventHorizon.Zone.System.Combat.csproj", "{49B4FD71-3DA5-4F42-B4F4-762A3208324C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor", "src\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor.csproj", "{7AEE4750-F11F-4317-8468-CFB0245CD138}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor", "src\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor\EventHorizon.Zone.System.Agent.Plugin.Behavior.Editor.csproj", "{7AEE4750-F11F-4317-8468-CFB0245CD138}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior", "src\EventHorizon.Zone.System.Agent.Plugin.Behavior\EventHorizon.Zone.System.Agent.Plugin.Behavior.csproj", "{9564A978-8F43-4B92-BC73-22CF55FA2F74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior", "src\EventHorizon.Zone.System.Agent.Plugin.Behavior\EventHorizon.Zone.System.Agent.Plugin.Behavior.csproj", "{9564A978-8F43-4B92-BC73-22CF55FA2F74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets.Plugin.Editor", "src\EventHorizon.Zone.System.ClientAssets.Plugin.Editor\EventHorizon.Zone.System.ClientAssets.Plugin.Editor.csproj", "{FCA72C01-F4C0-48F7-BFAE-1D706E7DD19B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientAssets.Plugin.Editor", "src\EventHorizon.Zone.System.ClientAssets.Plugin.Editor\EventHorizon.Zone.System.ClientAssets.Plugin.Editor.csproj", "{FCA72C01-F4C0-48F7-BFAE-1D706E7DD19B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.I18n.Tests", "test\EventHorizon.Game.I18n.Tests\EventHorizon.Game.I18n.Tests.csproj", "{2568005B-74AC-4177-8A7B-9E95A91F55EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.I18n.Tests", "test\EventHorizon.Game.I18n.Tests\EventHorizon.Game.I18n.Tests.csproj", "{2568005B-74AC-4177-8A7B-9E95A91F55EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent", "src\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj", "{E30181E8-5479-49FC-8730-B11788704B88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent", "src\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj", "{E30181E8-5479-49FC-8730-B11788704B88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Model", "src\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj", "{1D5B8C7F-E118-453C-90A5-B0DF3F8E86D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Model", "src\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj", "{1D5B8C7F-E118-453C-90A5-B0DF3F8E86D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Interaction.Tests", "test\EventHorizon.Zone.System.Interaction.Tests\EventHorizon.Zone.System.Interaction.Tests.csproj", "{DF1E9DE9-6800-4C77-B6F2-CA3488F33A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Interaction.Tests", "test\EventHorizon.Zone.System.Interaction.Tests\EventHorizon.Zone.System.Interaction.Tests.csproj", "{DF1E9DE9-6800-4C77-B6F2-CA3488F33A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Identity", "src\EventHorizon.Identity\EventHorizon.Identity.csproj", "{208C1BCD-0AA5-4EFD-BDB3-FC87445A1D6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Identity", "src\EventHorizon.Identity\EventHorizon.Identity.csproj", "{208C1BCD-0AA5-4EFD-BDB3-FC87445A1D6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Move", "src\EventHorizon.Zone.System.Agent.Plugin.Move\EventHorizon.Zone.System.Agent.Plugin.Move.csproj", "{18C92814-F9AC-4E16-B953-0E6267CADE83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Move", "src\EventHorizon.Zone.System.Agent.Plugin.Move\EventHorizon.Zone.System.Agent.Plugin.Move.csproj", "{18C92814-F9AC-4E16-B953-0E6267CADE83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Tests", "test\EventHorizon.Zone.System.Agent.Tests\EventHorizon.Zone.System.Agent.Tests.csproj", "{8FCD5557-72AF-49C5-BB47-2ECAB0EFCE00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Tests", "test\EventHorizon.Zone.System.Agent.Tests\EventHorizon.Zone.System.Agent.Tests.csproj", "{8FCD5557-72AF-49C5-BB47-2ECAB0EFCE00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.csproj", "{C838DECD-15BC-428B-BAA3-AA031CB23A10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.csproj", "{C838DECD-15BC-428B-BAA3-AA031CB23A10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Identity.Tests", "test\EventHorizon.Identity.Tests\EventHorizon.Identity.Tests.csproj", "{CDCB8806-253A-4C88-A67A-5EA2A2E2B305}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Identity.Tests", "test\EventHorizon.Identity.Tests\EventHorizon.Identity.Tests.csproj", "{CDCB8806-253A-4C88-A67A-5EA2A2E2B305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Extensions", "src\EventHorizon.Extensions\EventHorizon.Extensions.csproj", "{E3960496-478E-4F3E-A989-923756FD3661}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Extensions", "src\EventHorizon.Extensions\EventHorizon.Extensions.csproj", "{E3960496-478E-4F3E-A989-923756FD3661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.TimerService.Tests", "test\EventHorizon.TimerService.Tests\EventHorizon.TimerService.Tests.csproj", "{E8633CEE-92CD-4B80-AAC7-7C45D2A71793}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.TimerService.Tests", "test\EventHorizon.TimerService.Tests\EventHorizon.TimerService.Tests.csproj", "{E8633CEE-92CD-4B80-AAC7-7C45D2A71793}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Map", "src\EventHorizon.Zone.Core.Map\EventHorizon.Zone.Core.Map.csproj", "{EC67880F-E8B1-4F1D-99F3-A5521F4B8DA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Map", "src\EventHorizon.Zone.Core.Map\EventHorizon.Zone.Core.Map.csproj", "{EC67880F-E8B1-4F1D-99F3-A5521F4B8DA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.ServerAction", "src\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj", "{1904BDDD-71DA-4520-B92B-112D52A4BACA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.ServerAction", "src\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj", "{1904BDDD-71DA-4520-B92B-112D52A4BACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.ServerAction.Tests", "test\EventHorizon.Zone.Core.ServerAction.Tests\EventHorizon.Zone.Core.ServerAction.Tests.csproj", "{8044FE9B-F4C5-4BC0-9230-E980F62B217D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.ServerAction.Tests", "test\EventHorizon.Zone.Core.ServerAction.Tests\EventHorizon.Zone.Core.ServerAction.Tests.csproj", "{8044FE9B-F4C5-4BC0-9230-E980F62B217D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Entity", "src\EventHorizon.Zone.Core.Entity\EventHorizon.Zone.Core.Entity.csproj", "{B461D297-9E0C-4B7D-8C7F-F5798F9792B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Entity", "src\EventHorizon.Zone.Core.Entity\EventHorizon.Zone.Core.Entity.csproj", "{B461D297-9E0C-4B7D-8C7F-F5798F9792B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Entity.Tests", "test\EventHorizon.Zone.Core.Entity.Tests\EventHorizon.Zone.Core.Entity.Tests.csproj", "{53BA9B44-B5CB-4B19-ADC3-6938287FB6EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Entity.Tests", "test\EventHorizon.Zone.Core.Entity.Tests\EventHorizon.Zone.Core.Entity.Tests.csproj", "{53BA9B44-B5CB-4B19-ADC3-6938287FB6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Services", "src\EventHorizon.Zone.System.Server.Scripts.Services\EventHorizon.Zone.System.Server.Scripts.Services.csproj", "{7BEA68C7-3913-47DB-8606-5BED90C1442A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Services", "src\EventHorizon.Zone.System.Server.Scripts.Services\EventHorizon.Zone.System.Server.Scripts.Services.csproj", "{7BEA68C7-3913-47DB-8606-5BED90C1442A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.External", "src\EventHorizon.Server.Core.External\EventHorizon.Server.Core.External.csproj", "{D0F10849-2A9A-46ED-88A7-D7E68FC5E6C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.External", "src\EventHorizon.Server.Core.External\EventHorizon.Server.Core.External.csproj", "{D0F10849-2A9A-46ED-88A7-D7E68FC5E6C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.External.Tests", "test\EventHorizon.Server.Core.External.Tests\EventHorizon.Server.Core.External.Tests.csproj", "{02AE8478-1B4F-4988-BFCB-B85090DB4C0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.External.Tests", "test\EventHorizon.Server.Core.External.Tests\EventHorizon.Server.Core.External.Tests.csproj", "{02AE8478-1B4F-4988-BFCB-B85090DB4C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Client", "src\EventHorizon.Zone.Core.Client\EventHorizon.Zone.Core.Client.csproj", "{64CFA576-A72A-4EE7-ADF5-BE82097D028F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Client", "src\EventHorizon.Zone.Core.Client\EventHorizon.Zone.Core.Client.csproj", "{64CFA576-A72A-4EE7-ADF5-BE82097D028F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Client.Tests", "test\EventHorizon.Zone.Core.Client.Tests\EventHorizon.Zone.Core.Client.Tests.csproj", "{94B0834B-86A5-4C06-A64D-6FE8CD19C53D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Client.Tests", "test\EventHorizon.Zone.Core.Client.Tests\EventHorizon.Zone.Core.Client.Tests.csproj", "{94B0834B-86A5-4C06-A64D-6FE8CD19C53D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin", "src\EventHorizon.Zone.System.Admin\EventHorizon.Zone.System.Admin.csproj", "{BFE145D0-A7D1-4A49-AD4A-966E8ADBEC83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin", "src\EventHorizon.Zone.System.Admin\EventHorizon.Zone.System.Admin.csproj", "{BFE145D0-A7D1-4A49-AD4A-966E8ADBEC83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Plugin.Command", "src\EventHorizon.Zone.System.Admin.Plugin.Command\EventHorizon.Zone.System.Admin.Plugin.Command.csproj", "{D11D2543-E70B-4F9E-AB4D-C18524468403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Plugin.Command", "src\EventHorizon.Zone.System.Admin.Plugin.Command\EventHorizon.Zone.System.Admin.Plugin.Command.csproj", "{D11D2543-E70B-4F9E-AB4D-C18524468403}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.ExternalHub", "src\EventHorizon.Zone.System.Admin.ExternalHub\EventHorizon.Zone.System.Admin.ExternalHub.csproj", "{6BA3785A-539F-4300-BAD9-1911AE5CD66C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.ExternalHub", "src\EventHorizon.Zone.System.Admin.ExternalHub\EventHorizon.Zone.System.Admin.ExternalHub.csproj", "{6BA3785A-539F-4300-BAD9-1911AE5CD66C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Events", "src\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj", "{1EA14226-8FBE-43E1-92E7-5582209109B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Events", "src\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj", "{1EA14226-8FBE-43E1-92E7-5582209109B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Model", "src\EventHorizon.Zone.System.Admin.Plugin.Command.Model\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj", "{8A4AAD46-1C49-4518-BD65-F087BC344C70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Model", "src\EventHorizon.Zone.System.Admin.Plugin.Command.Model\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj", "{8A4AAD46-1C49-4518-BD65-F087BC344C70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Tests", "test\EventHorizon.Zone.System.Admin.Tests\EventHorizon.Zone.System.Admin.Tests.csproj", "{AF823C16-B122-4FAA-BC3C-F8198D432296}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Tests", "test\EventHorizon.Zone.System.Admin.Tests\EventHorizon.Zone.System.Admin.Tests.csproj", "{AF823C16-B122-4FAA-BC3C-F8198D432296}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.ExternalHub.Tests", "test\EventHorizon.Zone.System.Admin.ExternalHub.Tests\EventHorizon.Zone.System.Admin.ExternalHub.Tests.csproj", "{A8791800-2E1A-4FF9-B91B-2EE7EE958587}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.ExternalHub.Tests", "test\EventHorizon.Zone.System.Admin.ExternalHub.Tests\EventHorizon.Zone.System.Admin.ExternalHub.Tests.csproj", "{A8791800-2E1A-4FF9-B91B-2EE7EE958587}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Tests", "test\EventHorizon.Zone.System.Admin.Plugin.Command.Tests\EventHorizon.Zone.System.Admin.Plugin.Command.Tests.csproj", "{CB16C5F2-D2AA-4596-9AB6-A83275DAFFE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Tests", "test\EventHorizon.Zone.System.Admin.Plugin.Command.Tests\EventHorizon.Zone.System.Admin.Plugin.Command.Tests.csproj", "{CB16C5F2-D2AA-4596-9AB6-A83275DAFFE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests", "test\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests.csproj", "{5ABBAE09-D9DD-49EB-9256-4BE99C48300B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests", "test\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests.csproj", "{5ABBAE09-D9DD-49EB-9256-4BE99C48300B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Watcher", "src\EventHorizon.Zone.System.Watcher\EventHorizon.Zone.System.Watcher.csproj", "{EB185E15-300F-4EC1-8CD3-7E5EB3AADC50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Watcher", "src\EventHorizon.Zone.System.Watcher\EventHorizon.Zone.System.Watcher.csproj", "{EB185E15-300F-4EC1-8CD3-7E5EB3AADC50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Watcher.Events", "src\EventHorizon.Zone.System.Watcher.Events\EventHorizon.Zone.System.Watcher.Events.csproj", "{D62CDED1-B788-4A55-9B90-C62BA485FDF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Watcher.Events", "src\EventHorizon.Zone.System.Watcher.Events\EventHorizon.Zone.System.Watcher.Events.csproj", "{D62CDED1-B788-4A55-9B90-C62BA485FDF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Watcher.Tests", "test\EventHorizon.Zone.System.Watcher.Tests\EventHorizon.Zone.System.Watcher.Tests.csproj", "{25329DDD-2625-4516-A74C-F7EE88D79FB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Watcher.Tests", "test\EventHorizon.Zone.System.Watcher.Tests\EventHorizon.Zone.System.Watcher.Tests.csproj", "{25329DDD-2625-4516-A74C-F7EE88D79FB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Connection", "src\EventHorizon.Zone.System.Player.Connection\EventHorizon.Zone.System.Player.Connection.csproj", "{69D02C58-13CB-4B69-B08D-374F1052698F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Connection", "src\EventHorizon.Zone.System.Player.Connection\EventHorizon.Zone.System.Player.Connection.csproj", "{69D02C58-13CB-4B69-B08D-374F1052698F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Connection.Tests", "test\EventHorizon.Zone.System.Player.Connection.Tests\EventHorizon.Zone.System.Player.Connection.Tests.csproj", "{2F1E4679-286D-4405-81C1-80E386ABDCEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Connection.Tests", "test\EventHorizon.Zone.System.Player.Connection.Tests\EventHorizon.Zone.System.Player.Connection.Tests.csproj", "{2F1E4679-286D-4405-81C1-80E386ABDCEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.ExternalHub", "src\EventHorizon.Zone.System.Player.ExternalHub\EventHorizon.Zone.System.Player.ExternalHub.csproj", "{FB6756A3-63C5-49E1-8507-0CF4E69A0D50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.ExternalHub", "src\EventHorizon.Zone.System.Player.ExternalHub\EventHorizon.Zone.System.Player.ExternalHub.csproj", "{FB6756A3-63C5-49E1-8507-0CF4E69A0D50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Plugin.Action", "src\EventHorizon.Zone.System.Player.Plugin.Action\EventHorizon.Zone.System.Player.Plugin.Action.csproj", "{6C7835C4-114D-4994-81FF-21135061A66A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Plugin.Action", "src\EventHorizon.Zone.System.Player.Plugin.Action\EventHorizon.Zone.System.Player.Plugin.Action.csproj", "{6C7835C4-114D-4994-81FF-21135061A66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Tests", "test\EventHorizon.Zone.System.Player.Tests\EventHorizon.Zone.System.Player.Tests.csproj", "{4D551554-90FC-457A-A396-264425F714DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Tests", "test\EventHorizon.Zone.System.Player.Tests\EventHorizon.Zone.System.Player.Tests.csproj", "{4D551554-90FC-457A-A396-264425F714DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Plugin.Action.Events", "src\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj", "{C574A5F8-5339-4249-8641-1D087220D1FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Plugin.Action.Events", "src\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj", "{C574A5F8-5339-4249-8641-1D087220D1FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Plugin.Action.Model", "src\EventHorizon.Zone.System.Player.Plugin.Action.Model\EventHorizon.Zone.System.Player.Plugin.Action.Model.csproj", "{5F8611EA-1A76-4FB9-A274-A56B93121D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Plugin.Action.Model", "src\EventHorizon.Zone.System.Player.Plugin.Action.Model\EventHorizon.Zone.System.Player.Plugin.Action.Model.csproj", "{5F8611EA-1A76-4FB9-A274-A56B93121D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Extensions.Tests", "test\EventHorizon.Extensions.Tests\EventHorizon.Extensions.Tests.csproj", "{F7DDF13F-133F-48C5-8230-A12F62B3778C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Extensions.Tests", "test\EventHorizon.Extensions.Tests\EventHorizon.Extensions.Tests.csproj", "{F7DDF13F-133F-48C5-8230-A12F62B3778C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Companion.Events", "src\EventHorizon.Zone.System.Agent.Plugin.Companion.Events\EventHorizon.Zone.System.Agent.Plugin.Companion.Events.csproj", "{87BF721B-5E9B-40AD-B08B-875F165C7099}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Companion.Events", "src\EventHorizon.Zone.System.Agent.Plugin.Companion.Events\EventHorizon.Zone.System.Agent.Plugin.Companion.Events.csproj", "{87BF721B-5E9B-40AD-B08B-875F165C7099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.Plugin.Action.Tests", "test\EventHorizon.Zone.System.Player.Plugin.Action.Tests\EventHorizon.Zone.System.Player.Plugin.Action.Tests.csproj", "{FDDC6A82-43AA-460F-B276-370161D3B7F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Plugin.Action.Tests", "test\EventHorizon.Zone.System.Player.Plugin.Action.Tests\EventHorizon.Zone.System.Player.Plugin.Action.Tests.csproj", "{FDDC6A82-43AA-460F-B276-370161D3B7F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Player.ExternalHub.Tests", "test\EventHorizon.Zone.System.Player.ExternalHub.Tests\EventHorizon.Zone.System.Player.ExternalHub.Tests.csproj", "{4DEE2ABB-B31E-4FF9-A8C0-24A871AC0941}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.ExternalHub.Tests", "test\EventHorizon.Zone.System.Player.ExternalHub.Tests\EventHorizon.Zone.System.Player.ExternalHub.Tests.csproj", "{4DEE2ABB-B31E-4FF9-A8C0-24A871AC0941}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Particle", "src\EventHorizon.Zone.System.Particle\EventHorizon.Zone.System.Particle.csproj", "{3B44BB66-A5F2-47A1-B633-C2BF9BDA2C31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Particle", "src\EventHorizon.Zone.System.Particle\EventHorizon.Zone.System.Particle.csproj", "{3B44BB66-A5F2-47A1-B633-C2BF9BDA2C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Particle.Model", "src\EventHorizon.Zone.System.Particle.Model\EventHorizon.Zone.System.Particle.Model.csproj", "{8A9BA09F-1109-4EB5-9581-E77D61760ED8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Particle.Model", "src\EventHorizon.Zone.System.Particle.Model\EventHorizon.Zone.System.Particle.Model.csproj", "{8A9BA09F-1109-4EB5-9581-E77D61760ED8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Particle.Events", "src\EventHorizon.Zone.System.Particle.Events\EventHorizon.Zone.System.Particle.Events.csproj", "{77AE2C60-0EBB-4CD3-B718-90973B513BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Particle.Events", "src\EventHorizon.Zone.System.Particle.Events\EventHorizon.Zone.System.Particle.Events.csproj", "{77AE2C60-0EBB-4CD3-B718-90973B513BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Particle.Tests", "test\EventHorizon.Zone.System.Particle.Tests\EventHorizon.Zone.System.Particle.Tests.csproj", "{82F5DFC6-A4EA-42B9-9932-9E5B6ED7724D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Particle.Tests", "test\EventHorizon.Zone.System.Particle.Tests\EventHorizon.Zone.System.Particle.Tests.csproj", "{82F5DFC6-A4EA-42B9-9932-9E5B6ED7724D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core", "src\EventHorizon.Zone.Core\EventHorizon.Zone.Core.csproj", "{2302C062-F3B7-480A-911C-3796155517DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core", "src\EventHorizon.Zone.Core\EventHorizon.Zone.Core.csproj", "{2302C062-F3B7-480A-911C-3796155517DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Tests", "test\EventHorizon.Zone.Core.Tests\EventHorizon.Zone.Core.Tests.csproj", "{C8FA9522-567E-4530-AF77-0022890E7BD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Tests", "test\EventHorizon.Zone.Core.Tests\EventHorizon.Zone.Core.Tests.csproj", "{C8FA9522-567E-4530-AF77-0022890E7BD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Tests\EventHorizon.Zone.System.Server.Scripts.Tests.csproj", "{C5867F2C-AB80-4429-9863-F029F51395CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Tests\EventHorizon.Zone.System.Server.Scripts.Tests.csproj", "{C5867F2C-AB80-4429-9863-F029F51395CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Reporter", "src\EventHorizon.Zone.Core.Reporter\EventHorizon.Zone.Core.Reporter.csproj", "{55141C9E-DCF5-4DF7-8878-65FE369177E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Reporter", "src\EventHorizon.Zone.Core.Reporter\EventHorizon.Zone.Core.Reporter.csproj", "{55141C9E-DCF5-4DF7-8878-65FE369177E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Reporter.Tests", "test\EventHorizon.Zone.Core.Reporter.Tests\EventHorizon.Zone.Core.Reporter.Tests.csproj", "{1644741C-98B4-4DE7-9B0E-4D5E4A948105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Reporter.Tests", "test\EventHorizon.Zone.Core.Reporter.Tests\EventHorizon.Zone.Core.Reporter.Tests.csproj", "{1644741C-98B4-4DE7-9B0E-4D5E4A948105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Editor.ExternalHub", "src\EventHorizon.Zone.System.Editor.ExternalHub\EventHorizon.Zone.System.Editor.ExternalHub.csproj", "{1B75A16B-1C85-424C-A0A7-8EF8B25FE222}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Editor.ExternalHub", "src\EventHorizon.Zone.System.Editor.ExternalHub\EventHorizon.Zone.System.Editor.ExternalHub.csproj", "{1B75A16B-1C85-424C-A0A7-8EF8B25FE222}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.External.Events", "src\EventHorizon.Server.Core.External.Events\EventHorizon.Server.Core.External.Events.csproj", "{3CB99D84-303A-4D0F-85BC-7D908501242B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.External.Events", "src\EventHorizon.Server.Core.External.Events\EventHorizon.Server.Core.External.Events.csproj", "{3CB99D84-303A-4D0F-85BC-7D908501242B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring.Events", "src\EventHorizon.Monitoring.Events\EventHorizon.Monitoring.Events.csproj", "{A500F9A7-07FA-4769-9C9C-E85DD7DACEE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring.Events", "src\EventHorizon.Monitoring.Events\EventHorizon.Monitoring.Events.csproj", "{A500F9A7-07FA-4769-9C9C-E85DD7DACEE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring", "src\EventHorizon.Monitoring\EventHorizon.Monitoring.csproj", "{9C279C27-F9D0-4358-8CAB-A0582BA3D5EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring", "src\EventHorizon.Monitoring\EventHorizon.Monitoring.csproj", "{9C279C27-F9D0-4358-8CAB-A0582BA3D5EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring.ApplicationInsights", "src\EventHorizon.Monitoring.ApplicationInsights\EventHorizon.Monitoring.ApplicationInsights.csproj", "{9C08A06D-2374-4F0E-8808-73C18A70D35E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring.ApplicationInsights", "src\EventHorizon.Monitoring.ApplicationInsights\EventHorizon.Monitoring.ApplicationInsights.csproj", "{9C08A06D-2374-4F0E-8808-73C18A70D35E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Monitoring.Model", "src\EventHorizon.Monitoring.Model\EventHorizon.Monitoring.Model.csproj", "{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring.Model", "src\EventHorizon.Monitoring.Model\EventHorizon.Monitoring.Model.csproj", "{599CB6B9-7A05-4D43-9EF9-BEABA0DA54A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Wild", "src\EventHorizon.Zone.System.Agent.Plugin.Wild\EventHorizon.Zone.System.Agent.Plugin.Wild.csproj", "{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Wild", "src\EventHorizon.Zone.System.Agent.Plugin.Wild\EventHorizon.Zone.System.Agent.Plugin.Wild.csproj", "{41ADC3FD-BE57-438F-84F7-28703C4E7C1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Move.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Move.Tests\EventHorizon.Zone.System.Agent.Plugin.Move.Tests.csproj", "{6406DA5E-E913-4991-B21C-3BA95D9D7E1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Move.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Move.Tests\EventHorizon.Zone.System.Agent.Plugin.Move.Tests.csproj", "{6406DA5E-E913-4991-B21C-3BA95D9D7E1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Test.Common", "test\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj", "{FD80461D-415D-4135-A3FD-4723D0E4BB23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Test.Common", "test\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj", "{FD80461D-415D-4135-A3FD-4723D0E4BB23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientEntities.Tests", "test\EventHorizon.Zone.System.ClientEntities.Tests\EventHorizon.Zone.System.ClientEntities.Tests.csproj", "{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientEntities.Tests", "test\EventHorizon.Zone.System.ClientEntities.Tests\EventHorizon.Zone.System.ClientEntities.Tests.csproj", "{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Model", "src\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj", "{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,9 +231,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -1518,6 +1517,21 @@ Global
 		{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A}.Release|x64.Build.0 = Release|Any CPU
 		{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A}.Release|x86.ActiveCfg = Release|Any CPU
 		{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A}.Release|x86.Build.0 = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|x64.Build.0 = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Debug|x86.Build.0 = Debug|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|x64.ActiveCfg = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|x64.Build.0 = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|x86.ActiveCfg = Release|Any CPU
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE} = {FE232CB9-E002-4898-9117-E3162928E341}
@@ -1627,5 +1641,9 @@ Global
 		{6406DA5E-E913-4991-B21C-3BA95D9D7E1C} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 		{FD80461D-415D-4135-A3FD-4723D0E4BB23} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 		{BDA61E1A-5C5A-4458-9A36-7FB1A4AD1F5A} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
+		{29F5DDFE-D657-4E45-8F2B-374EBBEC9708} = {FE232CB9-E002-4898-9117-E3162928E341}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}
 	EndGlobalSection
 EndGlobal

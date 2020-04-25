@@ -1,11 +1,11 @@
 namespace EventHorizon.Zone.System.Player.Tests.Mapper
 {
-    using Xunit;
-    using global::System.Collections.Generic;
-    using global::System.Numerics;
-    using EventHorizon.Zone.System.Player.Model.Details;
-    using EventHorizon.Zone.System.Player.Mapper;
     using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.System.Player.Mapper;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using global::System.Collections.Concurrent;
+    using global::System.Numerics;
+    using Xunit;
 
     public class PlayerFromDetailsToEntityTests
     {
@@ -17,8 +17,8 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             var expectedPlayerId = "123";
             var expectedConnectionId = "123-123-123";
             var expectedPosition = Vector3.Zero;
-            var expectedData = new Dictionary<string, object>();
-            expectedData.Add(
+            var expectedData = new ConcurrentDictionary<string, object>();
+            expectedData.TryAdd(
                 "ConnectionId",
                 expectedConnectionId
             );
@@ -67,7 +67,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             // Given
             var playerId = "player-id";
             var expected = "";
-            var data = new Dictionary<string, object>();
+            var data = new ConcurrentDictionary<string, object>();
 
             var input = new PlayerDetails
             {

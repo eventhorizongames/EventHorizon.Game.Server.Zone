@@ -1,8 +1,5 @@
 namespace EventHorizon.Zone.System.Interaction.Tests.Run
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Find;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Player;
@@ -12,6 +9,10 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
     using EventHorizon.Zone.System.Interaction.Model;
     using EventHorizon.Zone.System.Interaction.Run;
     using EventHorizon.Zone.System.Interaction.Script.Run;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
     using Moq;
     using Xunit;
@@ -130,7 +131,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
                 ConnectionId = "connection-id"
             };
             var interactionEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = interactionEntityId
@@ -195,7 +196,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
                 ConnectionId = "connection-id"
             };
             var interactionEntity = new DefaultEntity(
-                new Dictionary<string, object>()
+                new ConcurrentDictionary<string, object>()
             )
             {
                 Id = interactionEntityId

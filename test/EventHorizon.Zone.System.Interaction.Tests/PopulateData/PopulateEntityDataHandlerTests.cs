@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Threading;
 using EventHorizon.Plugin.Zone.Interaction.PopulateData;
 using EventHorizon.Zone.Core.Events.Entity.Data;
-using Xunit;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Interaction.Model;
+using System.Collections.Concurrent;
+using System.Threading;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
 {
@@ -21,7 +21,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
 
                 List = null
             };
-            var data = new Dictionary<string, object>();
+            var data = new ConcurrentDictionary<string, object>();
             var entity = new DefaultEntity(data);
 
             // When
