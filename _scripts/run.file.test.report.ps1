@@ -31,7 +31,7 @@ $MainDriveLower = "C".ToLower()
 $CoverageFiles = Get-ChildItem -Filter "*coverage.lcov*" -Recurse 
 foreach ($CoverageFile in $CoverageFiles) {
     $CoverageFilePath = $CoverageFile.FullName
-    Write-Host "Updating Coverage File $CoverageFilePath"
+    # Write-Host "Updating Coverage File $CoverageFilePath"
     ((Get-Content -path $CoverageFilePath -Raw) -replace "${MainDrive}:\\", "${MainDriveLower}:\") | Set-Content -Path $CoverageFilePath
 }
 

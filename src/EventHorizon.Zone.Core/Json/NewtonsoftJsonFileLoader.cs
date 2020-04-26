@@ -1,13 +1,13 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Json;
-using Newtonsoft.Json;
-
 namespace EventHorizon.Zone.Core.Json
 {
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Json;
+    using Newtonsoft.Json;
+
     public class NewtonsoftJsonFileLoader : IJsonFileLoader
     {
-        readonly FileResolver _fileResolver;
+        private readonly FileResolver _fileResolver;
 
         public NewtonsoftJsonFileLoader(
             FileResolver fileResolver
@@ -24,17 +24,13 @@ namespace EventHorizon.Zone.Core.Json
                 fileFullName
             ))
             {
-                return Task.FromResult(
-                    default(T)
-                );
+                return default(T).FromResult();
             }
-            return Task.FromResult(
-                JsonConvert.DeserializeObject<T>(
-                    _fileResolver.GetFileText(
-                        fileFullName
-                    )
+            return JsonConvert.DeserializeObject<T>(
+                _fileResolver.GetFileText(
+                    fileFullName
                 )
-            );
+            ).FromResult();
         }
     }
 }

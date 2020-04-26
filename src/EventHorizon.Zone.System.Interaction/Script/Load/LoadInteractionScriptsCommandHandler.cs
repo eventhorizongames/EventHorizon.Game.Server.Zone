@@ -29,7 +29,7 @@ namespace EventHorizon.Zone.System.Interaction.Script.Load
             LoadInteractionScriptsCommand request,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ServerScriptsPath,
                     "Interaction"

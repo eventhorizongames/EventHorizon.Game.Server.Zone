@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Admin.Load
             LoadServerScriptsCommand request,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ServerScriptsPath,
                     "Admin"

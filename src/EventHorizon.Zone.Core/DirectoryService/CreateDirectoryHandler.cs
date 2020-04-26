@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.Core.DirectoryService
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class CreateDirectoryHandler : IRequestHandler<CreateDirectory, bool>
     {
@@ -20,10 +20,8 @@ namespace EventHorizon.Zone.Core.DirectoryService
         public Task<bool> Handle(
             CreateDirectory request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _directoryResolver.CreateDirectory(
-                request.DirectoryFullName
-            )
-        );
+        ) => _directoryResolver.CreateDirectory(
+            request.DirectoryFullName
+        ).FromResult();
     }
 }

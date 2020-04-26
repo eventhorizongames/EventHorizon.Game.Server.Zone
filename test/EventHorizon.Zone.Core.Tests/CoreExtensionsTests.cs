@@ -1,8 +1,10 @@
 using System.Reflection;
 using System.Threading;
 using EventHorizon.Game.Server.Zone;
+using EventHorizon.Monitoring.Events.Track;
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Zone.Core.DateTimeService;
+using EventHorizon.Zone.Core.Events.Lifetime;
 using EventHorizon.Zone.Core.Id;
 using EventHorizon.Zone.Core.Info;
 using EventHorizon.Zone.Core.Json;
@@ -20,8 +22,10 @@ using EventHorizon.Zone.Core.RandomNumber;
 using EventHorizon.Zone.Core.ServerProperty;
 using EventHorizon.Zone.Core.ServerProperty.Fill;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
+using static EventHorizon.Game.Server.Zone.CoreExtensions;
 
 namespace EventHorizon.Zone.Core.Tests
 {
@@ -126,6 +130,78 @@ namespace EventHorizon.Zone.Core.Tests
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish(
+                    expected,
+                    CancellationToken.None
+                )
+            );
+        }
+
+        [Fact]
+        public void TestShouldPublishMonitoringTrackEventWhenUseStartingCoreIsCalled()
+        {
+            // Given
+            var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
+            var expected = new MonitoringTrackEvent(
+                "ZoneServer:Starting"
+            );
+
+            var mediatorMock = new Mock<IMediator>();
+            var loggerMock = new Mock<ILogger<CoreStartup>>();
+
+            applicationBuilderMocks.ServiceProviderMock.Setup(
+                mock => mock.GetService(typeof(IMediator))
+            ).Returns(
+                mediatorMock.Object
+            );
+            applicationBuilderMocks.ServiceProviderMock.Setup(
+                mock => mock.GetService(typeof(ILogger<CoreStartup>))
+            ).Returns(
+                loggerMock.Object
+            );
+
+            // When
+            var actual = CoreExtensions.UseStartingCore(
+                applicationBuilderMocks.ApplicationBuilderMock.Object
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    expected,
+                    CancellationToken.None
+                )
+            );
+        }
+
+        [Fact]
+        public void ShouldSendFinishServerStartCommandWhenUseFinishStartingCoreIsCalled()
+        {
+            // Given
+            var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
+            var expected = new FinishServerStartCommand();
+
+            var mediatorMock = new Mock<IMediator>();
+            var loggerMock = new Mock<ILogger<CoreStartup>>();
+
+            applicationBuilderMocks.ServiceProviderMock.Setup(
+                mock => mock.GetService(typeof(IMediator))
+            ).Returns(
+                mediatorMock.Object
+            );
+            applicationBuilderMocks.ServiceProviderMock.Setup(
+                mock => mock.GetService(typeof(ILogger<CoreStartup>))
+            ).Returns(
+                loggerMock.Object
+            );
+
+            // When
+            var actual = CoreExtensions.UseFinishStartingCore(
+                applicationBuilderMocks.ApplicationBuilderMock.Object
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
                     expected,
                     CancellationToken.None
                 )

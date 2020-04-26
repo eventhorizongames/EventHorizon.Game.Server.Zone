@@ -1,8 +1,8 @@
-using System.IO;
-using EventHorizon.Zone.Core.Model.FileService;
-
 namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
 {
+    using System.IO;
+    using EventHorizon.Zone.Core.Model.FileService;
+
     public class LocalFileSystemFileResolver : FileResolver
     {
         public bool CreateFile(

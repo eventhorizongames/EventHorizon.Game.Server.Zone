@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.FileService
 {
-    public class LoadFileRecursivelyFromDirectoryHandler : IRequestHandler<LoadFileRecursivelyFromDirectory>
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using MediatR;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    public class ProcessFilesRecursivelyFromDirectoryHandler : IRequestHandler<ProcessFilesRecursivelyFromDirectory>
     {
         readonly IMediator _mediator;
 
-        public LoadFileRecursivelyFromDirectoryHandler(
+        public ProcessFilesRecursivelyFromDirectoryHandler(
             IMediator mediator
         )
         {
@@ -21,7 +21,7 @@ namespace EventHorizon.Zone.Core.FileService
         }
 
         public async Task<Unit> Handle(
-            LoadFileRecursivelyFromDirectory request,
+            ProcessFilesRecursivelyFromDirectory request,
             CancellationToken cancellationToken
         )
         {

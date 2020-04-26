@@ -1,23 +1,20 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Json;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-using Moq;
-using Xunit;
-using FluentAssertions;
-
 namespace EventHorizon.Zone.Core.Tests.Json
 {
-    public class NewtonsoftJsonFileLoaderTests
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Json;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using Moq;
+    using Xunit;
+    using FluentAssertions;
+
+    public class TextJsonFileLoaderTests
     {
         [Fact]
         public async Task TestShouldReturnDefaultTypeWhenFileDoesNotExist()
         {
             // Given
             var fileFullName = "file-full-name";
-            TestDataFile expected = null;
+            var expected = default(TestDataFile);
 
             var fileResolverMock = new Mock<FileResolver>();
 
@@ -30,7 +27,7 @@ namespace EventHorizon.Zone.Core.Tests.Json
             );
 
             // When
-            var jsonFileLoader = new NewtonsoftJsonFileLoader(
+            var jsonFileLoader = new TextJsonFileLoader(
                 fileResolverMock.Object
             );
             var actual = await jsonFileLoader.GetFile<TestDataFile>(
@@ -70,7 +67,7 @@ namespace EventHorizon.Zone.Core.Tests.Json
             );
 
             // When
-            var jsonFileLoader = new NewtonsoftJsonFileLoader(
+            var jsonFileLoader = new TextJsonFileLoader(
                 fileResolverMock.Object
             );
             var actual = await jsonFileLoader.GetFile<TestDataFile>(
@@ -110,7 +107,7 @@ namespace EventHorizon.Zone.Core.Tests.Json
             );
 
             // When
-            var jsonFileLoader = new NewtonsoftJsonFileLoader(
+            var jsonFileLoader = new TextJsonFileLoader(
                 fileResolverMock.Object
             );
             var actual = await jsonFileLoader.GetFile<TestDataFile>(

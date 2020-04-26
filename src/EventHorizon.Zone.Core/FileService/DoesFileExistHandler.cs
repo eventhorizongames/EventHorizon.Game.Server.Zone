@@ -1,12 +1,11 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.FileService
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class DoesFileExistHandler : IRequestHandler<DoesFileExist, bool>
     {
         readonly FileResolver _fileResolver;
@@ -21,10 +20,8 @@ namespace EventHorizon.Zone.Core.FileService
         public Task<bool> Handle(
             DoesFileExist request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _fileResolver.DoesFileExist(
-                request.FileFullName
-            )
-        );
+        ) => _fileResolver.DoesFileExist(
+            request.FileFullName
+        ).FromResult();
     }
 }

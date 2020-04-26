@@ -1,11 +1,11 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.Core.Lifetime.State;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Lifetime
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.Core.Lifetime.State;
+    using MediatR;
+
     public class FinishServerStartCommandHandler : IRequestHandler<FinishServerStartCommand, bool>
     {
         readonly IMediator _mediator;

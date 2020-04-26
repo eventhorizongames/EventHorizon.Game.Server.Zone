@@ -1,11 +1,11 @@
 namespace EventHorizon.Zone.Core.DirectoryService
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using MediatR;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class GetListOfDirectoriesFromDirectoryHandler : IRequestHandler<GetListOfDirectoriesFromDirectory, IEnumerable<StandardDirectoryInfo>>
     {
@@ -21,10 +21,8 @@ namespace EventHorizon.Zone.Core.DirectoryService
         public Task<IEnumerable<StandardDirectoryInfo>> Handle(
             GetListOfDirectoriesFromDirectory request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _directoryResolver.GetDirectories(
-                request.DirectoryFullName
-            )
-        );
+        ) => _directoryResolver.GetDirectories(
+            request.DirectoryFullName
+        ).FromResult();
     }
 }

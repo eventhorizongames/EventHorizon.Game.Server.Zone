@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.Core.PopulateData
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using MediatR;
     using EventHorizon.Zone.Core.Events.Entity.Data;
@@ -17,7 +17,7 @@ namespace EventHorizon.Zone.Core.PopulateData
         {
             var entity = request.Entity;
 
-            // Populates the Movement State on the Entity from loaded data.
+            // Populates the Location State on the Entity from loaded data.
             entity.PopulateData<LocationState>(
                 LocationState.PROPERTY_NAME,
                 LocationState.NEW

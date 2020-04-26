@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
             LoadCombatSkillEffectScripts notification,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ServerScriptsPath,
                     "Effects"

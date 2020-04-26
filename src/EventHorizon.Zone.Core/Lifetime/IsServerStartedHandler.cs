@@ -1,11 +1,11 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.Core.Lifetime.State;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Lifetime
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.Core.Lifetime.State;
+    using MediatR;
+
     public class IsServerStartedHandler : IRequestHandler<IsServerStarted, bool>
     {
         readonly ServerLifetimeState _serverLifetimeState;
@@ -20,11 +20,8 @@ namespace EventHorizon.Zone.Core.Lifetime
         public Task<bool> Handle(
             IsServerStarted request,
             CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _serverLifetimeState.IsServerStarted()
-            );
-        }
+        ) => _serverLifetimeState
+            .IsServerStarted()
+            .FromResult();
     }
 }

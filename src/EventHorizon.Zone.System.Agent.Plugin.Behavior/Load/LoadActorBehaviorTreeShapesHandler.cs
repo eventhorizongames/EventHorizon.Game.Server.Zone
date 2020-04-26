@@ -36,7 +36,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
             LoadActorBehaviorTreeShapes request,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ServerPath,
                     "Behaviors"

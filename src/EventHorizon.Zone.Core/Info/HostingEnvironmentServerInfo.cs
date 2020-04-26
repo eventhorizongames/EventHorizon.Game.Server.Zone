@@ -1,9 +1,9 @@
-using System.IO;
-using EventHorizon.Zone.Core.Model.Info;
-using Microsoft.AspNetCore.Hosting;
-
 namespace EventHorizon.Zone.Core.Info
 {
+    using EventHorizon.Zone.Core.Model.Info;
+    using Microsoft.AspNetCore.Hosting;
+    using System.IO;
+
     public class HostingEnvironmentServerInfo : ServerInfo
     {
         public string AppDataPath { get; }

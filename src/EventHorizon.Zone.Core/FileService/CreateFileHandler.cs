@@ -1,11 +1,11 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.FileService
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class CreateFileHandler : IRequestHandler<CreateFile, bool>
     {
         readonly FileResolver _fileResolver;
@@ -18,12 +18,10 @@ namespace EventHorizon.Zone.Core.FileService
         }
 
         public Task<bool> Handle(
-            CreateFile request, 
+            CreateFile request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _fileResolver.CreateFile(
-                request.FileFullName
-            )
-        );
+        ) => _fileResolver.CreateFile(
+            request.FileFullName
+        ).FromResult();
     }
 }

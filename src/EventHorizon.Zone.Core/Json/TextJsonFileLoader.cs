@@ -7,7 +7,12 @@ namespace EventHorizon.Zone.Core.Json
 
     public class TextJsonFileLoader : IJsonFileLoader
     {
-        readonly FileResolver _fileResolver;
+        private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        private readonly FileResolver _fileResolver;
 
         public TextJsonFileLoader(
             FileResolver fileResolver
@@ -24,17 +29,14 @@ namespace EventHorizon.Zone.Core.Json
                 fileFullName
             ))
             {
-                return Task.FromResult(
-                    default(T)
-                );
+                return default(T).FromResult();
             }
-            return Task.FromResult(
-                JsonSerializer.Deserialize<T>(
-                    _fileResolver.GetFileText(
-                        fileFullName
-                    )
-                )
-            );
+            return JsonSerializer.Deserialize<T>(
+                _fileResolver.GetFileText(
+                    fileFullName
+                ),
+                JSON_OPTIONS
+            ).FromResult();
         }
     }
 }

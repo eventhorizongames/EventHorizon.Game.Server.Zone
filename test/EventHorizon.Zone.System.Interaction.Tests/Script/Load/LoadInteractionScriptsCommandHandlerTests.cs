@@ -65,14 +65,14 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    It.IsAny<LoadFileRecursivelyFromDirectory>(),
+                    It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
                     CancellationToken.None
                 )
             ).Callback<IRequest<Unit>, CancellationToken>(
                 (evt, token) =>
                 {
-                    onProcessFile = ((LoadFileRecursivelyFromDirectory)evt).OnProcessFile;
-                    arguments = ((LoadFileRecursivelyFromDirectory)evt).Arguments;
+                    onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                    arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
                 }
             );
 

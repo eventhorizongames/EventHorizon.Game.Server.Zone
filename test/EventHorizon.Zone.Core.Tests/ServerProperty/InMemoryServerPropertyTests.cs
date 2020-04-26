@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.Core.Tests.ServerProperty
     public class InMemoryServerPropertyTests
     {
         [Fact]
-        public void TestShouldGetAnyPropertyWhenAddedPropertyWithSameKey()
+        public void ShouldGetSamePropertyValueWhenPropertyIsAddedByKey()
         {
             // Given
             var key = "key";
@@ -40,6 +40,37 @@ namespace EventHorizon.Zone.Core.Tests.ServerProperty
 
             // When
             var serverProperty = new InMemoryServerProperty();
+
+            var actual = serverProperty.Get<string>(
+                key
+            );
+
+            // Then
+            Assert.Equal(
+                expected,
+                actual
+            );
+        }
+
+        [Fact]
+        public void ShouldGetLastPropertyAddedWhenMultiplePropertiesAreAddedAtSameKey()
+        {
+            // Given
+            var key = "key";
+            var firstValue = "this-is-the-first-string";
+            var value = "this-is-the-expected-string";
+            var expected = value;
+
+            // When
+            var serverProperty = new InMemoryServerProperty();
+            serverProperty.Set(
+                key,
+                firstValue
+            );
+            serverProperty.Set(
+                key,
+                value
+            );
 
             var actual = serverProperty.Get<string>(
                 key

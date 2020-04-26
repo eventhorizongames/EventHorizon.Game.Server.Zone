@@ -42,7 +42,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Load
             LoadCombatSkillsEvent notification,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ClientPath,
                     "Skills"

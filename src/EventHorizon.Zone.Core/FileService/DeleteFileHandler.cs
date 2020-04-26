@@ -1,11 +1,11 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.FileService
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class DeleteFileHandler : IRequestHandler<DeleteFile>
     {
         readonly FileResolver _fileResolver;

@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
             LoadClientScriptsSystemCommand notification,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 _serverInfo.ClientScriptsPath,
                 OnProcessFile,
                 new Dictionary<string, object>

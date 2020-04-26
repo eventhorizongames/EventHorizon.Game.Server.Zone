@@ -34,7 +34,7 @@ namespace EventHorizon.Zone.System.Combat.Particle.Handler
             LoadCombatParticleSystemEvent notification,
             CancellationToken cancellationToken
         ) => _mediator.Send(
-            new LoadFileRecursivelyFromDirectory(
+            new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
                     _serverInfo.ClientPath,
                     "Particle"

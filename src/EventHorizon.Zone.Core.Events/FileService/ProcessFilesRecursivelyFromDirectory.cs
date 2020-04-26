@@ -6,13 +6,13 @@ using MediatR;
 
 namespace EventHorizon.Zone.Core.Events.FileService
 {
-    public struct LoadFileRecursivelyFromDirectory : IRequest
+    public struct ProcessFilesRecursivelyFromDirectory : IRequest
     {
         public string FromDirectory { get; }
         public Func<StandardFileInfo, IDictionary<string, object>, Task> OnProcessFile { get; }
         public IDictionary<string, object> Arguments { get; }
 
-        public LoadFileRecursivelyFromDirectory(
+        public ProcessFilesRecursivelyFromDirectory(
             string fromDirectory,
             Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile,
             IDictionary<string, object> arguments

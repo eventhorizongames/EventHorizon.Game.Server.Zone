@@ -1,11 +1,11 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.FileService
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class ReadAllTextFromFileHandler : IRequestHandler<ReadAllTextFromFile, string>
     {
         readonly FileResolver _fileResolver;
@@ -18,12 +18,10 @@ namespace EventHorizon.Zone.Core.FileService
         }
 
         public Task<string> Handle(
-            ReadAllTextFromFile request, 
+            ReadAllTextFromFile request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _fileResolver.GetFileText(
-                request.FileFullName
-            )
-        );
+        ) => _fileResolver.GetFileText(
+            request.FileFullName
+        ).FromResult();
     }
 }

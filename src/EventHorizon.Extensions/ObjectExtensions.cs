@@ -1,8 +1,6 @@
-namespace System
+namespace System.Threading.Tasks
 {
-    using System.Threading.Tasks;
-    
-    public static class ObjectExtensions
+    public static class ObjectTaskExtensions
     {
         /// <summary>
         /// This will turn the object into a Task using the Task.FromResult.

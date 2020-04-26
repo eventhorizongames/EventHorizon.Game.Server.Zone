@@ -1,9 +1,9 @@
-using System;
-using System.Security.Cryptography;
-using EventHorizon.Zone.Core.Model.RandomNumber;
-
 namespace EventHorizon.Zone.Core.RandomNumber
 {
+    using EventHorizon.Zone.Core.Model.RandomNumber;
+    using System;
+    using System.Security.Cryptography;
+
     public class CryptographyRandomNumberGenerator : IRandomNumberGenerator
     {
         private static readonly RandomNumberGenerator RANDOM = RandomNumberGenerator.Create();
@@ -13,13 +13,13 @@ namespace EventHorizon.Zone.Core.RandomNumber
         )
         {
             return Next(
-                0, 
+                0,
                 maxValue
             );
         }
 
         public int Next(
-            int minValue, 
+            int minValue,
             int maxValue
         )
         {
@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.Core.RandomNumber
             {
                 throw new ArgumentOutOfRangeException();
             }
-            return (int)System.Math.Floor(
+            return (int)Math.Floor(
                 (minValue + ((double)maxValue - minValue) * NextDouble())
             );
         }
@@ -39,7 +39,7 @@ namespace EventHorizon.Zone.Core.RandomNumber
                 data
             );
             var randUint = BitConverter.ToUInt32(
-                data, 
+                data,
                 0
             );
             return randUint / (uint.MaxValue + 1.0);

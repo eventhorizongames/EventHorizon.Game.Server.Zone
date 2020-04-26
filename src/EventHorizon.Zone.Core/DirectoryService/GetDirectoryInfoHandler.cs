@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.Core.DirectoryService
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class GetDirectoryInfoHandler : IRequestHandler<GetDirectoryInfo, StandardDirectoryInfo>
     {
@@ -20,10 +20,8 @@ namespace EventHorizon.Zone.Core.DirectoryService
         public Task<StandardDirectoryInfo> Handle(
             GetDirectoryInfo request,
             CancellationToken cancellationToken
-        ) => Task.FromResult(
-            _directoryResolver.GetDirectoryInfo(
-                request.DirectoryFullName
-            )
-        );
+        ) => _directoryResolver.GetDirectoryInfo(
+            request.DirectoryFullName
+        ).FromResult();
     }
 }
