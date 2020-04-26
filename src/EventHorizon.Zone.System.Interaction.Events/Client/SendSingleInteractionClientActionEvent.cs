@@ -1,22 +1,17 @@
-using EventHorizon.Zone.Core.Events.Client;
-using EventHorizon.Zone.System.Interaction.Model.Client;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Interaction.Events.Client
 {
-    public class SendSingleInteractionClientActionEvent : ClientActionToSingleEvent<InteractionClientActionData>, INotification
-    {
-        public override string ConnectionId { get; set; }
-        public override string Action => "SERVER_INTERACTION_CLIENT_ACTION_EVENT";
-        public override InteractionClientActionData Data { get; set; }
+    using EventHorizon.Zone.Core.Events.Client.Generic;
+    using EventHorizon.Zone.System.Interaction.Model.Client;
 
-        public SendSingleInteractionClientActionEvent(
+    public static class SendSingleInteractionClientActionEvent
+    {
+        public static ClientActionGenericToSingleEvent Create(
             string connectionId,
             InteractionClientActionData data
-        )
-        {
-            ConnectionId = connectionId;
-            Data = data;
-        }
+        ) => new ClientActionGenericToSingleEvent(
+            connectionId,
+            "SERVER_INTERACTION_CLIENT_ACTION_EVENT",
+            data
+        );
     }
 }

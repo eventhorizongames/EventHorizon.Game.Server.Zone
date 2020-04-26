@@ -90,7 +90,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
                 );
 
                 await _mediator.Publish(
-                    new SendClientEntityChangedClientActionToAllEvent(
+                    SendClientEntityChangedClientActionToAllEvent.Create(
                         new ClientEntityChangedClientActionData(
                             registeredClientEntity
                         )

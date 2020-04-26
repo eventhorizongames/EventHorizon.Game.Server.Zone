@@ -1,6 +1,7 @@
 {
     "script": {
         "enabled": true,
+        "defaultTargetFramework": "netcoreapp3.1",
         "RspFilePath": "script.rsp"
     }
 }

@@ -1,16 +1,16 @@
-using Xunit;
-using Moq;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Entity.Register;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Register
 {
+    using EventHorizon.Zone.Core.Entity.Register;
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using MediatR;
+    using Moq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class EntityRegisteredHandlerTests
     {
         [Fact]
@@ -37,13 +37,12 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish(
-                    new ClientActionEntityRegisteredToAllEvent
-                    {
-                        Data = new EntityRegisteredData
+                    ClientActionEntityRegisteredToAllEvent.Create(
+                        new EntityRegisteredData
                         {
                             Entity = expectedEntity.Object
                         }
-                    },
+                    ),
                     CancellationToken.None
                 )
             );

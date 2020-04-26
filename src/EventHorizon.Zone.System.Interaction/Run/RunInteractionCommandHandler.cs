@@ -1,17 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
-using EventHorizon.Zone.System.Interaction.Events;
-using EventHorizon.Zone.System.Interaction.Model;
-using EventHorizon.Zone.System.Interaction.Script.Run;
-using MediatR;
-using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
-
 namespace EventHorizon.Zone.System.Interaction.Run
 {
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+    using EventHorizon.Zone.System.Interaction.Events;
+    using EventHorizon.Zone.System.Interaction.Model;
+    using EventHorizon.Zone.System.Interaction.Script.Run;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class RunInteractionCommandHandler : IRequestHandler<RunInteractionCommand>
     {
         readonly IMediator _mediator;
@@ -90,15 +89,14 @@ namespace EventHorizon.Zone.System.Interaction.Run
         )
         {
             await _mediator.Publish(
-                new SingleClientActionMessageFromCombatSystemEvent
-                {
-                    ConnectionId = connectionId,
-                    Data = new MessageFromCombatSystemData
+                SingleClientActionMessageFromCombatSystemEvent.Create(
+                    connectionId,
+                    new MessageFromCombatSystemData
                     {
                         MessageCode = messageCode,
                         Message = message
                     }
-                }
+                )
             );
         }
     }

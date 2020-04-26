@@ -4,9 +4,9 @@ namespace EventHorizon.Zone.Core.Events.Client
 {
     public abstract class ClientActionToSingleEvent<T> where T : IClientActionData
     {
-        public abstract string ConnectionId { get; set; }
+        public abstract string ConnectionId { get; }
         public abstract string Action { get; }
-        public abstract T Data { get; set; }
+        public abstract T Data { get; }
 
         public override bool Equals(object obj)
         {

@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Numerics;
-using Newtonsoft.Json;
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EventHorizon.Extensions.Tests
 {
+    using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Numerics;
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class DictionaryExtensionsTests
     {
         private readonly ITestOutputHelper _testOutputHelper;
@@ -168,7 +168,9 @@ namespace EventHorizon.Extensions.Tests
                 "Time: {0}ms",
                 elapsed
             );
-            Assert.True(false);
+            Assert.True(
+                watch.ElapsedMilliseconds <= 10000
+            );
         }
 
         public class TestDataGenerator : IEnumerable<object[]>

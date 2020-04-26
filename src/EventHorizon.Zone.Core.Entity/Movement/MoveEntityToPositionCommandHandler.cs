@@ -1,18 +1,18 @@
 namespace EventHorizon.Zone.Core.Entity.Movement
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.Client.Actions;
+    using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.Client.DataType;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
     using EventHorizon.Zone.Core.Model.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Settings;
     using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class MoveEntityToPositionCommandHandler : IRequestHandler<MoveEntityToPositionCommand, MoveEntityToPositionCommandResponse>
     {
@@ -85,14 +85,13 @@ namespace EventHorizon.Zone.Core.Entity.Movement
 
             // Send update to all clients that an entity moved to a new Position
             await _mediator.Publish(
-                new ClientActionEntityClientMoveToAllEvent
-                {
-                    Data = new EntityClientMoveData
+                ClientActionEntityClientMoveToAllEvent.Create(
+                    new EntityClientMoveData
                     {
                         EntityId = entity.Id,
                         MoveTo = request.MoveTo
-                    },
-                }
+                    }
+                )
             );
 
             return new MoveEntityToPositionCommandResponse(

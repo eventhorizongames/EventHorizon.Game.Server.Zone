@@ -1,11 +1,11 @@
-using EventHorizon.Zone.Core.Model.Client;
-
 namespace EventHorizon.Zone.Core.Events.Client
 {
+    using EventHorizon.Zone.Core.Model.Client;
+
     public abstract class ClientActionToAllEvent<T> where T : IClientActionData
     {
         public abstract string Action { get; }
-        public abstract T Data { get; set; }
+        public abstract T Data { get; }
 
         public override bool Equals(object obj)
         {

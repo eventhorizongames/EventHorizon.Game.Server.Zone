@@ -1,24 +1,24 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.I18n;
-using EventHorizon.Game.I18n.Model;
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
-using EventHorizon.Zone.System.Combat.Skill.Entity.State;
-using EventHorizon.Zone.System.Combat.Skill.Find;
-using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner;
-using EventHorizon.Zone.System.Combat.Skill.Validation;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
-using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
-
 namespace EventHorizon.Zone.System.Combat.Skill.Runner
 {
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Game.I18n.Model;
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
+    using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Skill.Entity.State;
+    using EventHorizon.Zone.System.Combat.Skill.Find;
+    using EventHorizon.Zone.System.Combat.Skill.Model;
+    using EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner;
+    using EventHorizon.Zone.System.Combat.Skill.Validation;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class RunSkillWithTargetOfEntityHandler : INotificationHandler<RunSkillWithTargetOfEntityEvent>
     {
         readonly ILogger _logger;
@@ -76,18 +76,17 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                 );
                 // Send Message to Connection, Code: skill_exception
                 await _mediator.Publish(
-                    new SingleClientActionMessageFromCombatSystemEvent
-                    {
-                        ConnectionId = notification.ConnectionId,
-                        Data = new MessageFromCombatSystemData
-                        {
-                            MessageCode = "skill_exception",
-                            Message = _i18nResolver.Resolve(
+                    SingleClientActionMessageFromCombatSystemEvent.Create(
+                        notification.ConnectionId,
+                         new MessageFromCombatSystemData
+                         {
+                             MessageCode = "skill_exception",
+                             Message = _i18nResolver.Resolve(
                                 "default",
                                 "skillExceptionMessage"
                             )
-                        }
-                    }
+                         }
+                    )
                 ).ConfigureAwait(false);
                 return;
             }
@@ -101,10 +100,9 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
             {
                 // Send Message to Caster, Code: does_not_have_skill
                 await _mediator.Publish(
-                    new SingleClientActionMessageFromCombatSystemEvent
-                    {
-                        ConnectionId = notification.ConnectionId,
-                        Data = new MessageFromCombatSystemData
+                    SingleClientActionMessageFromCombatSystemEvent.Create(
+                        notification.ConnectionId,
+                        new MessageFromCombatSystemData
                         {
                             MessageCode = "does_not_have_skill",
                             Message = _i18nResolver.Resolve(
@@ -122,7 +120,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                                 }
                             )
                         }
-                    }
+                    )
                 );
                 return;
             }

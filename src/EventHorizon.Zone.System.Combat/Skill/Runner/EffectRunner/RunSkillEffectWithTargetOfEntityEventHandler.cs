@@ -1,19 +1,19 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.ServerAction;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Skill.ClientAction;
-using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Zone.System.Combat.Skill.Validation;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using System.Numerics;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-
 namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
 {
+    using EventHorizon.Zone.Core.Events.ServerAction;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Skill.ClientAction;
+    using EventHorizon.Zone.System.Combat.Skill.Model;
+    using EventHorizon.Zone.System.Combat.Skill.Validation;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class RunSkillEffectWithTargetOfEntityEventHandler : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
     {
         readonly ILogger _logger;
@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
         }
 
         public async Task Handle(
-            RunSkillEffectWithTargetOfEntityEvent notification, 
+            RunSkillEffectWithTargetOfEntityEvent notification,
             CancellationToken cancellationToken
         )
         {
@@ -108,7 +108,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
                     new AddServerActionEvent(
                         _dateTime.Now.AddMilliseconds(
                             effect.Duration
-                        ), 
+                        ),
                         new RunSkillEffectWithTargetOfEntityEvent
                         {
                             ConnectionId = connectionId,
@@ -182,10 +182,9 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner.EffectRunner
             foreach (var clientEvent in effectResponse.ActionList)
             {
                 await _mediator.Publish(
-                    new ClientActionRunSkillActionEvent
-                    {
-                        Data = clientEvent
-                    }
+                    ClientActionRunSkillActionEvent.Create(
+                        clientEvent
+                    )
                 );
             }
             return effectResponse.State;

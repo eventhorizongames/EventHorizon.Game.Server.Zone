@@ -1,19 +1,15 @@
 namespace EventHorizon.Zone.System.ClientEntities.Client
 {
-    using EventHorizon.Zone.Core.Events.Client;
+    using EventHorizon.Zone.Core.Events.Client.Generic;
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
-    using MediatR;
 
-    public class SendClientEntityChangedClientActionToAllEvent : ClientActionToAllEvent<ClientEntityChangedClientActionData>, INotification
+    public class SendClientEntityChangedClientActionToAllEvent
     {
-        public override string Action => "SERVER_CLIENT_ENTITY_CHANGED_CLIENT_ACTION_EVENT";
-        public override ClientEntityChangedClientActionData Data { get; set; }
-
-        public SendClientEntityChangedClientActionToAllEvent(
+        public static ClientActionGenericToAllEvent Create(
             ClientEntityChangedClientActionData data
-        )
-        {
-            Data = data;
-        }
+        ) => new ClientActionGenericToAllEvent(
+            "SERVER_CLIENT_ENTITY_CHANGED_CLIENT_ACTION_EVENT",
+            data
+        );
     }
 }

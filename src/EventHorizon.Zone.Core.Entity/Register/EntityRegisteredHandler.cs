@@ -1,12 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using MediatR;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-
 namespace EventHorizon.Zone.Core.Entity.Register
 {
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class EntityRegisteredHandler : INotificationHandler<EntityRegisteredEvent>
     {
         readonly IMediator _mediator;
@@ -23,13 +23,12 @@ namespace EventHorizon.Zone.Core.Entity.Register
         )
         {
             await _mediator.Publish(
-                new ClientActionEntityRegisteredToAllEvent
-                {
-                    Data = new EntityRegisteredData
+                ClientActionEntityRegisteredToAllEvent.Create(
+                    new EntityRegisteredData
                     {
                         Entity = notification.Entity,
                     }
-                }
+                )
             );
         }
     }

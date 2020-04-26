@@ -1,7 +1,8 @@
-using System.Numerics;
-
-namespace EventHorizon.Zone.Core.Model.Client.DataType
+namespace EventHorizon.Zone.Core.Model.Entity.Client
 {
+    using EventHorizon.Zone.Core.Model.Client;
+    using System.Numerics;
+
     public struct EntityClientMoveData : IClientActionData
     {
         public long EntityId { get; set; }

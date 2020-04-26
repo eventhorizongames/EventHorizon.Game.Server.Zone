@@ -1,14 +1,11 @@
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.ClientEntities.Client;
-using EventHorizon.Zone.System.ClientEntities.Model;
-using EventHorizon.Zone.System.ClientEntities.Model.Client;
-using FluentAssertions;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Client
 {
+    using EventHorizon.Zone.System.ClientEntities.Client;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Model.Client;
+    using FluentAssertions;
+    using Xunit;
+
     public class SendClientEntityChangedClientActionToAllEventTests
     {
         [Fact]
@@ -19,7 +16,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Client
             var expectedDetails = new ClientEntity();
 
             // When
-            var actual = new SendClientEntityChangedClientActionToAllEvent(
+            var actual = SendClientEntityChangedClientActionToAllEvent.Create(
                 new ClientEntityChangedClientActionData(
                     expectedDetails
                 )
@@ -32,26 +29,12 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Client
                     expected
                 );
             actual.Data
+                .As<ClientEntityChangedClientActionData>()
                 .Details
                 .Should()
                 .Be(
                     expectedDetails
                 );
-        }
-
-        [Fact]
-        public void ShouldAcceptMediatorWhenHandlerIsCreated()
-        {
-            // Given
-            var mediatorMock = new Mock<IMediator>();
-
-            // When
-            var actual = new SendClientEntityChangedClientActionToAllEventHandler(
-                mediatorMock.Object
-            );
-
-            // Then
-            actual.Should().NotBeNull();
         }
     }
 }

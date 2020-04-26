@@ -1,13 +1,15 @@
-using EventHorizon.Zone.Core.Events.Client;
-using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Client.Messsage
 {
-    public class ClientActionMessageFromCombatSystemEvent : ClientActionToAllEvent<MessageFromCombatSystemData>, INotification
-    {
-        public override string Action => "MessageFromCombatSystem";
-        public override MessageFromCombatSystemData Data { get; set; }
+    using EventHorizon.Zone.Core.Events.Client.Generic;
+    using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
 
+    public static class ClientActionMessageFromCombatSystemEvent
+    {
+        public static ClientActionGenericToAllEvent Create(
+            MessageFromCombatSystemData data
+        ) => new ClientActionGenericToAllEvent(
+            "MessageFromCombatSystem",
+            data
+        );
     }
 }

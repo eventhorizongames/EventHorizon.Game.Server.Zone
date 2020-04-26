@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Finished
 {
-    using EventHorizon.Zone.Core.Events.Client.Actions;
-    using EventHorizon.Zone.Core.Model.Client.DataType;
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Finished;
     using global::System.Threading;
     using MediatR;
@@ -15,13 +15,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Finished
         {
             //Given
             var entityId = 123L;
-            var expected = new ClientActionClientEntityStoppingToAllEvent
-            {
-                Data = new EntityClientStoppingData
+            var expected = ClientActionClientEntityStoppingToAllEvent.Create(
+                new EntityClientStoppingData
                 {
                     EntityId = entityId,
-                },
-            };
+                }
+            );
 
             var mediatorMock = new Mock<IMediator>();
 

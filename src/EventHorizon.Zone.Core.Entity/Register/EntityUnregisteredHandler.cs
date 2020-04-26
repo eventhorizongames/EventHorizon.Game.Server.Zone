@@ -1,12 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using MediatR;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-
 namespace EventHorizon.Zone.Core.Entity.Register
 {
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class EntityUnregisteredHandler : INotificationHandler<EntityUnRegisteredEvent>
     {
         readonly IMediator _mediator;
@@ -18,18 +18,17 @@ namespace EventHorizon.Zone.Core.Entity.Register
         }
 
         public async Task Handle(
-            EntityUnRegisteredEvent notification, 
+            EntityUnRegisteredEvent notification,
             CancellationToken cancellationToken
         )
         {
             await _mediator.Publish(
-                new ClientActionEntityUnregisteredToAllEvent
-                {
-                    Data = new EntityUnregisteredData
+                ClientActionEntityUnregisteredToAllEvent.Create(
+                    new EntityUnregisteredData
                     {
                         EntityId = notification.EntityId,
                     }
-                }
+                )
             );
         }
     }

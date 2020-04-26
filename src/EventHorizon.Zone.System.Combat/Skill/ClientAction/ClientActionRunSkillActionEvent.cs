@@ -1,12 +1,14 @@
-using EventHorizon.Zone.Core.Events.Client;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Skill.ClientAction
 {
-    public class ClientActionRunSkillActionEvent : ClientActionToAllEvent<ClientSkillActionEvent>, INotification
-    {
-        public override string Action => "RunSkillAction";
+    using EventHorizon.Zone.Core.Events.Client.Generic;
 
-        public override ClientSkillActionEvent Data { get; set; }
+    public static class ClientActionRunSkillActionEvent
+    {
+        public static ClientActionGenericToAllEvent Create(
+            ClientSkillActionEvent data
+        ) => new ClientActionGenericToAllEvent(
+            "RunSkillAction",
+            data
+        );
     }
 }

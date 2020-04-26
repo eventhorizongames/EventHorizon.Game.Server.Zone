@@ -32,7 +32,7 @@ var player = Data.Get<PlayerEntity>("Player");
 var interaction = Data.Get<InteractionItem>("Interaction");
 var target = Data.Get<IObjectEntity>("Target");
 await Services.Mediator.Publish(
-    new SendSingleInteractionClientActionEvent(
+    SendSingleInteractionClientActionEvent.Create(
         player.ConnectionId,
         new InteractionClientActionData(
             "Systems.Dialog.OPEN_DIALOG_TREE_COMMAND",

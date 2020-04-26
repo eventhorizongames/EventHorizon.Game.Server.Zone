@@ -14,8 +14,6 @@ using EventHorizon.Zone.System.Agent.Plugin.Ai.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Model.Entity;
 
 var actor = Data.Get<IObjectEntity>("Actor");

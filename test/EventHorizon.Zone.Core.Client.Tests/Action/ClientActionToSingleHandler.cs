@@ -69,13 +69,11 @@ namespace EventHorizon.Zone.Core.Client.Tests.Action
             public override string ConnectionId
             {
                 get => _connectionId;
-                set => _connectionId = value;
             }
             public override string Action => _action;
             public override TestClientActionData Data
             {
                 get => _data;
-                set => _data = value;
             }
         }
         public class TestClientActionData : IClientActionData

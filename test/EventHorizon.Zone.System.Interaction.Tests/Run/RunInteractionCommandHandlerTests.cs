@@ -23,15 +23,14 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
         public async Task TestShouldPublishInvalidInteractionWhenNotInteractionEntityIsNotFound()
         {
             // Given
-            var expectedEvent = new SingleClientActionMessageFromCombatSystemEvent
-            {
-                ConnectionId = "connection-id",
-                Data = new MessageFromCombatSystemData
+            var expectedEvent = SingleClientActionMessageFromCombatSystemEvent.Create(
+                "connection-id",
+                new MessageFromCombatSystemData
                 {
                     MessageCode = "interaction_not_valid",
                     Message = "Interaction entity was not found."
                 }
-            };
+            );
             var interactionEntityId = 123L;
             var playerEntity = new PlayerEntity
             {
@@ -116,15 +115,14 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
         public async Task TestShouldPublishInvalidInteractionWhenInteractionIsNotActive()
         {
             // Given
-            var expectedEvent = new SingleClientActionMessageFromCombatSystemEvent
-            {
-                ConnectionId = "connection-id",
-                Data = new MessageFromCombatSystemData
+            var expectedEvent = SingleClientActionMessageFromCombatSystemEvent.Create(
+                "connection-id",
+                new MessageFromCombatSystemData
                 {
                     MessageCode = "interaction_not_active",
                     Message = "Interaction was not active."
                 }
-            };
+            );
             var interactionEntityId = 123L;
             var playerEntity = new PlayerEntity
             {

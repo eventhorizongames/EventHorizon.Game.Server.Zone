@@ -1,22 +1,22 @@
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Backup.Events;
-using EventHorizon.Zone.System.ClientEntities.Client;
-using EventHorizon.Zone.System.ClientEntities.Model;
-using EventHorizon.Zone.System.ClientEntities.Model.Client;
-using EventHorizon.Zone.System.ClientEntities.Save;
-using EventHorizon.Zone.System.ClientEntities.State;
-using MediatR;
-using Moq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
 {
+    using EventHorizon.Zone.Core.Events.Client.Generic;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Backup.Events;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Model.Client;
+    using EventHorizon.Zone.System.ClientEntities.Save;
+    using EventHorizon.Zone.System.ClientEntities.State;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class SaveClientEntityCommandHandlerTests
     {
         [Fact]
@@ -66,7 +66,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish(
-                    It.Is<SendClientEntityChangedClientActionToAllEvent>(
+                    It.Is<ClientActionGenericToAllEvent>(
                         evt => evt.Data.Equals(
                             expected
                         )

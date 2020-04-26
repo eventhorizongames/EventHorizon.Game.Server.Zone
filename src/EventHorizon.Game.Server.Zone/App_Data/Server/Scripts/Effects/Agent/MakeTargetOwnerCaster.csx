@@ -7,9 +7,7 @@
 /// </summary>
 
 using System.Collections.Generic;
-using EventHorizon.Zone.Core.Events.Client.Actions;
 using EventHorizon.Zone.Core.Events.Entity.Update;
-using EventHorizon.Zone.Core.Model.Client.DataType;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Events.Update;
 using EventHorizon.Zone.System.Agent.Model;

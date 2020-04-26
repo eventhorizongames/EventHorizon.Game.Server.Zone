@@ -1,12 +1,12 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Finished
 {
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class AgentFinishedMoveEventHandler : INotificationHandler<AgentFinishedMoveEvent>
     {
         private readonly IMediator _mediator;
@@ -19,18 +19,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Finished
         }
 
         public Task Handle(
-            AgentFinishedMoveEvent notification, 
+            AgentFinishedMoveEvent notification,
             CancellationToken cancellationToken
         )
         {
             return _mediator.Publish(
-                new ClientActionClientEntityStoppingToAllEvent
-                {
-                    Data = new EntityClientStoppingData
+                ClientActionClientEntityStoppingToAllEvent.Create(
+                    new EntityClientStoppingData
                     {
                         EntityId = notification.EntityId,
-                    },
-                }
+                    }
+                )
             );
         }
     }

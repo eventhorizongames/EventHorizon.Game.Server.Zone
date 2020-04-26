@@ -1,18 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
-using MediatR;
-using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
-using EventHorizon.Game.I18n;
-using EventHorizon.Game.I18n.Model;
-using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
 {
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Game.I18n.Model;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
+    using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
+    using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
+    using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class RunPlayerCompanionSkillHandler : INotificationHandler<RunPlayerCompanionSkillEvent>
     {
         readonly IMediator _mediator;
@@ -31,7 +31,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
         }
 
         public async Task Handle(
-            RunPlayerCompanionSkillEvent notification, 
+            RunPlayerCompanionSkillEvent notification,
             CancellationToken cancellationToken
         )
         {
@@ -49,12 +49,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
                     OwnerState.PROPERTY_NAME
                 ).OwnerId != playerEntity.GlobalId)
             {
-                // Send Message to Connection, Code: skill_exception
+                // Send Message to Connection, ErrorCode: player_not_companion_owner
                 await _mediator.Publish(
-                    new SingleClientActionMessageFromCombatSystemEvent
-                    {
-                        ConnectionId = notification.ConnectionId,
-                        Data = new MessageFromCombatSystemData
+                    SingleClientActionMessageFromCombatSystemEvent.Create(
+                        notification.ConnectionId,
+                        new MessageFromCombatSystemData
                         {
                             MessageCode = "player_not_companion_owner",
                             Message = _i18nResolver.Resolve(
@@ -72,8 +71,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
                                 }
                             )
                         }
-                    }
-                ).ConfigureAwait(false);
+                    )
+                );
             }
 
             await _mediator.Publish(

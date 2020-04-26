@@ -1,13 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Events.Entity.Action;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-using EventHorizon.Zone.Core.Model.Entity;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Update
 {
+    using EventHorizon.Zone.Core.Events.Entity.Action;
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using MediatR;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class EntityActionEventPropertyChangedHandler : INotificationHandler<EntityActionEvent>
     {
         private readonly IMediator _mediator;
@@ -28,12 +28,11 @@ namespace EventHorizon.Zone.Core.Entity.Update
             {
                 // Send Action to All Clients that Property Changed on Entity
                 await _mediator.Publish(
-                    new ClientActionEntityClientChangedToAllEvent
-                    {
-                        Data = new EntityChangedData(
+                    ClientActionEntityClientChangedToAllEvent.Create(
+                        new EntityChangedData(
                             notification.Entity
-                        ),
-                    }
+                        )
+                    )
                 );
             }
         }

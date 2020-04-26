@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Client.Action;
-using EventHorizon.Zone.Core.Events.Client;
-using EventHorizon.Zone.Core.Model.Client;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Client.Tests.Action
 {
+    using EventHorizon.Zone.Core.Client.Action;
+    using EventHorizon.Zone.Core.Events.Client;
+    using EventHorizon.Zone.Core.Model.Client;
+    using MediatR;
+    using Moq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class ClientActionToAllHandlerTests
     {
         [Fact]
@@ -50,9 +50,14 @@ namespace EventHorizon.Zone.Core.Client.Tests.Action
 
         public class TestClientActionEvent : ClientActionToAllEvent<TestClientActionData>
         {
-
             private string _action;
             private TestClientActionData _data;
+            public override string Action => _action;
+            public override TestClientActionData Data
+            {
+                get => _data;
+            }
+
             public TestClientActionEvent(
                 string action,
                 TestClientActionData data
@@ -60,12 +65,6 @@ namespace EventHorizon.Zone.Core.Client.Tests.Action
             {
                 _action = action;
                 _data = data;
-            }
-            public override string Action => _action;
-            public override TestClientActionData Data
-            {
-                get => _data;
-                set => _data = value;
             }
         }
         public class TestClientActionData : IClientActionData

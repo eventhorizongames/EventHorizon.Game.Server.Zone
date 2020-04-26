@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Client.Actions;
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.System.Combat.Events.Level;
-using EventHorizon.Zone.System.Combat.Level;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Client.DataType;
-
 namespace EventHorizon.Zone.System.Combat.Handlers.Level
 {
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+    using EventHorizon.Zone.System.Combat.Events.Level;
+    using EventHorizon.Zone.System.Combat.Level;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class RunLevelUpForEntityHandler : INotificationHandler<RunLevelUpForEntityEvent>
     {
         readonly IMediator _mediator;
@@ -48,12 +48,11 @@ namespace EventHorizon.Zone.System.Combat.Handlers.Level
                     }
                 );
                 await _mediator.Publish(
-                    new ClientActionEntityClientChangedToAllEvent
-                    {
-                        Data = new EntityChangedData(
+                    ClientActionEntityClientChangedToAllEvent.Create(
+                        new EntityChangedData(
                             response.ChangedEntity
                         )
-                    }
+                    )
                 );
             }
             else

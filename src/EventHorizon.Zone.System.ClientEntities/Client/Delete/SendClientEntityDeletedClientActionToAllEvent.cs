@@ -1,19 +1,15 @@
 namespace EventHorizon.Zone.System.ClientEntities.Client.Delete
 {
-    using EventHorizon.Zone.Core.Events.Client;
+    using EventHorizon.Zone.Core.Events.Client.Generic;
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
-    using MediatR;
 
-    public class SendClientEntityDeletedClientActionToAllEvent : ClientActionToAllEvent<ClientEntityDeletedClientActionData>, INotification
+    public static class SendClientEntityDeletedClientActionToAllEvent
     {
-        public override string Action => "SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT";
-        public override ClientEntityDeletedClientActionData Data { get; set; }
-
-        public SendClientEntityDeletedClientActionToAllEvent(
+        public static ClientActionGenericToAllEvent Create(
             ClientEntityDeletedClientActionData data
-        )
-        {
-            Data = data;
-        }
+        ) => new ClientActionGenericToAllEvent(
+            "SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT",
+            data
+        );
     }
 }

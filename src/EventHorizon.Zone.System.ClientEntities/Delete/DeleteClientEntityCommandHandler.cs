@@ -61,7 +61,7 @@
             );
 
             await _mediator.Publish(
-                new SendClientEntityDeletedClientActionToAllEvent(
+                SendClientEntityDeletedClientActionToAllEvent.Create(
                     new ClientEntityDeletedClientActionData(
                         clientEntity.GlobalId
                     )
