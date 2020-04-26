@@ -19,7 +19,8 @@
         "noTargetSelected": "No target selected!",
         "noTargetToCaptureSelected": "No target selected to capture.",
         "noSelectionsMessage": "No companion or target selected",
-        "combatSystem:system": "System: ",
+        "systemLog:system": "System: ",
+        "combatSystem:system": "Combat System: ",
         "empty": ""
     }
 }

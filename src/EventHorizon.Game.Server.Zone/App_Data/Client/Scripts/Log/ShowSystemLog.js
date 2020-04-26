@@ -10,6 +10,6 @@
 
 $services.eventService.publish(
     $utils.createEvent(
-        "MessageFromCombatSystem.SHOW"
+        "MessageFromSystem.SHOW"
     )
 );

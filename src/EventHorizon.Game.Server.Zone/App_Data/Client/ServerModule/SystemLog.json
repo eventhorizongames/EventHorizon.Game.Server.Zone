@@ -1,0 +1,6 @@
+{
+    "name": "SystemLog",
+    "initializeScript": "ServerModule_SystemLog_Initialize.js",
+    "disposeScript": "ServerModule_SystemLog_Dispose.js",
+    "updateScript": "ServerModule_SystemLog_Update.js"
+}

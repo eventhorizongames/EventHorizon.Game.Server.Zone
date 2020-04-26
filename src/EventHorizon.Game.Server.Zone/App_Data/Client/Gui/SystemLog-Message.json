@@ -1,0 +1,53 @@
+{
+    "id": "GUI_System_Log-Message.json",
+    "comment": "The id will come from the directory structure.",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "gui_system_message-panel",
+            "sort": 0,
+            "templateId": "platform-panel",
+            "options": {
+                "adaptHeightToChildren": true,
+                "top": -45,
+                "height": "50px",
+                "isVertical": false,
+                "verticalAlignment": 1,
+                "horizontalAlignment": 0,
+                "isPointerBlocker": false
+            },
+            "controlList": [
+                {
+                    "id": "gui_system_message-sender",
+                    "sort": 0,
+                    "templateId": "platform-text",
+                    "options": {
+                        "alpha": 1,
+                        "background": "red",
+                        "resizeToFit": true,
+                        "color": "white",
+                        "width": "30px",
+                        "fontSize": "14px",
+                        "fontWeight": "bold",
+                        "height": "30px",
+                        "textKey": "systemLog:system"
+                    }
+                },
+                {
+                    "id": "gui_system_message-message",
+                    "sort": 1,
+                    "templateId": "platform-text",
+                    "options": {
+                        "alpha": 1,
+                        "background": "red",
+                        "color": "white",
+                        "width": "600px",
+                        "fontSize": "14px",
+                        "textHorizontalAlignment": 0,
+                        "text": "message_text"
+                    }
+                }
+            ]
+        }
+    ]
+}

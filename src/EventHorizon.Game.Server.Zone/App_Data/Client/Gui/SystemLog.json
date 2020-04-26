@@ -1,0 +1,69 @@
+{
+    "id": "GUI_System_Log.json",
+    "comment": "The id will come from the directory structure.",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "gui_system_log-overlay",
+            "sort": 0,
+            "templateId": "platform-container",
+            "options": {
+                "isVisible": true,
+                "width": "66%",
+                "height": "50%",
+                "alpha": 0.5,
+                "horizontalAlignment": 0,
+                "verticalAlignment": 0,
+                "background": "black",
+                "cornerRadius": 20,
+                "left": 20,
+                "top": 20,
+                "thickness": 0,
+                "animation": {
+                    "isEnabled": true,
+                    "transition": 0.05,
+                    "transitionStart": 0.01,
+                    "transitionEnd": 0.5,
+                    "transitionTime": 500
+                }
+            }
+        },
+        {
+            "id": "gui_system_log-container",
+            "sort": 1,
+            "templateId": "platform-container",
+            "options": {
+                "isVisible": true,
+                "width": "66%",
+                "height": "50%",
+                "horizontalAlignment": 0,
+                "verticalAlignment": 0,
+                "background": "transparent",
+                "left": 20,
+                "top": 20,
+                "thickness": 0,
+                "animation": {
+                    "isEnabled": true,
+                    "transition": 0.05,
+                    "transitionStart": 0.01,
+                    "transitionEnd": 1,
+                    "transitionTime": 500
+                }
+            },
+            "controlList": [
+                {
+                    "id": "gui_system_log-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "options": {
+                        "verticalAlignment": 1,
+                        "horizontalAlignment": 0,
+                        "top": -15,
+                        "left": 15,
+                        "enableScrolling": true
+                    }
+                }
+            ]
+        }
+    ]
+}
