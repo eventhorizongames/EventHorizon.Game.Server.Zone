@@ -1,14 +1,14 @@
 namespace EventHorizon.Zone.System.ClientEntities.Register
 {
+    using EventHorizon.Zone.Core.Events.Map.Cost;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.PopulateData;
+    using EventHorizon.Zone.System.ClientEntities.State;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.Map.Cost;
     using MediatR;
-    using EventHorizon.Zone.System.ClientEntities.State;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.System.ClientEntities.PopulateData;
-    using EventHorizon.Zone.System.ClientEntities.Model;
 
     public class RegisterClientEntityCommandHandler : IRequestHandler<RegisterClientEntityCommand>
     {

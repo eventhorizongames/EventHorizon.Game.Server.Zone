@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.ClientEntities.Model;
-using EventHorizon.Zone.System.ClientEntities.Query;
-using EventHorizon.Zone.System.ClientEntities.State;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Query
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Query;
+    using EventHorizon.Zone.System.ClientEntities.State;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using Moq;
+    using Xunit;
+
     public class QueryForAllClientEntityDetailsListHandlerTests
     {
         [Fact]

@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.ClientEntities.Model
 {
-    internal class ClientEntityConstants
+    public class ClientEntityConstants
     {
-        internal static readonly string METADATA_FILE_FULL_NAME = "editor:Metadata:FullName";
+        public static readonly string METADATA_FILE_FULL_NAME = "editor:Metadata:FullName";
     }
 }

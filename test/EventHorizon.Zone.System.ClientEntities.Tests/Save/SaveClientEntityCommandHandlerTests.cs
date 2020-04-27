@@ -9,6 +9,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
     using EventHorizon.Zone.System.ClientEntities.Save;
     using EventHorizon.Zone.System.ClientEntities.State;
+    using FluentAssertions;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
@@ -19,6 +20,55 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
 
     public class SaveClientEntityCommandHandlerTests
     {
+        [Fact]
+        public async Task ShouldReturnNewlyRegisteredEntityWhenSuccessfulySaved()
+        {
+            // Given
+            var clientEntityId = "client-entity";
+            var fullName = "full-name";
+            var clientEntity = new ClientEntity(
+                clientEntityId,
+                new ConcurrentDictionary<string, object>(
+                    new Dictionary<string, object>
+                    {
+                        { "editor:Metadata:FullName", fullName }
+                    }
+                )
+            );
+            var expected = clientEntity;
+
+            var mediatorMock = new Mock<IMediator>();
+            var fileSaverMock = new Mock<IJsonFileSaver>();
+            var repositoryMock = new Mock<ClientEntityRepository>();
+
+            repositoryMock.Setup(
+                mock => mock.Find(
+                    clientEntityId
+                )
+            ).Returns(
+                clientEntity
+            );
+
+            // When
+            var handler = new SaveClientEntityCommandHandler(
+                mediatorMock.Object,
+                fileSaverMock.Object,
+                repositoryMock.Object
+            );
+            var actual = await handler.Handle(
+                new SaveClientEntityCommand(
+                    clientEntity
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.ClientEntity.Should()
+                .Be(
+                    expected
+                );
+        }
+        
         [Fact]
         public async Task ShouldSendChangeClientActionToAllEventWhenSuccessfulySavedClientEntity()
         {

@@ -1,13 +1,13 @@
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Query
 {
-    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.Query;
     using EventHorizon.Zone.System.ClientEntities.State;
-    using Xunit;
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.ClientEntities.Model;
     using global::System.Threading;
+    using global::System.Threading.Tasks;
     using Moq;
+    using Xunit;
 
     public class QueryForAllRawClientEntityDetailsListHandlerTests
     {

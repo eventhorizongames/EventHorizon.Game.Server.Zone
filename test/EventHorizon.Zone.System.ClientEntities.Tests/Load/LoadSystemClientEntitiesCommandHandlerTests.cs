@@ -1,23 +1,23 @@
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.ClientEntities.Load;
-using EventHorizon.Zone.System.ClientEntities.Model;
-using EventHorizon.Zone.System.ClientEntities.Query;
-using EventHorizon.Zone.System.ClientEntities.Register;
-using EventHorizon.Zone.System.ClientEntities.Unregister;
-using MediatR;
-using Moq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
 {
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.ClientEntities.Load;
+    using EventHorizon.Zone.System.ClientEntities.Model;
+    using EventHorizon.Zone.System.ClientEntities.Query;
+    using EventHorizon.Zone.System.ClientEntities.Register;
+    using EventHorizon.Zone.System.ClientEntities.Unregister;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class LoadSystemClientEntitiesCommandHandlerTests
     {
         [Fact]
@@ -91,7 +91,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
                 Times.Exactly(10)
             );
         }
-        
+
         [Fact]
         public async Task ShouldUnregisterClientEntityWhenExistingEntitiesAreFound()
         {

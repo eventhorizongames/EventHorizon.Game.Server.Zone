@@ -37,12 +37,12 @@
             if (!clientEntity.IsFound())
             {
                 return new DeleteClientEntityResponse(
-                    "not_found"
+                    ClientEntityErrorCodes.NOT_FOUND
                 );
             }
 
             // This will also trigger a reload
-            var deleteErrorCode = await DeleteClientEnityFile(
+            var deleteErrorCode = await DeleteClientEntityFile(
                 clientEntity
             );
 
@@ -73,11 +73,10 @@
             );
         }
 
-        private async Task<string> DeleteClientEnityFile(
+        private async Task<string> DeleteClientEntityFile(
             ClientEntity clientEntity
         )
         {
-
             var fileFullName = clientEntity.RawData[ClientEntityConstants.METADATA_FILE_FULL_NAME] as string;
             var fileInfo = await _mediator.Send(
                 new GetFileInfo(
@@ -112,7 +111,7 @@
                 return string.Empty;
             }
 
-            return "client_entity_not_found";
+            return ClientEntityErrorCodes.FILE_NOT_FOUND;
         }
     }
 }

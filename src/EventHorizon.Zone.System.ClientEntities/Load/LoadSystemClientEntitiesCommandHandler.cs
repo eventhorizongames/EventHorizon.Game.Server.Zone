@@ -82,7 +82,6 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
                 var client = await _fileLoader.GetFile<ClientEntityDetails>(
                     fileInfo.FullName
                 );
-                // TODO: Move the editor:Metadata:FullName into a constats file.
                 client.Data[ClientEntityConstants.METADATA_FILE_FULL_NAME] = fileInfo.FullName;
                 result.Add(
                     client

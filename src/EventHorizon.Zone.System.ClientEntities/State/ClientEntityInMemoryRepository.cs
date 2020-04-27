@@ -1,8 +1,8 @@
 namespace EventHorizon.Zone.System.ClientEntities.State
 {
+    using EventHorizon.Zone.System.ClientEntities.Model;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.ClientEntities.Model;
 
     public class ClientEntityInMemoryRepository : ClientEntityRepository
     {

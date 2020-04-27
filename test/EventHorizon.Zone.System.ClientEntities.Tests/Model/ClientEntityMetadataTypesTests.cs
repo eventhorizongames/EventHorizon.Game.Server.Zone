@@ -1,8 +1,8 @@
 namespace EventHorizon.Zone.System.ClientEntities.Tests.Model
 {
+    using EventHorizon.Zone.System.ClientEntities.Model;
     using global::System;
     using global::System.Numerics;
-    using EventHorizon.Zone.System.ClientEntities.Model;
     using Xunit;
 
     public class ClientEntityMetadataTypesTests
