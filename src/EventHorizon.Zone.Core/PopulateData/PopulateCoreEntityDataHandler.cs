@@ -1,12 +1,12 @@
 namespace EventHorizon.Zone.Core.PopulateData
 {
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Movement;
+    using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using MediatR;
-    using EventHorizon.Zone.Core.Events.Entity.Data;
-    using EventHorizon.Zone.Core.Model.Entity.Movement;
-    using EventHorizon.Zone.Core.Model.Core;
 
     public class PopulateCoreEntityDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {

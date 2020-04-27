@@ -1,9 +1,9 @@
 namespace EventHorizon.Zone.Core.Json
 {
-    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Json;
     using Newtonsoft.Json;
+    using System.Threading.Tasks;
 
     public class NewtonsoftJsonFileLoader : IJsonFileLoader
     {

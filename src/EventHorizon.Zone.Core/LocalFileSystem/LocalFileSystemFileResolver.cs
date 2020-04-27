@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
 {
-    using System.IO;
     using EventHorizon.Zone.Core.Model.FileService;
+    using System.IO;
 
     public class LocalFileSystemFileResolver : FileResolver
     {
