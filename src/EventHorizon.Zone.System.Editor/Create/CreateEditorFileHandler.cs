@@ -1,22 +1,22 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Events.Create;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Editor.Create
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Editor.Events.Create;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class CreateEditorFileHandler : IRequestHandler<CreateEditorFile, EditorResponse>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
 
         public CreateEditorFileHandler(
             ILogger<CreateEditorFileHandler> logger,

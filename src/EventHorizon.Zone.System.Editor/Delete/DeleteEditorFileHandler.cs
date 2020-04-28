@@ -1,23 +1,23 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Backup.Events;
-using EventHorizon.Zone.System.Editor.Events.Delete;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Editor.Delete
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Backup.Events;
+    using EventHorizon.Zone.System.Editor.Events.Delete;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class DeleteEditorFileHandler : IRequestHandler<DeleteEditorFile, EditorResponse>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
 
         public DeleteEditorFileHandler(
             ILogger<DeleteEditorFileHandler> logger,

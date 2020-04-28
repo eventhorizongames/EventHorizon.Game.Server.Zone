@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace EventHorizon.Zone.System.Editor.Model
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
     public class EditorState : IEditorNodeList
     {
         public IList<IEditorNode> Root { get; } = new List<IEditorNode>();

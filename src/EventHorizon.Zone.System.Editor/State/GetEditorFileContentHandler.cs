@@ -1,22 +1,24 @@
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Events.State;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Editor.State
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Editor.Events.State;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     /// <summary>
     /// This Handler will get the file content based on the path and filename from the App_Data directory 
     /// </summary>
     public class GetEditorFileContentHandler : IRequestHandler<GetEditorFileContent, StandardEditorFile>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        public static readonly string INVALID_FILE_IDENTIFIER = "__invalid__";
+
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
 
         public GetEditorFileContentHandler(
             IMediator mediator,
@@ -56,9 +58,9 @@ namespace EventHorizon.Zone.System.Editor.State
                 );
             }
             return new StandardEditorFile(
-                "__invalid__",
-                new string[] { "__invalid__" },
-                "__invalid__"
+                INVALID_FILE_IDENTIFIER,
+                new string[] { INVALID_FILE_IDENTIFIER },
+                INVALID_FILE_IDENTIFIER
             );
         }
     }

@@ -1,22 +1,22 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Events.Delete;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Editor.Delete
 {
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Editor.Events.Delete;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class DeleteEditorFolderHandler : IRequestHandler<DeleteEditorFolder, EditorResponse>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
 
         public DeleteEditorFolderHandler(
             ILogger<DeleteEditorFolderHandler> logger,
@@ -36,21 +36,33 @@ namespace EventHorizon.Zone.System.Editor.Delete
         {
             try
             {
-                if (!await _mediator.Send(
-                    new DeleteDirectory(
-                        Path.Combine(
-                            _serverInfo.AppDataPath,
-                            Path.Combine(
-                                request.FolderPath.ToArray()
-                            ),
-                            request.FolderName
-                        )
+                string folderFullName = Path.Combine(
+                    _serverInfo.AppDataPath,
+                    Path.Combine(
+                        request.FolderPath.ToArray()
+                    ),
+                    request.FolderName
+                );
+                if (await _mediator.Send(
+                    new IsDirectoryEmpty(
+                        folderFullName
                     )
                 ))
                 {
                     return new EditorResponse(
                         false,
                         "folder_not_empty"
+                    );
+                }
+                if (!await _mediator.Send(
+                      new DeleteDirectory(
+                          folderFullName
+                      )
+                  ))
+                {
+                    return new EditorResponse(
+                        false,
+                        "folder_failed_to_delete"
                     );
                 }
 

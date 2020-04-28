@@ -4,11 +4,13 @@ namespace EventHorizon.Zone.System.Editor.Model
     {
         public bool Successful { get; }
         public string ErrorCode { get; }
+
         public EditorResponse(
             bool successful
-        ) : this(successful, null)
+        ) : this(successful, string.Empty)
         {
         }
+
         public EditorResponse(
             bool successful,
             string errorCode

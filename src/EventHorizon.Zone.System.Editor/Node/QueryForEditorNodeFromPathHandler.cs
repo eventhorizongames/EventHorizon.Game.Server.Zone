@@ -1,22 +1,21 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Editor.Events.Node;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-using System.IO;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using System.Linq;
-using System;
-
 namespace EventHorizon.Zone.System.Editor.Node
 {
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.System.Editor.Events.Node;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class QueryForEditorNodeFromPathHandler : IRequestHandler<QueryForEditorNodeFromPath, IEditorNode>
     {
-        public const string DEFAULT_NODE_TYPE = "EDITOR_CONTENT";
+        public static readonly string DEFAULT_NODE_TYPE = "EDITOR_CONTENT";
 
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public QueryForEditorNodeFromPathHandler(
             IMediator mediator
@@ -42,7 +41,7 @@ namespace EventHorizon.Zone.System.Editor.Node
             string nodeType
         )
         {
-            if (nodeType == null)
+            if (string.IsNullOrWhiteSpace(nodeType))
             {
                 nodeType = DEFAULT_NODE_TYPE;
             }
@@ -158,9 +157,6 @@ namespace EventHorizon.Zone.System.Editor.Node
                 )
             ))
             {
-                var path = rootDirectoryFullName.MakePathRelative(
-                    fileInfo.DirectoryName
-                );
                 // Create File Node
                 parentNode.Children.Add(
                     new StandardEditorNode(
@@ -178,7 +174,7 @@ namespace EventHorizon.Zone.System.Editor.Node
                     ).AddProperty(
                         "language",
                         ComputeLanguageFromName(
-                            fileInfo.Name
+                            fileInfo.Extension
                         )
                     )
                 );
@@ -186,23 +182,16 @@ namespace EventHorizon.Zone.System.Editor.Node
         }
 
         private static string ComputeLanguageFromName(
-            string fileName
+            string fileExtension
         )
         {
-            var fileInfo = new FileInfo(
-                fileName
-            );
-            switch (fileInfo.Extension)
+            return fileExtension switch
             {
-                case ".js":
-                    return "javascript";
-                case ".json":
-                    return "json";
-                case ".csx":
-                    return "csharp";
-                default:
-                    return "plaintext";
-            }
+                ".js" => "javascript",
+                ".json" => "json",
+                ".csx" => "csharp",
+                _ => "plaintext",
+            };
         }
     }
 }
