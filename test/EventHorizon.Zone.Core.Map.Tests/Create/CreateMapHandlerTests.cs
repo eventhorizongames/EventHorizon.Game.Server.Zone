@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Zone.Core.Map.Tests.Create
 {
+    using System;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -13,6 +14,7 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.Core.Model.Map;
+    using FluentAssertions;
     using MediatR;
     using Microsoft.Extensions.Logging;
     using Moq;
@@ -186,6 +188,64 @@
                     CancellationToken.None
                 )
             );
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenZoneMapDetailsFileDoesNotExists()
+        {
+            // Given
+            var appDataPath = "app-data-path";
+            var mapStateFile = Path.Combine(
+                appDataPath,
+                "Map.state.json"
+            );
+            var expected = $"Failed to load Zone Map Details at {mapStateFile}";
+
+            var loggerMock = new Mock<ILogger<CreateMapHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var fileLoaderMock = new Mock<IJsonFileLoader>();
+            var serverMapMock = new Mock<IServerMap>();
+            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                appDataPath
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesFileExist(
+                        mapStateFile
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                false
+            );
+
+            // When
+            var handler = new CreateMapHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                fileLoaderMock.Object,
+                serverMapMock.Object,
+                performanceTrackerMock.Object
+            );
+            Func<Task> action = async () => await handler.Handle(
+                new CreateMapEvent(),
+                CancellationToken.None
+            );
+
+            var actual = await Assert.ThrowsAsync<SystemException>(
+                action
+            );
+
+            // Then
+            actual.Message
+                .Should().Be(expected);
         }
     }
 }

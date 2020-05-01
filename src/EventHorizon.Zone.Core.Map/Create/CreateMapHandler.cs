@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.Core.Map.Create
 {
+    using System;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -77,7 +78,9 @@ namespace EventHorizon.Zone.Core.Map.Create
                     "Failed to load Zone Map Details. {ZoneMapDetailsFilePath}",
                     stateFile
                 );
-                return default;
+                throw new SystemException(
+                    $"Failed to load Zone Map Details at {stateFile}"
+                );
             }
             return await _fileLoader.GetFile<ZoneMapDetails>(
                 stateFile
