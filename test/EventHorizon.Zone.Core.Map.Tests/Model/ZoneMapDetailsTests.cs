@@ -8,7 +8,7 @@
     public class ZoneMapDetailsTests
     {
         [Fact]
-        public async Task ShouldContainExpectedValuesWhenCreated()
+        public void ShouldContainExpectedValuesWhenCreated()
         {
             // Given
             var dimensions = 121;
