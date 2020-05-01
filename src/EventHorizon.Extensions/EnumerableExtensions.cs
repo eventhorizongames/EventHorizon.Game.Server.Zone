@@ -9,10 +9,5 @@ namespace System.Collections.Generic
         {
             return source ?? Enumerable.Empty<T>();
         }
-
-        public static bool IsEmpty<TSource>(this IEnumerable<TSource> source)
-        {
-            return !source?.Any() ?? true;
-        }
     }
 }
