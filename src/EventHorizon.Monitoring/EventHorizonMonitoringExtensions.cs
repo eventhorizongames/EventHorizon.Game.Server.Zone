@@ -1,10 +1,10 @@
-using System;
-using EventHorizon.Monitoring.Model;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Monitoring
 {
+    using System;
+    using EventHorizon.Monitoring.Model;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class EventHorizonMonitoringExtensions
     {
         public static IServiceCollection AddEventHorizonMonitoring(

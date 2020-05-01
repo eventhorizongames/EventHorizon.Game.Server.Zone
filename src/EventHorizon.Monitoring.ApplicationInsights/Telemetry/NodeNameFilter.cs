@@ -1,11 +1,11 @@
-using EventHorizon.Monitoring.Model;
-using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.Extensions.Options;
-using Microsoft.ApplicationInsights.Extensibility.Implementation;
-
 namespace EventHorizon.Monitoring.ApplicationInsights.Telemetry
 {
+    using EventHorizon.Monitoring.Model;
+    using Microsoft.ApplicationInsights.Channel;
+    using Microsoft.ApplicationInsights.Extensibility;
+    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Microsoft.Extensions.Options;
+
     public class NodeNameFilter : ITelemetryInitializer
     {
         private readonly MonitoringServerConfiguration _serverConfig;
@@ -28,7 +28,7 @@ namespace EventHorizon.Monitoring.ApplicationInsights.Telemetry
             var internalContext = telemetry.Context.GetInternalContext();
             if (string.IsNullOrEmpty(internalContext.NodeName))
             {
-                internalContext.NodeName = $"{_serverConfig.ServerName} ({_serverConfig.Host})";
+                internalContext.NodeName = name;
             }
             if (!telemetry.Context.GlobalProperties.ContainsKey("HOST"))
             {
