@@ -25,11 +25,11 @@
             var expectedFirstNodePosition = new Vector3(-5, 0, -5);
             var expectedLastNodePosition = new Vector3(4, 0, 4);
 
-            var expectedFirstEdge = new MapEdge(
+            var expectedEdge1 = new MapEdge(
                 49,
                 48
             );
-            var expectedLastEdge = new MapEdge(
+            var expectedEdge2 = new MapEdge(
                 49,
                 39
             );
@@ -55,15 +55,17 @@
             actual.EdgeList.Count
                 .Should().Be(expectedNumberOfEdges);
 
-            actual.NodeList.First().Position
+            var firstNode = actual.NodeList.First();
+            var lastNode = actual.NodeList.Last();
+            firstNode.Position
                 .Should().Be(expectedFirstNodePosition, "it is the first node");
-            actual.NodeList.Last().Position
+            lastNode.Position
                 .Should().Be(expectedLastNodePosition, "it is the last node");
 
-            actual.EdgeList.First()
-                .Should().Be(expectedFirstEdge, "it is the first edge");
-            actual.EdgeList.Last()
-                .Should().Be(expectedLastEdge, "it is the last edge");
+            actual.EdgeList
+                .Should().Contain(expectedEdge1);
+            actual.EdgeList
+                .Should().Contain(expectedEdge2);
         }
 
         [Fact]
