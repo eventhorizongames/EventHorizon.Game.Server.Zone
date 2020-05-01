@@ -1,22 +1,27 @@
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Structure;
-
 namespace EventHorizon.Zone.Core.Model.Map
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Model.Structure;
+
     public struct MapNode : IOctreeEntity
     {
         public int Index { get; set; }
         public Vector3 Position { get; set; }
         public IDictionary<string, object> Info { get; set; }
 
-        public MapNode(Vector3 position)
+        public MapNode(
+            Vector3 position
+        )
         {
             Index = -1;
             Position = position;
             Info = new Dictionary<string, object>();
         }
-        public MapNode(int index)
+        
+        public MapNode(
+            int index
+        )
         {
             Index = index;
             Position = new Vector3();
@@ -34,8 +39,9 @@ namespace EventHorizon.Zone.Core.Model.Map
             {
                 return false;
             }
+            var castObj = (MapNode)obj;
 
-            return Index.Equals(((MapNode)obj).Index);
+            return Index.Equals(castObj.Index);
         }
 
         /// <summary>
@@ -45,6 +51,11 @@ namespace EventHorizon.Zone.Core.Model.Map
         public override int GetHashCode()
         {
             return Index.GetHashCode();
+        }
+
+        public bool IsFound()
+        {
+            return Info != null;
         }
     }
 }

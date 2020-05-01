@@ -1,141 +1,49 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Map;
-using Xunit;
-using System.Diagnostics;
-using EventHorizon.Zone.Core.Map.Search;
-using EventHorizon.Zone.Core.Map.Model;
-
-namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
+﻿namespace EventHorizon.Zone.Core.Map.Generate
 {
-    public class AStarSearchTests
+    using System.Collections.Generic;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Map.Generate;
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public class GenerateMapFromDetailsHandler 
+        : IRequestHandler<GenerateMapFromDetails, IMapGraph>
     {
-        [Fact]
-        public void TestShouldReturnExpectedPathWhenWorldContainsWalls_SmallWorld()
+        public Task<IMapGraph> Handle(
+            GenerateMapFromDetails request,
+            CancellationToken cancellationToken
+        )
         {
-            // Given
-            var mapGraph = CreateWorldMapGraph(3);
-            // Add walls 
-            AddWallsToMapGraph(mapGraph, 0, 2);
-            AddWallsToMapGraph(mapGraph, 0, 0);
-            // AddWallsToMapGraph(mapGraph, -2, 0);
-            // Start Node
-            var startNode = mapGraph.GetClosestNode(new Vector3(-4, 0, 4));
-            var toNode = mapGraph.GetClosestNode(new Vector3(4, 0, 4));
+            var dim = request.MapDetails.Dimensions;
+            var tileDim = request.MapDetails.TileDimensions;
 
-            // When
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
-
-            // Then
-            Assert.True(true);
-        }
-
-        [Fact]
-        public void TestShouldReturnExpectedPathWhenWorldContainsWalls_LargeWorld()
-        {
-            // Given
-            var mapGraph = CreateWorldMapGraph(5);
-            // Add walls 
-            AddWallsToMapGraph(mapGraph, -2, 4);
-            AddWallsToMapGraph(mapGraph, -2, 2);
-            AddWallsToMapGraph(mapGraph, -2, 0);
-            // Start Node
-            var startNode = mapGraph.GetClosestNode(new Vector3(-4, 0, 4));
-            var toNode = mapGraph.GetClosestNode(new Vector3(4, 0, 4));
-
-            // When
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
-
-            // Then
-            Assert.True(true);
-        }
-
-        [Fact]
-        public void TestShouldReturnExpectedPathWhenWorldContainsWalls_SuperWorld()
-        {
-            // Given
-            var mapGraph = CreateWorldMapGraph(100);
-            // Add walls 
-            AddWallsToMapGraph(mapGraph, -2, 4);
-            AddWallsToMapGraph(mapGraph, -2, 2);
-            AddWallsToMapGraph(mapGraph, -2, 0);
-            // Start Node
-            var startNode = mapGraph.GetClosestNode(new Vector3(-100, 0, -100));
-            var toNode = mapGraph.GetClosestNode(new Vector3(100, 0, 100));
-
-            // When
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
-            stopwatch.Stop();
-
-            // Then
-            Assert.True(true);
-        }
-
-        private void AddWallsToMapGraph(MapGraph mapGraph, float x, float z)
-        {
-            var node = mapGraph.GetClosestNode(new Vector3(x, 0, z));
-            var edges = mapGraph.GetEdgesOfNode(node.Index).ToList();
-            IList<MapEdge> updatedEdges = new List<MapEdge>();
-            for (int i = 0; i < edges.Count(); i++)
-            {
-                var edge = edges[i];
-                edge.Cost = float.PositiveInfinity;   
-                updatedEdges.Add(edge);
-            }
-            foreach (var edge in edges)
-            {
-                mapGraph.RemoveEdge(edge);
-            }
-            foreach (var edge in updatedEdges)
-            {
-                mapGraph.AddEdge(edge);
-            }
-            // Do reverse edge
-            foreach (var edge in updatedEdges)
-            {
-                var reverseEdge = mapGraph.GetEdge(edge.ToIndex, edge.FromIndex);
-                mapGraph.RemoveEdge(reverseEdge);
-                reverseEdge.Cost = float.PositiveInfinity;
-                mapGraph.AddEdge(reverseEdge);
-            }
-        }
-
-        private MapGraph CreateWorldMapGraph(int dim)
-        {
-            var tileDim = 2;
             var dimensions = new Vector2(dim, dim);
             var tileDimension = tileDim;
             var zoneWidth = dimensions.X;
             var zoneHeight = dimensions.Y;
 
             var mapGraph = new MapGraph(
-                new Vector3(-(dim * tileDim / 2), 0, -(dim * tileDim / 2)),
-                new Vector3(dim * tileDim, dim * tileDim, dim * tileDim),
-                true);
+                new Vector3(
+                    -(dim * tileDim / 2), 
+                    0, 
+                    -(dim * tileDim / 2)
+                ),
+                new Vector3(
+                    dim * tileDim, 
+                    dim * tileDim, 
+                    dim * tileDim
+                ),
+                true
+            );
             var width = zoneWidth * tileDimension;
             var height = zoneHeight * tileDimension;
 
             // Create Graph Nodes
             var indexMap = new List<int>();
             var key = 0;
-
             for (var i = 0; i < zoneHeight; i++)
             {
                 for (var j = 0; j < zoneWidth; j++)
@@ -204,8 +112,10 @@ namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
                     ++currentNodeIndex;
                 }
             }
-            return mapGraph;
+
+            return mapGraph.FromResult<IMapGraph>();
         }
+
         private int GetTopIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight - 1;
@@ -215,6 +125,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
             }
             return (int)(index * maxHeight) + cWidth;
         }
+
         private int GetRightIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth + 1;
@@ -224,6 +135,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
             }
             return (int)(cHeight * maxWidth) + index;
         }
+
         private int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth - 1;
@@ -233,6 +145,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Path.Search
             }
             return (int)(cHeight * maxWidth) + index;
         }
+
         private int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight + 1;

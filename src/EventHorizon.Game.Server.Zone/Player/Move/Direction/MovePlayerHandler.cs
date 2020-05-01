@@ -50,10 +50,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
             var currentMoveToPosition = transform.Position;
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(
-                new GetMapNodeAtPositionEvent
-                {
-                    Position = currentMoveToPosition,
-                }
+                new GetMapNodeAtPositionEvent(
+                    currentMoveToPosition
+                )
             );
             var moveTo = transform.Position;
 

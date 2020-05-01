@@ -1,12 +1,12 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using System.Numerics;
-using EventHorizon.Zone.Core.Map.Model;
-using EventHorizon.Zone.Core.Model.Map;
-
-namespace EventHorizon.Game.Server.Zone.Tests.Map
+namespace EventHorizon.Zone.Core.Map.Tests.Model
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Model.Map;
+    using FluentAssertions;
+    using Xunit;
+
     public class MapGraphTests
     {
         [Fact]
@@ -333,6 +333,55 @@ namespace EventHorizon.Game.Server.Zone.Tests.Map
 
             // Then
             Assert.Empty(actual);
+        }
+
+        [Fact]
+        public void TestGetClosestNodesInDimensions_ShouldReturnNodeListWithinDimensions()
+        {
+            // Given
+            var mapPostion = Vector3.Zero;
+            var mapDimensions = new Vector3(10, 10, 10);
+            var mapIsDirectionGraph = true;
+            var mapNode1 = new MapNode(new Vector3(0, 0, 0));
+            var mapNode2 = new MapNode(new Vector3(1, 0, 0));
+            var mapNode3 = new MapNode(new Vector3(1, 1, 0));
+            var mapNode4 = new MapNode(new Vector3(1, 1, 1));
+            var mapNode5 = new MapNode(new Vector3(2, 0, 0));
+            var mapNode6 = new MapNode(new Vector3(2, 1, 0));
+            var mapNode7 = new MapNode(new Vector3(2, 1, 1));
+
+            var inputPosition = Vector3.Zero;
+            var inputDimensions = new Vector3(2, 2, 2);
+
+            // When
+            var mapGraph = new MapGraph(
+                mapPostion,
+                mapDimensions,
+                mapIsDirectionGraph
+            );
+            var expectedMapNode1 = mapGraph.AddNode(mapNode1);
+            var expectedMapNode2 = mapGraph.AddNode(mapNode2);
+            var expectedMapNode3 = mapGraph.AddNode(mapNode3);
+            var expectedMapNode4 = mapGraph.AddNode(mapNode4);
+            mapGraph.AddNode(mapNode5);
+            mapGraph.AddNode(mapNode6);
+            mapGraph.AddNode(mapNode7);
+
+            var expected = new List<MapNode>
+            {
+                expectedMapNode1,
+                expectedMapNode2,
+                expectedMapNode3,
+                expectedMapNode4,
+            };
+
+            var actual = mapGraph.GetClosestNodesInDimension(
+                inputPosition,
+                inputDimensions
+            );
+
+            // Then
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

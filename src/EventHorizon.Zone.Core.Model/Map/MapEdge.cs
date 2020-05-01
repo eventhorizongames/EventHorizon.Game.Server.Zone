@@ -8,7 +8,10 @@ namespace EventHorizon.Zone.Core.Model.Map
         public int ToIndex { get; set; }
         public float Cost { get; set; }
 
-        public MapEdge(int fromIndex, int toIndex)
+        public MapEdge(
+            int fromIndex, 
+            int toIndex
+        )
         {
             this.FromIndex = fromIndex;
             this.ToIndex = toIndex;

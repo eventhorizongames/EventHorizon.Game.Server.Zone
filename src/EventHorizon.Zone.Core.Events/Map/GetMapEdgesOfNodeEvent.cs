@@ -1,11 +1,18 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Map;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Events.Map
 {
-    public class GetMapEdgesOfNodeEvent : IRequest<IEnumerable<MapEdge>>
+    using System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public struct GetMapEdgesOfNodeEvent : IRequest<IEnumerable<MapEdge>>
     {
-        public int NodeIndex { get; set; }   
+        public int NodeIndex { get; }
+
+        public GetMapEdgesOfNodeEvent(
+            int nodeIndex
+        )
+        {
+            NodeIndex = nodeIndex;
+        }
     }
 }

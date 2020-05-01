@@ -1,10 +1,17 @@
-using EventHorizon.Zone.Core.Model.Map;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Events.Map
 {
-    public class GetMapNodeAtIndexEvent : IRequest<MapNode>
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public struct GetMapNodeAtIndexEvent : IRequest<MapNode>
     {
-        public int NodeIndex { get; set; }   
+        public int NodeIndex { get; set; }
+
+        public GetMapNodeAtIndexEvent(
+            int nodeIndex
+        )
+        {
+            NodeIndex = nodeIndex;
+        }
     }
 }

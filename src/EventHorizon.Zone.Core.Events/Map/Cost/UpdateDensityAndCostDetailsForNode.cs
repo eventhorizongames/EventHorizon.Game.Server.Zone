@@ -3,7 +3,7 @@ namespace EventHorizon.Zone.Core.Events.Map.Cost
     using EventHorizon.Zone.Core.Model.Map;
     using MediatR;
 
-    public class UpdateDensityAndCostDetailsForNode : IRequest
+    public struct UpdateDensityAndCostDetailsForNode : IRequest
     {
         public MapNode Node { get; }
         public int Dense { get; }

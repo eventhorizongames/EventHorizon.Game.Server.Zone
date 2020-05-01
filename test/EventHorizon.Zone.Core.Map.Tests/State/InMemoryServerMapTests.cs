@@ -1,13 +1,10 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using System.Numerics;
-using EventHorizon.Zone.Core.Map.State;
-using EventHorizon.Zone.Core.Map.Model;
-using EventHorizon.Zone.Core.Model.Map;
-
-namespace EventHorizon.Game.Server.Zone.Tests.State.Impl
+namespace EventHorizon.Zone.Core.Map.Tests.State
 {
+    using EventHorizon.Zone.Core.Map.State;
+    using EventHorizon.Zone.Core.Model.Map;
+    using Moq;
+    using Xunit;
+
     public class InMemoryServerMapTests
     {
         [Fact]

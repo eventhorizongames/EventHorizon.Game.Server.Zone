@@ -227,7 +227,6 @@
                 fileFullName,
                 fileExtension
             );
-            var fileExists = true;
 
             var loggerMock = new Mock<ILogger<SaveEditorFileContentHandler>>();
             var mediatorMock = new Mock<IMediator>();

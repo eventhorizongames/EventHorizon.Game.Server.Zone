@@ -1,46 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Good article to understand how a BinaryHeap works:
+    /// https://www.cs.cmu.edu/~adamchik/15-121/lectures/Binary%20Heaps/heaps.html
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
     public class BinaryHeap<TValue> : ICollection<TValue>
     {
-        private List<TValue> _baseHeap;
-        private IComparer<TValue> _comparer;
+        private readonly List<TValue> _baseHeap;
+        private readonly IComparer<TValue> _comparer;
 
         #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of priority queue with default initial capacity and default priority comparer
-        /// </summary>
-        public BinaryHeap()
-            : this(Comparer<TValue>.Default)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of priority queue with specified initial capacity and default priority comparer
-        /// </summary>
-        /// <param name="capacity">initial capacity</param>
-        public BinaryHeap(int capacity)
-            : this(capacity, Comparer<TValue>.Default)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of priority queue with specified initial capacity and specified priority comparer
-        /// </summary>
-        /// <param name="capacity">initial capacity</param>
-        /// <param name="comparer">priority comparer</param>
-        public BinaryHeap(int capacity, IComparer<TValue> comparer)
-        {
-            if (comparer == null)
-                throw new ArgumentNullException();
-
-            _baseHeap = new List<TValue>(capacity);
-            _comparer = comparer;
-        }
 
         /// <summary>
         /// Initializes a new instance of priority queue with default initial capacity and specified priority comparer
@@ -49,81 +23,10 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         public BinaryHeap(IComparer<TValue> comparer)
         {
             if (comparer == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(comparer));
 
             _baseHeap = new List<TValue>();
             _comparer = comparer;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of priority queue with specified data and default priority comparer
-        /// </summary>
-        /// <param name="data">data to be inserted into priority queue</param>
-        public BinaryHeap(IEnumerable<TValue> data)
-            : this(data, Comparer<TValue>.Default)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of priority queue with specified data and specified priority comparer
-        /// </summary>
-        /// <param name="data">data to be inserted into priority queue</param>
-        /// <param name="comparer">priority comparer</param>
-        public BinaryHeap(IEnumerable<TValue> data, IComparer<TValue> comparer)
-        {
-            if (data == null || comparer == null)
-                throw new ArgumentNullException();
-
-            _comparer = comparer;
-            _baseHeap = new List<TValue>(data);
-            // heapify data
-            for (int pos = _baseHeap.Count / 2 - 1; pos >= 0; pos--)
-                HeapifyFromBeginningToEnd(pos);
-        }
-
-        #endregion
-
-        #region Merging
-
-        /// <summary>
-        /// Merges two priority queues
-        /// </summary>
-        /// <param name="pq1">first priority queue</param>
-        /// <param name="pq2">second priority queue</param>
-        /// <returns>resultant priority queue</returns>
-        /// <remarks>
-        /// source priority queues must have equal comparers,
-        /// otherwise <see cref="InvalidOperationException"/> will be thrown
-        /// </remarks>
-        public static BinaryHeap<TValue> MergeQueues(BinaryHeap<TValue> pq1, BinaryHeap<TValue> pq2)
-        {
-            if (pq1 == null || pq2 == null)
-                throw new ArgumentNullException();
-            if (pq1._comparer != pq2._comparer)
-                throw new InvalidOperationException("Priority queues to be merged must have equal comparers");
-            return MergeQueues(pq1, pq2, pq1._comparer);
-        }
-
-        /// <summary>
-        /// Merges two priority queues and sets specified comparer for resultant priority queue
-        /// </summary>
-        /// <param name="pq1">first priority queue</param>
-        /// <param name="pq2">second priority queue</param>
-        /// <param name="comparer">comparer for resultant priority queue</param>
-        /// <returns>resultant priority queue</returns>
-        public static BinaryHeap<TValue> MergeQueues(BinaryHeap<TValue> pq1, BinaryHeap<TValue> pq2, IComparer<TValue> comparer)
-        {
-            if (pq1 == null || pq2 == null || comparer == null)
-                throw new ArgumentNullException();
-            // merge data
-            BinaryHeap<TValue> result = new BinaryHeap<TValue>(pq1.Count + pq2.Count, pq1._comparer);
-            result._baseHeap.AddRange(pq1._baseHeap);
-            result._baseHeap.AddRange(pq2._baseHeap);
-            // heapify data
-            for (int pos = result._baseHeap.Count / 2 - 1; pos >= 0; pos--)
-                result.HeapifyFromBeginningToEnd(pos);
-
-            return result;
         }
 
         #endregion
@@ -131,7 +34,7 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         #region Priority queue operations
 
         /// <summary>
-        /// Enqueues element into priority queue
+        /// Enqueue element into priority queue
         /// </summary>
         /// <param name="priority">element priority</param>
         /// <param name="value">element value</param>
@@ -141,7 +44,7 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         }
 
         /// <summary>
-        /// Dequeues element with minimum priority and return its priority and value as <see cref="KeyValuePair{TPriority,TValue}"/> 
+        /// Dequeue element with minimum priority and return its priority and value as <see cref="KeyValuePair{TPriority,TValue}"/> 
         /// </summary>
         /// <returns>priority and value of the dequeued element</returns>
         /// <remarks>
@@ -160,18 +63,6 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         }
 
         /// <summary>
-        /// Dequeues element with minimum priority and return its value
-        /// </summary>
-        /// <returns>value of the dequeued element</returns>
-        /// <remarks>
-        /// Method throws <see cref="InvalidOperationException"/> if priority queue is empty
-        /// </remarks>
-        public TValue DequeueValue()
-        {
-            return Dequeue();
-        }
-
-        /// <summary>
         /// Returns priority and value of the element with minimun priority, without removing it from the queue
         /// </summary>
         /// <returns>priority and value of the element with minimum priority</returns>
@@ -184,18 +75,6 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
                 return _baseHeap[0];
             else
                 throw new InvalidOperationException("Priority queue is empty");
-        }
-
-        /// <summary>
-        /// Returns value of the element with minimun priority, without removing it from the queue
-        /// </summary>
-        /// <returns>value of the element with minimum priority</returns>
-        /// <remarks>
-        /// Method throws <see cref="InvalidOperationException"/> if priority queue is empty
-        /// </remarks>
-        public TValue PeekValue()
-        {
-            return Peek();
         }
 
         /// <summary>
@@ -226,12 +105,6 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
             // heapify after insert, from end to beginning
             HeapifyFromEndToBeginning(_baseHeap.Count - 1);
         }
-
-        public void ReScoreElement(TValue index)
-        {
-            this.HeapifyFromEndToBeginning(_baseHeap.IndexOf(index));
-        }
-
 
         private int HeapifyFromEndToBeginning(int pos)
         {

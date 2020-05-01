@@ -143,10 +143,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new GetMapNodeAtPositionEvent
-                    {
-                        Position = moveToPostion,
-                    },
+                    new GetMapNodeAtPositionEvent(
+                        moveToPostion
+                    ),
                     CancellationToken.None
                 )
             ).ReturnsAsync(

@@ -63,7 +63,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Register
                 else
                 {
                     await _mediator.Send(
-                        new ChangeEdgeCostForNodeAtPositionCommand(
+                        new ChangeEdgeCostForNodeAtPosition(
                             entity.Transform.Position,
                             500
                         )

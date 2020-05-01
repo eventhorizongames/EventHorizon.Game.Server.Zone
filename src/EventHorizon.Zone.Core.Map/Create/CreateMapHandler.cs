@@ -1,31 +1,28 @@
-
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Map;
-using MediatR;
-using EventHorizon.Zone.Core.Map.Model;
-using EventHorizon.Zone.Core.Events.Map.Create;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.Core.Map.State;
-using EventHorizon.Performance;
-using System.IO;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Events.FileService;
-
 namespace EventHorizon.Zone.Core.Map.Create
 {
-    public class CreateMapHandler : INotificationHandler<CreateMapEvent>
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Performance;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Events.Map.Create;
+    using EventHorizon.Zone.Core.Events.Map.Generate;
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Map.State;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
+    public class CreateMapHandler 
+        : INotificationHandler<CreateMapEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly IServerMap _serverMap;
-        readonly IPerformanceTracker _performanceTracker;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly IServerMap _serverMap;
+        private readonly IPerformanceTracker _performanceTracker;
 
         public CreateMapHandler(
             ILogger<CreateMapHandler> logger,
@@ -45,155 +42,27 @@ namespace EventHorizon.Zone.Core.Map.Create
         }
 
         public async Task Handle(
-            CreateMapEvent notification, 
+            CreateMapEvent notification,
             CancellationToken cancellationToken
         )
         {
+            // Load in ZoneMapFile
             using (_performanceTracker.Track(
                 "Create Map"
             ))
             {
-                // Load in ZoneMapFile
                 var zoneMap = await GetZoneMapDetails();
-
-                var dim = zoneMap.Dimensions;
-                var tileDim = zoneMap.TileDimensions;
-                var dimensions = new Vector2(dim, dim);
-                var tileDimension = tileDim;
-                var zoneWidth = dimensions.X;
-                var zoneHeight = dimensions.Y;
-
-                var mapGraph = new MapGraph(
-                    new Vector3(-(dim * tileDim / 2), 0, -(dim * tileDim / 2)),
-                    new Vector3(dim * tileDim, dim * tileDim, dim * tileDim),
-                    true);
-                var width = zoneWidth * tileDimension;
-                var height = zoneHeight * tileDimension;
-
-                // Create Graph Nodes
-                var indexMap = new List<int>();
-                var key = 0;
-                Stopwatch stopWatch = new Stopwatch();
-
-                for (var i = 0; i < zoneHeight; i++)
-                {
-                    stopWatch.Restart();
-                    for (var j = 0; j < zoneWidth; j++)
-                    {
-                        float xPos = (i * tileDimension) + (tileDimension / 2);
-                        xPos = (width / 2) - (width - xPos);
-                        float zPos = (j * tileDimension) + (tileDimension / 2);
-                        zPos = (height / 2) - (height - zPos);
-                        var position = new Vector3(xPos, 0, zPos);
-                        // Add node to graph
-                        var navNode = new MapNode(position);
-                        navNode = mapGraph.AddNode(navNode);
-                        indexMap.Add(navNode.Index);
-                        key++;
-                    }
-                    // _logger.LogInformation("Node {I} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
-                }
-
-                var currentNodeIndex = 0;
-                // Setup edges for graph
-                for (var i = 0; i < zoneHeight; i++)
-                {
-                    stopWatch.Restart();
-                    for (var j = 0; j < zoneWidth; j++)
-                    {
-                        var navNodeIndex = indexMap[currentNodeIndex];
-                        // Top
-                        var topIndex = this.GetTopIndex(i, j, zoneHeight);
-                        if (topIndex > -1)
-                        {
-                            mapGraph.AddEdge(new MapEdge
-                            {
-                                FromIndex = navNodeIndex,
-                                ToIndex = indexMap[topIndex]
-                            });
-                        }
-                        // Right
-                        var rightIndex = this.GetRightIndex(i, j, zoneWidth);
-                        if (rightIndex > -1)
-                        {
-                            mapGraph.AddEdge(new MapEdge
-                            {
-                                FromIndex = navNodeIndex,
-                                ToIndex = indexMap[rightIndex]
-                            });
-                        }
-                        // Bottom
-                        var bottomIndex = this.GetBottomIndex(i, j, zoneHeight);
-                        if (bottomIndex > -1)
-                        {
-                            mapGraph.AddEdge(new MapEdge
-                            {
-                                FromIndex = navNodeIndex,
-                                ToIndex = indexMap[bottomIndex]
-                            });
-                        }
-                        // Left
-                        var leftIndex = this.GetLeftIndex(i, j, zoneWidth);
-                        if (leftIndex > -1)
-                        {
-                            mapGraph.AddEdge(new MapEdge
-                            {
-                                FromIndex = navNodeIndex,
-                                ToIndex = indexMap[leftIndex]
-                            });
-                        }
-
-                        ++currentNodeIndex;
-                    }
-                    // _logger.LogInformation("Edge {Index} : {ElapsedMilliseconds}ms", i, stopWatch.ElapsedMilliseconds);
-                }
-                _serverMap.SetMap(mapGraph);
+                var generatedMapGraph = await _mediator.Send(
+                    new GenerateMapFromDetails(
+                        zoneMap
+                    )
+                );
+                _serverMap.SetMap(generatedMapGraph);
                 _serverMap.SetMapDetails(zoneMap);
                 _serverMap.SetMapMesh(zoneMap.Mesh);
-                await _mediator.Publish(new MapCreatedEvent());
             }
+            await _mediator.Publish(new MapCreatedEvent());
         }
-
-        private int GetTopIndex(int cHeight, int cWidth, float maxHeight)
-        {
-            var index = cHeight - 1;
-            if (index == -1)
-            {
-                return -1;
-            }
-            return (int)(index * maxHeight) + cWidth;
-        }
-
-        private int GetRightIndex(int cHeight, int cWidth, float maxWidth)
-        {
-            var index = cWidth + 1;
-            if (index == maxWidth)
-            {
-                return -1;
-            }
-            return (int)(cHeight * maxWidth) + index;
-        }
-
-        private int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
-        {
-            var index = cWidth - 1;
-            if (index == -1)
-            {
-                return -1;
-            }
-            return (int)(cHeight * maxWidth) + index;
-        }
-
-        private int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
-        {
-            var index = cHeight + 1;
-            if (index == maxHeight)
-            {
-                return -1;
-            }
-            return (int)(index * maxHeight) + cWidth;
-        }
-
 
         private async Task<ZoneMapDetails> GetZoneMapDetails()
         {
@@ -208,7 +77,7 @@ namespace EventHorizon.Zone.Core.Map.Create
                     "Failed to load Zone Map Details. {ZoneMapDetailsFilePath}",
                     stateFile
                 );
-                return default(ZoneMapDetails);
+                return default;
             }
             return await _fileLoader.GetFile<ZoneMapDetails>(
                 stateFile
@@ -221,25 +90,6 @@ namespace EventHorizon.Zone.Core.Map.Create
                 _serverInfo.AppDataPath,
                 "Map.state.json"
             );
-        }
-
-        public struct ZoneMapDetails : IMapDetails
-        {
-            public int Dimensions { get; set; }
-            public int TileDimensions { get; set; }
-            public ZoneMapMesh Mesh { get; set; }
-        }
-
-        public class ZoneMapMesh : IMapMesh
-        {
-            public string HeightMapUrl { get; set; }
-            public int Width { get; set; }
-            public int Height { get; set; }
-            public int Subdivisions { get; set; }
-            public int MinHeight { get; set; }
-            public int MaxHeight { get; set; }
-            public bool Updatable { get; set; }
-            public bool IsPickable { get; set; }
         }
     }
 }

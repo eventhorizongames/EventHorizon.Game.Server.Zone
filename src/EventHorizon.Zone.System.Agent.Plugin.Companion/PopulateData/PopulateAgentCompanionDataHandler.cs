@@ -11,7 +11,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
     {
         private static CompanionState DEFAULT_COMPANION_STATE = new CompanionState
         {
-            DefaultBehaviorTreeId = "$DEFAULT$SHAPE.json",
+            DefaultBehaviorTreeId = "DEFAULT",
         };
 
         public Task Handle(

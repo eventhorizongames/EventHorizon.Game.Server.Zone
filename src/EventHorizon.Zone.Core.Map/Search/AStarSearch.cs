@@ -1,18 +1,37 @@
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Map.Find.Search.Collections;
-using EventHorizon.Zone.Core.Model.Map;
-
 namespace EventHorizon.Zone.Core.Map.Search
 {
-    public static class AStarSearch
+    using System.Collections.Generic;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Map.Find.Search.Collections;
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Model.Map;
+
+    public class AStarSearch : PathFindingAlgorithm
     {
+        public Queue<Vector3> Search(
+            IMapGraph mapGraph, 
+            MapNode fromMapNode, 
+            MapNode toMapNode
+        )
+        {
+            return CreatePath(
+                mapGraph,
+                fromMapNode,
+                toMapNode
+            );
+        }
+
         public static Queue<Vector3> CreatePath(
             IMapGraph mapGraph,
             MapNode fromMapNode,
             MapNode toMapNode
         )
         {
+            if (toMapNode.Index < 0 || fromMapNode.Index < 0)
+            {
+                return new Queue<Vector3>();
+            }
+
             var nodeLength = mapGraph.All().Count;
             var g_score = new float[nodeLength];
             var f_score = new float[nodeLength];
@@ -22,6 +41,7 @@ namespace EventHorizon.Zone.Core.Map.Search
 
             var _source = fromMapNode.Index;
             var _target = toMapNode.Index;
+
             for (int i = 0; i < nodeLength; i++)
             {
                 g_score[i] = float.PositiveInfinity;
@@ -89,12 +109,6 @@ namespace EventHorizon.Zone.Core.Map.Search
                 }
             }
 
-
-            if (_target < 0)
-            {
-                return new Queue<Vector3>();
-            }
-
             var reversedPath = new List<Vector3>();
             var nodeIndex = _target;
             reversedPath.Add(mapGraph.GetNode(_target).Position);
@@ -118,6 +132,7 @@ namespace EventHorizon.Zone.Core.Map.Search
             var node2 = mapGraph.GetNode(node2Index);
             return Vector3.Distance(node1.Position, node2.Position);
         }
+
         class MyComparer : IComparer<int>
         {
             private float[] _costs;

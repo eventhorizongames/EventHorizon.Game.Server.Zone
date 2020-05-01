@@ -1,57 +1,60 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Map;
-using System.Collections.Concurrent;
-using EventHorizon.Zone.Core.Model.Math;
-
 namespace EventHorizon.Zone.Core.Map.Model
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Model.Map;
+    using EventHorizon.Zone.Core.Model.Math;
+
     public class MapGraph : IMapGraph
     {
-        readonly IEnumerable<MapEdge> EMPTY_IMMUTABLE_LIST = new List<MapEdge>().AsReadOnly();
-        private ConcurrentDictionary<MapNode, MapNode> _nodes;
-        private ConcurrentDictionary<MapEdge, MapEdge> _edges;
-        private ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>> _nodeFromEdges;
-        private bool _isDirectionGraph;
-        private int nextNodeIndex;
-        private Octree<MapNode> octree;
+        private readonly IEnumerable<MapEdge> EMPTY_IMMUTABLE_LIST = new List<MapEdge>().AsReadOnly();
+
+        private int _nextNodeIndex;
+        private readonly ConcurrentDictionary<MapNode, MapNode> _nodes;
+        private readonly ConcurrentDictionary<MapEdge, MapEdge> _edges;
+        private readonly ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>> _nodeFromEdges;
+        private readonly bool _isDirectionGraph;
+        private readonly Octree<MapNode> _octree;
 
         public int NumberOfNodes
         {
             get { return this._nodes.Count; }
         }
+
         public IList<MapNode> NodeList
         {
-            get { return this._nodes.ToList() as IList<MapNode>; }
+            get { return this._nodes.Values.ToList(); }
         }
+
         public IList<MapEdge> EdgeList
         {
-            get { return this._edges.ToList() as IList<MapEdge>; }
+            get { return this._edges.Values.ToList(); }
         }
 
         public MapGraph(Vector3 position, Vector3 dimensions, bool isDirectionGraph)
         {
-            this._isDirectionGraph = isDirectionGraph;
-            this._nodes = new ConcurrentDictionary<MapNode, MapNode>();
-            this._edges = new ConcurrentDictionary<MapEdge, MapEdge>();
-            this._nodeFromEdges = new ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>>();
+            _isDirectionGraph = isDirectionGraph;
+            _nodes = new ConcurrentDictionary<MapNode, MapNode>();
+            _edges = new ConcurrentDictionary<MapEdge, MapEdge>();
+            _nodeFromEdges = new ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>>();
 
-            this.nextNodeIndex = -1;
+            _nextNodeIndex = -1;
 
-            this.octree = new Octree<MapNode>(position, dimensions, 0);
+            _octree = new Octree<MapNode>(position, dimensions, 0);
         }
 
         public IList<MapNode> All()
         {
-            return this.octree.All();
+            return this._octree.All();
         }
 
         public MapNode GetNode(int index)
         {
             var mapNode = default(MapNode);
             this._nodes.TryGetValue(
-                new MapNode(index), 
+                new MapNode(index),
                 out mapNode
             );
             return mapNode;
@@ -59,7 +62,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public IList<MapNode> GetClosestNodes(Vector3 position, float radius)
         {
-            return this.octree
+            return this._octree
                 .FindNearbyPoints(GetClosestNode(position).Position, radius, null);
         }
 
@@ -68,7 +71,7 @@ namespace EventHorizon.Zone.Core.Map.Model
             Vector3 dimensions
         )
         {
-            return this.octree.FindNearbyPoints(
+            return this._octree.FindNearbyPoints(
                 position,
                 dimensions,
                 null
@@ -77,7 +80,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public MapNode GetClosestNode(Vector3 position)
         {
-            return this.octree.FindNearestPoint(position, null);
+            return this._octree.FindNearestPoint(position, null);
         }
 
         public MapEdge GetEdge(int from, int to)
@@ -97,10 +100,15 @@ namespace EventHorizon.Zone.Core.Map.Model
                 return node;
             }
 
-            this.nextNodeIndex++;
-            node.Index = this.nextNodeIndex;
-            this._nodes.AddOrUpdate(node, node, (currentKey, key) => node);
-            this.octree.Add(node);
+            this._nextNodeIndex++;
+            node.Index = this._nextNodeIndex;
+            this._nodes.AddOrUpdate(
+                node,
+                node,
+                (_, __) => node
+            );
+            this._octree.Add(node);
+
             return node;
         }
 

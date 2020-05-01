@@ -4,21 +4,18 @@ namespace EventHorizon.Zone.Core.Map.Cost
     using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Map.Cost;
-    using EventHorizon.Zone.Core.Model.Map;
     using MediatR;
 
-    public class RemoveEdgeCostForNodeAtPositionHandler : IRequestHandler<RemoveEdgeCostForNodeAtPosition, bool>
+    public class RemoveEdgeCostForNodeAtPositionHandler 
+        : IRequestHandler<RemoveEdgeCostForNodeAtPosition, bool>
     {
-        public readonly IMediator _mediator;
-        public readonly IMapGraph _map;
+        private readonly IMediator _mediator;
         
         public RemoveEdgeCostForNodeAtPositionHandler(
-            IMediator mediator,
-            IMapGraph map
+            IMediator mediator
         )
         {
             _mediator = mediator;
-            _map = map;
         }
         
         public async Task<bool> Handle(
@@ -26,12 +23,10 @@ namespace EventHorizon.Zone.Core.Map.Cost
             CancellationToken cancellationToken
         )
         {
-            // Lookup node if not Mapped
-            var node = request.IsNode ? request.Node : await _mediator.Send(
-                new GetMapNodeAtPositionEvent
-                {
-                    Position = request.Position
-                }
+            var node = await _mediator.Send(
+                new GetMapNodeAtPositionEvent(
+                    request.Position
+                )
             );
             await _mediator.Send(
                 new UpdateDensityAndCostDetailsForNode(

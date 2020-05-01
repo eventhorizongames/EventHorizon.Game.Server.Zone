@@ -1,14 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Map;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Map;
-
 namespace EventHorizon.Zone.Core.Map.Find
 {
-    public class GetMapNodeCountHandler : IRequestHandler<GetMapNodeCountEvent, int>
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Map;
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public class GetMapNodeCountHandler 
+        : IRequestHandler<GetMapNodeCountEvent, int>
     {
-        readonly IMapGraph _map;
+        private readonly IMapGraph _map;
+
         public GetMapNodeCountHandler(
             IMapGraph map
         )
@@ -21,9 +23,7 @@ namespace EventHorizon.Zone.Core.Map.Find
             CancellationToken cancellationToken
         )
         {
-            return Task.FromResult(
-                _map.NumberOfNodes
-            );
+            return _map.NumberOfNodes.FromResult();
         }
     }
 }

@@ -108,7 +108,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
             var position = Vector3.Zero;
             var densityBox = Vector3.One;
             var cost = 500;
-            var expected = new ChangeEdgeCostForNodeAtPositionCommand(
+            var expected = new ChangeEdgeCostForNodeAtPosition(
                 position,
                 cost
             );

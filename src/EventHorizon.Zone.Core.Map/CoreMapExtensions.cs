@@ -1,11 +1,11 @@
-using EventHorizon.Zone.Core.Map.State;
-using EventHorizon.Zone.Core.Model.Map;
-using MediatR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Map.Search;
+    using EventHorizon.Zone.Core.Map.State;
+    using EventHorizon.Zone.Core.Model.Map;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class CoreMapExtensions
     {
         public static IServiceCollection AddCoreMap(
@@ -17,6 +17,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<IServerMap>(
                     serverMap
                 )
+                .AddSingleton<PathFindingAlgorithm, AStarSearch>()
                 .AddTransient<IMapGraph>(
                     _ => serverMap.Map()
                 )
@@ -28,19 +29,5 @@ namespace EventHorizon.Game.Server.Zone
                 )
             ;
         }
-        // public static IApplicationBuilder UseCoreMap(
-        //     this IApplicationBuilder app
-        // )
-        // {
-        //     using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-        //     {
-        //         var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-        //         mediator.Send(
-        //             new LoadZoneAgentStateEvent()
-        //         ).GetAwaiter().GetResult();
-
-        //         return app;
-        //     }
-        // }
     }
 }

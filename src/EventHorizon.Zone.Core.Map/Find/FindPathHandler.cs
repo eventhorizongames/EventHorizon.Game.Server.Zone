@@ -1,49 +1,50 @@
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Map;
-using EventHorizon.Zone.Core.Events.Path;
-using MediatR;
-using EventHorizon.Zone.Core.Map.State;
-using EventHorizon.Zone.Core.Map.Search;
-using EventHorizon.Zone.Core.Model.Map;
-
 namespace EventHorizon.Zone.Core.Map.Find
 {
-    public class FindPathHandler : IRequestHandler<FindPathEvent, Queue<Vector3>>
+    using System.Collections.Generic;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Map;
+    using EventHorizon.Zone.Core.Events.Path;
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public class FindPathHandler 
+        : IRequestHandler<FindPathEvent, Queue<Vector3>>
     {
-        readonly IMediator _mediator;
-        readonly IMapGraph _map;
+        private readonly IMediator _mediator;
+        private readonly IMapGraph _map;
+        private readonly PathFindingAlgorithm _pathFinding;
 
         public FindPathHandler(
             IMediator mediator,
-            IMapGraph map
+            IMapGraph map,
+            PathFindingAlgorithm pathFinding
         )
         {
             _mediator = mediator;
             _map = map;
+            _pathFinding = pathFinding;
         }
-        
+
         public async Task<Queue<Vector3>> Handle(
-            FindPathEvent request, 
+            FindPathEvent request,
             CancellationToken cancellationToken
         )
         {
             var fromMapNode = await _mediator.Send(
-                new GetMapNotDenseNodeAtPosition
-                {
-                    Position = request.From,
-                }
+                new GetMapNotDenseNodeAtPosition(
+                    request.From
+                )
             );
             var toMapNode = await _mediator.Send(
-                new GetMapNotDenseNodeAtPosition
-                {
-                    Position = request.To,
-                }
+                new GetMapNotDenseNodeAtPosition(
+                    request.To
+                )
             );
 
-            return AStarSearch.CreatePath(
+            return _pathFinding.Search(
                 _map,
                 fromMapNode,
                 toMapNode

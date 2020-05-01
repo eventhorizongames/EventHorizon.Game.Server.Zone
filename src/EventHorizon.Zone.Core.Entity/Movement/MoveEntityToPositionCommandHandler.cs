@@ -40,10 +40,9 @@ namespace EventHorizon.Zone.Core.Entity.Movement
             {
                 // Check for Dense playerMoveToMapNode
                 var moveToMapNode = await _mediator.Send(
-                    new GetMapNodeAtPositionEvent
-                    {
-                        Position = request.MoveTo,
-                    }
+                    new GetMapNodeAtPositionEvent(
+                        request.MoveTo
+                    )
                 );
                 if (moveToMapNode.Info.ContainsKey("dense")
                     && (int)moveToMapNode.Info["dense"] > 0

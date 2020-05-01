@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Numerics;
-
 namespace EventHorizon.Zone.Core.Model.Map
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+
     public interface IMapGraph
     {
         int NumberOfNodes { get; }
