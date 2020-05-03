@@ -1,12 +1,12 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.TimerService
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     public class TimerWrapper
     {
         private Timer _timer;
@@ -86,14 +86,15 @@ namespace EventHorizon.TimerService
                         var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
                         if (this._timerTask.OnValidationEvent != null)
                         {
-                            if (await mediator.Send(
+                            if (!await mediator.Send(
                                 this._timerTask.OnValidationEvent
                             ))
                             {
-                                await mediator.Publish(
-                                    this._timerTask.OnRunEvent
-                                );
+                                return;
                             }
+                            await mediator.Publish(
+                                this._timerTask.OnRunEvent
+                            );
                         }
                         else
                         {
@@ -135,11 +136,11 @@ namespace EventHorizon.TimerService
                         DateTime.UtcNow - timerState.StartDate
                     );
                 }
-                timerState.IsRunning = false;
-                timerState.StartDate = DateTime.UtcNow;
             }
             finally
             {
+                timerState.IsRunning = false;
+                timerState.StartDate = DateTime.UtcNow;
                 timerState.LOCK.Release();
             }
         }

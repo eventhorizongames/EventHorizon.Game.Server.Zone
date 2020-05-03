@@ -1,7 +1,6 @@
 ﻿namespace EventHorizon.Extensions.Tests
 {
     using System;
-    using System.Threading.Tasks;
     using FluentAssertions;
     using Xunit;
 

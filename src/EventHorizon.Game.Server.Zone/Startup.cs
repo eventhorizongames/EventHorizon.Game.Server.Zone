@@ -140,6 +140,7 @@ namespace EventHorizon.Game.Server.Zone
                 // Core
                 typeof(CoreExtensions).Assembly,
                 typeof(CoreMapExtensions).Assembly,
+                typeof(CoreMapPluginEditorExtensions).Assembly,
                 typeof(CoreEntityExtensions).Assembly,
                 typeof(CoreClientExtensions).Assembly,
                 typeof(CoreServerActionExtensions).Assembly,
@@ -251,6 +252,7 @@ namespace EventHorizon.Game.Server.Zone
                 ).AddCoreClient()
                 .AddCoreEntity()
                 .AddCoreMap()
+                .AddCoreMapPluginEditor()
                 .AddCoreReporter()
                 .AddCoreServerAction();
 

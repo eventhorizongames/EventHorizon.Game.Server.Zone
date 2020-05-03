@@ -1,13 +1,16 @@
-﻿{
-    "Dimensions": 124,
-    "TileDimensions": 1,
-    "Mesh": {
+{
+    "id": "AE9EBC54-1E81-4DED-9D9D-EEBE8769A36A",
+    "type": "MAP_MESH",
+    "name": "HomeLevel Map Mesh",
+    "data": {
         "HeightMapUrl": "/Game/Level/Home/Assets/HomeLevel.png",
+        "_Width": 512,
+        "_Height": 512,
         "Width": 128,
         "Height": 128,
         "Subdivisions": 200,
         "MinHeight": 0,
-        "MaxHeight": 15,
+        "MaxHeight": 4,
         "Updatable": true,
         "IsPickable": true
     }

@@ -1,0 +1,53 @@
+{
+    "Dimensions": 124,
+    "TileDimensions": 1,
+    "Mesh": {
+        "HeightMapUrl": "/Game/Level/Home/Assets/HomeLevel.png",
+        "Light": "global_light",
+        "_Width": 512,
+        "_Height": 512,
+        "Width": 128,
+        "Height": 128,
+        "Subdivisions": 200,
+        "MinHeight": 0,
+        "MaxHeight": 5,
+        "Updatable": true,
+        "IsPickable": true,
+        "Material": {
+            "AssetPath": "/Assets/Material/Ground",
+            "ShaderId": "ground",
+            "Shader": "/Assets/Material/Ground/Shaders/ground",
+            "SandLimit": 1,
+            "RockLimit": 5,
+            "SnowLimit": 8,
+            "GroundTexture": {
+                "Image": "ground.jpg",
+                "uScale": 6,
+                "vScale": 6
+            },
+            "GrassTexture": {
+                "Image": "grass.jpg",
+                "uScale": 6,
+                "vScale": 6
+            },
+            "SnowTexture": {
+                "Image": "snow.jpg",
+                "uScale": 20,
+                "vScale": 20
+            },
+            "SandTexture": {
+                "Image": "sand.jpg",
+                "uScale": 4,
+                "vScale": 4
+            },
+            "RockTexture": {
+                "Image": "rock.jpg",
+                "uScale": 15,
+                "vScale": 15
+            },
+            "BlendTexture": {
+                "Image": "blend.png"
+            }
+        }
+    }
+}

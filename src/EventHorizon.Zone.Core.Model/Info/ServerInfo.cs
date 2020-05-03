@@ -13,5 +13,6 @@ namespace EventHorizon.Zone.Core.Model.Info
         string ClientPath { get; }
         string ClientScriptsPath { get; }
         string ClientEntityPath { get; }
+        string CoreMapPath { get; }
     }
 }

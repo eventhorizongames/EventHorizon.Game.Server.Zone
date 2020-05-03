@@ -17,6 +17,7 @@ namespace EventHorizon.Zone.Core.Info
         public string ClientEntityPath { get; }
         public string ServerPath { get; }
         public string ServerScriptsPath { get; }
+        public string CoreMapPath { get; }
 
         public HostingEnvironmentServerInfo(
             IHostingEnvironment hostingEnvironment
@@ -53,6 +54,9 @@ namespace EventHorizon.Zone.Core.Info
                 hostingEnvironment
             );
             ServerScriptsPath = GenerateServerScriptsPath(
+                hostingEnvironment
+            );
+            CoreMapPath = GenerateCoreMapPath(
                 hostingEnvironment
             );
         }
@@ -167,6 +171,16 @@ namespace EventHorizon.Zone.Core.Info
                 "App_Data",
                 "Server",
                 "Scripts"
+            );
+        }
+        private string GenerateCoreMapPath(
+            IHostingEnvironment hostingEnvironment
+        )
+        {
+            return Path.Combine(
+                hostingEnvironment.ContentRootPath,
+                "App_Data",
+                "Map"
             );
         }
     }

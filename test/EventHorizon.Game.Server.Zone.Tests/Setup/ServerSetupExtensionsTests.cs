@@ -1,18 +1,18 @@
-using Xunit;
-using Moq;
-using EventHorizon.Game.Server.Zone.Tests.TestUtil;
-using EventHorizon.Game.Server.Zone.Setup;
-using MediatR;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
-using System.Threading;
-using EventHorizon.Zone.Core.Events.Map.Create;
-using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
-using EventHorizon.TimerService;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Setup
 {
+    using System;
+    using System.Threading;
+    using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
+    using EventHorizon.Game.Server.Zone.Setup;
+    using EventHorizon.Game.Server.Zone.Tests.TestUtil;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Events.Map.Create;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+    using Moq;
+    using Xunit;
+
     public class ServerSetupExtensionsTests
     {
         [Fact]
@@ -41,7 +41,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
         public void TestUseSetupServer_ShouldSendAndPublishExpectedEvent()
         {
             // Given
-            var expectedLoadZoneAgentStateEvent = new CreateMapEvent();
+            var expectedLoadZoneAgentStateEvent = new CreateMap();
 
             var mediatorMock = new Mock<IMediator>();
 
@@ -88,8 +88,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
 
             // Then
             mediatorMock.Verify(
-                mock => mock.Publish(
-                    expectedLoadZoneAgentStateEvent, 
+                mock => mock.Send(
+                    expectedLoadZoneAgentStateEvent,
                     CancellationToken.None
                 )
             );

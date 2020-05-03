@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Zone.Core.Map.Tests.Model
 {
-    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Map.Model;
     using FluentAssertions;
     using Xunit;
@@ -14,6 +13,7 @@
             var dimensions = 121;
             var tileDimensions = 231;
             var heightMapUrl = "height-map-url";
+            var light = "light";
             var width = 1;
             var height = 12;
             var subdivisions = 123;
@@ -21,6 +21,7 @@
             var maxHeight = 12312;
             var updatable = true;
             var isPickable = false;
+            var material = default(MapMeshMaterial);
 
             // When
             var actual = new ZoneMapDetails
@@ -30,6 +31,7 @@
                 Mesh = new ZoneMapMesh
                 {
                     HeightMapUrl = heightMapUrl,
+                    Light = light,
                     Width = width,
                     Height = height,
                     Subdivisions = subdivisions,
@@ -37,6 +39,7 @@
                     MaxHeight = maxHeight,
                     Updatable = updatable,
                     IsPickable = isPickable,
+                    Material = material,
                 },
             };
 
@@ -45,6 +48,8 @@
             actual.TileDimensions.Should().Be(tileDimensions);
             actual.Mesh.HeightMapUrl
                 .Should().Be(heightMapUrl);
+            actual.Mesh.Light
+                .Should().Be(light);
             actual.Mesh.Width
                 .Should().Be(width);
             actual.Mesh.Height
@@ -59,7 +64,8 @@
                 .Should().Be(updatable);
             actual.Mesh.IsPickable
                 .Should().Be(isPickable);
-
+            actual.Mesh.Material
+                .Should().Be(material);
         }
     }
 }

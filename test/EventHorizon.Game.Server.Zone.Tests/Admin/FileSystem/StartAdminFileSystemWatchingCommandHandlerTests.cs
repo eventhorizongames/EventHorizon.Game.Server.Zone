@@ -1,18 +1,17 @@
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Admin.FileSystem;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Watcher.Events.Start;
-using MediatR;
-using Moq;
-using Xunit;
-using IOPath = System.IO.Path;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 {
+    using System;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Admin.FileSystem;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Watcher.Events.Start;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class StartAdminFileSystemWatchingCommandHandlerTests
     {
         [Fact]
@@ -24,6 +23,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             var i18nPath = "path-to-i18n";
             var clientPath = "path-to-client";
             var appDataPath = "path-to-app-data";
+            var coreMapPath = "core-map-path";
 
             var expectedServer = new StartWatchingFileSystemCommand(
                 serverPath
@@ -38,11 +38,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
                 clientPath
             );
             var expectedAgent = new StartWatchingFileSystemCommand(
-                IOPath.Combine(
+                Path.Combine(
                     appDataPath,
                     "Agent",
                     "Reload"
                 )
+            );
+            var expectedCoreMap = new StartWatchingFileSystemCommand(
+                coreMapPath
             );
 
             var serverInfoMock = new Mock<ServerInfo>();
@@ -76,6 +79,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
                 mock => mock.AppDataPath
             ).Returns(
                 appDataPath
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.CoreMapPath
+            ).Returns(
+                coreMapPath
             );
 
 
@@ -120,18 +129,24 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
                     CancellationToken.None
                 )
             );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedCoreMap,
+                    CancellationToken.None
+                )
+            );
         }
 
         [Fact]
         public async Task TestShouldCreateDirectoryForAgentReloadWhenAgentReloadDirectoryDoesNotExist()
         {
             // Given
-            var appDataPath = IOPath.Combine(
+            var appDataPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Admin",
                 "FileSystem"
             );
-            var agentReloadPath = IOPath.Combine(
+            var agentReloadPath = Path.Combine(
                 appDataPath,
                 "Agent",
                 "Reload"

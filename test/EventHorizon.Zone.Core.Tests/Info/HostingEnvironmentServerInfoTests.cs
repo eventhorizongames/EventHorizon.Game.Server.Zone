@@ -1,12 +1,11 @@
-using System;
-using System.IO;
-using EventHorizon.Zone.Core.Info;
-using Microsoft.AspNetCore.Hosting;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Info
 {
+    using System.IO;
+    using EventHorizon.Zone.Core.Info;
+    using Microsoft.AspNetCore.Hosting;
+    using Moq;
+    using Xunit;
+
     public class HostingEnvironmentServerInfoTests
     {
         [Fact]
@@ -14,7 +13,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
         {
             // Given
             var contentRootPath = "path";
-            
+
             var expectedAppDataPath = ToValidPath("path", "App_Data");
             var expectedSystemPath = ToValidPath("path", "App_Data", "System");
             var expectedSystemBackupPath = ToValidPath("path", "App_Data", "__Backup__");
@@ -26,6 +25,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
             var expectedClientEntityPath = ToValidPath("path", "App_Data", "Client", "Entity");
             var expectedServerPath = ToValidPath("path", "App_Data", "Server");
             var expectedServerScriptsPath = ToValidPath("path", "App_Data", "Server", "Scripts");
+            var expectedCoreMapPath = ToValidPath("path", "App_Data", "Map");
 
             var hostingEnvironmentMock = new Mock<IHostingEnvironment>();
 
@@ -52,6 +52,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
             Assert.Equal(expectedClientEntityPath, serverInfo.ClientEntityPath);
             Assert.Equal(expectedServerPath, serverInfo.ServerPath);
             Assert.Equal(expectedServerScriptsPath, serverInfo.ServerScriptsPath);
+            Assert.Equal(expectedCoreMapPath, serverInfo.CoreMapPath);
         }
 
         private object ToValidPath(params string[] paths)

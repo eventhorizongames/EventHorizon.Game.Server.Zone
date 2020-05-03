@@ -26,9 +26,9 @@
         public async Task ShouldSetupServerMapWithDetailsFromZoneMapAndGeneratedMap()
         {
             // Given
-            var appDataPath = "app-data-path";
+            var coreMapPath = "core-map-path";
             var mapStateFile = Path.Combine(
-                appDataPath,
+                coreMapPath,
                 "Map.state.json"
             );
             var zoneMapMesh = new ZoneMapMesh();
@@ -46,9 +46,9 @@
             var performanceTrackerMock = new Mock<IPerformanceTracker>();
 
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.CoreMapPath
             ).Returns(
-                appDataPath
+                coreMapPath
             );
 
             mediatorMock.Setup(
@@ -91,7 +91,7 @@
                 performanceTrackerMock.Object
             );
             await handler.Handle(
-                new CreateMapEvent(),
+                new CreateMap(),
                 CancellationToken.None
             );
 
@@ -112,9 +112,9 @@
         {
             // Given
             var expected = new MapCreatedEvent();
-            var appDataPath = "app-data-path";
+            var coreMapPath = "app-data-path";
             var mapStateFile = Path.Combine(
-                appDataPath,
+                coreMapPath,
                 "Map.state.json"
             );
             var zoneMapMesh = new ZoneMapMesh();
@@ -132,9 +132,9 @@
             var performanceTrackerMock = new Mock<IPerformanceTracker>();
 
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.CoreMapPath
             ).Returns(
-                appDataPath
+                coreMapPath
             );
 
             mediatorMock.Setup(
@@ -177,7 +177,7 @@
                 performanceTrackerMock.Object
             );
             await handler.Handle(
-                new CreateMapEvent(),
+                new CreateMap(),
                 CancellationToken.None
             );
 
@@ -194,9 +194,9 @@
         public async Task ShouldThrowExceptionWhenZoneMapDetailsFileDoesNotExists()
         {
             // Given
-            var appDataPath = "app-data-path";
+            var coreMapPath = "core-map-path";
             var mapStateFile = Path.Combine(
-                appDataPath,
+                coreMapPath,
                 "Map.state.json"
             );
             var expected = $"Failed to load Zone Map Details at {mapStateFile}";
@@ -209,9 +209,9 @@
             var performanceTrackerMock = new Mock<IPerformanceTracker>();
 
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.CoreMapPath
             ).Returns(
-                appDataPath
+                coreMapPath
             );
 
             mediatorMock.Setup(
@@ -235,7 +235,7 @@
                 performanceTrackerMock.Object
             );
             Func<Task> action = async () => await handler.Handle(
-                new CreateMapEvent(),
+                new CreateMap(),
                 CancellationToken.None
             );
 

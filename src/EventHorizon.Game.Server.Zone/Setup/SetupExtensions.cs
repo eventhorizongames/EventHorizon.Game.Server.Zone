@@ -1,12 +1,12 @@
-using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
-using EventHorizon.TimerService;
-using EventHorizon.Zone.Core.Events.Map.Create;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone.Setup
 {
+    using EventHorizon.Game.Server.Zone.Server.Core.Ping.Tasks;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Events.Map.Create;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class ServerSetupExtensions
     {
         public static IServiceCollection AddServerSetup(
@@ -23,8 +23,8 @@ namespace EventHorizon.Game.Server.Zone.Setup
             {
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()
-                    .Publish(
-                        new CreateMapEvent()
+                    .Send(
+                        new CreateMap()
                     ).GetAwaiter().GetResult();
             }
             return app;

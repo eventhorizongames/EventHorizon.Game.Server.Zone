@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.Core.Map.Create
     using Microsoft.Extensions.Logging;
 
     public class CreateMapHandler 
-        : INotificationHandler<CreateMapEvent>
+        : IRequestHandler<CreateMap>
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
@@ -42,8 +42,8 @@ namespace EventHorizon.Zone.Core.Map.Create
             _performanceTracker = performanceTracker;
         }
 
-        public async Task Handle(
-            CreateMapEvent notification,
+        public async Task<Unit> Handle(
+            CreateMap request,
             CancellationToken cancellationToken
         )
         {
@@ -63,6 +63,8 @@ namespace EventHorizon.Zone.Core.Map.Create
                 _serverMap.SetMapMesh(zoneMap.Mesh);
             }
             await _mediator.Publish(new MapCreatedEvent());
+
+            return Unit.Value;
         }
 
         private async Task<ZoneMapDetails> GetZoneMapDetails()
@@ -90,7 +92,7 @@ namespace EventHorizon.Zone.Core.Map.Create
         private string GetStateFileName()
         {
             return Path.Combine(
-                _serverInfo.AppDataPath,
+                _serverInfo.CoreMapPath,
                 "Map.state.json"
             );
         }

@@ -1,13 +1,13 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Watcher.Events.Start;
-using MediatR;
-
 namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
 {
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Watcher.Events.Start;
+    using MediatR;
+
     public class StartAdminFileSystemWatchingCommandHandler : IRequestHandler<StartAdminFileSystemWatchingCommand>
     {
         readonly IMediator _mediator;
@@ -76,6 +76,12 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
                     agentReloadPath
+                )
+            );
+
+            await _mediator.Send(
+                new StartWatchingFileSystemCommand(
+                    _serverInfo.CoreMapPath
                 )
             );
 
