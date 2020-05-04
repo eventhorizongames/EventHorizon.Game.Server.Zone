@@ -29,3 +29,5 @@ foreach ($CoverageFile in $CoverageFiles) {
 
 ### RUn the Merging of LCOV files
 npx lcov-result-merger $ReportFilePattern $ReportOutputFile
+
+Write-Host "Finished Test Run"

@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj" />
         <ProjectReference Include="..\..\src\EventHorizon.Game.Server.Zone\EventHorizon.Game.Server.Zone.csproj" />
     </ItemGroup>
 

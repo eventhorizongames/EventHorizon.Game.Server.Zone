@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Reflection;
 using EventHorizon.Game.I18n;
@@ -10,6 +9,7 @@ using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Plugin;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Identity;
+using EventHorizon.Monitoring;
 using EventHorizon.Performance;
 using EventHorizon.Performance.Impl;
 using EventHorizon.Server.Core;
@@ -24,10 +24,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Hosting;
-using EventHorizon.Monitoring;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -148,6 +147,7 @@ namespace EventHorizon.Game.Server.Zone
                 
                 // Server
                 typeof(Startup).Assembly,
+                typeof(ServerCoreExtensions).Assembly,
 
                 // System/Plugin
                 typeof(SystemWatcherExtensions).Assembly,
@@ -214,12 +214,6 @@ namespace EventHorizon.Game.Server.Zone
                     ).Bind(
                         options
                     )
-                ).AddServerCoreExternal(
-                    options => Configuration.GetSection(
-                        "Core"
-                    ).Bind(
-                        options
-                    )
                 ).AddEventHorizonMonitoring(
                     options =>
                     {
@@ -260,7 +254,13 @@ namespace EventHorizon.Game.Server.Zone
             // Server
             services.AddServerLoad();
             services.AddServerSetup();
-            services.AddServerCore();
+            services.AddServerCore(
+                options => Configuration.GetSection(
+                    "Core"
+                ).Bind(
+                    options
+                )
+            );
             services.AddServerPlayer(Configuration);
             services.AddServerAdmin();
 
@@ -355,13 +355,16 @@ namespace EventHorizon.Game.Server.Zone
             app.UseI18n();
             app.UseEventHorizonIdentity();
 
+            // Load Server - Settings 
+            app.UseServerLoad();
+
             // Core
             app.UseCore();
+            app.UseCoreMap();
 
-            // Server
-            app.UseServerLoad();
+            // Server 
             app.UseServerSetup();
-            app.UseServerCore(); // Should be moved to bottom, so it will register with the Core Server after it is loaded.
+            app.UseServerCore();
             app.UseServerPlayer();
             app.UseServerAdmin();
 
@@ -416,6 +419,9 @@ namespace EventHorizon.Game.Server.Zone
 
             // Dynamically Loaded Plugins
             app.UsePlugins();
+
+            // Core - Register with Core Server
+            app.UseRegisterWithCoreServer();
 
             app.UseFinishStartingCore();
 
