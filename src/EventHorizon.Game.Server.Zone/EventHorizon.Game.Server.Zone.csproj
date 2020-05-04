@@ -11,13 +11,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="App_Data\Client\Scripts\ServerModule\SystemLog\Dispose.js" />
-      <None Remove="App_Data\Client\Scripts\ServerModule\SystemLog\Initialize.js" />
-      <None Remove="App_Data\Client\Scripts\ServerModule\SystemLog\Update.js" />
-      <None Remove="App_Data\Server\Scripts\Admin\Map\ReloadCoreMap.csx" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="MediatR" Version="8.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
