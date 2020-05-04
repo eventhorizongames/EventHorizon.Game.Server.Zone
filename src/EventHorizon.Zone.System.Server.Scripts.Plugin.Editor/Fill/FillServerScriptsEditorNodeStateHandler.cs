@@ -1,18 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Events;
-using EventHorizon.Zone.System.Editor.Events.Node;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-
-namespace EventHorizon.Game.Server.Zone.Server.Editor
+namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Fill
 {
-    // TODO: Move this out into a Server.Scripts.Plugin.Editor Project
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Editor.Events;
+    using EventHorizon.Zone.System.Editor.Events.Node;
+    using EventHorizon.Zone.System.Editor.Model;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     public class FillServerScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
 
         public FillServerScriptsEditorNodeStateHandler(
             IMediator mediator,

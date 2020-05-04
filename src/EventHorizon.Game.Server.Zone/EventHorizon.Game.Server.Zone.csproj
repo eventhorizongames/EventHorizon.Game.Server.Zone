@@ -100,6 +100,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action\EventHorizon.Zone.System.Player.Plugin.Action.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Editor\EventHorizon.Zone.System.Combat.Plugin.Editor.csproj" />
 

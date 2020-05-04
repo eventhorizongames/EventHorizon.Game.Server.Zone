@@ -90,7 +90,7 @@ namespace EventHorizon.Game.Server.Zone
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 })
             ;
-
+ 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 Converters = { new DefaultStringEnumConverter(0) },
@@ -159,6 +159,7 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(SystemAdminPluginCommandExtensions).Assembly,
 
                 typeof(SystemServerScriptsExtensions).Assembly,
+                typeof(SystemServerScriptsPluginEditorExtensions).Assembly,
 
                 typeof(SystemGuiExtensions).Assembly,
                 typeof(SystemGuiPluginEditorExtensions).Assembly,
@@ -273,6 +274,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemAdminPluginCommand()
 
                 .AddSystemServerScripts()
+                .AddSystemServerScriptsPluginEditor()
 
                 .AddSystemGui()
                 .AddSystemGuiPluginEditor()
@@ -372,6 +374,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemAdminPluginCommand();
 
             app.UseSystemServerScripts();
+            app.UseSystemServerScriptsPluginEditor();
 
             app.UseSystemGui();
             app.UseSystemGuiPluginEditor();
