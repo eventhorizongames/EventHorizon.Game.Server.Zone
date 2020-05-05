@@ -47,9 +47,9 @@ var distance = Vector3.Distance(
     ownerMoveTo,
     ownerCurrentPosition
 );
-System.Console.WriteLine("Owner Distance: " + ownerCurrentPosition);
-System.Console.WriteLine("Owner Distance: " + ownerMoveTo);
-System.Console.WriteLine("Owner Distance: " + distance);
+// System.Console.WriteLine("Owner Distance: " + ownerCurrentPosition);
+// System.Console.WriteLine("Owner Distance: " + ownerMoveTo);
+// System.Console.WriteLine("Owner Distance: " + distance);
 // Check still within delta
 if (distance <= delta)
 {

@@ -1,0 +1,6 @@
+{
+    "name": "PlayerCaptures",
+    "initializeScript": "ServerModule_PlayerCaptures_Initialize.js",
+    "disposeScript": "ServerModule_PlayerCaptures_Dispose.js",
+    "updateScript": "ServerModule_PlayerCaptures_Update.js"
+}

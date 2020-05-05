@@ -53,7 +53,6 @@ $services.commandService.send(
 );
 
 function onEntityChanged({ entityId }) {
-    console.log("HealthModuleInitialize", { entityId });
     if ($entity.entityId !== entityId) {
         return;
     }
@@ -88,7 +87,6 @@ function getEntityPercent() {
     return (lifeState.healthPoints / lifeState.maxHealthPoints) * 100;
 }
 function onMeshSet({ clientId }) {
-    console.log("HealthModuleInitialize", { $entity, clientId });
     if ($entity.clientId !== clientId) {
         return;
     }

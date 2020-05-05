@@ -33,10 +33,34 @@ target.SetProperty(
     targetOwner
 );
 
+// Update Target Properties
 await Services.Mediator.Send(
     new UpdateEntityCommand(
         AgentAction.PROPERTY_CHANGED,
         target
+    )
+);
+
+// Update Caster/Player CompanionCount
+var companionsCaught = new List<string>();
+var companionsCaughtPropertyName = "MakeTargetOwnerCaster:CompanionsCaught";
+if (caster.ContainsProperty(companionsCaughtPropertyName))
+{
+    var currentCompanionsCaught = caster.GetProperty<List<string>>(
+        companionsCaughtPropertyName
+    );
+    System.Console.WriteLine(currentCompanionsCaught);
+    companionsCaught = currentCompanionsCaught;
+}
+companionsCaught.Add(target.GlobalId);
+caster.SetProperty(
+    companionsCaughtPropertyName,
+    companionsCaught
+);
+await Services.Mediator.Send(
+    new UpdateEntityCommand(
+        EntityAction.PROPERTY_CHANGED,
+        caster
     )
 );
 

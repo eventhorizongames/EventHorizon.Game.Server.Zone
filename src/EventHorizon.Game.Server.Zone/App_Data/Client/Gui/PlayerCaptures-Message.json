@@ -1,0 +1,45 @@
+{
+    "id": "GUI_PlayerCaptures-Message.json",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "player_capture-message-immortal",
+            "sort": 0,
+            "templateId": "platform-container",
+            "options": {
+                "alpha": 0.8,
+                "background": "blue",
+                "__width": "100%",
+                "height": "50px",
+                "horizontalAlignment": 1,
+                "verticalAlignment": 1,
+                "adaptWidthToChildren": true,
+                "__adaptHeightToChildren": true,
+                "cornerRadius": 10,
+                "isPointerBlocker": false
+            },
+            "controlList": [
+                {
+                    "id": "player_capture-message-immortal-name",
+                    "sort": 0,
+                    "templateId": "platform-text",
+                    "options": {
+                        "alpha": 2,
+                        "width": "100%",
+                        "height": "50px",
+                        "color": "lightblue",
+                        "fontSize": 20,
+                        "paddingLeft": 15,
+                        "textHorizontalAlignment": 0,
+                        "text": "Immortal 001"
+                    }
+                }
+            ]
+        },
+        {
+            "Id": "player_capture-message-spacer",
+            "Sort": 1,
+            "templateId": "platform-spacer"
+        }
+    ]
+}

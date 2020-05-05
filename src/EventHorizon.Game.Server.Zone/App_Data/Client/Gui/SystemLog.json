@@ -8,7 +8,7 @@
             "sort": 0,
             "templateId": "platform-container",
             "options": {
-                "isVisible": true,
+                "isVisible": false,
                 "width": "66%",
                 "height": "50%",
                 "alpha": 0.5,
@@ -33,7 +33,7 @@
             "sort": 1,
             "templateId": "platform-container",
             "options": {
-                "isVisible": true,
+                "isVisible": false,
                 "width": "66%",
                 "height": "50%",
                 "horizontalAlignment": 0,

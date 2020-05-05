@@ -1,0 +1,43 @@
+{
+    "id": "GUI_PlayerCaptures.json",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "player_capture-grid",
+            "sort": 0,
+            "templateId": "platform-grid",
+            "options": {
+                "column": 4,
+                "row": 1,
+                "backgroundColor": "transparent",
+                "paddingBottom": 15,
+                "paddingTop": 15,
+                "paddingLeft": 15,
+                "paddingRight": 15
+            },
+            "controlList": [
+                {
+                    "id": "player_capture-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 0
+                    },
+                    "options": {
+                        "verticalAlignment": 0,
+                        "background": "transparent",
+                        "__adaptWidthToChildren": true,
+                        "animation": {
+                            "isEnabled": true,
+                            "transition": 0.05,
+                            "transitionStart": 0.01,
+                            "transitionEnd": 1,
+                            "transitionTime": 500
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

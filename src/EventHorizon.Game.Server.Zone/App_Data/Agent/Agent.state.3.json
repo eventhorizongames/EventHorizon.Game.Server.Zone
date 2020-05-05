@@ -2,7 +2,7 @@
     "AgentList": [
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 001",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -172,7 +172,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 002",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -342,7 +342,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 003",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -512,7 +512,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 004",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -682,7 +682,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 005",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -852,7 +852,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 006",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -1022,7 +1022,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 007",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -1192,7 +1192,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 008",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -1362,7 +1362,7 @@
         },
         {
             "Id": "500543bd-6273-4ea4-bae1-d118f65d826d",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 009",
             "Transform": {
                 "Position": {
                     "X": -57.0,
@@ -1532,7 +1532,7 @@
         },
         {
             "Id": "64ba14a9-5f9c-462b-bf03-ea8d4ad36ef3",
-            "Name": "Fire Type",
+            "Name": "Fire Type - 010",
             "Transform": {
                 "Position": {
                     "X": -62.0,
