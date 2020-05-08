@@ -45,9 +45,9 @@ return new Promise(resolve => {
         scene
     );
     woodMaterial.diffuseColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-    woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-    woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
-    woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    //woodMaterial.specularColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    //woodMaterial.emissiveColor = new BABYLON.Color3(0.4, 0.2, 0.0);
+    //woodMaterial.ambientColor = new BABYLON.Color3(0.4, 0.2, 0.0);
 
     const createQuickTreeGenerator = (sizeBranch, sizeTrunk, radius) => {
         var tree = new BABYLON.Mesh(`tree-${id}`, scene);
