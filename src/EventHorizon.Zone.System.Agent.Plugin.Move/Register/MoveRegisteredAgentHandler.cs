@@ -49,7 +49,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             var pathState = agent.GetProperty<PathState>(
                 PathState.PROPERTY_NAME
             );
-            var path = pathState.Path;
+            var path = pathState.Path();
             if (path == null)
             {
                 await RemoveAgent(
@@ -111,7 +111,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             PathState pathState
         )
         {
-            pathState.Path = null;
+            pathState.SetPath(null);
             entity.SetProperty(
                 PathState.PROPERTY_NAME,
                 pathState

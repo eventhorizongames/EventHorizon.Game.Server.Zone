@@ -56,14 +56,14 @@ function onEntityChanged({ entityId }) {
     if ($entity.entityId !== entityId) {
         return;
     }
-    $services.logger.debug("onEntityChanged", {
-        entityId: $entity.entityId,
-        passedEntityId: entityId,
-        options: {
-            text: getEntityText(),
-            percent: getEntityPercent(),
-        },
-    });
+    // $services.logger.debug("onEntityChanged", {
+    //     entityId: $entity.entityId,
+    //     passedEntityId: entityId,
+    //     options: {
+    //         text: getEntityText(),
+    //         percent: getEntityPercent(),
+    //     },
+    // });
 
     $services.commandService.send(
         $utils.createEvent("Engine.Gui.UPDATE_GUI_CONTROL_COMMAND", {
@@ -80,7 +80,8 @@ function onEntityChanged({ entityId }) {
 }
 function getEntityText() {
     const lifeState = $entity.getProperty("lifeState");
-    return `${lifeState.healthPoints}/${lifeState.maxHealthPoints}`;
+    return `${$entity.name}`;
+    // return `${lifeState.healthPoints}/${lifeState.maxHealthPoints}`;
 }
 function getEntityPercent() {
     const lifeState = $entity.getProperty("lifeState");

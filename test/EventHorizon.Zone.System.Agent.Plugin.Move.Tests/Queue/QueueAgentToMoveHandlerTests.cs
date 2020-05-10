@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
 {
+    using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.System.Agent.Events.Move;
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.State;
@@ -8,6 +9,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
     using Moq;
     using Xunit;
 
@@ -25,18 +28,22 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
                 Id = inputId
             };
 
+            var mediatorMock = new Mock<IMediator>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
+            var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
+
             agentRepositoryMock.Setup(
-                agentRepository => agentRepository.FindById(
+                mock => mock.FindById(
                     inputId
                 )
             ).ReturnsAsync(
                 expectedAgent
             );
-            var moveAgentRepositoryMock = new Mock<IMoveAgentRepository>();
 
             // When
             var registerAgentMovePathHandler = new QueueAgentToMoveHandler(
+                new Mock<ILogger<QueueAgentToMoveHandler>>().Object,
+                mediatorMock.Object,
                 agentRepositoryMock.Object,
                 moveAgentRepositoryMock.Object
             );
@@ -51,18 +58,21 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
 
             // Then
             agentRepositoryMock.Verify(
-                agentRepository => agentRepository.FindById(
+                mock => mock.FindById(
                     inputId
                 )
             );
-            agentRepositoryMock.Verify(
-                agentRepository => agentRepository.Update(
-                    AgentAction.PATH,
-                    expectedAgent
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new UpdateEntityCommand(
+                        AgentAction.PATH,
+                        expectedAgent
+                    ),
+                    CancellationToken.None
                 )
             );
             moveAgentRepositoryMock.Verify(
-                moveAgentRepository => moveAgentRepository.Register(
+                mock => mock.Register(
                     inputId
                 )
             );

@@ -1,17 +1,18 @@
-using EventHorizon.Zone.System.Agent.Model;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using EventHorizon.Zone.System.Agent;
-using EventHorizon.Zone.System.Agent.Events.Startup;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Save;
-using EventHorizon.Zone.System.Agent.State;
-using EventHorizon.TimerService;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.System.Agent.Model;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using EventHorizon.Zone.System.Agent;
+    using EventHorizon.Zone.System.Agent.Events.Startup;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Save;
+    using EventHorizon.Zone.System.Agent.State;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+
     public static class SystemAgentExtensions
     {
         public static IServiceCollection AddSystemAgent(
@@ -25,6 +26,7 @@ namespace EventHorizon.Game.Server.Zone
                 )
                 .AddTransient<IAgentRepository, AgentWrappedEntityRepository>()
                 .AddSingleton<ITimerTask, SaveAgentStateTimerTask>()
+                .AddSingleton<ITimerTask, CheckForStaleAgentPathTimer>()
                 .AddAgentConnection();
         }
         public static IApplicationBuilder UseSystemAgent(

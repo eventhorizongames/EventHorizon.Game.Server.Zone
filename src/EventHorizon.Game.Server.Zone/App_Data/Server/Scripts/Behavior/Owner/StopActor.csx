@@ -19,7 +19,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 // TODO: Promote this logic into a Agent System Event
 var entity = Data.Get<IObjectEntity>("Actor");
 var pathState = entity.GetProperty<PathState>(PathState.PROPERTY_NAME);
-pathState.Path = null;
+pathState = pathState.SetPath(null);
 entity.SetProperty(
     PathState.PROPERTY_NAME,
     pathState

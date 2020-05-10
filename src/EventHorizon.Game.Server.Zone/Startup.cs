@@ -27,6 +27,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Prometheus;
 
 namespace EventHorizon.Game.Server.Zone
 {
@@ -179,6 +180,7 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(SystemEntityModulePluginEditorExtensions).Assembly,
 
                 typeof(SystemAgentExtensions).Assembly,
+                typeof(SystemAgentPluginEditorExtensions).Assembly,
                 typeof(SystemAgentPluginAiExtensions).Assembly,
                 typeof(SystemAgentPluginMoveExtensions).Assembly,
                 typeof(SystemAgentPluginWildExtensions).Assembly,
@@ -294,6 +296,7 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSystemEntityModulePluginEditor()
 
                 .AddSystemAgent(Configuration)
+                .AddSystemAgentPluginEditor()
                 .AddSystemAgentPluginAi()
                 .AddSystemAgentPluginMove()
                 .AddSystemAgentPluginWild()
@@ -397,6 +400,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseSystemEntityModulePluginEditor();
 
             app.UseSystemAgent();
+            app.UseSystemAgentPluginEditor();
             app.UseSystemAgentPluginAi();
             app.UseSystemAgentPluginMove();
             app.UseSystemAgentPluginWild();
@@ -429,6 +433,7 @@ namespace EventHorizon.Game.Server.Zone
             app.UseEndpoints(
                 routes =>
                 {
+                    routes.MapMetrics();
                     routes.MapHub<AdminHub>("/admin");
                     routes.MapHub<PlayerHub>("/playerHub");
 

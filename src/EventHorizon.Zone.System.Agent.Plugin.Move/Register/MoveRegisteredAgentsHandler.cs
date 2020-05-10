@@ -43,10 +43,9 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 using (_performanceTracker.Track("MoveRegisteredAgentEvent"))
                 {
                     _ = _mediator.Publish(
-                        new MoveRegisteredAgentEvent
-                        {
-                            EntityId = entityId
-                        }
+                        new MoveRegisteredAgentEvent(
+                            entityId
+                        )
                     );
                 }
                 // TODO: Replace this with a timer,
@@ -60,11 +59,11 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             // {
             //     _logger.LogWarning("MoveRegisteredAgentEvent Count is over 10.");
             // }
-            if (runCount > 100)
-            {
-                _logger.LogWarning("MoveRegisteredAgentEvent Count is over 100.");
-                _logger.LogWarning("MoveRegisteredAgentEvent Count is {Count}.", runCount);
-            }
+            // if (runCount > 100)
+            // {
+            //     _logger.LogWarning("MoveRegisteredAgentEvent Count is over 100.");
+            //     _logger.LogWarning("MoveRegisteredAgentEvent Count is {Count}.", runCount);
+            // }
             return Task.CompletedTask;
         }
     }

@@ -32,7 +32,7 @@ var owner = await GetOwner(
     actorOwnerState,
     actor
 );
-if (actorPathState.Path == null)
+if (actorPathState.Path() == null)
 {
     // Owner is not Far from their delta location.
     return new BehaviorScriptResponse(

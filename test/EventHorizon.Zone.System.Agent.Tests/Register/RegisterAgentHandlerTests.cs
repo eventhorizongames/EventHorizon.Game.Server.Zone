@@ -1,17 +1,17 @@
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Register.Handler;
-using MediatR;
-using Moq;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
+namespace EventHorizon.Zone.System.Agent.Tests.Register
 {
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Register.Handler;
+    using MediatR;
+    using Moq;
+    using global::System.Collections.Concurrent;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using Xunit;
+
     public class RegisterAgentHandlerTests
     {
         [Fact]
@@ -65,10 +65,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 agentRepositoryMock.Object
             );
             var actual = await registerAgentHandler.Handle(
-                new RegisterAgentEvent
-                {
-                    Agent = inputAgent
-                },
+                new RegisterAgentEvent(
+                    inputAgent
+                ),
                 CancellationToken.None
             );
 
@@ -118,10 +117,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 agentRepositoryMock.Object
             );
             var actual = await registerAgentHandler.Handle(
-                new RegisterAgentEvent
-                {
-                    Agent = inputAgent
-                },
+                new RegisterAgentEvent(
+                    inputAgent
+                ),
                 CancellationToken.None
             );
 
@@ -188,10 +186,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register.Handler
                 agentRepositoryMock.Object
             );
             var actual = await registerAgentHandler.Handle(
-                new RegisterAgentEvent
-                {
-                    Agent = inputAgent
-                },
+                new RegisterAgentEvent(
+                    inputAgent
+                ),
                 CancellationToken.None
             );
 

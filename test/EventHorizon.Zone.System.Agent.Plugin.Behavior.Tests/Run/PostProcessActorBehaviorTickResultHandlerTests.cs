@@ -10,6 +10,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+    using MediatR;
     using Microsoft.Extensions.Logging;
     using Moq;
     using Xunit;
@@ -51,6 +52,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 actorId
             );
 
+            var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<PostProcessActorBehaviorTickResultHandler>>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var queueMock = new Mock<ActorBehaviorTickQueue>();
@@ -63,6 +65,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                mediatorMock.Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object
@@ -129,6 +132,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                new Mock<IMediator>().Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object
@@ -213,6 +217,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                new Mock<IMediator>().Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object
@@ -292,6 +297,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                new Mock<IMediator>().Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object
@@ -376,6 +382,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                new Mock<IMediator>().Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object
@@ -466,6 +473,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
 
             // When
             var handler = new PostProcessActorBehaviorTickResultHandler(
+                new Mock<IMediator>().Object,
                 loggerMock.Object,
                 dateTimeMock.Object,
                 queueMock.Object

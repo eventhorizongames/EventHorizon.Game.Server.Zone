@@ -13,16 +13,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 
     public class PostProcessActorBehaviorTickResultHandler : IRequestHandler<PostProcessActorBehaviorTickResult>
     {
+        private readonly IMediator _mediator;
         private readonly ILogger _logger;
         private readonly IDateTimeService _dateTime;
         private readonly ActorBehaviorTickQueue _queue;
 
         public PostProcessActorBehaviorTickResultHandler(
+            IMediator mediator,
             ILogger<PostProcessActorBehaviorTickResultHandler> logger,
             IDateTimeService dateTime,
             ActorBehaviorTickQueue queue
         )
         {
+            _mediator = mediator;
             _logger = logger;
             _dateTime = dateTime;
             _queue = queue;

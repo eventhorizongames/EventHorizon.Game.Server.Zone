@@ -1,19 +1,19 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.Move;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.Path;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Move;
-using Moq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Tests.Move
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.Path;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Move;
+    using Moq;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using Xunit;
+
     public class IsAgentMovingHandlerTests
     {
         [Fact]
@@ -27,7 +27,8 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
                 }
             );
             var rawData = new ConcurrentDictionary<string, object>();
-            rawData[PathState.PROPERTY_NAME] = new PathState { Path = path };
+            rawData[PathState.PROPERTY_NAME] = new PathState()
+                .SetPath(path);
             var agent = new AgentEntity(
                 rawData
             );
@@ -68,7 +69,8 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
             // Given
             var entityId = 2L;
             var rawData = new ConcurrentDictionary<string, object>();
-            rawData[PathState.PROPERTY_NAME] = new PathState { Path = null };
+            rawData[PathState.PROPERTY_NAME] = new PathState()
+                .SetPath(null);
             var agent = new AgentEntity(
                 rawData
             );
@@ -109,7 +111,10 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
             // Given
             var entityId = 2L;
             var rawData = new ConcurrentDictionary<string, object>();
-            rawData[PathState.PROPERTY_NAME] = new PathState { Path = new Queue<Vector3>() };
+            rawData[PathState.PROPERTY_NAME] = new PathState()
+                .SetPath(
+                    new Queue<Vector3>()
+                );
             var agent = new AgentEntity(
                 rawData
             );

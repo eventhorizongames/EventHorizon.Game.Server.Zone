@@ -60,17 +60,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
-                new PathState
+                new PathState()
                 {
-                    Path = new Queue<Vector3>(
+                    MoveTo = expectedMoveTo
+                }.SetPath(
+                    new Queue<Vector3>(
                         new List<Vector3>()
                         {
                             expectedMoveTo,
                             expectedMoveTo
                         }
-                    ),
-                    MoveTo = expectedMoveTo
-                }
+                    )
+                )
             );
 
             var mediatorMock = new Mock<IMediator>();
@@ -97,10 +98,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 agentRepositoryMock.Object
             );
             await moveRegisteredAgentHandler.Handle(
-                new MoveRegisteredAgentEvent
-                {
-                    EntityId = inputId
-                },
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
                 CancellationToken.None
             );
             // Then
@@ -151,8 +151,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 PathState.PROPERTY_NAME,
                 new PathState
                 {
-                    Path = null
-                }
+                }.SetPath(
+                    null
+                )
             );
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
@@ -178,10 +179,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 agentRepositoryMock.Object
             );
             await moveRegisteredAgentHandler.Handle(
-                new MoveRegisteredAgentEvent
-                {
-                    EntityId = inputId
-                },
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
                 CancellationToken.None
             );
             // Then
@@ -236,12 +236,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
-                new PathState
-                {
-                    Path = new Queue<Vector3>(
-                        new List<Vector3>()
-                    ),
-                }
+                new PathState()
+                    .SetPath(
+                        new Queue<Vector3>(
+                            new List<Vector3>()
+                        )
+                    )
             );
 
             var mediatorMock = new Mock<IMediator>();
@@ -263,10 +263,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 agentRepositoryMock.Object
             );
             await moveRegisteredAgentHandler.Handle(
-                new MoveRegisteredAgentEvent
-                {
-                    EntityId = inputId
-                },
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
                 CancellationToken.None
             );
 
@@ -324,12 +323,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             );
             expectedAgent.PopulateData<PathState>(
                 PathState.PROPERTY_NAME,
-                new PathState
-                {
-                    Path = new Queue<Vector3>(
-                        new List<Vector3>()
-                    ),
-                }
+                new PathState()
+                    .SetPath(
+                        new Queue<Vector3>(
+                            new List<Vector3>()
+                        )
+                    )
             );
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
@@ -360,10 +359,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 agentRepositoryMock.Object
             );
             await moveRegisteredAgentHandler.Handle(
-                new MoveRegisteredAgentEvent
-                {
-                    EntityId = inputId
-                },
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
                 CancellationToken.None
             );
             // Then
@@ -426,14 +424,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 PathState.PROPERTY_NAME,
                 new PathState
                 {
-                    Path = new Queue<Vector3>(
+                    MoveTo = expectedMoveTo
+                }.SetPath(
+                    new Queue<Vector3>(
                         new List<Vector3>()
                         {
                             expectedMoveTo
                         }
-                    ),
-                    MoveTo = expectedMoveTo
-                }
+                    )
+                )
             );
             var expectedAgentFinishedMoveEvent = new AgentFinishedMoveEvent
             {
@@ -464,10 +463,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 agentRepositoryMock.Object
             );
             await moveRegisteredAgentHandler.Handle(
-                new MoveRegisteredAgentEvent
-                {
-                    EntityId = inputId
-                },
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
                 CancellationToken.None
             );
             // Then
@@ -482,6 +480,67 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                     expectedAgentFinishedMoveEvent,
                     It.IsAny<CancellationToken>()
                 )
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<QueueAgentToMove>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task ShouldNotDoAnythingWhenAgentIsNotFound()
+        {
+            // Given
+            var inputId = 123L;
+            var agent = default(AgentEntity);
+
+            var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
+            var agentRepositoryMock = new Mock<IAgentRepository>();
+
+            agentRepositoryMock.Setup(
+                repository => repository.FindById(
+                    inputId
+                )
+            ).ReturnsAsync(
+                agent
+            );
+
+            // When
+            var moveRegisteredAgentHandler = new MoveRegisteredAgentHandler(
+                mediatorMock.Object,
+                dateTimeMock.Object,
+                agentRepositoryMock.Object
+            );
+            await moveRegisteredAgentHandler.Handle(
+                new MoveRegisteredAgentEvent(
+                    inputId
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            agentRepositoryMock.Verify(
+                repository => repository.FindById(
+                    inputId
+                )
+            );
+            agentRepositoryMock.Verify(
+                repository => repository.Update(
+                    It.IsAny<EntityAction>(),
+                    It.IsAny<AgentEntity>()
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mediator => mediator.Publish(
+                    It.IsAny<MoveEntityToPositionCommand>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
             );
             mediatorMock.Verify(
                 mediator => mediator.Publish(

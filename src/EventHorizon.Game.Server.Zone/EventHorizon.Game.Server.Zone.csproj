@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="prometheus-net.AspNetCore" Version="3.5.0" />
         <PackageReference Include="MediatR" Version="8.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
@@ -67,6 +68,7 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command\EventHorizon.Zone.System.Admin.Plugin.Command.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent\EventHorizon.Zone.System.Agent.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Editor\EventHorizon.Zone.System.Agent.Plugin.Editor.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Ai\EventHorizon.Zone.System.Agent.Plugin.Ai.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Move\EventHorizon.Zone.System.Agent.Plugin.Move.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Wild\EventHorizon.Zone.System.Agent.Plugin.Wild.csproj" />

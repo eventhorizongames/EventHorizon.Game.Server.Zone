@@ -24,18 +24,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             var inputId1 = 111L;
             var inputId2 = 222L;
             var inputId3 = 333L;
-            var expectedMoveRegisteredAgentEvent1 = new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId1
-            };
-            var expectedMoveRegisteredAgentEvent2 = new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId2
-            };
-            var expectedMoveRegisteredAgentEvent3 = new MoveRegisteredAgentEvent
-            {
-                EntityId = inputId3
-            };
+            var expectedMoveRegisteredAgentEvent1 = new MoveRegisteredAgentEvent(
+                inputId1
+            );
+            var expectedMoveRegisteredAgentEvent2 = new MoveRegisteredAgentEvent(
+                inputId2
+            );
+            var expectedMoveRegisteredAgentEvent3 = new MoveRegisteredAgentEvent(
+                inputId3
+            );
             var entityIdList = new List<long>()
             {
                 inputId1,

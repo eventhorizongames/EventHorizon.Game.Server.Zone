@@ -1,19 +1,19 @@
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.Core.Model.Json;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Events.Startup;
-using EventHorizon.Zone.System.Agent.Save.Mapper;
-using EventHorizon.Zone.System.Agent.Save.Model;
-using EventHorizon.Zone.Core.Model.Settings;
-
 namespace EventHorizon.Zone.System.Agent.Startup
 {
+    using global::System;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.Core.Model.Json;
+    using MediatR;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Events.Startup;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.Agent.Save.Model;
+    using EventHorizon.Zone.Core.Model.Settings;
+
     public class LoadZoneAgentStateHandler : IRequestHandler<LoadZoneAgentStateEvent, Unit>
     {
         readonly IMediator _mediator;
@@ -47,12 +47,11 @@ namespace EventHorizon.Zone.System.Agent.Startup
             ))
             {
                 await _mediator.Send(
-                    new RegisterAgentEvent
-                    {
-                        Agent = AgentFromDetailsToEntity.MapToNewGlobal(
+                    new RegisterAgentEvent(
+                        AgentFromDetailsToEntity.MapToNewGlobal(
                             agent
-                        ),
-                    }
+                        )
+                    )
                 );
             }
             // Load "LOCALE" agents from file service
@@ -62,13 +61,12 @@ namespace EventHorizon.Zone.System.Agent.Startup
             foreach (var agent in agentState.AgentList)
             {
                 await _mediator.Send(
-                    new RegisterAgentEvent
-                    {
-                        Agent = AgentFromDetailsToEntity.MapToNew(
+                    new RegisterAgentEvent(
+                        AgentFromDetailsToEntity.MapToNew(
                             agent,
                             agent.Id ?? Guid.NewGuid().ToString()
-                        ),
-                    }
+                        )
+                    )
                 );
             }
             return Unit.Value;
