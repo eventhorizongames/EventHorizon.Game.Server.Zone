@@ -97,7 +97,7 @@ function onEntityClientChangedHandler(
                     {
                         controlId: "player_capture-message-immortal-name",
                         options: {
-                            text: `Captured Immoral ${name}`,
+                            text: `Captured Immortal ${name}`,
                         },
                     },
                 ],
