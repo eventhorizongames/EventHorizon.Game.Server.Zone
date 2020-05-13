@@ -34,15 +34,14 @@ if (!int.TryParse(
 for (int i = 0; i < count; i++)
 {
     await Services.Mediator.Send(
-        new RegisterAgentEvent
-        {
-            Agent = AgentFromDetailsToEntity.MapToNew(
+        new RegisterAgentEvent(
+            AgentFromDetailsToEntity.MapToNew(
                 AgentFromEntityToDetails.Map(
                     agentList.LastOrDefault()
                 ),
                 Guid.NewGuid().ToString()
             )
-        }
+        )
     );
 }
 

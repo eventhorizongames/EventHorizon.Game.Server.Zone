@@ -1,22 +1,28 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.ServerModule.Model;
-using EventHorizon.Zone.System.ServerModule.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ServerModule.Fetch
 {
-    public class FetchServerModuleScriptListHandler : IRequestHandler<FetchServerModuleScriptListEvent, IEnumerable<ServerModuleScripts>>
+    using EventHorizon.Zone.System.ServerModule.Model;
+    using EventHorizon.Zone.System.ServerModule.State;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class FetchServerModuleScriptListHandler 
+        : IRequestHandler<FetchServerModuleScriptList, IEnumerable<ServerModuleScripts>>
     {
-        readonly ServerModuleRepository _serverModuleRepository;
+        private readonly ServerModuleRepository _serverModuleRepository;
+
         public FetchServerModuleScriptListHandler(
             ServerModuleRepository serverModuleRepository
         )
         {
             _serverModuleRepository = serverModuleRepository;
         }
-        public Task<IEnumerable<ServerModuleScripts>> Handle(FetchServerModuleScriptListEvent request, CancellationToken cancellationToken)
+
+        public Task<IEnumerable<ServerModuleScripts>> Handle(
+            FetchServerModuleScriptList request,
+            CancellationToken cancellationToken
+        )
         {
             return Task.FromResult(
                 _serverModuleRepository.All()

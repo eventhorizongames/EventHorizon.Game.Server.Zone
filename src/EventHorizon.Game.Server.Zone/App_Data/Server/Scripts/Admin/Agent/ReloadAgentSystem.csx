@@ -57,13 +57,12 @@ if (containsFiles)
         foreach (var agent in agentState.AgentList)
         {
             await Services.Mediator.Send(
-                new RegisterAgentEvent
-                {
-                    Agent = AgentFromDetailsToEntity.MapToNew(
+                new RegisterAgentEvent(
+                    AgentFromDetailsToEntity.MapToNew(
                         agent,
                         Guid.NewGuid().ToString()
-                    ),
-                }
+                    )
+                )
             );
         }
         // Remove the File from Agent/Reload Folder

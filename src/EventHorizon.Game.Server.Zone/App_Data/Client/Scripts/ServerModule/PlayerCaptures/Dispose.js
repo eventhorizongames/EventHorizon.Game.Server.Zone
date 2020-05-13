@@ -10,12 +10,19 @@
  */
 
 $services.logger.debug("Player Captures Log - Dispose Script");
+const guiId = "GUI_PlayerCaptures.json";
+
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.DISPOSE_OF_GUI_COMMAND", {
+        id: guiId,
+    })
+);
 
 var eventsToRemove = $data.eventsToRemove || [];
-eventsToRemove.forEach(eventData => {
+eventsToRemove.forEach((eventData) => {
     $services.eventService.off(
         {
-            key: eventData.name
+            key: eventData.name,
         },
         eventData.handler,
         eventData.context

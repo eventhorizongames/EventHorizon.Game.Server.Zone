@@ -1,24 +1,25 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.ServerModule.Model;
-using EventHorizon.Zone.System.ServerModule.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ServerModule.Load
 {
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.ServerModule.Model;
+    using EventHorizon.Zone.System.ServerModule.State;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
     /// <summary>
     /// TODO: Make this recursive Loading
     /// </summary>
-    public class LoadServerModuleSystemHandler : INotificationHandler<LoadServerModuleSystemEvent>
+    public class LoadServerModuleSystemHandler
+        : INotificationHandler<LoadServerModuleSystem>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ServerModuleRepository _serverModuleRepository;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ServerModuleRepository _serverModuleRepository;
 
         public LoadServerModuleSystemHandler(
             IMediator mediator,
@@ -34,7 +35,7 @@ namespace EventHorizon.Zone.System.ServerModule.Load
         }
 
         public async Task Handle(
-            LoadServerModuleSystemEvent notification, 
+            LoadServerModuleSystem notification,
             CancellationToken cancellationToken
         )
         {
@@ -50,7 +51,7 @@ namespace EventHorizon.Zone.System.ServerModule.Load
                 "ServerModule"
             );
         }
-        
+
         private async Task GetServerModuleList(
             string path
         )
@@ -68,7 +69,7 @@ namespace EventHorizon.Zone.System.ServerModule.Load
                 );
             }
         }
-        
+
         private Task<ServerModuleScripts> GetServerModuleFile(
             string fullName
         )

@@ -13,13 +13,15 @@
                 "textSize": 12,
                 "textColor": "white",
                 "backgroundColor": "green",
-                "barColor": "#CD5C5C",
-                "barDirection": "paddingLeft",
                 "borderColor": "white",
                 "borderThickness": 0,
                 "linkOffsetY": -80,
                 "percent": 25,
-                "text": "25 / 100"
+                "text": "25 / 100",
+                "percentageBar": {
+                    "background": "#CD5C5C",
+                    "barDirection": "paddingLeft"
+                }
             }
         }
     ]

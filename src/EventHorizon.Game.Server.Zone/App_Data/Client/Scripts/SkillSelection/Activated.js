@@ -8,7 +8,7 @@
  *  layout: IGuiLayoutData
  * };
  */
-console.log("Activated.js", $data);
+$services.logger.debug("Activated.js", { $data });
 
 $services.eventService.publish(
     $utils.createEvent("Local.SkillSelection.Gui.ACTIVATED", {

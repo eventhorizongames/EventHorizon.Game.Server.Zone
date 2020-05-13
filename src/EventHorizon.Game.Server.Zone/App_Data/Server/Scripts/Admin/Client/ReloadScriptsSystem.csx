@@ -1,5 +1,5 @@
 /// <summary>
-/// This will publish the I18nLoadEvent.
+/// This will publish the ReloadClientScriptsSystem event.
 /// 
 /// Data: IDictionary<string, object>
 /// - Command
@@ -13,11 +13,12 @@
 
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Client.Scripts.Load;
+using EventHorizon.Zone.System.Client.Scripts.Reload;
 
 var command = Data.Get<IAdminCommand>("Command");
-await Services.Mediator.Publish(
-    new LoadClientScriptsSystemCommand()
+
+await Services.Mediator.Send(
+    new ReloadClientScriptsSystem()
 );
 
 return new AdminCommandScriptResponse(

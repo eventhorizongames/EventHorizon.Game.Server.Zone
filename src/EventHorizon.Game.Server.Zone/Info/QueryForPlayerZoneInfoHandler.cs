@@ -1,22 +1,22 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.I18n.Fetch;
-using EventHorizon.Performance;
-using EventHorizon.Zone.System.Client.Scripts.Fetch;
-using EventHorizon.Zone.System.ClientAssets.Fetch;
-using EventHorizon.Zone.System.EntityModule.Fetch;
-using EventHorizon.Zone.System.Gui.Events.Layout;
-using EventHorizon.Zone.System.ServerModule.Fetch;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Zone.System.Player.Events.Info;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using EventHorizon.Zone.System.Particle.Fetch;
-using EventHorizon.Zone.System.ClientEntities.Query;
-
 namespace EventHorizon.Game.Server.Zone.Info.Query
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.I18n.Fetch;
+    using EventHorizon.Performance;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.Core.Model.Map;
+    using EventHorizon.Zone.System.Client.Scripts.Fetch;
+    using EventHorizon.Zone.System.ClientAssets.Fetch;
+    using EventHorizon.Zone.System.ClientEntities.Query;
+    using EventHorizon.Zone.System.EntityModule.Fetch;
+    using EventHorizon.Zone.System.Gui.Events.Layout;
+    using EventHorizon.Zone.System.Particle.Fetch;
+    using EventHorizon.Zone.System.Player.Events.Info;
+    using EventHorizon.Zone.System.ServerModule.Fetch;
+    using MediatR;
+
     /// <summary>
     /// This will eventually be moved into Loaders per the 
     ///  module that contains state that should be sent 
@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
         readonly IMapMesh _mapMesh;
         readonly EntityRepository _entityRepository;
         readonly IPerformanceTracker _performanceTracker;
-        
+
         public QueryForPlayerZoneInfoHandler(
             IMediator mediator,
             IMapGraph map,
@@ -94,7 +94,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                 zoneInfo.Add(
                     "ServerModuleScriptList",
                     await _mediator.Send(
-                        new FetchServerModuleScriptListEvent()
+                        new FetchServerModuleScriptList()
                     )
                 );
                 zoneInfo.Add(

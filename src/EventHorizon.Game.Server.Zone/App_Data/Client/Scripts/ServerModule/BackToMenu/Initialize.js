@@ -20,6 +20,7 @@ $services.commandService.send(
                 controlId: "back_to_main_menu-button",
                 options: {
                     textKey: "account_BackToMainMenu",
+                    _text: "Hello",
                     onClick: () => window.location.reload(),
                     // onClick: () =>
                     //     $services.commandService.send({

@@ -13,11 +13,11 @@
 
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Gui.Load;
+using EventHorizon.Zone.System.Gui.Reload;
 
 var command = Data.Get<IAdminCommand>("Command");
 await Services.Mediator.Send(
-    new LoadSystemGuiCommand()
+    new ReloadGuiSystem()
 );
 
 return new AdminCommandScriptResponse(

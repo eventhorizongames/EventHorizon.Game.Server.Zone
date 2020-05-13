@@ -1,16 +1,17 @@
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.Register;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
 {
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Register;
+    using global::System.Collections.Generic;
+    using global::System.Reflection;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class SystemRegisterServerScriptCommandHandlerTests
     {
         [Fact]
@@ -21,11 +22,13 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
             var path = "path";
             var scriptString = "// A script";
 
+            var loggerMock = new Mock<ILogger<SystemRegisterServerScriptCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverScriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             // When
             var handler = new SystemRegisterServerScriptCommandHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverScriptRepositoryMock.Object
             );
@@ -57,11 +60,13 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
             var importList = new List<string>();
             var tagList = new List<string>();
 
+            var loggerMock = new Mock<ILogger<SystemRegisterServerScriptCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverScriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             // When
             var handler = new SystemRegisterServerScriptCommandHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverScriptRepositoryMock.Object
             );
@@ -81,7 +86,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
             mediatorMock.Verify(
                 mock => mock.Publish(
                     It.Is<ServerScriptRegisteredEvent>(
-                        registerEvent => 
+                        registerEvent =>
                             !string.IsNullOrEmpty(
                                 registerEvent.Id
                             )

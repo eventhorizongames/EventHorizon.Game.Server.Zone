@@ -1,0 +1,74 @@
+{
+    "id": "GUI_LeaderBoard.json",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "leaderboard-container",
+            "sort": 0,
+            "templateId": "platform-container",
+            "options": {
+                "isVisible": false,
+                "width": "96%",
+                "height": "96%",
+                "horizontalAlignment": 2,
+                "verticalAlignment": 2,
+                "alpha": 0.7,
+                "background": "black"
+            },
+            "controlList": [
+                {
+                    "id": "leaderboard-panel",
+                    "sort": 0,
+                    "templateId": "platform-container",
+                    "gridLocation": {
+                        "row": 0,
+                        "column": 0
+                    },
+                    "options": {
+                        "verticalAlignment": 0,
+                        "background": "transparent",
+                        "height": "100%",
+                        "adaptWidthToChildren": true,
+                        "animation": {
+                            "isEnabled": true,
+                            "transition": 0.05,
+                            "transitionStart": 0.01,
+                            "transitionEnd": 1,
+                            "transitionTime": 500
+                        }
+                    },
+                    "controlList": [
+                        {
+                            "id": "leaderboard-message",
+                            "sort": 1,
+                            "templateId": "platform-text",
+                            "options": {
+                                "alpha": 1,
+                                "background": "red",
+                                "color": "white",
+                                "width": "33px",
+                                "fontSize": "32px",
+                                "textHorizontalAlignment": 0,
+                                "text": "message_text"
+                            }
+                        },
+                        {
+                            "id": "leaderboard-message2",
+                            "sort": 1,
+                            "templateId": "platform-text",
+                            "options": {
+                                "alpha": 1,
+                                "background": "red",
+                                "color": "white",
+                                "width": "33px",
+                                "fontSize": "32px",
+                                "textHorizontalAlignment": 0,
+                                "text": "message_text"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

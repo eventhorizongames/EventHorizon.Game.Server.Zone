@@ -1,4 +1,5 @@
 {
     "name": "InitializeGui",
-    "initializeScript": "ServerModule_Gui_Initialize.js"
+    "initializeScript": "ServerModule_Gui_Initialize.js",
+    "disposeScript": "ServerModule_Gui_Dispose.js"
 }

@@ -1,22 +1,26 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.System;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.System;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
     public class SystemRegisterServerScriptCommandHandler : IRequestHandler<RegisterServerScriptCommand>
     {
+        private readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly ServerScriptRepository _serverScriptRepository;
 
         public SystemRegisterServerScriptCommandHandler(
+            ILogger<SystemRegisterServerScriptCommandHandler> logger,
             IMediator mediator,
             ServerScriptRepository serverScriptRepository
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _serverScriptRepository = serverScriptRepository;
         }
@@ -26,6 +30,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
             CancellationToken cancellationToken
         )
         {
+            _logger.LogDebug(
+                "Loading System Service Script\nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
+                    request.FileName,
+                    request.Path,
+                    request.TagList
+            );
             var script = SystemServerScript.Create(
                 request.FileName,
                 request.Path,

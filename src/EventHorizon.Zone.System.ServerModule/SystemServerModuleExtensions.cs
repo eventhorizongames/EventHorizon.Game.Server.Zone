@@ -1,12 +1,12 @@
 
-using EventHorizon.Zone.System.ServerModule.Load;
-using EventHorizon.Zone.System.ServerModule.State;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.System.ServerModule.Load;
+    using EventHorizon.Zone.System.ServerModule.State;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemServerModuleExtensions
     {
         public static IServiceCollection AddSystemServerModule(
@@ -17,7 +17,8 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<ServerModuleRepository, ServerModuleInMemoryRepository>()
             ;
         }
-        public static void UseSystemServerModule(
+
+        public static IApplicationBuilder UseSystemServerModule(
             this IApplicationBuilder app
         )
         {
@@ -25,9 +26,10 @@ namespace EventHorizon.Game.Server.Zone
             {
                 serviceScope.ServiceProvider
                     .GetService<IMediator>()
-                    .Publish(new LoadServerModuleSystemEvent())
+                    .Publish(new LoadServerModuleSystem())
                     .GetAwaiter()
                     .GetResult();
+                return app;
             }
         }
     }

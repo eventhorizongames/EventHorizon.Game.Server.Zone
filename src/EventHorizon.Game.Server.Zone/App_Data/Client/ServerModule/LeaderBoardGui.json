@@ -1,0 +1,5 @@
+{
+    "name": "LeaderBoardGui",
+    "initializeScript": "ServerModule_Leaderboard_Initialize.js",
+    "disposeScript": "ServerModule_Leaderboard_Dispose.js"
+}
