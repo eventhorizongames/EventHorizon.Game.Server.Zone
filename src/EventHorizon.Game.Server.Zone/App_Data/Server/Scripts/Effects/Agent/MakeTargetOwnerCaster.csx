@@ -16,6 +16,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Game.Server.Zone.Game.Increment;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var target = Data.Get<IObjectEntity>("Target");
@@ -68,6 +69,12 @@ var wasChanged = await Services.Mediator.Send(
     new ChangeActorBehaviorTreeCommand(
         target,
         casterCompanionManagement.CapturedBehaviorTreeId
+    )
+);
+
+await Services.Mediator.Send(
+    new IncrementPlayerScore(
+        caster.Id
     )
 );
 

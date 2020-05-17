@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Server.Scripts.Events.Register;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
 

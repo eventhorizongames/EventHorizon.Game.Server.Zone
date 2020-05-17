@@ -203,6 +203,9 @@ namespace EventHorizon.Game.Server.Zone
                 
                 // Dynamically Loaded Plugins
                 typeof(PluginExtensions).Assembly,
+
+                // Game Specific Loading
+                typeof(GameExtensions).Assembly,
             };
 
             // Base
@@ -323,6 +326,9 @@ namespace EventHorizon.Game.Server.Zone
                 HostingEnvironment
             );
 
+            // Game Specific Loading
+            services.AddGame();
+
             // TODO: MORE CORE SERVER SETUP
             // Has to be last in configuration.
             //  so it picks up the systemProvidedAssemblyList after all services have added to it.
@@ -423,6 +429,9 @@ namespace EventHorizon.Game.Server.Zone
 
             // Dynamically Loaded Plugins
             app.UsePlugins();
+
+            // Game Specific Loading
+            app.UseGame();
 
             // Core - Register with Core Server
             app.UseRegisterWithCoreServer();

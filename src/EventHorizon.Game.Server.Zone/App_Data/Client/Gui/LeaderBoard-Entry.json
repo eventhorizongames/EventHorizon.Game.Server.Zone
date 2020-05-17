@@ -1,0 +1,21 @@
+{
+    "id": "GUI_LeaderBoard-Entry.json",
+    "comment": "The id will come from the directory structure.",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "leaderboard-entry",
+            "sort": 1,
+            "templateId": "platform-text",
+            "options": {
+                "alpha": 1,
+                "background": "red",
+                "color": "white",
+                "height": "33px",
+                "fontSize": "28px",
+                "textHorizontalAlignment": 0,
+                "text": "Player 002: 20"
+            }
+        }
+    ]
+}

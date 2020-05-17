@@ -7,10 +7,10 @@
             "sort": 0,
             "templateId": "platform-container",
             "options": {
-                "width": "100%",
+                "adaptWidthToChildren": true,
                 "height": "100%",
-                "horizontalAlignment": 0,
-                "verticalAlignment": 0,
+                "horizontalAlignment": 1,
+                "verticalAlignment": 2,
                 "background": "transparent"
             },
             "controlList": [
@@ -19,10 +19,9 @@
                     "sort": 0,
                     "templateId": "platform-panel",
                     "options": {
+                        "background": "green",
                         "verticalAlignment": 0,
-                        "horizontalAlignment": 0,
-                        "top": 15,
-                        "left": 15
+                        "adaptWidthToChildren": true
                     },
                     "controlList": [
                         {

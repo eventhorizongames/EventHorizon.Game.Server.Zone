@@ -1,17 +1,19 @@
 {
     "id": "GUI_LeaderBoard.json",
-    "sort": 0,
+    "sort": 12,
     "controlList": [
         {
             "id": "leaderboard-container",
             "sort": 0,
             "templateId": "platform-container",
             "options": {
-                "isVisible": false,
-                "width": "96%",
+                "isVisible": true,
+                "width": "50%",
                 "height": "96%",
-                "horizontalAlignment": 2,
+                "isHitTestVisible": false,
+                "horizontalAlignment": 1,
                 "verticalAlignment": 2,
+                "paddingRight": 15,
                 "alpha": 0.7,
                 "background": "black"
             },
@@ -19,7 +21,7 @@
                 {
                     "id": "leaderboard-panel",
                     "sort": 0,
-                    "templateId": "platform-container",
+                    "templateId": "platform-panel",
                     "gridLocation": {
                         "row": 0,
                         "column": 0
@@ -28,7 +30,10 @@
                         "verticalAlignment": 0,
                         "background": "transparent",
                         "height": "100%",
+                        "isHitTestVisible": false,
                         "adaptWidthToChildren": true,
+                        "paddingTop": 10,
+                        "paddingLeft": 10,
                         "animation": {
                             "isEnabled": true,
                             "transition": 0.05,
@@ -39,31 +44,29 @@
                     },
                     "controlList": [
                         {
-                            "id": "leaderboard-message",
-                            "sort": 1,
+                            "id": "leaderboard-message-title",
+                            "sort": 0,
                             "templateId": "platform-text",
                             "options": {
                                 "alpha": 1,
-                                "background": "red",
                                 "color": "white",
-                                "width": "33px",
+                                "fontStyle": "bold",
+                                "height": "33px",
                                 "fontSize": "32px",
                                 "textHorizontalAlignment": 0,
-                                "text": "message_text"
+                                "text": "Player Scores"
                             }
                         },
                         {
-                            "id": "leaderboard-message2",
-                            "sort": 1,
-                            "templateId": "platform-text",
+                            "id": "leaderboard-message-line",
+                            "sort": 0,
+                            "templateId": "platform-container",
                             "options": {
                                 "alpha": 1,
-                                "background": "red",
                                 "color": "white",
-                                "width": "33px",
-                                "fontSize": "32px",
-                                "textHorizontalAlignment": 0,
-                                "text": "message_text"
+                                "width": "100%",
+                                "paddingTop": 2,
+                                "height": "3px"
                             }
                         }
                     ]
