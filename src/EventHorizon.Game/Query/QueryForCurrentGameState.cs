@@ -1,6 +1,6 @@
-namespace EventHorizon.Game.Server.Zone.Game.Query
+namespace EventHorizon.Game.Query
 {
-    using EventHorizon.Game.Server.Zone.Game.State;
+    using EventHorizon.Game.State;
     using MediatR;
 
     public struct QueryForCurrentGameState : IRequest<CurrentGameState>

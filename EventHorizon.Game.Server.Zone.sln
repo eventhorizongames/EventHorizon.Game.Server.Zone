@@ -225,29 +225,33 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Monitoring.ApplicationInsights.Tests", "test\EventHorizon.Monitoring.ApplicationInsights.Tests\EventHorizon.Monitoring.ApplicationInsights.Tests.csproj", "{D2FB74E5-ED4C-4213-8CDA-04AFCB213225}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Map.Plugin.Editor", "src\EventHorizon.Zone.Core.Map.Plugin.Editor\EventHorizon.Zone.Core.Map.Plugin.Editor.csproj", "{54BA47E8-D060-4394-85FD-AE8CEBB130F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Map.Plugin.Editor", "src\EventHorizon.Zone.Core.Map.Plugin.Editor\EventHorizon.Zone.Core.Map.Plugin.Editor.csproj", "{54BA47E8-D060-4394-85FD-AE8CEBB130F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.Core.Map.Plugin.Editor.Tests", "test\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests.csproj", "{05BA2EB7-61A3-4280-AC0B-FFD7F83223DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.Core.Map.Plugin.Editor.Tests", "test\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests.csproj", "{05BA2EB7-61A3-4280-AC0B-FFD7F83223DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.Editor", "src\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.csproj", "{4D08CA3E-886A-4747-A8A3-82A30286D1A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.Editor", "src\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.csproj", "{4D08CA3E-886A-4747-A8A3-82A30286D1A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests.csproj", "{4EE33D3B-2963-40A8-B49A-08188E5A397F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests.csproj", "{4EE33D3B-2963-40A8-B49A-08188E5A397F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core", "src\EventHorizon.Server.Core\EventHorizon.Server.Core.csproj", "{5329F1E6-DAFC-45FA-A810-10F5FD3F3748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core", "src\EventHorizon.Server.Core\EventHorizon.Server.Core.csproj", "{5329F1E6-DAFC-45FA-A810-10F5FD3F3748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.Events", "src\EventHorizon.Server.Core.Events\EventHorizon.Server.Core.Events.csproj", "{30A5F77E-D792-4052-B804-30DE44C2033C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.Events", "src\EventHorizon.Server.Core.Events\EventHorizon.Server.Core.Events.csproj", "{30A5F77E-D792-4052-B804-30DE44C2033C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.Tests", "test\EventHorizon.Server.Core.Tests\EventHorizon.Server.Core.Tests.csproj", "{D5F2E91D-8504-4995-AC71-E72557E23D2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.Tests", "test\EventHorizon.Server.Core.Tests\EventHorizon.Server.Core.Tests.csproj", "{D5F2E91D-8504-4995-AC71-E72557E23D2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.Connection", "src\EventHorizon.Server.Core.Connection\EventHorizon.Server.Core.Connection.csproj", "{5D450B18-3A7E-4A71-9481-E32B9ED829E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.Connection", "src\EventHorizon.Server.Core.Connection\EventHorizon.Server.Core.Connection.csproj", "{5D450B18-3A7E-4A71-9481-E32B9ED829E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Server.Core.Connection.Tests", "test\EventHorizon.Server.Core.Connection.Tests\EventHorizon.Server.Core.Connection.Tests.csproj", "{9FC16967-0E3C-4225-9940-5ABDA18A568B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Server.Core.Connection.Tests", "test\EventHorizon.Server.Core.Connection.Tests\EventHorizon.Server.Core.Connection.Tests.csproj", "{9FC16967-0E3C-4225-9940-5ABDA18A568B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Editor", "src\EventHorizon.Zone.System.Agent.Plugin.Editor\EventHorizon.Zone.System.Agent.Plugin.Editor.csproj", "{4ED158CE-8A55-41A6-BE40-4F9287F16BBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Editor", "src\EventHorizon.Zone.System.Agent.Plugin.Editor\EventHorizon.Zone.System.Agent.Plugin.Editor.csproj", "{4ED158CE-8A55-41A6-BE40-4F9287F16BBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Agent.Plugin.Editor.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests.csproj", "{3338D76F-153E-4800-B6AA-327F8FE5E44A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Agent.Plugin.Editor.Tests", "test\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests.csproj", "{3338D76F-153E-4800-B6AA-327F8FE5E44A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ServerModule.Tests", "test\EventHorizon.Zone.System.ServerModule.Tests\EventHorizon.Zone.System.ServerModule.Tests.csproj", "{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ServerModule.Tests", "test\EventHorizon.Zone.System.ServerModule.Tests\EventHorizon.Zone.System.ServerModule.Tests.csproj", "{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game", "src\EventHorizon.Game\EventHorizon.Game.csproj", "{450C1812-C8F4-4710-92E4-22C618E22056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Game.Tests", "test\EventHorizon.Game.Tests\EventHorizon.Game.Tests.csproj", "{345D47DF-9233-4136-90C4-B6BB25A3AE86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1711,6 +1715,30 @@ Global
 		{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0}.Release|x64.Build.0 = Release|Any CPU
 		{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0}.Release|x86.ActiveCfg = Release|Any CPU
 		{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0}.Release|x86.Build.0 = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|x64.Build.0 = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Debug|x86.Build.0 = Debug|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|x64.ActiveCfg = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|x64.Build.0 = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|x86.ActiveCfg = Release|Any CPU
+		{450C1812-C8F4-4710-92E4-22C618E22056}.Release|x86.Build.0 = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|x64.Build.0 = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Debug|x86.Build.0 = Debug|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|x64.ActiveCfg = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|x64.Build.0 = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|x86.ActiveCfg = Release|Any CPU
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1837,6 +1865,8 @@ Global
 		{4ED158CE-8A55-41A6-BE40-4F9287F16BBB} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{3338D76F-153E-4800-B6AA-327F8FE5E44A} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 		{A5A1D5CE-B281-4B06-9922-03A7B54AE9F0} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
+		{450C1812-C8F4-4710-92E4-22C618E22056} = {FE232CB9-E002-4898-9117-E3162928E341}
+		{345D47DF-9233-4136-90C4-B6BB25A3AE86} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}

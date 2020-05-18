@@ -1,6 +1,6 @@
-namespace EventHorizon.Game.Server.Zone.Game.Client
+namespace EventHorizon.Game.Client
 {
-    using EventHorizon.Game.Server.Zone.Game.Model.Client;
+    using EventHorizon.Game.Model.Client;
     using EventHorizon.Zone.Core.Events.Client.Generic;
 
     public static class ClientActionGameStateChangedToAllEvent

@@ -1,8 +1,8 @@
-namespace EventHorizon.Game.Server.Zone
+namespace EventHorizon.Game
 {
+    using EventHorizon.Game.State;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
-    using EventHorizon.Game.Server.Zone.Game.State;
 
     public static class GameExtensions
     {

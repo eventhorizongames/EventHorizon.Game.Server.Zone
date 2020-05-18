@@ -1,8 +1,8 @@
-namespace EventHorizon.Game.Server.Zone.Game.Query
+namespace EventHorizon.Game.Query
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Server.Zone.Game.State;
+    using EventHorizon.Game.State;
     using MediatR;
 
     public class QueryForCurrentGameStateHandler 

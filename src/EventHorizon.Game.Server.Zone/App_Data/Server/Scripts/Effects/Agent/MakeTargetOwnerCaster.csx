@@ -16,7 +16,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Skill.Model;
-using EventHorizon.Game.Server.Zone.Game.Increment;
+using EventHorizon.Game.Increment;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var target = Data.Get<IObjectEntity>("Target");

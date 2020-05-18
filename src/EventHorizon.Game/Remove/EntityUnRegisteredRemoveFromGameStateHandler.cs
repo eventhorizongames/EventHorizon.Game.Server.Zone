@@ -1,9 +1,9 @@
-namespace EventHorizon.Game.Server.Zone.Game.Remove
+namespace EventHorizon.Game.Remove
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Server.Zone.Game.Client;
-    using EventHorizon.Game.Server.Zone.Game.State;
+    using EventHorizon.Game.Client;
+    using EventHorizon.Game.State;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using MediatR;
 

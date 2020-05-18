@@ -4,7 +4,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Game.I18n.Fetch;
-    using EventHorizon.Game.Server.Zone.Game.Query;
+    using EventHorizon.Game.Query;
     using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Model.Entity.State;
     using EventHorizon.Zone.Core.Model.Map;

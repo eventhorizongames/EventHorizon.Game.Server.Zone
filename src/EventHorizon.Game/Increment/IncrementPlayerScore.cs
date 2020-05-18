@@ -1,4 +1,4 @@
-namespace EventHorizon.Game.Server.Zone.Game.Increment
+namespace EventHorizon.Game.Increment
 {
     using MediatR;
 

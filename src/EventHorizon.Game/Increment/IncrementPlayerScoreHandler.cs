@@ -1,9 +1,9 @@
-namespace EventHorizon.Game.Server.Zone.Game.Increment
+namespace EventHorizon.Game.Increment
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Game.Server.Zone.Game.Client;
-    using EventHorizon.Game.Server.Zone.Game.State;
+    using EventHorizon.Game.Client;
+    using EventHorizon.Game.State;
     using MediatR;
 
     public class IncrementPlayerScoreHandler : IRequestHandler<IncrementPlayerScore>
