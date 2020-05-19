@@ -8,15 +8,18 @@ namespace EventHorizon.Zone.Core.Entity.Search
     using EventHorizon.Zone.Core.Model.Entity;
     using MediatR;
 
-    public class EntityPositionChangedHandler : INotificationHandler<EntityActionEvent>
+    public class EntityPositionChangedHandler 
+        : INotificationHandler<EntityActionEvent>
     {
-        readonly EntitySearchTree _searchTree;
+        private readonly EntitySearchTree _searchTree;
+
         public EntityPositionChangedHandler(
             EntitySearchTree searchTree
         )
         {
             _searchTree = searchTree;
         }
+
         public Task Handle(
             EntityActionEvent notification,
             CancellationToken cancellationToken

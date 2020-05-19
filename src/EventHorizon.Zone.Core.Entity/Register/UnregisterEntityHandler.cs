@@ -1,19 +1,19 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Register
 {
-    public class UnregisterEntityHandler : INotificationHandler<UnRegisterEntityEvent>
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using MediatR;
+
+    public class UnregisterEntityHandler 
+        : INotificationHandler<UnRegisterEntityEvent>
     {
-        readonly IMediator _mediator;
-        readonly EntityRepository _entityRepository;
-        
+        private readonly IMediator _mediator;
+        private readonly EntityRepository _entityRepository;
+
         public UnregisterEntityHandler(
-            IMediator mediator, 
+            IMediator mediator,
             EntityRepository entityRepository
         )
         {

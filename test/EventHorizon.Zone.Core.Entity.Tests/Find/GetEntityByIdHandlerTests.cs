@@ -1,14 +1,13 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using System.Threading;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.Core.Entity.Find;
-using EventHorizon.Zone.Core.Model.Entity.State;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Find
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Entity.Find;
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using Moq;
+    using Xunit;
+
     public class GetEntityByIdHandlerTests
     {
         [Fact]

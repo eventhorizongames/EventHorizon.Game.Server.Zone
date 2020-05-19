@@ -1,12 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Update;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Update
 {
-    public class UpdateEntityCommandHandler : IRequestHandler<UpdateEntityCommand>
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using MediatR;
+
+    public class UpdateEntityCommandHandler
+        : IRequestHandler<UpdateEntityCommand>
     {
         private readonly EntityRepository _entityRepository;
 
@@ -26,7 +27,7 @@ namespace EventHorizon.Zone.Core.Entity.Update
                 request.Action,
                 request.Entity
             );
-            
+
             return Unit.Value;
         }
     }

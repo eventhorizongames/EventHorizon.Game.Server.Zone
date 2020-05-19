@@ -1,18 +1,19 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Zone.Core.Entity.State;
-using MediatR;
-using EventHorizon.Zone.Core.Events.Entity.Search;
-
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public class SearchInAreaWithAllTagsHandler : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Search;
+    using MediatR;
+
+    public class SearchInAreaWithAllTagsHandler 
+        : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
     {
-        readonly EntitySearchTree _entitySearchTree;
+        private readonly EntitySearchTree _entitySearchTree;
+
         public SearchInAreaWithAllTagsHandler(
             EntitySearchTree entitySearchTree
         )

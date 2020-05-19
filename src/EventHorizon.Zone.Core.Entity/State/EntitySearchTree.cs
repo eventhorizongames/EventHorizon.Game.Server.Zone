@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-
 namespace EventHorizon.Zone.Core.Entity.State
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+
     public interface EntitySearchTree
     {
         void UpdateDimensions(

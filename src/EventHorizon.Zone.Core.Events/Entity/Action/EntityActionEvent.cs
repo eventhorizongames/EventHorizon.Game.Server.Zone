@@ -7,5 +7,14 @@ namespace EventHorizon.Zone.Core.Events.Entity.Action
     {
         public EntityAction Action { get; set; }
         public IObjectEntity Entity { get; set; }
+
+        public EntityActionEvent(
+            EntityAction action, 
+            IObjectEntity entity
+        )
+        {
+            Action = action;
+            Entity = entity;
+        }
     }
 }

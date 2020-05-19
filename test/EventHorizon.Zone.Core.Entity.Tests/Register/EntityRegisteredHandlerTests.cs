@@ -1,5 +1,7 @@
 namespace EventHorizon.Zone.Core.Entity.Tests.Register
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Entity.Register;
     using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Events.Entity.Register;
@@ -7,8 +9,6 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
     using EventHorizon.Zone.Core.Model.Entity.Client;
     using MediatR;
     using Moq;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class EntityRegisteredHandlerTests

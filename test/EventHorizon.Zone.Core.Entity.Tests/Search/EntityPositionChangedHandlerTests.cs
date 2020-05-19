@@ -1,18 +1,18 @@
-using Xunit;
-using Moq;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using System.Threading;
-using System.Numerics;
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Entity.Search;
-using EventHorizon.Zone.Core.Events.Entity.Action;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Search
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Entity.Search;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Action;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using Moq;
+    using Xunit;
+
     public class EntityPositionChangedHandlerTests
     {
         [Fact]
@@ -60,6 +60,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
                 )
             );
         }
+
         [Fact]
         public async Task TestShouldNotCallAddOnSearchTreeWhenEntityActionIsNotPosition()
         {

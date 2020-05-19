@@ -1,12 +1,11 @@
-using Xunit;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Model.Entity.State;
-
 namespace EventHorizon.Zone.Core.Entity.Tests
 {
+    using Xunit;
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Test.Common.Utils;
+
     public class EntityExtensionsTests
     {
         [Fact]

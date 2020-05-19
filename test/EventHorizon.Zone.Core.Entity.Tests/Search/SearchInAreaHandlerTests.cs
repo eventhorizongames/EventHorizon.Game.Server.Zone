@@ -1,16 +1,16 @@
-using Xunit;
-using Moq;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Events.Entity.Search;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Entity.Search;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Search
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Entity.Search;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Search;
+    using Moq;
+    using Xunit;
+
     public class SearchInAreaHandlerTests
     {
         [Fact]
@@ -44,6 +44,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
                 )
             );
         }
+
         [Fact]
         public async Task TestShouldReturnEntityIdListFromEntitySearchTree()
         {

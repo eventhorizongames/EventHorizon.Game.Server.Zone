@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Action;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using EventHorizon.Zone.Core.Model.Id;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.State
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Action;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.Core.Model.Id;
+    using MediatR;
+
     public class InMemoryEntityRepository : EntityRepository
     {
-        private readonly static ConcurrentDictionary<long, IObjectEntity> _entityMap = new ConcurrentDictionary<long, IObjectEntity>();
+        private readonly ConcurrentDictionary<long, IObjectEntity> _entityMap = new ConcurrentDictionary<long, IObjectEntity>();
 
-        readonly IMediator _mediator;
-        readonly IdPool _idPool;
+        private readonly IMediator _mediator;
+        private readonly IdPool _idPool;
 
         public InMemoryEntityRepository(
             IMediator mediator,
@@ -29,31 +29,25 @@ namespace EventHorizon.Zone.Core.Entity.State
 
         public Task<List<IObjectEntity>> All()
         {
-            return Task.FromResult(
-                _entityMap.Values.ToList()
-            );
+            return _entityMap.Values.ToList().FromResult();
         }
 
         public Task<IEnumerable<IObjectEntity>> Where(
             Func<IObjectEntity, bool> predicate
         )
         {
-            return Task.FromResult(
-                _entityMap.Values.Where<IObjectEntity>(
-                    predicate
-                )
-            );
+            return _entityMap.Values.Where(
+                predicate
+            ).FromResult();
         }
 
         public Task<IObjectEntity> FindById(
             long id
         )
         {
-            return Task.FromResult(
-                _entityMap.FirstOrDefault(
-                    entity => entity.Key == id
-                ).Value ?? DefaultEntity.NULL
-            );
+            return (_entityMap.FirstOrDefault(
+                entity => entity.Key == id
+            ).Value ?? DefaultEntity.NULL).FromResult();
         }
 
         public Task<IObjectEntity> Add(
@@ -72,10 +66,9 @@ namespace EventHorizon.Zone.Core.Entity.State
                     Entity = entity
                 }
             );
-            return Task.FromResult(
-                entity
-            );
+            return entity.FromResult();
         }
+
         public Task Update(
             EntityAction action,
             IObjectEntity entity
@@ -84,7 +77,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             _entityMap.AddOrUpdate(
                 entity.Id,
                 entity,
-                (key, oldEntity) => entity
+                (_, __) => entity
             );
             _mediator.Publish(
                 new EntityActionEvent
@@ -95,14 +88,14 @@ namespace EventHorizon.Zone.Core.Entity.State
             );
             return Task.CompletedTask;
         }
+
         public Task Remove(
             long id
         )
         {
-            var entity = default(IObjectEntity);
             _entityMap.TryRemove(
                 id,
-                out entity
+                out var entity
             );
             _mediator.Publish(
                 new EntityActionEvent

@@ -1,14 +1,14 @@
 namespace EventHorizon.Zone.Core.Entity.Tests.Movement
 {
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
     using Moq;
-    using System.Collections.Concurrent;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     public class StopEntityMovementHandlerTests

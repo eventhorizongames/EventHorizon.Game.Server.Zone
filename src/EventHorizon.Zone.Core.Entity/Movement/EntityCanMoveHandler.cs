@@ -8,15 +8,18 @@ namespace EventHorizon.Zone.Core.Entity.Movement
     using EventHorizon.Zone.Core.Model.Entity.State;
     using MediatR;
 
-    public class EntityCanMoveHandler : INotificationHandler<EntityCanMoveEvent>
+    public class EntityCanMoveHandler 
+        : INotificationHandler<EntityCanMoveEvent>
     {
-        readonly EntityRepository _entityRepository;
+        private readonly EntityRepository _entityRepository;
+
         public EntityCanMoveHandler(
             EntityRepository entityRepository
         )
         {
             _entityRepository = entityRepository;
         }
+
         public async Task Handle(
             EntityCanMoveEvent notification,
             CancellationToken cancellationToken

@@ -1,12 +1,12 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Zone.Core.Model.Math;
-
 namespace EventHorizon.Zone.Core.Entity.State
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Numerics;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Model.Math;
+
     public class InMemoryEntitySearchTree : EntitySearchTree
     {
         private static Octree<SearchEntity> _searchOctree = new Octree<SearchEntity>(
@@ -18,6 +18,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             ),
             0
         );
+
         public void Add(
             SearchEntity searchEntity
         )
@@ -26,6 +27,7 @@ namespace EventHorizon.Zone.Core.Entity.State
                 searchEntity
             );
         }
+
         public void Remove(
             SearchEntity entity
         )
@@ -34,6 +36,7 @@ namespace EventHorizon.Zone.Core.Entity.State
                 entity
             );
         }
+
         public void Reset()
         {
             _searchOctree = new Octree<SearchEntity>(

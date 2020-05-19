@@ -1,15 +1,15 @@
-using Xunit;
-using Moq;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Zone.Core.Events.Map.Create;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Entity.Search;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Search
 {
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Entity.Search;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Map.Create;
+    using EventHorizon.Zone.Core.Model.Map;
+    using Moq;
+    using Xunit;
+
     public class EntitySearchMapCreatedHandlerTests
     {
         [Fact]
@@ -43,7 +43,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
             );
 
             await entitySearchMapCreatedHandler.Handle(
-                new MapCreatedEvent(), 
+                new MapCreatedEvent(),
                 CancellationToken.None
             );
 

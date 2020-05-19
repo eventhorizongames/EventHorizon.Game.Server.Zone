@@ -1,16 +1,18 @@
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public class RemoveSearchEntityOnUnregisteredHandler : INotificationHandler<EntityUnRegisteredEvent>
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using MediatR;
+
+    public class RemoveSearchEntityOnUnregisteredHandler 
+        : INotificationHandler<EntityUnRegisteredEvent>
     {
-        readonly EntitySearchTree _entitySearchTree;
+        private readonly EntitySearchTree _entitySearchTree;
+
         public RemoveSearchEntityOnUnregisteredHandler(
             EntitySearchTree entitySearchTree
         )
@@ -25,8 +27,8 @@ namespace EventHorizon.Zone.Core.Entity.Search
         {
             _entitySearchTree.Remove(
                 new SearchEntity(
-                    notification.EntityId, 
-                    Vector3.Zero, 
+                    notification.EntityId,
+                    Vector3.Zero,
                     null
                 )
             );

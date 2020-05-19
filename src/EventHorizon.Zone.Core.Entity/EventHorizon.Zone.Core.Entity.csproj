@@ -10,6 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />

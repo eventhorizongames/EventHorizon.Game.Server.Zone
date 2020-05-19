@@ -1,17 +1,18 @@
 namespace EventHorizon.Zone.Core.Entity.Tests.State
 {
-    using Xunit;
-    using Moq;
-    using System.Threading.Tasks;
-    using MediatR;
+    using System.Numerics;
     using System.Threading;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.Core.Model.Id;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Entity.Action;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Id;
+    using FluentAssertions;
+    using MediatR;
+    using Moq;
+    using Xunit;
 
-    [CleanupInMemoryEntityRepository]
     public class EntityRepositoryTests
     {
         [Fact]
@@ -56,6 +57,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedEntityId2, entity.Id)
             );
         }
+
         [Fact]
         public async Task TestShouldReturnThePredicatedResultListWhenCalled()
         {
@@ -99,6 +101,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedEntityId1, entity.Id)
             );
         }
+
         [Fact]
         public async Task TestShouldReturnEntityMatchingPassedInId()
         {
@@ -156,6 +159,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actualEntity2
             );
         }
+
         [Fact]
         public async Task TestShouldReturnDefaultEntityWhenNotFound()
         {
@@ -181,6 +185,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actualEntity1
             );
         }
+
         [Fact]
         public async Task TestShouldAddOrUpdateEntityThenPublishEntityActionEvent()
         {
@@ -229,6 +234,62 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 )
             );
         }
+
+        [Fact]
+        public async Task TestShouldReplaceExistingEntityWhenAlreadyExistsById()
+        {
+            // Given
+            var entityId = 1L;
+            var existingEntity = new DefaultEntity
+            {
+                Id = entityId
+            };
+            var newEntity = new DefaultEntity
+            {
+                Id = entityId,
+                Transform = new TransformState
+                {
+                    Position = new Vector3(2, 2, 2),
+                },
+            };
+
+            var mediatorMock = new Mock<IMediator>();
+            var idPoolMock = new Mock<IdPool>();
+
+            idPoolMock.Setup(
+                mock => mock.NextId()
+            ).Returns(
+                entityId
+            );
+
+            // When
+            var entityRepository = new InMemoryEntityRepository(
+                mediatorMock.Object,
+                idPoolMock.Object
+            );
+            await entityRepository.Add(
+                existingEntity
+            );
+            var currentEntity = await entityRepository.FindById(
+                entityId
+            );
+            currentEntity.Should().Be(existingEntity)
+                .And.Should().NotBe(newEntity);
+            await entityRepository.Update(
+                EntityAction.PROPERTY_CHANGED,
+                existingEntity
+            );
+            var actual = await entityRepository.FindById(
+                entityId
+            );
+
+
+            // Then
+            actual.Should().Be(newEntity)
+                .And
+                .Should().NotBe(existingEntity);
+        }
+
         [Fact]
         public async Task TestShouldRemoveEntityThenPublishEntityActionEvent()
         {

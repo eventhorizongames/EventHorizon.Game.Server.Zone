@@ -1,15 +1,15 @@
-using Xunit;
-using Moq;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Entity.Register;
-using EventHorizon.Zone.Core.Model.Entity.State;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.Register
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Entity.Register;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class UnregisterEntityHandlerTests
     {
         [Fact]

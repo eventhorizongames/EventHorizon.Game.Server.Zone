@@ -1,13 +1,12 @@
-using Xunit;
-using Moq;
-using EventHorizon.Game.Server.Zone.Entity.Model;
-using System.Numerics;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Entity.State;
-
 namespace EventHorizon.Zone.Core.Entity.Tests.State
 {
+    using Xunit;
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using System.Numerics;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
+    using EventHorizon.Zone.Core.Entity.State;
+
     public class EntitySearchTreeTests
     {
         [Fact]
@@ -46,6 +45,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(inputSearchEntity2, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldAllowForSearchingBasedOnPosition()
         {
@@ -74,6 +74,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedSearchEntity, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldReturnAllWithinSearchDistance()
         {
@@ -137,6 +138,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedSearchEntity3, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldReturnAllWithinSearchDistanceAndWithSpecifiedTags()
         {
@@ -236,6 +238,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actualEntityListEmpty
             );
         }
+
         [Fact]
         public async Task TestShouldNotBeAffectedByANullEntityTagListWhenRequestingASearchForASingleTag()
         {
@@ -275,6 +278,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedSearchEntity2, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldNotBeAffectedByANullPassedTagList()
         {
@@ -313,6 +317,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actual
             );
         }
+
         [Fact]
         public async Task TestShouldReturnAllWithinSearchDistanceAndWithAllSpecifiedTags()
         {
@@ -409,6 +414,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actualEntityListEmpty
             );
         }
+
         [Fact]
         public async Task TestShouldNotBeAffectedByANullEntityTagListWhenRequestingASearchForAllTags()
         {
@@ -448,6 +454,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedSearchEntity2, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldNotBeAffectedByANullPassedTagListWhenRequestingASearchForAllTags()
         {
@@ -486,6 +493,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 actual
             );
         }
+
         [Fact]
         public async Task TestShouldAddEntityOnlyOnceWhenCalledWithAMatchingId()
         {
@@ -535,6 +543,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(expectedEntity2Position, entity.Position)
             );
         }
+
         [Fact]
         public async Task TestShouldRebuildSearchTreeWithNewDimensionsKeepingTheEntityListIntact()
         {
@@ -576,6 +585,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(inputSearchEntity2, entity)
             );
         }
+
         [Fact]
         public async Task TestShouldRemoveEntityWhenRemoveIsCalled()
         {
@@ -628,6 +638,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entity => Assert.Equal(entity1Position, entity.Position)
             );
         }
+
         [Fact]
         public async Task TestShouldFindExpectedEntityListWhenWithinDimensionsFromCenterPosition()
         {

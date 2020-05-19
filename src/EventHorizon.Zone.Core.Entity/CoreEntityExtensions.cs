@@ -1,21 +1,18 @@
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class CoreEntityExtensions
     {
         public static IServiceCollection AddCoreEntity(
             this IServiceCollection services
-        )
-        {
-            return services
-                .AddTransient<EntityRepository, InMemoryEntityRepository>()
-                .AddTransient<EntitySearchTree, InMemoryEntitySearchTree>()
-            ;
-        }
+        ) => services
+            .AddTransient<EntityRepository, InMemoryEntityRepository>()
+            .AddTransient<EntitySearchTree, InMemoryEntitySearchTree>()
+        ;
+
         // public static IApplicationBuilder UseCoreEntity(
         //     this IApplicationBuilder app
         // )

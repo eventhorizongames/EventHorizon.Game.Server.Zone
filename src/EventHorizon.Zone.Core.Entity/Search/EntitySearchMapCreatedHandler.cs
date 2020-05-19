@@ -1,19 +1,18 @@
-
-
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Entity.State;
-using EventHorizon.Zone.Core.Events.Map.Create;
-using EventHorizon.Zone.Core.Model.Map;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Entity.Search
 {
-    public class EntitySearchMapCreatedHandler : INotificationHandler<MapCreatedEvent>
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Events.Map.Create;
+    using EventHorizon.Zone.Core.Model.Map;
+    using MediatR;
+
+    public class EntitySearchMapCreatedHandler 
+        : INotificationHandler<MapCreatedEvent>
     {
-        readonly IMapDetails _mapDetails;
-        readonly EntitySearchTree _searchTree;
+        private readonly IMapDetails _mapDetails;
+        private readonly EntitySearchTree _searchTree;
 
         public EntitySearchMapCreatedHandler(
             IMapDetails mapDetails,

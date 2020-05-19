@@ -8,9 +8,10 @@ namespace EventHorizon.Zone.Core.Entity.Movement
     using EventHorizon.Zone.Core.Model.Entity.State;
     using MediatR;
 
-    public class StopEntityMovementHandler : INotificationHandler<StopEntityMovementEvent>
+    public class StopEntityMovementHandler 
+        : INotificationHandler<StopEntityMovementEvent>
     {
-        readonly EntityRepository _entityRepository;
+        private readonly EntityRepository _entityRepository;
 
         public StopEntityMovementHandler(
             EntityRepository entityRepository

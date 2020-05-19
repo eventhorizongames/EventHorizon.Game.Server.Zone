@@ -1,5 +1,7 @@
 namespace EventHorizon.Zone.Core.Entity.Movement
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Update;
@@ -11,10 +13,9 @@ namespace EventHorizon.Zone.Core.Entity.Movement
     using EventHorizon.Zone.Core.Model.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Settings;
     using MediatR;
-    using System.Threading;
-    using System.Threading.Tasks;
 
-    public class MoveEntityToPositionCommandHandler : IRequestHandler<MoveEntityToPositionCommand, MoveEntityToPositionCommandResponse>
+    public class MoveEntityToPositionCommandHandler 
+        : IRequestHandler<MoveEntityToPositionCommand, MoveEntityToPositionCommandResponse>
     {
         private readonly IMediator _mediator;
         private readonly IDateTimeService _dateTimeService;
@@ -44,8 +45,9 @@ namespace EventHorizon.Zone.Core.Entity.Movement
                         request.MoveTo
                     )
                 );
-                if (moveToMapNode.Info.ContainsKey("dense")
-                    && (int)moveToMapNode.Info["dense"] > 0
+                if (!moveToMapNode.IsFound() 
+                    || (moveToMapNode.Info.ContainsKey("dense")
+                        && (int)moveToMapNode.Info["dense"] > 0)
                 )
                 {
                     return new MoveEntityToPositionCommandResponse(
@@ -102,7 +104,6 @@ namespace EventHorizon.Zone.Core.Entity.Movement
             IObjectEntity entity
         )
         {
-            // TODO: Read MovementState to get SpeedMultiplier
             return entity.GetProperty<MovementState>(
                 MovementState.PROPERTY_NAME
             ).Speed;
