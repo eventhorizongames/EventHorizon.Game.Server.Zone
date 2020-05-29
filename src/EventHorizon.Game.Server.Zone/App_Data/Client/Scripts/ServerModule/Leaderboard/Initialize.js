@@ -90,7 +90,7 @@ function handleGameStateChanged(_ /* {} */) {
         })
     );
 
-    // TODO: Create New List of Player Scores GUI Controls
+    // Create New List of Player Scores GUI Controls
     const newEntryLayoutId = "GUI_LeaderBoard-Entry.json";
     console.log("LeaderBoard Setup", { gameState });
     // GET Player List
@@ -103,7 +103,7 @@ function handleGameStateChanged(_ /* {} */) {
         score,
     }));
     // const newMessageGuiId = `GUI_LeaderBoard-Entry_${playerEntityId}`;
-    // TODO: Send Update to GUI Control
+    // Send Update to GUI Control
     playerList.forEach((playerScore) => {
         console.log({ playerScore });
         const newGuiId = `GUI_LeaderBoard-Entry_${playerScore.player.entityId}`;
@@ -153,3 +153,44 @@ function handleGameStateChanged(_ /* {} */) {
         }).result,
     });
 }
+
+let isOpen = false;
+function HandleOpenOfLeaderBoard() {
+    if (isOpen) {
+        return;
+    }
+    isOpen = true;
+    // Show the LeaderBoard Window
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.SHOW_GUI_COMMAND", {
+            id: guiId,
+        })
+    );
+}
+
+function HandleCloseOfLeaderBoard() {
+    if (!isOpen) {
+        return;
+    }
+    isOpen = false;
+    // Hide the LeaderBoard Window
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.HIDE_GUI_COMMAND", {
+            id: guiId,
+        })
+    );
+}
+
+// Register Input for LeaderBoard Keyboard Shortcut
+// Current [t] key
+$data.leaderBoardKeyboardShortcut = {
+    key: "t",
+    pressed: HandleOpenOfLeaderBoard,
+    released: HandleCloseOfLeaderBoard,
+};
+$services.commandService.send(
+    $utils.createEvent(
+        "Engine.Input.REGISTER_INPUT_COMMAND",
+        $data.leaderBoardKeyboardShortcut
+    )
+);

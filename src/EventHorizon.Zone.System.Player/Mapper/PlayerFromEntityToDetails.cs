@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.System.Player.Mapper
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Model.Details;
 
-    public class PlayerFromEntityToDetails
+    public static class PlayerFromEntityToDetails
     {
         public static PlayerDetails Map(PlayerEntity entity)
         {

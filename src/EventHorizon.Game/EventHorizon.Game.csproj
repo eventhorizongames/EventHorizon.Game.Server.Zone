@@ -15,7 +15,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
-        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Plugin.Companion\EventHorizon.Zone.System.Agent.Plugin.Companion.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,25 +1,26 @@
 namespace EventHorizon.Zone.System.Player.Connected
 {
-    using global::System;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Model.Player;
-    using MediatR;
     using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Player.Events.Connected;
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Events.Zone;
-    using EventHorizon.Zone.Core.Model.ServerProperty;
-    using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Mapper;
-    using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
 
-    public class PlayerConnectedHandler : INotificationHandler<PlayerConnectedEvent>
+    public class PlayerConnectedHandler 
+        : INotificationHandler<PlayerConnectedEvent>
     {
-        readonly IMediator _mediator;
-        readonly IServerProperty _serverProperty;
-        readonly IPlayerRepository _player;
+        private readonly IMediator _mediator;
+        private readonly IServerProperty _serverProperty;
+        private readonly IPlayerRepository _player;
 
         public PlayerConnectedHandler(
             IMediator mediator,
@@ -31,6 +32,7 @@ namespace EventHorizon.Zone.System.Player.Connected
             _serverProperty = serverProperty;
             _player = player;
         }
+
         public async Task Handle(
             PlayerConnectedEvent notification,
             CancellationToken cancellationToken
@@ -48,7 +50,7 @@ namespace EventHorizon.Zone.System.Player.Connected
                         notification.Id
                     )
                 );
-                if (IsPlayerOnThisServer(
+                if (!IsPlayerOnThisServer(
                     globalPlayer
                 ))
                 {
@@ -85,10 +87,11 @@ namespace EventHorizon.Zone.System.Player.Connected
 
         private bool IsPlayerOnThisServer(
             PlayerDetails globalPlayer
-        ) => !globalPlayer.Location.CurrentZone?.Equals(
-            _serverProperty.Get<string>(
-                ServerPropertyKeys.SERVER_ID
-            )
-        ) ?? false;
+        ) => !string.IsNullOrEmpty(globalPlayer.Location.CurrentZone) 
+            && globalPlayer.Location.CurrentZone.Equals(
+                _serverProperty.Get<string>(
+                    ServerPropertyKeys.SERVER_ID
+                )
+            );
     }
 }

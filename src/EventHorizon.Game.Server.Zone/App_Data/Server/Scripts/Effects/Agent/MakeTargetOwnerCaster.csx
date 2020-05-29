@@ -17,6 +17,7 @@ using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 using EventHorizon.Zone.System.Combat.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Skill.Model;
 using EventHorizon.Game.Increment;
+using EventHorizon.Game.Model;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var target = Data.Get<IObjectEntity>("Target");
@@ -43,20 +44,20 @@ await Services.Mediator.Send(
 );
 
 // Update Caster/Player CompanionCount
-var companionsCaught = new List<string>();
-var companionsCaughtPropertyName = "MakeTargetOwnerCaster:CompanionsCaught";
-if (caster.ContainsProperty(companionsCaughtPropertyName))
+if (!caster.ContainsProperty(GamePlayerCaptureState.PROPERTY_NAME))
 {
-    var currentCompanionsCaught = caster.GetProperty<List<string>>(
-        companionsCaughtPropertyName
+    caster = caster.SetProperty(
+        GamePlayerCaptureState.PROPERTY_NAME,
+        new GamePlayerCaptureState()
     );
-    System.Console.WriteLine(currentCompanionsCaught);
-    companionsCaught = currentCompanionsCaught;
 }
-companionsCaught.Add(target.GlobalId);
+var playerCaptureState = caster.GetProperty<GamePlayerCaptureState>(
+    GamePlayerCaptureState.PROPERTY_NAME
+);
+playerCaptureState.CompanionsCaught.Add(target.GlobalId);
 caster.SetProperty(
-    companionsCaughtPropertyName,
-    companionsCaught
+    GamePlayerCaptureState.PROPERTY_NAME,
+    playerCaptureState
 );
 await Services.Mediator.Send(
     new UpdateEntityCommand(

@@ -13,7 +13,11 @@ namespace EventHorizon.Zone.Core.Entity.State
 
     public class InMemoryEntityRepository : EntityRepository
     {
-        private readonly ConcurrentDictionary<long, IObjectEntity> _entityMap = new ConcurrentDictionary<long, IObjectEntity>();
+        // TODO: Update this to not use static.
+        // Move the IMediator publish events out of this and into the events.
+        // Also remove the Mutation methods from entityRepository, 
+        // Move mutation abstraction into a separate Mutation internal abstraction.
+        private readonly static ConcurrentDictionary<long, IObjectEntity> _entityMap = new ConcurrentDictionary<long, IObjectEntity>();
 
         private readonly IMediator _mediator;
         private readonly IdPool _idPool;

@@ -30,11 +30,11 @@ namespace EventHorizon.Zone.Core.Model.Entity
             return (T)value;
         }
 
-        public static IObjectEntity SetProperty<T>(
-            this IObjectEntity entity,
+        public static C SetProperty<T, C>(
+            this C entity,
             string prop,
             T value
-        )
+        ) where C : IObjectEntity
         {
             entity.Data[prop] = value;
             return entity;

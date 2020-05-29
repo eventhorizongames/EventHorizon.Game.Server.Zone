@@ -1,9 +1,8 @@
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemPlayerExtensions
     {
         public static IServiceCollection AddSystemPlayer(
@@ -14,10 +13,8 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                return app;
-            }
+            using var serviceScope = app.CreateServiceScope();
+            return app;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
     public class PlayerConnectedHandlerTests
     {
         [Fact]
-        public async Task TestShouldUpdatedPlayersConnectionIdWhenPlayerIsFoundInRepository()
+        public async Task ShouldUpdatedPlayersConnectionIdWhenPlayerIsFoundInRepository()
         {
             // Given
             var playerId = "player-id";
@@ -77,7 +77,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
         }
 
         [Fact]
-        public async Task TestShouldRegisterPlayersWhenPlayerIsNotFoundInRepository()
+        public async Task ShouldRegisterPlayersWhenPlayerIsNotFoundInRepository()
         {
             // Given
             var playerId = "player-id";
@@ -168,7 +168,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
         }
 
         [Fact]
-        public async Task TestShouldThrowExceptionWhenCurrentZoneIsNotTheServerId()
+        public async Task ShouldThrowExceptionWhenCurrentZoneIsNotTheServerId()
         {
             // Given
             var playerId = "player-id";
@@ -180,6 +180,83 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 Location = new LocationState
                 {
                     CurrentZone = "not-current-zone"
+                },
+                Data = new ConcurrentDictionary<string, object>()
+            };
+
+            var mediatorMock = new Mock<IMediator>();
+            var serverPropertyMock = new Mock<IServerProperty>();
+            var playerRepositoryMock = new Mock<IPlayerRepository>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<PlayerGetDetailsEvent>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                globalPlayerDetails
+            );
+
+            serverPropertyMock.Setup(
+                mock => mock.Get<string>(
+                    ServerPropertyKeys.SERVER_ID
+                )
+            ).Returns(
+                currentZoneServerId
+            );
+
+            playerRepositoryMock.Setup(
+                mock => mock.FindById(
+                    playerId
+                )
+            ).ReturnsAsync(
+                default(PlayerEntity)
+            );
+
+            // When
+            var handler = new PlayerConnectedHandler(
+                mediatorMock.Object,
+                serverPropertyMock.Object,
+                playerRepositoryMock.Object
+            );
+            Func<Task> action = async () => await handler.Handle(
+                new PlayerConnectedEvent(
+                    playerId,
+                    connectionId
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            var exceptionDetails = await Assert.ThrowsAsync<Exception>(
+                action
+            );
+            Assert.Equal(
+                expected,
+                exceptionDetails.Message
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<UpdateEntityCommand>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenCurrentZoneIsNotTheServerIdIsNull()
+        {
+            // Given
+            var playerId = "player-id";
+            var connectionId = "connection-id";
+            var currentZoneServerId = "current-zone";
+            var expected = "Player is not part of this server.";
+            var globalPlayerDetails = new PlayerDetails
+            {
+                Location = new LocationState
+                {
+                    CurrentZone = null,
                 },
                 Data = new ConcurrentDictionary<string, object>()
             };

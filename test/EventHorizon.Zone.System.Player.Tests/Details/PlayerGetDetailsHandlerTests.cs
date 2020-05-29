@@ -1,18 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Player.Connection;
-using EventHorizon.Zone.System.Player.Details;
-using EventHorizon.Zone.System.Player.Events.Details;
-using EventHorizon.Zone.System.Player.Model.Details;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Details
 {
+    using EventHorizon.Zone.System.Player.Connection;
+    using EventHorizon.Zone.System.Player.Details;
+    using EventHorizon.Zone.System.Player.Events.Details;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using Moq;
+    using Xunit;
+
     public class PlayerGetDetailsHandlerTests
     {
         [Fact]
-        public async Task TestShouldReturnPlayerDetailsWhenSendActionIsCalledWithGetPlayer()
+        public async Task ShouldReturnPlayerDetailsWhenSendActionIsCalledWithGetPlayer()
         {
             // Given
             var playerId = "player-id";

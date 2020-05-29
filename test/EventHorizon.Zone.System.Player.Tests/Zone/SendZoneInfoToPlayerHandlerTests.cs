@@ -1,26 +1,22 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Connection;
-using EventHorizon.Zone.System.Player.Events.Info;
-using EventHorizon.Zone.System.Player.Events.Update;
-using EventHorizon.Zone.System.Player.Events.Zone;
-using EventHorizon.Zone.System.Player.ExternalHub;
-using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.System.Player.Update;
-using EventHorizon.Zone.System.Player.Zone;
-using MediatR;
-using Microsoft.AspNetCore.SignalR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Zone
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Events.Info;
+    using EventHorizon.Zone.System.Player.Events.Zone;
+    using EventHorizon.Zone.System.Player.ExternalHub;
+    using EventHorizon.Zone.System.Player.Zone;
+    using MediatR;
+    using Microsoft.AspNetCore.SignalR;
+    using Moq;
+    using Xunit;
+
     public class SendZoneInfoToPlayerHandlerTests
     {
         [Fact]
-        public async Task TestShouldSendAsyncRequestToZoneInfoWhenEventIsHandled()
+        public async Task ShouldSendAsyncRequestToZoneInfoWhenEventIsHandled()
         {
             // Given
             var connectionId = "connection-id";

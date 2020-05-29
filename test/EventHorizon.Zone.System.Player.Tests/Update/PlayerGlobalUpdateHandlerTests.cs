@@ -1,19 +1,19 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Connection;
-using EventHorizon.Zone.System.Player.Events.Update;
-using EventHorizon.Zone.System.Player.Model.Details;
-using EventHorizon.Zone.System.Player.Update;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Update
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Connection;
+    using EventHorizon.Zone.System.Player.Events.Update;
+    using EventHorizon.Zone.System.Player.Model.Details;
+    using EventHorizon.Zone.System.Player.Update;
+    using Moq;
+    using Xunit;
+
     public class PlayerGlobalUpdateHandlerTests
     {
         [Fact]
-        public async Task TestShouldSendActionToPlayerConnectionWhenEventIsHandled()
+        public async Task ShouldSendActionToPlayerConnectionWhenEventIsHandled()
         {
             // Given
             var playerId = "player-id";

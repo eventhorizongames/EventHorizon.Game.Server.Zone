@@ -1,8 +1,10 @@
 namespace EventHorizon.Game.Tests
 {
     using EventHorizon.Game.State;
+    using EventHorizon.Game.Timer;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+    using EventHorizon.TimerService;
     using FluentAssertions;
     using Xunit;
 
@@ -26,6 +28,11 @@ namespace EventHorizon.Game.Tests
                 {
                     Assert.Equal(typeof(GameState), service.ServiceType);
                     Assert.Equal(typeof(InMemoryGameState), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
+                    Assert.Equal(typeof(RunPlayerListCaptureLogicTimerTask), service.ImplementationType);
                 }
             );
         }

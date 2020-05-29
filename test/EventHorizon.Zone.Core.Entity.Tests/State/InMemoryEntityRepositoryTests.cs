@@ -4,6 +4,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Entity.State;
+    using EventHorizon.Zone.Core.Entity.Tests.Common;
     using EventHorizon.Zone.Core.Events.Entity.Action;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
@@ -13,7 +14,8 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
     using Moq;
     using Xunit;
 
-    public class EntityRepositoryTests
+    [CleanupInMemoryEntityRepository]
+    public class InMemoryEntityRepositoryTests
     {
         [Fact]
         public async Task TestShouldReturnAllEntitiesAddedToRepository()

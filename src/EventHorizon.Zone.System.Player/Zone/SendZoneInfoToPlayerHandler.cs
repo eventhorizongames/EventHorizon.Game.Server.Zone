@@ -1,18 +1,20 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using MediatR;
-using Microsoft.AspNetCore.SignalR;
-using EventHorizon.Zone.System.Player.Events.Info;
-using EventHorizon.Zone.System.Player.Events.Zone;
-using EventHorizon.Zone.System.Player.ExternalHub;
-
 namespace EventHorizon.Zone.System.Player.Zone
 {
-    public class SendZoneInfoToPlayerHandler : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Player;
+    using MediatR;
+    using Microsoft.AspNetCore.SignalR;
+    using EventHorizon.Zone.System.Player.Events.Info;
+    using EventHorizon.Zone.System.Player.Events.Zone;
+    using EventHorizon.Zone.System.Player.ExternalHub;
+
+    public class SendZoneInfoToPlayerHandler 
+        : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
-        readonly IMediator _mediator;
-        readonly IHubContext<PlayerHub> _hubContext;
+        private readonly IMediator _mediator;
+        private readonly IHubContext<PlayerHub> _hubContext;
+
         public SendZoneInfoToPlayerHandler(
             IMediator mediator,
             IHubContext<PlayerHub> hubContext
@@ -23,7 +25,7 @@ namespace EventHorizon.Zone.System.Player.Zone
         }
 
         public async Task<PlayerEntity> Handle(
-            SendZoneInfoToPlayerEvent request, 
+            SendZoneInfoToPlayerEvent request,
             CancellationToken cancellationToken
         )
         {

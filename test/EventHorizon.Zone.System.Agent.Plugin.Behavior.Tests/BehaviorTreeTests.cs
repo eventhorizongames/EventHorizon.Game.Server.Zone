@@ -385,7 +385,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                     treeShape,
                     actor
                 );
-                actor.SetProperty<BehaviorTreeState>(
+                actor.SetProperty(
                     BehaviorTreeState.PROPERTY_NAME,
                     state
                 );

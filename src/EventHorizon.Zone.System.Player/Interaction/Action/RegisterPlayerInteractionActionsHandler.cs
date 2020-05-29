@@ -1,16 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.System.Player.Events.Interaction.Run;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Interaction.Action
 {
-    public class RegisterPlayerInteractionActionsHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.System.Player.Events.Interaction.Run;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using MediatR;
+
+    public class RegisterPlayerInteractionActionsHandler 
+        : INotificationHandler<ReadyForPlayerActionRegistration>
     {
-        readonly IMediator _mediator;
-        readonly IdPool _idPool;
+        private readonly IMediator _mediator;
+        private readonly IdPool _idPool;
 
         public RegisterPlayerInteractionActionsHandler(
             IMediator mediator,

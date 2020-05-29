@@ -1,19 +1,19 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.System.Player.Events.Interaction.Run;
-using EventHorizon.Zone.System.Player.Interaction.Action;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Interaction.Action
 {
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.System.Player.Events.Interaction.Run;
+    using EventHorizon.Zone.System.Player.Interaction.Action;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class RegisterPlayerInteractionActionsHandlerTests
     {
         [Fact]
-        public async Task TestShouldRegisterInteractionEventWhenReadyForPlayerActionRegistrationEventIsHandled()
+        public async Task ShouldRegisterInteractionEventWhenReadyForPlayerActionRegistrationEventIsHandled()
         {
             // Given
             var nextId = 1L;
@@ -31,7 +31,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Interaction.Action
             ).Returns(
                 nextId
             );
-            
+
             // When
             var handler = new RegisterPlayerInteractionActionsHandler(
                 mediatorMock.Object,
@@ -41,7 +41,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Interaction.Action
                 new ReadyForPlayerActionRegistration(),
                 CancellationToken.None
             );
-            
+
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(

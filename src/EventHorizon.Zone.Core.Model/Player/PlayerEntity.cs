@@ -43,7 +43,11 @@ namespace EventHorizon.Zone.Core.Model.Player
         {
             get
             {
-                return _data ?? new ConcurrentDictionary<string, object>();
+                if (_data == null)
+                {
+                    _data = new ConcurrentDictionary<string, object>();
+                }
+                return _data;
             }
         }
 

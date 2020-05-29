@@ -10,7 +10,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
     public class PlayerFromDetailsToEntityTests
     {
         [Fact]
-        public void TestShouldReturnAStandardPlayerEntityFromEntityDetails()
+        public void ShouldReturnAStandardPlayerEntityFromEntityDetails()
         {
             // Given
             var expectedId = -1;
@@ -62,7 +62,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
             );
         }
         [Fact]
-        public void TestShouldReturnPlayerEntityWithEmptyConnectionIdWhenDetailsDoesNotContainAConnectionId()
+        public void ShouldReturnPlayerEntityWithEmptyConnectionIdWhenDetailsDoesNotContainAConnectionId()
         {
             // Given
             var playerId = "player-id";

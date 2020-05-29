@@ -28,3 +28,13 @@ eventsToRemove.forEach((eventData) => {
         eventData.context
     );
 });
+
+// Unregister Input for LeaderBoard Keyboard Shortcut
+if ($data.leaderBoardKeyboardShortcut) {
+    $services.commandService.send(
+        $utils.createEvent(
+            "Engine.Input.UNREGISTER_INPUT_COMMAND",
+            $data.leaderBoardKeyboardShortcut
+        )
+    );
+}

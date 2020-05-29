@@ -7,7 +7,7 @@
             "sort": 0,
             "templateId": "platform-container",
             "options": {
-                "isVisible": true,
+                "isVisible": false,
                 "width": "50%",
                 "height": "96%",
                 "isHitTestVisible": false,

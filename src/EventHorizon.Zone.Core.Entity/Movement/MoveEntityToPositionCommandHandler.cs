@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.Core.Entity.Movement
                         request.MoveTo
                     )
                 );
-                if (!moveToMapNode.IsFound() 
+                if (!moveToMapNode.IsFound()
                     || (moveToMapNode.Info.ContainsKey("dense")
                         && (int)moveToMapNode.Info["dense"] > 0)
                 )

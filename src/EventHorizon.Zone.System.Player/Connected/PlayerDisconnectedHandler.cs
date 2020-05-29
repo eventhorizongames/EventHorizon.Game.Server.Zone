@@ -1,17 +1,17 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Connected
 {
-    public class PlayerDisconnectedHandler : INotificationHandler<PlayerDisconnectedEvent>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Events.Connected;
+    using MediatR;
+
+    public class PlayerDisconnectedHandler 
+        : INotificationHandler<PlayerDisconnectedEvent>
     {
-        readonly IMediator _mediator;
-        readonly IPlayerRepository _player;
+        private readonly IMediator _mediator;
+        private readonly IPlayerRepository _player;
 
         public PlayerDisconnectedHandler(
             IMediator mediator,
@@ -21,6 +21,7 @@ namespace EventHorizon.Zone.System.Player.Connected
             _mediator = mediator;
             _player = player;
         }
+
         public async Task Handle(
             PlayerDisconnectedEvent notification,
             CancellationToken cancellationToken

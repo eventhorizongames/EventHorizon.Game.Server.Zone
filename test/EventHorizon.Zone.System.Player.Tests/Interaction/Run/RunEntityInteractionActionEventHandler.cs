@@ -1,20 +1,20 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Interaction.Events;
-using EventHorizon.Zone.System.Player.Events.Interaction.Run;
-using EventHorizon.Zone.System.Player.Interaction.Run;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Interaction.Run
 {
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Interaction.Events;
+    using EventHorizon.Zone.System.Player.Events.Interaction.Run;
+    using EventHorizon.Zone.System.Player.Interaction.Run;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class RunEntityInteractionActionEventHandlerTests
     {
         [Fact]
-        public async Task TestShouldRunInteractionCommandWhenOnPlayerInteractionEventIsProcessed()
+        public async Task ShouldRunInteractionCommandWhenOnPlayerInteractionEventIsProcessed()
         {
             // Given
             var interactionEntityId = 100L;

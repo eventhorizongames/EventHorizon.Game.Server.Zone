@@ -46,7 +46,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
             );
 
             // Set actor behavior tree state to new shape, clearing it out.
-            actor = actor.SetProperty<BehaviorTreeState>(
+            actor = actor.SetProperty(
                 BehaviorTreeState.PROPERTY_NAME,
                 new BehaviorTreeState(
                     newBehaviorTreeShape

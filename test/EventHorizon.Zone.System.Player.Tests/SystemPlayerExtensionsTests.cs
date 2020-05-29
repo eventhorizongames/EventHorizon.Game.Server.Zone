@@ -1,13 +1,14 @@
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests
 {
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
+    using Xunit;
+
     public class SystemPlayerExtensionsTests
     {
         [Fact]
-        public void TestAddServerSetup_ShouldAddExpectedServices()
+        public void ShouldAddExpectedServices()
         {
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();
@@ -24,7 +25,7 @@ namespace EventHorizon.Zone.System.Player.Tests
         }
 
         [Fact]
-        public void TestShouldReturnApplicationBuilderForChainingCommands()
+        public void ShouldReturnApplicationBuilderForChainingCommands()
         {
             // Given
             var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();

@@ -2,23 +2,29 @@
  * This the internal "state" of the script, only accessible by the script.
  * $state: {
  * };
- * 
+ *
  * This is data passed to the script from the outside.
  * $data: {
  * };
  */
 
 var eventsToRemove = $data.eventsToDispose || [];
-eventsToRemove.forEach(eventData => {
+eventsToRemove.forEach((eventData) => {
     $services.eventService.off(
         {
-            key: eventData.name
+            key: eventData.name,
         },
         eventData.handler,
         eventData.context
     );
 });
 
-this._keyboardShortcuts.forEach(keyboardShortcut =>
-    this._unregisterInput.unregister(keyboardShortcut)
-);
+var keyboardRegistrationsToRemove = $data.keyboardShortcuts || [];
+keyboardRegistrationsToRemove.forEach((keyboardShortcut) => {
+    $services.commandService.send(
+        $utils.createEvent(
+            "Engine.Input.UNREGISTER_INPUT_COMMAND",
+            keyboardShortcut
+        )
+    );
+});

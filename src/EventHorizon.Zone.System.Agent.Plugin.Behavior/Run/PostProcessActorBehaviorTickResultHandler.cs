@@ -109,7 +109,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
         )
         {
             agentBehavior.NextTickRequest = nextTickRequest;
-            return actor.SetProperty<AgentBehavior>(
+            return actor.SetProperty(
                 AgentBehavior.PROPERTY_NAME,
                 agentBehavior
             );

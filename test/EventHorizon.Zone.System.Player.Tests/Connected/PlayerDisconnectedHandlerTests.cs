@@ -1,19 +1,19 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Connected;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests.Connected
 {
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Connected;
+    using EventHorizon.Zone.System.Player.Events.Connected;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class PlayerDisconnectedHandlerTests
     {
         [Fact]
-        public async Task TestShouldUnRegisterPlayerWhenPlayerIsFound()
+        public async Task ShouldUnRegisterPlayerWhenPlayerIsFound()
         {
             // Given
             var playerId = "player-id";
@@ -58,7 +58,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             );
         }
         [Fact]
-        public async Task TestShouldNotUnRegisterPlayerWhenPlayerIsNotFound()
+        public async Task ShouldNotUnRegisterPlayerWhenPlayerIsNotFound()
         {
             // Given
             var playerId = "player-id";

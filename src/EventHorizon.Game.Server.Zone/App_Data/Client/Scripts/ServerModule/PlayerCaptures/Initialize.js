@@ -46,7 +46,7 @@ $data.eventsToRemove.push({
     context: this,
 });
 
-const companionsCaughtPropertyName = "makeTargetOwnerCaster:CompanionsCaught";
+const gamePlayerCaptureStatePropertyName = "gamePlayerCaptureState";
 const createGlobalIdTag = (globalId) => `globalId:${globalId}`;
 let currentDisplayedCaught = [];
 // Private functions
@@ -63,7 +63,7 @@ function onEntityClientChangedHandler(
         return;
     }
 
-    const companionsCaught = details.data[companionsCaughtPropertyName];
+    const companionsCaught = details.data[gamePlayerCaptureStatePropertyName].companionsCaught;
     if (!companionsCaught || companionsCaught.length < caughtCount) {
         return;
     }

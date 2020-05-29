@@ -1,6 +1,8 @@
 namespace EventHorizon.Game
 {
     using EventHorizon.Game.State;
+    using EventHorizon.Game.Timer;
+    using EventHorizon.TimerService;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,7 @@ namespace EventHorizon.Game
             this IServiceCollection services
         ) => services
                 .AddSingleton<GameState, InMemoryGameState>()
+                .AddSingleton<ITimerTask, RunPlayerListCaptureLogicTimerTask>()
             ;
 
         public static IApplicationBuilder UseGame(

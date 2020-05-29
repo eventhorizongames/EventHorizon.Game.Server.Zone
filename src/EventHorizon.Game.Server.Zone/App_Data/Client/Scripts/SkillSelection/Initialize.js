@@ -10,7 +10,7 @@
 
 const layoutId = (guiId = "GUI_Module_SkillSelection.json");
 const skillList = $data.skillList;
-const keyboardShortcuts = ($state._keyboardShortcuts = []);
+const keyboardShortcuts = ($data.keyboardShortcuts = []);
 
 /**
  * When the Skill Selection GUI is Activated it will publish an event and call this function.
@@ -122,19 +122,19 @@ setupKeyboardShortcuts(skillList);
 
 function setupKeyboardShortcuts(skillList) {
     skillList.forEach(
-        skill =>
+        (skill) =>
             skill.keyboardShortcut &&
             keyboardShortcuts.push({
                 key: skill.keyboardShortcut,
                 pressed: skill.onClick,
             })
     );
-    keyboardShortcuts.forEach(keyboardShortcut =>
-        $services.commandService.send({
-            type: {
-                key: "Engine.Input.REGISTER_INPUT_COMMAND",
-            },
-            data: keyboardShortcut,
-        })
+    keyboardShortcuts.forEach((keyboardShortcut) =>
+        $services.commandService.send(
+            $utils.createEvent(
+                "Engine.Input.REGISTER_INPUT_COMMAND",
+                keyboardShortcut
+            )
+        )
     );
 }
