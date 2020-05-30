@@ -7,8 +7,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Run
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
     using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
-    using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
     using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;

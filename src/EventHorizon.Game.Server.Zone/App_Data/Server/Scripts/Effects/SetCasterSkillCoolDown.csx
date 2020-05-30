@@ -9,12 +9,13 @@
 /// PriorState: -
 /// </summary>
 /// <returns></returns>
+/// 
 using System.Collections.Generic;
 using System.Linq;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Skill.ClientAction;
-using EventHorizon.Zone.System.Combat.Skill.Entity.State;
-using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var target = Data.Get<IObjectEntity>("Target");

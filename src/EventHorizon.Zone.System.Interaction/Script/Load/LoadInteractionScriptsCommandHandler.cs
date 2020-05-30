@@ -13,16 +13,19 @@ namespace EventHorizon.Zone.System.Interaction.Script.Load
 {
     public class LoadInteractionScriptsCommandHandler : IRequestHandler<LoadInteractionScriptsCommand>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly SystemProvidedAssemblyList _systemAssemblyList;
 
         public LoadInteractionScriptsCommandHandler(
             IMediator mediator,
-            ServerInfo serverInfo
+            ServerInfo serverInfo,
+            SystemProvidedAssemblyList systemAssemblyList
         )
         {
             _mediator = mediator;
             _serverInfo = serverInfo;
+            _systemAssemblyList = systemAssemblyList;
         }
 
         public Task<Unit> Handle(
@@ -51,9 +54,6 @@ namespace EventHorizon.Zone.System.Interaction.Script.Load
         )
         {
             var rootPath = arguments["RootPath"] as string;
-            var scriptReferenceAssemblies = new Assembly[] {
-                typeof(LoadInteractionScriptsCommandHandler).Assembly // TODO: Update this to SystemProvidedAssemblyList
-            };
             var scriptImports = new string[] {
             };
             // Register Script with Platform
@@ -68,7 +68,7 @@ namespace EventHorizon.Zone.System.Interaction.Script.Load
                             fileInfo.FullName
                         )
                     ),
-                    scriptReferenceAssemblies,
+                    _systemAssemblyList.List,
                     scriptImports
                 )
             );

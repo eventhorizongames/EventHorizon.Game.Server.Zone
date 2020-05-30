@@ -52,7 +52,7 @@ var ownerState = entity.GetProperty<OwnerState>("ownerState");
 ownerState["ownerId"] = "";
 ownerState["canBeCaptured"] = true;
 
-entity.SetProperty<OwnerState>(
+entity = entity.SetProperty(
     "ownerState",
     ownerState
 );

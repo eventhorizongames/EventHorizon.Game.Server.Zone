@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Skill.Events\EventHorizon.Zone.System.Combat.Plugin.Skill.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Skill.Model\EventHorizon.Zone.System.Combat.Plugin.Skill.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Events\EventHorizon.Zone.System.Combat.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Model\EventHorizon.Zone.System.Combat.Model.csproj" />
+        
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Model\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
+    </ItemGroup>
+
+</Project>

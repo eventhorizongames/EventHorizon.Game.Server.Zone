@@ -36,7 +36,7 @@ var randomNodeIndex = Services.Random.Next(0, mapNodes.Count - 1);
 var node = mapNodes[randomNodeIndex];
 
 // Add MoveToNode to Actor State
-actor.SetProperty<Vector3>(
+actor.SetProperty(
     "ActorMoveToPosition",
     node.Position
 );

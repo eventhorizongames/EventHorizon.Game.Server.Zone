@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.System.Combat\EventHorizon.Zone.System.Combat.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Combat.Plugin.Skill.Model\EventHorizon.Zone.System.Combat.Plugin.Skill.Model.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Editor.Model\EventHorizon.Zone.System.Editor.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Editor.Events\EventHorizon.Zone.System.Editor.Events.csproj" />

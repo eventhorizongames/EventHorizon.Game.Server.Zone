@@ -4,7 +4,6 @@ using EventHorizon.Zone.Core.Events.Entity.Data;
 using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Model;
-using EventHorizon.Zone.System.Combat.Skill.Entity.State;
 
 namespace EventHorizon.Zone.System.Combat.PopulateData
 {
@@ -22,14 +21,6 @@ namespace EventHorizon.Zone.System.Combat.PopulateData
             );
 
             this.ValidateLifeState(
-                entity
-            );
-
-            entity.PopulateData<SkillState>(
-                SkillState.PROPERTY_NAME
-            );
-
-            this.ValidateSkillState(
                 entity
             );
 
@@ -53,23 +44,6 @@ namespace EventHorizon.Zone.System.Combat.PopulateData
                 entity.SetProperty(
                     LevelState.PROPERTY_NAME, 
                     LevelState.NEW
-                );
-            }
-        }
-
-        private void ValidateSkillState(
-            IObjectEntity entity
-        )
-        {
-            var skillState = entity.GetProperty<SkillState>(
-                SkillState.PROPERTY_NAME
-            );
-
-            if (skillState.SkillMap.List == null)
-            {
-                entity.SetProperty(
-                    SkillState.PROPERTY_NAME, 
-                    SkillState.NEW
                 );
             }
         }

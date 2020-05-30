@@ -15,7 +15,7 @@ using EventHorizon.Performance.Impl;
 using EventHorizon.Server.Core;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Admin.ExternalHub;
-using EventHorizon.Zone.System.Combat.Plugin.Editor.Skills;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor;
 using EventHorizon.Zone.System.Editor.ExternalHub;
 using EventHorizon.Zone.System.ModelState;
 using EventHorizon.Zone.System.Player.ExternalHub;
@@ -90,7 +90,7 @@ namespace EventHorizon.Game.Server.Zone
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 })
             ;
- 
+
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 Converters = { new DefaultStringEnumConverter(0) },
@@ -169,6 +169,8 @@ namespace EventHorizon.Game.Server.Zone
 
                 typeof(SystemCombatExtensions).Assembly,
                 typeof(SystemCombatPluginEditorExtensions).Assembly,
+                typeof(SystemCombatPluginSkillExtensions).Assembly,
+                typeof(SystemCombatPluginSkillEditorExtensions).Assembly,
 
                 typeof(SystemParticleExtensions).Assembly,
                 typeof(SystemParticlePluginEditorExtensions).Assembly,
@@ -288,6 +290,8 @@ namespace EventHorizon.Game.Server.Zone
 
                 .AddSystemCombat()
                 .AddSystemCombatPluginEditor()
+                .AddSystemCombatPluginSkill()
+                .AddSystemCombatPluginSkillEditor()
 
                 .AddSystemParticle()
                 .AddSystemParticlePluginEditor()
@@ -395,6 +399,8 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseSystemCombat();
             app.UseSystemCombatPluginEditor();
+            app.UseSystemCombatPluginSkill();
+            app.UseSystemCombatPluginSkillEditor();
 
             app.UseSystemParticle();
             app.UseSystemParticlePluginEditor();

@@ -47,7 +47,7 @@ if (!isAgentMoving)
     // Set the ActorMoveToPosition to "null", 
     //  this way when next update comes through it will be a 
     //  SUCCESS if agent is not moving.
-    actor.SetProperty<Vector3?>(
+    actor.SetProperty<Vector3?, IObjectEntity>(
         "ActorMoveToPosition",
         null
     );

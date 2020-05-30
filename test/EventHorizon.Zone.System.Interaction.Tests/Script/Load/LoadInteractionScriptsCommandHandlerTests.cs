@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.System.Interaction.Script.Load;
@@ -56,6 +53,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
+            var systemAssemblyListMock = new Mock<SystemProvidedAssemblyList >();
 
             serverInfoMock.Setup(
                 mock => mock.ServerScriptsPath
@@ -90,7 +88,8 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Script.Load
             // When
             var handler = new LoadInteractionScriptsCommandHandler(
                 mediatorMock.Object,
-                serverInfoMock.Object
+                serverInfoMock.Object,
+                systemAssemblyListMock.Object
             );
 
             await handler.Handle(

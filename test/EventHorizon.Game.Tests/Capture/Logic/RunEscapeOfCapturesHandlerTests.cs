@@ -12,7 +12,7 @@
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
-    using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
     using MediatR;
     using Microsoft.AspNetCore.DataProtection.Cng.Internal;
     using Moq;

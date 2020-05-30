@@ -6,7 +6,7 @@
 /// Data: { }
 /// </summary>
 
-using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
 // TODO: Implement this, if feel like it.
 return new SkillValidatorResponse

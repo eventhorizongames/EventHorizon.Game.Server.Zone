@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
 var validatorData = Data.Get<IDictionary<string, object>>("ValidatorData");
 

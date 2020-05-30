@@ -1,7 +1,6 @@
 using EventHorizon.Zone.System.Combat.Life;
 using EventHorizon.Zone.System.Combat.Model.Level;
 using EventHorizon.Zone.System.Combat.Model.Life;
-using EventHorizon.Zone.System.Combat.Skill.State;
 using EventHorizon.Zone.System.Combat.State;
 using EventHorizon.Zone.System.Combat.Timer;
 using EventHorizon.TimerService;
@@ -21,7 +20,6 @@ namespace EventHorizon.Game.Server.Zone.Core
         )
         {
             return services
-                .AddSingleton<ISkillRepository, SkillRepository>()
                 .AddSingleton<IEntityQueue<ChangeEntityLife>, EntityQueue<ChangeEntityLife>>()
                 .AddSingleton<IEntityQueue<EntityLevelUp>, EntityQueue<EntityLevelUp>>()
                 .AddSingleton<ILevelStateUpgrade, LevelStateUpgrade>()

@@ -27,7 +27,7 @@ using EventHorizon.Zone.System.Interaction.Events.Client;
 using EventHorizon.Zone.System.Interaction.Model;
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Events.Skill.Runner;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
 
 var player = Data.Get<PlayerEntity>("Player");
 var target = Data.Get<IObjectEntity>("Target");

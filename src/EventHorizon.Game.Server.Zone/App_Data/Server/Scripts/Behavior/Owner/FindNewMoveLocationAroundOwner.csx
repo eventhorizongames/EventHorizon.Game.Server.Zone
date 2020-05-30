@@ -59,7 +59,7 @@ var node = mapNodes[randomNodeIndex];
 
 // Set Some temp data on this entity
 // Does not need to save the entity, since this is only used in the BT.
-actor.SetProperty<Vector3>(
+actor.SetProperty(
     "ActorMoveToPosition",
     node.Position
 );

@@ -40,7 +40,7 @@ if (!nextRunDate.HasValue)
         )
     );
     // Add MoveToNode to Actor State
-    actor.SetProperty<DateTime?>(
+    actor.SetProperty(
         "NextRunTime",
         nextRunDate
     );
@@ -55,7 +55,7 @@ var canRunNext = DateTime.Now.CompareTo(
 
 if (canRunNext)
 {
-    actor.SetProperty<DateTime?>(
+    actor.SetProperty<DateTime?, IObjectEntity>(
         "NextRunTime",
         null
     );

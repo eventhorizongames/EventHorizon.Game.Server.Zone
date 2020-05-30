@@ -10,8 +10,8 @@
 
 using System.Linq;
 using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Skill.Entity.State;
-using EventHorizon.Zone.System.Combat.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var skill = Data.Get<SkillInstance>("Skill");

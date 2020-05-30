@@ -31,7 +31,7 @@ if (!nextRunDate.HasValue)
     // Not Found, so lets make once so we wait some time
     nextRunDate = DateTime.Now.AddSeconds(2);
     // Add MoveToNode to Actor State
-    actor.SetProperty<DateTime?>(
+    actor.SetProperty(
         "SlowDown:NextRunTime",
         nextRunDate
     );
@@ -46,7 +46,7 @@ var canRunNext = DateTime.Now.CompareTo(
 
 if (canRunNext)
 {
-    actor.SetProperty<DateTime?>(
+    actor.SetProperty<DateTime?, IObjectEntity>(
         "SlowDown:NextRunTime",
         null
     );

@@ -3,14 +3,19 @@
     using System;
     using System.Collections.Generic;
 
-    public class GamePlayerCaptureState
+    public struct GamePlayerCaptureState
     {
         public static readonly string PROPERTY_NAME = "gamePlayerCaptureState";
 
         public int Captures { get; set; }
-        public IList<string> CompanionsCaught { get; set; } = new List<string>();
+        public IList<string> CompanionsCaught { get; set; }
         public DateTime EscapeCaptureTime { get; set; }
         public bool ShownTenSecondMessage { get; set; }
         public bool ShownFiveSecondMessage { get; set; }
+
+        public static GamePlayerCaptureState NEW = new GamePlayerCaptureState
+        {
+            CompanionsCaught = new List<string>(),
+        };
     }
 }

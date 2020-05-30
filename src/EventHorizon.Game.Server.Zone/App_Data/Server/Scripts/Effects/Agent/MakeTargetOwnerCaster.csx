@@ -14,10 +14,10 @@ using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
-using EventHorizon.Zone.System.Combat.Skill.ClientAction;
-using EventHorizon.Zone.System.Combat.Skill.Model;
 using EventHorizon.Game.Increment;
 using EventHorizon.Game.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
 var caster = Data.Get<IObjectEntity>("Caster");
 var target = Data.Get<IObjectEntity>("Target");
