@@ -1,13 +1,13 @@
 namespace EventHorizon.Zone.System.Player.Zone
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Player;
-    using MediatR;
-    using Microsoft.AspNetCore.SignalR;
     using EventHorizon.Zone.System.Player.Events.Info;
     using EventHorizon.Zone.System.Player.Events.Zone;
     using EventHorizon.Zone.System.Player.ExternalHub;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.AspNetCore.SignalR;
 
     public class SendZoneInfoToPlayerHandler 
         : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>

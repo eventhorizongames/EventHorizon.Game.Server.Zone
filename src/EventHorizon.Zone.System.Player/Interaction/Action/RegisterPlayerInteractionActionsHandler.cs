@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.System.Player.Interaction.Action
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Id;
     using EventHorizon.Zone.System.Player.Events.Interaction.Run;
     using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
 
     public class RegisterPlayerInteractionActionsHandler 

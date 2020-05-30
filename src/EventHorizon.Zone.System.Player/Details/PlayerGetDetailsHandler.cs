@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.System.Player.Details
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Player.Connection;
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Model.Details;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
 
     public class PlayerGetDetailsHandler

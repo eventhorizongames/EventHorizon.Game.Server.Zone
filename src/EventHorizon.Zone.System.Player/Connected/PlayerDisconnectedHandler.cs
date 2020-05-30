@@ -1,10 +1,10 @@
 namespace EventHorizon.Zone.System.Player.Connected
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Connected;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
 
     public class PlayerDisconnectedHandler 
