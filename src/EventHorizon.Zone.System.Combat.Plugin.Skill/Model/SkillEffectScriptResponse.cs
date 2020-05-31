@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 {
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+
     public struct SkillEffectScriptResponse : ServerScriptResponse
     {
         public IDictionary<string, object> State { get; set; }

@@ -1,30 +1,31 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-using MediatR;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Validation
 {
-    public class RunValidateForSkillEffectHandler : IRequestHandler<RunValidateForSkillEffectEvent, IEnumerable<SkillValidatorResponse>>
-    {
-        readonly IMediator _mediator;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
 
-        public RunValidateForSkillEffectHandler(
+    public class RunSkillValidationHandler
+        : IRequestHandler<RunSkillValidation, IEnumerable<SkillValidatorResponse>>
+    {
+        private readonly IMediator _mediator;
+
+        public RunSkillValidationHandler(
             IMediator mediator
         )
         {
             _mediator = mediator;
         }
-        
+
         public async Task<IEnumerable<SkillValidatorResponse>> Handle(
-            RunValidateForSkillEffectEvent request,
+            RunSkillValidation request,
             CancellationToken cancellationToken
         )
         {
             var response = new List<SkillValidatorResponse>();
-            foreach (var validator in request.SkillEffect.ValidatorList ?? new SkillValidator[0])
+            foreach (var validator in request.ValidatorList)
             {
                 var scriptResponse = (SkillValidatorResponse)await _mediator.Send(
                     new RunServerScriptCommand(

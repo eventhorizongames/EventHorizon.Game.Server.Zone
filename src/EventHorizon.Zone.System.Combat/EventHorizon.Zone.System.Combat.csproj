@@ -36,8 +36,4 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Model\EventHorizon.Zone.System.Particle.Model.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Skill\" />
-    </ItemGroup>
-
 </Project>

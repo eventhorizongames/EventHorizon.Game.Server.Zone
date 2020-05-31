@@ -1,40 +1,13 @@
-using System;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity
 {
+    using global::System;
+    using global::System.Collections.Generic;
+
     public struct SkillState
     {
         public static readonly string PROPERTY_NAME = "skillState";
 
         public SkillStateMap SkillMap { get; set; }
-
-        public object this[string index]
-        {
-            get
-            {
-                switch (index)
-                {
-                    case "skillMap":
-                    case "SkillMap":
-                        return SkillMap;
-                    default:
-                        return null;
-                }
-            }
-            set
-            {
-                switch (index)
-                {
-                    case "skillMap":
-                    case "SkillMap":
-                        SkillMap = (SkillStateMap)value;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
 
         public static readonly SkillState NEW = new SkillState
         {

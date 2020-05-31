@@ -1,37 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
 {
-    public class LoadCombatSkillsEventHandler : INotificationHandler<LoadCombatSkillsEvent>
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class LoadCombatSkillsEventHandler
+        : INotificationHandler<LoadCombatSkillsEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ISkillRepository _skillRepository;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly SkillRepository _skillRepository;
 
         public LoadCombatSkillsEventHandler(
-            ILogger<LoadCombatSkillsEventHandler> logger,
             IMediator mediator,
             ServerInfo serverInfo,
             IJsonFileLoader fileLoader,
-            ISkillRepository skillRepository
+            SkillRepository skillRepository
         )
         {
-            _logger = logger;
             _mediator = mediator;
             _serverInfo = serverInfo;
             _fileLoader = fileLoader;
@@ -52,7 +47,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
                 {
                     {
                         "RootPath",
-                        // $"{_serverInfo.ClientPath}{Path.DirectorySeparatorChar}"
                         _serverInfo.ClientPath
                     }
                 }

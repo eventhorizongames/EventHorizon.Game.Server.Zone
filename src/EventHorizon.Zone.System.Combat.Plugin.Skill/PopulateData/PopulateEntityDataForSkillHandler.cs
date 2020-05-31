@@ -1,23 +1,24 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using MediatR;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
-
-namespace EventHorizon.Zone.System.Combat.PopulateData
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.PopulateData
 {
-    public class PopulateEntityDataForSkillHandler : INotificationHandler<PopulateEntityDataEvent>
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class PopulateEntityDataForSkillHandler 
+        : INotificationHandler<PopulateEntityDataEvent>
     {
         public Task Handle(
-            PopulateEntityDataEvent notification, 
+            PopulateEntityDataEvent notification,
             CancellationToken cancellationToken
         )
         {
             var entity = notification.Entity;
 
-            entity.PopulateData<SkillState>(
-                SkillState.PROPERTY_NAME, 
+            entity.PopulateData(
+                SkillState.PROPERTY_NAME,
                 SkillState.NEW
             );
 
@@ -39,7 +40,7 @@ namespace EventHorizon.Zone.System.Combat.PopulateData
             if (skillState.SkillMap.List == null)
             {
                 entity.SetProperty(
-                    SkillState.PROPERTY_NAME, 
+                    SkillState.PROPERTY_NAME,
                     SkillState.NEW
                 );
             }

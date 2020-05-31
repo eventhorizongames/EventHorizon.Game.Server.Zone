@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 {
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+
     public struct SkillValidatorResponse : ServerScriptResponse
     {
         public string Validator { get; set; }

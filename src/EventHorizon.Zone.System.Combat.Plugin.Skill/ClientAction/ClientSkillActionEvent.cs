@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.Core.Model.Client;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction
 {
+    using EventHorizon.Zone.Core.Model.Client;
+
     public struct ClientSkillActionEvent : IClientActionData
     {
         public string Action { get; set; }

@@ -1,4 +1,4 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect
 {
     using EventHorizon.Zone.Core.Events.ServerAction;
     using EventHorizon.Zone.Core.Model.DateTimeService;
@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Validation;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
@@ -14,11 +15,12 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class RunSkillEffectWithTargetOfEntityEventHandler : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
+    public class RunSkillEffectWithTargetOfEntityEventHandler
+        : INotificationHandler<RunSkillEffectWithTargetOfEntityEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly IDateTimeService _dateTime;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly IDateTimeService _dateTime;
 
         public RunSkillEffectWithTargetOfEntityEventHandler(
             ILogger<RunSkillEffectWithTargetOfEntityEventHandler> logger,
@@ -45,10 +47,11 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
 
             // Run Validators of Skill
             var validationResponse = await RunValidationScripts(
-                 effect,
-                 caster,
-                 target,
-                 targetPosition
+                skill,
+                effect,
+                caster,
+                target,
+                targetPosition
             );
             if (!validationResponse.Success)
             {
@@ -73,7 +76,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
                     }
                 };
 
-                foreach (var failledEffect in effect.FailedList ?? new SkillEffect[0])
+                foreach (var failledEffect in effect.FailedList ?? Array.Empty<SkillEffect>())
                 {
                     await _mediator.Publish(
                         new RunSkillEffectWithTargetOfEntityEvent
@@ -83,6 +86,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
                             Caster = caster,
                             Target = target,
                             Skill = skill,
+                            TargetPosition = targetPosition,
                             State = failedState
                         }
                     );
@@ -101,7 +105,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
             );
 
             // Queue up next effects.
-            foreach (var nextEffect in effect.Next ?? new SkillEffect[0])
+            foreach (var nextEffect in effect.Next ?? Array.Empty<SkillEffect>())
             {
                 // Future event based on duration of the current effect.
                 await _mediator.Publish(
@@ -124,6 +128,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
         }
 
         private async Task<SkillValidatorResponse> RunValidationScripts(
+            SkillInstance skill,
             SkillEffect effect,
             IObjectEntity caster,
             IObjectEntity target,
@@ -132,13 +137,13 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner
         {
             // Run Validation scripts of Skill, return validations including errors.
             var validationResponseList = await _mediator.Send(
-                new RunValidateForSkillEffectEvent
-                {
-                    SkillEffect = effect,
-                    Caster = caster,
-                    Target = target,
-                    TargetPosition = targetPosition
-                }
+                new RunSkillValidation(
+                    skill,
+                    effect.ValidatorList,
+                    caster,
+                    target,
+                    targetPosition
+                )
             );
             foreach (var validationResponse in validationResponseList)
             {

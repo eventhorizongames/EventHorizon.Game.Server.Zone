@@ -1,29 +1,27 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Fetch
 {
-    public class GetAllCombatSkillsQueryHandler : IRequestHandler<GetAllCombatSkillsQuery, IList<SkillInstance>>
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class GetAllCombatSkillsQueryHandler
+        : IRequestHandler<GetAllCombatSkillsQuery, IList<SkillInstance>>
     {
-        readonly ISkillRepository _skillRepository;
+        private readonly SkillRepository _skillRepository;
+
         public GetAllCombatSkillsQueryHandler(
-            ISkillRepository skillRepository
+            SkillRepository skillRepository
         )
         {
             _skillRepository = skillRepository;
         }
+
         public Task<IList<SkillInstance>> Handle(
             GetAllCombatSkillsQuery request,
             CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _skillRepository.All()
-            );
-        }
+        ) => _skillRepository.All().FromResult();
     }
 }

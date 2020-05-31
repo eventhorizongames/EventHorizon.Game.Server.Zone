@@ -1,11 +1,9 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
+﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
 {
-    public interface ISkillRepository
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+    public interface SkillRepository
     {
         IList<SkillInstance> All();
         SkillInstance Find(
@@ -14,35 +12,5 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
         void Set(
             SkillInstance skill
         );
-    }
-
-    public class SkillRepository : ISkillRepository
-    {
-        private static readonly ConcurrentDictionary<string, SkillInstance> SCRIPT_MAP = new ConcurrentDictionary<string, SkillInstance>();
-        public IList<SkillInstance> All()
-        {
-            return SCRIPT_MAP.Values.ToList();
-        }
-        public SkillInstance Find(
-            string id
-        )
-        {
-            var skill = default(SkillInstance);
-            SCRIPT_MAP.TryGetValue(
-                id, 
-                out skill
-            );
-            return skill;
-        }
-        public void Set(
-            SkillInstance skill
-        )
-        {
-            SCRIPT_MAP.AddOrUpdate(
-                skill.Id, 
-                skill, 
-                (key, old) => skill
-            );
-        }
     }
 }

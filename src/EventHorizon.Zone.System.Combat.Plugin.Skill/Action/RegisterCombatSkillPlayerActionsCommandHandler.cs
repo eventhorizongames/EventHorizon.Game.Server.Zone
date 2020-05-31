@@ -1,19 +1,20 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Action
 {
-    public class RegisterCombatSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class RegisterCombatSkillPlayerActionsCommandHandler
+        : INotificationHandler<ReadyForPlayerActionRegistration>
     {
-        readonly IMediator _mediator;
-        readonly IdPool _idPool;
+        private readonly IMediator _mediator;
+        private readonly IdPool _idPool;
 
         public RegisterCombatSkillPlayerActionsCommandHandler(
-            IMediator mediator, 
+            IMediator mediator,
             IdPool idPool
         )
         {

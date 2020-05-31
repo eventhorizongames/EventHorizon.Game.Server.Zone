@@ -260,13 +260,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Skill", "src\EventHorizon.Zone.System.Combat.Plugin.Skill\EventHorizon.Zone.System.Combat.Plugin.Skill.csproj", "{5DB849E5-03D3-432F-8D8D-CB61F90703B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Skill", "src\EventHorizon.Zone.System.Combat.Plugin.Skill\EventHorizon.Zone.System.Combat.Plugin.Skill.csproj", "{5DB849E5-03D3-432F-8D8D-CB61F90703B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Events", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Events\EventHorizon.Zone.System.Combat.Plugin.Skill.Events.csproj", "{BCF09756-A5FE-4032-8746-658ABA27E67D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Events", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Events\EventHorizon.Zone.System.Combat.Plugin.Skill.Events.csproj", "{BCF09756-A5FE-4032-8746-658ABA27E67D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Model", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Model\EventHorizon.Zone.System.Combat.Plugin.Skill.Model.csproj", "{E715089E-BF5C-4275-9453-D8BEA4B479F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Model", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Model\EventHorizon.Zone.System.Combat.Plugin.Skill.Model.csproj", "{E715089E-BF5C-4275-9453-D8BEA4B479F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Editor", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Editor\EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.csproj", "{9F1449E2-396F-4B34-8960-45C724FB2216}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Editor", "src\EventHorizon.Zone.System.Combat.Plugin.Skill.Editor\EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.csproj", "{9F1449E2-396F-4B34-8960-45C724FB2216}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Combat.Plugin.Skill.Tests", "test\EventHorizon.Zone.System.Combat.Plugin.Skill.Tests\EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.csproj", "{0776CD89-07C6-476D-80E0-46D2381F8163}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1814,6 +1816,18 @@ Global
 		{9F1449E2-396F-4B34-8960-45C724FB2216}.Release|x64.Build.0 = Release|Any CPU
 		{9F1449E2-396F-4B34-8960-45C724FB2216}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F1449E2-396F-4B34-8960-45C724FB2216}.Release|x86.Build.0 = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|x64.Build.0 = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Debug|x86.Build.0 = Debug|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|x64.ActiveCfg = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|x64.Build.0 = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|x86.ActiveCfg = Release|Any CPU
+		{0776CD89-07C6-476D-80E0-46D2381F8163}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1947,6 +1961,7 @@ Global
 		{BCF09756-A5FE-4032-8746-658ABA27E67D} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{E715089E-BF5C-4275-9453-D8BEA4B479F5} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{9F1449E2-396F-4B34-8960-45C724FB2216} = {FE232CB9-E002-4898-9117-E3162928E341}
+		{0776CD89-07C6-476D-80E0-46D2381F8163} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}

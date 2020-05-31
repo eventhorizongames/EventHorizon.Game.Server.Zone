@@ -1,12 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
 {
-    public class LoadSystemCombatSkillScriptsEventHandler : INotificationHandler<LoadSystemCombatSkillScriptsEvent>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class LoadSystemCombatSkillScriptsEventHandler 
+        : INotificationHandler<LoadSystemCombatSkillScriptsEvent>
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public LoadSystemCombatSkillScriptsEventHandler(
             IMediator mediator
@@ -14,6 +15,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
         {
             _mediator = mediator;
         }
+
         public async Task Handle(
             LoadSystemCombatSkillScriptsEvent notification,
             CancellationToken cancellationToken

@@ -1,8 +1,9 @@
-using System;
-using System.IO;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+
     public struct SkillInstance
     {
         public static string GenerateId(
@@ -35,9 +36,9 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public SkillValidator[] ValidatorList { get; set; }
-        public SkillEffect[] Next { get; set; }
-        public SkillEffect[] FailedList { get; set; }
+        public IList<SkillValidator> ValidatorList { get; set; }
+        public IList<SkillEffect> Next { get; set; }
+        public IList<SkillEffect> FailedList { get; set; }
 
         public bool IsFound()
         {

@@ -3,7 +3,6 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
     using EventHorizon.Game.I18n;
     using EventHorizon.Game.I18n.Model;
     using EventHorizon.Zone.Core.Events.Entity.Find;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Events.Client.Messsage;
     using EventHorizon.Zone.System.Combat.Model.Client.Messsage;
@@ -11,34 +10,38 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Find;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.EffectRunner;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Validation;
+    using global::System;
     using global::System.Collections.Generic;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class RunSkillWithTargetOfEntityHandler : INotificationHandler<RunSkillWithTargetOfEntityEvent>
+    public class RunSkillWithTargetOfEntityHandler 
+        : INotificationHandler<RunSkillWithTargetOfEntityEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly IDateTimeService _dateService;
-        readonly I18nResolver _i18nResolver;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly I18nResolver _i18nResolver;
 
         public RunSkillWithTargetOfEntityHandler(
             ILogger<RunSkillWithTargetOfEntityHandler> logger,
             IMediator mediator,
-            IDateTimeService dateService,
             I18nResolver i18nResolver
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _dateService = dateService;
             _i18nResolver = i18nResolver;
         }
-        public async Task Handle(RunSkillWithTargetOfEntityEvent notification, CancellationToken cancellationToken)
+
+        public async Task Handle(
+            RunSkillWithTargetOfEntityEvent notification, 
+            CancellationToken cancellationToken
+        )
         {
             var caster = await _mediator.Send(
                 new GetEntityByIdEvent
@@ -87,7 +90,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                             )
                          }
                     )
-                ).ConfigureAwait(false);
+                );
                 return;
             }
             var skillState = caster.GetProperty<SkillState>(
@@ -113,7 +116,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                                 new I18nTokenValue
                                 {
                                     Token = "casterName",
-                                    Value = caster?.Name?.ToString()
+                                    Value = caster.Name
                                 },
                                 new I18nTokenValue
                                 {
@@ -129,15 +132,15 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
 
             // Run Validators of Skill
             var validationResponse = await _mediator.Send(
-                new RunValidateForSkillEvent
-                {
-                    Caster = caster,
-                    Target = target,
-                    Skill = skill,
-                    TargetPosition = targetPosition
-                }
+                new RunSkillValidation(
+                    skill,
+                    skill.ValidatorList,
+                    caster,
+                    target,
+                    targetPosition
+                )
             );
-            if (!validationResponse.Success)
+            if (validationResponse.Any(a => !a.Success))
             {
                 _logger.LogError(
                     "Failed to validate Skill. Response: {@ValidationResponse}",
@@ -156,7 +159,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                     }
                 };
 
-                foreach (var failledEffect in skill.FailedList ?? new SkillEffect[0])
+                foreach (var failledEffect in skill.FailedList ?? Array.Empty<SkillEffect>())
                 {
                     await _mediator.Publish(
                         new RunSkillEffectWithTargetOfEntityEvent
@@ -169,12 +172,12 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                             TargetPosition = targetPosition,
                             State = state
                         }
-                    ).ConfigureAwait(false);
+                    );
                 }
                 return;
             }
 
-            foreach (var skillEffect in skill.Next)
+            foreach (var skillEffect in skill.Next ?? Array.Empty<SkillEffect>())
             {
                 await _mediator.Publish(
                     new RunSkillEffectWithTargetOfEntityEvent
@@ -186,7 +189,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                         Skill = skill,
                         TargetPosition = targetPosition
                     }
-                ).ConfigureAwait(false);
+                );
             }
         }
 
