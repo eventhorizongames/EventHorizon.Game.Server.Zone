@@ -46,10 +46,8 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>
-    {
+return SkillEffectScriptResponse
+    .New()
+    .Add(
         action
-    }
-};
+    );

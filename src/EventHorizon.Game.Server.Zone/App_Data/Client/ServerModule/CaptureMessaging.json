@@ -1,0 +1,6 @@
+{
+    "name": "CaptureMessaging",
+    "initializeScript": "ServerModule_CaptureMessaging_Initialize.js",
+    "disposeScript": "ServerModule_CaptureMessaging_Dispose.js",
+    "updateScript": "ServerModule_CaptureMessaging_Update.js"
+}

@@ -61,20 +61,20 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect
                 );
                 // Run Failed Effects for Effect
                 var failedState = new Dictionary<string, object>
-                {
                     {
-                        "Code",
-                        "effect_validation_failed"
-                    },
-                    {
-                        "ValidationResponse",
-                        validationResponse
-                    },
-                    {
-                        "Effect",
-                        effect
-                    }
-                };
+                        {
+                            "Code",
+                            "effect_validation_failed"
+                        },
+                        {
+                            "ValidationResponse",
+                            validationResponse
+                        },
+                        {
+                            "Effect",
+                            effect
+                        }
+                    };
 
                 foreach (var failledEffect in effect.FailedList ?? Array.Empty<SkillEffect>())
                 {
@@ -184,13 +184,24 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect
             );
 
             // Run Client Action events
-            foreach (var clientEvent in effectResponse.ActionList)
+            foreach (var clientAction in effectResponse.ActionList)
             {
-                await _mediator.Publish(
-                    ClientActionRunSkillActionEvent.Create(
-                        clientEvent
-                    )
-                );
+                if (clientAction is ClientSkillActionEvent clientEvent)
+                {
+                    await _mediator.Publish(
+                        ClientActionRunSkillActionEvent.Create(
+                            clientEvent
+                        )
+                    );
+                }
+                else if (clientAction is ClientActionRunSkillActionForConnectionEvent clientEventToSingle)
+                {
+                    await _mediator.Publish(
+                        ClientActionRunSkillActionToSingleEvent.Create(
+                            clientEventToSingle
+                        )
+                    );
+                }
             }
             return effectResponse.State;
         }

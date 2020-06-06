@@ -40,7 +40,8 @@
                 {
                     "validator": "Validators_ValidateSuccess.csx",
                     "data": {
-                        "percent": 20
+                        "percent": 20,
+                        "errorMessageTemplateKey": "notFastEnoughToCapture"
                     }
                 }
             ],

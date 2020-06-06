@@ -12,7 +12,11 @@
             IList<GamePlayerScore> scores
         )
         {
-            Scores = new ReadOnlyCollection<GamePlayerScore>(scores);
+            Scores = new ReadOnlyCollection<GamePlayerScore>(
+                scores.OrderBy(
+                    a => a.Score
+                ).Reverse().ToList()
+            );
         }
 
         public CurrentGameState IncrementPlayer(

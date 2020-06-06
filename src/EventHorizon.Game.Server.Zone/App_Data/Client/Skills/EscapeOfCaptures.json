@@ -1,0 +1,25 @@
+{
+    "name": "Fire Ball",
+    "description": "Fire a flaming ball at a target.",
+    "type": "ACTIVE",
+    "target": "ENTITY",
+    "validatorList": [],
+    "failedList": [],
+    "next": [
+        {
+            "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
+            "effect": "Effects_FreezeCaster.csx",
+            "duration": 5000,
+            "next": [
+                {
+                    "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = true)",
+                    "effect": "Effects_UnFreezeCaster.csx"
+                }
+            ]
+        },
+        {
+            "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
+            "effect": "Effects_DisplayClientMessageToConnection.csx"
+        }
+    ]
+}

@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.Core.Events.Client.Generic;
     using EventHorizon.Zone.Core.Events.ServerAction;
+    using EventHorizon.Zone.Core.Model.Client;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
@@ -47,7 +48,7 @@
             var state = new Dictionary<string, object>();
             var effectResponse = new SkillEffectScriptResponse
             {
-                ActionList = new List<ClientSkillActionEvent>(),
+                ActionList = new List<ClientSkillAction>(),
                 State = state,
             };
 
@@ -164,7 +165,7 @@
             var state = new Dictionary<string, object>();
             var effectResponse = new SkillEffectScriptResponse
             {
-                ActionList = new List<ClientSkillActionEvent>
+                ActionList = new List<ClientSkillAction>
                 {
                     clientSkillAction,
                 },
@@ -259,7 +260,7 @@
             var state = new Dictionary<string, object>();
             var effectResponse = new SkillEffectScriptResponse
             {
-                ActionList = new List<ClientSkillActionEvent>
+                ActionList = new List<ClientSkillAction>
                 {
                     clientSkillAction,
                 },
@@ -353,7 +354,7 @@
             var state = new Dictionary<string, object>();
             var effectResponse = new SkillEffectScriptResponse
             {
-                ActionList = new List<ClientSkillActionEvent>
+                ActionList = new List<ClientSkillAction>
                 {
                     clientSkillAction,
                 },
@@ -448,7 +449,6 @@
                 CancellationToken.None
             );
 
-
             // Then
             actual.ConnectionId
                 .Should().Be(expectedConnectionId);
@@ -539,6 +539,238 @@
                 ),
                 Times.Never()
             );
+        }
+
+        [Fact]
+        public async Task ShouldPublishClientActionGenericToSingleEventWhenEffectResponseActionListContainsToConnectionActionEvent()
+        {
+            // Given
+            var duration = 1000L;
+            var failedSkillEffect = new SkillEffect();
+
+            var connectionId = "connection-id";
+            var effect = new SkillEffect
+            {
+                Duration = duration,
+                FailedList = new List<SkillEffect>
+                {
+                    failedSkillEffect,
+                }.ToArray(),
+            };
+            var caster = new DefaultEntity();
+            var target = new DefaultEntity();
+            var skill = new SkillInstance();
+            var targetPosition = new Vector3(2, 2, 2);
+
+            var clientSkillAction = new ClientActionRunSkillActionForConnectionEvent(
+                connectionId,
+                "ForConnectionAction",
+                new { }
+            );
+
+            var now = DateTime.UtcNow;
+            var state = new Dictionary<string, object>();
+            var effectResponse = new SkillEffectScriptResponse
+            {
+                ActionList = new List<ClientSkillAction>
+                {
+                    clientSkillAction,
+                },
+                State = state,
+            };
+            var validationResponse = new SkillValidatorResponse
+            {
+                Success = true,
+            };
+
+            var expectedConnectionId = connectionId;
+            var expectedAction = "RunSkillAction";
+            var expectedData = clientSkillAction;
+
+            var loggerMock = new Mock<ILogger<RunSkillEffectWithTargetOfEntityEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunSkillValidation>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new List<SkillValidatorResponse>
+                {
+                    validationResponse,
+                }
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                effectResponse
+            );
+
+            dateTimeMock.Setup(
+                mock => mock.Now
+                ).Returns(
+                    now
+                );
+
+            // When
+            var handler = new RunSkillEffectWithTargetOfEntityEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                dateTimeMock.Object
+            );
+            var actual = default(ClientActionGenericToSingleEvent);
+            mediatorMock.Setup(
+                mock => mock.Publish(
+                    It.IsAny<ClientActionGenericToSingleEvent>(),
+                    CancellationToken.None
+                )
+            ).Callback<INotification, CancellationToken>(
+                (notification, _) =>
+                {
+                    actual = (ClientActionGenericToSingleEvent)notification;
+                }
+            );
+            await handler.Handle(
+                new RunSkillEffectWithTargetOfEntityEvent
+                {
+                    ConnectionId = connectionId,
+                    SkillEffect = effect,
+                    Caster = caster,
+                    Target = target,
+                    Skill = skill,
+                    TargetPosition = targetPosition,
+                },
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Should().NotBeNull();
+            actual.ConnectionId
+                .Should().Be(expectedConnectionId);
+            actual.Action
+                .Should().Be(expectedAction);
+            actual.Data
+                .Should().Be(expectedData);
+        }
+
+        [Fact]
+        public async Task ShouldNotPublishAnyClientActionWhenEffectResponseActionListIsNotValidType()
+        {
+            // Given
+            var duration = 1000L;
+            var failedSkillEffect = new SkillEffect();
+
+            var connectionId = "connection-id";
+            var effect = new SkillEffect
+            {
+                Duration = duration,
+                FailedList = new List<SkillEffect>
+                {
+                    failedSkillEffect,
+                }.ToArray(),
+            };
+            var caster = new DefaultEntity();
+            var target = new DefaultEntity();
+            var skill = new SkillInstance();
+            var targetPosition = new Vector3(2, 2, 2);
+
+            var clientSkillAction = new ClientSkillActionMock();
+
+            var now = DateTime.UtcNow;
+            var state = new Dictionary<string, object>();
+            var effectResponse = new SkillEffectScriptResponse
+            {
+                ActionList = new List<ClientSkillAction>
+                {
+                    clientSkillAction,
+                },
+                State = state,
+            };
+            var validationResponse = new SkillValidatorResponse
+            {
+                Success = true,
+            };
+
+            var expectedConnectionId = connectionId;
+            var expectedAction = "RunSkillAction";
+            var expectedData = clientSkillAction;
+
+            var loggerMock = new Mock<ILogger<RunSkillEffectWithTargetOfEntityEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var dateTimeMock = new Mock<IDateTimeService>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunSkillValidation>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new List<SkillValidatorResponse>
+                {
+                    validationResponse,
+                }
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                effectResponse
+            );
+
+            dateTimeMock.Setup(
+                mock => mock.Now
+                ).Returns(
+                    now
+                );
+
+            // When
+            var handler = new RunSkillEffectWithTargetOfEntityEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                dateTimeMock.Object
+            );
+            await handler.Handle(
+                new RunSkillEffectWithTargetOfEntityEvent
+                {
+                    ConnectionId = connectionId,
+                    SkillEffect = effect,
+                    Caster = caster,
+                    Target = target,
+                    Skill = skill,
+                    TargetPosition = targetPosition,
+                },
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    It.IsAny<ClientActionGenericToAllEvent>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    It.IsAny<ClientActionGenericToSingleEvent>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
+        }
+        public struct ClientSkillActionMock : ClientSkillAction, IClientActionData
+        {
+            public string Action { get; set; }
+            public object Data { get; set; }
         }
     }
 }

@@ -1,9 +1,9 @@
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Save
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
 
     public class SaveCombatSkillHandler

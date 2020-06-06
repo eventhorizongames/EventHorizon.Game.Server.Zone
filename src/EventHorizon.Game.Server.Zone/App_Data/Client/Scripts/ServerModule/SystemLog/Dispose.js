@@ -9,7 +9,11 @@
  * }
  */
 
-$services.logger.debug("System Log - Dispose Script");
+$services.logger.debug("System Log - Dispose Script", {
+    $services,
+    $data,
+    $state,
+});
 const guiId = "GUI_System_Log.json";
 
 $services.commandService.send(

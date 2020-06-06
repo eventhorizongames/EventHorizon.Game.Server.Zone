@@ -13,7 +13,7 @@
         public bool ShownTenSecondMessage { get; set; }
         public bool ShownFiveSecondMessage { get; set; }
 
-        public static GamePlayerCaptureState NEW = new GamePlayerCaptureState
+        public static GamePlayerCaptureState New() => new GamePlayerCaptureState
         {
             CompanionsCaught = new List<string>(),
         };

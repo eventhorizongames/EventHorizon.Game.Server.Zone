@@ -9,7 +9,11 @@
 
 const layoutId = "GUI_BackToMenu.json";
 const guiId = layoutId;
-$services.logger.debug("Back To Menu - Initialize");
+$services.logger.debug("Back To Menu - Initialize", {
+    $services,
+    $data,
+    $state,
+});
 
 $services.commandService.send(
     $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {

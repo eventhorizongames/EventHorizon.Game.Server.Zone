@@ -7,7 +7,8 @@ namespace EventHorizon.Game.PopulateData
     using EventHorizon.Zone.Core.Events.Entity.Data;
     using EventHorizon.Game.Model;
 
-    public class PopulatePlayerGameDataHandler : INotificationHandler<PopulateEntityDataEvent>
+    public class PopulatePlayerGameDataHandler 
+        : INotificationHandler<PopulateEntityDataEvent>
     {
         public Task Handle(
             PopulateEntityDataEvent request,
@@ -24,7 +25,7 @@ namespace EventHorizon.Game.PopulateData
             // Populate the Game State on the Player.
             entity.SetProperty(
                 GamePlayerCaptureState.PROPERTY_NAME,
-                GamePlayerCaptureState.NEW
+                GamePlayerCaptureState.New()
             );
 
             return Task.CompletedTask;

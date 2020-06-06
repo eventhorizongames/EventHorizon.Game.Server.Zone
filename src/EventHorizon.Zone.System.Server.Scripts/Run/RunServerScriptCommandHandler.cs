@@ -34,6 +34,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
         {
             try
             {
+                _logger.LogDebug(
+                    "Running Script: \n\r\t {ScriptId}", 
+                    request.Id
+                );
                 return _serverScriptRepository.Find(
                     request.Id
                 ).Run(
@@ -45,7 +49,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
             {
                 _logger.LogError(
                     ex,
-                    "Server Script was Not Found",
+                    "Server Script was Not Found. ScriptId: {ScriptId} Request: {@Request}",
+                    request.Id,
                     request
                 );
                 return Task.FromResult(
@@ -59,7 +64,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
             {
                 _logger.LogError(
                     ex,
-                    "General Server Script Exception",
+                    "General Server Script Exception. ScriptId: {ScriptId} Request: {@Request}",
+                    request.Id,
                     request
                 );
                 return Task.FromResult(

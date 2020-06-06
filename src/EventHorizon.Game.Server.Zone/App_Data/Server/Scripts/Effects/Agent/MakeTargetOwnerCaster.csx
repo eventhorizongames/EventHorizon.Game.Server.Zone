@@ -55,6 +55,11 @@ var playerCaptureState = caster.GetProperty<GamePlayerCaptureState>(
     GamePlayerCaptureState.PROPERTY_NAME
 );
 playerCaptureState.CompanionsCaught.Add(target.GlobalId);
+playerCaptureState.Captures = playerCaptureState.CompanionsCaught.Count;
+playerCaptureState.ShownTenSecondMessage = false;
+playerCaptureState.ShownFiveSecondMessage = false;
+// TODO: Move "30" to a GameSetting
+playerCaptureState.EscapeCaptureTime = Services.DateTime.Now.AddSeconds(30);
 caster.SetProperty(
     GamePlayerCaptureState.PROPERTY_NAME,
     playerCaptureState
@@ -84,10 +89,8 @@ var action = new ClientSkillActionEvent
     Action = "Actions_Agent_AgentCaptured.js"
 };
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>
-    {
+return SkillEffectScriptResponse
+    .New()
+    .Add(
         action
-    }
-};
+    );

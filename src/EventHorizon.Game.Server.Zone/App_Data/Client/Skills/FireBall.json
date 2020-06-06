@@ -86,7 +86,8 @@
                         {
                             "validator": "Validators_ValidateSuccess.csx",
                             "data": {
-                                "percent": 80
+                                "percent": 80,
+                                "errorMessageTemplateKey": "failedToHitMessage"
                             }
                         }
                     ],

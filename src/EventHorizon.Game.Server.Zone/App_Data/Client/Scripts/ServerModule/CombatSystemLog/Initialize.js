@@ -9,7 +9,11 @@
  * }
  */
 
-$services.logger.debug("Combat System Log - Initialize Script");
+$services.logger.debug("Combat System Log - Initialize Script", {
+    $services,
+    $data,
+    $state,
+});
 
 // Setup Event Listeners
 $services.eventService.on(
@@ -29,7 +33,9 @@ $data.eventsToRemove.push({
 });
 
 // Private functions
-function onMessageFromCombatSystemHandler(data /* { message:string; messageCode?:string; } */) {
+function onMessageFromCombatSystemHandler(
+    data /* { message:string; messageCode?:string; } */
+) {
     $services.logger.debug("Message Data", data);
     if (!data.message) {
         $services.logger.debug("No message", data);
@@ -41,10 +47,8 @@ function onMessageFromCombatSystemHandler(data /* { message:string; messageCode?
                 color: "red",
                 text: $utils.translation("combatSystem:system"),
             },
-            messageControlOptions: {
-
-            },
-            message: data.message
+            messageControlOptions: {},
+            message: data.message,
         })
     );
 }

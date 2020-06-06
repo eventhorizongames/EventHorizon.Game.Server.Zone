@@ -19,6 +19,9 @@
         "noTargetSelected": "No target selected!",
         "noTargetToCaptureSelected": "No target selected to capture.",
         "noSelectionsMessage": "No companion or target selected",
+        "failedToHitMessage": "could not hit Target",
+        "notFastEnoughToCapture": "not quick enough to capture",
+        "validationFailedMessage": "General Pass Failure",
         "systemLog:system": "System: ",
         "combatSystem:system": "Combat System: ",
         "empty": ""

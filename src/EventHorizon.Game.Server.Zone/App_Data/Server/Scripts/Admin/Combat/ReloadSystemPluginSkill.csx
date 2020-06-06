@@ -16,7 +16,7 @@ using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
 
 var command = Data.Get<IAdminCommand>("Command");
-await Services.Mediator.Publish(
+await Services.Mediator.Send(
     new LoadSystemCombatPluginSkill()
 );
 

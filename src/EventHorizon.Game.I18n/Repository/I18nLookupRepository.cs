@@ -36,6 +36,10 @@ namespace EventHorizon.Game.I18n.Lookup
             ))
             {
                 string translation;
+                if(key == null)
+                {
+                    key = "";
+                }
                 if (localeTranslationDictionary.TryGetValue(
                     key,
                     out translation

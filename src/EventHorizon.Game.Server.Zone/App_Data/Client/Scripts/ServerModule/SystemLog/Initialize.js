@@ -12,7 +12,11 @@
 const layoutId = "GUI_System_Log.json";
 const guiId = layoutId;
 let messageCount = 0;
-$services.logger.debug("System Log - Initialize Script");
+$services.logger.debug("System Log - Initialize Script", {
+    $services,
+    $data,
+    $state,
+});
 
 // Create and Activate GUI
 $services.commandService.send(
@@ -69,7 +73,9 @@ $data.eventsToRemove.push({
 });
 
 // Private functions
-function onMessageFromSystemHandler(data /* { senderControlOptions?:any; messageControlOptions?:any; message:string; } */) {
+function onMessageFromSystemHandler(
+    data /* { senderControlOptions?:any; messageControlOptions?:any; message:string; } */
+) {
     messageCount++;
     $services.logger.debug("Message Data", data);
     if (!data.message) {

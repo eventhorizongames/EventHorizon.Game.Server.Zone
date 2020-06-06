@@ -1,3 +1,4 @@
+
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity
 {
     using global::System;
@@ -8,6 +9,20 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity
         public static readonly string PROPERTY_NAME = "skillState";
 
         public SkillStateMap SkillMap { get; set; }
+
+        public SkillStateDetails GetSkill(
+            string skillId
+        ) => SkillMap.Get(skillId);
+
+        public SkillState SetSkill(
+            SkillStateDetails skill
+        )
+        {
+            SkillMap = SkillMap.Set(
+                skill
+            );
+            return this;
+        }
 
         public static readonly SkillState NEW = new SkillState
         {

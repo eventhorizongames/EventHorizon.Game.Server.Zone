@@ -24,10 +24,8 @@ var freezeAction = new ClientSkillActionEvent
     Data = freezeActionData
 };
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>
-    {
+return SkillEffectScriptResponse
+    .New()
+    .Add(
         freezeAction
-    }
-};
+    );

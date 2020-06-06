@@ -9,7 +9,11 @@
  * }
  */
 
-$services.logger.debug("Dispose", $services);
+$services.logger.debug("Dispose", $services, {
+    $services,
+    $data,
+    $state,
+});
 const guiId = "GUI_LeaderBoard.json";
 
 $services.commandService.send(

@@ -9,13 +9,17 @@
  * }
  */
 
-$services.logger.debug("Combat System Log - Dispose Script", { $services });
+$services.logger.debug("Combat System Log - Dispose Script", {
+    $services,
+    $data,
+    $state,
+});
 
 var eventsToRemove = $data.eventsToRemove || [];
-eventsToRemove.forEach(eventData => {
+eventsToRemove.forEach((eventData) => {
     $services.eventService.off(
         {
-            key: eventData.name
+            key: eventData.name,
         },
         eventData.handler,
         eventData.context

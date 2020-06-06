@@ -1,0 +1,9 @@
+{
+    "locale": "default",
+    "translationList": {
+        "game:CapturesEscaped":  "You Captures have Escape! You are Shocked!!",
+        "game:stillHaveTime":  "You still have time to find more Immortals.",
+        "game:dontHaveTime":  "You don't have a lot of time left to find more Immortals.",
+        "empty": ""
+    }
+}

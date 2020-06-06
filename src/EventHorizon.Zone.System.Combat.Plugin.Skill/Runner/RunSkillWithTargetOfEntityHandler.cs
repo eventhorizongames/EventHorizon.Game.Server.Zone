@@ -20,7 +20,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class RunSkillWithTargetOfEntityHandler 
+    public class RunSkillWithTargetOfEntityHandler
         : INotificationHandler<RunSkillWithTargetOfEntityEvent>
     {
         private readonly ILogger _logger;
@@ -39,7 +39,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
         }
 
         public async Task Handle(
-            RunSkillWithTargetOfEntityEvent notification, 
+            RunSkillWithTargetOfEntityEvent notification,
             CancellationToken cancellationToken
         )
         {
@@ -147,7 +147,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                     validationResponse
                 );
                 // Run Failed Effects for Skill
-                var state = new Dictionary<string, object>
+                var state = new Dictionary<string, object>(notification.Data ?? new Dictionary<string, object>())
                 {
                     {
                         "Code",
@@ -170,7 +170,7 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                             Target = target,
                             Skill = skill,
                             TargetPosition = targetPosition,
-                            State = state
+                            State = state,
                         }
                     );
                 }
@@ -187,7 +187,8 @@ namespace EventHorizon.Zone.System.Combat.Skill.Runner
                         Caster = caster,
                         Target = target,
                         Skill = skill,
-                        TargetPosition = targetPosition
+                        TargetPosition = targetPosition,
+                        State = notification.Data,
                     }
                 );
             }

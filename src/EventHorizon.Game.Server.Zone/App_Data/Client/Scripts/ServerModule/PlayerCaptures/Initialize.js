@@ -14,7 +14,11 @@ const newLayoutId = "GUI_PlayerCaptures-Message.json";
 const layoutId = "GUI_PlayerCaptures.json";
 const guiId = layoutId;
 let caughtCount = 0;
-$services.logger.debug("PlayerCaptures Log - Initialize Script");
+$services.logger.debug("PlayerCaptures Log - Initialize Script", {
+    $services,
+    $data,
+    $state,
+});
 
 // Create and Activate GUI
 $services.commandService.send(
@@ -63,8 +67,16 @@ function onEntityClientChangedHandler(
         return;
     }
 
-    const companionsCaught = details.data[gamePlayerCaptureStatePropertyName].companionsCaught;
-    if (!companionsCaught || companionsCaught.length < caughtCount) {
+    const companionsCaught =
+        details.data[gamePlayerCaptureStatePropertyName].companionsCaught;
+    if (!companionsCaught) {
+        return;
+    }
+    if (
+        companionsCaught.length === 0 ||
+        companionsCaught.length < caughtCount
+    ) {
+        resetGUI();
         return;
     }
     const companionsCaughtNameList = companionsCaught
@@ -109,4 +121,28 @@ function onEntityClientChangedHandler(
             })
         );
     });
+}
+
+function resetGUI() {
+    // Rest the UX
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.DISPOSE_OF_GUI_COMMAND", {
+            id: guiId,
+        })
+    );
+    // Clear out the current Displayed Caught list
+    currentDisplayedCaught = [];
+    // Create
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+            id: guiId,
+            layoutId,
+        })
+    );
+    // Re-Activate GUI
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+            id: guiId,
+        })
+    );
 }

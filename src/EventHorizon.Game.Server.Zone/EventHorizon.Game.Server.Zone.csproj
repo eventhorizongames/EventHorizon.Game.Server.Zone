@@ -12,10 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="App_Data\Server\Scripts\Admin\Combat\ReloadSystemPluginSkill.csx" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="prometheus-net.AspNetCore" Version="3.5.0" />
         <PackageReference Include="MediatR" Version="8.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />

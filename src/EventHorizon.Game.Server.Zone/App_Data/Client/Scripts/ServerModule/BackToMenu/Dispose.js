@@ -9,7 +9,11 @@
  * }
  */
 
-$services.logger.debug("Dispose", $services);
+$services.logger.debug("Back To Menu - Dispose", {
+    $services,
+    $data,
+    $state,
+});
 const guiId = "GUI_BackToMenu.json";
 
 $services.commandService.send(

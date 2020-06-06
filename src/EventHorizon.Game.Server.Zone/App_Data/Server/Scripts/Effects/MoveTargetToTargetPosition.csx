@@ -30,7 +30,5 @@ await Services.Mediator.Send(
     )
 );
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>()
-};
+return SkillEffectScriptResponse
+    .New();

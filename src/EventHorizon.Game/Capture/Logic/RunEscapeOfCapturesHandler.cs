@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Game.Capture.Logic
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Game.Clear;
     using EventHorizon.Game.Model;
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Model.Entity;
@@ -10,17 +12,20 @@
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
     using MediatR;
 
-    public class RunEscapeOfCapturesHandler : IRequestHandler<RunEscapeOfCaptures>
+    public class RunEscapeOfCapturesHandler
+        : IRequestHandler<RunEscapeOfCaptures>
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
 
-        public RunEscapeOfCapturesHandler(IMediator mediator)
+        public RunEscapeOfCapturesHandler(
+            IMediator mediator
+        )
         {
             _mediator = mediator;
         }
 
         public async Task<Unit> Handle(
-            RunEscapeOfCaptures request, 
+            RunEscapeOfCaptures request,
             CancellationToken cancellationToken
         )
         {
@@ -56,11 +61,35 @@
                 new RunSkillWithTargetOfEntityEvent
                 {
                     ConnectionId = playerEntity.ConnectionId,
-                    // TODO: This will change when the Skill is implemented.
-                    SkillId = "skill_id",
+                    SkillId = SkillConstants.ESCAPE_OF_CAPTURES_SKILL_ID,
                     CasterId = playerEntity.Id,
                     TargetId = playerEntity.Id,
+                    TargetPosition = playerEntity.Transform.Position,
+                    Data = new Dictionary<string, object>
+                    {
+                        { "game:MessageKey", "game:CapturesEscaped" }
+                    }
                 },
+                cancellationToken
+            );
+
+            await _mediator.Send(
+                new ClearPlayerScore(
+                    playerEntity.Id
+                ),
+                cancellationToken
+            );
+
+            playerEntity = playerEntity.SetProperty(
+                GamePlayerCaptureState.PROPERTY_NAME,
+                GamePlayerCaptureState.New()
+            );
+
+            await _mediator.Send(
+                new UpdateEntityCommand(
+                    EntityAction.PROPERTY_CHANGED,
+                    playerEntity
+                ),
                 cancellationToken
             );
 

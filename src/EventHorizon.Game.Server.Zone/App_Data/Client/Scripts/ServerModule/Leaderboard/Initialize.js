@@ -29,7 +29,11 @@
 
 const layoutId = "GUI_LeaderBoard.json";
 const guiId = layoutId;
-$services.logger.debug("Leader Board - Initialize");
+$services.logger.debug("Leader Board - Initialize", {
+    $services,
+    $data,
+    $state,
+});
 
 $services.commandService.send(
     $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {

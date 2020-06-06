@@ -9,7 +9,11 @@
  * }
  */
 
-$services.logger.debug("Player Captures Log - Dispose Script");
+$services.logger.debug("Player Captures Log - Dispose Script", {
+    $services,
+    $data,
+    $state,
+});
 const guiId = "GUI_PlayerCaptures.json";
 
 $services.commandService.send(

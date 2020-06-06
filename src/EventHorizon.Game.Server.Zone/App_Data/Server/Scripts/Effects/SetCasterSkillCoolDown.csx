@@ -25,6 +25,7 @@ var effectData = Data.Get<IDictionary<string, object>>("EffectData");
 var coolDown = (long)effectData["coolDown"];
 
 var casterSkillState = caster.GetProperty<SkillState>("skillState");
+var skillMap = casterSkillState.SkillMap;
 var skillDetails = casterSkillState.SkillMap.Get(
     skill.Id
 );
@@ -33,12 +34,14 @@ skillDetails.CooldownFinishes = Services.DateTime.Now
     .AddMilliseconds(
         coolDown
     );
-casterSkillState.SkillMap.Set(
+skillMap = skillMap.Set(
     skillDetails
+);
+casterSkillState.SkillMap = skillMap;
+caster.SetProperty(
+    SkillState.PROPERTY_NAME,
+    casterSkillState
 );
 
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>()
-};
+return SkillEffectScriptResponse.New();

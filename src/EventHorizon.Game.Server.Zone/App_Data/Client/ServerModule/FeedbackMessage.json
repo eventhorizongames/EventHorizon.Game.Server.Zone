@@ -1,0 +1,6 @@
+{
+    "name": "FeedbackMessage",
+    "initializeScript": "ServerModule_FeedbackMessage_Initialize.js",
+    "disposeScript": "ServerModule_FeedbackMessage_Dispose.js",
+    "updateScript": "ServerModule_FeedbackMessage_Update.js"
+}

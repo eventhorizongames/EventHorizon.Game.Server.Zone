@@ -57,14 +57,11 @@ var messageAction = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new SkillEffectScriptResponse
-{
-    State = new Dictionary<string, object>
-    {
-        { "Damage", modifierBase }
-    },
-    ActionList = new List<ClientSkillActionEvent>
-    {
+return SkillEffectScriptResponse
+    .New()
+    .Add(
         action
-    }
-};
+    ).Set(
+        "Damage",
+        modifierBase
+    );

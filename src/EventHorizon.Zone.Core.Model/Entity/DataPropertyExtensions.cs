@@ -18,16 +18,14 @@ namespace EventHorizon.Zone.Core.Model.Entity
             string prop
         )
         {
-            object value = default(T);
-            entity.Data.TryGetValue(
+            if (entity.Data.TryGetValue(
                 prop,
-                out value
-            );
-            if (value == null)
+                out object value
+            ))
             {
-                return default(T);
+                return (T)value;
             }
-            return (T)value;
+            return default;
         }
 
         public static C SetProperty<T, C>(

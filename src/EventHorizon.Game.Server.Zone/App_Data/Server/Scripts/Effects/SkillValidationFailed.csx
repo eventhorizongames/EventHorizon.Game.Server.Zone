@@ -10,6 +10,7 @@
 /// </summary>
 
 using System.Collections.Generic;
+using System.Linq;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
@@ -20,7 +21,8 @@ var skill = Data.Get<SkillInstance>("Skill");
 var effectData = Data.Get<IDictionary<string, object>>("EffectData");
 var priorState = Data.Get<IDictionary<string, object>>("PriorState");
 
-var validationResponse = (SkillValidatorResponse)priorState["ValidationResponse"];
+var validationResponse = ((IList<SkillValidatorResponse>)priorState["ValidationResponse"]).First(a => !a.Success);
+var errorCode = (string)effectData["messageTemplateKey"];
 var actionData = new
 {
     MessageCode = (string)effectData["messageCode"],
@@ -40,10 +42,8 @@ var action = new ClientSkillActionEvent
     Data = actionData
 };
 
-return new SkillEffectScriptResponse
-{
-    ActionList = new List<ClientSkillActionEvent>
-    {
+return SkillEffectScriptResponse
+    .New()
+    .Add(
         action
-    }
-};
+    );
