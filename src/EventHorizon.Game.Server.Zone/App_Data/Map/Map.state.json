@@ -1,5 +1,6 @@
 {
-    "Dimensions": 124,
+    "_Dimensions": 124,
+    "Dimensions": 64,
     "TileDimensions": 1,
     "Mesh": {
         "HeightMapUrl": "/Game/Level/Home/Assets/HomeLevel.png",

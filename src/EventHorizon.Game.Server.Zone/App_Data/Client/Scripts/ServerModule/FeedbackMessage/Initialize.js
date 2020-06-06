@@ -14,6 +14,19 @@ $services.logger.debug("Feedback Message - Initialize Script", {
     $data,
     $state,
 });
+// Setup GUI
+var layoutId = "GUI_FeedbackMessage.json";
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+        id: layoutId,
+        layoutId,
+    })
+);
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+        id: layoutId,
+    })
+);
 
 // Setup Event Listeners
 $services.eventService.on(
@@ -36,11 +49,35 @@ $data.eventsToRemove.push({
 function onMessageHandler(data /* { message: string; } */) {
     $services.eventService.publish(
         $utils.createEvent("MessageFromSystem", {
-            senderControlOptions: {
-                color: "yellow",
+            senderControlOptions: {},
+            messageControlOptions: {
+                color: "red",
             },
-            messageControlOptions: {},
             message: data.message,
         })
     );
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.UPDATE_GUI_CONTROL_COMMAND", {
+            guiId: layoutId,
+            control: {
+                controlId: "feedback_message-text",
+                options: {
+                    color: "red",
+                    text: data.message,
+                },
+            },
+        })
+    );
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.SHOW_GUI_COMMAND", {
+            id: layoutId,
+        })
+    );
+    setTimeout(() => {
+        $services.commandService.send(
+            $utils.createEvent("Engine.Gui.HIDE_GUI_COMMAND", {
+                id: layoutId,
+            })
+        );
+    }, 5000);
 }

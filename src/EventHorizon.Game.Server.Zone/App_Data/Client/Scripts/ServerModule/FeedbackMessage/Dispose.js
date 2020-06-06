@@ -14,6 +14,13 @@ $services.logger.debug("Feedback Message - Dispose Script", {
     $data,
     $state,
 });
+const guiId = "GUI_FeedbackMessage.json";
+
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.DISPOSE_OF_GUI_COMMAND", {
+        id: guiId,
+    })
+);
 
 var eventsToRemove = $data.eventsToRemove || [];
 eventsToRemove.forEach((eventData) => {

@@ -1,0 +1,56 @@
+{
+    "id": "GUI_FeedbackMessage.json",
+    "sort": 0,
+    "controlList": [
+        {
+            "id": "feedback_message-container",
+            "sort": 0,
+            "templateId": "platform-container",
+            "options": {
+                "isVisible": false,
+                "adaptWidthToChildren": true,
+                "height": "100%",
+                "horizontalAlignment": 2,
+                "background": "transparent",
+                "animation": {
+                    "isEnabled": true,
+                    "transition": 0.05,
+                    "transitionStart": 0.01,
+                    "transitionEnd": 1,
+                    "transitionTime": 500
+                }
+            },
+            "controlList": [
+                {
+                    "id": "feedback_message-panel",
+                    "sort": 0,
+                    "templateId": "platform-panel",
+                    "options": {
+                        "background": "black",
+                        "alpha": 0.7,
+                        "verticalAlignment": 2,
+                        "adaptWidthToChildren": true
+                    },
+                    "controlList": [
+                        {
+                            "id": "feedback_message-text",
+                            "sort": 0,
+                            "templateId": "platform-text",
+                            "options": {
+                                "alpha": 1,
+                                "resizeToFit": true,
+                                "textWrapping": true,
+                                "paddingTop": "30px",
+                                "paddingBottom": "30px",
+                                "color": "white",
+                                "fontSize": "35px",
+                                "fontWeight": "bold",
+                                "textKey": "empty"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

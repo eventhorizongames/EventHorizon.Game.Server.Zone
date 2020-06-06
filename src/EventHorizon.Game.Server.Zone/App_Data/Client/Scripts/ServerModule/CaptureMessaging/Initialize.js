@@ -14,6 +14,18 @@ $services.logger.debug("Capture Messaging - Initialize Script", {
     $data,
     $state,
 });
+var layoutId = "GUI_CaptureMessaging.json";
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.CREATE_GUI_COMMAND", {
+        id: layoutId,
+        layoutId,
+    })
+);
+$services.commandService.send(
+    $utils.createEvent("Engine.Gui.ACTIVATE_GUI_COMMAND", {
+        id: layoutId,
+    })
+);
 
 // Setup Event Listeners
 $services.eventService.on(
@@ -46,24 +58,43 @@ $data.eventsToRemove.push({
 
 // Private functions
 function onFiveSecondCaptureMessageHandler(data /* { } */) {
-    $services.eventService.publish(
-        $utils.createEvent("MessageFromSystem", {
-            senderControlOptions: {
-                color: "green",
-            },
-            messageControlOptions: {},
-            message: $utils.translation("game:dontHaveTime"),
-        })
-    );
+    showMessage($utils.translation("game:dontHaveTime"));
 }
 function onTenSecondCaptureMessageHandler(data /* { } */) {
+    showMessage($utils.translation("game:stillHaveTime"));
+}
+
+function showMessage(message) {
     $services.eventService.publish(
         $utils.createEvent("MessageFromSystem", {
             senderControlOptions: {
                 color: "green",
             },
             messageControlOptions: {},
-            message: $utils.translation("game:stillHaveTime"),
+            message,
         })
     );
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.UPDATE_GUI_CONTROL_COMMAND", {
+            guiId: layoutId,
+            control: {
+                controlId: "capture_messaging-text",
+                options: {
+                    text: message,
+                },
+            },
+        })
+    );
+    $services.commandService.send(
+        $utils.createEvent("Engine.Gui.SHOW_GUI_COMMAND", {
+            id: layoutId,
+        })
+    );
+    setTimeout(() => {
+        $services.commandService.send(
+            $utils.createEvent("Engine.Gui.HIDE_GUI_COMMAND", {
+                id: layoutId,
+            })
+        );
+    }, 3000);
 }
