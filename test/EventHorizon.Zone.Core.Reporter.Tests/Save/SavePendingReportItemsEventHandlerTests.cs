@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Reporter.Model;
-using EventHorizon.Zone.Core.Reporter.Save;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Reporter.Tests.Save
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.Core.Reporter.Save;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class SavePendingReportItemsEventHandlerTests
     {
         [Fact]
@@ -130,9 +130,11 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
             );
 
             var report1Id = "report-1-Id";
+            var report1Timestamp = DateTime.Now;
             var report1Message = "report-1-Message";
             var report1Data = "report-1-Data";
             var report2Id = "report-2-Id";
+            var report2Timestamp = DateTime.Now;
 
             var expectedReport1FileFullName = Path.Combine(
                 reportingPath,
@@ -152,7 +154,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
                     Environment.NewLine,
                     Environment.NewLine,
                 }
-            ); 
+            );
             var expectedReport2FileFullName = Path.Combine(
                 reportingPath,
                 "Reporting_report-2-Id.log"
@@ -161,7 +163,8 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
             var reportList = new List<Report>()
             {
                 new Report(
-                    report1Id
+                    report1Id,
+                    report1Timestamp
                 ).AddItem(
                     new ReportItem(
                         report1Message,
@@ -169,7 +172,8 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Save
                     )
                 ),
                 new Report(
-                    report2Id
+                    report2Id,
+                    report2Timestamp
                 ),
             };
 

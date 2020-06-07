@@ -23,7 +23,7 @@ namespace EventHorizon.Zone.Core.Map.Create
         private readonly ServerInfo _serverInfo;
         private readonly IJsonFileLoader _fileLoader;
         private readonly IServerMap _serverMap;
-        private readonly IPerformanceTracker _performanceTracker;
+        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public CreateMapHandler(
             ILogger<CreateMapHandler> logger,
@@ -31,7 +31,7 @@ namespace EventHorizon.Zone.Core.Map.Create
             ServerInfo serverInfo,
             IJsonFileLoader fileLoader,
             IServerMap serverMap,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _logger = logger;
@@ -39,7 +39,7 @@ namespace EventHorizon.Zone.Core.Map.Create
             _serverInfo = serverInfo;
             _fileLoader = fileLoader;
             _serverMap = serverMap;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public async Task<Unit> Handle(
@@ -48,7 +48,7 @@ namespace EventHorizon.Zone.Core.Map.Create
         )
         {
             // Load in ZoneMapFile
-            using (_performanceTracker.Track(
+            using (_performanceTrackerFactory.Build(
                 "Create Map"
             ))
             {

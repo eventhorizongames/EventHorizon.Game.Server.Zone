@@ -11,7 +11,6 @@ using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Identity;
 using EventHorizon.Monitoring;
 using EventHorizon.Performance;
-using EventHorizon.Performance.Impl;
 using EventHorizon.Server.Core;
 using EventHorizon.TimerService;
 using EventHorizon.Zone.System.Admin.ExternalHub;
@@ -212,7 +211,7 @@ namespace EventHorizon.Game.Server.Zone
 
             // Base
             services
-                .AddSingleton<IPerformanceTracker, PerformanceTracker>()
+                .AddPerformance()
                 .AddTimer()
                 .AddI18n()
                 .AddEventHorizonIdentity(

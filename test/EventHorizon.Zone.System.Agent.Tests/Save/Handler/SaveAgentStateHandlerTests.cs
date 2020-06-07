@@ -1,23 +1,23 @@
-using EventHorizon.Performance;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Save;
-using EventHorizon.Zone.System.Agent.Save.Events;
-using EventHorizon.Zone.System.Agent.Save.Model;
-using Moq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-using IOPath = System.IO.Path;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
 {
+    using EventHorizon.Performance;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Save;
+    using EventHorizon.Zone.System.Agent.Save.Events;
+    using EventHorizon.Zone.System.Agent.Save.Model;
+    using Moq;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class SaveAgentStateHandlerTests
     {
         [Fact]
@@ -44,13 +44,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 inputAgent1,
                 inputAgent2,
             };
-            var expectedAppDataPath = IOPath.Combine(
+            var expectedAppDataPath = Path.Combine(
                 "some",
                 "content",
                 "path",
                 "App_Data"
             );
-            var expectedDirectory = IOPath.Combine(
+            var expectedDirectory = Path.Combine(
                 expectedAppDataPath,
                 "Agent"
             );
@@ -59,7 +59,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var serverInfoMock = new Mock<ServerInfo>();
             var jsonFileSaverMock = new Mock<IJsonFileSaver>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
             var agentConnectionMock = new Mock<IAgentConnection>();
 
             serverInfoMock.Setup(
@@ -79,7 +79,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 jsonFileSaverMock.Object,
                 agentRepositoryMock.Object,
                 agentConnectionMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
 
             await saveAgentStateHandler.Handle(

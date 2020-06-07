@@ -1,21 +1,22 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Reporter.Model;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.Core.Reporter.Save
 {
-    public class SavePendingReportItemsEventHandler : INotificationHandler<SavePendingReportItemsEvent>
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
+    public class SavePendingReportItemsEventHandler 
+        : INotificationHandler<SavePendingReportItemsEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly ReportRepository _repository;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly ReportRepository _repository;
 
         public SavePendingReportItemsEventHandler(
             ILogger<SavePendingReportItemsEventHandler> logger,
@@ -49,7 +50,7 @@ namespace EventHorizon.Zone.Core.Reporter.Save
                 );
                 return;
             }
-            
+
             var reports = _repository.TakeAll();
             foreach (var report in reports)
             {
@@ -76,7 +77,7 @@ namespace EventHorizon.Zone.Core.Reporter.Save
         }
 
         private static void AppendReportItemList(
-            Report report, 
+            Report report,
             StringWriter writer
         )
         {

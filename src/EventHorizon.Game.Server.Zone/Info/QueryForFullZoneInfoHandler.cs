@@ -28,21 +28,21 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
         readonly IMapGraph _map;
         readonly IMapMesh _mapMesh;
         readonly EntityRepository _entityRepository;
-        readonly IPerformanceTracker _performanceTracker;
+        readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public QueryForFullZoneInfoHandler(
             IMediator mediator,
             IMapGraph map,
             IMapMesh mapMesh,
             EntityRepository entityRepository,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _mediator = mediator;
             _map = map;
             _mapMesh = mapMesh;
             _entityRepository = entityRepository;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public async Task<IDictionary<string, object>> Handle(
@@ -50,7 +50,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
             CancellationToken cancellationToken
         )
         {
-            using (_performanceTracker.Track("Full Zone Info Created"))
+            using (_performanceTrackerFactory.Build("Full Zone Info Created"))
             {
                 var zoneInfo = new Dictionary<string, object>();
                 zoneInfo.Add(

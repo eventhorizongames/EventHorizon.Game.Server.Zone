@@ -43,7 +43,7 @@
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
             var serverMapMock = new Mock<IServerMap>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             serverInfoMock.Setup(
                 mock => mock.CoreMapPath
@@ -88,7 +88,7 @@
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
                 serverMapMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new CreateMap(),
@@ -129,7 +129,7 @@
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
             var serverMapMock = new Mock<IServerMap>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             serverInfoMock.Setup(
                 mock => mock.CoreMapPath
@@ -174,7 +174,7 @@
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
                 serverMapMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new CreateMap(),
@@ -206,7 +206,7 @@
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
             var serverMapMock = new Mock<IServerMap>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             serverInfoMock.Setup(
                 mock => mock.CoreMapPath
@@ -232,7 +232,7 @@
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
                 serverMapMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             Func<Task> action = async () => await handler.Handle(
                 new CreateMap(),

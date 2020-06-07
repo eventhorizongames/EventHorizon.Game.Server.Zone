@@ -12,19 +12,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly ActorBehaviorTickQueue _queue;
-        private readonly IPerformanceTracker _performanceTracker;
+        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public RunPendingActorBehaviorTicksHandler(
             ILogger<RunPendingActorBehaviorTicksHandler> logger,
             IMediator mediator,
             ActorBehaviorTickQueue queue,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _logger = logger;
             _mediator = mediator;
             _queue = queue;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public Task Handle(
@@ -36,7 +36,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             var runCount = 0;
             while (_queue.Dequeue(out var actorBehaviorTick))
             {
-                using (_performanceTracker.Track("RunActorBehaviorTick"))
+                using (_performanceTrackerFactory.Build("RunActorBehaviorTick"))
                 {
                     _ = _mediator.Send(
                        new RunActorBehaviorTick(

@@ -11,7 +11,7 @@ namespace EventHorizon.Game.Tests
     public class GameExtensionsTests
     {
         [Fact]
-        public void TestAddEntity_ShouldConfigurationServiceCollection()
+        public void ShouldConfigurationServiceCollectionWhenAddGameIsCalled()
         {
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();

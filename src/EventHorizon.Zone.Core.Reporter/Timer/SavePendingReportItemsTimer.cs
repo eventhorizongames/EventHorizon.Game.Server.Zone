@@ -1,10 +1,10 @@
-using EventHorizon.TimerService;
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.Core.Reporter.Save;
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Reporter.Timer
 {
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.Core.Reporter.Save;
+    using MediatR;
+
     public class SavePendingReportItemsTimer : ITimerTask
     {
         public int Period { get; } = 15000;

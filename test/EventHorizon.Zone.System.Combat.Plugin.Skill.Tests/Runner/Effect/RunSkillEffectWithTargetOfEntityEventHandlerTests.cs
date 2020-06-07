@@ -698,7 +698,6 @@
             };
 
             var expectedConnectionId = connectionId;
-            var expectedAction = "RunSkillAction";
             var expectedData = clientSkillAction;
 
             var loggerMock = new Mock<ILogger<RunSkillEffectWithTargetOfEntityEventHandler>>();

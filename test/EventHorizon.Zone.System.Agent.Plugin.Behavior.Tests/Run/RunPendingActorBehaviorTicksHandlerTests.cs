@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<RunPendingActorBehaviorTicksHandler>>();
             var queueMock = new Mock<ActorBehaviorTickQueue>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             var called = 0;
             queueMock.Setup(
@@ -74,7 +74,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 loggerMock.Object,
                 mediatorMock.Object,
                 queueMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new RunPendingActorBehaviorTicks(),
@@ -120,7 +120,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<RunPendingActorBehaviorTicksHandler>>();
             var queueMock = new Mock<ActorBehaviorTickQueue>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             queueMock.Setup(
                 mock => mock.Dequeue(
@@ -135,7 +135,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 loggerMock.Object,
                 mediatorMock.Object,
                 queueMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new RunPendingActorBehaviorTicks(),
@@ -161,7 +161,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<RunPendingActorBehaviorTicksHandler>>();
             var queueMock = new Mock<ActorBehaviorTickQueue>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             var actorBehaviorTick = new ActorBehaviorTick();
             var called = 0;
@@ -198,7 +198,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 loggerMock.Object,
                 mediatorMock.Object,
                 queueMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new RunPendingActorBehaviorTicks(),
@@ -225,7 +225,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
             var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<RunPendingActorBehaviorTicksHandler>>();
             var queueMock = new Mock<ActorBehaviorTickQueue>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             var actorBehaviorTick = new ActorBehaviorTick();
             var called = 0;
@@ -251,7 +251,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
                 loggerMock.Object,
                 mediatorMock.Object,
                 queueMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await handler.Handle(
                 new RunPendingActorBehaviorTicks(),

@@ -22,21 +22,21 @@ namespace EventHorizon.Zone.System.Agent.Save
         readonly IAgentRepository _agentRepository;
 
         readonly IAgentConnection _agentConnection;
-        readonly IPerformanceTracker _performanceTracker;
+        readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public SaveAgentStateHandler(
             ServerInfo serverInfo,
             IJsonFileSaver fileSaver,
             IAgentRepository agentRepository,
             IAgentConnection agentConnection,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _serverInfo = serverInfo;
             _fileSaver = fileSaver;
             _agentRepository = agentRepository;
             _agentConnection = agentConnection;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
         public async Task Handle(
             SaveAgentStateEvent notification,

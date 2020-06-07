@@ -14,15 +14,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
     public class MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
     {
         private readonly IMediator _mediator;
-        private readonly IPerformanceTracker _performanceTracker;
+        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
         
         public MoveAgentToPositionEventHandler(
             IMediator mediator,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _mediator = mediator;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public async Task<Unit> Handle(

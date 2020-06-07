@@ -3,16 +3,25 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
     using System.Collections.Concurrent;
     using EventHorizon.Zone.Core.Reporter.Model;
     using System.Collections.Generic;
-    using System;
     using System.Text.Json;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
 
-    public class ToRepositoryReportTracker : ReportTracker, ReportRepository
+    public class ReportTrackingRepository : ReportTracker, ReportRepository
     {
         private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
         {
             WriteIndented = true,
         };
         private ConcurrentDictionary<string, Report> REPORTS = new ConcurrentDictionary<string, Report>();
+
+        private readonly IDateTimeService _dateTime;
+
+        public ReportTrackingRepository(
+            IDateTimeService dateTime
+        )
+        {
+            _dateTime = dateTime;
+        }
 
         public void Clear(
             string id
@@ -37,8 +46,9 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             object data
         )
         {
+            var timestamp = _dateTime.Now;
             var reportItem = new ReportItem(
-                $"{DateTime.UtcNow.ToString()} - {message}",
+                $"{timestamp.ToString()} - {message}",
                 JsonSerializer.Serialize(
                     data,
                     JSON_OPTIONS
@@ -47,7 +57,8 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             REPORTS.AddOrUpdate(
                 id,
                 new Report(
-                    id
+                    id,
+                    timestamp
                 ).AddItem(
                     reportItem
                 ),

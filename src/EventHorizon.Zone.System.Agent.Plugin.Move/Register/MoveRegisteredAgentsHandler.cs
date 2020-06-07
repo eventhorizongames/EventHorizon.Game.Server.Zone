@@ -13,19 +13,19 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
         readonly ILogger _logger;
         readonly IMediator _mediator;
         readonly IMoveAgentRepository _moveRepository;
-        readonly IPerformanceTracker _performanceTracker;
+        readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public MoveRegisteredAgentsHandler(
             ILogger<MoveRegisteredAgentsHandler> logger,
             IMediator mediator,
             IMoveAgentRepository moveRepository,
-            IPerformanceTracker performanceTracker
+            PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _logger = logger;
             _mediator = mediator;
             _moveRepository = moveRepository;
-            _performanceTracker = performanceTracker;
+            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public Task Handle(
@@ -40,7 +40,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             while (_moveRepository.Dequeue(out var entityId))
             {
                 // TODO: PERF: Work on getting this below 5ms average, currently 5-10ms
-                using (_performanceTracker.Track("MoveRegisteredAgentEvent"))
+                using (_performanceTrackerFactory.Build("MoveRegisteredAgentEvent"))
                 {
                     _ = _mediator.Publish(
                         new MoveRegisteredAgentEvent(

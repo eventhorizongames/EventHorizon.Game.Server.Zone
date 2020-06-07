@@ -69,7 +69,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
-                new Mock<IPerformanceTracker>().Object
+                new Mock<PerformanceTrackerFactory>().Object
             );
             await moveRegisteredAgentsHandler.Handle(
                 new MoveRegisteredAgentsEvent(),
@@ -132,7 +132,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
-                new Mock<IPerformanceTracker>().Object
+                new Mock<PerformanceTrackerFactory>().Object
             );
             await moveRegisteredAgentsHandler.Handle(
                 new MoveRegisteredAgentsEvent(),
@@ -195,7 +195,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
-                new Mock<IPerformanceTracker>().Object
+                new Mock<PerformanceTrackerFactory>().Object
             );
             await moveRegisteredAgentsHandler.Handle(
                 new MoveRegisteredAgentsEvent(),
@@ -224,7 +224,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             var mediatorMock = new Mock<IMediator>();
             var loggerMock = new Mock<ILogger<MoveRegisteredAgentsHandler>>();
             var moveRepositoryMock = new Mock<IMoveAgentRepository>();
-            var performanceTrackerMock = new Mock<IPerformanceTracker>();
+            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             var inputId = 0L;
             var called = 0;
@@ -250,7 +250,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                 loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
-                performanceTrackerMock.Object
+                performanceTrackerFactoryMock.Object
             );
             await moveRegisteredAgentsHandler.Handle(
                 new MoveRegisteredAgentsEvent(),
@@ -258,8 +258,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             );
 
             // Then
-            performanceTrackerMock.Verify(
-                mock => mock.Track(
+            performanceTrackerFactoryMock.Verify(
+                mock => mock.Build(
                     "MoveRegisteredAgentEvent"
                 ),
                 Times.Exactly(
