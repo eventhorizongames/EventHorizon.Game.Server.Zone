@@ -6,6 +6,6 @@
         "type": "SPHERE",
         "segments": 16,
         "diameter": 2,
-        "heightOffset": -1.2
+        "__heightOffset": -1.2
     }
 }

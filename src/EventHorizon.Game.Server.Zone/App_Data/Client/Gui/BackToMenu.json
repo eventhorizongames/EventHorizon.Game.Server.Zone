@@ -36,9 +36,8 @@
                                 "background": "black",
                                 "disabledColor": "gray",
                                 "disabledHoverCursor": "mouse",
-                                "alignment": 2,
-                                "vAlignment": 2,
-                                "borderThickness": 0,
+                                "horizontalAlignment": 2,
+                                "verticalAlignment": 2,
                                 "text": "Back to Main Menu TODO"
                             }
                         }

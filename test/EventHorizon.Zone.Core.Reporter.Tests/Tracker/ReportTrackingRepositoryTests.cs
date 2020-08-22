@@ -6,6 +6,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
     using Moq;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using System;
+    using EventHorizon.Zone.Core.Reporter.Model;
 
     public class ReportTrackingRepositoryTests
     {
@@ -15,15 +16,18 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
             // Given
             var now = DateTime.Now;
             var reportId = "report-id";
+            var correlationId = "correlation-id";
             var message = "reported-message";
             var reportItemData = "report-data";
 
             var expectedReportId = reportId;
             var expectedTimestamp = now;
-            var expectedReportItemMessage = $"{now.ToString()} - {message}";
-            var expectedReportItemData = @"""report-data""";
+            var expectedReportItemMessage = message;
+            var expectedReportItemData = "report-data";
 
             var dateTimeMock = new Mock<IDateTimeService>();
+            var reporterSettingsMock = new Mock<ReporterSettings>();
+
             dateTimeMock.Setup(
                 mock => mock.Now
             ).Returns(
@@ -36,6 +40,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
             );
             reportTracker.Track(
                 reportId,
+                correlationId,
                 message,
                 reportItemData
             );
@@ -81,17 +86,19 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
             // Given
             var now = DateTime.Now;
             var reportId = "report-id";
+            var correlationId = "correlation-id";
             var message = "reported-message";
             var reportItem1Data = "report-data-1";
             var reportItem2Data = "report-data-2";
 
             var expectedReportId = reportId;
             var expectedTimestamp = now;
-            var expectedReportItemMessage = $"{now.ToString()} - {message}";
-            var expectedReportItem1Data = @"""report-data-1""";
-            var expectedReportItem2Data = @"""report-data-2""";
+            var expectedReportItemMessage = message;
+            var expectedReportItem1Data = "report-data-1";
+            var expectedReportItem2Data = "report-data-2";
 
             var dateTimeMock = new Mock<IDateTimeService>();
+
             dateTimeMock.Setup(
                 mock => mock.Now
             ).Returns(
@@ -104,11 +111,13 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
             );
             reportTracker.Track(
                 reportId,
+                correlationId,
                 message,
                 reportItem1Data
             );
             reportTracker.Track(
                 reportId,
+                correlationId,
                 message,
                 reportItem2Data
             );
@@ -163,6 +172,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
         {
             // Given
             var reportId = "report-id";
+            var correlationId = "correlation-id";
 
             var dateTimeMock = new Mock<IDateTimeService>();
 
@@ -172,6 +182,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
             );
             reportTracker.Track(
                 reportId,
+                correlationId,
                 "message",
                 "data"
             );

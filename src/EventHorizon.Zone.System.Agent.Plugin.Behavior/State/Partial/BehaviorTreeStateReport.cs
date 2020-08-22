@@ -1,9 +1,10 @@
-using EventHorizon.Zone.Core.Reporter.Model;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
+    using global::System;
+    using EventHorizon.Zone.Core.Reporter.Model;
+
     public partial struct BehaviorTreeState
-    {   
+    {
         public BehaviorTreeState Report(
             string message,
             object data = null
@@ -11,13 +12,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         {
             _reportTracker?.Track(
                 _reportId,
+                _reportCorrelationId,
                 message,
-                data ?? ""
+                data
             );
             return this;
         }
-        
-        public BehaviorTreeState ClearReport() 
+
+        public BehaviorTreeState ClearReport()
         {
             _reportTracker?.Clear(
                 _reportId
@@ -32,6 +34,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         {
             _reportId = reportId;
             _reportTracker = reportTracker;
+            _reportCorrelationId = Guid.NewGuid().ToString();
             return this;
         }
     }

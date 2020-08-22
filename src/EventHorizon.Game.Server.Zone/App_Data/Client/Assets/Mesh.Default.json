@@ -6,6 +6,6 @@
         "type": "GLTF",
         "path": "/Assets/Meshes/",
         "file": "Default_Mesh.glb",
-        "heightOffset": -1.2
+        "heightOffset": 0
     }
 }

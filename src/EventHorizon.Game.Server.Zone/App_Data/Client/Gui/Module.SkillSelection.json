@@ -11,6 +11,7 @@
                 "column": 3,
                 "row": 1,
                 "backgroundColor": "transparent",
+                "background": "transparent",
                 "paddingBottom": 5,
                 "paddingTop": 5,
                 "paddingLeft": 5,

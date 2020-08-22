@@ -3,6 +3,7 @@
     "type": "MAP_MATERIAL",
     "name": "HomeLevel Map Material",
     "data": {
+        "type": "MAP_MATERIAL",
         "AssetPath": "/Assets/Material/Ground",
         "ShaderId": "ground",
         "Shader": "/Assets/Material/Ground/Shaders/ground",

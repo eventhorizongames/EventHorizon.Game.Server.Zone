@@ -3,6 +3,7 @@
     "type": "DIALOG",
     "name": "News Dialog Tree",
     "data": {
+        "type": "DIALOG",
         "root": {
             "titleKey": "dialog:News:title_001",
             "title": "${npc.name}",

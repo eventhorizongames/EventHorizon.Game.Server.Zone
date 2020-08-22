@@ -3,16 +3,11 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
     using System.Collections.Concurrent;
     using EventHorizon.Zone.Core.Reporter.Model;
     using System.Collections.Generic;
-    using System.Text.Json;
     using EventHorizon.Zone.Core.Model.DateTimeService;
 
     public class ReportTrackingRepository : ReportTracker, ReportRepository
     {
-        private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-        };
-        private ConcurrentDictionary<string, Report> REPORTS = new ConcurrentDictionary<string, Report>();
+        private readonly ConcurrentDictionary<string, Report> _reports = new ConcurrentDictionary<string, Report>();
 
         private readonly IDateTimeService _dateTime;
 
@@ -23,38 +18,38 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             _dateTime = dateTime;
         }
 
-        public void Clear(
+        public virtual void Clear(
             string id
         )
         {
-            REPORTS.TryRemove(
+            _reports.TryRemove(
                 id,
                 out _
             );
         }
 
-        public IEnumerable<Report> TakeAll()
+        public virtual IEnumerable<Report> TakeAll()
         {
-            var values = REPORTS.Values;
-            REPORTS.Clear();
+            var values = _reports.Values;
+            _reports.Clear();
             return values;
         }
 
-        public void Track(
+        public virtual void Track(
             string id,
+            string correlationId,
             string message,
             object data
         )
         {
             var timestamp = _dateTime.Now;
             var reportItem = new ReportItem(
-                $"{timestamp.ToString()} - {message}",
-                JsonSerializer.Serialize(
-                    data,
-                    JSON_OPTIONS
-                )
+                correlationId,
+                message,
+                timestamp,
+                data
             );
-            REPORTS.AddOrUpdate(
+            _reports.AddOrUpdate(
                 id,
                 new Report(
                     id,

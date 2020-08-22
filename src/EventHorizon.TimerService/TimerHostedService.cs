@@ -1,19 +1,18 @@
-﻿
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace EventHorizon.TimerService
+﻿namespace EventHorizon.TimerService
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     public class TimerHostedService : HostedService
     {
         private readonly List<TimerWrapper> _timerTasks = new List<TimerWrapper>();
 
         public TimerHostedService(
-            ILoggerFactory loggerFactory, 
-            IServiceScopeFactory serviceScopeFactory, 
+            ILoggerFactory loggerFactory,
+            IServiceScopeFactory serviceScopeFactory,
             IEnumerable<ITimerTask> timerTasks
         )
         {

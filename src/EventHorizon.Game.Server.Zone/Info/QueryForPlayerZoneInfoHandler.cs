@@ -66,10 +66,10 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                         )
                     )
                 );
-                zoneInfo.Add(
-                    "Map",
-                    _map
-                );
+                //zoneInfo.Add(
+                //    "Map",
+                //    _map
+                //);
                 zoneInfo.Add(
                     "MapMesh",
                     _mapMesh

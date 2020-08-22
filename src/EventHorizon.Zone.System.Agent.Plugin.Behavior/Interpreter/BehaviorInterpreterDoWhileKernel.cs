@@ -29,14 +29,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             var treeState = GetActorState(
                 shape,
                 actor
-            ).SetReportTracker(
-                $"{actor.Id}_{actor.Name}",
-                _reportTracker
-            ).PopActiveNodeFromQueue()
-            // .ClearReport() // Uncomment this to clear report for clean file.
-            .Report(
+            ).Report(
                 "Kernel Tick START"
-            );
+            ).PopActiveNodeFromQueue();
             do
             {
                 // Run the state through the Interperters.
@@ -77,11 +72,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
             );
             if (!treeState.IsValid)
             {
-                return new BehaviorTreeState(
+                treeState = new BehaviorTreeState(
                     shape
                 );
             }
-            return treeState.SetShape(
+            return treeState.SetReportTracker(
+                $"{actor.Id}_{actor.Name}",
+                _reportTracker
+            ).SetShape(
                 shape
             );
         }

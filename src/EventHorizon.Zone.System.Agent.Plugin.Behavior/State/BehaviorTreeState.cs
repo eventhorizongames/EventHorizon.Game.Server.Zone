@@ -16,6 +16,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         private ActorBehaviorTreeShape _shape;
 
         private string _reportId;
+        private string _reportCorrelationId;
         private ReportTracker _reportTracker;
 
         public bool ContainsNext => TraversalStack.Count > 0;
@@ -47,6 +48,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             _activeNodeToken = -1;
             _activeTraversalToken = -1;
             _reportId = null;
+            _reportCorrelationId = null;
             _reportTracker = null;
             ShapeQueue = new Queue<int>();
             ShapeOrder = new int[0];
@@ -56,7 +58,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             LastTraversalStack = new List<int>();
             NextTraversalStack = new List<int>();
 
-            this.SetupQueueFromShape(
+            SetupQueueFromShape(
                 shape
             );
         }

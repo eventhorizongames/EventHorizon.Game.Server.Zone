@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Timer
         {
             // Given 
             var expectedPeriod = 100;
-            var expectedTag = "RunUpdateOnAllBehaviorTrees";
+            var expectedTag = "RunPendingActorBehaviorTicks";
             var expectedOnValidationEvent = new IsServerStarted();
             var expectedOnRunEvent = new RunPendingActorBehaviorTicks();
 

@@ -1,9 +1,8 @@
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace EventHorizon.TimerService
 {
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     public static class TimerExtensions
     {
         public static IServiceCollection AddTimer(

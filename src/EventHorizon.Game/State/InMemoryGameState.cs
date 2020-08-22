@@ -4,24 +4,31 @@
 
     public class InMemoryGameState : GameState
     {
+        private object _LOCK = new object();
         public CurrentGameState CurrentGameState { get; private set; } = new CurrentGameState(new List<GamePlayerScore>());
 
         public void IncrementPlayer(
             long playerEntityId
         )
         {
-            CurrentGameState = CurrentGameState.IncrementPlayer(
-                playerEntityId
-            );
+            lock (_LOCK)
+            {
+                CurrentGameState = CurrentGameState.IncrementPlayer(
+                    playerEntityId
+                );
+            }
         }
 
         public void RemovePlayer(
             long playerEntityId
         )
         {
-            CurrentGameState = CurrentGameState.RemovePlayer(
-                playerEntityId
-            );
+            lock (_LOCK)
+            {
+                CurrentGameState = CurrentGameState.RemovePlayer(
+                    playerEntityId
+                );
+            }
         }
     }
 }

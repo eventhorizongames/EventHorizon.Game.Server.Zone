@@ -373,6 +373,7 @@ namespace EventHorizon.Game.Server.Zone
             // Core
             app.UseCore();
             app.UseCoreMap();
+            app.UseCoreReporter();
 
             // Server 
             app.UseServerSetup();

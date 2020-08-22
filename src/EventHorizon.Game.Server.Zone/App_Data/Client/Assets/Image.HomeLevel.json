@@ -3,6 +3,7 @@
     "type": "IMAGE",
     "name": "Home Level height-map",
     "data": {
+        "type": "URL",
         "url": "/Game/Level/Home/Assets/HomeLevel.png"
     }
 }

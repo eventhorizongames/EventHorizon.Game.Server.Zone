@@ -1,9 +1,9 @@
-using Xunit;
-using EventHorizon.Tests.TestUtils;
-using Microsoft.Extensions.Hosting;
-
 namespace EventHorizon.TimerService.Tests.TimerService
 {
+    using EventHorizon.Test.Common.Utils;
+    using Microsoft.Extensions.Hosting;
+    using Xunit;
+
     public class TimerExtensionsTests
     {
         [Fact]

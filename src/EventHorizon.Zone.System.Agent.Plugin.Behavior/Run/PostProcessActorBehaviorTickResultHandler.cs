@@ -91,7 +91,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                 actor,
                 agentBehavior,
                 _dateTime.Now.AddMilliseconds(
-                    100
+                    100 // TODO: Get from settings
                 )
             );
             _queue.Register(

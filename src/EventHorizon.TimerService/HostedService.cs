@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-
-namespace EventHorizon.TimerService
+﻿namespace EventHorizon.TimerService
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Hosting;
+
     public abstract class HostedService : IHostedService
     {
         private Task _executingTask;
@@ -42,9 +42,9 @@ namespace EventHorizon.TimerService
 
             // Wait until the task completes or the stop token triggers
             await Task.WhenAny(
-                _executingTask, 
+                _executingTask,
                 Task.Delay(
-                    -1, 
+                    -1,
                     cancellationToken
                 )
             );

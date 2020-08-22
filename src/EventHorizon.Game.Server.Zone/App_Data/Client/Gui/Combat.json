@@ -13,6 +13,7 @@
                 "column": 4,
                 "row": 4,
                 "backgroundColor": "transparent",
+                "background": "transparent",
                 "paddingBottom": 50,
                 "paddingTop": 50,
                 "paddingLeft": 50,
@@ -34,14 +35,23 @@
                             "sort": 0,
                             "templateId": "platform-label",
                             "options": {
-                                "width": 60,
-                                "height": 14,
-                                "alignment": 1,
+                                "__metadata": {
+                                    "modelOptions": [ "textOptions" ]
+                                },
+                                "width": "60px",
+                                "height": "14px",
+                                "horizontalAlignment": 1,
                                 "text": "Health",
                                 "textSize": 12,
                                 "textColor": "white",
                                 "backgroundColor": "transparent",
-                                "borderThickness": 0
+                                "background": "transparent",
+                                "textOptions": {
+                                    "text": "Health",
+                                    "fontSize": 12,
+                                    "color": "white",
+                                    "horizontalAlignment": 1
+                                }
                             }
                         },
                         {
@@ -51,14 +61,14 @@
                             "options": {
                                 "width": 60,
                                 "height": 20,
-                                "alignment": 1,
+                                "horizontalAlignment": 1,
                                 "textSize": 12,
                                 "textColor": "white",
                                 "backgroundColor": "green",
+                                "background": "green",
                                 "barColor": "#CD5C5C",
                                 "barDirection": "paddingLeft",
                                 "borderColor": "white",
-                                "borderThickness": 0,
                                 "percent": 100,
                                 "text": "100 / 100"
                             }
@@ -68,14 +78,23 @@
                             "Sort": 2,
                             "templateId": "platform-label",
                             "options": {
-                                "width": 60,
-                                "height": 14,
-                                "alignment": 1,
+                                "__metadata": {
+                                    "modelOptions": [ "textOptions" ]
+                                },
+                                "width": "60px",
+                                "height": "14px",
+                                "horizontalAlignment": 1,
                                 "text": "Magic",
                                 "textSize": 12,
                                 "textColor": "white",
                                 "backgroundColor": "transparent",
-                                "borderThickness": 0
+                                "background": "transparent",
+                                "textOptions": {
+                                    "text": "Magic",
+                                    "fontSize": 12,
+                                    "color": "white",
+                                    "horizontalAlignment": 1
+                                }
                             }
                         },
                         {
@@ -85,14 +104,14 @@
                             "options": {
                                 "width": 60,
                                 "height": 20,
-                                "alignment": 1,
+                                "horizontalAlignment": 1,
                                 "textSize": 12,
                                 "textColor": "White",
                                 "backgroundColor": "blue",
+                                "background": "blue",
                                 "barColor": "#CD5C5C",
                                 "barDirection": "paddingLeft",
                                 "borderColor": "white",
-                                "borderThickness": 0,
                                 "percent": 100,
                                 "text": "100 / 100"
                             }

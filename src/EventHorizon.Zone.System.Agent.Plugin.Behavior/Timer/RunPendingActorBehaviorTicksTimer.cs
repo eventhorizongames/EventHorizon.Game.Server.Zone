@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer
     public class RunPendingActorBehaviorTicksTimer : ITimerTask
     {
         public int Period { get; } = 100;
-        public string Tag { get; } = "RunUpdateOnAllBehaviorTrees";
+        public string Tag { get; } = "RunPendingActorBehaviorTicks";
         public IRequest<bool> OnValidationEvent { get; } = new IsServerStarted();
         public INotification OnRunEvent { get; } = new RunPendingActorBehaviorTicks();
     }

@@ -1,7 +1,7 @@
-using MediatR;
-
 namespace EventHorizon.TimerService
 {
+    using MediatR;
+
     public interface ITimerTask
     {
         int Period { get; }

@@ -1,16 +1,16 @@
-using Xunit;
-using Moq;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using System;
-using EventHorizon.Tests.TestUtils;
-
 namespace EventHorizon.TimerService.Tests.TimerService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using EventHorizon.Test.Common.Utils;
+    using MediatR;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class TimerHostedServiceTests
     {
         [Fact]
@@ -30,13 +30,8 @@ namespace EventHorizon.TimerService.Tests.TimerService
             var loggerFactoryMock = new Mock<ILoggerFactory>();
             var timerTasksMock = new List<ITimerTask>();
             
-            var serviceMocks = ServicesBuilderFactory.CreateServices();
-            serviceMocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(
-                    typeof(IMediator)
-                )
-            ).Returns(
-                mediatorMock.Object
+            var serviceScopeMocks = ServiceScopeFactoryUtils.SetupServiceScopeFactoryWithMediatorMock(
+                mediatorMock
             );
 
             timerTaskMock.Setup(
@@ -56,7 +51,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
             // When
             var timerHostedService = new TimerHostedService(
                 loggerFactoryMock.Object,
-                serviceMocks.ServiceScopeFactoryMock.Object,
+                serviceScopeMocks.Object,
                 timerTasksMock
             );
 
@@ -79,5 +74,9 @@ namespace EventHorizon.TimerService.Tests.TimerService
                 inputCancellationTokenSource.Token
             );
         }
+    }
+
+    internal class TestNotificationEvent : INotification
+    {
     }
 }

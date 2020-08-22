@@ -1,0 +1,221 @@
+{
+    "AgentList": [
+        {
+            "Id": "2b486bba-e481-4b63-823e-dfcd04263c96",
+            "Name": "First Ever NPC",
+            "Position": {
+                "CanMove": true,
+                "CurrentPosition": {
+                    "X": 40.0,
+                    "Y": 0.0,
+                    "Z": 37.0
+                },
+                "NextMoveRequest": "2019-11-02T06:26:14.4490474Z",
+                "MoveToPosition": {
+                    "X": 39.0,
+                    "Y": 0.0,
+                    "Z": 37.0
+                },
+                "CurrentZone": "...",
+                "ZoneTag": "testing"
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "ownerState": {
+                    "OwnerId": null,
+                    "CanBeCaptured": true
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "Mesh": {
+                        "Type": "SPHERE",
+                        "AssetId": "SPHERE"
+                    }
+                },
+                "behavior": {
+                    "TreeId": "Behaviors_RunFromPlayer.json"
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "ALIVE"
+                    },
+                    "HealthPoints": 100,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 100,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": null
+                },
+                "NextRunTime": "2019-11-02T01:26:31.6250001-05:00",
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": 1482773810,
+                        "Type": {
+                            "Name": "PRIORITY_SELECTOR",
+                            "IsTraversal": true
+                        },
+                        "Status": "RUNNING",
+                        "NodeList": null,
+                        "IsTraversal": true,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": true
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null,
+                            "IsTraversal": false
+                        },
+                        "Status": null,
+                        "NodeList": null,
+                        "IsTraversal": false,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "NodeMap": {
+                        "1682725774": {
+                            "Token": 1682725774,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-968331586": {
+                            "Token": -968331586,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "-1884789068": {
+                            "Token": -1884789068,
+                            "Type": {
+                                "Name": "ACTION",
+                                "IsTraversal": false
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "1482773810": {
+                            "Token": 1482773810,
+                            "Type": {
+                                "Name": "PRIORITY_SELECTOR",
+                                "IsTraversal": true
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": true,
+                            "Fire": null,
+                            "FailGate": 0,
+                            "Reset": true
+                        },
+                        "1036256350": {
+                            "Token": 1036256350,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR",
+                                "IsTraversal": true
+                            },
+                            "Status": "FAILED",
+                            "NodeList": null,
+                            "IsTraversal": true,
+                            "Fire": null,
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "574307389": {
+                            "Token": 574307389,
+                            "Type": {
+                                "Name": "CONDITION",
+                                "IsTraversal": false
+                            },
+                            "Status": "FAILED",
+                            "NodeList": null,
+                            "IsTraversal": false,
+                            "Fire": "Behavior_Condition_FindClosetsPlayer.csx",
+                            "FailGate": 0,
+                            "Reset": false
+                        },
+                        "571818556": {
+                            "Token": 571818556,
+                            "Type": {
+                                "Name": "SEQUENCE_SELECTOR",
+                                "IsTraversal": true
+                            },
+                            "Status": "RUNNING",
+                            "NodeList": null,
+                            "IsTraversal": true,
+                            "Fire": null,
+                            "FailGate": 0,
+                            "Reset": false
+                        }
+                    },
+                    "TraversalStack": [],
+                    "LastTraversalStack": [],
+                    "NextTraversalStack": [
+                        571818556,
+                        1482773810
+                    ],
+                    "IsValid": true,
+                    "ShapeQueue": []
+                },
+                "ActorMoveToPosition": null,
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-11-02T01:15:57.5306776-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-11-02T01:15:57.5312761-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-11-02T01:15:57.5312787-05:00"
+                            }
+                        ]
+                    }
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 5
+            }
+        }
+    ]
+}

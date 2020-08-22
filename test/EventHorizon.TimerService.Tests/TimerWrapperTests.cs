@@ -1,16 +1,14 @@
-using Xunit;
-using Moq;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using EventHorizon.Tests.TestUtils;
-using System.Threading;
-using MediatR;
-using System;
-using static EventHorizon.TimerService.TimerWrapper;
-using System.Threading.Tasks;
-
 namespace EventHorizon.TimerService.Tests.TimerService
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class TimerWrapperTests : IDisposable
     {
         TimerWrapper _timerWrapper;
@@ -361,7 +359,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
             var inputTimerState = new TimerState();
             // Grab the lock on the timer
             await inputTimerState.LOCK.WaitAsync(0);
-            
+
             var loggerMock = new Mock<ILogger>();
             var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
             var timerTaskMock = new Mock<ITimerTask>();

@@ -93,6 +93,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
             reportTrackerMock.Verify(
                 mock => mock.Track(
                     expectedReportId,
+                    It.IsAny<string>(),
                     expectedReportMessage,
                     expectedReportData
                 )
@@ -130,6 +131,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
             reportTrackerMock.Verify(
                 mock => mock.Track(
                     expectedReportId,
+                    It.IsAny<string>(),
                     expectedReportMessage,
                     expectedReportData
                 )

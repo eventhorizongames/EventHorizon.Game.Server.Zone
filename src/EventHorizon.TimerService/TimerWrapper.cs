@@ -59,13 +59,9 @@ namespace EventHorizon.TimerService
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
-                _logger.LogWarning(
-                    "Timer found that it was already running. \nCheck for long running loop. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
-                    timerState.Id,
-                    timerState.Guid,
-                    _timerTask.Tag,
-                    timerState.StartDate,
-                    DateTime.UtcNow - timerState.StartDate
+                this.LogMessage(
+                    "Timer found that it was already running.",
+                    timerState
                 );
                 return;
             }
@@ -107,13 +103,10 @@ namespace EventHorizon.TimerService
                         Exception ex
                     )
                     {
-                        _logger.LogError(ex,
-                            "Timer Exception. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
-                            timerState.Id,
-                            timerState.Guid,
-                            _timerTask.Tag,
-                            timerState.StartDate,
-                            DateTime.UtcNow - timerState.StartDate
+                        this.LogMessage(
+                            "Timer ran long.",
+                            timerState,
+                            ex
                         );
                     }
                 }
@@ -127,13 +120,9 @@ namespace EventHorizon.TimerService
                     ) > 0
                 )
                 {
-                    _logger.LogWarning(
-                        "Timer ran long. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning}",
-                        timerState.Id,
-                        timerState.Guid,
-                        _timerTask.Tag,
-                        timerState.StartDate,
-                        DateTime.UtcNow - timerState.StartDate
+                    this.LogMessage(
+                        "Timer ran long.",
+                        timerState
                     );
                 }
             }
@@ -144,12 +133,49 @@ namespace EventHorizon.TimerService
                 timerState.LOCK.Release();
             }
         }
+
+        private void LogMessage(
+            string message,
+            TimerState state,
+            Exception ex = null
+        )
+        {
+            var timeRunning = DateTime.UtcNow - state.StartDate;
+            var timeRunningTicks = timeRunning.Ticks;
+            var logArgs = new object[]
+            {
+                state.Id,
+                state.Guid,
+                _timerTask.Tag,
+                state.StartDate,
+                DateTime.UtcNow,
+                timeRunning,
+                timeRunningTicks,
+                _timerTask
+            };
+            message += " \nCheck for long running loop. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | FinishedDate: {FinishedDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning} \n | TimeRunningTicks: {TimeRunningTicks} \n | TimerTask: {@TimerTask}";
+            if (ex != null)
+            {
+                _logger.LogError(
+                    ex,
+                    message,
+                    logArgs
+                );
+            }
+            else
+            {
+                _logger.LogWarning(
+                    message,
+                    logArgs
+                );
+            }
+        }
     }
 
     public class TimerState
     {
-        public SemaphoreSlim LOCK { get; internal set; } = new SemaphoreSlim(1, 1);
-        public string Id { get; internal set; } = Guid.NewGuid().ToString();
+        public SemaphoreSlim LOCK { get; } = new SemaphoreSlim(1, 1);
+        public string Id { get; } = Guid.NewGuid().ToString();
         public Guid Guid { get; internal set; }
         public bool IsRunning { get; set; }
         public DateTime StartDate { get; set; }

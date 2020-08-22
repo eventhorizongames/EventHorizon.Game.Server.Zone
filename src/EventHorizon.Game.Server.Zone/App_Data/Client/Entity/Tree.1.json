@@ -1,1 +1,35 @@
-{"Id":"E45CE689-4453-4C9F-94E9-3D4A0BC0BCD3","Name":"Tree 001","Transform":{"Position":{"X":25.2,"Y":4.2941175,"Z":-5.1},"Rotation":{"X":0.0,"Y":0.0,"Z":0.0},"Scaling":{"X":1.0,"Y":1.0,"Z":1.0},"ScalingDeterminant":1.0},"TagList":[],"Data":{"assetId":"f2f1d5f6-cc0d-4094-aecf-scripted","dense":true,"densityBox":{"x":3.0,"y":3.0,"z":3.0},"resolveHeight":true,"editor:Metadata:FullName":"C:\\Repos\\EventHorizon.Game\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Entity\\Tree.1.json"}}
+{
+    "Id": "E45CE689-4453-4C9F-94E9-3D4A0BC0BCD3",
+    "Name": "Tree 001",
+    "Transform": {
+        "Position": {
+            "X": 0,
+            "Y": 0,
+            "Z": 10
+        },
+        "Rotation": {
+            "X": 0.0,
+            "Y": 0.0,
+            "Z": 0.0
+        },
+        "Scaling": {
+            "X": 1.0,
+            "Y": 1.0,
+            "Z": 1.0
+        },
+        "ScalingDeterminant": 1.0
+    },
+    "TagList": [
+    ],
+    "Data": {
+        "assetId": "f2f1d5f6-cc0d-4094-aecf-scripted",
+        "dense": true,
+        "densityBox": {
+            "x": 3.0,
+            "y": 3.0,
+            "z": 3.0
+        },
+        "resolveHeight": true,
+        "editor:Metadata:FullName": "C:\\Repos\\EventHorizon.Game\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Entity\\Tree.1.json"
+    }
+}

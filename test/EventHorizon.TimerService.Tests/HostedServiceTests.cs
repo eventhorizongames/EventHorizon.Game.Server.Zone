@@ -1,10 +1,9 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.TimerService.Tests
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class HostedServiceTests
     {
         [Fact]

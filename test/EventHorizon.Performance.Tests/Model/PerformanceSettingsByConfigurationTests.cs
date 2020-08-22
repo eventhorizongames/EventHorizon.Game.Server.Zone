@@ -58,7 +58,6 @@
             // Then
             actual.IsEnabled
                 .Should().BeFalse();
-
         }
     }
 }

@@ -33,6 +33,7 @@
                 "row": 2,
                 "height": "100%",
                 "backgroundColor": "transparent",
+                "background": "transparent",
                 "paddingBottom": 0,
                 "paddingTop": 0,
                 "paddingLeft": 0,

@@ -3,6 +3,7 @@
     "type": "SCRIPT",
     "name": "A Tree",
     "data": {
+        "type":  "JavaScript",
         "script": "Asset_Tree_Create.js",
         "branchSize": 4,
         "trunkSize": 4,

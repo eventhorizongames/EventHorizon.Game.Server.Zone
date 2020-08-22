@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.Core.Reporter.Model
         );
         void Track(
             string id,
+            string correlationId,
             string message,
             object data
         );

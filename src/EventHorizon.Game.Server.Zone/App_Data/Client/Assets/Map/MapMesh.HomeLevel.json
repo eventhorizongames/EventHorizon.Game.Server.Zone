@@ -3,6 +3,7 @@
     "type": "MAP_MESH",
     "name": "HomeLevel Map Mesh",
     "data": {
+        "type": "MAP",
         "HeightMapUrl": "/Game/Level/Home/Assets/HomeLevel.png",
         "_Width": 512,
         "_Height": 512,
