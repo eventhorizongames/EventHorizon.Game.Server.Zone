@@ -51,11 +51,14 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
             IDictionary<string, object> arguments
         )
         {
+            var scriptType = GetScriptType(
+                fileInfo
+            );
             var rootPath = arguments["RootPath"] as string;
             // Create ClientScript AND Add to Repository
             _clientScriptRepository.Add(
                 ClientScript.Create(
-                    rootPath,
+                    scriptType,
                     rootPath.MakePathRelative(
                         fileInfo.DirectoryName
                     ),
@@ -67,6 +70,23 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
                     )
                 )
             );
+        }
+
+        private static ClientScriptType GetScriptType(
+            StandardFileInfo fileInfo
+        )
+        {
+            var scriptType = ClientScriptType.Unknown;
+            if (fileInfo.Name.EndsWith(".js"))
+            {
+                scriptType = ClientScriptType.JavaScript;
+            }
+            else if (fileInfo.Name.EndsWith(".csx"))
+            {
+                scriptType = ClientScriptType.CSharp;
+            }
+
+            return scriptType;
         }
     }
 }

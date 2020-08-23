@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Client.Scripts.Model;
-using EventHorizon.Zone.System.Client.Scripts.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Client.Scripts.Fetch
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+    using EventHorizon.Zone.System.Client.Scripts.State;
+    using MediatR;
+
     public class FetchClientScriptListQueryHandler : IRequestHandler<FetchClientScriptListQuery, IEnumerable<ClientScript>>
     {
         readonly ClientScriptRepository _clientScriptRepository;
@@ -22,7 +23,9 @@ namespace EventHorizon.Zone.System.Client.Scripts.Fetch
         )
         {
             return Task.FromResult(
-                _clientScriptRepository.All()
+                _clientScriptRepository.All().Where(
+                    a => a.ScriptType == ClientScriptType.JavaScript
+                )
             );
         }
     }

@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Client.Scripts.Reload
 {
     using EventHorizon.Zone.System.Client.Scripts.Actions.Reload;
+    using EventHorizon.Zone.System.Client.Scripts.Compile;
     using EventHorizon.Zone.System.Client.Scripts.Fetch;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
@@ -20,13 +21,20 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
         }
 
         public async Task<Unit> Handle(
-            ReloadClientScriptsSystem request, 
+            ReloadClientScriptsSystem request,
             CancellationToken cancellationToken
         )
         {
             // Load Client Scripts
             await _mediator.Publish(
-                new LoadClientScriptsSystemCommand()
+                new LoadClientScriptsSystemCommand(),
+                cancellationToken
+            );
+
+            // Send Compile Scripts
+            await _mediator.Send(
+                new CompileClientScriptCommand(),
+                cancellationToken
             );
 
             // Publish Client Event that Scripts Have Changed
@@ -37,7 +45,8 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
                             new FetchClientScriptListQuery()
                         )
                     )
-                )
+                ),
+                cancellationToken
             );
 
             return Unit.Value;

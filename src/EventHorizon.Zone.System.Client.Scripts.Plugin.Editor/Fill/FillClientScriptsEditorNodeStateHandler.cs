@@ -1,15 +1,15 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Editor.Events;
-using EventHorizon.Zone.System.Editor.Events.Node;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-
-namespace EventHorizon.Zone.System.Client.Scripts.Editor
+namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Editor.Fill
 {
-    // TODO: Move this into a Client.Scripts.Editor Project
-    public class FillClientScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Editor.Events;
+    using EventHorizon.Zone.System.Editor.Events.Node;
+    using EventHorizon.Zone.System.Editor.Model;
+    using MediatR;
+
+    public class FillClientScriptsEditorNodeStateHandler 
+        : INotificationHandler<FillEditorNodeState>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
@@ -57,14 +57,14 @@ namespace EventHorizon.Zone.System.Client.Scripts.Editor
                     _serverInfo.ClientScriptsPath
                 )
             )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY, 
+                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                 false
             );
 
             foreach (var child in node.Children)
             {
                 child.AddProperty(
-                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY, 
+                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                     false
                 );
             }
