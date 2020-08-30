@@ -8,6 +8,8 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Model.Entity.State;
     using EventHorizon.Zone.Core.Model.Map;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Query;
     using EventHorizon.Zone.System.Client.Scripts.Fetch;
     using EventHorizon.Zone.System.ClientAssets.Fetch;
     using EventHorizon.Zone.System.ClientEntities.Query;
@@ -22,7 +24,8 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     ///  module that contains state that should be sent 
     ///  during a Zone's Full Info Request.
     /// </summary>
-    public class QueryForFullZoneInfoHandler : IRequestHandler<QueryForFullZoneInfo, IDictionary<string, object>>
+    public class QueryForFullZoneInfoHandler 
+        : IRequestHandler<QueryForFullZoneInfo, IDictionary<string, object>>
     {
         readonly IMediator _mediator;
         readonly IMapGraph _map;
@@ -121,7 +124,13 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                         new FetchClientScriptListQuery()
                     )
                 );
-                
+                zoneInfo.Add(
+                    "ClientScriptsAssemblyDetails",
+                    await _mediator.Send(
+                        new QueryForClientScriptsAssemblyDetails()
+                    )
+                );
+
                 // Game Specific State
                 zoneInfo.Add(
                     "GameState",

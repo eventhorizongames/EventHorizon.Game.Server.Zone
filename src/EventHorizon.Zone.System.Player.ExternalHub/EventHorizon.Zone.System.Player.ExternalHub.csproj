@@ -13,6 +13,9 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
         
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Action.Events\EventHorizon.Zone.System.Player.Plugin.Action.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Events\EventHorizon.Zone.System.Client.Scripts.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Model\EventHorizon.Zone.System.Client.Scripts.Model.csproj" />
     </ItemGroup>
 
 </Project>

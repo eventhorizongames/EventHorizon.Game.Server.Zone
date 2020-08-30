@@ -256,3 +256,4 @@ global.json
 .ionide
 
 __Backup__
+**/App_Data/_generated

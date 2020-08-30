@@ -3,7 +3,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
     using global::System.IO;
 
     /// <summary>
-    /// This is an instance of a Script supplied by the server to a Engine/Client.
+    /// This is an instance of a Script supplied by the server to the Engine/Client.
     /// </summary>
     public struct ClientScript
     {

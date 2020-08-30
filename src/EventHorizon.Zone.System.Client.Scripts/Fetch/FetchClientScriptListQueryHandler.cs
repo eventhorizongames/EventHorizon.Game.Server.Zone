@@ -5,20 +5,24 @@ namespace EventHorizon.Zone.System.Client.Scripts.Fetch
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Client.Scripts.Model;
-    using EventHorizon.Zone.System.Client.Scripts.State;
     using MediatR;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
+    using EventHorizon.Zone.System.Client.Scripts.Api;
 
-    public class FetchClientScriptListQueryHandler : IRequestHandler<FetchClientScriptListQuery, IEnumerable<ClientScript>>
+    public class FetchClientScriptListQueryHandler
+        : IRequestHandler<FetchClientScriptListQuery, IEnumerable<ClientScript>>
     {
-        readonly ClientScriptRepository _clientScriptRepository;
+        private readonly ClientScriptRepository _clientScriptRepository;
+
         public FetchClientScriptListQueryHandler(
             ClientScriptRepository clientScriptRepository
         )
         {
             _clientScriptRepository = clientScriptRepository;
         }
+
         public Task<IEnumerable<ClientScript>> Handle(
-            FetchClientScriptListQuery request, 
+            FetchClientScriptListQuery request,
             CancellationToken cancellationToken
         )
         {

@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Serilog;
-using Microsoft.Extensions.Hosting;
-
-namespace EventHorizon.Game.Server.Zone
+﻿namespace EventHorizon.Game.Server.Zone
 {
+    using Microsoft.AspNetCore.Hosting;
+    using Serilog;
+    using Microsoft.Extensions.Hosting;
+
     public class Program
     {
         public static void Main(string[] args)

@@ -400,11 +400,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
                     "Data",
                     "StateSaved.json"
                 ),
-                Encoding.UTF8.GetBytes(
-                    JsonConvert.SerializeObject(
-                        state
-                    )
-                )
+                JsonConvert.SerializeObject(
+                    state
+                ).ToBytes()
             );
 
             /* Interpreter Data 

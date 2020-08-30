@@ -1,35 +1,36 @@
-﻿using System.Linq;
-using System.Net;
-using System.Reflection;
-using EventHorizon.Game.I18n;
-using EventHorizon.Game.Server.Zone.Controllers;
-using EventHorizon.Game.Server.Zone.Core;
-using EventHorizon.Game.Server.Zone.Core.JsonConverter;
-using EventHorizon.Game.Server.Zone.Player;
-using EventHorizon.Game.Server.Zone.Plugin;
-using EventHorizon.Game.Server.Zone.Setup;
-using EventHorizon.Identity;
-using EventHorizon.Monitoring;
-using EventHorizon.Performance;
-using EventHorizon.Server.Core;
-using EventHorizon.TimerService;
-using EventHorizon.Zone.System.Admin.ExternalHub;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor;
-using EventHorizon.Zone.System.Editor.ExternalHub;
-using EventHorizon.Zone.System.ModelState;
-using EventHorizon.Zone.System.Player.ExternalHub;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Prometheus;
-
-namespace EventHorizon.Game.Server.Zone
+﻿namespace EventHorizon.Game.Server.Zone
 {
+    using System.Linq;
+    using System.Net;
+    using System.Reflection;
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Game.Server.Zone.Controllers;
+    using EventHorizon.Game.Server.Zone.Core;
+    using EventHorizon.Game.Server.Zone.Core.JsonConverter;
+    using EventHorizon.Game.Server.Zone.Player;
+    using EventHorizon.Game.Server.Zone.Plugin;
+    using EventHorizon.Game.Server.Zone.Setup;
+    using EventHorizon.Identity;
+    using EventHorizon.Monitoring;
+    using EventHorizon.Performance;
+    using EventHorizon.Server.Core;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Admin.ExternalHub;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor;
+    using EventHorizon.Zone.System.Editor.ExternalHub;
+    using EventHorizon.Zone.System.ModelState;
+    using EventHorizon.Zone.System.Player.ExternalHub;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.ResponseCompression;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Newtonsoft.Json;
+    using Prometheus;
+
     public class Startup
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
@@ -89,6 +90,13 @@ namespace EventHorizon.Game.Server.Zone
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
                 })
             ;
+
+            services.AddResponseCompression(options =>
+            {
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" }
+                );
+            });
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
@@ -197,6 +205,7 @@ namespace EventHorizon.Game.Server.Zone
 
                 typeof(SystemClientScriptsExtensions).Assembly,
                 typeof(SystemClientScriptsPluginEditorExtensions).Assembly,
+                typeof(SystemClientScriptsPluginCompilerExtensions).Assembly,
 
                 typeof(SystemPlayerExtensions).Assembly,
                 typeof(SystemPlayerPluginActionExtensions).Assembly,
@@ -204,7 +213,7 @@ namespace EventHorizon.Game.Server.Zone
                 typeof(SystemInteractionExtensions).Assembly,
                 
                 // Dynamically Loaded Plugins
-                typeof(PluginExtensions).Assembly,
+                typeof(Plugin.PluginExtensions).Assembly,
 
                 // Game Specific Loading
                 typeof(GameExtensions).Assembly,
@@ -319,6 +328,13 @@ namespace EventHorizon.Game.Server.Zone
 
                 .AddSystemClientScripts()
                 .AddSystemClientScriptsPluginEditor()
+                .AddSystemClientScriptsPluginCompiler(
+                    options => Configuration.GetSection(
+                        "Plugins:ClientScriptsPluginCompiler"
+                    ).Bind(
+                        options
+                    )
+                )
 
                 .AddSystemPlayer()
                 .AddSystemPlayerPluginAction()
@@ -345,6 +361,8 @@ namespace EventHorizon.Game.Server.Zone
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseStartingCore();
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -430,6 +448,7 @@ namespace EventHorizon.Game.Server.Zone
 
             app.UseSystemClientScripts();
             app.UseSystemClientScriptsPluginEditor();
+            app.UseSystemClientScriptsPluginCompiler();
 
             app.UseSystemPlayer();
             app.UseSystemPlayerPluginAction();

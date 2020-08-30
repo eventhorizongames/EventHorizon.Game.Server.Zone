@@ -3,7 +3,8 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
     using EventHorizon.Zone.Core.Model.FileService;
     using System.IO;
 
-    public class LocalFileSystemFileResolver : FileResolver
+    public class LocalFileSystemFileResolver 
+        : FileResolver
     {
         public bool CreateFile(
             string fileFullName
@@ -94,6 +95,20 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
         ) => File.WriteAllText(
             fileFullName,
             text
+        );
+
+        public byte[] GetFileTextAsBytes(
+            string fileFullName
+        ) => File.ReadAllBytes(
+            fileFullName
+        );
+
+        public void WriteAllBytes(
+            string fileFullName,
+            byte[] bytes
+        ) => File.WriteAllBytes(
+            fileFullName,
+            bytes
         );
     }
 }

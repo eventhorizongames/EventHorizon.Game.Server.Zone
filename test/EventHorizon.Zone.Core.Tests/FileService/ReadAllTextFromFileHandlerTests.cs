@@ -5,37 +5,48 @@ namespace EventHorizon.Zone.Core.Tests.FileService
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
+    using FluentAssertions;
     using Moq;
     using Xunit;
 
     public class ReadAllTextFromFileHandlerTests
     {
         [Fact]
-        public async Task ShouldWriteAllTextWithRequestPropertiesWhenRequestIsHandled()
+        public async Task ShouldGetFileTextWithRequestPropertiesWhenRequestIsHandled()
         {
             // Given
-            var expectedFileFullName = "file-full-name";
-            var expectedText = "file-full-text";
+            var expected = "file-text";
+            var fileFullName = "file-full-name";
 
             var fileResolverMock = new Mock<FileResolver>();
 
+            fileResolverMock.Setup(
+                mock => mock.GetFileText(
+                    fileFullName
+                )
+            ).Returns(
+                expected
+            );
+
             // When
-            var handler = new WriteAllTextToFileHandler(
+            var handler = new ReadAllTextFromFileHandler(
                 fileResolverMock.Object
             );
             var actual = await handler.Handle(
-                new WriteAllTextToFile(
-                    expectedFileFullName,
-                    expectedText
+                new ReadAllTextFromFile(
+                    fileFullName
                 ),
                 CancellationToken.None
             );
 
             // Then
+            actual.Should()
+                .Be(
+                    expected
+                );
             fileResolverMock.Verify(
-                mock => mock.WriteAllText(
-                    expectedFileFullName,
-                    expectedText
+                mock => mock.GetFileText(
+                    fileFullName
                 )
             );
         }

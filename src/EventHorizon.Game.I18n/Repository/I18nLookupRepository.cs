@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using EventHorizon.Game.I18n.Model;
-
 namespace EventHorizon.Game.I18n.Lookup
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using EventHorizon.Game.I18n.Model;
+
     public class I18nLookupRepository : I18nLookup, I18nResolver, I18nRepository
     {
         private static readonly IDictionary<string, string> DEFAULT_LOOKUP = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
@@ -36,7 +36,7 @@ namespace EventHorizon.Game.I18n.Lookup
             ))
             {
                 string translation;
-                if(key == null)
+                if (key == null)
                 {
                     key = "";
                 }

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
     <ProjectReference Include="..\..\src\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
   </ItemGroup>
 

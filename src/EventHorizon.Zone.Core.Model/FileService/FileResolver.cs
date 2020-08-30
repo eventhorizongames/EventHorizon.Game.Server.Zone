@@ -15,6 +15,7 @@ namespace EventHorizon.Zone.Core.Model.FileService
         StandardFileInfo GetFileInfo(
             string fileFullName
         );
+
         /// <summary>
         /// This will take in a file FullName, 
         /// Create if does not exist,
@@ -39,6 +40,13 @@ namespace EventHorizon.Zone.Core.Model.FileService
         void WriteAllText(
             string fileFullName,
             string text
+        );
+        byte[] GetFileTextAsBytes(
+            string fileFullName
+        );
+        void WriteAllBytes(
+            string fileFullName, 
+            byte[] bytes
         );
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
 using FluentAssertions;
@@ -257,6 +258,77 @@ namespace EventHorizon.Zone.Core.Tests.LocalFileSystem
 
             // Then
             actual.Should().Be(
+                expected
+            );
+        }
+
+        [Fact]
+        public void TestShouldReadAllTextAsBytesWhenDoesExist()
+        {
+            // Given
+            var fileContents = "this is the expected text.";
+            var expected = fileContents.ToBytes();
+            var fileFullName = Path.Combine(
+                _fileTestingDirectory,
+                "ExistingFileToDelete.txt"
+            );
+
+            // When
+            var fileInfo = new FileInfo(
+                fileFullName
+            );
+            if (!fileInfo.Directory.Exists)
+            {
+                fileInfo.Directory.Create();
+                File.WriteAllText(
+                    fileFullName,
+                    fileContents
+                );
+            }
+
+            var actual = _fileResolver.GetFileTextAsBytes(
+                fileFullName
+            );
+
+            // Then
+            actual.Should().BeEquivalentTo(
+                expected
+            );
+        }
+
+        [Fact]
+        public void TestShouldCreateNewFileWhenTheFileDoesNotExistsWritingAllBytes()
+        {
+            // Given
+            var fileText = "this is the text to be added to a new file.";
+            var expected = fileText.ToBytes();
+            var fileFullName = Path.Combine(
+                _fileTestingDirectory,
+                "WritingAllBytes.txt"
+            );
+
+            // When
+            var fileInfo = new FileInfo(
+                fileFullName
+            );
+            if (!fileInfo.Directory.Exists)
+            {
+                fileInfo.Directory.Create();
+            }
+            fileInfo.Exists.Should().BeFalse();
+
+            _fileResolver.WriteAllBytes(
+                fileFullName,
+                fileText.ToBytes()
+            );
+
+            // Then
+            File.Exists(
+                fileFullName
+            ).Should().BeTrue();
+            File.ReadAllBytes(
+                fileFullName
+            ).Should().BeEquivalentTo(
                 expected
             );
         }

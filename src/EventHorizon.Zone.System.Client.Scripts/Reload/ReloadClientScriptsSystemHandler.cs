@@ -2,14 +2,16 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
 {
     using EventHorizon.Zone.System.Client.Scripts.Actions.Reload;
     using EventHorizon.Zone.System.Client.Scripts.Compile;
-    using EventHorizon.Zone.System.Client.Scripts.Fetch;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Reload;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
 
-    public class ReloadClientScriptsSystemHandler : IRequestHandler<ReloadClientScriptsSystem>
+    public class ReloadClientScriptsSystemHandler
+        : IRequestHandler<ReloadClientScriptsSystem>
     {
         private readonly IMediator _mediator;
 
@@ -26,7 +28,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
         )
         {
             // Load Client Scripts
-            await _mediator.Publish(
+            await _mediator.Send(
                 new LoadClientScriptsSystemCommand(),
                 cancellationToken
             );

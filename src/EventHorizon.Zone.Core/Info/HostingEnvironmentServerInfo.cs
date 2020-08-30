@@ -2,10 +2,13 @@ namespace EventHorizon.Zone.Core.Info
 {
     using EventHorizon.Zone.Core.Model.Info;
     using Microsoft.AspNetCore.Hosting;
+    using System;
     using System.IO;
 
-    public class HostingEnvironmentServerInfo : ServerInfo
+    public class HostingEnvironmentServerInfo 
+        : ServerInfo
     {
+        public string FileSystemTempPath { get; }
         public string AppDataPath { get; }
         public string SystemPath { get; }
         public string SystemBackupPath { get; }
@@ -23,6 +26,7 @@ namespace EventHorizon.Zone.Core.Info
             IHostingEnvironment hostingEnvironment
         )
         {
+            FileSystemTempPath = GenerateFileSystemTempPath();
             AppDataPath = GenerateAppDataPath(
                 hostingEnvironment
             );
@@ -60,6 +64,11 @@ namespace EventHorizon.Zone.Core.Info
                 hostingEnvironment
             );
         }
+
+        private string GenerateFileSystemTempPath() => Path.Combine(
+            Path.DirectorySeparatorChar.ToString(),
+            "temp"
+        );
 
         private string GenerateAppDataPath(
             IHostingEnvironment hostingEnvironment

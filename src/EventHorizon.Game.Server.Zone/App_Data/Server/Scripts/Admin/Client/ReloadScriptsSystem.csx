@@ -13,7 +13,7 @@
 
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Client.Scripts.Reload;
+using EventHorizon.Zone.System.Client.Scripts.Events.Reload;
 
 var command = Data.Get<IAdminCommand>("Command");
 

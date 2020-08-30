@@ -1,21 +1,22 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Client.Scripts.Model;
-using EventHorizon.Zone.System.Client.Scripts.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Client.Scripts.Load
 {
-    public class LoadClientScriptsSystemCommandHandler : INotificationHandler<LoadClientScriptsSystemCommand>
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+    using MediatR;
+    using EventHorizon.Zone.System.Client.Scripts.Api;
+
+    public class LoadClientScriptsSystemCommandHandler 
+        : IRequestHandler<LoadClientScriptsSystemCommand>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly ClientScriptRepository _clientScriptRepository;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly ClientScriptRepository _clientScriptRepository;
 
         public LoadClientScriptsSystemCommandHandler(
             IMediator mediator,
@@ -28,8 +29,8 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
             _clientScriptRepository = clientScriptRepository;
         }
 
-        public Task Handle(
-            LoadClientScriptsSystemCommand notification,
+        public Task<Unit> Handle(
+            LoadClientScriptsSystemCommand request,
             CancellationToken cancellationToken
         ) => _mediator.Send(
             new ProcessFilesRecursivelyFromDirectory(
@@ -39,7 +40,6 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
                 {
                     {
                         "RootPath",
-                        // $"{_serverInfo.ClientScriptsPath}{Path.DirectorySeparatorChar}"
                         _serverInfo.ClientScriptsPath
                     }
                 }
@@ -77,11 +77,11 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
         )
         {
             var scriptType = ClientScriptType.Unknown;
-            if (fileInfo.Name.EndsWith(".js"))
+            if (fileInfo.Extension == ".js")
             {
                 scriptType = ClientScriptType.JavaScript;
             }
-            else if (fileInfo.Name.EndsWith(".csx"))
+            else if (fileInfo.Extension == ".csx")
             {
                 scriptType = ClientScriptType.CSharp;
             }

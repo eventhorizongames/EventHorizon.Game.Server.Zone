@@ -1,13 +1,13 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-
 namespace EventHorizon.Zone.System.Player.ExternalHub
 {
+    using global::System;
+    using global::System.Linq;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Player.Events.Connected;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.SignalR;
+
     [Authorize]
     public partial class PlayerHub : Hub
     {
