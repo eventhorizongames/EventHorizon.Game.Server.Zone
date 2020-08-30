@@ -26,7 +26,8 @@
 
             var scriptContent = "script-assembly";
             var scriptAssembly = "script-assembly";
-            var compiledSoruce = "                        \r\n\r\n\r\nscript-assembly\r\n";
+            var nl = Environment.NewLine;
+            var compiledSoruce = $"                        {nl}{nl}{nl}script-assembly{nl}";
             var generatedFileFullName = "generated-file-full-name";
             var scriptAssemblyBytes = scriptAssembly.ToBytes();
 
