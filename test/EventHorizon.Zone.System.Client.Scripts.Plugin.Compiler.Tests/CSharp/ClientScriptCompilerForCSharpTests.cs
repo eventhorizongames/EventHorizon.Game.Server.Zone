@@ -21,9 +21,6 @@
         public async Task ShouldReturnHashAndEncodedFileContentFromAssemblyEvaluator()
         {
             // Given
-            var expectedHash = "7922fc40b4443dc5cc4170bed649ab0989f189a9525e6ac362999f2eca9b331f";
-            var expectedEncodedScriptAssembly = "c2NyaXB0LWFzc2VtYmx5";
-
             var scriptContent = "script-assembly";
             var scriptAssembly = "script-assembly";
             var nl = Environment.NewLine;
@@ -31,10 +28,8 @@
             var generatedFileFullName = "generated-file-full-name";
             var scriptAssemblyBytes = scriptAssembly.ToBytes();
 
-            var expected = new CompiledScriptResult(
-                expectedHash,
-                expectedEncodedScriptAssembly
-            );
+            var expected = "c2NyaXB0LWFzc2VtYmx5";
+
             var scripts = new List<ClientScript>
             {
                 ClientScript.Create(
@@ -90,7 +85,8 @@
             );
 
             // Then
-            actual.Should().Be(
+            actual.Hash.Should().NotBeNullOrEmpty();
+            actual.ScriptAssembly.Should().Be(
                 expected
             );
         }
