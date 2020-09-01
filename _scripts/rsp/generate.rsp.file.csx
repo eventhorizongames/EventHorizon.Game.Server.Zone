@@ -13,19 +13,42 @@ var fileContentLines = new Dictionary<string, string>()
     {   "using.System", "/u:System" }
 };
 
-// Generate EventHorizon Script Services DLL dependencies
-var allServiesFiles = Directory.GetFiles(
+// Generate EventHorizon Server Script Services DLL dependencies
+var allServerServiesFiles = Directory.GetFiles(
     "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish",
     "*.dll",
     SearchOption.TopDirectoryOnly
 );
 
-foreach (var fileName in allServiesFiles)
+foreach (var fileName in allServerServiesFiles)
 {
     var file = new FileInfo(
         fileName
     );
     var stringToWrite = $"/r:src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish/{file.Name}";
+    if (!fileContentLines.ContainsKey($"load.{file.Name}"))
+    {
+        fileContentLines.Add(
+            $"load.{file.Name}",
+            stringToWrite
+        );
+    }
+}
+
+// Generate EventHorizon Client Script Services DLL dependencies
+// src\EventHorizon.Zone.System.Client.Scripts.Services\EventHorizon.Zone.System.Client.Scripts.Services.csproj
+var allClientServiesFiles = Directory.GetFiles(
+    "src/EventHorizon.Zone.System.Client.Scripts.Services/bin/Debug/netstandard2.1/publish",
+    "*.dll",
+    SearchOption.TopDirectoryOnly
+);
+
+foreach (var fileName in allClientServiesFiles)
+{
+    var file = new FileInfo(
+        fileName
+    );
+    var stringToWrite = $"/r:src/EventHorizon.Zone.System.Client.Scripts.Services/bin/Debug/netstandard2.1/publish/{file.Name}";
     if (!fileContentLines.ContainsKey($"load.{file.Name}"))
     {
         fileContentLines.Add(

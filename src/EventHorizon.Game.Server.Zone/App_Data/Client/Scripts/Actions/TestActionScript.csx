@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 using EventHorizon.Observer.Model;
-using EventHorizon.Game.Client.Engine.Events.Testing;
-using EventHorizon.Game.Client.Engine.Model.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Model.Scripting.Services;
-using EventHorizon.Game.Client.Engine.Model.Scripting.Data;
+using EventHorizon.Game.Client.Engine.Scripting.Api;
+using EventHorizon.Game.Client.Engine.Scripting.Services;
+using EventHorizon.Game.Client.Engine.Scripting.Data;
+using EventHorizon.Game.Client.Engine.Testing.Events;
 
 public class __SCRIPT__
     : IClientScript

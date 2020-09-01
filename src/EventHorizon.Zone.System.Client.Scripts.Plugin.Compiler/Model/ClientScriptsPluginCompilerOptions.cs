@@ -4,7 +4,8 @@
 
     public class ClientScriptsPluginCompilerOptions
     {
-        public string ClientScriptsSdkPackage { get; set; }
-        public string ClientScriptsSdkPackageVersion { get; set; }
+        public string SdkPackage { get; set; }
+        public string SdkPackageVersion { get; set; }
+        public bool IncludePrerelease { get; set; }
     }
 }

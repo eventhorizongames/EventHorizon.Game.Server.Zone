@@ -5,14 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-var publishedFolder = "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish";
-// Remove the Publish folder for Script Services
-Directory.Delete(
-    publishedFolder,
-    true
+CleanupDirectory(
+    "src/EventHorizon.Zone.System.Server.Scripts.Services/bin/Debug/netstandard2.1/publish"
+);
+CleanupDirectory(
+    "src/EventHorizon.Zone.System.Client.Scripts.Services/bin/Debug/netstandard2.1/publish"
 );
 
-Console.WriteLine(
-    "Cleaned Published Folder: \n{0}",
-    publishedFolder
-);
+void CleanupDirectory(
+    string directoryToClean
+)
+{
+    Directory.Delete(
+        directoryToClean,
+        true
+    );
+    Console.WriteLine(
+        "Cleaned Published Directory: \n\t{0}",
+        directoryToClean
+    );
+}

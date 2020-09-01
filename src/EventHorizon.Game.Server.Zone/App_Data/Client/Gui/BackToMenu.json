@@ -29,16 +29,24 @@
                             "sort": 0,
                             "templateId": "platform-button",
                             "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
                                 "width": "130px",
-                                "height": "35px",
+                                "height": "45px",
                                 "fontSize": 16,
                                 "color": "white",
                                 "background": "black",
+                                "hoverCursor": "pointer",
                                 "disabledColor": "gray",
                                 "disabledHoverCursor": "mouse",
                                 "horizontalAlignment": 2,
                                 "verticalAlignment": 2,
-                                "text": "Back to Main Menu TODO"
+                                "text": "Back to Main Menu TODO",
+                                "textBlockOptions": {
+                                    "text": "Back to Main Menu TODO",
+                                    "textHorizontalAlignment": 2
+                                }
                             }
                         }
                     ]

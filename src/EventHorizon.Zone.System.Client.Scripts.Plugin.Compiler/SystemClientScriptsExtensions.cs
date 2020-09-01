@@ -19,9 +19,9 @@ namespace EventHorizon.Game.Server.Zone
             var compilerOptions = new ClientScriptsPluginCompilerOptions
             {
                 // Default/Fall-back settings
-                ClientScriptsSdkPackage = "EventHorizon.Game.Client.Scripts.SDK-Dev",
+                SdkPackage = "EventHorizon.Game.Client.Scripts.SDK-Dev",
                 // Default/Fall-back settings
-                ClientScriptsSdkPackageVersion = "0.0.0-dev*",
+                SdkPackageVersion = "0.0.*",
             };
             options(compilerOptions);
 
@@ -50,9 +50,9 @@ namespace EventHorizon.Game.Server.Zone
             return services.AddPluginFramework()
                 .AddPluginCatalog(
                     new NugetPackagePluginCatalog(
-                        options.ClientScriptsSdkPackage,
-                        packageVersion: options.ClientScriptsSdkPackageVersion,
-                        includePrerelease: true
+                        options.SdkPackage,
+                        packageVersion: options.SdkPackageVersion,
+                        includePrerelease: options.IncludePrerelease
                     )
                 )
             ;
