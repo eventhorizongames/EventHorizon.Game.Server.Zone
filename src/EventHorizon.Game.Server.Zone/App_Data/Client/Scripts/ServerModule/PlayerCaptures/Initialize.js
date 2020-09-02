@@ -45,7 +45,7 @@ $services.eventService.on(
 // Add Events to the $data, that can be disposed of later
 $data.eventsToRemove = [];
 $data.eventsToRemove.push({
-    name: "MessageFromSystem",
+    name: "EntityClientChanged",
     handler: onEntityClientChangedHandler,
     context: this,
 });

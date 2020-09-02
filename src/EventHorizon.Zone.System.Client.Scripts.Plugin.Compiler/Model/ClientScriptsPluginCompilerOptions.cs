@@ -7,5 +7,6 @@
         public string SdkPackage { get; set; }
         public string SdkPackageVersion { get; set; }
         public bool IncludePrerelease { get; set; }
+        public string NuGetFeed { get; set; }
     }
 }

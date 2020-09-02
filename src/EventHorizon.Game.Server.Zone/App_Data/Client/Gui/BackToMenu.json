@@ -44,7 +44,7 @@
                                 "verticalAlignment": 2,
                                 "text": "Back to Main Menu TODO",
                                 "textBlockOptions": {
-                                    "text": "Back to Main Menu TODO",
+                                    "__text": "Back to Main Menu TODO",
                                     "textHorizontalAlignment": 2
                                 }
                             }

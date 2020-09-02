@@ -1,13 +1,8 @@
 /**
- * $services: {
- *   logger: ILogger;
- *   eventService: IEventService;
- *   commandService: ICommandService;
- * }
- * $data: {
- *  eventsToDispose: Array<{ name:string; handler: ()=>void; context: any; }>;
- * }
- */
+data:
+    observer: ObserverBase
+    active: bool
+*/
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,6 +18,7 @@ using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Gui.Activate;
 using EventHorizon.Game.Client.Engine.Gui.Changed;
 using EventHorizon.Game.Server.ServerModule.BackToMenu.Reload;
+using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
 
 public class __SCRIPT__
     : IClientScript
@@ -34,14 +30,11 @@ public class __SCRIPT__
         ScriptData data
     )
     {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogInformation("Back To Menu - Initialize Script");
+
         var layoutId = "GUI_BackToMenu.json";
         var guiId = layoutId;
-        var logger = services.Logger<__SCRIPT__>();
-        data.Set(
-            "active",
-            false
-        );
-        logger.LogInformation("Back To Menu - Initialize");
 
         Func<Task> BackToMainMenuHandler = async () =>
         {
@@ -50,62 +43,32 @@ public class __SCRIPT__
             );
         };
 
-        Func<Task> OnChange = async () =>
-        {
-            if (data.Get<bool>("active"))
-            {
-                await services.Mediator.Send(
-                    new DisposeOfGuiCommand(
-                        guiId
-                    )
-                );
-                data.Set(
-                    "active",
-                    false
-                );
-            }
-            var result = await services.Mediator.Send(
-                new CreateGuiCommand(
-                    guiId,
-                    layoutId,
-                    new List<IGuiControlData>
-                    {
-                        new GuiControlDataModel
-                        {
-                            ControlId = "back_to_main_menu-button",
-                            Options = new GuiControlOptionsModel
-                            {
-                                { "textKey", "account_BackToMainMenu" },
-                                { "text", "Hello" },
-                                { "onClick", BackToMainMenuHandler },
-                            },
-                        },
-                    }
-                )
-            );
-
-            if (result.Success)
-            {
-                await services.Mediator.Send(
-                    new ActivateGuiCommand(
-                        guiId
-                    )
-                );
-                data.Set(
-                    "active",
-                    true
-                );
-            }
-        };
-
-        var observer = new __SCRIPT__Observer(
+        var observer = new ScriptGuiLayoutDataChangedObserver(
             services,
             data,
             layoutId,
-            OnChange
+            guiId,
+            () => new List<IGuiControlData>
+            {
+                new GuiControlDataModel
+                {
+                    ControlId = "back_to_main_menu-button",
+                    Options = new GuiControlOptionsModel
+                    {
+                        {
+                            "textBlockOptions",
+                            new GuiControlOptionsModel
+                            {
+                                { "textKey", "account_BackToMainMenu" },
+                                { "text", "Back to Main Menu" },
+                            }
+                        },
+                        { "onClick", BackToMainMenuHandler },
+                    },
+                },
+            }
         );
 
-        System.Console.WriteLine("Register Observer");
         services.RegisterObserver(
             observer
         );
@@ -115,40 +78,6 @@ public class __SCRIPT__
             observer
         );
 
-        await OnChange();
-    }
-}
-
-public class __SCRIPT__Observer
-    : GuiLayoutDataChangedEventObserver
-{
-    private readonly ScriptServices _scriptServices;
-    private readonly ScriptData _scriptData;
-    private readonly string _layoutId;
-    private readonly Func<Task> _onChange;
-
-    public __SCRIPT__Observer(
-        ScriptServices services,
-        ScriptData data,
-        string layoutId,
-        Func<Task> onChange
-    )
-    {
-        _scriptServices = services;
-        _scriptData = data;
-        _layoutId = layoutId;
-        _onChange = onChange;
-    }
-
-    public Task Handle(
-        GuiLayoutDataChangedEvent args
-    )
-    {
-        System.Console.WriteLine("HI from Script! " + args.Id);
-        if (args.Id == _layoutId)
-        {
-            return _onChange();
-        }
-        return Task.CompletedTask;
+        await observer.OnChange();
     }
 }

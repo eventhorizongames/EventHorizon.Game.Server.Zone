@@ -16,12 +16,12 @@ namespace EventHorizon.Game.Server.Zone
             Action<ClientScriptsPluginCompilerOptions> options
         )
         {
+            // Default/Fall-back settings
             var compilerOptions = new ClientScriptsPluginCompilerOptions
             {
-                // Default/Fall-back settings
                 SdkPackage = "EventHorizon.Game.Client.Scripts.SDK-Dev",
-                // Default/Fall-back settings
                 SdkPackageVersion = "0.0.*",
+                NuGetFeed = "https://api.nuget.org/v3/index.json",
             };
             options(compilerOptions);
 
@@ -52,7 +52,11 @@ namespace EventHorizon.Game.Server.Zone
                     new NugetPackagePluginCatalog(
                         options.SdkPackage,
                         packageVersion: options.SdkPackageVersion,
-                        includePrerelease: options.IncludePrerelease
+                        includePrerelease: options.IncludePrerelease,
+                        packageFeed: new NuGetFeed(
+                            "personal-nuget-feed",
+                            options.NuGetFeed
+                        )
                     )
                 )
             ;

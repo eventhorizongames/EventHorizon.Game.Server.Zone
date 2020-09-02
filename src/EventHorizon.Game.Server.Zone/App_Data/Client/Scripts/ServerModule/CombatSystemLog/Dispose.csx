@@ -1,7 +1,6 @@
-/**
+/*
 data:
     observer: ObserverBase
-    active: bool
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,23 +12,38 @@ using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Observer.Model;
+using EventHorizon.Game.Client.Core.Timer.Api;
 
 public class __SCRIPT__
     : IClientScript
 {
     public string Id => "__SCRIPT__";
 
-    public async Task Run(
+    public Task Run(
         ScriptServices services,
         ScriptData data
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("Back To Menu - Dispose Script");
-        
-        var guiId = "GUI_BackToMenu.json";
-        var observer = data.Get<ObserverBase>(
+        logger.LogInformation("Combat System Log - Dispose Script");
+
+        UnRegisterObserver(
+            services,
+            data,
             "observer"
+        );
+
+        return Task.CompletedTask;
+    }
+
+    private void UnRegisterObserver(
+        ScriptServices services,
+        ScriptData data,
+        string observerName
+    )
+    {
+        var observer = data.Get<ObserverBase>(
+            observerName
         );
 
         if (observer != null)
@@ -38,10 +52,5 @@ public class __SCRIPT__
                 observer
             );
         }
-        await services.Mediator.Send(
-            new DisposeOfGuiCommand(
-                guiId
-            )
-        );
     }
 }
