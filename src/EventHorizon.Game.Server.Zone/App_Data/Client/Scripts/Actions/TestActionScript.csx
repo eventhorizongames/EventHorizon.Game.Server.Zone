@@ -13,7 +13,7 @@ public class __SCRIPT__
 {
     public string Id => "__SCRIPT__";
 
-    public async Task Run(
+    public Task Run(
         ScriptServices services,
         ScriptData data
     )
@@ -34,6 +34,8 @@ public class __SCRIPT__
             "eventList", 
             eventList
         );
+
+        return Task.CompletedTask;
     }
 }
 

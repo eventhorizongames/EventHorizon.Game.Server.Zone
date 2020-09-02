@@ -14,6 +14,7 @@
     using global::System.Security.Cryptography;
     using global::System.Text;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+    using EventHorizon.Zone.Core.Model.Info;
 
     public class ClientScriptCompilerForCSharp
         : ClientScriptCompiler
@@ -39,18 +40,21 @@
 
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
         private readonly AssemblyBuilder _builder;
         private readonly ClientScriptsConsolidator _clientScriptsConsolidator;
 
         public ClientScriptCompilerForCSharp(
             ILogger<ClientScriptCompilerForCSharp> logger,
             IMediator mediator,
+            ServerInfo serverInfo,
             AssemblyBuilder builder,
             ClientScriptsConsolidator clientScriptsConsolidator
         )
         {
             _logger = logger;
             _mediator = mediator;
+            _serverInfo = serverInfo;
             _builder = builder;
             _clientScriptsConsolidator = clientScriptsConsolidator;
         }
@@ -59,6 +63,7 @@
             IEnumerable<ClientScript> scripts
         )
         {
+            var consolidatedScripts = string.Empty;
             try
             {
                 var usingList = new List<string>();
@@ -72,7 +77,7 @@
                     usingList
                 );
 
-                var consolidatedClasses = AssemblyScriptTemplate.Replace(
+                consolidatedScripts = AssemblyScriptTemplate.Replace(
                     "[[USING_SECTION]]",
                     usingSection
                 ).Replace(
@@ -96,12 +101,12 @@
 
                 // Create Assembly, returns reference to generated File
                 var generatedFileFullName = await _builder.Compile(
-                    consolidatedClasses
+                    consolidatedScripts
                 );
 
                 // Create Hash For Content
                 var scriptHash = CreateHashFromContent(
-                    consolidatedClasses
+                    consolidatedScripts
                 );
 
                 // Create EncodedScriptFile
@@ -128,10 +133,21 @@
             }
             catch (Exception ex)
             {
+                var consolidatedScriptsSavePath = Path.Combine(
+                    _serverInfo.FileSystemTempPath,
+                    "ConsolidatedScripts.csx"
+                );
+                await WriteAllTextToFile(
+                    consolidatedScriptsSavePath,
+                    consolidatedScripts
+                );
+
                 _logger.LogError(
                     ex,
-                    "Exception thrown while compiling"
+                    "Exception thrown while compiling. \n\r\tCheckout {ConsolidatedScriptsSavePath} for the Generated ConsolidatedScripts.",
+                    consolidatedScriptsSavePath
                 );
+
                 // TODO: Look a more informative error result
                 return new CompiledScriptResult(
                     "csharp_failed_to_compile"
@@ -144,6 +160,16 @@
         ) => _mediator.Send(
             new ReadAllTextAsBytesFromFile(
                 fileFullName
+            )
+        );
+
+        private Task WriteAllTextToFile(
+            string fileFullName,
+            string fileContents
+        ) => _mediator.Send(
+            new WriteAllTextToFile(
+                fileFullName,
+                fileContents
             )
         );
 

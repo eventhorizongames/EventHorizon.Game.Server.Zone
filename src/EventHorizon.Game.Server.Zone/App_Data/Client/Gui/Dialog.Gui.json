@@ -71,15 +71,22 @@
                             "sort": 0,
                             "templateId": "platform-button",
                             "options": {
+                                "__metadata": {
+                                    "modelOptions": [ "textBlockOptions" ]
+                                },
                                 "height": "50px",
                                 "width": "250px",
-                                "textKey": "dialog::button::hide",
                                 "fontSize": 16,
                                 "color": "white",
                                 "background": "black",
                                 "hoverColor": "#151414",
                                 "disabledHoverCursor": "mouse",
-                                "onClickScript": "Dialog_Hide.js"
+                                "onClickScript": "Dialog_Hide.js",
+                                "textKey": "dialog::button::hide",
+                                "textBlockOptions": {
+                                    "textKey": "dialog::button::hide",
+                                    "textHorizontalAlignment": 2
+                                }
                             }
                         }
                     ]

@@ -29,39 +29,33 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("Capture Messaging - Dispose Script");
+        logger.LogInformation("Gui - Dispose Script");
 
-        var layoutId = "GUI_CaptureMessaging.json";
-        var guiId = layoutId;
 
-        UnRegisterObserver(
-            services,
-            data,
-            ScriptGuiLayoutDataChangedObserver.DataKey(
-                layoutId,
-                guiId,
-                "observer"
-            )
-        );
-        UnRegisterObserver(
-            services,
-            data,
-            "messageObserver"
-        );
+        var layoutList = data.Get<List<string>>(
+            "layoutList"
+        ) ?? new List<string>();
 
-        var timer = data.Get<ITimerService>(
-            "timer"
-        );
-        if (timer != null)
+        foreach (var layoutId in layoutList)
         {
-            timer.Clear();
-        }
+            var guiId = layoutId;
 
-        await services.Mediator.Send(
-            new DisposeOfGuiCommand(
-                guiId
-            )
-        );
+            UnRegisterObserver(
+                services,
+                data,
+                ScriptGuiLayoutDataChangedObserver.DataKey(
+                    layoutId,
+                    guiId,
+                    "observer"
+                )
+            );
+
+            await services.Mediator.Send(
+                new DisposeOfGuiCommand(
+                    guiId
+                )
+            );
+        }
     }
 
     private void UnRegisterObserver(

@@ -7,6 +7,9 @@
             "sort": 0,
             "templateId": "platform-button",
             "options": {
+                "__metadata": {
+                    "modelOptions": [ "textBlockOptions" ]
+                },
                 "height": "26px",
                 "width": "100%",
                 "textKey": "dialog::button::hide",
@@ -18,6 +21,7 @@
                 "hoverColor": "#151414",
                 "onClickScript": "Local_GuiLayout_Hide.js",
                 "textBlockOptions": {
+                    "textKey": "dialog::button::hide",
                     "paddingLeft": "5px",
                     "resizeToFit": true,
                     "textHorizontalAlignment": 0

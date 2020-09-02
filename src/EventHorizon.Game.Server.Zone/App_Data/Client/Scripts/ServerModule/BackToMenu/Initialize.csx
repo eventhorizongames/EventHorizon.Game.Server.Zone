@@ -74,7 +74,11 @@ public class __SCRIPT__
         );
 
         data.Set(
-            "observer",
+            ScriptGuiLayoutDataChangedObserver.DataKey(
+                layoutId,
+                guiId,
+                "observer"
+            ),
             observer
         );
 

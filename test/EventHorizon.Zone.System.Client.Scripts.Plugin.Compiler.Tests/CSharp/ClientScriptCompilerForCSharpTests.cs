@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests.CSharp
 {
     using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
@@ -8,6 +9,7 @@
     using FluentAssertions;
     using global::System;
     using global::System.Collections.Generic;
+    using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -17,14 +19,15 @@
 
     public class ClientScriptCompilerForCSharpTests
     {
+        private static readonly string nl = Environment.NewLine;
+
         [Fact]
         public async Task ShouldReturnHashAndEncodedFileContentFromAssemblyEvaluator()
         {
             // Given
             var scriptContent = "script-assembly";
             var scriptAssembly = "script-assembly";
-            var nl = Environment.NewLine;
-            var compiledSoruce = $"                        {nl}{nl}{nl}script-assembly{nl}";
+            var consolidatedScripts = $"                        {nl}{nl}{nl}script-assembly{nl}";
             var generatedFileFullName = "generated-file-full-name";
             var scriptAssemblyBytes = scriptAssembly.ToBytes();
 
@@ -42,6 +45,7 @@
 
             var loggerMock = new Mock<ILogger<ClientScriptCompilerForCSharp>>();
             var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
             var assemblyBuilderMock = new Mock<AssemblyBuilder>();
             var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
 
@@ -56,7 +60,7 @@
 
             assemblyBuilderMock.Setup(
                 mock => mock.Compile(
-                    compiledSoruce
+                    consolidatedScripts
                 )
             ).ReturnsAsync(
                 generatedFileFullName
@@ -77,6 +81,7 @@
             var compiler = new ClientScriptCompilerForCSharp(
                 loggerMock.Object,
                 mediatorMock.Object,
+                serverInfoMock.Object,
                 assemblyBuilderMock.Object,
                 clientScriptsConsolidatorMock.Object
             );
@@ -95,14 +100,22 @@
         public async Task ShouldReturnErrorCodeResultOnAnyException()
         {
             // Given
+            var fileSystemTempPath = "file-system-temp-path";
             var expected = new CompiledScriptResult(
                 "csharp_failed_to_compile"
             );
 
             var loggerMock = new Mock<ILogger<ClientScriptCompilerForCSharp>>();
             var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
             var assemblyBuilderMock = new Mock<AssemblyBuilder>();
             var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
+
+            serverInfoMock.Setup(
+                mock => mock.FileSystemTempPath
+            ).Returns(
+                fileSystemTempPath
+            );
 
             clientScriptsConsolidatorMock.Setup(
                 mock => mock.IntoSingleTemplatedString(
@@ -117,6 +130,7 @@
             var compiler = new ClientScriptCompilerForCSharp(
                 loggerMock.Object,
                 mediatorMock.Object,
+                serverInfoMock.Object,
                 assemblyBuilderMock.Object,
                 clientScriptsConsolidatorMock.Object
             );
@@ -128,6 +142,76 @@
             // Then
             actual.Should().Be(
                 expected
+            );
+        }
+
+        [Fact]
+        public async Task ShouldSaveFileOfConsolidatedScriptsWhenErrorIsCaught()
+        {
+            // Given
+            var scriptClassesConsolidated = "script-classes-consolidated";
+            var fileSystemTempPath = "file-system-temp-path";
+            var fileFullName = Path.Combine(
+                fileSystemTempPath,
+                "ConsolidatedScripts.csx"
+            );
+            var consolidatedScripts = $"                        {nl}{nl}{nl}{scriptClassesConsolidated}{nl}";
+            var fileContents = consolidatedScripts;
+            var expected = new WriteAllTextToFile(
+                fileFullName,
+                fileContents
+            );
+
+            var loggerMock = new Mock<ILogger<ClientScriptCompilerForCSharp>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var assemblyBuilderMock = new Mock<AssemblyBuilder>();
+            var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
+
+            serverInfoMock.Setup(
+                mock => mock.FileSystemTempPath
+            ).Returns(
+                fileSystemTempPath
+            );
+
+            assemblyBuilderMock.Setup(
+                mock => mock.Compile(
+                    It.IsAny<string>()
+                )
+            ).Throws(
+                new Exception("error")
+            );
+
+            clientScriptsConsolidatorMock.Setup(
+                mock => mock.IntoSingleTemplatedString(
+                    It.IsAny<IList<ClientScript>>(),
+                    ref It.Ref<List<string>>.IsAny
+                )
+            ).Returns(
+                scriptClassesConsolidated
+            );
+
+            // When
+            var compiler = new ClientScriptCompilerForCSharp(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                assemblyBuilderMock.Object,
+                clientScriptsConsolidatorMock.Object
+            );
+            var actual = await compiler.Compile(
+                new List<ClientScript>()
+            );
+
+
+            // Then
+            actual.Success.Should().BeFalse();
+
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expected,
+                    CancellationToken.None
+                )
             );
         }
     }

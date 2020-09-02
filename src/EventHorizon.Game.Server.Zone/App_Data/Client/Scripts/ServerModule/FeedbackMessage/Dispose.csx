@@ -1,7 +1,9 @@
-/**
+/*
 data:
-    observer: ObserverBase
     active: bool
+    observer: ObserverBase
+    messageObserver: ObserverBase
+    timer: ITimerService
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +15,7 @@ using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Observer.Model;
+using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
 
 public class __SCRIPT__
@@ -26,16 +29,49 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("Back To Menu - Dispose Script");
-        
-        var layoutId = "GUI_BackToMenu.json";
+        logger.LogInformation("Feedback Message - Dispose Script");
+
+        var layoutId = "GUI_FeedbackMessage.json";
         var guiId = layoutId;
-        var observer = data.Get<ObserverBase>(
+
+        UnRegisterObserver(
+            services,
+            data,
             ScriptGuiLayoutDataChangedObserver.DataKey(
                 layoutId,
                 guiId,
                 "observer"
             )
+        );
+        UnRegisterObserver(
+            services,
+            data,
+            "messageObserver"
+        );
+
+        var timer = data.Get<ITimerService>(
+            "timer"
+        );
+        if (timer != null)
+        {
+            timer.Clear();
+        }
+
+        await services.Mediator.Send(
+            new DisposeOfGuiCommand(
+                guiId
+            )
+        );
+    }
+
+    private void UnRegisterObserver(
+        ScriptServices services,
+        ScriptData data,
+        string observerName
+    )
+    {
+        var observer = data.Get<ObserverBase>(
+            observerName
         );
 
         if (observer != null)
@@ -44,10 +80,5 @@ public class __SCRIPT__
                 observer
             );
         }
-        await services.Mediator.Send(
-            new DisposeOfGuiCommand(
-                guiId
-            )
-        );
     }
 }

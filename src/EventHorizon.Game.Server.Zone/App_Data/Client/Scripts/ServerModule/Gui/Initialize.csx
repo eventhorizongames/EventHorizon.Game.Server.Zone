@@ -2,7 +2,6 @@
 data:
     active: bool
     observer: ObserverBase
-    messageObserver: ObserverBase
     timer: ITimerService
 */
 using System;
@@ -26,6 +25,7 @@ using EventHorizon.Game.Client.Engine.Gui.Update;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Hide;
 using EventHorizon.Game.Client.Engine.Gui.Show;
+using EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display;
 
 public class __SCRIPT__
     : IClientScript
@@ -38,53 +38,50 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("Capture Messaging - Initialize Script");
+        logger.LogInformation("GUI - Initialize Script");
 
-        var layoutId = "GUI_CaptureMessaging.json";
-        var guiId = layoutId;
+        var layoutList = new List<string>
+        {
+            "gui_dialog"
+        };
 
-        var observer = new ScriptGuiLayoutDataChangedObserver(
-            services,
-            data,
-            layoutId,
-            guiId,
-            () => new List<IGuiControlData>()
-        );
+        foreach (var layoutId in layoutList)
+        {
+            var guiId = layoutId;
 
-        data.Set(
-            ScriptGuiLayoutDataChangedObserver.DataKey(
+            var observer = new ScriptGuiLayoutDataChangedObserver(
+                services,
+                data,
                 layoutId,
                 guiId,
-                "observer"
-            ),
-            observer
-        );
+                () => new List<IGuiControlData>()
+            );
 
-        services.RegisterObserver(
-            observer
-        );
+            data.Set(
+                ScriptGuiLayoutDataChangedObserver.DataKey(
+                    layoutId,
+                    guiId,
+                    "observer"
+                ),
+                observer
+            );
 
-        await observer.OnChange();
+            services.RegisterObserver(
+                observer
+            );
 
-        var messageObserver = new __SCRIPT__Observer(
-            services,
-            data,
-            layoutId,
-            guiId
-        );
+            await observer.OnChange();
+        }
+
         data.Set(
-            "messageObserver",
-            messageObserver
-        );
-        services.RegisterObserver(
-            messageObserver
+            "layoutList",
+            layoutList
         );
     }
 }
 
 public class __SCRIPT__Observer
-    : ClientActionShowFiveSecondCaptureMessageEventObserver,
-    ClientActionShowTenSecondCaptureMessageEventObserver
+    : DisplayFeedbackMessageEventObserver
 {
     private readonly ScriptServices _scriptServices;
     private readonly ScriptData _scriptData;
@@ -104,40 +101,18 @@ public class __SCRIPT__Observer
         _guiId = guiId;
     }
 
-    public Task Handle(
-        ClientActionShowFiveSecondCaptureMessageEvent notification
-    )
-    {
-        return ShowMessage(
-            _scriptServices.Translate(
-                "game:dontHaveTime"
-            )
-        );
-    }
-
-    public Task Handle(
-        ClientActionShowTenSecondCaptureMessageEvent notification
-    )
-    {
-        return ShowMessage(
-            _scriptServices.Translate(
-                "game:stillHaveTime"
-            )
-        );
-    }
-
-    private async Task ShowMessage(
-        string message
+    public async Task Handle(
+        DisplayFeedbackMessageEvent notification
     )
     {
         await _scriptServices.Mediator.Publish(
             new ClientActionMessageFromSystemEvent(
-                message,
+                notification.Message,
+                new GuiControlOptionsModel(),
                 new GuiControlOptionsModel
                 {
-                    { "color", "green" }
-                },
-                new GuiControlOptionsModel()
+                    { "color", "red" }
+                }
             )
         );
 
@@ -149,7 +124,8 @@ public class __SCRIPT__Observer
                     ControlId = "capture_messaging-text",
                     Options = new GuiControlOptionsModel
                     {
-                        { "text", message }
+                        { "color", "red" },
+                        { "text", notification.Message },
                     }
                 }
             )
