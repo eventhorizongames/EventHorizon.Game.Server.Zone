@@ -55,14 +55,6 @@ public class __SCRIPT__
                     ControlId = "back_to_main_menu-button",
                     Options = new GuiControlOptionsModel
                     {
-                        {
-                            "textBlockOptions",
-                            new GuiControlOptionsModel
-                            {
-                                { "textKey", "account_BackToMainMenu" },
-                                { "text", "Back to Main Menu" },
-                            }
-                        },
                         { "onClick", BackToMainMenuHandler },
                     },
                 },

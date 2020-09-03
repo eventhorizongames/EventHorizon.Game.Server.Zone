@@ -96,7 +96,7 @@ public class __SCRIPT__Observer
                     { "color", "red" },
                     { 
                         "text", 
-                        _scriptServices.Translate(
+                        _scriptServices.Localize(
                             "combatSystem:system"
                         ) 
                     },

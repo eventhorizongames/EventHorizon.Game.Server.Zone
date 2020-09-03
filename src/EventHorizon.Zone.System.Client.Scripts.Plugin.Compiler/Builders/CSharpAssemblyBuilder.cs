@@ -59,6 +59,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Builders
             string tempFile
         )
         {
+            // TODO: Create GeneratedPath on ServerInfo
             var path = Path.Combine(
                 _serverInfo.AppDataPath,
                 "_generated"

@@ -42,9 +42,9 @@
                                 "disabledHoverCursor": "mouse",
                                 "horizontalAlignment": 2,
                                 "verticalAlignment": 2,
-                                "text": "Back to Main Menu TODO",
+                                "text": "Back to Main Menu text",
                                 "textBlockOptions": {
-                                    "__text": "Back to Main Menu TODO",
+                                    "textKey": "account_BackToMainMenu",
                                     "textHorizontalAlignment": 2
                                 }
                             }
