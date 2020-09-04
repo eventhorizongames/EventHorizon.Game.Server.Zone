@@ -1,6 +1,9 @@
 /*
 data:
+    active: bool
     observer: ObserverBase
+    show: bool
+    messageCount: int
 */
 
 using System.Threading.Tasks;

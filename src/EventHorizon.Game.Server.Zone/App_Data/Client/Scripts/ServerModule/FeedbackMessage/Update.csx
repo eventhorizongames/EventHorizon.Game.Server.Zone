@@ -2,6 +2,7 @@
 data:
     observer: ObserverBase
 */
+
 using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;

@@ -1,19 +1,17 @@
-/**
+/*
 data:
     observer: ObserverBase
     active: bool
 */
-using System.Collections;
-using System.Collections.Generic;
+
 using System.Threading.Tasks;
-using System.Threading;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Game.Client.Engine.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Client.Engine.Scripting.Data;
-using EventHorizon.Observer.Model;
 using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
+using EventHorizon.Game.Client.Engine.Scripting.Api;
+using EventHorizon.Game.Client.Engine.Scripting.Data;
+using EventHorizon.Game.Client.Engine.Scripting.Services;
+using EventHorizon.Observer.Model;
+using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
     : IClientScript

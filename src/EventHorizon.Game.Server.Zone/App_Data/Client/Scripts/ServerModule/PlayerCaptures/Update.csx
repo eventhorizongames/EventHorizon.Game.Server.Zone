@@ -5,6 +5,7 @@ data:
     companionsCaught: IList<string>
     currentDisplayedCaught: IList<string>
 */
+
 using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;

@@ -2,14 +2,12 @@
 data:
     active: bool
     observer: ObserverBase
-    messageObserver: ObserverBase
-    timer: ITimerService
+    show: bool
+    messageCount: int
 */
 
 using System.Threading.Tasks;
-using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
@@ -27,33 +25,16 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("Capture Messaging - Dispose Script");
+        logger.LogDebug("SystemLog - Dispose Script");
 
-        var layoutId = "GUI_CaptureMessaging.json";
+        var layoutId = "GUI_System_Log.json";
         var guiId = layoutId;
 
         UnRegisterObserver(
             services,
             data,
-            ScriptGuiLayoutDataChangedObserver.DataKey(
-                layoutId,
-                guiId,
-                "observer"
-            )
+            "observer"
         );
-        UnRegisterObserver(
-            services,
-            data,
-            "messageObserver"
-        );
-
-        var timer = data.Get<ITimerService>(
-            "timer"
-        );
-        if (timer != null)
-        {
-            timer.Clear();
-        }
 
         await services.Mediator.Send(
             new DisposeOfGuiCommand(

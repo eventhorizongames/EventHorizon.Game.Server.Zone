@@ -5,41 +5,27 @@ data:
     companionsCaught: IList<string>
     currentDisplayedCaught: IList<string>
 */
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Threading;
+using EventHorizon.Game.Client.Engine.Entity.Tag;
+using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
+using EventHorizon.Game.Client.Engine.Gui.Activate;
+using EventHorizon.Game.Client.Engine.Gui.Api;
+using EventHorizon.Game.Client.Engine.Gui.Changed;
+using EventHorizon.Game.Client.Engine.Gui.Create;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
+using EventHorizon.Game.Client.Engine.Gui.Generate;
+using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Game.Client.Engine.Gui.Create;
-using EventHorizon.Game.Client.Engine.Gui.Api;
-using EventHorizon.Game.Client.Engine.Gui.Model;
-using EventHorizon.Game.Client.Engine.Gui.Activate;
-using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
-using EventHorizon.Game.Server.ServerModule.CaptureMessaging.ClientAction.Show;
-using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
-using EventHorizon.Game.Client.Engine.Gui.Update;
-using EventHorizon.Game.Client.Core.Timer.Api;
-using EventHorizon.Game.Client.Engine.Gui.Hide;
-using EventHorizon.Game.Client.Engine.Gui.Show;
-using EventHorizon.Game.Server.ServerModule.Game.Query;
-using EventHorizon.Game.Client.Engine.Gui.Changed;
-using System.Linq;
-using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
-using EventHorizon.Game.Client.Engine.Entity.Tag;
-using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-using EventHorizon.Game.Client.Engine.Gui.Generate;
-using EventHorizon.Game.Server.ServerModule.Game.Updated;
-using EventHorizon.Game.Client.Engine.Input.Register;
-using EventHorizon.Game.Client.Engine.Input.Api;
-using EventHorizon.Game.Client.Systems.Entity.Actions;
-using EventHorizon.Game.Client.Systems.Player.Query;
+using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Systems.Player.Changed;
+using EventHorizon.Game.Client.Systems.Player.Query;
 using EventHorizon.Game.Server.ServerModule.Game.Model;
+using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
     : IClientScript
@@ -52,7 +38,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("PlayerCaptures - Initialize Script");
+        logger.LogDebug("PlayerCaptures - Initialize Script");
 
         var layoutId = "GUI_PlayerCaptures.json";
         var guiId = layoutId;

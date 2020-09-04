@@ -2,28 +2,16 @@
 data:
     observer: ObserverBase
 */
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
-using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
+using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Game.Client.Engine.Gui.Create;
-using EventHorizon.Game.Client.Engine.Gui.Api;
-using EventHorizon.Game.Client.Engine.Gui.Model;
-using EventHorizon.Game.Client.Engine.Gui.Activate;
-using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
-using EventHorizon.Game.Server.ServerModule.CaptureMessaging.ClientAction.Show;
-using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
-using EventHorizon.Game.Client.Engine.Gui.Update;
-using EventHorizon.Game.Client.Core.Timer.Api;
-using EventHorizon.Game.Client.Engine.Gui.Hide;
-using EventHorizon.Game.Client.Engine.Gui.Show;
+using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Server.ServerModule.CombatSystemLog.ClientAction.Message;
+using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
+using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
     : IClientScript
@@ -36,7 +24,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("Combat System Log - Initialize Script");
+        logger.LogDebug("Combat System Log - Initialize Script");
 
         var observer = new __SCRIPT__Observer(
             services,

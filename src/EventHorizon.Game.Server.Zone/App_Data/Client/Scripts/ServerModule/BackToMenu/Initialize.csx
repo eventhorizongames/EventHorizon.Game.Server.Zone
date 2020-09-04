@@ -1,8 +1,9 @@
-/**
+/*
 data:
     observer: ObserverBase
     active: bool
 */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("Back To Menu - Initialize Script");
+        logger.LogDebug("Back To Menu - Initialize Script");
 
         var layoutId = "GUI_BackToMenu.json";
         var guiId = layoutId;

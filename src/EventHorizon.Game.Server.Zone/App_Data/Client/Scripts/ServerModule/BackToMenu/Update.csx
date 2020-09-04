@@ -1,8 +1,9 @@
-/**
+/*
 data:
     observer: ObserverBase
     active: bool
 */
+
 using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;

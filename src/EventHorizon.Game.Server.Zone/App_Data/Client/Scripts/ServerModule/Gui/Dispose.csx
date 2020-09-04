@@ -5,18 +5,16 @@ data:
     messageObserver: ObserverBase
     timer: ITimerService
 */
-using System.Collections;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using Microsoft.Extensions.Logging;
-using EventHorizon.Game.Client.Engine.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Client.Engine.Scripting.Data;
-using EventHorizon.Observer.Model;
-using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
+using EventHorizon.Game.Client.Engine.Scripting.Api;
+using EventHorizon.Game.Client.Engine.Scripting.Data;
+using EventHorizon.Game.Client.Engine.Scripting.Services;
+using EventHorizon.Observer.Model;
+using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
     : IClientScript
@@ -29,7 +27,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogInformation("Gui - Dispose Script");
+        logger.LogDebug("Gui - Dispose Script");
 
 
         var layoutList = data.Get<List<string>>(
