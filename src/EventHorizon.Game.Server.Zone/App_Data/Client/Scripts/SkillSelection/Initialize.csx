@@ -197,16 +197,31 @@ public class __SCRIPT__Observer
                     TemplateId = "platform-button",
                     Options = new GuiControlOptionsModel
                     {
-                        { "width", "120px" },
-                        { "height", "120px" },
+                        {
+                            "__metadata",
+                            new GuiControlOptionsModel.GuiControlMetadataOptionModel
+                            {
+                                ModelOptions = new List<string>{ "textBlockOptions" }
+                            }
+                        },
+                        { "width", "160px" },
+                        { "height", "20px" },
                         { "fontSize", "12px" },
                         { "color", "white" },
                         { "background", "red" },
+                        { "hoverCursor", "pointer" },
                         { "horizontalAlignment", 2 },
-                        { "verticalAlignment", 0 },
-                        { "text", skillItem.SkillName },
+                        { "verticalAlignment", 2 },
                         { "onClick", skillItem.OnClick },
-                        { "linkOffsetY", index * -50 },
+                        {
+                            "textBlockOptions",
+                            new GuiControlOptionsModel
+                            {
+                                { "text", skillItem.SkillName },
+                                { "resizeToFit", true },
+                                { "textHorizontalAlignment", 2 },
+                            }
+                        }
                     }
                 }
             );

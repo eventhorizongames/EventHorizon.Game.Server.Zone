@@ -24,7 +24,7 @@ public class __SCRIPT__
         var logger = services.Logger<__SCRIPT__>();
         logger.LogDebug("SkillSelection - Activated Script");
         
-        await services.Mediator.Send(
+        await services.Mediator.Publish(
             new SkillSelectionGuiActivatedEvent()
         );
     }
