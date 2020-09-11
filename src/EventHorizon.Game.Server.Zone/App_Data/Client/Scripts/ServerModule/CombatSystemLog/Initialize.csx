@@ -84,9 +84,7 @@ public class __SCRIPT__Observer
                     { "color", "red" },
                     { 
                         "text", 
-                        _scriptServices.Localize(
-                            "combatSystem:system"
-                        ) 
+                        _scriptServices.Localizer["combatSystem:system"]
                     },
                 },
                 new GuiControlOptionsModel()

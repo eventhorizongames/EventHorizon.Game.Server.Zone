@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Server.Actions.Agent;
 using Microsoft.Extensions.Logging;
 
 // TODO: [Combat] - Finish with Implementation Combat System

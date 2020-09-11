@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Server.Zone
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Reflection;
@@ -83,8 +84,12 @@
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
                 });
             services.AddRazorPages();
-            services.AddSignalR()
-                .AddNewtonsoftJsonProtocol(config =>
+            services.AddSignalR(
+                option =>
+                {
+                    option.EnableDetailedErrors = true;
+                }
+            ).AddNewtonsoftJsonProtocol(config =>
                 {
                     config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
@@ -472,7 +477,11 @@
                 {
                     routes.MapMetrics();
                     routes.MapHub<AdminHub>("/admin");
-                    routes.MapHub<PlayerHub>("/playerHub");
+                    routes.MapHub<PlayerHub>("/playerHub", options =>
+                    {
+                        // TODO: Remove this after Blazor Client has a working WebSocket Support.
+                        options.WebSockets.CloseTimeout = TimeSpan.FromSeconds(90);
+                    });
 
                     routes.MapHub<SystemEditorHub>("/systemEditor");
                     routes.MapHub<SkillsEditorHub>("/skillsEditor");

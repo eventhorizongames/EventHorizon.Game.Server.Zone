@@ -10,7 +10,6 @@ using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-using EventHorizon.Game.Server.Actions.Agent;
 using Microsoft.Extensions.Logging;
 
 // TODO: [Combat] - Finish with Implementation Combat System
@@ -25,7 +24,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("DecreaseProperty - Script");
+        logger.LogDebug("__SCRIPT__ - Script");
         var entities = await services.Mediator.Send(
             new QueryForEntity(
                 TagBuilder.CreateEntityIdTag(
@@ -38,10 +37,20 @@ public class __SCRIPT__
         {
             return;
         }
+
         var entity = entities.Result.First();
         var propertyName = data.Get<string>("propertyName");
         var valueProperty = data.Get<string>("valueProperty");
         var amount = data.Get<int>("amount");
+
+        logger.LogDebug(
+            "Data Details: PropertyName: {PropertyName} | ValueProperty: {ValueProperty} | Amount: {Amount}",
+            propertyName,
+            valueProperty,
+            amount
+        );
+
+
         var property = entity.GetProperty<dynamic>(
             data.Get<string>("propertyName")
         );

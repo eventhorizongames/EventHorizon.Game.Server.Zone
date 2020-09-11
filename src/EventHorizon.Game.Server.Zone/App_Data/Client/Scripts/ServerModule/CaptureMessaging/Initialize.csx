@@ -105,9 +105,7 @@ public class __SCRIPT__Observer
     )
     {
         return ShowMessage(
-            _scriptServices.Localize(
-                "game:dontHaveTime"
-            )
+            _scriptServices.Localizer["game:dontHaveTime"]
         );
     }
 
@@ -116,9 +114,7 @@ public class __SCRIPT__Observer
     )
     {
         return ShowMessage(
-            _scriptServices.Localize(
-                "game:stillHaveTime"
-            )
+            _scriptServices.Localizer["game:stillHaveTime"]
         );
     }
 

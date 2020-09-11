@@ -236,7 +236,7 @@ public class __SCRIPT__Observer
                         TemplateId = "platform-spacer",
                         Options = new GuiControlOptionsModel
                         {
-                        { "padding", 5 },
+                            { "padding", 5 },
                         }
                     }
                 );

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Server.Actions.Agent;
+using EventHorizon.Game.Server.ClientAction.Agent;
 using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__

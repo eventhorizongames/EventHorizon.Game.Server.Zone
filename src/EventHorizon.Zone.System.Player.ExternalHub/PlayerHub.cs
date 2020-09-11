@@ -7,16 +7,20 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
+    using Microsoft.Extensions.Logging;
 
     [Authorize]
     public partial class PlayerHub : Hub
     {
-        readonly IMediator _mediator;
+        private readonly ILogger<PlayerHub> _logger;
+        private readonly IMediator _mediator;
 
         public PlayerHub(
+            ILogger<PlayerHub> logger,
             IMediator mediator
         )
         {
+            _logger = logger;
             _mediator = mediator;
         }
 
@@ -28,6 +32,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
                 this.Context.Abort();
                 return;
             }
+            _logger.LogDebug("Player Connected: {PlayerId}", playerId);
             await _mediator.Publish(
                 new PlayerConnectedEvent(
                     playerId,
@@ -45,6 +50,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             {
                 return;
             }
+            _logger.LogError(exception, "Player Disconnected: {PlayerId}", playerId);
             await _mediator.Publish(
                 new PlayerDisconnectedEvent(
                     playerId

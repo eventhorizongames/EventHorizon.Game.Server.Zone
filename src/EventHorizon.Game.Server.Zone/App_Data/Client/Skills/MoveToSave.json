@@ -10,6 +10,9 @@
         },
         {
             "validator": "Validators_TargetNotCaster.csx"
+        },
+        {
+            "validator": "Validators_Agent_TargetIsCasterCompanion.csx"
         }
     ],
     "next": [

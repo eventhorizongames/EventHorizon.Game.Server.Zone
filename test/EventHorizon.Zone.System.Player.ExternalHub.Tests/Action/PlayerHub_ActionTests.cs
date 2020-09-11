@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventHorizon.Zone.System.Player.Plugin.Action.Events;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
 {
@@ -26,6 +27,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
                 actionData
             );
 
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -50,6 +52,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;
@@ -74,6 +77,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
             // Given
             var connectionId = "connection-id";
 
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -97,6 +101,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;

@@ -1,7 +1,11 @@
 /*
 data:
-    messageKey: string
-    messageData: IDictionary<string, object>
+   
+$services.eventService.publish(
+    $utils.createEvent(
+        "CLEAR_POINTER_HIT_ENTITY_EVENT"
+    )
+);
 */
 
 using System.Collections.Generic;
@@ -9,7 +13,9 @@ using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Server.ServerModule.FeedbackMessage.Display;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
+using EventHorizon.Game.Server.ClientAction.Agent;
 using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
@@ -26,12 +32,7 @@ public class __SCRIPT__
         logger.LogDebug("__SCRIPT__ Script");
 
         await services.Mediator.Publish(
-            new DisplayFeedbackMessageEvent(
-                services.Localizer.Template(
-                    data.Get<string>("messageKey"),
-                    data.Get<Dictionary<string, object>>("messageData")
-                )
-            )
+            new ClearPointerHitEntityEvent()
         );
     }
 }

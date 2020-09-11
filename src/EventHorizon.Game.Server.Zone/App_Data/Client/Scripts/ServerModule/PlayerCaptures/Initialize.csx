@@ -256,10 +256,10 @@ public class __SCRIPT__Observer
                             {
                                 { 
                                     "text", 
-                                    _services.Localize(
+                                    _services.Localizer[
                                         "game:captureImmortalName",
                                         caughtCompanionName
-                                    )
+                                    ]
                                 }
                             }
                         }

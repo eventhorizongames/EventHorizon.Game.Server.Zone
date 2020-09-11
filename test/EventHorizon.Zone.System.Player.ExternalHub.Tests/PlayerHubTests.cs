@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 {
@@ -24,6 +25,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
                 connectionId
             );
 
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -53,6 +55,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;
@@ -77,6 +80,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
                 playerId
             );
 
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -101,6 +105,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;
@@ -125,6 +130,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
             // Given
             var connectionId = "connection-id";
 
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -148,6 +154,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;
@@ -168,7 +175,8 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
         public async Task TestShouldNotPublishUserDisconnectedEventWhenOnDisconnectedAsyncIsCalledWithBadUserClaim()
         {
             // Given
-            
+
+            var loggerMock = new Mock<ILogger<PlayerHub>>();
             var mediatorMock = new Mock<IMediator>();
             var contextMock = new Mock<HubCallerContext>();
             var userMock = new Mock<ClaimsPrincipal>();
@@ -187,6 +195,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 
             // When
             var playerHub = new PlayerHub(
+                loggerMock.Object,
                 mediatorMock.Object
             );
             playerHub.Context = contextMock.Object;

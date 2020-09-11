@@ -10,6 +10,16 @@
         },
         {
             "validator": "Validators_Agent_TargetIsNotCasterCompanion.csx"
+        },
+        {
+            "validator": "Validators_Agent_TargetIsAbleToBeCaptured.csx"
+        },
+        {
+            "validator": "Validators_TargetInRangeOfCaster.csx",
+            "data": {
+                "min": 0,
+                "max": 5
+            }
         }
     ],
     "failedList": [
