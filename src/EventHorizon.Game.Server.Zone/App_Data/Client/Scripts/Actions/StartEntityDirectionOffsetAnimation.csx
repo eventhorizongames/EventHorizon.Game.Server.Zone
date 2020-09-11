@@ -1,6 +1,5 @@
 /*
 data:
-    id: long
 */
 
 using System.Threading.Tasks;
@@ -20,9 +19,7 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("FreezeEntity - Script");
-
-        // TODO: Lookup entity, and "Freeze" them
+        logger.LogDebug("__SCRIPT__ - Script");
 
         return Task.CompletedTask;
     }

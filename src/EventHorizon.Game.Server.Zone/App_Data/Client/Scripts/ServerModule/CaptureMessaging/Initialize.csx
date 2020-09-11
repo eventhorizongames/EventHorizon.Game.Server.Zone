@@ -9,6 +9,7 @@ data:
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Hide;
@@ -162,7 +163,7 @@ public class __SCRIPT__Observer
         }
         else
         {
-            timer = _scriptServices.GetService<ITimerService>();
+            timer = _scriptServices.GetService<IFactory<ITimerService>>().Create();
         }
 
         timer.SetTimer(

@@ -2,6 +2,7 @@
 data:
 */
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EventHorizon.Game.Client.Engine.Entity.Tag;
@@ -10,9 +11,10 @@ using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
+using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
+using EventHorizon.Game.Client.Systems.Entity.Changed;
 using Microsoft.Extensions.Logging;
 
-// TODO: [Combat] - Finish with Implementation Combat System
 public class __SCRIPT__
     : IClientScript
 {
@@ -28,10 +30,11 @@ public class __SCRIPT__
         var entities = await services.Mediator.Send(
             new QueryForEntity(
                 TagBuilder.CreateEntityIdTag(
-                    data.Get<long>("entityId").ToString()
+                    data.Get<long>("id").ToString()
                 )
             )
         );
+
         if (!entities.Success
             || entities.Result.Count() <= 0)
         {
@@ -44,17 +47,16 @@ public class __SCRIPT__
         var amount = data.Get<int>("amount");
 
         logger.LogDebug(
-            "Data Details: PropertyName: {PropertyName} | ValueProperty: {ValueProperty} | Amount: {Amount}",
+            "Decreasing Property: PropertyName: {PropertyName} | ValueProperty: {ValueProperty} | Amount: {Amount}",
             propertyName,
             valueProperty,
             amount
         );
 
-
-        var property = entity.GetProperty<dynamic>(
+        var property = entity.GetProperty<StandardObjectProperty>(
             data.Get<string>("propertyName")
         );
-        var propertyValue = property[valueProperty];
+        var propertyValue = property[valueProperty].Cast<decimal>();
         propertyValue = propertyValue - amount;
         property[valueProperty] = propertyValue;
         entity.SetProperty(
@@ -62,11 +64,10 @@ public class __SCRIPT__
             property
         );
 
-        // TODO: Move EntityChangedSuccessfullyEvent to SDK
-        // services.Mediator.Send(
-        //     new EntityChangedSuccessfullyEvent(
-        //         entity.EntityId
-        //     )
-        // );
+        await services.Mediator.Publish(
+            new EntityChangedSuccessfullyEvent(
+                entity.EntityId
+            )
+        );
     }
 }

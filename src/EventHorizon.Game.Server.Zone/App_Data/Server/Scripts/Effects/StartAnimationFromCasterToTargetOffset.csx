@@ -17,7 +17,7 @@ var actionData = new
 };
 var action = new ClientSkillActionEvent
 {
-    Action = "TODO: TODO: TODO: ",
+    Action = "Actions_StartEntityDirectionOffsetAnimation.js",
     Data = actionData
 };
 

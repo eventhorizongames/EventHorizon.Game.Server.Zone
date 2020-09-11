@@ -480,7 +480,7 @@
                     routes.MapHub<PlayerHub>("/playerHub", options =>
                     {
                         // TODO: Remove this after Blazor Client has a working WebSocket Support.
-                        options.WebSockets.CloseTimeout = TimeSpan.FromSeconds(90);
+                        options.LongPolling.PollTimeout = TimeSpan.FromSeconds(90);
                     });
 
                     routes.MapHub<SystemEditorHub>("/systemEditor");
