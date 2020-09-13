@@ -3,30 +3,7 @@ data:
     skillId: string
     entity: IObjectEntity
     noSelectedTargetMessage: string
-
-const skillId = $data.skillId;
-const entity = $data.entity;
-const message = $data.noSelectedTargetMessage;
-const selectedTrackerModule = entity.getProperty(
-    "SELECTED_TRACKER_MODULE_NAME"
-);
-if (selectedTrackerModule.hasSelectedEntity) {
-    $utils.runClientScript(
-        "skill.targeted_skill",
-        "Skill_Runners_RunPlayerSkill.js", {
-            casterId: entity.entityId,
-            targetId: selectedTrackerModule.selectedEntityId,
-            skillId
-        }
-    );
-} else {
-    $services.eventService.publish(
-        $utils.createEvent("MessageFromCombatSystem", {
-            message
-        })
-    );
-}
- */
+*/
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -37,6 +14,7 @@ using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
 using EventHorizon.Game.Client.Engine.Systems.Scripting.Run;
 using EventHorizon.Game.Client.Systems.Player.Modules.SelectedCompanionTracker.Api;
 using EventHorizon.Game.Client.Systems.Player.Modules.SelectedTracker.Api;
+using EventHorizon.Game.Server.ServerModule.CombatSystemLog.ClientAction.Message;
 using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__

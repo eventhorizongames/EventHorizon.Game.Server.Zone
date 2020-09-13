@@ -11,7 +11,7 @@
         "Height": 128,
         "Subdivisions": 200,
         "MinHeight": 0,
-        "MaxHeight": 5,
+        "MaxHeight": 12,
         "Updatable": true,
         "IsPickable": true,
         "Material": {

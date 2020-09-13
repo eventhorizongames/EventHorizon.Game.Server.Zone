@@ -85,9 +85,9 @@
                 });
             services.AddRazorPages();
             services.AddSignalR(
-                option =>
+                options =>
                 {
-                    option.EnableDetailedErrors = true;
+                    options.EnableDetailedErrors = HostingEnvironment.IsDevelopment();
                 }
             ).AddNewtonsoftJsonProtocol(config =>
                 {
@@ -477,11 +477,7 @@
                 {
                     routes.MapMetrics();
                     routes.MapHub<AdminHub>("/admin");
-                    routes.MapHub<PlayerHub>("/playerHub", options =>
-                    {
-                        // TODO: Remove this after Blazor Client has a working WebSocket Support.
-                        options.LongPolling.PollTimeout = TimeSpan.FromSeconds(90);
-                    });
+                    routes.MapHub<PlayerHub>("/playerHub");
 
                     routes.MapHub<SystemEditorHub>("/systemEditor");
                     routes.MapHub<SkillsEditorHub>("/skillsEditor");
