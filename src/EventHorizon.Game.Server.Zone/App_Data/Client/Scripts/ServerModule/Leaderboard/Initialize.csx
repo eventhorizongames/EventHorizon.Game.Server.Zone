@@ -17,6 +17,7 @@ using EventHorizon.Game.Client.Engine.Gui.Changed;
 using EventHorizon.Game.Client.Engine.Gui.Create;
 using EventHorizon.Game.Client.Engine.Gui.Dispose;
 using EventHorizon.Game.Client.Engine.Gui.Generate;
+using EventHorizon.Game.Client.Engine.Gui.Hide;
 using EventHorizon.Game.Client.Engine.Gui.Model;
 using EventHorizon.Game.Client.Engine.Gui.Show;
 using EventHorizon.Game.Client.Engine.Input.Api;
@@ -25,8 +26,8 @@ using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-using EventHorizon.Game.Server.ServerModule.Game.Query;
-using EventHorizon.Game.Server.ServerModule.Game.Updated;
+using EventHorizon.Game.Server.Game.Query;
+using EventHorizon.Game.Server.Game.Updated;
 using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
@@ -139,7 +140,7 @@ public class __SCRIPT__Observer
         }
         _isOpen = false;
         await _services.Mediator.Send(
-            new ShowGuiCommand(
+            new HideGuiCommand(
                 _guiId
             )
         );

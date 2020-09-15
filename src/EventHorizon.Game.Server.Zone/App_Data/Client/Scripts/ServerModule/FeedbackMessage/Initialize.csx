@@ -9,6 +9,7 @@ data:
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using EventHorizon.Game.Client.Core.Factory.Api;
 using EventHorizon.Game.Client.Core.Timer.Api;
 using EventHorizon.Game.Client.Engine.Gui.Api;
 using EventHorizon.Game.Client.Engine.Gui.Hide;
@@ -119,7 +120,7 @@ public class __SCRIPT__Observer
                 _guiId,
                 new GuiControlDataModel
                 {
-                    ControlId = "capture_messaging-text",
+                    ControlId = "feedback_message-text",
                     Options = new GuiControlOptionsModel
                     {
                         { "color", "red" },
@@ -144,11 +145,11 @@ public class __SCRIPT__Observer
         }
         else
         {
-            timer = _scriptServices.GetService<ITimerService>();
+            timer = _scriptServices.GetService<IFactory<ITimerService>>().Create();
         }
 
         timer.SetTimer(
-            3000,
+            5000,
             () =>
             {
                 _scriptServices.Mediator.Send(

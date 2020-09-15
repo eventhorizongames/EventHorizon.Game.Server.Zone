@@ -24,7 +24,7 @@ using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
 using EventHorizon.Game.Client.Systems.Player.Changed;
 using EventHorizon.Game.Client.Systems.Player.Query;
-using EventHorizon.Game.Server.ServerModule.Game.Model;
+using EventHorizon.Game.Server.Game.Model;
 using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
@@ -131,8 +131,8 @@ public class __SCRIPT__Observer
             return;
         }
         // Get GamePlayerCaptureState State from Player
-        var captureState = player.GetProperty<IGamePlayerCaptureState>(
-            IGamePlayerCaptureState.NAME
+        var captureState = player.GetProperty<GamePlayerCaptureState>(
+            GamePlayerCaptureState.NAME
         );
         if (captureState == null)
         {
@@ -144,6 +144,18 @@ public class __SCRIPT__Observer
         )
         {
             // Reset GUI if zero or less than currently caughtCount
+            _data.Set(
+                "caughtCount",
+                captureState.CompanionsCaught.Count
+            );
+            _data.Set(
+                "companionsCaught",
+                new List<string>()
+            );
+            _data.Set(
+                "currentDisplayedCaught",
+                new List<string>()
+            );
             await OnChange();
             return;
         }
@@ -238,7 +250,7 @@ public class __SCRIPT__Observer
             var newGuid = $"GUI_PlayerCaptures-Message_{caughtCount}";
             var parentControlId = await _services.Mediator.Send(
                 new GetGeneratedGuiControlId(
-                    newGuid,
+                    _guiId,
                     "player_capture-panel"
                 )
             );
@@ -254,8 +266,8 @@ public class __SCRIPT__Observer
                             ControlId = "player_capture-message-immortal-name",
                             Options = new GuiControlOptionsModel
                             {
-                                { 
-                                    "text", 
+                                {
+                                    "text",
                                     _services.Localizer[
                                         "game:captureImmortalName",
                                         caughtCompanionName
@@ -273,5 +285,9 @@ public class __SCRIPT__Observer
                 )
             );
         }
+        _data.Set(
+           "caughtCount",
+           caughtCount
+       );
     }
 }

@@ -25,8 +25,6 @@ public class __SCRIPT__
         var logger = services.Logger<__SCRIPT__>();
         logger.LogDebug("__SCRIPT__ Script");
 
-        // TODO: [TESTING] - Check for Feeback messages from Game related logic
-
         await services.Mediator.Publish(
             new DisplayFeedbackMessageEvent(
                 services.Localizer.Template(

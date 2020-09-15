@@ -20,7 +20,7 @@ using EventHorizon.Game.Client.Engine.Gui.Update;
 using EventHorizon.Game.Client.Engine.Scripting.Api;
 using EventHorizon.Game.Client.Engine.Scripting.Data;
 using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Server.ServerModule.CaptureMessaging.ClientAction.Show;
+using EventHorizon.Game.Server.Game.CaptureMessaging.ClientAction.Show;
 using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
 using Microsoft.Extensions.Logging;
 

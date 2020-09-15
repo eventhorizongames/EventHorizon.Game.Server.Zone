@@ -17,6 +17,7 @@
         "targetIsNowOwnedBy": "(${targetName}) is now owned by (${casterName}).",
         "playerNotCompanionOwner": "(${playerName}) is not owner of (${casterName}).",
         "noTargetSelected": "No target selected!",
+        "noSelectedTargetMessage": "No target selected!",
         "noTargetToCaptureSelected": "No target selected to capture.",
         "noSelectionsMessage": "No companion or target selected",
         "failedToHitMessage": "could not hit Target",
