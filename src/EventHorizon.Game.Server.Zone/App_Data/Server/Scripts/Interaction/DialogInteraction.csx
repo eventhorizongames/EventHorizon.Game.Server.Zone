@@ -47,4 +47,4 @@ await Services.Mediator.Publish(
 );
 
 
-System.Console.WriteLine("I am here");
+// System.Console.WriteLine("I am here");

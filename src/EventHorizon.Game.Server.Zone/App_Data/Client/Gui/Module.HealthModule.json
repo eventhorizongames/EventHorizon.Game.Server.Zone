@@ -7,20 +7,38 @@
             "sort": 0,
             "templateId": "platform-bar",
             "options": {
-                "width": 80,
-                "height": 20,
+                "__metadata": {
+                    "modelOptions": [
+                        "textOptions",
+                        "barOptions"
+                    ]
+                },
+                "width": "120px",
+                "height": "30px",
                 "horizontalAlignment": 1,
-                "textSize": 12,
+                "verticalAlignment": 1,
+                "textSize": "12px",
                 "textColor": "white",
                 "backgroundColor": "green",
                 "background": "green",
                 "borderColor": "white",
                 "linkOffsetY": -80,
                 "percent": 25,
-                "text": "25 / 100",
+                "__text": "25 / 100",
                 "percentageBar": {
                     "background": "#CD5C5C",
                     "barDirection": "paddingLeft"
+                },
+                "textOptions": {
+                    "textHorizontalAlignment": 2,
+                    "textVerticalAlignment": 2,
+                    "fontSize": "12px",
+                    "color": "white",
+                    "text": "25 / 100"
+                },
+                "barDirection": "paddingLeft",
+                "barOptions": {
+                    "background": "#CD5C5C"
                 }
             }
         }

@@ -19,7 +19,7 @@
                 "disabledColor": "gray",
                 "disabledHoverCursor": "mouse",
                 "hoverColor": "#151414",
-                "onClickScript": "Local_GuiLayout_Hide.js",
+                "__onClickScript": "Local_GuiLayout_Hide.js",
                 "textBlockOptions": {
                     "textKey": "dialog::button::hide",
                     "paddingLeft": "5px",
