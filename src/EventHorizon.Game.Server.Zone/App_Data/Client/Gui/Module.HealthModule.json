@@ -13,6 +13,7 @@
                         "barOptions"
                     ]
                 },
+                "thickness": 0,
                 "width": "120px",
                 "height": "30px",
                 "horizontalAlignment": 1,
@@ -26,10 +27,12 @@
                 "percent": 25,
                 "__text": "25 / 100",
                 "percentageBar": {
+                    "thickness": 0,
                     "background": "#CD5C5C",
                     "barDirection": "paddingLeft"
                 },
                 "textOptions": {
+                    "thickness": 0,
                     "textHorizontalAlignment": 2,
                     "textVerticalAlignment": 2,
                     "fontSize": "12px",
@@ -38,6 +41,7 @@
                 },
                 "barDirection": "paddingLeft",
                 "barOptions": {
+                    "thickness": 0,
                     "background": "#CD5C5C"
                 }
             }

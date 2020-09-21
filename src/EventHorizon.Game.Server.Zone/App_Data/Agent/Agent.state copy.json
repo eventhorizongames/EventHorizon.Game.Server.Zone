@@ -1,57 +1,482 @@
 {
     "AgentList": [
         {
-            "Id": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
-            "Name": "Steve the Helper",
-            "Position": {
-                "CanMove": true,
-                "CurrentPosition": {
+            "Id": "eec00fb4-cf67-4170-8071-418567f4cbe9",
+            "Name": "Fire Type - 006",
+            "Transform": {
+                "Position": {
+                    "X": 10.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Rotation": {
                     "X": 0.0,
                     "Y": 0.0,
                     "Z": 0.0
                 },
+                "Scaling": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "ScalingDeterminant": null
+            },
+            "Location": {
+                "CanMove": true,
                 "NextMoveRequest": "0001-01-01T00:00:00",
                 "MoveToPosition": {
                     "X": 0.0,
                     "Y": 0.0,
                     "Z": 0.0
                 },
-                "CurrentZone": "...",
-                "ZoneTag": "testing"
+                "CurrentZone": "",
+                "ZoneTag": ""
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
+                            }
+                        ]
+                    }
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "DEAD"
+                    },
+                    "HealthPoints": -260,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 99,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
+                "locationState": {
+                    "CanMove": true,
+                    "NextMoveRequest": "0001-01-01T00:00:00",
+                    "MoveToPosition": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    },
+                    "CurrentZone": "",
+                    "ZoneTag": ""
+                },
+                "companionState": {
+                    "DefaultBehaviorTreeId": "Behaviors_Idle.json"
+                },
+                "pathState": {
+                    "MoveTo": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    }
+                },
+                "NextRunTime": "2020-09-15T21:42:15.2786116-05:00",
+                "ownerState": {
+                    "OwnerId": "",
+                    "CanBeCaptured": true,
+                    "OwnerFollowDistance": 5
+                },
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -792579636,
+                        "Type": {
+                            "Name": "SEQUENCE_SELECTOR",
+                            "IsTraversal": true
+                        },
+                        "Status": "SUCCESS",
+                        "NodeList": null,
+                        "IsTraversal": true,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null,
+                            "IsTraversal": false
+                        },
+                        "Status": null,
+                        "NodeList": null,
+                        "IsTraversal": false,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ShapeId": "Behaviors_Idle.json",
+                    "IsValid": true
+                },
+                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00",
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "ScalingDeterminant": 0.05,
+                    "Mesh": {
+                        "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
+                    }
+                },
+                "movementState": {
+                    "Speed": 0.5
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": [
+                        {
+                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "DistanceToPlayer": 5,
+                            "Data": {
+                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
+                            }
+                        }
+                    ]
+                },
+                "agentWildState": {
+                    "DistanceToRunAway": 25,
+                    "DeltaDistance": 5
+                },
+                "behavior": {
+                    "IsEnabled": true,
+                    "TreeId": "Behaviors_Idle.json",
+                    "NextTickRequest": "2020-09-19T00:35:46.9735431Z"
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "1d141123-46ab-4b5b-956d-c228bcbd9391",
+            "Name": "Fire Type - 002",
+            "Transform": {
+                "Position": {
+                    "X": 6.0,
+                    "Y": 0.0,
+                    "Z": 20.0
+                },
+                "Rotation": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Scaling": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "ScalingDeterminant": null
+            },
+            "Location": {
+                "CanMove": true,
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "CurrentZone": "",
+                "ZoneTag": ""
+            },
+            "TagList": [
+                "npc",
+                "wandering",
+                "weak"
+            ],
+            "Data": {
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
+                            }
+                        ]
+                    }
+                },
+                "lifeState": {
+                    "Condition": {
+                        "Name": "DEAD"
+                    },
+                    "HealthPoints": -250,
+                    "MaxHealthPoints": 100,
+                    "ActionPoints": 99,
+                    "MaxActionPoints": 100,
+                    "Attack": 1
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
+                "locationState": {
+                    "CanMove": true,
+                    "NextMoveRequest": "0001-01-01T00:00:00",
+                    "MoveToPosition": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    },
+                    "CurrentZone": "",
+                    "ZoneTag": ""
+                },
+                "companionState": {
+                    "DefaultBehaviorTreeId": "Behaviors_Idle.json"
+                },
+                "pathState": {
+                    "MoveTo": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    }
+                },
+                "NextRunTime": "2020-09-14T20:46:23.8239784-05:00",
+                "ownerState": {
+                    "OwnerId": "",
+                    "CanBeCaptured": true,
+                    "OwnerFollowDistance": 5
+                },
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -792579636,
+                        "Type": {
+                            "Name": "SEQUENCE_SELECTOR",
+                            "IsTraversal": true
+                        },
+                        "Status": "SUCCESS",
+                        "NodeList": null,
+                        "IsTraversal": true,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null,
+                            "IsTraversal": false
+                        },
+                        "Status": null,
+                        "NodeList": null,
+                        "IsTraversal": false,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ShapeId": "Behaviors_Idle.json",
+                    "IsValid": true
+                },
+                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00",
+                "levelState": {
+                    "HealthPointsLevel": 1,
+                    "ActionPointsLevel": 1,
+                    "AttackLevel": 1,
+                    "Experience": 0,
+                    "AllTimeExperience": 3
+                },
+                "modelState": {
+                    "AnimationList": [],
+                    "ScalingDeterminant": 0.05,
+                    "Mesh": {
+                        "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
+                    }
+                },
+                "movementState": {
+                    "Speed": 0.5
+                },
+                "interactionState": {
+                    "Active": false,
+                    "List": [
+                        {
+                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "DistanceToPlayer": 5,
+                            "Data": {
+                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
+                            }
+                        }
+                    ]
+                },
+                "agentWildState": {
+                    "DistanceToRunAway": 25,
+                    "DeltaDistance": 5
+                },
+                "behavior": {
+                    "IsEnabled": true,
+                    "TreeId": "Behaviors_Idle.json",
+                    "NextTickRequest": "2020-09-19T00:35:46.9735877Z"
+                },
+                "ActorMoveToPosition": null
+            }
+        },
+        {
+            "Id": "1a65e13f-e718-4ed3-a783-8cc7a5affff3",
+            "Name": "Steve the Helper",
+            "Transform": {
+                "Position": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Rotation": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "Scaling": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "ScalingDeterminant": null
+            },
+            "Location": {
+                "CanMove": true,
+                "NextMoveRequest": "0001-01-01T00:00:00",
+                "MoveToPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
+                },
+                "CurrentZone": null,
+                "ZoneTag": null
             },
             "TagList": [
                 "npc",
                 "help"
             ],
             "Data": {
-                "ownerState": {
-                    "OwnerId": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
-                    "CanBeCaptured": false
-                },
-                "movementState": {
-                    "Speed": 1.0
-                },
-                "routine": {
-                    "Name": "MOVE"
-                },
-                "defaultRoutine": {
-                    "Name": "IDLE"
-                },
-                "wander": {
-                    "LookDistance": 25
-                },
-                "life": {
-                    "Health": 0
+                "skillState": {
+                    "SkillMap": {
+                        "List": [
+                            {
+                                "Id": "Skills_FireBall.json",
+                                "CooldownFinishes": "2020-09-13T17:02:27.975616-05:00"
+                            },
+                            {
+                                "Id": "Skills_MoveTo.json",
+                                "CooldownFinishes": "2020-09-13T17:02:27.9760487-05:00"
+                            },
+                            {
+                                "Id": "Skills_CaptureTarget.json",
+                                "CooldownFinishes": "2020-09-13T17:02:27.9760509-05:00"
+                            }
+                        ]
+                    }
                 },
                 "lifeState": {
                     "Condition": {
                         "Name": "ALIVE"
                     },
-                    "HealthPoints": 6713,
-                    "MaxHealthPoints": 10000,
-                    "ActionPoints": 9796,
-                    "MaxActionPoints": 10000,
-                    "Attack": 1
+                    "healthPoints": 6708,
+                    "maxHealthPoints": 10000,
+                    "actionPoints": 9796,
+                    "maxActionPoints": 10000,
+                    "attack": 1
+                },
+                "wander": {
+                    "LookDistance": 25
+                },
+                "defaultRoutine": {
+                    "Name": "IDLE"
+                },
+                "locationState": {
+                    "CanMove": true,
+                    "NextMoveRequest": "0001-01-01T00:00:00",
+                    "MoveToPosition": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    },
+                    "CurrentZone": null,
+                    "ZoneTag": null
+                },
+                "companionState": {
+                    "DefaultBehaviorTreeId": "DEFAULT"
+                },
+                "pathState": {
+                    "MoveTo": {
+                        "X": 0.0,
+                        "Y": 0.0,
+                        "Z": 0.0
+                    }
+                },
+                "NextRunTime": null,
+                "routine": {
+                    "Name": "MOVE"
+                },
+                "ownerState": {
+                    "OwnerId": "171676e1-0c1b-4ac3-ae0e-46ffd920bcd6",
+                    "CanBeCaptured": false,
+                    "OwnerFollowDistance": 0
+                },
+                "life": {
+                    "Health": 0
+                },
+                "BehaviorTreeState": {
+                    "ContainsNext": false,
+                    "CheckTraversal": false,
+                    "ActiveNode": {
+                        "Token": -792579636,
+                        "Type": {
+                            "Name": "SEQUENCE_SELECTOR",
+                            "IsTraversal": true
+                        },
+                        "Status": "SUCCESS",
+                        "NodeList": null,
+                        "IsTraversal": true,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ActiveTraversal": {
+                        "Token": 0,
+                        "Type": {
+                            "Name": null,
+                            "IsTraversal": false
+                        },
+                        "Status": null,
+                        "NodeList": null,
+                        "IsTraversal": false,
+                        "Fire": null,
+                        "FailGate": 0,
+                        "Reset": false
+                    },
+                    "ShapeId": "Behaviors_Idle.json",
+                    "IsValid": true
                 },
                 "levelState": {
                     "HealthPointsLevel": 1,
@@ -62,20 +487,14 @@
                 },
                 "modelState": {
                     "AnimationList": [],
+                    "ScalingDeterminant": null,
                     "Mesh": {
-                        "Type": "SPHERE",
                         "AssetId": "f2f1d5f6-cc0d-4094-aecf-scripted"
                     }
                 },
-                "behavior": {
-                    "TreeId": "Behaviors_Idle.json"
+                "movementState": {
+                    "Speed": 1.0
                 },
-                "ActorMoveToPosition": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "NextRunTime": null,
                 "interactionState": {
                     "Active": true,
                     "List": [
@@ -87,349 +506,21 @@
                             }
                         }
                     ]
+                },
+                "agentWildState": {
+                    "DistanceToRunAway": 25,
+                    "DeltaDistance": 5
+                },
+                "behavior": {
+                    "IsEnabled": true,
+                    "TreeId": "Behaviors_Idle.json",
+                    "NextTickRequest": "2020-09-19T00:35:46.9736275Z"
+                },
+                "ActorMoveToPosition": {
+                    "X": 0.0,
+                    "Y": 0.0,
+                    "Z": 0.0
                 }
-            }
-        },
-        {
-            "Id": "9f63ec18-257e-42a7-ba8a-161b46bb3eac",
-            "Name": "Fire Type - 006",
-            "Transform": {
-                "Position": {
-                    "X": 9.0,
-                    "Y": 0.0,
-                    "Z": 11.0
-                },
-                "Rotation": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "Scaling": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "ScalingDeterminant": null
-            },
-            "Location": {
-                "CanMove": true,
-                "NextMoveRequest": "0001-01-01T00:00:00",
-                "MoveToPosition": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "CurrentZone": "",
-                "ZoneTag": ""
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "wander": {
-                    "LookDistance": 25
-                },
-                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00",
-                "movementState": {
-                    "Speed": 0.5
-                },
-                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
-                "modelState": {
-                    "AnimationList": [],
-                    "ScalingDeterminant": 0.05,
-                    "Mesh": {
-                        "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
-                    }
-                },
-                "interactionState": {
-                    "Active": false,
-                    "List": [
-                        {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
-                            "DistanceToPlayer": 5,
-                            "Data": {
-                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
-                            }
-                        }
-                    ]
-                },
-                "pathState": {
-                    "MoveTo": {
-                        "X": 0.0,
-                        "Y": 0.0,
-                        "Z": 0.0
-                    }
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": -1410390521,
-                        "Type": {
-                            "Name": "SEQUENCE_SELECTOR",
-                            "IsTraversal": true
-                        },
-                        "Status": "SUCCESS",
-                        "NodeList": null,
-                        "IsTraversal": true,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null,
-                            "IsTraversal": false
-                        },
-                        "Status": null,
-                        "NodeList": null,
-                        "IsTraversal": false,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "ShapeId": "Behaviors_Idle.json",
-                    "IsValid": true
-                },
-                "skillState": {
-                    "SkillMap": {
-                        "List": [
-                            {
-                                "Id": "Skills_FireBall.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
-                            },
-                            {
-                                "Id": "Skills_MoveTo.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
-                            },
-                            {
-                                "Id": "Skills_CaptureTarget.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
-                            }
-                        ]
-                    }
-                },
-                "locationState": {
-                    "CanMove": true,
-                    "NextMoveRequest": "0001-01-01T00:00:00",
-                    "MoveToPosition": {
-                        "X": 0.0,
-                        "Y": 0.0,
-                        "Z": 0.0
-                    },
-                    "CurrentZone": "",
-                    "ZoneTag": ""
-                },
-                "behavior": {
-                    "IsEnabled": true,
-                    "TreeId": "Behaviors_Idle.json",
-                    "NextTickRequest": "2020-09-11T23:28:04.6655625Z"
-                },
-                "ActorMoveToPosition": null,
-                "agentWildState": {
-                    "DistanceToRunAway": 25,
-                    "DeltaDistance": 5
-                },
-                "ownerState": {
-                    "OwnerId": "",
-                    "CanBeCaptured": true,
-                    "OwnerFollowDistance": 5
-                },
-                "companionState": {
-                    "DefaultBehaviorTreeId": "Behaviors_Idle.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "DEAD"
-                    },
-                    "HealthPoints": -250,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 99,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "NextRunTime": "2020-09-11T11:53:27.4319641-05:00"
-            }
-        },
-        {
-            "Id": "2700FA4E-DCEA-4347-AAFB-4CAE80F08BB8",
-            "Name": "Fire Type - 002",
-            "Transform": {
-                "Position": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 15.0
-                },
-                "Rotation": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "Scaling": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "ScalingDeterminant": null
-            },
-            "Location": {
-                "CanMove": true,
-                "NextMoveRequest": "0001-01-01T00:00:00",
-                "MoveToPosition": {
-                    "X": 0.0,
-                    "Y": 0.0,
-                    "Z": 0.0
-                },
-                "CurrentZone": "",
-                "ZoneTag": ""
-            },
-            "TagList": [
-                "npc",
-                "wandering",
-                "weak"
-            ],
-            "Data": {
-                "wander": {
-                    "LookDistance": 25
-                },
-                "SlowDown:NextRunTime": "2020-03-06T12:02:21.1591777-06:00",
-                "movementState": {
-                    "Speed": 0.5
-                },
-                "Behavior:RunFromPlayer.csx:RunFromPlayerId": 8,
-                "modelState": {
-                    "AnimationList": [],
-                    "ScalingDeterminant": 0.05,
-                    "Mesh": {
-                        "AssetId": "7B002A90-64A0-400B-8EC9-7C10F83C5225"
-                    }
-                },
-                "interactionState": {
-                    "Active": false,
-                    "List": [
-                        {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
-                            "DistanceToPlayer": 5,
-                            "Data": {
-                                "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
-                            }
-                        }
-                    ]
-                },
-                "pathState": {
-                    "MoveTo": {
-                        "X": 0.0,
-                        "Y": 0.0,
-                        "Z": 0.0
-                    }
-                },
-                "levelState": {
-                    "HealthPointsLevel": 1,
-                    "ActionPointsLevel": 1,
-                    "AttackLevel": 1,
-                    "Experience": 0,
-                    "AllTimeExperience": 3
-                },
-                "BehaviorTreeState": {
-                    "ContainsNext": false,
-                    "CheckTraversal": false,
-                    "ActiveNode": {
-                        "Token": -1410390521,
-                        "Type": {
-                            "Name": "SEQUENCE_SELECTOR",
-                            "IsTraversal": true
-                        },
-                        "Status": "SUCCESS",
-                        "NodeList": null,
-                        "IsTraversal": true,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "ActiveTraversal": {
-                        "Token": 0,
-                        "Type": {
-                            "Name": null,
-                            "IsTraversal": false
-                        },
-                        "Status": null,
-                        "NodeList": null,
-                        "IsTraversal": false,
-                        "Fire": null,
-                        "FailGate": 0,
-                        "Reset": false
-                    },
-                    "ShapeId": "Behaviors_Idle.json",
-                    "IsValid": true
-                },
-                "skillState": {
-                    "SkillMap": {
-                        "List": [
-                            {
-                                "Id": "Skills_FireBall.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.2475818-05:00"
-                            },
-                            {
-                                "Id": "Skills_MoveTo.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.249591-05:00"
-                            },
-                            {
-                                "Id": "Skills_CaptureTarget.json",
-                                "CooldownFinishes": "2019-10-26T20:03:12.2503463-05:00"
-                            }
-                        ]
-                    }
-                },
-                "locationState": {
-                    "CanMove": true,
-                    "NextMoveRequest": "0001-01-01T00:00:00",
-                    "MoveToPosition": {
-                        "X": 0.0,
-                        "Y": 0.0,
-                        "Z": 0.0
-                    },
-                    "CurrentZone": "",
-                    "ZoneTag": ""
-                },
-                "behavior": {
-                    "IsEnabled": true,
-                    "TreeId": "Behaviors_Idle.json",
-                    "NextTickRequest": "2020-09-11T23:28:04.6655625Z"
-                },
-                "ActorMoveToPosition": null,
-                "agentWildState": {
-                    "DistanceToRunAway": 25,
-                    "DeltaDistance": 5
-                },
-                "ownerState": {
-                    "OwnerId": "",
-                    "CanBeCaptured": true,
-                    "OwnerFollowDistance": 5
-                },
-                "companionState": {
-                    "DefaultBehaviorTreeId": "Behaviors_Idle.json"
-                },
-                "lifeState": {
-                    "Condition": {
-                        "Name": "DEAD"
-                    },
-                    "HealthPoints": -250,
-                    "MaxHealthPoints": 100,
-                    "ActionPoints": 99,
-                    "MaxActionPoints": 100,
-                    "Attack": 1
-                },
-                "NextRunTime": "2020-09-11T11:53:27.4319641-05:00"
             }
         }
     ]
