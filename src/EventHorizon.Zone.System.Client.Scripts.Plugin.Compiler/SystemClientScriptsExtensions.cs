@@ -21,6 +21,7 @@ namespace EventHorizon.Game.Server.Zone
             {
                 SdkPackage = "EventHorizon.Game.Client.Scripts.SDK-Dev",
                 SdkPackageVersion = "0.0.*",
+                IncludePrerelease = true,
                 NuGetFeed = "https://api.nuget.org/v3/index.json",
             };
             options(compilerOptions);

@@ -4,12 +4,15 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Assemblies;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
     using FluentAssertions;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Linq;
+    using global::System.Reflection;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -75,6 +78,18 @@
                 )
             ).ReturnsAsync(
                 scriptAssemblyBytes
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new QueryForScriptAssemblyList(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new List<Assembly>
+                {
+                    AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault()
+                }
             );
 
             // When

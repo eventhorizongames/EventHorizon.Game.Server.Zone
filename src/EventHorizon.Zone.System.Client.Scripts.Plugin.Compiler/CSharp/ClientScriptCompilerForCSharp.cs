@@ -9,29 +9,15 @@
     using MediatR;
     using EventHorizon.Zone.Core.Events.FileService;
     using Microsoft.Extensions.Logging;
-    using global::System.Reflection;
-    using global::System.Linq;
     using global::System.Security.Cryptography;
     using global::System.Text;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
     using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Assemblies;
 
     public class ClientScriptCompilerForCSharp
         : ClientScriptCompiler
     {
-        private static Assembly[] GetScriptAssemblies()
-        {
-            // TODO: Look at using CQRS
-            var assemblies = Directory.GetFiles(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "EventHorizon.*.dll"
-            ).Select(
-                x => Assembly.Load(
-                    AssemblyName.GetAssemblyName(x)
-                )
-            );
-            return assemblies.ToArray();
-        }
         private readonly static string AssemblyScriptTemplate = @"                        
 [[USING_SECTION]]
 
@@ -86,7 +72,9 @@
                 );
 
                 // Load all Assembly Libraries into Evaluator
-                var scriptAssemblies = GetScriptAssemblies();
+                var scriptAssemblies = await _mediator.Send(
+                    new QueryForScriptAssemblyList()
+                );
                 var assemblyNames = new List<string>();
 
                 foreach (var assembly in scriptAssemblies)

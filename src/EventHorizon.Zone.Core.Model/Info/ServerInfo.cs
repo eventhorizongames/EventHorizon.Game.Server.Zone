@@ -5,8 +5,11 @@ namespace EventHorizon.Zone.Core.Model.Info
         /// <summary>
         /// This should return a path on the physical File System that temporary files can be saved to. 
         /// </summary>
-        /// <value>Path on file system temporary files can be saved to.</value>
         string FileSystemTempPath { get; }
+        /// <summary>
+        /// The location of where all Application Assemblies are located.
+        /// </summary>
+        string AssembliesPath { get; }
         string SystemPath { get; }
         string SystemBackupPath { get; }
         string AppDataPath { get; }
