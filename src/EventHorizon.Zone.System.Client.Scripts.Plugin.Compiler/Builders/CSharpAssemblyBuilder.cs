@@ -59,26 +59,21 @@ namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Builders
             string tempFile
         )
         {
-            // TODO: Create GeneratedPath on ServerInfo
-            var path = Path.Combine(
-                _serverInfo.AppDataPath,
-                "_generated"
-            );
             var exists = await _mediator.Send(
                 new DoesDirectoryExist(
-                    path
+                    _serverInfo.GeneratedPath
                 )
             );
             if (!exists)
             {
                 await _mediator.Send(
                     new CreateDirectory(
-                        path
+                        _serverInfo.GeneratedPath
                     )
                 );
             }
             var fileFullName = Path.Combine(
-                path,
+                _serverInfo.GeneratedPath,
                 "Scripts.dll"
             );
 

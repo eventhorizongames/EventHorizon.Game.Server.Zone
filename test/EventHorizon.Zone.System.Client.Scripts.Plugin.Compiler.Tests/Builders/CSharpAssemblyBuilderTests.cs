@@ -43,14 +43,9 @@
         {
             // Given
             var assemblyAsString = "System.Console.WriteLine(\"hi\");";
-            var appDataPath = "app-data-path";
-            var generatedPath = Path.Combine(
-                appDataPath,
-                "_generated"
-            );
+            var generatedPath = "_generated";
             var expected = Path.Combine(
-                appDataPath,
-                "_generated",
+                generatedPath,
                 "Scripts.dll"
             );
 
@@ -74,9 +69,9 @@
                 _fileTempDirectory
             );
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.GeneratedPath
             ).Returns(
-                appDataPath
+                generatedPath
             );
 
             // When
@@ -108,14 +103,9 @@
         {
             // Given
             var assemblyAsString = "System.Console.WriteLine(\"hi\");";
-            var appDataPath = "app-data-path";
-            var generatedPath = Path.Combine(
-                appDataPath,
-                "_generated"
-            );
+            var generatedPath = "_generated";
             var expected = Path.Combine(
-                appDataPath,
-                "_generated",
+                generatedPath,
                 "Scripts.dll"
             );
 
@@ -139,9 +129,9 @@
                 _fileTempDirectory
             );
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.GeneratedPath
             ).Returns(
-                appDataPath
+                generatedPath
             );
 
             // When
@@ -172,14 +162,9 @@
         {
             // Given
             var assemblyAsString = "System.Console.WriteLine(\"hi\");";
-            var appDataPath = "app-data-path";
-            var generatedPath = Path.Combine(
-                appDataPath,
-                "_generated"
-            );
+            var generatedPath = "_generated";
             var expected = Path.Combine(
-                appDataPath,
-                "_generated",
+                generatedPath,
                 "Scripts.dll"
             );
 
@@ -203,9 +188,9 @@
                 _fileTempDirectory
             );
             serverInfoMock.Setup(
-                mock => mock.AppDataPath
+                mock => mock.GeneratedPath
             ).Returns(
-                appDataPath
+                generatedPath
             );
 
             // When

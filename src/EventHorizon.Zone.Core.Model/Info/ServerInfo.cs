@@ -10,6 +10,10 @@ namespace EventHorizon.Zone.Core.Model.Info
         /// The location of where all Application Assemblies are located.
         /// </summary>
         string AssembliesPath { get; }
+        /// <summary>
+        /// The Path to save Server generated content.
+        /// </summary>
+        string GeneratedPath { get; }
         string SystemPath { get; }
         string SystemBackupPath { get; }
         string AppDataPath { get; }

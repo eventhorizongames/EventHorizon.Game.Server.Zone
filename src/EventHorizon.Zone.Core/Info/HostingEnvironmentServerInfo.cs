@@ -10,6 +10,7 @@ namespace EventHorizon.Zone.Core.Info
     {
         public string FileSystemTempPath { get; }
         public string AssembliesPath { get; }
+        public string GeneratedPath { get; }
         public string AppDataPath { get; }
         public string SystemPath { get; }
         public string SystemBackupPath { get; }
@@ -29,6 +30,7 @@ namespace EventHorizon.Zone.Core.Info
         {
             FileSystemTempPath = GenerateFileSystemTempPath();
             AssembliesPath = GenerateAssembliesPath();
+            GeneratedPath = GenerateGeneratedPath();
             AppDataPath = GenerateAppDataPath(
                 hostingEnvironment
             );
@@ -74,6 +76,11 @@ namespace EventHorizon.Zone.Core.Info
 
         private string GenerateAssembliesPath() 
             => AppDomain.CurrentDomain.BaseDirectory;
+
+        private string GenerateGeneratedPath() => Path.Combine(
+            Path.DirectorySeparatorChar.ToString(),
+            "_generated"
+        );
 
         private string GenerateAppDataPath(
             IHostingEnvironment hostingEnvironment
