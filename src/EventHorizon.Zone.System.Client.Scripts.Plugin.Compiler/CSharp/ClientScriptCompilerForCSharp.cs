@@ -136,7 +136,6 @@
                     consolidatedScriptsSavePath
                 );
 
-                // TODO: Look a more informative error result
                 return new CompiledScriptResult(
                     "csharp_failed_to_compile"
                 );
