@@ -63,8 +63,7 @@
                 await _mediator.Publish(
                     ClientScriptsAssemblyChangedClientActionToAllEvent.Create(
                         new ClientScriptsAssemblyChangedClientActionData(
-                            compilerResult.Hash,
-                            compilerResult.ScriptAssembly
+                            compilerResult.Hash
                         )
                     )
                 );

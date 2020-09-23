@@ -332,9 +332,6 @@
             actionData.Hash.Should().Be(
                 expectedHash
             );
-            actionData.ScriptAssembly.Should().Be(
-                expectedScriptAssembly
-            );
         }
     }
 }

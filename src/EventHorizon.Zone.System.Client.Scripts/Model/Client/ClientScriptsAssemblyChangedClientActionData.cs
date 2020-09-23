@@ -6,15 +6,12 @@
         : IClientActionData
     {
         public string Hash { get; }
-        public string ScriptAssembly { get; }
 
         public ClientScriptsAssemblyChangedClientActionData(
-            string hash,
-            string scriptAssembly
+            string hash
         )
         {
             Hash = hash;
-            ScriptAssembly = scriptAssembly;
         }
     }
 }
