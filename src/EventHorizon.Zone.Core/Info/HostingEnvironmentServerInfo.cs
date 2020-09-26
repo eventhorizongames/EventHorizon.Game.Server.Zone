@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.Core.Info
     using System;
     using System.IO;
 
-    public class HostingEnvironmentServerInfo 
+    public class HostingEnvironmentServerInfo
         : ServerInfo
     {
         public string FileSystemTempPath { get; }
@@ -69,12 +69,24 @@ namespace EventHorizon.Zone.Core.Info
             );
         }
 
-        private string GenerateFileSystemTempPath() => Path.Combine(
-            Path.DirectorySeparatorChar.ToString(),
-            "temp"
-        );
+        private string GenerateFileSystemTempPath()
+        {
+            var tempPath = Path.Combine(
+                Path.DirectorySeparatorChar.ToString(),
+                "temp"
+            );
+            if(!Directory.Exists(
+                tempPath
+            ))
+            {
+                Directory.CreateDirectory(
+                    tempPath
+                );
+            }
+            return tempPath;
+        }
 
-        private string GenerateAssembliesPath() 
+        private string GenerateAssembliesPath()
             => AppDomain.CurrentDomain.BaseDirectory;
 
         private string GenerateGeneratedPath() => Path.Combine(
