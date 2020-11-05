@@ -13,6 +13,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Particle.Handler
 {
+    // TODO: Move into Particle System
     public class LoadCombatParticleSystemHandler : INotificationHandler<LoadCombatParticleSystemEvent>
     {
         readonly IMediator _mediator;

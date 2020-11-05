@@ -6,10 +6,12 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Model\EventHorizon.Zone.System.Particle.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Events\EventHorizon.Zone.System.Particle.Events.csproj" />
