@@ -38,7 +38,6 @@
             };
             var generatedMapGraph = new Mock<IMapGraph>().Object;
 
-            var loggerMock = new Mock<ILogger<CreateMapHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
@@ -83,7 +82,6 @@
 
             // When
             var handler = new CreateMapHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
@@ -124,7 +122,6 @@
             };
             var generatedMapGraph = new Mock<IMapGraph>().Object;
 
-            var loggerMock = new Mock<ILogger<CreateMapHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var fileLoaderMock = new Mock<IJsonFileLoader>();
@@ -169,7 +166,6 @@
 
             // When
             var handler = new CreateMapHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 fileLoaderMock.Object,
@@ -188,64 +184,6 @@
                     CancellationToken.None
                 )
             );
-        }
-
-        [Fact]
-        public async Task ShouldThrowExceptionWhenZoneMapDetailsFileDoesNotExists()
-        {
-            // Given
-            var coreMapPath = "core-map-path";
-            var mapStateFile = Path.Combine(
-                coreMapPath,
-                "Map.state.json"
-            );
-            var expected = $"Failed to load Zone Map Details at {mapStateFile}";
-
-            var loggerMock = new Mock<ILogger<CreateMapHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var fileLoaderMock = new Mock<IJsonFileLoader>();
-            var serverMapMock = new Mock<IServerMap>();
-            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
-
-            serverInfoMock.Setup(
-                mock => mock.CoreMapPath
-            ).Returns(
-                coreMapPath
-            );
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesFileExist(
-                        mapStateFile
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                false
-            );
-
-            // When
-            var handler = new CreateMapHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverInfoMock.Object,
-                fileLoaderMock.Object,
-                serverMapMock.Object,
-                performanceTrackerFactoryMock.Object
-            );
-            Func<Task> action = async () => await handler.Handle(
-                new CreateMap(),
-                CancellationToken.None
-            );
-
-            var actual = await Assert.ThrowsAsync<SystemException>(
-                action
-            );
-
-            // Then
-            actual.Message
-                .Should().Be(expected);
         }
     }
 }

@@ -58,18 +58,21 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Publish(
-                        new MonitoringTrackEvent(
-                            "ZoneServer:Starting"
-                        )
-                    );
+                var mediator = serviceScope.ServiceProvider
+                    .GetService<IMediator>();
+                mediator.Publish(
+                    new MonitoringTrackEvent(
+                        "ZoneServer:Starting"
+                    )
+                );
                 serviceScope.ServiceProvider
                     .GetService<ILogger<CoreStartup>>()
                     .LogInformation(
                         "Server starting"
                     );
+                mediator.Send(
+                    new RunServerStartupCommand()
+                ).ConfigureAwait(false).GetAwaiter().GetResult();
             }
             return app;
         }
