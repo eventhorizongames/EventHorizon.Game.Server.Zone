@@ -56,26 +56,13 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
             );
 
             // Add File System Watcher for Agent Reload Path
-            var agentReloadPath = Path.Combine(
-                _serverInfo.AppDataPath,
-                "Agent",
-                "Reload"
-            );
-            if (!await _mediator.Send(
-                new DoesDirectoryExist(
-                    agentReloadPath
-                )
-            ))
-            {
-                await _mediator.Send(
-                    new CreateDirectory(
-                        agentReloadPath
-                    )
-                );
-            }
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
-                    agentReloadPath
+                    Path.Combine(
+                        _serverInfo.AppDataPath,
+                        "Agent",
+                        "Reload"
+                    )
                 )
             );
 
