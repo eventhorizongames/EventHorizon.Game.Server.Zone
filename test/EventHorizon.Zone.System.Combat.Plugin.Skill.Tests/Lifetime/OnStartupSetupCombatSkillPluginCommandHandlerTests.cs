@@ -21,6 +21,7 @@
         {
             // Given
             var clientPath = "client-path";
+            var serverScriptsPath = "server-scripts-path";
             var expectedList = new List<CreateDirectory>
             {
                 new CreateDirectory(
@@ -31,13 +32,13 @@
                 ),
                 new CreateDirectory(
                     Path.Combine(
-                        clientPath,
+                        serverScriptsPath,
                         "Effects"
                     )
                 ),
                 new CreateDirectory(
                     Path.Combine(
-                        clientPath,
+                        serverScriptsPath,
                         "Validators"
                     )
                 ),
@@ -51,6 +52,11 @@
                 mock => mock.ClientPath
             ).Returns(
                 clientPath
+            );
+            serverInfoMock.Setup(
+                mock => mock.ServerScriptsPath
+            ).Returns(
+                serverScriptsPath
             );
 
             // When
@@ -87,16 +93,17 @@
         {
             // Given
             var clientPath = "client-path";
+            var serverScriptsPath = "server-scripts-path";
             var skillsPath = Path.Combine(
                 clientPath,
                 "Skills"
             );
             var effectsPath = Path.Combine(
-                clientPath,
+                serverScriptsPath,
                 "Effects"
             );
             var validatorsPath = Path.Combine(
-                clientPath,
+                serverScriptsPath,
                 "Validators"
             );
 
@@ -108,6 +115,11 @@
                 mock => mock.ClientPath
             ).Returns(
                 clientPath
+            );
+            serverInfoMock.Setup(
+                mock => mock.ServerScriptsPath
+            ).Returns(
+                serverScriptsPath
             );
 
             mediatorMock.Setup(

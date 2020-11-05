@@ -41,14 +41,14 @@
             );
             await ValidateDirectory(
                 Path.Combine(
-                    _serverInfo.ClientPath,
+                    _serverInfo.ServerScriptsPath,
                     "Effects"
                 ),
                 cancellationToken
             );
             await ValidateDirectory(
                 Path.Combine(
-                    _serverInfo.ClientPath,
+                    _serverInfo.ServerScriptsPath,
                     "Validators"
                 ),
                 cancellationToken
