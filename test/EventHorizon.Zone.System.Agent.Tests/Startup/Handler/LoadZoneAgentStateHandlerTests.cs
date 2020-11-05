@@ -18,7 +18,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Agent.Events.Register;
 
-    public class LoadZoneAgentListHandlerTests
+    public class LoadZoneAgentStateHandlerTests
     {
         [Fact]
         public async Task TestShouldCorrectlyRegisterExpectedAgents()
@@ -103,6 +103,74 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
                 Times.Exactly(
                     4
                 )
+            );
+        }
+
+        [Fact]
+        public async Task ShouldNotThrowExceptionWhenFileNotFound()
+        {
+            // Given
+            var appDataPath = "some-content-path/App_Data";
+            var agentFileName = IOPath.Combine(
+                appDataPath,
+                "Agent",
+                "Agent.state.json"
+            );
+            var tag = "server-tag";
+            
+            var zoneSettings = new ZoneSettings
+            {
+                Tag = tag
+            };
+
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var agentConnectionMock = new Mock<IAgentConnection>();
+            var fileLoaderMock = new Mock<IJsonFileLoader>();
+
+            agentConnectionMock.Setup(
+                mock => mock.SendAction<IList<AgentDetails>>(
+                    "GetAgentsByZoneTag",
+                    tag
+                )
+            ).ReturnsAsync(
+                new List<AgentDetails>()
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.AppDataPath
+            ).Returns(
+                appDataPath
+            );
+            fileLoaderMock.Setup(
+                mock => mock.GetFile<AgentSaveState>(
+                    agentFileName
+                )
+            ).ReturnsAsync(
+                default(AgentSaveState)
+            );
+
+            // When
+            var loadZoneAgentStateHandler = new LoadZoneAgentStateHandler(
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                zoneSettings,
+                agentConnectionMock.Object,
+                fileLoaderMock.Object
+            );
+
+            await loadZoneAgentStateHandler.Handle(
+                new LoadZoneAgentStateEvent(),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<RegisterAgentEvent>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
             );
         }
     }

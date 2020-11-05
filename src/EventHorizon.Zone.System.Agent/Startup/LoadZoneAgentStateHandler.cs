@@ -13,6 +13,8 @@ namespace EventHorizon.Zone.System.Agent.Startup
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.Agent.Save.Model;
     using EventHorizon.Zone.Core.Model.Settings;
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
 
     public class LoadZoneAgentStateHandler : IRequestHandler<LoadZoneAgentStateEvent, Unit>
     {
@@ -54,11 +56,13 @@ namespace EventHorizon.Zone.System.Agent.Startup
                     )
                 );
             }
-            // Load "LOCALE" agents from file service
+            // Load "LOCAL" agents from file service
             var agentState = await _fileLoader.GetFile<AgentSaveState>(
                 GetAgentFileName()
             );
-            foreach (var agent in agentState.AgentList)
+
+            // Check for null, meaning it is probably new
+            foreach (var agent in agentState?.AgentList ?? new List<AgentDetails>())
             {
                 await _mediator.Send(
                     new RegisterAgentEvent(
@@ -69,6 +73,7 @@ namespace EventHorizon.Zone.System.Agent.Startup
                     )
                 );
             }
+
             return Unit.Value;
         }
         private string GetAgentFileName()
