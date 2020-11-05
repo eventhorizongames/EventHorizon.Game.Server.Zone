@@ -18,6 +18,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
     public class SystemCoreServerConnectionCacheTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task ShouldReturnConnection()
         {
             // Given

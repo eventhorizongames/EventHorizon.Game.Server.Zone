@@ -14,6 +14,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
     public class TimerHostedServiceTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestExecuteAsync_ShouldStartAllTimerTasksPassedIn()
         {
             // Given

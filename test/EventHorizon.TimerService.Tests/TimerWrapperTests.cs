@@ -84,6 +84,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestStop_ShouldStopEventCallsAfterStopped()
         {
             // Given
@@ -614,6 +615,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestOnLongRunningCallShouldLogWarningMessage()
         {
             // Given

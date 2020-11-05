@@ -18,6 +18,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
     public class SystemPlayerServerConnectionCacheTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestShouldReturnConnection()
         {
             // Given

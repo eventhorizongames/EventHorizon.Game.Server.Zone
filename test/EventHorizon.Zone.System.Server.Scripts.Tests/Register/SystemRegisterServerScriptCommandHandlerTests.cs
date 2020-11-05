@@ -15,6 +15,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
     public class SystemRegisterServerScriptCommandHandlerTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestShouldAddServerScriptWhenScriptIsHandled()
         {
             // Given

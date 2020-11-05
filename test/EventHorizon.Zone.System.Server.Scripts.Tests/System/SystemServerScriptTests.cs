@@ -22,6 +22,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
     public class SystemServerScriptTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestShouldReturnResponseWithPassedInDataWhenRunningCreatedScript()
         {
             // Given
@@ -72,6 +73,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
         }
 
         [Theory]
+        [Trait("Category", "Integration")]
         [ClassData(typeof(TestClassDataGenerator))]
         public void TestShouldNotContainUnderscoreWhenCreatingAPathlessScript(
             string path
@@ -113,6 +115,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestShouldNotFailToRetrieveDataWhenDataKeyDoesNotExist()
         {
             // Given
@@ -186,6 +189,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task TestShouldHaveAccessToServicesWhenAccessingFromInsideRunningScript()
         {
             // Given
@@ -284,6 +288,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestShouldThrowInvalidOperationExecptionWhenWhenContainsScriptsFailsToCompile()
         {
             // Given

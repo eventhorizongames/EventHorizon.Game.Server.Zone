@@ -39,6 +39,7 @@
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task ShouldReturnPathOfGeneratedLibraryWhenAssemblyIsCompiled()
         {
             // Given
@@ -99,6 +100,7 @@
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public async Task ShouldCreateDirectoryToGeneratedPathWhenDoesNotExist()
         {
             // Given

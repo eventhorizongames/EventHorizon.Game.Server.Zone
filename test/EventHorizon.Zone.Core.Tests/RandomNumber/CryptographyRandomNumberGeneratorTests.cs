@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.Core.Tests.RandomNumber
     public class CryptographyRandomNumberGeneratorTests
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestShouldReturnRandomNumberLessThanOrEqualToMaxValueWhenNextWithMaxValueIsCalled()
         {
             // Given
@@ -29,6 +30,7 @@ namespace EventHorizon.Zone.Core.Tests.RandomNumber
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestShouldReturnRandomNumberBetweenMinAndMaxValueWhenNextWithMinAndMaxValueIsCalled()
         {
             // Given
@@ -56,6 +58,7 @@ namespace EventHorizon.Zone.Core.Tests.RandomNumber
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void TestShouldReturnRandomNumberBetweenMinValueAndMaxValueWhenNextWithMinAndMaxValueIsCalledWithVerySmallMargin()
         {
             // Given

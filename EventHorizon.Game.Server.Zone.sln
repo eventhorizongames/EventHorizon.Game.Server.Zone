@@ -258,6 +258,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{999DFCA2-5B67-43DA-B651-179348F36AA8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		azure-pipelines.yml = azure-pipelines.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Combat.Plugin.Skill", "src\EventHorizon.Zone.System.Combat.Plugin.Skill\EventHorizon.Zone.System.Combat.Plugin.Skill.csproj", "{5DB849E5-03D3-432F-8D8D-CB61F90703B2}"
