@@ -32,33 +32,57 @@
             CancellationToken cancellationToken
         )
         {
-            var skillsPath = Path.Combine(
-                _serverInfo.ClientPath,
-                "Skills"
+            await ValidateDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Skills"
+                ),
+                cancellationToken
             );
+            await ValidateDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Effects"
+                ),
+                cancellationToken
+            );
+            await ValidateDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Validators"
+                ),
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task ValidateDirectory(
+            string directory,
+            CancellationToken cancellationToken
+        )
+        {
             // Validate Directory Exists
             if (!await _mediator.Send(
                 new DoesDirectoryExist(
-                    skillsPath
+                    directory
                 ),
                 cancellationToken
             ))
             {
                 _logger.LogWarning(
                     "Directory '{DirectoryFullName}' was not found, creating...",
-                    skillsPath
+                    directory
                 );
                 await _mediator.Send(
                     new CreateDirectory(
-                        skillsPath
+                        directory
                     ),
                     cancellationToken
                 );
             }
-
-            return new OnServerStartupResult(
-                true
-            );
         }
     }
 }

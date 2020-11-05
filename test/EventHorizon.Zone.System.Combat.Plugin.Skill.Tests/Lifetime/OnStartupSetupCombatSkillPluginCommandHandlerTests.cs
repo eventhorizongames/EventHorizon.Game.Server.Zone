@@ -5,6 +5,7 @@
     using EventHorizon.Zone.Core.Model.Lifetime;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Lifetime;
     using FluentAssertions;
+    using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -20,13 +21,27 @@
         {
             // Given
             var clientPath = "client-path";
-            var skillsPath = Path.Combine(
-                clientPath,
-                "Skills"
-            );
-            var expected = new CreateDirectory(
-                skillsPath
-            );
+            var expectedList = new List<CreateDirectory>
+            {
+                new CreateDirectory(
+                    Path.Combine(
+                        clientPath,
+                        "Skills"
+                    )
+                ),
+                new CreateDirectory(
+                    Path.Combine(
+                        clientPath,
+                        "Effects"
+                    )
+                ),
+                new CreateDirectory(
+                    Path.Combine(
+                        clientPath,
+                        "Validators"
+                    )
+                ),
+            };
 
             var loggerMock = new Mock<ILogger<OnStartupSetupCombatSkillPluginCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
@@ -56,12 +71,15 @@
                 )
             );
 
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
+            foreach (var expected in expectedList)
+            {
+                mediatorMock.Verify(
+                    mock => mock.Send(
+                        expected,
+                        CancellationToken.None
+                    )
+                );
+            }
         }
 
         [Fact]
@@ -72,6 +90,14 @@
             var skillsPath = Path.Combine(
                 clientPath,
                 "Skills"
+            );
+            var effectsPath = Path.Combine(
+                clientPath,
+                "Effects"
+            );
+            var validatorsPath = Path.Combine(
+                clientPath,
+                "Validators"
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupCombatSkillPluginCommandHandler>>();
@@ -88,6 +114,26 @@
                 mock => mock.Send(
                     new DoesDirectoryExist(
                         skillsPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesDirectoryExist(
+                        effectsPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesDirectoryExist(
+                        validatorsPath
                     ),
                     CancellationToken.None
                 )
