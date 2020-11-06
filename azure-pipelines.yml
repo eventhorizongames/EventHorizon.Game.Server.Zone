@@ -13,9 +13,9 @@ variables:
 
 
 stages:
-  - stage: Restore
+  - stage: Restore/Build/Test
     jobs:
-    - job: Restore_dotNET
+    - job:
       steps:
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
@@ -30,12 +30,7 @@ stages:
           command: restore
           projects: '$(Parameters.RestoreBuildProjects)'
           vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
-      
-  - stage: Build
-    jobs:
-    - job: Build_dotNET
-      steps:
-      - checkout: none
+
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
         inputs:
@@ -48,12 +43,7 @@ stages:
         inputs:
           projects: '$(Parameters.RestoreBuildProjects)'
           arguments: '--configuration $(BuildConfiguration) /p:Version=$(Build.BuildNumber)'
-      
-  - stage: Test
-    jobs:
-    - job: Test_and_Report_Generation
-      steps:
-      - checkout: none
+
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
         inputs:
