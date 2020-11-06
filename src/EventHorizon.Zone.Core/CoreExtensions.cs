@@ -23,6 +23,7 @@ namespace EventHorizon.Game.Server.Zone
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using System;
     using System.Reflection;
 
     public static class CoreExtensions
@@ -109,6 +110,9 @@ namespace EventHorizon.Game.Server.Zone
                     .LogInformation(
                         "Server finished starting"
                     );
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             return app;
         }

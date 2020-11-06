@@ -6,7 +6,7 @@
     {
         public static ZoneMapDetails DEFAULT_MAP = new ZoneMapDetails
         {
-            Dimensions = 64,
+            Dimensions = 16,
             TileDimensions = 1,
             Mesh = new ZoneMapMesh
             {
