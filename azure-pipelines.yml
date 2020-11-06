@@ -13,9 +13,9 @@ variables:
 
 
 stages:
-  - stage: Build_Test
+  - stage: Restore
     jobs:
-    - job:
+    - job: Restore_dotNET
       steps:
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
@@ -30,7 +30,12 @@ stages:
           command: restore
           projects: '$(Parameters.RestoreBuildProjects)'
           vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
-
+      
+  - stage: Build
+    jobs:
+    - job: Build_dotNET
+      steps:
+      - checkout: none
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
         inputs:
@@ -43,7 +48,12 @@ stages:
         inputs:
           projects: '$(Parameters.RestoreBuildProjects)'
           arguments: '--configuration $(BuildConfiguration) /p:Version=$(Build.BuildNumber)'
-
+      
+  - stage: Test
+    jobs:
+    - job: Test_and_Report_Generation
+      steps:
+      - checkout: none
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
         inputs:
@@ -56,7 +66,7 @@ stages:
         inputs:
           command: test
           projects: '$(Parameters.TestProjects)'
-          arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & WindowsOnly!=True" /p:CollectCoverage=true /      p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\'
+          arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & WindowsOnly!=True" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\'
       
       - task: DotNetCoreCLI@2
         displayName: Restore - Report Generator
@@ -71,7 +81,7 @@ stages:
           command: custom
           projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
           custom: reportgenerator
-          arguments: '"-reports:$(Build.SourcesDirectory)/test/**/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-      reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"'
+          arguments: '"-reports:$(Build.SourcesDirectory)/test/**/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"'
           workingDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter
       
       - task: PublishCodeCoverageResults@1
