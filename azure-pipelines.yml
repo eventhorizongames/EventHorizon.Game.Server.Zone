@@ -2,6 +2,11 @@ name: $(MajorVersion).$(MinorVersion)$(rev:.r)
 pool:
   name: Default
 
+trigger:
+  branches:
+    include:
+      - master
+
 variables:
   BuildConfiguration: Release
   BuildPlatform: x64
