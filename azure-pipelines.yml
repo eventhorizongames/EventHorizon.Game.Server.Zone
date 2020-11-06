@@ -15,7 +15,7 @@ variables:
 stages:
   - stage: Restore
     jobs:
-    - job: .NET Restore
+    - job: Restore_dotNET
       steps:
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
@@ -33,7 +33,7 @@ stages:
       
   - stage: Build
     jobs:
-    - job: .NET Build
+    - job: Build_dotNET
       steps:
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
@@ -50,7 +50,7 @@ stages:
       
   - stage: Test
     jobs:
-    - job: Test and Report Generation
+    - job: Test_and_Report_Generation
       steps:
       - task: UseDotNet@2
         displayName: Use .NET Core sdk
@@ -92,7 +92,7 @@ stages:
   - stage: Publish
     condition: and(succeeded(), eq(variables.IsMain, true))
     jobs:
-    - job: Pack and Publish
+    - job: Pack_and_Publish
       steps:
       - task: DotNetCoreCLI@2
         enabled: false
@@ -114,10 +114,10 @@ stages:
           zipAfterPublish: false
           arguments: '--configuration $(BuildConfiguration)'
 
-  - stage: Image Publish
+  - stage: Image_Publish
     condition: and(succeeded(), eq(variables.IsMain, true))
     jobs:
-    - job: Docker Image buildAndPush
+    - job: Docker_Image_buildAndPush
       steps:
       - task: DockerInstaller@0
         displayName: Docker Installer
