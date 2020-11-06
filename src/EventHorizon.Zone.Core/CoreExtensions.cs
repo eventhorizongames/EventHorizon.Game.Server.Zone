@@ -23,6 +23,7 @@ namespace EventHorizon.Game.Server.Zone
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using System;
     using System.Reflection;
 
     public static class CoreExtensions
@@ -58,18 +59,21 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Publish(
-                        new MonitoringTrackEvent(
-                            "ZoneServer:Starting"
-                        )
-                    );
+                var mediator = serviceScope.ServiceProvider
+                    .GetService<IMediator>();
+                mediator.Publish(
+                    new MonitoringTrackEvent(
+                        "ZoneServer:Starting"
+                    )
+                );
                 serviceScope.ServiceProvider
                     .GetService<ILogger<CoreStartup>>()
                     .LogInformation(
                         "Server starting"
                     );
+                mediator.Send(
+                    new RunServerStartupCommand()
+                ).ConfigureAwait(false).GetAwaiter().GetResult();
             }
             return app;
         }
@@ -106,6 +110,9 @@ namespace EventHorizon.Game.Server.Zone
                     .LogInformation(
                         "Server finished starting"
                     );
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             return app;
         }

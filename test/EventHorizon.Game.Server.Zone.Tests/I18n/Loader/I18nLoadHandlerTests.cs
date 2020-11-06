@@ -55,6 +55,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 
             mediatorMock.Setup(
                 mock => mock.Send(
+                    new DoesDirectoryExist(
+                        i18nPath
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
                     new GetListOfFilesFromDirectory(
                         i18nPath
                     ),
@@ -101,6 +111,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
         public async Task TestHandle_ShouldCallRepositoryMultipleTimesWhenDirectoriesAreIncluded()
         {
             //Given
+            var i18nBasePath = "/path/to/assets";
             var i18nLoadEvent = new I18nLoadEvent();
             var expectedLocale = "en_US";
             var expectedTranslation1List = new Dictionary<string, string>()
@@ -112,7 +123,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
                 "key2", "value2"
             }};
 
-            var i18nPath1 = "/path/to/assets/folder1";
+            var i18nPath1 = $"{i18nBasePath}/folder1";
             var localeFileName1 = "file1.json";
             var localeFileFullName1 = $"{i18nPath1}/{localeFileName1}";
             var file1Extension = ".json";
@@ -130,8 +141,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
                 Locale = expectedLocale,
                 TranslationList = expectedTranslation1List,
             };
-            var i18nPath2 = "/path/to/assets/folder2";
-            var parentFullName = "/path/to/assets";
+            var i18nPath2 = $"{i18nBasePath}/folder2";
+            var parentFullName = i18nBasePath;
             var localeFileName2 = "file2.json";
             var localeFileFullName2 = $"{i18nPath2}/{localeFileName2}";
             var file2Extension = ".json";
@@ -167,6 +178,26 @@ namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
                 mock => mock.I18nPath
             ).Returns(
                 i18nPath1
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesDirectoryExist(
+                        i18nPath1
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new DoesDirectoryExist(
+                        i18nPath2
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
             );
             mediatorMock.Setup(
                 mock => mock.Send(

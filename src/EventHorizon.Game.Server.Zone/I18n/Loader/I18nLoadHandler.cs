@@ -36,19 +36,31 @@ namespace EventHorizon.Game.Server.Zone.I18n.Loader
         )
         {
             await LoadDirectoryIntoRepository(
-                _serverInfo.I18nPath
+                _serverInfo.I18nPath,
+                cancellationToken
             );
         }
 
         public async Task LoadDirectoryIntoRepository(
-            string path
+            string path,
+            CancellationToken cancellationToken
         )
         {
+            if(!await _mediator.Send(
+                new DoesDirectoryExist(
+                    path
+                ),
+                cancellationToken
+            ))
+            {
+                return;
+            }
             // Read all i18n files of path
             foreach (var i18nFileInfo in await _mediator.Send(
                 new GetListOfFilesFromDirectory(
                     path
-                )
+                ),
+                cancellationToken
             ))
             {
                 // Add i18n translation list into i18nRepository
@@ -64,11 +76,13 @@ namespace EventHorizon.Game.Server.Zone.I18n.Loader
             foreach (var directoryInfo in await _mediator.Send(
                 new GetListOfDirectoriesFromDirectory(
                     path
-                )
+                ),
+                cancellationToken
             ))
             {
-                await this.LoadDirectoryIntoRepository(
-                    directoryInfo.FullName
+                await LoadDirectoryIntoRepository(
+                    directoryInfo.FullName,
+                    cancellationToken
                 );
             }
         }

@@ -9,7 +9,6 @@
     using EventHorizon.Game.Server.Zone.Core;
     using EventHorizon.Game.Server.Zone.Core.JsonConverter;
     using EventHorizon.Game.Server.Zone.Player;
-    using EventHorizon.Game.Server.Zone.Plugin;
     using EventHorizon.Game.Server.Zone.Setup;
     using EventHorizon.Identity;
     using EventHorizon.Monitoring;
@@ -217,9 +216,6 @@
 
                 typeof(SystemInteractionExtensions).Assembly,
                 
-                // Dynamically Loaded Plugins
-                typeof(Plugin.PluginExtensions).Assembly,
-
                 // Game Specific Loading
                 typeof(GameExtensions).Assembly,
             };
@@ -347,11 +343,6 @@
                 .AddSystemInteraction()
             ;
 
-            // Dynamically Loaded Plugins
-            services.AddPlugins(
-                HostingEnvironment
-            );
-
             // Game Specific Loading
             services.AddGame();
 
@@ -459,9 +450,6 @@
             app.UseSystemPlayerPluginAction();
 
             app.UseSystemInteraction();
-
-            // Dynamically Loaded Plugins
-            app.UsePlugins();
 
             // Game Specific Loading
             app.UseGame();
