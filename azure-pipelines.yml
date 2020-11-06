@@ -96,11 +96,21 @@ steps:
     arguments: '--configuration $(BuildConfiguration)'
 
 - task: Docker@2
-  displayName: Build and Push Image
+  displayName: Build and Push Image (ACR)
   inputs: 
     command: buildAndPush
     containerRegistry: eventHorizonGamesConnection
     dockerFile: Dockerfile.devops
     repository: ehz/game/server/zone
+    tags: |
+      latest
+
+- task: Docker@2
+  displayName: Build and Push Image (docker-hub)
+  inputs: 
+    command: buildAndPush
+    containerRegistry: docker-hub
+    dockerFile: Dockerfile.devops
+    repository: canhorn/ehz-platform-server-zone
     tags: |
       latest
