@@ -112,6 +112,12 @@
                     "Default Behavior Shape was not found, creating..."
                 );
                 await _mediator.Send(
+                    new CreateFile(
+                        defaultShapeFile
+                    ),
+                    cancellationToken
+                );
+                await _mediator.Send(
                     new WriteAllTextToFile(
                         defaultShapeFile,
                         BehaviorDefaultSettings.DEFAULT_SHAPE
@@ -140,6 +146,12 @@
             {
                 _logger.LogWarning(
                     "Default Behavior Script was not found, creating..."
+                );
+                await _mediator.Send(
+                    new CreateFile(
+                        defaultScriptFile
+                    ),
+                    cancellationToken
                 );
                 await _mediator.Send(
                     new WriteAllTextToFile(
