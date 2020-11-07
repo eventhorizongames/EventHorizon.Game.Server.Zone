@@ -21,12 +21,11 @@
         {
             // Given
             var serverScriptsPath = "server-scripts-path";
-            var adminScriptsPath = Path.Combine(
-                serverScriptsPath,
-                "Admin"
-            );
             var expected = new CreateDirectory(
-                adminScriptsPath
+                Path.Combine(
+                    serverScriptsPath,
+                    "Admin"
+                )
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupAdminSystemCommandHandler>>();
@@ -66,7 +65,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateAdminScriptsDirectoryWhenAlreadyExisting()
         {
             // Given
             var serverScriptsPath = "server-scripts-path";

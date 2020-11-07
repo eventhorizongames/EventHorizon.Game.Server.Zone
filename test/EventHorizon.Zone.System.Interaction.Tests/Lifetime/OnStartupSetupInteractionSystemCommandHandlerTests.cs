@@ -16,16 +16,15 @@
     public class OnStartupSetupInteractionSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientParticlesDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateInteractionDirectoryWhenDoesNotExist()
         {
             // Given
             var serverScriptsPath = "server-scripts-path";
-            var interactionPath = Path.Combine(
-                serverScriptsPath,
-                "Interaction"
-            );
             var expected = new CreateDirectory(
-                interactionPath
+                Path.Combine(
+                    serverScriptsPath,
+                    "Interaction"
+                )
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupInteractionSystemCommandHandler>>();
@@ -65,7 +64,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateInteractionDirectoryWhenAlreadyExisting()
         {
             // Given
             var serverScriptsPath = "server-scripts-path";

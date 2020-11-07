@@ -17,7 +17,7 @@
     public class OnStartupSetupEntityModuleSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateDirectoriesWhenDoNotExist()
+        public async Task ShouldCreateModuleDirectoriesWhenDoNotExist()
         {
             // Given
             var clientPath = "client-path";
@@ -79,7 +79,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateModuleDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";

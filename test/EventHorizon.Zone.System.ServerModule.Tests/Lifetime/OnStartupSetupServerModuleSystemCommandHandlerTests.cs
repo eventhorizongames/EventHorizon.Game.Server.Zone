@@ -17,16 +17,15 @@
     public class OnStartupSetupServerModuleSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientParticlesDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateServerModuleDirectoryWhenDoesNotExist()
         {
             // Given
             var clientPath = "client-path";
-            var serverModulePath = Path.Combine(
-                clientPath,
-                "ServerModule"
-            );
             var expected = new CreateDirectory(
-                serverModulePath
+                Path.Combine(
+                    clientPath,
+                    "ServerModule"
+                )
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupServerModuleSystemCommandHandler>>();
@@ -66,7 +65,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateServerModuleDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";

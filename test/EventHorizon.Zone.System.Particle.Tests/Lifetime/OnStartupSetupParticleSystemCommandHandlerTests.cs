@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Zone.System.Particle.Tests.Lifetime
 {
-    using System;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
@@ -17,16 +16,15 @@
     public class OnStartupSetupParticleSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientParticlesDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateParticleDirectoryWhenDoesNotExist()
         {
             // Given
             var clientPath = "client-path";
-            var particlePath = Path.Combine(
-                clientPath,
-                "Particle"
-            );
             var expected = new CreateDirectory(
-                particlePath
+                Path.Combine(
+                    clientPath,
+                    "Particle"
+                )
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupParticleSystemCommandHandler>>();
@@ -66,7 +64,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateParticleDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";

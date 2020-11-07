@@ -16,14 +16,14 @@
     public class OnStartupSetupGuiSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateDirectoriesWhenDoNotExist()
+        public async Task ShouldCreateGuiDirectoryWhenDoesNotExist()
         {
             // Given
             var clientPath = "client-path";
             var expected = new CreateDirectory(
                 Path.Combine(
                     clientPath,
-                "Gui"
+                    "Gui"
                 )
             );
 
@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateGuiDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";

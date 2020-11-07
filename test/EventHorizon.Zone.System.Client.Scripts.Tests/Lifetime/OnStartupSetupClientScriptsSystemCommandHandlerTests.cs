@@ -16,7 +16,7 @@
     public class OnStartupSetupClientScriptsSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientWhenDoesNotExist()
+        public async Task ShouldCreateClientScriptsDirectoryWhenDoesNotExist()
         {
             // Given
             var clientScriptsPath = "client-script-path";
@@ -61,7 +61,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateClientScriptsDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientScriptsPath = "client-script-path";

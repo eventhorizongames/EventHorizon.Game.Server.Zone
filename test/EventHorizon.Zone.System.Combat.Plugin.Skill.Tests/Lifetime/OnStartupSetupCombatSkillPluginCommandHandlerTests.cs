@@ -17,7 +17,7 @@
     public class OnStartupSetupCombatSkillPluginCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientParticlesDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateSkillDirectoriesWhenDoNotExist()
         {
             // Given
             var clientPath = "client-path";
@@ -89,7 +89,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateSkillDirectoriesWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";

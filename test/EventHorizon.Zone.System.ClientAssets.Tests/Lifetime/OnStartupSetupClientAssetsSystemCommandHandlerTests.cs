@@ -16,7 +16,7 @@
     public class OnStartupSetupClientAssetsSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateDirectoriesWhenDoNotExist()
+        public async Task ShouldCreateClientAssetsDirectoryWhenDoesNotExist()
         {
             // Given
             var clientPath = "client-path";
@@ -64,7 +64,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateClientAssetsDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";
