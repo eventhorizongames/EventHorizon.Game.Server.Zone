@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Lifetime
 {
-    using System;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
