@@ -1,9 +1,9 @@
-﻿namespace EventHorizon.Zone.System.Interaction.Tests.Lifetime
+﻿namespace EventHorizon.Zone.System.ClientAssets.Tests.Lifetime
 {
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using EventHorizon.Zone.System.Interaction.Lifetime;
+    using EventHorizon.Zone.System.Gui.Lifetime;
     using FluentAssertions;
     using global::System.IO;
     using global::System.Threading;
@@ -13,38 +13,38 @@
     using Moq;
     using Xunit;
 
-    public class OnStartupSetupInteractionSystemCommandHandlerTests
+    public class OnStartupSetupGuiSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateInteractionDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateGuiDirectoryWhenDoesNotExist()
         {
             // Given
-            var serverScriptsPath = "server-scripts-path";
+            var clientPath = "client-path";
             var expected = new CreateDirectory(
                 Path.Combine(
-                    serverScriptsPath,
-                    "Interaction"
+                    clientPath,
+                    "Gui"
                 )
             );
 
-            var loggerMock = new Mock<ILogger<OnStartupSetupInteractionSystemCommandHandler>>();
+            var loggerMock = new Mock<ILogger<OnStartupSetupGuiSystemCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
 
             serverInfoMock.Setup(
-                mock => mock.ServerScriptsPath
+                mock => mock.ClientPath
             ).Returns(
-                serverScriptsPath
+                clientPath
             );
 
             // When
-            var handler = new OnStartupSetupInteractionSystemCommandHandler(
+            var handler = new OnStartupSetupGuiSystemCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object
             );
             var actual = await handler.Handle(
-                new OnStartupSetupInteractionSystemCommand(),
+                new OnStartupSetupGuiSystemCommand(),
                 CancellationToken.None
             );
 
@@ -64,29 +64,29 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateInteractionDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateGuiDirectoryWhenAlreadyExisting()
         {
             // Given
-            var serverScriptsPath = "server-scripts-path";
-            var interactionPath = Path.Combine(
-                serverScriptsPath,
-                "Interaction"
+            var clientPath = "client-path";
+            var baseModulesPath = Path.Combine(
+                clientPath,
+                "Gui"
             );
 
-            var loggerMock = new Mock<ILogger<OnStartupSetupInteractionSystemCommandHandler>>();
+            var loggerMock = new Mock<ILogger<OnStartupSetupGuiSystemCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
 
             serverInfoMock.Setup(
-                mock => mock.ServerScriptsPath
+                mock => mock.ClientPath
             ).Returns(
-                serverScriptsPath
+                clientPath
             );
 
             mediatorMock.Setup(
                 mock => mock.Send(
                     new DoesDirectoryExist(
-                        interactionPath
+                        baseModulesPath
                     ),
                     CancellationToken.None
                 )
@@ -95,13 +95,13 @@
             );
 
             // When
-            var handler = new OnStartupSetupInteractionSystemCommandHandler(
+            var handler = new OnStartupSetupGuiSystemCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object
             );
             var actual = await handler.Handle(
-                new OnStartupSetupInteractionSystemCommand(),
+                new OnStartupSetupGuiSystemCommand(),
                 CancellationToken.None
             );
 

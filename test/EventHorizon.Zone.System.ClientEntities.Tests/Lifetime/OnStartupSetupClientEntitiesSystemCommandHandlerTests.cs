@@ -15,7 +15,7 @@
     public class OnStartupSetupClientEntitiesSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateDirectoryWhenDoesNotExist()
+        public async Task ShouldCreateClientEntityDirectoryWhenDoesNotExist()
         {
             // Given
             var clientEntityPath = "client-entity-path";
@@ -60,7 +60,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateClientEntityDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientEntityPath = "client-entity-path";

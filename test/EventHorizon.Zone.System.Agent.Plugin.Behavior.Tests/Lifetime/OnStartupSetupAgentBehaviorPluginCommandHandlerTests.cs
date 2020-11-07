@@ -19,32 +19,25 @@
     public class OnStartupSetupAgentBehaviorPluginCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateClientParticlesDirectoriesWhenDoesNotExist()
+        public async Task ShouldCreateBehaviorDirectoriesWhenDoesNotExist()
         {
             // Given
             var serverScriptsPath = "server-scripts-path";
             var serverPath = "server-path";
             var systemPath = "system-path";
-            var behaviorScriptPath = Path.Combine(
-                serverScriptsPath,
-                "Behavior"
-            );
-            var serverBehaviorsPath = Path.Combine(
-                serverPath,
-                "Behaviors"
-            );
-            var paths = new List<string>
-            {
-                behaviorScriptPath,
-                serverBehaviorsPath,
-            };
             var expectedList = new List<CreateDirectory>
             {
                 new CreateDirectory(
-                    behaviorScriptPath
+                    Path.Combine(
+                        serverPath,
+                        "Behaviors"
+                    )
                 ),
                 new CreateDirectory(
-                    serverBehaviorsPath
+                    Path.Combine(
+                        serverScriptsPath,
+                        "Behavior"
+                    )
                 ),
             };
 
@@ -98,7 +91,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateAnyDirectoriesWhenAlreadyExisting()
+        public async Task ShouldNotCreateBehaviorDirectoriesWhenAlreadyExisting()
         {
             // Given
             var serverScriptsPath = "server-scripts-path";

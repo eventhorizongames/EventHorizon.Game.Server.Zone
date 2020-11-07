@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Lifetime
+﻿namespace EventHorizon.Zone.System.EntityModule.Lifetime
 {
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
@@ -9,15 +9,15 @@
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class OnStartupSetupClientAssetsSystemCommandHandler
-        : IRequestHandler<OnStartupSetupClientAssetsSystemCommand, OnServerStartupResult>
+    public class OnStartupSetupEntityModuleSystemCommandHandler
+        : IRequestHandler<OnStartupSetupEntityModuleSystemCommand, OnServerStartupResult>
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
 
-        public OnStartupSetupClientAssetsSystemCommandHandler(
-            ILogger<OnStartupSetupClientAssetsSystemCommandHandler> logger,
+        public OnStartupSetupEntityModuleSystemCommandHandler(
+            ILogger<OnStartupSetupEntityModuleSystemCommandHandler> logger,
             IMediator mediator,
             ServerInfo serverInfo
         )
@@ -28,37 +28,57 @@
         }
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupClientAssetsSystemCommand request, 
+            OnStartupSetupEntityModuleSystemCommand request, 
             CancellationToken cancellationToken
         )
         {
-            var particlePath = Path.Combine(
-                _serverInfo.ClientPath,
-                "Assets"
+            await CreateDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Modules",
+                    "Base"
+                ),
+                cancellationToken
             );
+            await CreateDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Modules",
+                    "Player"
+                ),
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task CreateDirectory(
+            string directory, 
+            CancellationToken cancellationToken
+        )
+        {
+
             // Validate Directory Exists
             if (!await _mediator.Send(
                 new DoesDirectoryExist(
-                    particlePath
+                    directory
                 ),
                 cancellationToken
             ))
             {
                 _logger.LogWarning(
                     "Directory '{DirectoryFullName}' was not found, creating...",
-                    particlePath
+                    directory
                 );
                 await _mediator.Send(
                     new CreateDirectory(
-                        particlePath
+                        directory
                     ),
                     cancellationToken
                 );
             }
-
-            return new OnServerStartupResult(
-                true
-            );
         }
     }
 }

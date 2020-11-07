@@ -1,9 +1,9 @@
-﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Lifetime
+﻿namespace EventHorizon.Zone.System.EntityModule.Tests.Lifetime
 {
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Lifetime;
+    using EventHorizon.Zone.System.EntityModule.Lifetime;
     using FluentAssertions;
     using global::System.Collections.Generic;
     using global::System.IO;
@@ -14,37 +14,32 @@
     using Moq;
     using Xunit;
 
-    public class OnStartupSetupCombatSkillPluginCommandHandlerTests
+    public class OnStartupSetupEntityModuleSystemCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldCreateSkillDirectoriesWhenDoNotExist()
+        public async Task ShouldCreateModuleDirectoriesWhenDoNotExist()
         {
             // Given
             var clientPath = "client-path";
-            var serverScriptsPath = "server-scripts-path";
             var expectedList = new List<CreateDirectory>
             {
                 new CreateDirectory(
                     Path.Combine(
                         clientPath,
-                        "Skills"
+                        "Modules",
+                        "Base"
                     )
                 ),
                 new CreateDirectory(
                     Path.Combine(
-                        serverScriptsPath,
-                        "Effects"
-                    )
-                ),
-                new CreateDirectory(
-                    Path.Combine(
-                        serverScriptsPath,
-                        "Validators"
+                        clientPath,
+                        "Modules",
+                        "Player"
                     )
                 ),
             };
 
-            var loggerMock = new Mock<ILogger<OnStartupSetupCombatSkillPluginCommandHandler>>();
+            var loggerMock = new Mock<ILogger<OnStartupSetupEntityModuleSystemCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
 
@@ -53,20 +48,15 @@
             ).Returns(
                 clientPath
             );
-            serverInfoMock.Setup(
-                mock => mock.ServerScriptsPath
-            ).Returns(
-                serverScriptsPath
-            );
 
             // When
-            var handler = new OnStartupSetupCombatSkillPluginCommandHandler(
+            var handler = new OnStartupSetupEntityModuleSystemCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object
             );
             var actual = await handler.Handle(
-                new OnStartupSetupCombatSkillPluginCommand(),
+                new OnStartupSetupEntityModuleSystemCommand(),
                 CancellationToken.None
             );
 
@@ -89,25 +79,22 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateSkillDirectoriesWhenAlreadyExisting()
+        public async Task ShouldNotCreateModuleDirectoryWhenAlreadyExisting()
         {
             // Given
             var clientPath = "client-path";
-            var serverScriptsPath = "server-scripts-path";
-            var skillsPath = Path.Combine(
+            var baseModulesPath = Path.Combine(
                 clientPath,
-                "Skills"
+                "Modules",
+                "Base"
             );
-            var effectsPath = Path.Combine(
-                serverScriptsPath,
-                "Effects"
-            );
-            var validatorsPath = Path.Combine(
-                serverScriptsPath,
-                "Validators"
+            var playerModulesPath = Path.Combine(
+                clientPath,
+                "Modules",
+                "Player"
             );
 
-            var loggerMock = new Mock<ILogger<OnStartupSetupCombatSkillPluginCommandHandler>>();
+            var loggerMock = new Mock<ILogger<OnStartupSetupEntityModuleSystemCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
 
@@ -116,16 +103,11 @@
             ).Returns(
                 clientPath
             );
-            serverInfoMock.Setup(
-                mock => mock.ServerScriptsPath
-            ).Returns(
-                serverScriptsPath
-            );
 
             mediatorMock.Setup(
                 mock => mock.Send(
                     new DoesDirectoryExist(
-                        skillsPath
+                        baseModulesPath
                     ),
                     CancellationToken.None
                 )
@@ -135,17 +117,7 @@
             mediatorMock.Setup(
                 mock => mock.Send(
                     new DoesDirectoryExist(
-                        effectsPath
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesDirectoryExist(
-                        validatorsPath
+                        playerModulesPath
                     ),
                     CancellationToken.None
                 )
@@ -154,13 +126,13 @@
             );
 
             // When
-            var handler = new OnStartupSetupCombatSkillPluginCommandHandler(
+            var handler = new OnStartupSetupEntityModuleSystemCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object
             );
             var actual = await handler.Handle(
-                new OnStartupSetupCombatSkillPluginCommand(),
+                new OnStartupSetupEntityModuleSystemCommand(),
                 CancellationToken.None
             );
 

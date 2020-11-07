@@ -20,12 +20,11 @@
         {
             // Given
             var adminPath = "admin-path";
-            var commandsPath = Path.Combine(
-                adminPath,
-                "Commands"
-            );
             var expected = new CreateDirectory(
-                commandsPath
+                Path.Combine(
+                    adminPath,
+                    "Commands"
+                )
             );
 
             var loggerMock = new Mock<ILogger<OnStartupSetupAdminCommandsPluginCommandHandler>>();
@@ -65,7 +64,7 @@
         }
 
         [Fact]
-        public async Task ShouldNotCreateDirectoryWhenAlreadyExisting()
+        public async Task ShouldNotCreateAdminCommandsDirectoryWhenAlreadyExisting()
         {
             // Given
             var adminPath = "admin-path";
