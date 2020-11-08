@@ -20,10 +20,15 @@ namespace EventHorizon.Game.I18n
         }
         public static void UseI18n(this IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(new I18nLoadEvent()).GetAwaiter().GetResult();
-            }
+            using var serviceScope = app.ApplicationServices
+                .GetService<IServiceScopeFactory>()
+                .CreateScope();
+
+            serviceScope.ServiceProvider
+                .GetService<IMediator>()
+                .Publish(
+                    new I18nLoadEvent()
+                ).GetAwaiter().GetResult();
         }
     }
 }
