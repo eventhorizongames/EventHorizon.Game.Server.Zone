@@ -50,7 +50,11 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             {
                 return;
             }
-            _logger.LogError(exception, "Player Disconnected: {PlayerId}", playerId);
+            _logger.LogError(
+                exception,
+                "Player Disconnected: {PlayerId}",
+                playerId
+            );
             await _mediator.Publish(
                 new PlayerDisconnectedEvent(
                     playerId

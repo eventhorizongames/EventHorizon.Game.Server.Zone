@@ -73,8 +73,8 @@ namespace EventHorizon.Zone.System.Editor.Delete
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Failed to Delete Editor File.",
-                    ex
+                    ex,
+                    "Failed to Delete Editor Folder."
                 );
                 return new EditorResponse(
                     false,

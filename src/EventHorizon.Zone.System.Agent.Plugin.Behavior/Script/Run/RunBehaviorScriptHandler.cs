@@ -39,9 +39,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
                         }
                     )
                 );
-                if (result is BehaviorScriptResponse)
+                if (result is BehaviorScriptResponse response)
                 {
-                    return (BehaviorScriptResponse)result;
+                    return response;
                 }
                 _logger.LogError(
                     "Behavior Script result was not expected type:  \n | request.ScriptId: {RequestScriptId} \n | result.Message: {ResultMessage}",

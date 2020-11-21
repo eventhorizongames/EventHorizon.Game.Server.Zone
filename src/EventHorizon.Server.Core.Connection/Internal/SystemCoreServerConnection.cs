@@ -40,10 +40,10 @@ namespace EventHorizon.Server.Core.Connection.Internal
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Generic On Action failed",
-                    ex
+                    ex,
+                    "Generic On Action failed"
                 );
-                throw ex;
+                throw;
             }
         }
         public void OnAction(
@@ -61,10 +61,10 @@ namespace EventHorizon.Server.Core.Connection.Internal
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "On Action failed",
-                    ex
+                    ex,
+                    "On Action failed"
                 );
-                throw ex;
+                throw;
             }
         }
 
@@ -83,10 +83,10 @@ namespace EventHorizon.Server.Core.Connection.Internal
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Generic Send Action failed",
-                    ex
+                    ex,
+                    "Generic Send Action failed"
                 );
-                throw ex;
+                throw;
             }
         }
 
@@ -105,10 +105,10 @@ namespace EventHorizon.Server.Core.Connection.Internal
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Send Action failed",
-                    ex
+                    ex,
+                    "Send Action failed"
                 );
-                throw ex;
+                throw;
             }
         }
     }

@@ -66,7 +66,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
                     );
                     _connection = null;
                     // TODO: Add publish of Connection Exception Event
-                    throw ex;
+                    throw;
                 }
             }
             return _connection;

@@ -60,13 +60,14 @@ namespace EventHorizon.Server.Core.Register
             catch (Exception ex)
             {
                 _logger.LogError(
+                    ex,
                     "Failed to register with ZoneServer: {Tag} | {Host}",
                     _zoneSettings.Tag,
                     _serverProperty.Get<string>(
                         ServerPropertyKeys.HOST
                     )
                 );
-                throw ex;
+                throw;
             }
         }
     }

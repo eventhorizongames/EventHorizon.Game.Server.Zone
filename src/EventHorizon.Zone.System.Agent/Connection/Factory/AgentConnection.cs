@@ -24,8 +24,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
             }
             catch (Exception ex)
             {
-                _logger.LogError("On Action failed", ex);
-                throw ex;
+                _logger.LogError(
+                    ex, 
+                    "On Action failed"
+                );
+                throw;
             }
         }
         public void OnAction(string actionName, Action action)
@@ -36,8 +39,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
             }
             catch (Exception ex)
             {
-                _logger.LogError("On Action failed", ex);
-                throw ex;
+                _logger.LogError(
+                    ex,
+                    "On Action failed"
+                );
+                throw;
             }
         }
 
@@ -49,8 +55,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
             }
             catch (Exception ex)
             {
-                _logger.LogError("Send Action failed", ex);
-                throw ex;
+                _logger.LogError(
+                    ex,
+                    "Send Action failed"
+                );
+                throw;
             }
         }
 
@@ -62,8 +71,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
             }
             catch (Exception ex)
             {
-                _logger.LogError("Send Action failed", ex);
-                throw ex;
+                _logger.LogError(
+                    ex,
+                    "Send Action failed"
+                );
+                throw;
             }
         }
     }

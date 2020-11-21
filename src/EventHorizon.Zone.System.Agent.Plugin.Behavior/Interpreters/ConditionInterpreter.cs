@@ -114,8 +114,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Exception during Run of Action",
-                    ex
+                    ex,
+                    "Exception during Run of Action"
                 );
                 return FAILED_RESPONSE;
             }

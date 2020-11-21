@@ -49,8 +49,8 @@ namespace EventHorizon.Server.Core.Ping
             catch (Exception ex)
             {
                 _logger.LogError(
-                    "Zone Core Server Ping failed",
-                    ex
+                    ex,
+                    "Zone Core Server Ping failed"
                 );
                 // TODO: Publish Server Connection Check Failed
                 // Have a service pick this up and try to reconnect to core server is not started.

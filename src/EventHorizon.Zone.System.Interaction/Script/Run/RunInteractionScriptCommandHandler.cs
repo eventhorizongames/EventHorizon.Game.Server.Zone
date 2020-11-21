@@ -7,7 +7,7 @@ using MediatR;
 
 namespace EventHorizon.Zone.System.Interaction.Script.Run
 {
-    public struct RunInteractionScriptCommandHandler
+    public class RunInteractionScriptCommandHandler
         : IRequestHandler<RunInteractionScriptCommand, RunInteractionScriptResponse>
     {
         readonly IMediator _mediator;

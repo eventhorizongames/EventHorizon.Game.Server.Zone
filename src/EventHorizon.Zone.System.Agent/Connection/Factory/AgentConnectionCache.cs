@@ -26,7 +26,7 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
         }
 
         public async Task<HubConnection> GetConnection(
-            string url, 
+            string url,
             Action<HttpConnectionOptions> configureHttpConnection
         )
         {
@@ -47,9 +47,12 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error connecting to player hub");
+                    _logger.LogError(
+                        ex, 
+                        "Error connecting to player hub"
+                    );
                     _connection = null;
-                    throw ex;
+                    throw;
                 }
             }
             return _connection;
