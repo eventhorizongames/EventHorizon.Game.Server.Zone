@@ -43,6 +43,17 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
+                    new IsDirectoryEmpty(
+                        folderFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
                     new DeleteDirectory(
                         folderFullName
                     ),
@@ -104,6 +115,17 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
+                    new IsDirectoryEmpty(
+                        folderFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
                     new DeleteDirectory(
                         folderFullName
                     ),
@@ -159,7 +181,7 @@
                 ),
                 folderName
             );
-            var directoryEmpty = true;
+            var directoryEmpty = false;
 
             var loggerMock = new Mock<ILogger<DeleteEditorFolderHandler>>();
             var mediatorMock = new Mock<IMediator>();
@@ -226,6 +248,17 @@
             var loggerMock = new Mock<ILogger<DeleteEditorFolderHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new IsDirectoryEmpty(
+                        folderFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                true
+            );
 
             mediatorMock.Setup(
                 mock => mock.Send(

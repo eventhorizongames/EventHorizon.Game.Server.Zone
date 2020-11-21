@@ -43,7 +43,7 @@ namespace EventHorizon.Zone.System.Editor.Delete
                     ),
                     request.FolderName
                 );
-                if (await _mediator.Send(
+                if (!await _mediator.Send(
                     new IsDirectoryEmpty(
                         folderFullName
                     )
