@@ -149,6 +149,7 @@
         [InlineData(".js", "javascript")]
         [InlineData(".json", "json")]
         [InlineData(".csx", "csharp")]
+        [InlineData(".cs", "csharp")]
         [InlineData(".text", "plaintext")]
         public async Task ShouldSetLanaguageAttributeWhenFileExtensionMatchesExpected(
             string directoryToLoadFileExtension,

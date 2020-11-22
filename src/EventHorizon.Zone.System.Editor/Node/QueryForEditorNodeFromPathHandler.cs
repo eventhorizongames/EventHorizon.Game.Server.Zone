@@ -190,6 +190,7 @@ namespace EventHorizon.Zone.System.Editor.Node
                 ".js" => "javascript",
                 ".json" => "json",
                 ".csx" => "csharp",
+                ".cs" => "csharp",
                 _ => "plaintext",
             };
         }
