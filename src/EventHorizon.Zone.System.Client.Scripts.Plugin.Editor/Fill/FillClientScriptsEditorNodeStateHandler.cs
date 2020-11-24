@@ -57,17 +57,17 @@ namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Editor.Fill
                     _serverInfo.ClientScriptsPath
                 )
             )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
+                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
                 false
             );
 
-            foreach (var child in node.Children)
-            {
-                child.AddProperty(
-                    EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
-                    false
-                );
-            }
+            //foreach (var child in node.Children)
+            //{
+            //    child.AddProperty(
+            //        EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
+            //        false
+            //    );
+            //}
 
             return node;
         }
