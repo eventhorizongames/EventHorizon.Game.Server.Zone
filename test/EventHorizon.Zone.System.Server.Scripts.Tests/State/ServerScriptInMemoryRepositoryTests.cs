@@ -70,6 +70,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
         public struct TestServerScript : ServerScript
         {
             public string Id { get; set; }
+            public string Hash { get; set; }
 
             public Task<ServerScriptResponse> Run(
                 ServerScriptServices services,

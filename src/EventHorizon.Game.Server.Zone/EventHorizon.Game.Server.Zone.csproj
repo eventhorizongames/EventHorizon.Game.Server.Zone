@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,11 +15,11 @@
         <PackageReference Include="prometheus-net.AspNetCore" Version="3.5.0" />
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="3.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="5.0.0" />
         <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.13.1" />
-        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.1.6" />
+        <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="5.0.0" />
 
         <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
         <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />

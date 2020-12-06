@@ -43,7 +43,7 @@ namespace EventHorizon.Zone.System.Admin.Load
                     {
                         "RootPath",
                         $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
-                    }
+                    },
                 }
             )
         );

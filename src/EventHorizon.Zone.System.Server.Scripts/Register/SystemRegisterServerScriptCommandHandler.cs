@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
     using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.System;
     using global::System.Threading;
@@ -30,6 +31,25 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
             CancellationToken cancellationToken
         )
         {
+            var existing = GetExisting(
+                request
+            );
+            // TODO: Enable for Hash based Caching for Scripts
+            //if (existing != default
+            //    && existing.Hash == SystemServerScript.GenerateHash(
+            //        request.ScriptString
+            //    )
+            //)
+            //{
+            //    _logger.LogDebug(
+            //        "Script Already Generated for \nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
+            //            request.FileName,
+            //            request.Path,
+            //            request.TagList
+            //    );
+            //    // No change to the script, just ignore it.
+            //    return Unit.Value;
+            //}
             _logger.LogDebug(
                 "Loading System Service Script\nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
                     request.FileName,
@@ -58,6 +78,25 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                 )
             );
             return Unit.Value;
+        }
+
+        private ServerScript GetExisting(
+            RegisterServerScriptCommand request
+        )
+        {
+            try
+            {
+                return _serverScriptRepository.Find(
+                    SystemServerScript.GenerateId(
+                        request.Path,
+                        request.FileName
+                    )
+                );
+            }
+            catch (ServerScriptNotFound)
+            {
+                return default;
+            }
         }
     }
 }

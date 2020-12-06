@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.Core.Info
     using System.Collections.ObjectModel;
     using System.Reflection;
 
-    public struct StandardSystemProvidedAssemblyList : SystemProvidedAssemblyList
+    public class StandardSystemProvidedAssemblyList : SystemProvidedAssemblyList
     {
         public IList<Assembly> List { get; }
 

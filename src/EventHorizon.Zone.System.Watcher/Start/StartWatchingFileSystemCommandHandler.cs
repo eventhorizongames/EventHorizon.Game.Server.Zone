@@ -5,19 +5,23 @@ using EventHorizon.Zone.System.Watcher.Events.Start;
 using EventHorizon.Zone.System.Watcher.Model;
 using EventHorizon.Zone.System.Watcher.State;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Watcher.Start
 {
     public class StartWatchingFileSystemCommandHandler : IRequestHandler<StartWatchingFileSystemCommand>
     {
-        readonly PendingReloadState _pendingReload;
-        readonly FileSystemWatcherState _watcherState;
+        private readonly ILogger<StartWatchingFileSystemCommandHandler> _logger;
+        private readonly PendingReloadState _pendingReload;
+        private readonly FileSystemWatcherState _watcherState;
 
         public StartWatchingFileSystemCommandHandler(
+            ILogger<StartWatchingFileSystemCommandHandler> logger,
             PendingReloadState pendingReload,
             FileSystemWatcherState watcherState
         )
         {
+            _logger = logger;
             _pendingReload = pendingReload;
             _watcherState = watcherState;
         }
@@ -55,8 +59,7 @@ namespace EventHorizon.Zone.System.Watcher.Start
         {
             var watcher = new FileSystemWatcher();
             watcher.IncludeSubdirectories = true;
-            watcher.NotifyFilter = NotifyFilters.LastAccess
-                                 | NotifyFilters.LastWrite
+            watcher.NotifyFilter = NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
                                  | NotifyFilters.DirectoryName;
             watcher.Path = path;
@@ -72,7 +75,15 @@ namespace EventHorizon.Zone.System.Watcher.Start
 
         private void OnChanged(
             object source,
-            FileSystemEventArgs _
-        ) => _pendingReload.SetToPending();
+            FileSystemEventArgs args
+        )
+        {
+            _logger.LogDebug(
+                "{ChangeType} triggered by {FullPath}",
+                args.ChangeType.ToString(),
+                args.FullPath
+            );
+            _pendingReload.SetToPending();
+        }
     }
 }

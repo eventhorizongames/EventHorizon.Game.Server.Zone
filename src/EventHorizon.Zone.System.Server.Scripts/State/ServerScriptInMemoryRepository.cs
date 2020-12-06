@@ -1,10 +1,9 @@
-using System.Collections.Concurrent;
-using System.Linq;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-
 namespace EventHorizon.Zone.System.Server.Scripts.State
 {
+    using global::System.Collections.Concurrent;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+
     public class ServerScriptInMemoryRepository : ServerScriptRepository
     {
         private readonly ConcurrentDictionary<string, ServerScript> MAP = new ConcurrentDictionary<string, ServerScript>();
@@ -13,10 +12,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             ServerScript script
         )
         {
-            MAP.AddOrUpdate(
+            MAP.TryRemove(script.Id, out _);
+            MAP.TryAdd(
                 script.Id,
-                script,
-                (key, old) => script
+                script
             );
         }
 
@@ -24,17 +23,18 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             string id
         )
         {
-            var script = MAP.Values.FirstOrDefault(
-                a => a.Id == id
-            );
-            if (script == null)
+            if (MAP.TryGetValue(
+                id,
+                out var script
+            ))
             {
-                throw new ServerScriptNotFound(
-                    id,
-                    "ServerScriptInMemoryRepository did not find the script."
-                );
+                return script;
             }
-            return script;
+
+            throw new ServerScriptNotFound(
+                id,
+                "ServerScriptInMemoryRepository did not find the script."
+            );
         }
     }
 }

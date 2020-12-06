@@ -8,6 +8,7 @@ namespace EventHorizon.Game.Server.Zone
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Weikio.PluginFramework.Catalogs;
+    using Weikio.PluginFramework.Catalogs.NuGet;
 
     public static class SystemClientScriptsPluginCompilerExtensions
     {
