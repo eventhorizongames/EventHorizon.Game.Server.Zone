@@ -1,16 +1,17 @@
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Watcher.Events.Start;
-using EventHorizon.Zone.System.Watcher.Model;
-using EventHorizon.Zone.System.Watcher.Start;
-using EventHorizon.Zone.System.Watcher.State;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.Start
 {
+    using global::System;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Watcher.Events.Start;
+    using EventHorizon.Zone.System.Watcher.Model;
+    using EventHorizon.Zone.System.Watcher.Start;
+    using EventHorizon.Zone.System.Watcher.State;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class StartWatchingFileSystemCommandHandlerTests
     {
 
@@ -25,6 +26,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
             );
             var existingPathWatcherMock = new Mock<PathWatcher>();
 
+            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
             var reloadStateMock = new Mock<PendingReloadState>();
             var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
@@ -38,6 +40,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
 
             // When
             var handler = new StartWatchingFileSystemCommandHandler(
+                loggerMock.Object,
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );
@@ -65,6 +68,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
             );
             var existingPathWatcherMock = new Mock<PathWatcher>();
 
+            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
             var reloadStateMock = new Mock<PendingReloadState>();
             var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
@@ -78,6 +82,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
 
             // When
             var handler = new StartWatchingFileSystemCommandHandler(
+                loggerMock.Object,
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );
@@ -107,6 +112,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
             );
             var existingPathWatcherMock = new Mock<PathWatcher>();
 
+            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
             var reloadStateMock = new Mock<PendingReloadState>();
             var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
@@ -120,6 +126,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
 
             // When
             var handler = new StartWatchingFileSystemCommandHandler(
+                loggerMock.Object,
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );
@@ -160,6 +167,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 jsonTestFile
             );
 
+            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
             var reloadStateMock = new Mock<PendingReloadState>();
             var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
@@ -173,6 +181,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
 
             // When
             var handler = new StartWatchingFileSystemCommandHandler(
+                loggerMock.Object,
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );
@@ -216,11 +225,13 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 "FolderToWatch"
             );
 
+            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
             var reloadStateMock = new Mock<PendingReloadState>();
             var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
             // When
             var handler = new StartWatchingFileSystemCommandHandler(
+                loggerMock.Object,
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );

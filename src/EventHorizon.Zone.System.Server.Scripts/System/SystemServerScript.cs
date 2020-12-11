@@ -1,18 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using Microsoft.CodeAnalysis.CSharp.Scripting;
-using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.CSharp.RuntimeBinder;
-using System.Reflection;
-using System.IO;
-
 namespace EventHorizon.Zone.System.Server.Scripts.System
 {
-    public struct SystemServerScript : ServerScript
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Reflection;
+    using global::System.Security.Cryptography;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using Microsoft.CodeAnalysis.CSharp.Scripting;
+    using Microsoft.CodeAnalysis.Scripting;
+    using Microsoft.CSharp.RuntimeBinder;
+
+    public class SystemServerScript : ServerScript
     {
+        private static HashAlgorithm HashAlgorithm => MD5.Create();
+
         public static ServerScript Create(
             string fileName,
             string path,
@@ -43,6 +45,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         }
 
         public string Id { get; }
+        public string Hash { get; }
         private ScriptRunner<ServerScriptResponse> _runner;
 
         private bool IsFound()
@@ -54,34 +57,28 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             ScriptDetails details
         )
         {
-            this.Id = GenerateId(
+            Id = GenerateId(
                 details.Path,
                 details.FileName
             );
-            this._runner = CreateRunner(
+            Hash = GenerateHash(
+                details.ScriptAsString
+            );
+
+            _runner = CreateRunner(
                 details
             );
         }
 
-        public async Task<ServerScriptResponse> Run(
+        public Task<ServerScriptResponse> Run(
             ServerScriptServices services,
             IDictionary<string, object> data
-        )
-        {
-            if (!IsFound())
-            {
-                throw new ServerScriptNotFound(
-                    null,
-                    "SystemServerScript is not a valid script."
-                );
-            }
-            return await _runner(
-                new SystemServerScriptData(
-                    services,
-                    data
-                )
-            );
-        }
+        ) => _runner(
+            new SystemServerScriptData(
+                services,
+                data
+            )
+        );
 
         public class SystemServerScriptData
         {
@@ -124,7 +121,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             }
         }
 
-        private static string GenerateId(
+        public static string GenerateId(
             string path,
             string fileName
         )
@@ -144,11 +141,20 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                 "_"
             ))
             {
-                return id.Substring(
-                    1
-                );
+                return id[1..];
             }
             return id;
+        }
+
+        public static string GenerateHash(
+            string content
+        )
+        {
+            return Convert.ToBase64String(
+                HashAlgorithm.ComputeHash(
+                    content.ToBytes()
+                )
+            );
         }
 
         private static ScriptRunner<ServerScriptResponse> CreateRunner(

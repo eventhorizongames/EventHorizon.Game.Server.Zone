@@ -1,24 +1,23 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Game.I18n;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.RandomNumber;
-using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.System;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
 {
+    using global::System;
+    using global::System.Collections;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Reflection;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.RandomNumber;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.System;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class SystemServerScriptTests
     {
         [Fact]
@@ -158,33 +157,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
             Assert.Equal(
                 expected,
                 actual
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldThrowServerScriptNotFoundWhenScriptsIdIsInvalid()
-        {
-            // Given
-            var data = new Dictionary<string, object>();
-
-            var serverScriptServices = new SystemServerScriptServices(
-                new Mock<ServerInfo>().Object,
-                new Mock<IMediator>().Object,
-                new Mock<IRandomNumberGenerator>().Object,
-                new Mock<IDateTimeService>().Object,
-                new Mock<I18nLookup>().Object
-            );
-
-            // When
-            var serverScript = new SystemServerScript();
-            Func<Task> action = async () => await serverScript.Run(
-                serverScriptServices,
-                data
-            );
-
-            // Then
-            await Assert.ThrowsAsync<ServerScriptNotFound>(
-                action
             );
         }
 

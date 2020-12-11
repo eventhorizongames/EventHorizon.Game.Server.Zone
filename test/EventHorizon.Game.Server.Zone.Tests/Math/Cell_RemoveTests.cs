@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Math;
-using Xunit;
-using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Math
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Model.Math;
+    using FluentAssertions;
+    using Xunit;
+    using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
+
     public class Cell_RemoveTests
     {
         [Fact]
@@ -119,7 +120,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                 ValidateEmptyNode,
                 child =>
                 {
-                    Assert.NotEmpty(child.Search_Children);
+                    child.Search_Points.Should().BeEmpty();
                     Assert.Collection(child.Search_Children,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
@@ -130,7 +131,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         ValidateEmptyNode,
                         childChild =>
                         {
-                            Assert.NotEmpty(childChild.Search_Children);
+                            childChild.Search_Points.Should().BeEmpty();
                             Assert.Collection(childChild.Search_Children,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
@@ -141,17 +142,21 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                 ValidateEmptyNode,
                                 childChildChild =>
                                 {
-                                    Assert.NotEmpty(childChildChild.Search_Children);
+                                    childChildChild.Search_Points.Should().BeEmpty();
+                                    childChildChild.Search_Children.Should().NotBeEmpty();
                                     Assert.Collection(childChildChild.Search_Children,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Search_Children);
-                                            Assert.NotEmpty(childChildChildChild.Search_Points);
-                                            Assert.Collection(childChildChildChild.Search_Points,
-                                                point => Assert.Equal(new NodeEntity(new Vector3(7, 9, 7)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(7, 7, 7)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(7, 8, 7)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(8, 8, 8)), point.Value)
+                                            childChildChildChild.Search_Children.Should().BeEmpty();
+                                            childChildChildChild.Search_Points.Should().NotBeEmpty();
+                                            childChildChildChild.Search_Points.Values.Should().BeEquivalentTo(
+                                                new List<NodeEntity>
+                                                {
+                                                    new NodeEntity(new Vector3(7, 9, 7)),
+                                                    new NodeEntity(new Vector3(7, 8, 7)),
+                                                    new NodeEntity(new Vector3(8, 8, 8)),
+                                                    new NodeEntity(new Vector3(7, 7, 7)),
+                                                }
                                             );
                                         },
                                         ValidateEmptyNode,
@@ -162,15 +167,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                         ValidateEmptyNode,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Search_Children);
-                                            Assert.NotEmpty(childChildChildChild.Search_Points);
-                                            Assert.Collection(childChildChildChild.Search_Points,
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 6, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 4, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 5, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 3, 5)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 5, 5)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 4, 5)), point.Value)
+                                            childChildChildChild.Search_Children.Should().BeEmpty();
+                                            childChildChildChild.Search_Points.Should().NotBeEmpty();
+                                            childChildChildChild.Search_Points.Values.Should().BeEquivalentTo(
+                                                new List<NodeEntity>
+                                                {
+                                                    new NodeEntity(new Vector3(5, 3, 5)),
+                                                    new NodeEntity(new Vector3(3, 4, 3)),
+                                                    new NodeEntity(new Vector3(5, 5, 5)),
+                                                    new NodeEntity(new Vector3(5, 4, 5)),
+                                                    new NodeEntity(new Vector3(3, 6, 3)),
+                                                    new NodeEntity(new Vector3(3, 5, 3)),
+                                                }
                                             );
                                         }
                                     );
@@ -192,7 +200,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                 ValidateEmptyNode,
                 child =>
                 {
-                    Assert.NotEmpty(child.Search_Children);
+                    child.Search_Points.Should().BeEmpty();
                     Assert.Collection(child.Search_Children,
                         ValidateEmptyNode,
                         ValidateEmptyNode,
@@ -203,7 +211,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         ValidateEmptyNode,
                         childChild =>
                         {
-                            Assert.NotEmpty(childChild.Search_Children);
+                            childChild.Search_Points.Should().BeEmpty();
                             Assert.Collection(childChild.Search_Children,
                                 ValidateEmptyNode,
                                 ValidateEmptyNode,
@@ -214,16 +222,19 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                 ValidateEmptyNode,
                                 childChildChild =>
                                 {
-                                    Assert.NotEmpty(childChildChild.Search_Children);
+                                    childChildChild.Search_Points.Should().BeEmpty();
                                     Assert.Collection(childChildChild.Search_Children,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Search_Children);
-                                            Assert.NotEmpty(childChildChildChild.Search_Points);
-                                            Assert.Collection(childChildChildChild.Search_Points,
-                                                point => Assert.Equal(new NodeEntity(new Vector3(7, 7, 7)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(7, 8, 7)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(8, 8, 8)), point.Value)
+                                            childChildChildChild.Search_Children.Should().BeEmpty();
+                                            childChildChildChild.Search_Points.Should().NotBeEmpty();
+                                            childChildChildChild.Search_Points.Values.Should().BeEquivalentTo(
+                                                new List<NodeEntity>
+                                                {
+                                                    new NodeEntity(new Vector3(7, 7, 7)),
+                                                    new NodeEntity(new Vector3(7, 8, 7)),
+                                                    new NodeEntity(new Vector3(8, 8, 8))
+                                                }
                                             );
                                         },
                                         ValidateEmptyNode,
@@ -234,15 +245,18 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                                         ValidateEmptyNode,
                                         childChildChildChild =>
                                         {
-                                            Assert.Empty(childChildChildChild.Search_Children);
-                                            Assert.NotEmpty(childChildChildChild.Search_Points);
-                                            Assert.Collection(childChildChildChild.Search_Points,
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 6, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 4, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(3, 5, 3)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 3, 5)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 5, 5)), point.Value),
-                                                point => Assert.Equal(new NodeEntity(new Vector3(5, 4, 5)), point.Value)
+                                            childChildChildChild.Search_Children.Should().BeEmpty();
+                                            childChildChildChild.Search_Points.Should().NotBeEmpty();
+                                            childChildChildChild.Search_Points.Values.Should().BeEquivalentTo(
+                                                new List<NodeEntity>
+                                                {
+                                                    new NodeEntity(new Vector3(3, 6, 3)),
+                                                    new NodeEntity(new Vector3(3, 4, 3)),
+                                                    new NodeEntity(new Vector3(3, 5, 3)),
+                                                    new NodeEntity(new Vector3(5, 3, 5)),
+                                                    new NodeEntity(new Vector3(5, 5, 5)),
+                                                    new NodeEntity(new Vector3(5, 4, 5))
+                                                }
                                             );
                                         }
                                     );

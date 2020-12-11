@@ -34,22 +34,24 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
             var existing = GetExisting(
                 request
             );
-            // TODO: Enable for Hash based Caching for Scripts
-            //if (existing != default
-            //    && existing.Hash == SystemServerScript.GenerateHash(
-            //        request.ScriptString
-            //    )
-            //)
-            //{
-            //    _logger.LogDebug(
-            //        "Script Already Generated for \nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
-            //            request.FileName,
-            //            request.Path,
-            //            request.TagList
-            //    );
-            //    // No change to the script, just ignore it.
-            //    return Unit.Value;
-            //}
+            if (existing != default
+                && existing.Id == SystemServerScript.GenerateId(
+                    request.Path,
+                    request.FileName
+                ) && existing.Hash == SystemServerScript.GenerateHash(
+                    request.ScriptString
+                )
+            )
+            {
+                _logger.LogDebug(
+                    "Script Already Generated for \nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
+                        request.FileName,
+                        request.Path,
+                        request.TagList
+                );
+                // No change to the script, just ignore it.
+                return Unit.Value;
+            }
             _logger.LogDebug(
                 "Loading System Service Script\nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
                     request.FileName,

@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-using EventHorizon.Zone.Core.Model.Structure;
-using EventHorizon.Game.Server.Zone.Tests.TestUtil;
-using Xunit;
-using EventHorizon.Zone.Core.Model.Math;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Math
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+    using EventHorizon.Zone.Core.Model.Structure;
+    using EventHorizon.Game.Server.Zone.Tests.TestUtil;
+    using Xunit;
+    using EventHorizon.Zone.Core.Model.Math;
+    using FluentAssertions;
+
     public class OctreeTest
     {
         [Fact]
@@ -161,10 +161,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
             var list = octree.FindNearbyPoints(lookupPoint, 2);
 
-            Assert.Collection(list,
-                entity => Assert.Equal(expectedEntity2, entity),
-                entity => Assert.Equal(expectedEntity1, entity),
-                entity => Assert.Equal(expectedEntity3, entity)
+            list.Should().BeEquivalentTo(
+                new List<NodeEntity>
+                {
+                    expectedEntity2,
+                    expectedEntity1,
+                    expectedEntity3
+                }
             );
         }
         [Fact]
@@ -196,9 +199,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             var options = new IOctreeOptions(float.MaxValue, true);
             var list = octree.FindNearbyPoints(lookupPoint, 2, options);
 
-            Assert.Collection(list,
-                entity => Assert.Equal(expectedEntity2, entity),
-                entity => Assert.Equal(expectedEntity3, entity)
+            list.Should().BeEquivalentTo(
+                new List<NodeEntity>
+                {
+                    expectedEntity2,
+                    expectedEntity3,
+                }
             );
         }
         [Fact]

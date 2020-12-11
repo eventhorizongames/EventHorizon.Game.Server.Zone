@@ -7,9 +7,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
 
     public struct ClientEntity : IObjectEntity
     {
-        public string ClientEntityId { get; set; }
+        public string ClientEntityId => GlobalId;
 
-        public string GlobalId => this.ClientEntityId;
+        public string GlobalId { get; set; }
         public EntityType Type => EntityType.OTHER;
 
         public long Id { get; set; }
@@ -24,8 +24,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
             ConcurrentDictionary<string, object> rawData
         )
         {
-            ClientEntityId = clientEntityId;
             Id = -1;
+            GlobalId = clientEntityId;
             Name = string.Empty;
             Transform = default(TransformState);
             TagList = new List<string>();

@@ -30,7 +30,7 @@
         {
             var clientEntity = request.ClientEntity;
             // Update Id
-            clientEntity.ClientEntityId = Guid.NewGuid().ToString();
+            clientEntity.GlobalId = Guid.NewGuid().ToString();
 
             // Update File name
             clientEntity.RawData[ClientEntityConstants.METADATA_FILE_FULL_NAME] = Path.Combine(

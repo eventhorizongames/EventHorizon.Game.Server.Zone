@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.ClientEntities.State
                 (_, __) => entity
             );
         }
-        
+
         public IEnumerable<ClientEntity> All()
         {
             return INSTANCE_MAP.Values;

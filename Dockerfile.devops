@@ -1,5 +1,14 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS tools
+# In build stage
+# Install desired .NET CLI diagnostics tools
+RUN dotnet tool install --tool-path /tools dotnet-trace
+RUN dotnet tool install --tool-path /tools dotnet-counters
+RUN dotnet tool install --tool-path /tools dotnet-dump
+RUN dotnet tool install --tool-path /tools dotnet-gcdump
+
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
+# COPY --from=tools /tools /tools
 ENV BUILD_CONFIGURATION Release
 COPY src/EventHorizon.Game.Server.Zone/bin/${BUILD_CONFIGURATION}/net5.0/publish/. ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

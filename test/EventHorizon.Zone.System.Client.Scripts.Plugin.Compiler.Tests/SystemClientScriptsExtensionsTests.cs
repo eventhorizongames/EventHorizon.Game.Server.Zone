@@ -17,6 +17,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using Weikio.PluginFramework.Abstractions;
     using Weikio.PluginFramework.AspNetCore;
     using Weikio.PluginFramework.Catalogs;
+    using Weikio.PluginFramework.Catalogs.NuGet;
     using Xunit;
 
     public class SystemClientScriptsPluginComplierExtensionsTests
@@ -38,27 +39,18 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
             );
 
             // Then
-            Assert.Collection(
-                serviceCollectionMock,
-                service =>
-                {
-                    Assert.Equal(typeof(AssemblyBuilder), service.ServiceType);
-                    Assert.Equal(typeof(CSharpAssemblyBuilder), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(IHostedService), service.ServiceType);
-                    Assert.Equal(typeof(PluginFrameworkInitializer), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(IEnumerable<Plugin>), service.ServiceType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(IPluginCatalog), service.ServiceType);
-                    Assert.Equal(typeof(NugetPackagePluginCatalog), service.ImplementationInstance.GetType());
-                }
+            serviceCollectionMock.Should().Contain(
+                service => typeof(AssemblyBuilder) == service.ServiceType
+                    && typeof(CSharpAssemblyBuilder) == service.ImplementationType
+            ).And.Contain(
+                service => typeof(IHostedService) == service.ServiceType
+                    && typeof(PluginFrameworkInitializer) == service.ImplementationType
+            ).And.Contain(
+                service => typeof(IEnumerable<Plugin>) == service.ServiceType
+            ).And.Contain(
+                service => typeof(IPluginCatalog) == service.ServiceType
+                    && service.ImplementationInstance != null
+                    && typeof(NugetPackagePluginCatalog) == service.ImplementationInstance.GetType()
             );
         }
 

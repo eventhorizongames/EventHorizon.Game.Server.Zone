@@ -112,7 +112,6 @@ namespace EventHorizon.Game.Server.Zone
                     );
 
                 GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
             return app;
         }
