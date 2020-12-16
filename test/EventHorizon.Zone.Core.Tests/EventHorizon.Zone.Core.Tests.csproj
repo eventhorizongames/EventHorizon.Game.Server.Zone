@@ -14,6 +14,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="FileService\App_Data\EmbeddedResource.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="FileService\App_Data\EmbeddedResource.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="Moq" Version="4.15.2" />
         <PackageReference Include="xunit" Version="2.4.1" />
@@ -22,6 +30,7 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+        <EmbeddedResource Include="FileService\App_Data\EmbeddedResource.txt" />
         <PackageReference Include="coverlet.msbuild" Version="2.8.1" />
         <PackageReference Include="FluentAssertions" Version="5.10.3" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />

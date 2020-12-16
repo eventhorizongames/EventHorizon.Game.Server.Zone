@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Lifetime;
@@ -26,22 +27,50 @@
         {
             var onServerStartupCommandList = AppDomain.CurrentDomain
                 .GetAssemblies()
-                .SelectMany(x => x.DefinedTypes)
-                .Where(type => !type.IsInterface && typeof(OnServerStartupCommand).IsAssignableFrom(type));
+                .SelectMany(
+                    x =>
+                    {
+                        try
+                        {
+                            return x.DefinedTypes;
+                        }
+                        catch
+                        {
+                            return Array.Empty<TypeInfo>();
+                        }
+                    }
+                ).Where(
+                    type => !type.IsInterface
+                        && typeof(OnServerStartupCommand).IsAssignableFrom(type)
+                );
 
             foreach (var onServerServerCommand in onServerStartupCommandList)
             {
-                var result = await _mediator.Send(
-                    Activator.CreateInstance(
-                        onServerServerCommand
-                    ) as OnServerStartupCommand,
-                    cancellationToken
-                );
+                try
+                {
+                    var result = await _mediator.Send(
+                        Activator.CreateInstance(
+                            onServerServerCommand
+                        ) as OnServerStartupCommand,
+                        cancellationToken
+                    );
 
-                if (!result.Success)
+                    if (!result.Success)
+                    {
+                        throw new SystemException(
+                            $"Failed '{onServerServerCommand.Name}' with ErrorCode: {result.ErrorCode}"
+                        );
+                    }
+                }
+                catch (SystemException)
+                {
+                    throw;
+                }
+                catch (Exception ex)
                 {
                     throw new SystemException(
-                        $"Failed '{onServerServerCommand.Name}' with ErrorCode: {result.ErrorCode}"
+                        $"Failed '{onServerServerCommand.Name}' with Exception.",
+                        ex
                     );
                 }
             }

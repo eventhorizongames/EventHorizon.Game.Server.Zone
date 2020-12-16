@@ -1,0 +1,63 @@
+{
+    "id": "Particle_SelectedIndicator",
+    "name": "selected_indicator",
+    "type": "POSITION",
+    "defaultSettings": {
+        "capacity": 100,
+        "particleTexture": "/Assets/Textures/identifier.png",
+        "minEmitBox": {
+            "x": 0,
+            "y": 2,
+            "z": 0
+        },
+        "maxEmitBox": {
+            "x": 0,
+            "y": 2,
+            "z": 0
+        },
+        "color1": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 1,
+            "a": 0.9
+        },
+        "color2": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 1,
+            "a": 0.9
+        },
+        "colorDead": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 1,
+            "a": 0.3
+        },
+        "minSize": 0.1,
+        "maxSize": 0.3,
+        "minLifeTime": 0.2,
+        "maxLifeTime": 3,
+        "emitRate": 10,
+        "gravity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "direction1": {
+            "x": 0,
+            "y": -0.9,
+            "z": 0
+        },
+        "direction2": {
+            "x": 0,
+            "y": -0.9,
+            "z": 0
+        },
+        "minAngularSpeed": 0,
+        "maxAngularSpeed": 3.14,
+        "minEmitPower": 1,
+        "maxEmitPower": 2,
+        "updateSpeed": 0.008,
+        "blendMode": 1
+    }
+}

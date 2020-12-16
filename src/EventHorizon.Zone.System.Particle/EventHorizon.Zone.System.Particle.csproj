@@ -5,6 +5,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <EmbeddedResource Include="App_Data\Client\Particle\Flame.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="App_Data\Client\Particle\SelectedCompanionIndicator.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </EmbeddedResource>
+        <EmbeddedResource Include="App_Data\Client\Particle\SelectedIndicator.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="MediatR" Version="8.1.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     </ItemGroup>
@@ -12,6 +30,7 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Model\EventHorizon.Zone.System.Particle.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Particle.Events\EventHorizon.Zone.System.Particle.Events.csproj" />

@@ -28,7 +28,20 @@
         }
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupEntityModuleSystemCommand request, 
+            OnStartupSetupEntityModuleSystemCommand request,
+            CancellationToken cancellationToken
+        )
+        {
+            await ValidateEntityModuleDirectories(
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task ValidateEntityModuleDirectories(
             CancellationToken cancellationToken
         )
         {
@@ -48,18 +61,13 @@
                 ),
                 cancellationToken
             );
-
-            return new OnServerStartupResult(
-                true
-            );
         }
 
         private async Task CreateDirectory(
-            string directory, 
+            string directory,
             CancellationToken cancellationToken
         )
         {
-
             // Validate Directory Exists
             if (!await _mediator.Send(
                 new DoesDirectoryExist(

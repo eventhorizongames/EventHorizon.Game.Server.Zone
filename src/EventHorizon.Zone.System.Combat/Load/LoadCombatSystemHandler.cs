@@ -1,27 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Combat.Particle.Event;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Load
 {
-    public class LoadCombatSystemHandler : INotificationHandler<LoadCombatSystemEvent>
-    {
-        readonly IMediator _mediator;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
 
-        public LoadCombatSystemHandler(
-            IMediator mediator
+    public class LoadCombatSystemHandler
+        : INotificationHandler<LoadCombatSystemEvent>
+    {
+        public Task Handle(
+            LoadCombatSystemEvent notification,
+            CancellationToken cancellationToken
         )
         {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(LoadCombatSystemEvent notification, CancellationToken cancellationToken)
-        {
-            // Load Particles
-            await _mediator.Publish(
-                new LoadCombatParticleSystemEvent()
-            );
+            return Task.CompletedTask;
         }
     }
 }

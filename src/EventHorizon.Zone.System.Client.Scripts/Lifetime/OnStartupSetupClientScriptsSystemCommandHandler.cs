@@ -1,10 +1,10 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Lifetime
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -27,7 +27,20 @@
         }
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupClientScriptsSystemCommand request, 
+            OnStartupSetupClientScriptsSystemCommand request,
+            CancellationToken cancellationToken
+        )
+        {
+            await ValidateClientScriptsDirectory(
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task ValidateClientScriptsDirectory(
             CancellationToken cancellationToken
         )
         {
@@ -50,10 +63,6 @@
                     cancellationToken
                 );
             }
-
-            return new OnServerStartupResult(
-                true
-            );
         }
     }
 }

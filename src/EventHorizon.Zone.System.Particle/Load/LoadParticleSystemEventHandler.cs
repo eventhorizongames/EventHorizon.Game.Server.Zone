@@ -1,26 +1,25 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Combat.Particle.Event;
-using EventHorizon.Zone.System.Particle.Events.Add;
-using EventHorizon.Zone.System.Particle.Model.Template;
-using MediatR;
-
-namespace EventHorizon.Zone.System.Combat.Particle.Handler
+﻿namespace EventHorizon.Zone.System.Particle.Load
 {
-    // TODO: Move into Particle System
-    public class LoadCombatParticleSystemHandler : INotificationHandler<LoadCombatParticleSystemEvent>
-    {
-        readonly IMediator _mediator;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ServerInfo _serverInfo;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Particle.Events.Add;
+    using EventHorizon.Zone.System.Particle.Model.Template;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
 
-        public LoadCombatParticleSystemHandler(
+    public class LoadParticleSystemEventHandler
+        : INotificationHandler<LoadParticleSystemEvent>
+    {
+        private readonly IMediator _mediator;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ServerInfo _serverInfo;
+
+        public LoadParticleSystemEventHandler(
             IMediator mediator,
             IJsonFileLoader fileLoader,
             ServerInfo serverInfo
@@ -32,7 +31,7 @@ namespace EventHorizon.Zone.System.Combat.Particle.Handler
         }
 
         public Task Handle(
-            LoadCombatParticleSystemEvent notification,
+            LoadParticleSystemEvent notification,
             CancellationToken cancellationToken
         ) => _mediator.Send(
             new ProcessFilesRecursivelyFromDirectory(

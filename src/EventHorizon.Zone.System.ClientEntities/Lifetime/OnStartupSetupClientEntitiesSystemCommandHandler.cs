@@ -1,10 +1,10 @@
 ﻿namespace EventHorizon.Zone.System.ClientEntities.Lifetime
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -31,6 +31,19 @@
             CancellationToken cancellationToken
         )
         {
+            await ValidateClientEntityDirectory(
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task ValidateClientEntityDirectory(
+            CancellationToken cancellationToken
+        )
+        {
             // Validate Directory Exists
             if (!await _mediator.Send(
                 new DoesDirectoryExist(
@@ -50,10 +63,6 @@
                     cancellationToken
                 );
             }
-
-            return new OnServerStartupResult(
-                true
-            );
         }
     }
 }

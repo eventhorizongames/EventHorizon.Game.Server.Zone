@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Particle.Model.Template;
-
 namespace EventHorizon.Zone.System.Particle.State
 {
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Particle.Model.Template;
+
     public interface ParticleTemplateRepository
     {
         IEnumerable<ParticleTemplate> All();
@@ -10,5 +10,6 @@ namespace EventHorizon.Zone.System.Particle.State
             string id, 
             ParticleTemplate template
         );
+        void Clear();
     }
 }

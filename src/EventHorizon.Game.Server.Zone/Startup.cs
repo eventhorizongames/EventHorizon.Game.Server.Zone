@@ -252,9 +252,9 @@
                         options
                     )
                 );
-                systemProvidedAssemblyList.Append(
+                systemProvidedAssemblyList = systemProvidedAssemblyList.Append(
                     typeof(EventHorizonMonitoringApplicatinInsightsExtensions).Assembly
-                );
+                ).ToArray();
             }
 
             // Core
@@ -354,7 +354,10 @@
             );
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env
+        )
         {
             app.UseStartingCore();
             app.UseResponseCompression();

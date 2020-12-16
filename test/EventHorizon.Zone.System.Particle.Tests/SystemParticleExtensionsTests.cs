@@ -1,10 +1,14 @@
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.System.Particle.State;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests
 {
+    using global::System.Threading;
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.System.Particle.Load;
+    using EventHorizon.Zone.System.Particle.State;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class SystemParticleExtensionsTests
     {
         [Fact]
@@ -36,6 +40,14 @@ namespace EventHorizon.Zone.System.Player.Tests
             var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
             var expected = applicationBuilderMocks.ApplicationBuilderMock.Object;
 
+            var mediatorMock = new Mock<IMediator>();
+
+            applicationBuilderMocks.ServiceProviderMock.Setup(
+                mock => mock.GetService(typeof(IMediator))
+            ).Returns(
+                mediatorMock.Object
+            );
+
             // When
             var actual = SystemParticleExtensions.UseSystemParticle(
                 applicationBuilderMocks.ApplicationBuilderMock.Object
@@ -45,6 +57,13 @@ namespace EventHorizon.Zone.System.Player.Tests
             Assert.Equal(
                 expected,
                 actual
+            );
+
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    It.IsAny<LoadParticleSystemEvent>(),
+                    CancellationToken.None
+                )
             );
         }
     }

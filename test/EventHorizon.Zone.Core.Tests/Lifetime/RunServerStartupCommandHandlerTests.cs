@@ -66,8 +66,48 @@
                 )
             ).ReturnsAsync(
                 new OnServerStartupResult(
-                    false, 
+                    false,
                     errorCode
+                )
+            );
+
+            // When
+            var handler = new RunServerStartupCommandHandler(
+                mediatorMock.Object
+            );
+            //act
+            async Task handlerAction() => await handler.Handle(
+                new RunServerStartupCommand(),
+                CancellationToken.None
+            );
+            //assert
+            var actual = await Assert.ThrowsAsync<SystemException>(
+                handlerAction
+            );
+
+            // Then
+            actual.Message
+                .Should().BeEquivalentTo(
+                    expected
+                );
+        }
+
+        [Fact]
+        public async Task ShouldThrowSystemExceptionWhenGeneralExceptionIsThrown()
+        {
+            // Given
+            var expected = $"Failed '{nameof(OnStartupTestingCommand)}' with Exception.";
+
+            var mediatorMock = new Mock<IMediator>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new OnStartupTestingCommand(),
+                    CancellationToken.None
+                )
+            ).ThrowsAsync(
+                new Exception(
+                    "Failed"
                 )
             );
 

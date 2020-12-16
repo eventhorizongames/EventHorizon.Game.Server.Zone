@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Model\EventHorizon.Zone.System.Client.Scripts.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Events\EventHorizon.Zone.System.Client.Scripts.Events.csproj" />
 

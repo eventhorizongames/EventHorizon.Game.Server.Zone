@@ -1,9 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Particle.Lifetime
 {
-    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
+    using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Reflection;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -32,33 +34,70 @@
             CancellationToken cancellationToken
         )
         {
-            var particlePath = Path.Combine(
-                _serverInfo.ClientPath,
-                "Particle"
-            );
-            // Validate Directory Exists
-            if (!await _mediator.Send(
-                new DoesDirectoryExist(
-                    particlePath
-                ),
+            await ValidateParticleSettingsFiles(
                 cancellationToken
-            ))
-            {
-                _logger.LogWarning(
-                    "Directory '{DirectoryFullName}' was not found, creating...",
-                    particlePath
-                );
-                await _mediator.Send(
-                    new CreateDirectory(
-                        particlePath
-                    ),
-                    cancellationToken
-                );
-            }
+            );
 
             return new OnServerStartupResult(
                 true
             );
+        }
+
+        private async Task ValidateParticleSettingsFiles(
+            CancellationToken cancellationToken
+        )
+        {
+            var particlePath = Path.Combine(
+                _serverInfo.ClientPath,
+                "Particle"
+            );
+            var particleFileList = new List<string>
+            {
+                "Flame.json",
+                "SelectedCompanionIndicator.json",
+                "SelectedIndicator.json",
+            };
+
+            foreach (var file in particleFileList)
+            {
+                await WriteResourceFile(
+                    "App_Data.Client.Particle",
+                    file,
+                    particlePath,
+                    cancellationToken
+                );
+            }
+        }
+
+        private async Task WriteResourceFile(
+            string resourcePath,
+            string resourceFile,
+            string saveDirectory,
+            CancellationToken cancellationToken
+        )
+        {
+            var result = await _mediator.Send(
+                new WriteResourceToFile(
+                    Assembly.GetExecutingAssembly(),
+                    "EventHorizon.Zone.System.Particle",
+                    resourcePath,
+                    resourceFile,
+                    Path.Combine(
+                        saveDirectory,
+                        resourceFile
+                    )
+                ),
+                cancellationToken
+            );
+            if (!result.Success
+                && result.ErrorCode != "file_already_exists"
+            )
+            {
+                _logger.LogWarning(
+                    "Failed to create Startup File: {FileName}",
+                    resourceFile
+                );
+            }
         }
     }
 }

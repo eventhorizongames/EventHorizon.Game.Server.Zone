@@ -1,10 +1,12 @@
-
-using EventHorizon.Zone.System.Particle.State;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+
+    using EventHorizon.Zone.System.Particle.Load;
+    using EventHorizon.Zone.System.Particle.State;
+    using MediatR;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemParticleExtensions
     {
         public static IServiceCollection AddSystemParticle(
@@ -21,7 +23,11 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.CreateServiceScope())
             {
+                serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+                    new LoadParticleSystemEvent()
+                ).GetAwaiter().GetResult();
             }
+
             return app;
         }
     }

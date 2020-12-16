@@ -20,6 +20,7 @@
         public async Task ShouldCreateModuleDirectoriesWhenDoNotExist()
         {
             // Given
+            var adminPath = "admin-path";
             var clientPath = "client-path";
             var expectedList = new List<CreateDirectory>
             {
@@ -43,6 +44,11 @@
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
 
+            serverInfoMock.Setup(
+                mock => mock.AdminPath
+            ).Returns(
+                adminPath
+            );
             serverInfoMock.Setup(
                 mock => mock.ClientPath
             ).Returns(

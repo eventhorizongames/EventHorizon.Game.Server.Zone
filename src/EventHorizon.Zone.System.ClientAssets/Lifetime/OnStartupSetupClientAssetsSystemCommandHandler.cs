@@ -28,7 +28,20 @@
         }
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupClientAssetsSystemCommand request, 
+            OnStartupSetupClientAssetsSystemCommand request,
+            CancellationToken cancellationToken
+        )
+        {
+            await ValidateClientAssetsDirectory(
+                cancellationToken
+            );
+
+            return new OnServerStartupResult(
+                true
+            );
+        }
+
+        private async Task ValidateClientAssetsDirectory(
             CancellationToken cancellationToken
         )
         {
@@ -55,10 +68,6 @@
                     cancellationToken
                 );
             }
-
-            return new OnServerStartupResult(
-                true
-            );
         }
     }
 }

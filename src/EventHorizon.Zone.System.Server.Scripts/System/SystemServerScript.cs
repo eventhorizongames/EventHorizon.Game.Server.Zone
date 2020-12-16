@@ -46,7 +46,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
 
         public string Id { get; }
         public string Hash { get; }
-        private ScriptRunner<ServerScriptResponse> _runner;
+
+        private readonly ScriptRunner<ServerScriptResponse> _runner;
 
         private bool IsFound()
         {
@@ -191,6 +192,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                     $"Exception with {details.Path} | {details.FileName}",
                     ex
                 );
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
     }

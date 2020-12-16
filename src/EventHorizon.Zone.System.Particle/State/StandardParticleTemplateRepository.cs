@@ -1,28 +1,34 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using EventHorizon.Zone.System.Particle.Model.Template;
-
 namespace EventHorizon.Zone.System.Particle.State
 {
-    public class StandardParticleTemplateRepository : ParticleTemplateRepository
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.Particle.Model.Template;
+
+    public class StandardParticleTemplateRepository
+        : ParticleTemplateRepository
     {
-        private readonly ConcurrentDictionary<string, ParticleTemplate> TEMPLATE_MAP = new ConcurrentDictionary<string, ParticleTemplate>();
+        private readonly ConcurrentDictionary<string, ParticleTemplate> _map = new ConcurrentDictionary<string, ParticleTemplate>();
 
         public void Add(
-            string id, 
+            string id,
             ParticleTemplate template
         )
         {
-            TEMPLATE_MAP.AddOrUpdate(
-                id, 
-                template, 
-                (key, old) => template
+            _map.AddOrUpdate(
+                id,
+                template,
+                (_, __) => template
             );
         }
 
         public IEnumerable<ParticleTemplate> All()
         {
-            return TEMPLATE_MAP.Values;
+            return _map.Values;
+        }
+
+        public void Clear()
+        {
+            _map.Clear();
         }
     }
 }
