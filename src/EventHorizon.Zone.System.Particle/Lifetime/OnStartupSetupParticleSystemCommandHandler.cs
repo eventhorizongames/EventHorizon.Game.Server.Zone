@@ -94,8 +94,9 @@
             )
             {
                 _logger.LogWarning(
-                    "Failed to create Startup File: {FileName}",
-                    resourceFile
+                    "Failed to create Startup File: {FileName} | ErrorCode: {ErrorCode}",
+                    resourceFile,
+                    result.ErrorCode
                 );
             }
         }
