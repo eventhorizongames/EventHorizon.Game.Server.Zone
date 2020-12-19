@@ -92,7 +92,7 @@
 
             // Then
             mediatorMock.Verify(
-                mock => mock.Send(
+                mock => mock.Publish(
                     expected,
                     CancellationToken.None
                 )
