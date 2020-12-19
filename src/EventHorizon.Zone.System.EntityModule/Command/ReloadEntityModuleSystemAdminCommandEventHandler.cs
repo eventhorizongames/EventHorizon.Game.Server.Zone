@@ -38,7 +38,7 @@
                 nameof(ReloadEntityModuleSystemAdminCommandEventHandler)
             );
 
-            await _mediator.Send(
+            await _mediator.Publish(
                 new LoadEntityModuleSystemCommand()
             );
 
