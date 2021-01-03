@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Editor.Events.Create;
-using EventHorizon.Zone.System.Editor.Events.Delete;
-using EventHorizon.Zone.System.Editor.Events.Save;
-using EventHorizon.Zone.System.Editor.Events.State;
-using EventHorizon.Zone.System.Editor.Model;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-
 namespace EventHorizon.Zone.System.Editor.ExternalHub
 {
-    [Authorize]
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Editor.Events.Create;
+    using EventHorizon.Zone.System.Editor.Events.Delete;
+    using EventHorizon.Zone.System.Editor.Events.Save;
+    using EventHorizon.Zone.System.Editor.Events.State;
+    using EventHorizon.Zone.System.Editor.Model;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.SignalR;
+
+    [Authorize("UserIdOrAdmin")]
     public class SystemEditorHub : Hub
     {
         readonly IMediator _mediator;
@@ -23,14 +23,14 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
             _mediator = mediator;
         }
 
-        public override Task OnConnectedAsync()
-        {
-            if (!Context.User.IsInRole("Admin"))
-            {
-                throw new Exception("no_role");
-            }
-            return Task.CompletedTask;
-        }
+        //public override Task OnConnectedAsync()
+        //{
+        //    if (!Context.User.IsInRole("Admin"))
+        //    {
+        //        throw new Exception("no_role");
+        //    }
+        //    return Task.CompletedTask;
+        //}
 
         public Task<IEditorNodeList> GetEditorState()
         {

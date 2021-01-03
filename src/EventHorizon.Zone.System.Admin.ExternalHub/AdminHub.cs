@@ -1,12 +1,11 @@
-using System;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-
 namespace EventHorizon.Zone.System.Admin.ExternalHub
 {
-    [Authorize]
+    using global::System;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.SignalR;
+
+    [Authorize("UserIdOrAdmin")]
     public partial class AdminHub : Hub
     {
         readonly IMediator _mediator;
@@ -18,17 +17,17 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
             _mediator = mediator;
         }
 
-        public override Task OnConnectedAsync()
-        {
-            if (!Context.User.IsInRole(
-                "Admin"
-            ))
-            {
-                throw new Exception(
-                    "no_role"
-                );
-            }
-            return Task.CompletedTask;
-        }
+        //public override Task OnConnectedAsync()
+        //{
+        //    if (!Context.User.IsInRole(
+        //        "Admin"
+        //    ))
+        //    {
+        //        throw new Exception(
+        //            "no_role"
+        //        );
+        //    }
+        //    return Task.CompletedTask;
+        //}
     }
 }

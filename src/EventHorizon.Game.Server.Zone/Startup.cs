@@ -5,6 +5,7 @@
     using System.Net;
     using System.Reflection;
     using EventHorizon.Game.I18n;
+    using EventHorizon.Game.Server.Zone.Admin.Policies;
     using EventHorizon.Game.Server.Zone.Controllers;
     using EventHorizon.Game.Server.Zone.Core;
     using EventHorizon.Game.Server.Zone.Core.JsonConverter;
@@ -27,7 +28,6 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Prometheus;
 
@@ -82,6 +82,11 @@
                     options.ApiName = Configuration["Auth:ApiName"];
                     options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
                 });
+            services.AddAuthorization(
+                options => options.AddUserIdOrAdminPolicy(
+                    Configuration["OwnerDetails:UserId"]
+                )
+            );
             services.AddRazorPages();
             services.AddSignalR(
                 options =>
@@ -355,7 +360,7 @@
         }
 
         public void Configure(
-            IApplicationBuilder app, 
+            IApplicationBuilder app,
             IWebHostEnvironment env
         )
         {

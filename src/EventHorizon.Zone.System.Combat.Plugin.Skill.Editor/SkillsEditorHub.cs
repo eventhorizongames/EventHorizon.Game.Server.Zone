@@ -1,17 +1,17 @@
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Query;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Fetch;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
-using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor
 {
-    [Authorize]
+    using global::System;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.SignalR;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Query;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Fetch;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+    [Authorize("UserIdOrAdmin")]
     public class SkillsEditorHub : Hub
     {
         readonly IMediator _mediator;
@@ -20,14 +20,14 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor
             _mediator = mediator;
         }
 
-        public override Task OnConnectedAsync()
-        {
-            if (!Context.User.IsInRole("Admin"))
-            {
-                throw new Exception("no_role");
-            }
-            return Task.CompletedTask;
-        }
+        //public override Task OnConnectedAsync()
+        //{
+        //    if (!Context.User.IsInRole("Admin"))
+        //    {
+        //        throw new Exception("no_role");
+        //    }
+        //    return Task.CompletedTask;
+        //}
         public Task<EditorSystemCombatSkillScriptsFile> GetSystemCombatSkillScripts()
         {
             return _mediator.Send(
