@@ -53,49 +53,6 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
         }
 
         [Fact]
-        public async Task TestShouldThrowNoRoleExceptionWhenWhenRoleIsNotAdmin()
-        {
-            //Given
-            var role = "Admin";
-            var expected = "no_role";
-
-            var mediatorMock = new Mock<IMediator>();
-            var contextMock = new Mock<HubCallerContext>();
-            var userMock = new Mock<ClaimsPrincipal>();
-
-            contextMock.Setup(
-                mock => mock.User
-            ).Returns(
-                userMock.Object
-            );
-
-            userMock.Setup(
-                mock => mock.IsInRole(
-                    role
-                )
-            ).Returns(
-                false
-            );
-
-            //When
-            var adminHub = new AdminHub(
-                mediatorMock.Object
-            );
-            adminHub.Context = contextMock.Object;
-            Func<Task> action = async () => await adminHub.OnConnectedAsync();
-
-            var actual = await Assert.ThrowsAsync<Exception>(
-                action
-            );
-
-            //Then
-            Assert.Equal(
-                expected,
-                actual.Message
-            );
-        }
-
-        [Fact]
         public async Task TestShouldPublishAdminCommandEventWhenCommandCalled()
         {
             // Given

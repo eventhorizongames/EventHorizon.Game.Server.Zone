@@ -16,18 +16,5 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
         {
             _mediator = mediator;
         }
-
-        //public override Task OnConnectedAsync()
-        //{
-        //    if (!Context.User.IsInRole(
-        //        "Admin"
-        //    ))
-        //    {
-        //        throw new Exception(
-        //            "no_role"
-        //        );
-        //    }
-        //    return Task.CompletedTask;
-        //}
     }
 }
