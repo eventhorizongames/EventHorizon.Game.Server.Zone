@@ -36,7 +36,7 @@ namespace EventHorizon.Game.Server.Zone
             .AddTransient<DirectoryResolver, LocalFileSystemDirectoryResolver>()
             .AddTransient<FileResolver, LocalFileSystemFileResolver>()
             .AddSingleton<IdPool, InMemoryStaticIdPool>()
-            .AddSingleton<ServerInfo, HostingEnvironmentServerInfo>()
+            .AddSingleton<ServerInfo, HostEnvironmentServerInfo>()
             .AddSingleton<SystemProvidedAssemblyList>(
                 new StandardSystemProvidedAssemblyList(
                     systemProvidedAssemblyList

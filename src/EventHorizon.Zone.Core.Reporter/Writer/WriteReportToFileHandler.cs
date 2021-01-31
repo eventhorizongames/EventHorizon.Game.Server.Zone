@@ -1,8 +1,8 @@
 ﻿namespace EventHorizon.Zone.Core.Reporter.Writer
 {
     using System.IO;
+    using System.Linq;
     using System.Text.Json;
-    using System.Text.Json.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
@@ -61,6 +61,11 @@
                 return Unit.Value;
             }
 
+            if (!report.ItemList?.Any() ?? true)
+            {
+                return Unit.Value;
+            }
+
             using (var streamWriter = new StringWriter())
             {
                 AppendReportItemList(
@@ -98,7 +103,7 @@
                         )
                     );
                 }
-                
+
                 writer.WriteLine("---");
                 writer.WriteLine();
                 writer.WriteLine();

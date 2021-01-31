@@ -5,11 +5,8 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Load;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Consolidate;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.State;
-    using FluentAssertions;
     using global::System.Threading;
     using MediatR;
     using Moq;
@@ -25,12 +22,17 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
 
             // When
             SystemClientScriptsExtensions.AddSystemClientScripts(
-                serviceCollectionMock
+                serviceCollectionMock,
+                _ => { }
             );
 
             // Then
             Assert.Collection(
                 serviceCollectionMock,
+                service =>
+                {
+                    Assert.Equal(typeof(ClientScriptsSettings), service.ServiceType);
+                },
                 service =>
                 {
                     Assert.Equal(typeof(ClientScriptsState), service.ServiceType);
@@ -40,16 +42,6 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
                 {
                     Assert.Equal(typeof(ClientScriptRepository), service.ServiceType);
                     Assert.Equal(typeof(ClientScriptInMemoryRepository), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(ClientScriptsConsolidator), service.ServiceType);
-                    Assert.Equal(typeof(StandardClientScriptsConsolidator), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(ClientScriptCompiler), service.ServiceType);
-                    Assert.Equal(typeof(ClientScriptCompilerForCSharp), service.ImplementationType);
                 }
             );
         }

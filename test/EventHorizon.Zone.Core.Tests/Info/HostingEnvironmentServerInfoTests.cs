@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.Core.Tests.Info
 {
+    using System;
     using System.IO;
     using EventHorizon.Zone.Core.Info;
-    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
     using Moq;
     using Xunit;
 
@@ -14,33 +15,41 @@ namespace EventHorizon.Zone.Core.Tests.Info
             // Given
             var contentRootPath = "path";
 
-            var expectedAppDataPath = ToValidPath("path", "App_Data");
-            var expectedSystemPath = ToValidPath("path", "App_Data", "System");
-            var expectedSystemBackupPath = ToValidPath("path", "App_Data", "__Backup__");
-            var expectedAdminPath = ToValidPath("path", "App_Data", "Admin");
-            var expectedPluginsPath = ToValidPath("path", "App_Data", "Plugins");
-            var expectedI18nPath = ToValidPath("path", "App_Data", "I18n");
-            var expectedClientPath = ToValidPath("path", "App_Data", "Client");
-            var expectedClientScriptsPath = ToValidPath("path", "App_Data", "Client", "Scripts");
-            var expectedClientEntityPath = ToValidPath("path", "App_Data", "Client", "Entity");
-            var expectedServerPath = ToValidPath("path", "App_Data", "Server");
-            var expectedServerScriptsPath = ToValidPath("path", "App_Data", "Server", "Scripts");
-            var expectedCoreMapPath = ToValidPath("path", "App_Data", "Map");
+            var expectedRootPath = contentRootPath;
+            var expectedFileSystemTempPath = ToValidPath(Path.DirectorySeparatorChar.ToString(), "temp");
+            var expectedAssembliesPathPath = AppDomain.CurrentDomain.BaseDirectory;
+            var expectedGeneratedPath = ToValidPath(contentRootPath, "App_Data", "_generated");
+            var expectedAppDataPath = ToValidPath(contentRootPath, "App_Data");
+            var expectedSystemPath = ToValidPath(contentRootPath, "App_Data", "System");
+            var expectedSystemBackupPath = ToValidPath(contentRootPath, "App_Data", "__Backup__");
+            var expectedAdminPath = ToValidPath(contentRootPath, "App_Data", "Admin");
+            var expectedPluginsPath = ToValidPath(contentRootPath, "App_Data", "Plugins");
+            var expectedI18nPath = ToValidPath(contentRootPath, "App_Data", "I18n");
+            var expectedClientPath = ToValidPath(contentRootPath, "App_Data", "Client");
+            var expectedClientScriptsPath = ToValidPath(contentRootPath, "App_Data", "Client", "Scripts");
+            var expectedClientEntityPath = ToValidPath(contentRootPath, "App_Data", "Client", "Entity");
+            var expectedServerPath = ToValidPath(contentRootPath, "App_Data", "Server");
+            var expectedServerScriptsPath = ToValidPath(contentRootPath, "App_Data", "Server", "Scripts");
+            var expectedCoreMapPath = ToValidPath(contentRootPath, "App_Data", "Map");
 
-            var hostingEnvironmentMock = new Mock<IHostingEnvironment>();
+            var hostEnvironmentMock = new Mock<IHostEnvironment>();
 
-            hostingEnvironmentMock.Setup(
+            hostEnvironmentMock.Setup(
                 mock => mock.ContentRootPath
             ).Returns(
                 contentRootPath
             );
 
             // When
-            var serverInfo = new HostingEnvironmentServerInfo(
-                hostingEnvironmentMock.Object
+            var serverInfo = new HostEnvironmentServerInfo(
+                hostEnvironmentMock.Object
             );
 
             // Then
+            Assert.Equal(expectedRootPath, serverInfo.RootPath);
+            Assert.Equal(expectedFileSystemTempPath, serverInfo.FileSystemTempPath);
+            Assert.Equal(expectedAssembliesPathPath, serverInfo.AssembliesPath);
+            Assert.Equal(expectedGeneratedPath, serverInfo.GeneratedPath);
             Assert.Equal(expectedAppDataPath, serverInfo.AppDataPath);
             Assert.Equal(expectedSystemPath, serverInfo.SystemPath);
             Assert.Equal(expectedSystemBackupPath, serverInfo.SystemBackupPath);

@@ -72,7 +72,7 @@ namespace EventHorizon.Zone.Core.Tests
                 service =>
                 {
                     Assert.Equal(typeof(ServerInfo), service.ServiceType);
-                    Assert.Equal(typeof(HostingEnvironmentServerInfo), service.ImplementationType);
+                    Assert.Equal(typeof(HostEnvironmentServerInfo), service.ImplementationType);
                 },
                 service =>
                 {

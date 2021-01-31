@@ -1,0 +1,26 @@
+{
+  "solution": {
+    "path": "EventHorizon.Game.Server.Zone.sln",
+    "projects": [
+      "src\\EventHorizon.Extensions\\EventHorizon.Extensions.csproj",
+      "src\\EventHorizon.Game.I18n\\EventHorizon.Game.I18n.csproj",
+      "src\\EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess\\EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj",
+      "src\\EventHorizon.Monitoring.Events\\EventHorizon.Monitoring.Events.csproj",
+      "src\\EventHorizon.Zone.Core.Events\\EventHorizon.Zone.Core.Events.csproj",
+      "src\\EventHorizon.Zone.Core.Model\\EventHorizon.Zone.Core.Model.csproj",
+      "src\\EventHorizon.Zone.Core\\EventHorizon.Zone.Core.csproj",
+      "src\\EventHorizon.Zone.System.Admin.Plugin.Command.Events\\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj",
+      "src\\EventHorizon.Zone.System.Admin.Plugin.Command.Model\\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj",
+      "src\\EventHorizon.Zone.System.Client.Scripts.Events\\EventHorizon.Zone.System.Client.Scripts.Events.csproj",
+      "src\\EventHorizon.Zone.System.Client.Scripts.Model\\EventHorizon.Zone.System.Client.Scripts.Model.csproj",
+      "src\\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler\\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.csproj",
+      "src\\EventHorizon.Zone.System.Client.Scripts\\EventHorizon.Zone.System.Client.Scripts.csproj",
+      "src\\EventHorizon.Zone.System.Editor.Events\\EventHorizon.Zone.System.Editor.Events.csproj",
+      "src\\EventHorizon.Zone.System.Editor.Model\\EventHorizon.Zone.System.Editor.Model.csproj",
+      "src\\EventHorizon.Zone.System.Server.Scripts.Model\\EventHorizon.Zone.System.Server.Scripts.Model.csproj",
+      "test\\EventHorizon.Test.Common\\EventHorizon.Test.Common.csproj",
+      "test\\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests\\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests.csproj",
+      "test\\EventHorizon.Zone.System.Client.Scripts.Tests\\EventHorizon.Zone.System.Client.Scripts.Tests.csproj"
+    ]
+  }
+}

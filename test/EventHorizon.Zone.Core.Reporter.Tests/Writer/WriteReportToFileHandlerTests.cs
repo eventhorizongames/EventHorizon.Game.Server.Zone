@@ -9,7 +9,6 @@
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Reporter.Model;
-    using EventHorizon.Zone.Core.Reporter.Save;
     using EventHorizon.Zone.Core.Reporter.Writer;
     using MediatR;
     using Microsoft.Extensions.Logging;
@@ -18,7 +17,7 @@
 
     public class WriteReportToFileHandlerTests
     {
-        [Fact(Skip = "Ignore")]
+        [Fact]
         public async Task TestShouldNotSaveReportsWhenReportingDirectoryIsNotCreated()
         {
             // Given
@@ -61,7 +60,7 @@
             );
         }
 
-        [Fact(Skip = "Ignore")]
+        [Fact]
         public async Task TestShouldNotWriteTextToFileWhenNoReportsAreReturned()
         {
             // Given
@@ -110,9 +109,6 @@
             );
 
             // Then
-            reportRepositoryMock.Verify(
-                mock => mock.TakeAll()
-            );
             mediatorMock.Verify(
                 mock => mock.Send(
                     It.IsAny<AppendTextToFile>(),
@@ -122,7 +118,7 @@
             );
         }
 
-        [Fact(Skip = "Ignore")]
+        [Fact]
         public async Task TestShouldWriteTextToFileWhenReportsAreReturned()
         {
             // Given
@@ -132,26 +128,25 @@
                 "Reporting"
             );
 
-            var report1Id = "report-1-Id";
-            var report1Timestamp = DateTime.Now;
-            var report1Message = "report-1-Message";
-            var report1CorrelationId = "report-1-CorrelationId";
-            var report1Data = "report-1-Data";
-            var report2Id = "report-2-Id";
-            var report2Timestamp = DateTime.Now;
-
+            var id = "report-1-Id";
+            var timestamp = DateTime.Now;
+            var message = "report-1-Message";
+            var correlationId = "report-1-CorrelationId";
+            var data = "report-1-Data";
             var expectedReport1FileFullName = Path.Combine(
                 reportingPath,
                 "Reporting_report-1-Id.log"
             );
-            var expectedReport1Text = String.Join(
+            var expectedMessage = $"\"{data}\"";
+
+            var expectedReport1Text = string.Join(
                 "",
                 new string[] {
                     "---",
                     Environment.NewLine,
-                    report1Message,
+                    message,
                     Environment.NewLine,
-                    report1Data,
+                    expectedMessage,
                     Environment.NewLine,
                     "---",
                     Environment.NewLine,
@@ -159,28 +154,21 @@
                     Environment.NewLine,
                 }
             );
-            var expectedReport2FileFullName = Path.Combine(
-                reportingPath,
-                "Reporting_report-2-Id.log"
+
+            var report = new Report(
+                id,
+                timestamp
+            ).AddItem(
+                new ReportItem(
+                    correlationId,
+                    message,
+                    timestamp,
+                    data
+                )
             );
-            var expectedReport2Text = "";
             var reportList = new List<Report>()
             {
-                new Report(
-                    report1Id,
-                    report1Timestamp
-                ).AddItem(
-                    new ReportItem(
-                        report1Message,
-                        report1CorrelationId,
-                        report1Timestamp,
-                        report1Data
-                    )
-                ),
-                new Report(
-                    report2Id,
-                    report2Timestamp
-                ),
+                report,
             };
 
             var loggerMock = new Mock<ILogger<WriteReportToFileHandler>>();
@@ -209,7 +197,9 @@
                 serverInfoMock.Object
             );
             await handler.Handle(
-                new WriteReportToFile(),
+                new WriteReportToFile(
+                    report
+                ),
                 CancellationToken.None
             );
 
@@ -219,15 +209,6 @@
                     new AppendTextToFile(
                         expectedReport1FileFullName,
                         expectedReport1Text
-                    ),
-                    CancellationToken.None
-                )
-            );
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    new AppendTextToFile(
-                        expectedReport2FileFullName,
-                        expectedReport2Text
                     ),
                     CancellationToken.None
                 )

@@ -214,7 +214,6 @@
 
                 typeof(SystemClientScriptsExtensions).Assembly,
                 typeof(SystemClientScriptsPluginEditorExtensions).Assembly,
-                typeof(SystemClientScriptsPluginCompilerExtensions).Assembly,
 
                 typeof(SystemPlayerExtensions).Assembly,
                 typeof(SystemPlayerPluginActionExtensions).Assembly,
@@ -332,15 +331,13 @@
                 .AddSystemClientEntities()
                 .AddSystemClientEntitiesPluginEditor()
 
-                .AddSystemClientScripts()
-                .AddSystemClientScriptsPluginEditor()
-                .AddSystemClientScriptsPluginCompiler(
+                .AddSystemClientScripts(
                     options => Configuration.GetSection(
-                        "Plugins:ClientScriptsPluginCompiler"
+                        "Systems:ClientScripts"
                     ).Bind(
                         options
                     )
-                )
+                ).AddSystemClientScriptsPluginEditor()
 
                 .AddSystemPlayer()
                 .AddSystemPlayerPluginAction()
@@ -452,7 +449,6 @@
 
             app.UseSystemClientScripts();
             app.UseSystemClientScriptsPluginEditor();
-            app.UseSystemClientScriptsPluginCompiler();
 
             app.UseSystemPlayer();
             app.UseSystemPlayerPluginAction();

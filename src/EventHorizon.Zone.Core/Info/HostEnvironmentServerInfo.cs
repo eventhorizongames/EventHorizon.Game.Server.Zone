@@ -1,13 +1,14 @@
 namespace EventHorizon.Zone.Core.Info
 {
     using EventHorizon.Zone.Core.Model.Info;
-    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
     using System;
     using System.IO;
 
-    public class HostingEnvironmentServerInfo
+    public class HostEnvironmentServerInfo
         : ServerInfo
     {
+        public string RootPath { get; }
         public string FileSystemTempPath { get; }
         public string AssembliesPath { get; }
         public string GeneratedPath { get; }
@@ -24,48 +25,51 @@ namespace EventHorizon.Zone.Core.Info
         public string ServerScriptsPath { get; }
         public string CoreMapPath { get; }
 
-        public HostingEnvironmentServerInfo(
-            IHostingEnvironment hostingEnvironment
+        public HostEnvironmentServerInfo(
+            IHostEnvironment hostEnvironment
         )
         {
+            RootPath = hostEnvironment.ContentRootPath;
             FileSystemTempPath = GenerateFileSystemTempPath();
             AssembliesPath = GenerateAssembliesPath();
-            GeneratedPath = GenerateGeneratedPath();
+            GeneratedPath = GenerateGeneratedPath(
+                hostEnvironment
+            );
             AppDataPath = GenerateAppDataPath(
-                hostingEnvironment
+                hostEnvironment
             );
             SystemPath = GenerateSystemPath(
-                hostingEnvironment
+                hostEnvironment
             );
             SystemBackupPath = GenerateSystemBackupPath(
-                hostingEnvironment
+                hostEnvironment
             );
             AdminPath = GenerateAdminPath(
-                hostingEnvironment
+                hostEnvironment
             );
             PluginsPath = GeneratePluginsPath(
-                hostingEnvironment
+                hostEnvironment
             );
             I18nPath = GenerateI18nPath(
-                hostingEnvironment
+                hostEnvironment
             );
             ClientPath = GenerateClientPath(
-                hostingEnvironment
+                hostEnvironment
             );
             ClientScriptsPath = GenerateClientScriptsPath(
-                hostingEnvironment
+                hostEnvironment
             );
             ClientEntityPath = GenerateClientEntityPath(
-                hostingEnvironment
+                hostEnvironment
             );
             ServerPath = GenerateServerPath(
-                hostingEnvironment
+                hostEnvironment
             );
             ServerScriptsPath = GenerateServerScriptsPath(
-                hostingEnvironment
+                hostEnvironment
             );
             CoreMapPath = GenerateCoreMapPath(
-                hostingEnvironment
+                hostEnvironment
             );
         }
 
@@ -89,129 +93,132 @@ namespace EventHorizon.Zone.Core.Info
         private string GenerateAssembliesPath()
             => AppDomain.CurrentDomain.BaseDirectory;
 
-        private string GenerateGeneratedPath() => Path.Combine(
-            Path.DirectorySeparatorChar.ToString(),
+        private string GenerateGeneratedPath(
+                IHostEnvironment hostEnvironment
+        ) => Path.Combine(
+            hostEnvironment.ContentRootPath,
+            "App_Data",
             "_generated"
         );
 
         private string GenerateAppDataPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data"
             );
         }
         private string GenerateSystemPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "System"
             );
         }
         private string GenerateSystemBackupPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "__Backup__"
             );
         }
         private string GenerateAdminPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Admin"
             );
         }
         private string GeneratePluginsPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Plugins"
             );
         }
         private string GenerateI18nPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "I18n"
             );
         }
         private string GenerateClientPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Client"
             );
         }
         private string GenerateClientScriptsPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Client",
                 "Scripts"
             );
         }
         private string GenerateClientEntityPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Client",
                 "Entity"
             );
         }
         private string GenerateServerPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Server"
             );
         }
         private string GenerateServerScriptsPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Server",
                 "Scripts"
             );
         }
         private string GenerateCoreMapPath(
-            IHostingEnvironment hostingEnvironment
+            IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
-                hostingEnvironment.ContentRootPath,
+                hostEnvironment.ContentRootPath,
                 "App_Data",
                 "Map"
             );

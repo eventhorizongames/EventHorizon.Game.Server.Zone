@@ -3,6 +3,10 @@ namespace EventHorizon.Zone.Core.Model.Info
     public interface ServerInfo
     {
         /// <summary>
+        /// The Application Installation Path.
+        /// </summary>
+        public string RootPath { get; }
+        /// <summary>
         /// This should return a path on the physical File System that temporary files can be saved to. 
         /// </summary>
         string FileSystemTempPath { get; }

@@ -1,14 +1,19 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Tests.Compile
 {
     using EventHorizon.Zone.Core.Events.Client.Generic;
+    using EventHorizon.Zone.Core.Events.SubProcess;
+    using EventHorizon.Zone.Core.Model.Command;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.Core.Model.SubProcess;
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Compile;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+    using EventHorizon.Zone.System.Client.Scripts.Model.Generated;
     using FluentAssertions;
     using global::System.Collections.Generic;
+    using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -19,173 +24,211 @@
     public class CompileClientScriptCommandHandlerTests
     {
         [Fact]
-        public async Task ShouldNotCompileScriptsWhenNoCSharpScriptsAreInRepository()
+        public async Task ShouldReturnFailedErrorCodeWhenStartSubProcessFails()
         {
             // Given
-            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var clientScriptsStateMock = new Mock<ClientScriptsState>();
-            var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
-            var clientScriptCompilerMock = new Mock<ClientScriptCompiler>();
-
-            // When
-            var handler = new CompileClientScriptCommandHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                clientScriptsStateMock.Object,
-                clientScriptRepositoryMock.Object,
-                clientScriptCompilerMock.Object
+            var expectedErrorCode = "failed-starting-of-sub-process";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
             );
-            await handler.Handle(
-                new CompileClientScriptCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            clientScriptCompilerMock.Verify(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
-                ),
-                Times.Never()
-            );
-        }
-
-        [Fact]
-        public async Task ShouldComplieScriptsWhenAnyScriptAreFoundInRepository()
-        {
-            // Given
-            var expected = ClientScript.Create(
-                ClientScriptType.CSharp,
-                "path",
-                "file-name",
-                "script-string"
-            );
-            var expectedList = new List<ClientScript>
-            {
-                expected
-            };
-            var repositoryAll = new List<ClientScript>
-            {
-                ClientScript.Create(
-                    ClientScriptType.CSharp,
-                    "path",
-                    "file-name",
-                    "script-string"
-                ),
-                ClientScript.Create(
-                    ClientScriptType.Unknown,
-                    "path",
-                    "file-name",
-                    "script-string"
-                ),
-            };
 
             var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
             var clientScriptsStateMock = new Mock<ClientScriptsState>();
-            var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
-            var clientScriptCompilerMock = new Mock<ClientScriptCompiler>();
 
-            clientScriptRepositoryMock.Setup(
-                mock => mock.All()
-            ).Returns(
-                repositoryAll
-            );
-
-            // When
-            var handler = new CompileClientScriptCommandHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                clientScriptsStateMock.Object,
-                clientScriptRepositoryMock.Object,
-                clientScriptCompilerMock.Object
-            );
-            var actual = default(IEnumerable<ClientScript>);
-            clientScriptCompilerMock.Setup(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
-                )
-            ).Callback<IEnumerable<ClientScript>>(
-                arg1 =>
-                {
-                    actual = arg1;
-                }
-            );
-            await handler.Handle(
-                new CompileClientScriptCommand(),
-                CancellationToken.None
-            );
-
-
-            // Then
-            clientScriptCompilerMock.Verify(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
-                )
-            );
-            actual.Should().BeEquivalentTo(
-                expectedList
-            );
-        }
-
-        [Fact]
-        public async Task ShouldNotSetHashAndScriptAssemblyWhenComplierSuccessIsFalse()
-        {
-            // Given
-            var compileResult = new CompiledScriptResult(
-                "error-code"
-            );
-            var repositoryAll = new List<ClientScript>
-            {
-                ClientScript.Create(
-                    ClientScriptType.CSharp,
-                    "path",
-                    "file-name",
-                    "script-string"
-                ),
-            };
-
-            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var clientScriptsStateMock = new Mock<ClientScriptsState>();
-            var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
-            var clientScriptCompilerMock = new Mock<ClientScriptCompiler>();
-
-            clientScriptRepositoryMock.Setup(
-                mock => mock.All()
-            ).Returns(
-                repositoryAll
-            );
-
-            clientScriptCompilerMock.Setup(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
                 )
             ).ReturnsAsync(
-                compileResult
+                new CommandResult<SubProcessHandle>(
+                    expectedErrorCode
+                )
             );
 
             // When
             var handler = new CompileClientScriptCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                clientScriptsStateMock.Object,
-                clientScriptRepositoryMock.Object,
-                clientScriptCompilerMock.Object
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
             );
-            await handler.Handle(
+            var actual = await handler.Handle(
+                new CompileClientScriptCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success.Should().BeFalse();
+            actual.ErrorCode.Should().Be(
+                expectedErrorCode
+            );
+        }
+
+        [Fact]
+        public async Task ShouldReturnInvalidProcessErrorCodeWhenProcessExitCodeIsNotZero()
+        {
+            // Given
+            var expectedErrorCode = ClientScriptsErrorCodes.CLIENT_SCRIPT_INVALID_PROCESS_ERROR_CODE;
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+
+            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var clientScriptsStateMock = new Mock<ClientScriptsState>();
+
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                100
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+
+            // When
+            var handler = new CompileClientScriptCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
+            );
+            var actual = await handler.Handle(
                 new CompileClientScriptCommand(),
                 CancellationToken.None
             );
 
 
             // Then
-            clientScriptsStateMock.Verify(
-                mock => mock.SetAssembly(
-                    It.IsAny<string>(),
-                    It.IsAny<string>()
-                ),
-                Times.Never()
+            actual.Success.Should().BeFalse();
+            actual.ErrorCode.Should().Be(
+                expectedErrorCode
+            );
+        }
+
+        [Fact]
+        public async Task ShouldReturnFileLoaderErrorCodeWhenNotSuccessful()
+        {
+            // Given
+            var expectedErrorCode = "json-file-loader-error-code";
+            var generatedPath = "generate-path";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var generatedFilePath = Path.Combine(
+                generatedPath,
+                GeneratedClientScriptsResultModel.GENERATED_FILE_NAME
+            );
+
+            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var clientScriptsStateMock = new Mock<ClientScriptsState>();
+
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                0
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedClientScriptsResultModel>(
+                    generatedFilePath
+                )
+            ).ReturnsAsync(
+                new GeneratedClientScriptsResultModel
+                {
+                    Success = false,
+                    ErrorCode = expectedErrorCode,
+                }
+            );
+
+            // When
+            var handler = new CompileClientScriptCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
+            );
+            var actual = await handler.Handle(
+                new CompileClientScriptCommand(),
+                CancellationToken.None
+            );
+
+
+            // Then
+            actual.Success.Should().BeFalse();
+            actual.ErrorCode.Should().Be(
+                expectedErrorCode
             );
         }
 
@@ -193,49 +236,79 @@
         public async Task ShouldSetHashAndScriptAssemblyWhenComplierSuccessIsTrue()
         {
             // Given
+            var generatedPath = "generate-path";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var generatedFilePath = Path.Combine(
+                generatedPath,
+                GeneratedClientScriptsResultModel.GENERATED_FILE_NAME
+            );
+
             var expectedHash = "hash";
             var expectedScriptAssembly = "script-assembly";
-            var compileResult = new CompiledScriptResult(
-                expectedHash,
-                expectedScriptAssembly
-            );
-            var repositoryAll = new List<ClientScript>
-            {
-                ClientScript.Create(
-                    ClientScriptType.CSharp,
-                    "path",
-                    "file-name",
-                    "script-string"
-                ),
-            };
 
             var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
             var clientScriptsStateMock = new Mock<ClientScriptsState>();
-            var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
-            var clientScriptCompilerMock = new Mock<ClientScriptCompiler>();
 
-            clientScriptRepositoryMock.Setup(
-                mock => mock.All()
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
             ).Returns(
-                repositoryAll
+                generatedPath
             );
 
-            clientScriptCompilerMock.Setup(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                0
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
                 )
             ).ReturnsAsync(
-                compileResult
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedClientScriptsResultModel>(
+                    generatedFilePath
+                )
+            ).ReturnsAsync(
+                new GeneratedClientScriptsResultModel
+                {
+                    Success = true,
+                    Hash = expectedHash,
+                    ScriptAssembly = expectedScriptAssembly,
+                }
             );
 
             // When
             var handler = new CompileClientScriptCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                clientScriptsStateMock.Object,
-                clientScriptRepositoryMock.Object,
-                clientScriptCompilerMock.Object
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
             );
             await handler.Handle(
                 new CompileClientScriptCommand(),
@@ -257,50 +330,80 @@
             // Given
             var hash = "hash";
             var scriptAssembly = "script-assembly";
-            var compileResult = new CompiledScriptResult(
-                hash,
-                scriptAssembly
+            var generatedPath = "generate-path";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
             );
-            var repositoryAll = new List<ClientScript>
-            {
-                ClientScript.Create(
-                    ClientScriptType.CSharp,
-                    "path",
-                    "file-name",
-                    "script-string"
-                ),
-            };
+            var generatedFilePath = Path.Combine(
+                generatedPath,
+                GeneratedClientScriptsResultModel.GENERATED_FILE_NAME
+            );
+
             var expectedAction = "CLIENT_SCRIPTS_ASSEMBLY_CHANGED_CLIENT_ACTION_EVENT";
             var expectedHash = hash;
             var expectedScriptAssembly = scriptAssembly;
 
             var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
             var clientScriptsStateMock = new Mock<ClientScriptsState>();
-            var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
-            var clientScriptCompilerMock = new Mock<ClientScriptCompiler>();
 
-            clientScriptRepositoryMock.Setup(
-                mock => mock.All()
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
             ).Returns(
-                repositoryAll
+                generatedPath
             );
 
-            clientScriptCompilerMock.Setup(
-                mock => mock.Compile(
-                    It.IsAny<IEnumerable<ClientScript>>()
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                0
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
                 )
             ).ReturnsAsync(
-                compileResult
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedClientScriptsResultModel>(
+                    generatedFilePath
+                )
+            ).ReturnsAsync(
+                new GeneratedClientScriptsResultModel
+                {
+                    Success = true,
+                    Hash = expectedHash,
+                    ScriptAssembly = expectedScriptAssembly,
+                }
             );
 
             // When
             var handler = new CompileClientScriptCommandHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                clientScriptsStateMock.Object,
-                clientScriptRepositoryMock.Object,
-                clientScriptCompilerMock.Object
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
             );
             var actual = default(ClientActionGenericToAllEvent);
 

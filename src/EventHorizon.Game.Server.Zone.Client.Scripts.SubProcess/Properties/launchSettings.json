@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

@@ -105,13 +105,13 @@ stages:
           installationPath: $(Agent.ToolsDirectory)/dotnet
 
       - task: DotNetCoreCLI@2
-        enabled: false
+        enabled: 'false'
         displayName: Pack
         inputs:
           command: pack
       
       - task: DotNetCoreCLI@2
-        enabled: false
+        enabled: 'false'
         displayName: Push
         inputs:
           command: push
@@ -137,11 +137,12 @@ stages:
           releaseType: stable
 
       - task: Docker@2
+        enabled: 'false'
         displayName: Build and Push Image (ACR)
         inputs: 
           command: buildAndPush
           containerRegistry: eventHorizonGamesConnection
-          dockerFile: Dockerfile.devops
+          Dockerfile: Dockerfile.devops
           repository: ehz/game/server/zone
           tags: |
             latest
@@ -151,7 +152,7 @@ stages:
         inputs: 
           command: buildAndPush
           containerRegistry: docker-hub
-          dockerFile: Dockerfile.devops
+          Dockerfile: Dockerfile.devops
           repository: canhorn/ehz-platform-server-zone
           tags: |
             latest
