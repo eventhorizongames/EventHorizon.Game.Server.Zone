@@ -1,35 +1,50 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-publish
 WORKDIR /source
 
-# copy csproj and restore as distinct layers
-COPY NuGet.Config .
 COPY *.sln .
-COPY src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj ./src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj
-COPY src/EventHorizon.Zone.System.Agent/EventHorizon.Zone.System.Agent.csproj ./src/EventHorizon.Zone.System.Agent/EventHorizon.Zone.System.Agent.csproj
-COPY src/EventHorizon.Zone.System.Agent.Plugin.Ai/EventHorizon.Zone.System.Agent.Plugin.Ai.csproj ./src/EventHorizon.Zone.System.Agent.Plugin.Ai/EventHorizon.Zone.System.Agent.Plugin.Ai.csproj
-COPY src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj ./src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj
-COPY src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj ./src/EventHorizon.Game.I18n/EventHorizon.Game.I18n.csproj
-
-# Systems
-COPY src/EventHorizon.Zone.System.ServerModule/EventHorizon.Zone.System.ServerModule.csproj ./src/EventHorizon.Zone.System.ServerModule/EventHorizon.Zone.System.ServerModule.csproj
-
-# Embedded Plugins
-
-COPY test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj ./test/EventHorizon.Game.Server.Zone.Tests/EventHorizon.Game.Server.Zone.Tests.csproj
-
-RUN dotnet restore
-
-# copy and build everything else
 COPY src/. ./src/
 COPY test/. ./test/
 
 RUN dotnet build
+RUN dotnet publish --output /app --configuration Release
 
-FROM build AS publish
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS client-scripts-sub-process
 WORKDIR /source
-RUN dotnet publish --output bin/publish --configuration Release
 
-FROM microsoft/dotnet-aspnetcore-runtime:2.2 AS runtime
+## Projects
+COPY src/EventHorizon.Extensions/EventHorizon.Extensions.csproj ./src/EventHorizon.Extensions/EventHorizon.Extensions.csproj
+COPY src/EventHorizon.Monitoring.Events/EventHorizon.Monitoring.Events.csproj ./src/EventHorizon.Monitoring.Events/EventHorizon.Monitoring.Events.csproj
+COPY src/EventHorizon.Zone.Core/EventHorizon.Zone.Core.csproj ./src/EventHorizon.Zone.Core/EventHorizon.Zone.Core.csproj
+COPY src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj ./src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj
+COPY src/EventHorizon.Zone.Core.Events/EventHorizon.Zone.Core.Events.csproj ./src/EventHorizon.Zone.Core.Events/EventHorizon.Zone.Core.Events.csproj
+COPY src/EventHorizon.Zone.System.Client.Scripts.Model/EventHorizon.Zone.System.Client.Scripts.Model.csproj ./src/EventHorizon.Zone.System.Client.Scripts.Model/EventHorizon.Zone.System.Client.Scripts.Model.csproj
+COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.csproj ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.csproj
+
+COPY src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj
+
+RUN dotnet restore ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj
+
+# Publish SubProcess Project
+
+COPY src/EventHorizon.Extensions ./src/EventHorizon.Extensions
+COPY src/EventHorizon.Monitoring.Events ./src/EventHorizon.Monitoring.Events/
+COPY src/EventHorizon.Zone.Core ./src/EventHorizon.Zone.Core
+COPY src/EventHorizon.Zone.Core.Model ./src/EventHorizon.Zone.Core.Model
+COPY src/EventHorizon.Zone.Core.Events ./src/EventHorizon.Zone.Core.Events
+COPY src/EventHorizon.Zone.System.Client.Scripts.Model ./src/EventHorizon.Zone.System.Client.Scripts.Model
+COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler
+
+COPY src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
+
+COPY src/EventHorizon.Game.Server.Zone/appsettings.json ./src/EventHorizon.Game.Server.Zone/appsettings.json
+
+## Single folder publish of whole project
+RUN dotnet publish --output /sub-processes/client-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
+
+# Runtime Zone Server target
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
-COPY --from=publish /source/src/EventHorizon.Game.Server.Zone/bin/publish ./
+COPY --from=build-publish /app /app
+COPY --from=client-scripts-sub-process /sub-processes/client-scripts /sub-processes/client-scripts
+# COPY src/EventHorizon.Game.Server.Zone/bin/${BUILD_CONFIGURATION}/net5.0/publish/. ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

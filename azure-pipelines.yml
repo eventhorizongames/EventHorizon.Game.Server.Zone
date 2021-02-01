@@ -156,3 +156,4 @@ stages:
           repository: canhorn/ehz-platform-server-zone
           tags: |
             latest
+            $(Build.BuildNumber)
