@@ -48,6 +48,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 # COPY --from=tools /tools /tools
 COPY --from=client-scripts-sub-process /sub-processes/client-scripts /sub-processes/client-scripts
-ENV BUILD_CONFIGURATION Release
-COPY src/EventHorizon.Game.Server.Zone/bin/${BUILD_CONFIGURATION}/net5.0/publish/. ./
+COPY app ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

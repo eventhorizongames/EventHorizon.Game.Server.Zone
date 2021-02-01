@@ -122,7 +122,7 @@ stages:
           command: custom
           custom: publish
           zipAfterPublish: false
-          arguments: '--configuration $(BuildConfiguration)'
+          arguments: '--configuration $(BuildConfiguration) --output ./app/ ./src/EventHorizon.Game.Server.Zone'
 
   - stage: Image_Publish
     condition: and(succeeded(), eq(variables.IsMain, true))

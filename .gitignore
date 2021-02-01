@@ -245,6 +245,8 @@ ModelManifest.xml
 .fake/
 
 dist/
+publish
+app
 appsettings.*.json
 
 data/*.json
