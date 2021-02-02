@@ -62,8 +62,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                 request.FileName,
                 request.Path,
                 request.ScriptString,
-                request.ReferenceAssemblies,
-                request.Imports
+                request.ReferenceAssemblies
             );
             _serverScriptRepository.Add(
                 script
@@ -75,7 +74,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                     request.Path,
                     request.ScriptString,
                     request.ReferenceAssemblies,
-                    request.Imports,
                     request.TagList
                 )
             );

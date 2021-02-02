@@ -53,8 +53,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 fileName,
                 path,
                 scriptAsString,
-                new List<Assembly>(),
-                new List<string>()
+                new List<Assembly>()
             );
             var actual = await serverScript.Run(
                 serverScriptServices,
@@ -101,8 +100,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 fileName,
                 path,
                 scriptAsString,
-                new List<Assembly>(),
-                new List<string>()
+                new List<Assembly>()
             );
             var actual = serverScript.Id;
 
@@ -145,8 +143,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 fileName,
                 path,
                 scriptAsString,
-                new List<Assembly>(),
-                new List<string>()
+                new List<Assembly>()
             );
             var actual = await serverScript.Run(
                 serverScriptServices,
@@ -238,8 +235,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 fileName,
                 path,
                 scriptAsString,
-                new List<Assembly>(),
-                new List<string>()
+                new List<Assembly>()
             );
             var actual = await serverScript.Run(
                 serverScriptServices,
@@ -279,8 +275,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.System
                 fileName,
                 path,
                 scriptAsString,
-                new List<Assembly>(),
-                new List<string>()
+                new List<Assembly>()
             );
             var actual = Assert.Throws<InvalidOperationException>(
                 action

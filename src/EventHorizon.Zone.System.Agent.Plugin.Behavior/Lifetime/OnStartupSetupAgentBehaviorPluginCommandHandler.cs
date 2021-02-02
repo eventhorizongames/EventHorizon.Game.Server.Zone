@@ -132,7 +132,8 @@
         )
         {
             var defaultScriptFile = Path.Combine(
-                _serverInfo.SystemPath,
+                _serverInfo.ServerScriptsPath,
+                "System",
                 "Behaviors",
                 "$DEFAULT$SCRIPT.csx"
             );

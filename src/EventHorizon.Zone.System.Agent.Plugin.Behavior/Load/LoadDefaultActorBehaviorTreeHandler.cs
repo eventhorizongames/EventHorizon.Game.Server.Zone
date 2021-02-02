@@ -1,14 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
 
     public class LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
@@ -63,14 +63,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                     await _mediator.Send(
                         new ReadAllTextFromFile(
                             Path.Combine(
-                                _serverInfo.SystemPath,
+                                _serverInfo.ServerScriptsPath,
+                                "System",
                                 "Behaviors",
                                 $"{defaultScriptName}.csx"
                             )
                         )
                     ),
-                    _systemAssemblyList.List,
-                    new string[] { }
+                    _systemAssemblyList.List
                 )
             );
 

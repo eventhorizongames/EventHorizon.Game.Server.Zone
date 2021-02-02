@@ -144,8 +144,6 @@
                 .Should().Be(expectedScriptString);
             actual.ReferenceAssemblies
                 .Should().BeEquivalentTo(expectedScriptReferenceAssembiles);
-            actual.Imports
-                .Should().BeEquivalentTo(expectedImports);
             actual.TagList
                 .Should().BeEquivalentTo(expectedTagList);
 

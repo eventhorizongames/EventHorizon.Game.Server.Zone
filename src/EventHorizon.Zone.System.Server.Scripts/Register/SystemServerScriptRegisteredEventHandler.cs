@@ -1,16 +1,17 @@
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-using EventHorizon.Zone.System.Server.Scripts.State;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Register
 {
-    public class SystemServerScriptRegisteredEventHandler : INotificationHandler<ServerScriptRegisteredEvent>
+    using global::System.Linq;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+    using MediatR;
+
+    public class SystemServerScriptRegisteredEventHandler 
+        : INotificationHandler<ServerScriptRegisteredEvent>
     {
-        readonly ServerScriptDetailsRepository _serverScriptDetailsRepository;
+        private readonly ServerScriptDetailsRepository _serverScriptDetailsRepository;
 
         public SystemServerScriptRegisteredEventHandler(
             ServerScriptDetailsRepository serverScriptDetailsRepository
@@ -34,8 +35,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                     request.ReferenceAssemblies.Select(
                         assembly => assembly.ToString()
                     ),
-                    
-                    request.Imports,
                     request.TagList
                 )
             );

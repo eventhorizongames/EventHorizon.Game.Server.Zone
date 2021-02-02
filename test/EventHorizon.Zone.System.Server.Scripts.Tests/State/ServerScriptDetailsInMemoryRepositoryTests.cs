@@ -1,9 +1,9 @@
-using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-using EventHorizon.Zone.System.Server.Scripts.State;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
 {
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+    using Xunit;
+
     public class ServerScriptDetailsInMemoryRepositoryTests
     {
         [Fact]
@@ -19,7 +19,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
                 fileName,
                 path,
                 scriptString,
-                null,
                 null,
                 null
             );

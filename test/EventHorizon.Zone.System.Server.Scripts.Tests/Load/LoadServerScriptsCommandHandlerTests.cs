@@ -1,21 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Admin.Load;
-using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using MediatR;
-using Moq;
-using Xunit;
-
-namespace EventHorizon.Zone.System.Admin.Tests.Load
+namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
 {
-    public class LoadAdminServerScriptsHandlerTests
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using MediatR;
+    using Moq;
+    using Xunit;
+    using EventHorizon.Zone.System.Server.Scripts.Load;
+
+    public class LoadServerScriptsCommandHandlerTests
     {
         [Fact]
         public async Task TestName()
@@ -25,29 +25,29 @@ namespace EventHorizon.Zone.System.Admin.Tests.Load
             IDictionary<string, object> arguments = null;
             var serverScriptsPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "server-scripts-path"
+                "Scripts"
             );
-            var interactionDirectoryFullName = Path.Combine(
+            var loadedScriptsPath = Path.Combine(
                 serverScriptsPath,
-                "Interaction"
+                "Loaded"
             );
-            var interactionFileName = "LoadedScript.csx";
-            var interactionFileFullName = Path.Combine(
-                interactionDirectoryFullName,
-                interactionFileName
+            var loadedScriptFileName = "Script.csx";
+            var loadedScriptFileFullName = Path.Combine(
+                loadedScriptsPath,
+                loadedScriptFileName
             );
-            var interactionFileContent = "// Script Comment";
+            var loadedScriptFileContent = "// Script Comment";
             var fileExtension = ".exe";
-            var interactionFileInfo = new StandardFileInfo(
-                interactionFileName,
-                interactionDirectoryFullName,
-                interactionFileFullName,
+            var loadedScriptFileInfo = new StandardFileInfo(
+                loadedScriptFileName,
+                loadedScriptsPath,
+                loadedScriptFileFullName,
                 fileExtension
             );
 
-            var expectedInteractionFileName = interactionFileName;
-            var expectedInteractionPath = "Interaction";
-            var expectedInteractionFileContent = interactionFileContent;
+            var expectedFileName = loadedScriptFileName;
+            var expectedPath = "Loaded";
+            var expectedFileContent = loadedScriptFileContent;
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
@@ -75,16 +75,16 @@ namespace EventHorizon.Zone.System.Admin.Tests.Load
             mediatorMock.Setup(
                 mock => mock.Send(
                     new ReadAllTextFromFile(
-                        interactionFileFullName
+                        loadedScriptFileFullName
                     ),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                interactionFileContent
+                loadedScriptFileContent
             );
 
             // When
-            var handler = new LoadAdminServerScriptsHandler(
+            var handler = new LoadServerScriptsCommandHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 systemProvidedAssemblyListMock.Object
@@ -99,7 +99,7 @@ namespace EventHorizon.Zone.System.Admin.Tests.Load
             );
 
             await onProcessFile(
-                interactionFileInfo,
+                loadedScriptFileInfo,
                 arguments
             );
 
@@ -107,9 +107,9 @@ namespace EventHorizon.Zone.System.Admin.Tests.Load
             mediatorMock.Verify(
                 mock => mock.Send(
                     It.Is<RegisterServerScriptCommand>(
-                        command => command.FileName == expectedInteractionFileName
-                            && command.Path == expectedInteractionPath
-                            && command.ScriptString == expectedInteractionFileContent
+                        command => command.FileName == expectedFileName
+                            && command.Path == expectedPath
+                            && command.ScriptString == expectedFileContent
                     ),
                     CancellationToken.None
                 )

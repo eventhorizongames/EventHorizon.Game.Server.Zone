@@ -4,7 +4,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-    using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Reflection;
@@ -50,10 +49,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
                         "ScriptReferenceAssemblies",
                         _systemAssemblyList.List
                     },
-                    {
-                        "ScriptImports",
-                        Array.Empty<string>()
-                    }
                 }
             )
         );
@@ -65,7 +60,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
         {
             var rootPath = arguments["RootPath"] as string;
             var scriptReferenceAssemblies = arguments["ScriptReferenceAssemblies"] as IList<Assembly>;
-            var scriptImports = arguments["ScriptImports"] as string[];
             var tagList = new string[]
             {
                 "Type:SkillEffectScript"
@@ -83,7 +77,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
                         )
                     ),
                     scriptReferenceAssemblies,
-                    scriptImports,
                     tagList
                 )
             );

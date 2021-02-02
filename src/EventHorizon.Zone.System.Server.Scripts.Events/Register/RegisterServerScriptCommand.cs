@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Reflection;
+    using MediatR;
+
     public struct RegisterServerScriptCommand : IRequest
     {
 
@@ -12,7 +12,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
         public string Path { get; }
         public string ScriptString { get; }
         public IEnumerable<Assembly> ReferenceAssemblies { get; }
-        public IEnumerable<string> Imports { get; }
         public IEnumerable<string> TagList { get; }
 
         public RegisterServerScriptCommand(
@@ -25,7 +24,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
             Path = path;
             ScriptString = scriptString;
             ReferenceAssemblies = Enumerable.Empty<Assembly>();
-            Imports = Enumerable.Empty<string>();
             TagList = Enumerable.Empty<string>();
         }
 
@@ -33,8 +31,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
             string fileName,
             string path,
             string scriptString,
-            IEnumerable<Assembly> referenceAssemblies,
-            IEnumerable<string> imports
+            IEnumerable<Assembly> referenceAssemblies
         ) : this(
             fileName,
             path,
@@ -42,7 +39,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
         )
         {
             ReferenceAssemblies = referenceAssemblies;
-            Imports = imports;
         }
 
         public RegisterServerScriptCommand(
@@ -50,7 +46,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
             string path,
             string scriptString,
             IEnumerable<Assembly> referenceAssemblies,
-            IEnumerable<string> imports,
             IEnumerable<string> tagList
         ) : this(
             fileName,
@@ -59,9 +54,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
         )
         {
             ReferenceAssemblies = referenceAssemblies;
-            Imports = imports;
             TagList = tagList;
         }
-
     }
 }

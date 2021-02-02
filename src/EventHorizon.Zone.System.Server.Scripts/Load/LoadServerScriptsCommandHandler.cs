@@ -1,23 +1,24 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using MediatR;
-
-namespace EventHorizon.Zone.System.Admin.Load
+namespace EventHorizon.Zone.System.Server.Scripts.Load
 {
-    public class LoadAdminServerScriptsHandler : IRequestHandler<LoadServerScriptsCommand>
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class LoadServerScriptsCommandHandler
+        : IRequestHandler<LoadServerScriptsCommand>
     {
         readonly IMediator _mediator;
         readonly ServerInfo _serverInfo;
         readonly SystemProvidedAssemblyList _systemAssemblyList;
 
-        public LoadAdminServerScriptsHandler(
+        public LoadServerScriptsCommandHandler(
             IMediator mediator,
             ServerInfo serverInfo,
             SystemProvidedAssemblyList systemAssemblyList
@@ -34,8 +35,7 @@ namespace EventHorizon.Zone.System.Admin.Load
         ) => _mediator.Send(
             new ProcessFilesRecursivelyFromDirectory(
                 Path.Combine(
-                    _serverInfo.ServerScriptsPath,
-                    "Admin"
+                    _serverInfo.ServerScriptsPath
                 ),
                 OnProcessFile,
                 new Dictionary<string, object>
@@ -45,7 +45,8 @@ namespace EventHorizon.Zone.System.Admin.Load
                         $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
                     },
                 }
-            )
+            ),
+            cancellationToken
         );
 
         private async Task OnProcessFile(
@@ -55,8 +56,6 @@ namespace EventHorizon.Zone.System.Admin.Load
         {
             var rootPath = arguments["RootPath"] as string;
             var scriptReferenceAssemblies = _systemAssemblyList.List;
-            var scriptImports = new string[] {
-            };
             // Register Script with Platform
             await _mediator.Send(
                 new RegisterServerScriptCommand(
@@ -69,8 +68,7 @@ namespace EventHorizon.Zone.System.Admin.Load
                             fileInfo.FullName
                         )
                     ),
-                    scriptReferenceAssemblies,
-                    scriptImports
+                    scriptReferenceAssemblies
                 )
             );
         }

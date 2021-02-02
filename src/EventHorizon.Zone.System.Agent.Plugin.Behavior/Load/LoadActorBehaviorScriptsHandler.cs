@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Reflection;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using MediatR;
+
     public class LoadActorBehaviorScriptsHandler : IRequestHandler<LoadActorBehaviorScripts>
     {
         readonly IMediator _mediator;
@@ -63,7 +63,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
         {
             var rootPath = arguments["RootPath"] as string;
             var scriptReferenceAssemblies = arguments["ScriptReferenceAssemblies"] as IList<Assembly>;
-            var scriptImports = arguments["ScriptImports"] as string[];
             // Register Script with Platform
             await _mediator.Send(
                 new RegisterServerScriptCommand(
@@ -76,8 +75,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                             fileInfo.FullName
                         )
                     ),
-                    scriptReferenceAssemblies,
-                    scriptImports
+                    scriptReferenceAssemblies
                 )
             );
         }

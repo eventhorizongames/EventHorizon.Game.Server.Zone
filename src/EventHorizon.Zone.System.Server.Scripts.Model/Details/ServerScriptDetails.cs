@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Model.Details
 {
+    using global::System.Collections.Generic;
+
     public struct ServerScriptDetails
     {
         public string Id { get; }
@@ -9,7 +9,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Model.Details
         public string Path { get; }
         public string ScriptString { get; }
         public IEnumerable<string> ReferenceAssemblies { get; }
-        public IEnumerable<string> Imports { get; }
         public IEnumerable<string> TagList { get; }
 
         public ServerScriptDetails(
@@ -18,7 +17,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Model.Details
             string path,
             string scriptString,
             IEnumerable<string> referenceAssemblies,
-            IEnumerable<string> imports,
             IEnumerable<string> tagList
         )
         {
@@ -27,7 +25,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Model.Details
             Path = path;
             ScriptString = scriptString;
             ReferenceAssemblies = referenceAssemblies;
-            Imports = imports;
             TagList = tagList;
         }
     }

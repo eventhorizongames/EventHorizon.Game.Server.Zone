@@ -19,8 +19,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             string fileName,
             string path,
             string scriptAsString,
-            IEnumerable<Assembly> referenceAssemblies,
-            IEnumerable<string> imports
+            IEnumerable<Assembly> referenceAssemblies
         )
         {
             return new SystemServerScript(
@@ -30,7 +29,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                     Path = path,
                     ScriptAsString = scriptAsString,
                     ReferenceAssemblies = referenceAssemblies,
-                    Imports = imports
                 }
             );
         }
@@ -41,7 +39,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             public string Path { get; set; }
             public string ScriptAsString { get; set; }
             public IEnumerable<Assembly> ReferenceAssemblies { get; set; }
-            public IEnumerable<string> Imports { get; set; }
         }
 
         public string Id { get; }
@@ -175,8 +172,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
                         "System",
                         "System.Collections.Generic",
                         "System.Numerics"
-                    ).AddImports(
-                        details.Imports
                     );
 
                 return CSharpScript

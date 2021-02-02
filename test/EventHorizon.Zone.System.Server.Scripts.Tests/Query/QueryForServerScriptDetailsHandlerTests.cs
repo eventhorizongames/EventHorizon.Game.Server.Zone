@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Query;
-using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-using EventHorizon.Zone.System.Server.Scripts.Query;
-using EventHorizon.Zone.System.Server.Scripts.State;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Query;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.Query;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+    using Moq;
+    using Xunit;
+
     public class QueryForServerScriptDetailsHandlerTests
     {
         [Fact]
@@ -22,7 +22,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
                 "file-name",
                 "path",
                 "script-string",
-                null,
                 null,
                 null
             );

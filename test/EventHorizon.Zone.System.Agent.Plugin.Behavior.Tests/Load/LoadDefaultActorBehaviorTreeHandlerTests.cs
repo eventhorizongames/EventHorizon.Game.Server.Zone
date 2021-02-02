@@ -1,23 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
-using MediatR;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Reflection;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using MediatR;
+    using Moq;
+    using Xunit;
+
     public class LoadDefaultActorBehaviorTreeHandlerTests
     {
         [Fact]
@@ -28,9 +27,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             var fileName = $"{expectedName}.csx";
             var expectedPath = "";
             var expectedFileContent = "file-content";
+            var serverScriptsPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Load"
+            );
             var systemPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "Load",
                 "System"
             );
             var defaultBehaviorShapePath = Path.Combine(
@@ -39,7 +41,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 "$DEFAULT$SHAPE.json"
             );
             var defaultBehaviorScriptPath = Path.Combine(
-                systemPath,
+                serverScriptsPath,
+                "System",
                 "Behaviors",
                 fileName
             );
@@ -61,6 +64,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 expectedFileContent
             );
 
+            serverInfoMock.SetupGet(
+                mock => mock.ServerScriptsPath
+            ).Returns(
+                serverScriptsPath
+            );
             serverInfoMock.SetupGet(
                 mock => mock.SystemPath
             ).Returns(

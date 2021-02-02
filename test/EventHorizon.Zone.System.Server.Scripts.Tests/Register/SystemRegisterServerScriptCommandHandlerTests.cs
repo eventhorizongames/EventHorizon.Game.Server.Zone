@@ -58,7 +58,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
             var path = "path";
             var scriptString = "// A script";
             var referenceAssemblyList = new List<Assembly>();
-            var importList = new List<string>();
             var tagList = new List<string>();
 
             var loggerMock = new Mock<ILogger<SystemRegisterServerScriptCommandHandler>>();
@@ -77,7 +76,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
                     path,
                     scriptString,
                     referenceAssemblyList,
-                    importList,
                     tagList
                 ),
                 CancellationToken.None
@@ -99,8 +97,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Register
                             registerEvent.ScriptString == scriptString
                             &&
                             registerEvent.ReferenceAssemblies == referenceAssemblyList
-                            &&
-                            registerEvent.Imports == importList
                             &&
                             registerEvent.TagList == tagList
                     ),

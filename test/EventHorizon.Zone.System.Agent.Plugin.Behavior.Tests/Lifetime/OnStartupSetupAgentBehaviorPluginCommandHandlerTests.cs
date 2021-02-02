@@ -187,7 +187,8 @@
                 "$DEFAULT$SHAPE.json"
             );
             var defaultScriptFile = Path.Combine(
-                systemPath,
+                serverScriptsPath,
+                "System",
                 "Behaviors",
                 "$DEFAULT$SCRIPT.csx"
             );
@@ -276,7 +277,8 @@
                 "$DEFAULT$SHAPE.json"
             );
             var defaultScriptFile = Path.Combine(
-                systemPath,
+                serverScriptsPath,
+                "System",
                 "Behaviors",
                 "$DEFAULT$SCRIPT.csx"
             );
