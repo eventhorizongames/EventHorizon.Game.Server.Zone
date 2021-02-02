@@ -1,11 +1,8 @@
-
-using EventHorizon.Zone.System.Interaction.Script.Load;
-using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemInteractionExtensions
     {
         public static IServiceCollection AddSystemInteraction(
@@ -14,17 +11,12 @@ namespace EventHorizon.Game.Server.Zone
         {
             return services;
         }
-        public static void UseSystemInteraction(
+
+        public static IApplicationBuilder UseSystemInteraction(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                mediator.Send(
-                    new LoadInteractionScriptsCommand()
-                ).GetAwaiter().GetResult();
-            }
+            return app;
         }
     }
 }

@@ -5,7 +5,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Events.Register
     using global::System.Reflection;
     using MediatR;
 
-    public struct RegisterServerScriptCommand : IRequest
+    public struct RegisterServerScriptCommand
+        : IRequest
     {
 
         public string FileName { get; }

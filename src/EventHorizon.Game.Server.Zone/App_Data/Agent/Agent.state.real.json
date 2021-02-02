@@ -128,7 +128,7 @@
                             "Status": "SUCCESS",
                             "NodeList": null,
                             "IsTraversal": false,
-                            "Fire": "$DEFAULT$SCRIPT",
+                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
                             "FailGate": 0,
                             "Reset": false
                         }

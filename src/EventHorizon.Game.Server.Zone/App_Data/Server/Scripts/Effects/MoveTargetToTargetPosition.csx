@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: move_target_to_target_position
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster: ObjectEntity 
 /// Target: ObjectEntity

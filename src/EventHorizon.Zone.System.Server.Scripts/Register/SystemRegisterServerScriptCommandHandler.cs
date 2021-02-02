@@ -9,11 +9,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class SystemRegisterServerScriptCommandHandler : IRequestHandler<RegisterServerScriptCommand>
+    public class SystemRegisterServerScriptCommandHandler
+        : IRequestHandler<RegisterServerScriptCommand>
     {
         private readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly ServerScriptRepository _serverScriptRepository;
+        private readonly IMediator _mediator;
+        private readonly ServerScriptRepository _serverScriptRepository;
 
         public SystemRegisterServerScriptCommandHandler(
             ILogger<SystemRegisterServerScriptCommandHandler> logger,
@@ -52,7 +53,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                 // No change to the script, just ignore it.
                 return Unit.Value;
             }
-            _logger.LogDebug(
+            _logger.LogInformation(
                 "Loading System Service Script\nServerScriptCommand: \n | FileName: {FileName} \n | Path: {Path} \n | TagList: {TagList}",
                     request.FileName,
                     request.Path,
@@ -75,7 +76,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Register
                     request.ScriptString,
                     request.ReferenceAssemblies,
                     request.TagList
-                )
+                ),
+                cancellationToken
             );
             return Unit.Value;
         }

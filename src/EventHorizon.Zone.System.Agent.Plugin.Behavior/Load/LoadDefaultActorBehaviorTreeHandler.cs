@@ -1,37 +1,30 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
-    using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
 
-    public class LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
+    public class LoadDefaultActorBehaviorTreeHandler
+        : IRequestHandler<LoadDefaultActorBehaviorTree>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ActorBehaviorTreeRepository _actorBehaviorTreeRepository;
-        readonly SystemProvidedAssemblyList _systemAssemblyList;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ActorBehaviorTreeRepository _actorBehaviorTreeRepository;
 
         public LoadDefaultActorBehaviorTreeHandler(
-            IMediator mediator,
             ServerInfo serverInfo,
             IJsonFileLoader fileLoader,
-            ActorBehaviorTreeRepository actorBehaviorTreeRepository,
-            SystemProvidedAssemblyList systemAssemblyList
+            ActorBehaviorTreeRepository actorBehaviorTreeRepository
         )
         {
-            _mediator = mediator;
             _serverInfo = serverInfo;
             _fileLoader = fileLoader;
             _actorBehaviorTreeRepository = actorBehaviorTreeRepository;
-            _systemAssemblyList = systemAssemblyList;
         }
 
         public async Task<Unit> Handle(
@@ -51,26 +44,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                             "$DEFAULT$SHAPE.json"
                         )
                     )
-                )
-            );
-
-            // Register Default Script with Server
-            var defaultScriptName = "$DEFAULT$SCRIPT";
-            await _mediator.Send(
-                new RegisterServerScriptCommand(
-                    defaultScriptName,
-                    string.Empty,
-                    await _mediator.Send(
-                        new ReadAllTextFromFile(
-                            Path.Combine(
-                                _serverInfo.ServerScriptsPath,
-                                "System",
-                                "Behaviors",
-                                $"{defaultScriptName}.csx"
-                            )
-                        )
-                    ),
-                    _systemAssemblyList.List
                 )
             );
 

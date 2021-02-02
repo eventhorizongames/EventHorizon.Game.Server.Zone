@@ -1,5 +1,6 @@
 /// <summary>
 /// Id - cool_down_check
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster - 
 /// Target - 

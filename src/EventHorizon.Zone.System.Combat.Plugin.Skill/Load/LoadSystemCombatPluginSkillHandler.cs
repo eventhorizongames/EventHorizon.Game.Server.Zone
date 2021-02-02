@@ -26,11 +26,6 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
                new LoadCombatSkillsEvent()
             );
 
-            // Load Combat Skill Scripts
-            await _mediator.Publish(
-               new LoadSystemCombatSkillScriptsEvent()
-            );
-
             return Unit.Value;
         }
     }

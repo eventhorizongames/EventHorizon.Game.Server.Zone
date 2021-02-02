@@ -1,3 +1,6 @@
+///
+/// tagList = new string[] { "Type:SkillEffectScript" };
+///
 using System.Collections.Generic;
 using EventHorizon.Zone.Core.Events.Entity.Movement;
 using EventHorizon.Zone.Core.Model.Entity;

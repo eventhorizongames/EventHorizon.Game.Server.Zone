@@ -34,31 +34,5 @@
                 )
             );
         }
-
-        [Fact]
-        public async Task ShouldPublishLoadSystemCombatSkillScriptsEventWhenRequestIsHandled()
-        {
-            // Given
-            var expected = new LoadSystemCombatSkillScriptsEvent();
-
-            var mediatorMock = new Mock<IMediator>();
-
-            // When
-            var handler = new LoadSystemCombatPluginSkillHandler(
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new LoadSystemCombatPluginSkill(),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
     }
 }

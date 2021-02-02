@@ -1,12 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
-    public class LoadAgentBehaviorSystemHandler : IRequestHandler<LoadAgentBehaviorSystem>
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class LoadAgentBehaviorSystemHandler 
+        : IRequestHandler<LoadAgentBehaviorSystem>
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public LoadAgentBehaviorSystemHandler(
             IMediator mediator
@@ -21,13 +22,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
         )
         {
             await _mediator.Send(
-                new LoadActorBehaviorScripts()
+                new LoadActorBehaviorTreeShapes(),
+                cancellationToken
             );
             await _mediator.Send(
-                new LoadActorBehaviorTreeShapes()
-            );
-            await _mediator.Send(
-                new LoadDefaultActorBehaviorTree()
+                new LoadDefaultActorBehaviorTree(),
+                cancellationToken
             );
 
             return Unit.Value;

@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: damage_message
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster - 
 /// Target - 

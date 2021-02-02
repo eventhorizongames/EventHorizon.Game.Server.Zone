@@ -1,5 +1,5 @@
 /// <summary>
-/// Name: $DEFAULT$SCRIPT.csx
+/// Name: System_Behaviors_$DEFAULT$SCRIPT.csx
 /// </summary>
 
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;

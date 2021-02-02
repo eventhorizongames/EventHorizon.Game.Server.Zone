@@ -1,5 +1,6 @@
 /// <summary>
 /// Id: caster_has_cost
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster - 
 /// Target - 

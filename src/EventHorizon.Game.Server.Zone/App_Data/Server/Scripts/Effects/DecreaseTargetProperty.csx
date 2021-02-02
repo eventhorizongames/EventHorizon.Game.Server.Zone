@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: decrease_target_property
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// </summary>
 /// <returns></returns>
 

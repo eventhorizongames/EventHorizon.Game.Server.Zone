@@ -1,5 +1,6 @@
 /// <summary>
 /// Id: target_not_caster
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster: { Id: string; } 
 /// Target: { Id: string; }

@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: caster_target_message
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster: 
 /// - Id: long

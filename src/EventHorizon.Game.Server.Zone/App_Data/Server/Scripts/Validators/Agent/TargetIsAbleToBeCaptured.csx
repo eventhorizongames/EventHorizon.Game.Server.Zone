@@ -1,5 +1,6 @@
 /// <summary>
 /// Id: target_is_able_to_be_captured
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster: ObjectEntity 
 /// Target: ObjectEntity

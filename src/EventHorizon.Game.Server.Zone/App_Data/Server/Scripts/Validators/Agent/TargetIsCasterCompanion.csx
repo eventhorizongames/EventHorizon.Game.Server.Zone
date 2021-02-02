@@ -1,5 +1,6 @@
 /// <summary>
 /// Id: target_is_caster_companion
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster: ObjectEntity 
 /// Target: ObjectEntity

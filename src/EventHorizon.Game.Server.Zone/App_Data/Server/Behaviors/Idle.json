@@ -7,7 +7,7 @@
         "nodeList": [
             {
                 "type": "ACTION",
-                "fire": "$DEFAULT$SCRIPT"
+                "fire": "System_Behaviors_$DEFAULT$SCRIPT.csx"
             }
         ]
     }

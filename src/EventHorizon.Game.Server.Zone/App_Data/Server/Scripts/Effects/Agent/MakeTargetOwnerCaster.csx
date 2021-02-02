@@ -1,5 +1,6 @@
 /// <summary>
-/// Effect Id: make_target_owner_caster
+/// Effect Id: make_target_owner_castervar 
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" />  
 /// Target: <see cref="EventHorizon.Zone.Core.Model.Entity.IObjectEntity" /> 

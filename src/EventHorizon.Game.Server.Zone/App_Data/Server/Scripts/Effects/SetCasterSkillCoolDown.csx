@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: set_caster_skill_cool_down
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster: { SkillState: ISkillState; }
 /// Target: 

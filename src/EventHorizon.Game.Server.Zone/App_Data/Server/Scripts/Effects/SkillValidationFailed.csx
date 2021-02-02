@@ -1,5 +1,6 @@
 /// <summary>
 /// Effect Id: skill_validation_failed
+/// tagList = new string[] { "Type:SkillEffectScript" };
 /// 
 /// Caster: { Id: long; } 
 /// Target: { Id: long; }

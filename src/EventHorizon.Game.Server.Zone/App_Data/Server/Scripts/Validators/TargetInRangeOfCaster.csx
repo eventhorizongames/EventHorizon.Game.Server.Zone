@@ -1,5 +1,6 @@
 /// <summary>
 /// Id: target_in_range_of_caster
+/// var tagList = new string[] { "Type:SkillValidatorScript" };
 /// 
 /// Caster - 
 /// Target - 
