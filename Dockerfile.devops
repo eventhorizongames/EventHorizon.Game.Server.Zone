@@ -48,5 +48,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 # COPY --from=tools /tools /tools
 COPY --from=client-scripts-sub-process /sub-processes/client-scripts /sub-processes/client-scripts
-COPY app ./
+COPY app/EventHorizon.Game.Server.Zone ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]
