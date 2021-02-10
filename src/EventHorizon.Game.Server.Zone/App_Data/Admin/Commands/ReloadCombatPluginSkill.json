@@ -1,4 +1,4 @@
 {
     "command": "reload-system",
-    "scriptFile": "Admin_Combat_ReloadSystemPluginSkill.csx"
+    "scriptFile": "Admin_Combat_ReloadSystemPluginSkill"
 }

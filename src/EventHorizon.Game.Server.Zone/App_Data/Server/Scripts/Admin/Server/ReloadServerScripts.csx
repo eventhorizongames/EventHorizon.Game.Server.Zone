@@ -13,14 +13,35 @@
 
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
-using EventHorizon.Zone.System.Server.Scripts.Events.Load;
+using EventHorizon.Zone.System.Server.Scripts.Events.Reload;
 
-var command = Data.Get<IAdminCommand>("Command");
-await Services.Mediator.Send(
-    new LoadServerScriptsCommand()
-);
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-return new AdminCommandScriptResponse(
-    true, // Success
-    "server_scripts_reloaded" // Message
-);
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        var command = data.Get<IAdminCommand>("Command");
+        await services.Mediator.Send(
+            new ReloadServerScriptsSystemCommand()
+        );
+
+        return new AdminCommandScriptResponse(
+            true, // Success
+            "server_scripts_reloaded" // Message
+        );
+    }
+}

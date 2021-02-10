@@ -1,19 +1,26 @@
 namespace EventHorizon.Zone.System.Server.Scripts.State
 {
     using global::System.Collections.Concurrent;
-    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
     using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.Api;
 
-    public class ServerScriptInMemoryRepository : ServerScriptRepository
+    public class ServerScriptInMemoryRepository
+        : ServerScriptRepository
     {
-        private readonly ConcurrentDictionary<string, ServerScript> MAP = new ConcurrentDictionary<string, ServerScript>();
+        private readonly ConcurrentDictionary<string, ServerScript> _map = new ConcurrentDictionary<string, ServerScript>();
+
+        public void Clear()
+        {
+            _map.Clear();
+        }
 
         public void Add(
             ServerScript script
         )
         {
-            MAP.TryRemove(script.Id, out _);
-            MAP.TryAdd(
+            _map.TryRemove(script.Id, out _);
+            _map.TryAdd(
                 script.Id,
                 script
             );
@@ -23,7 +30,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             string id
         )
         {
-            if (MAP.TryGetValue(
+            if (_map.TryGetValue(
                 id,
                 out var script
             ))

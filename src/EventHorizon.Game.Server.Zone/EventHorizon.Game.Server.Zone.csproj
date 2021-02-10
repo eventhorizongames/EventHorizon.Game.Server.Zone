@@ -62,6 +62,8 @@
 
         <ProjectReference Include="..\EventHorizon.Server.Core\EventHorizon.Server.Core.csproj" />
 
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Watcher\EventHorizon.Zone.System.Watcher.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup\EventHorizon.Zone.System.Backup.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Editor\EventHorizon.Zone.System.Editor.csproj" />

@@ -22,49 +22,70 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-var actor = Data.Get<IObjectEntity>("Actor");
-// Get Owner
-var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
-var ownerFollowDistance = ownerState.OwnerFollowDistance;
-var owner = await GetOwner(
-    ownerState,
-    actor
-);
+using System.Collections.Generic;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-// Get distance between actor to owner
-var distance = Vector3.Distance(
-    actor.Transform.Position,
-    owner.Transform.Position
-);
-
-if (distance >= ownerFollowDistance)
+public class __SCRIPT__
+    : ServerScript
 {
-    // They are far from their owner
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
-}
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
 
-// They are not far from their owner
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.FAILED
-);
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
+        var actor = data.Get<IObjectEntity>("Actor");
+        // Get Owner
+        var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+        var ownerFollowDistance = ownerState.OwnerFollowDistance;
+        var owner = await GetOwner(
+            services,
+            ownerState,
+            actor
+        );
 
-public async Task<IObjectEntity> GetOwner(
-    OwnerState ownerState,
-    IObjectEntity actor
-)
-{
-    // Get Current Owner of Actor of type Player
-    var ownerList = await Services.Mediator.Send(
-        new QueryForEntities
+        // Get distance between actor to owner
+        var distance = Vector3.Distance(
+            actor.Transform.Position,
+            owner.Transform.Position
+        );
+
+        if (distance >= ownerFollowDistance)
         {
-            Query = (
-                entity => entity.Type == EntityType.PLAYER
-                && entity.GlobalId == ownerState.OwnerId
-            )
+            // They are far from their owner
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
         }
-    );
-    return ownerList.FirstOrDefault();
+
+        // They are not far from their owner
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.FAILED
+        );
+    }
+
+    public async Task<IObjectEntity> GetOwner(
+        ServerScriptServices services,
+        OwnerState ownerState,
+        IObjectEntity actor
+    )
+    {
+        // Get Current Owner of Actor of type Player
+        var ownerList = await services.Mediator.Send(
+            new QueryForEntities
+            {
+                Query = (
+                    entity => entity.Type == EntityType.PLAYER
+                    && entity.GlobalId == ownerState.OwnerId
+                )
+            }
+        );
+        return ownerList.FirstOrDefault();
+    }
 }

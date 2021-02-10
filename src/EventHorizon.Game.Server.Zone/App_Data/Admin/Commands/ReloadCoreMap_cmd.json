@@ -1,4 +1,4 @@
 {
     "command": "reload-system-core-map",
-    "scriptFile": "Admin_Map_ReloadCoreMap.csx"
+    "scriptFile": "Admin_Map_ReloadCoreMap"
 }

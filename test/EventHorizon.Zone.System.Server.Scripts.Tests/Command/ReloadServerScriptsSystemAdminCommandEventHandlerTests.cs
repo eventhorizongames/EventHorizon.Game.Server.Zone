@@ -3,7 +3,8 @@
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
     using EventHorizon.Zone.System.Server.Scripts.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Reload;
+    using EventHorizon.Zone.System.Server.Scripts.Load;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -67,7 +68,7 @@
             var commandParts = new List<string>();
             var data = new { };
 
-            var expected = new LoadServerScriptsCommand();
+            var expected = new ReloadServerScriptsSystemCommand();
 
             var loggerMock = new Mock<ILogger<ReloadServerScriptsSystemAdminCommandEventHandler>>();
             var mediatorMock = new Mock<IMediator>();

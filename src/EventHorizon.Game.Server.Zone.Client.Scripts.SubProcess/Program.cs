@@ -15,8 +15,6 @@
     class Program
     {
         public static string Identifier = "client_script_subprocess";
-        // TODO: Pass in ServerInfo Paths
-        // 
         static Task Main(string[] args) =>
             CreateHostBuilder(args).Build().RunAsync();
 
@@ -38,7 +36,6 @@
                                 typeof(SystemClientScriptsPluginCompilerExtensions),
                             }
                         ).AddCore(
-                            // TODO: This will need to be updated with a List of all SDK/API projects for Server Scripts
                             Array.Empty<Assembly>()
                         ).AddSystemClientScriptsPluginCompiler(
                             options => host.Configuration.GetSection(

@@ -15,12 +15,33 @@ using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Game.I18n.Loader;
 
-var command = Data.Get<IAdminCommand>("Command");
-await Services.Mediator.Publish(
-    new I18nLoadEvent()
-);
+using System.Collections.Generic;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
-return new AdminCommandScriptResponse(
-    true, // Success
-    "i18n_system_reloaded" // Message
-);
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        var command = data.Get<IAdminCommand>("Command");
+        await services.Mediator.Publish(
+            new I18nLoadEvent()
+        );
+
+        return new AdminCommandScriptResponse(
+            true, // Success
+            "i18n_system_reloaded" // Message
+        );
+    }
+}

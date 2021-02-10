@@ -103,7 +103,7 @@
                             "Status": "RUNNING",
                             "NodeList": null,
                             "IsTraversal": false,
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "Reset": false
                         },
@@ -116,7 +116,7 @@
                             "Status": "RUNNING",
                             "NodeList": null,
                             "IsTraversal": false,
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "Reset": false
                         },
@@ -129,7 +129,7 @@
                             "Status": "RUNNING",
                             "NodeList": null,
                             "IsTraversal": false,
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "Reset": false
                         },
@@ -168,7 +168,7 @@
                             "Status": "FAILED",
                             "NodeList": null,
                             "IsTraversal": false,
-                            "Fire": "Behavior_Condition_FindClosetsPlayer.csx",
+                            "Fire": "Behavior_Condition_FindClosetsPlayer",
                             "FailGate": 0,
                             "Reset": false
                         },

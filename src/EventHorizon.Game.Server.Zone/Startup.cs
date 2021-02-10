@@ -176,6 +176,7 @@
                 typeof(SystemAdminPluginCommandExtensions).Assembly,
 
                 typeof(SystemServerScriptsExtensions).Assembly,
+                typeof(SystemServerScriptsPluginSharedExtensions).Assembly,
                 typeof(SystemServerScriptsPluginEditorExtensions).Assembly,
 
                 typeof(SystemGuiExtensions).Assembly,
@@ -294,7 +295,13 @@
                 .AddSystemAdmin()
                 .AddSystemAdminPluginCommand()
 
-                .AddSystemServerScripts()
+                .AddSystemServerScripts(
+                    options => Configuration.GetSection(
+                        "Systems:ServerScripts"
+                    ).Bind(
+                        options
+                    )
+                ).AddSystemServerScriptsPluginShared()
                 .AddSystemServerScriptsPluginEditor()
 
                 .AddSystemGui()
@@ -411,6 +418,7 @@
             app.UseSystemAdminPluginCommand();
 
             app.UseSystemServerScripts();
+            app.UseSystemServerScriptsPluginShared();
             app.UseSystemServerScriptsPluginEditor();
 
             app.UseSystemGui();

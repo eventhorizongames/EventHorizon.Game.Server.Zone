@@ -1,7 +1,7 @@
-using System;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Exceptions
 {
+    using global::System;
+
     public class ServerScriptNotFound : Exception
     {
         public string ScriptId { get; }

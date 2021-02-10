@@ -1,8 +1,9 @@
-using EventHorizon.Zone.System.Server.Scripts.Model;
-
 namespace EventHorizon.Zone.System.Server.Scripts.System
 {
-    public struct SystemServerScriptResponse : ServerScriptResponse
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+
+    public struct SystemServerScriptResponse
+        : ServerScriptResponse
     {
         public bool Success { get; }
         public string Message { get; }

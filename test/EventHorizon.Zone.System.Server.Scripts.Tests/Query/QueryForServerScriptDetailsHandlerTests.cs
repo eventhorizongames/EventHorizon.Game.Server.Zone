@@ -10,6 +10,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
     using EventHorizon.Zone.System.Server.Scripts.State;
     using Moq;
     using Xunit;
+    using FluentAssertions;
 
     public class QueryForServerScriptDetailsHandlerTests
     {
@@ -19,10 +20,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
             // Given
             var expectedDetails = new ServerScriptDetails(
                 "id",
+                "hash",
                 "file-name",
                 "path",
                 "script-string",
-                null,
                 null
             );
             Func<ServerScriptDetails, bool> query = details => true;
@@ -52,12 +53,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
             );
 
             // Then
-            Assert.Collection(
-                actual,
-                actualDetails => Assert.Equal(
-                    expectedDetails, 
-                    actualDetails
-                )
+            actual.Should().BeEquivalentTo(
+                new List<ServerScriptDetails>
+                {
+                    expectedDetails
+                }
             );
         }
     }

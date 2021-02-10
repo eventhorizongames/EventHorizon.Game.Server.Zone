@@ -13,29 +13,51 @@ using System.Numerics;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
-var caster = Data.Get<IObjectEntity>("Caster");
-var target = Data.Get<IObjectEntity>("Target");
-var validatorData = Data.Get<IDictionary<string, object>>("ValidatorData");
 
-var min = (long)validatorData["min"];
-var max = (long)validatorData["max"];
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-var distance = Vector3.Distance(
-    caster.Transform.Position,
-    target.Transform.Position
-);
-
-if (distance >= min && distance <= max)
+public class __SCRIPT__
+    : ServerScript
 {
-    return new SkillValidatorResponse
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
     {
-        Success = true
-    };
-}
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-return new SkillValidatorResponse
-{
-    Success = false,
-    ErrorCode = "target_not_in_range",
-    ErrorMessageTemplateKey = "targetNotInRange"
-};
+        var caster = data.Get<IObjectEntity>("Caster");
+        var target = data.Get<IObjectEntity>("Target");
+        var validatorData = data.Get<IDictionary<string, object>>("ValidatorData");
+
+        var min = (long)validatorData["min"];
+        var max = (long)validatorData["max"];
+
+        var distance = Vector3.Distance(
+            caster.Transform.Position,
+            target.Transform.Position
+        );
+
+        if (distance >= min && distance <= max)
+        {
+            return new SkillValidatorResponse
+            {
+                Success = true
+            };
+        }
+
+        return new SkillValidatorResponse
+        {
+            Success = false,
+            ErrorCode = "target_not_in_range",
+            ErrorMessageTemplateKey = "targetNotInRange"
+        };
+    }
+}

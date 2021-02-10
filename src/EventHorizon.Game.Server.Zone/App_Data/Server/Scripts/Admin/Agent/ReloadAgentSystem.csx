@@ -6,6 +6,7 @@
 /// Services: <see cref="EventHorizon.Zone.System.Server.Scripts.Model.ServerScriptServices" />
 /// </summary>
 
+using System;
 using System.Linq;
 using System.IO;
 using EventHorizon.Zone.Core.Events.DirectoryService;
@@ -16,70 +17,99 @@ using EventHorizon.Zone.System.Agent.Save.Mapper;
 using EventHorizon.Zone.System.Agent.Save.Model;
 using Newtonsoft.Json;
 
-// Check to see if Agent/Reload contains any files
-var reloadDirectoryFiles = await Services.Mediator.Send(
-    new GetListOfFilesFromDirectory(
-        GetReloadAgentFileDirectory()
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
+
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
     )
-);
-var containsFiles = reloadDirectoryFiles.Count() > 0;
-
-if (containsFiles)
-{
-    // UnRegister Only Agents that are not Global
-    var agentList = await Services.Mediator.Send(
-        new GetAgentListEvent
-        {
-            Query = agent => !agent.IsGlobal
-        }
-    );
-    foreach (var agent in agentList)
     {
-        await Services.Mediator.Send(
-            new UnRegisterAgent(
-                agent.AgentId
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        // Check to see if Agent/Reload contains any files
+        var reloadDirectoryFiles = await services.Mediator.Send(
+            new GetListOfFilesFromDirectory(
+                GetReloadAgentFileDirectory(services)
             )
         );
-    }
+        var containsFiles = reloadDirectoryFiles.Count() > 0;
 
-    // Take all files found in the Reload Folder,
-    //  then Register them into the Agent System.
-    foreach (var file in reloadDirectoryFiles)
-    {
-        var text =  await Services.Mediator.Send(
-            new ReadAllTextFromFile(
-                file.FullName
-            )
-        );
-        var agentState = JsonConvert.DeserializeObject<AgentSaveState>(
-            text
-        );
-        foreach (var agent in agentState.AgentList)
+        if (containsFiles)
         {
-            await Services.Mediator.Send(
-                new RegisterAgentEvent(
-                    AgentFromDetailsToEntity.MapToNew(
-                        agent,
-                        Guid.NewGuid().ToString()
-                    )
-                )
+            // UnRegister Only Agents that are not Global
+            var agentList = await services.Mediator.Send(
+                new GetAgentListEvent
+                {
+                    Query = agent => !agent.IsGlobal
+                }
             );
+            foreach (var agent in agentList)
+            {
+                await services.Mediator.Send(
+                    new UnRegisterAgent(
+                        agent.AgentId
+                    )
+                );
+            }
+
+            // Take all files found in the Reload Folder,
+            //  then Register them into the Agent System.
+            foreach (var file in reloadDirectoryFiles)
+            {
+                var text = await services.Mediator.Send(
+                    new ReadAllTextFromFile(
+                        file.FullName
+                    )
+                );
+                var agentState = JsonConvert.DeserializeObject<AgentSaveState>(
+                    text
+                );
+                foreach (var agent in agentState.AgentList)
+                {
+                    await services.Mediator.Send(
+                        new RegisterAgentEvent(
+                            AgentFromDetailsToEntity.MapToNew(
+                                agent,
+                                Guid.NewGuid().ToString()
+                            )
+                        )
+                    );
+                }
+                // Remove the File from Agent/Reload Folder
+                await services.Mediator.Send(
+                    new DeleteFile(
+                        file.FullName
+                    )
+                );
+            }
+
         }
-        // Remove the File from Agent/Reload Folder
-        await Services.Mediator.Send(
-            new DeleteFile(
-                file.FullName
-            )
+
+        return new AdminCommandScriptResponse(
+            true, // Success
+            "agent_system_reloaded" // Message
         );
     }
 
-}
-
-private string GetReloadAgentFileDirectory()
-{
-    return Path.Combine(
-        Services.ServerInfo.AppDataPath,
-        "Agent",
-        "Reload"
-    );
+    private string GetReloadAgentFileDirectory(
+        ServerScriptServices services
+    )
+    {
+        return Path.Combine(
+            services.ServerInfo.AppDataPath,
+            "Agent",
+            "Reload"
+        );
+    }
 }

@@ -10,20 +10,42 @@
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
-var caster = Data.Get<IObjectEntity>("Caster");
-var target = Data.Get<IObjectEntity>("Target");
 
-if (target.Id != caster.Id)
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
+
+public class __SCRIPT__
+    : ServerScript
 {
-    return new SkillValidatorResponse
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
     {
-        Success = true
-    };
-}
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-return new SkillValidatorResponse
-{
-    Success = false,
-    ErrorCode = "caster_can_not_be_target",
-    ErrorMessageTemplateKey = "casterCanNotTargetSelf"
-};
+        var caster = data.Get<IObjectEntity>("Caster");
+        var target = data.Get<IObjectEntity>("Target");
+
+        if (target.Id != caster.Id)
+        {
+            return new SkillValidatorResponse
+            {
+                Success = true
+            };
+        }
+
+        return new SkillValidatorResponse
+        {
+            Success = false,
+            ErrorCode = "caster_can_not_be_target",
+            ErrorMessageTemplateKey = "casterCanNotTargetSelf"
+        };
+    }
+}

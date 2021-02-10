@@ -8,6 +8,26 @@ COPY test/. ./test/
 RUN dotnet build
 RUN dotnet publish --output /app --configuration Release
 
+
+# Build the Server Script Sub Process 
+## This allows for easier memory cleanup, since this will run in a sub process from the main server process.
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS server-scripts-sub-process
+WORKDIR /source
+
+## Projects
+COPY src/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
+
+# Restore Server SubProcess
+RUN dotnet restore ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess.csproj
+
+# Copy all SubProcess Project
+COPY . .
+
+## Single folder publish of project
+RUN dotnet publish --output /sub-processes/server-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess
+
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS client-scripts-sub-process
 WORKDIR /source
 
@@ -41,10 +61,11 @@ COPY src/EventHorizon.Game.Server.Zone/appsettings.json ./src/EventHorizon.Game.
 ## Single folder publish of whole project
 RUN dotnet publish --output /sub-processes/client-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
 
+
 # Runtime Zone Server target
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 WORKDIR /app
 COPY --from=build-publish /app /app
+COPY --from=server-scripts-sub-process /sub-processes/server-scripts /sub-processes/server-scripts
 COPY --from=client-scripts-sub-process /sub-processes/client-scripts /sub-processes/client-scripts
-# COPY src/EventHorizon.Game.Server.Zone/bin/${BUILD_CONFIGURATION}/net5.0/publish/. ./
 ENTRYPOINT ["dotnet", "EventHorizon.Game.Server.Zone.dll"]

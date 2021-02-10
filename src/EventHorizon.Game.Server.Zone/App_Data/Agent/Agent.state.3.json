@@ -61,7 +61,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -231,7 +231,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -401,7 +401,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -571,7 +571,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -741,7 +741,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -911,7 +911,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -1081,7 +1081,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -1251,7 +1251,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -1421,7 +1421,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -1591,7 +1591,7 @@
                     "Active": false,
                     "List": [
                         {
-                            "ScriptId": "Interaction_RunCaptureTarget.csx",
+                            "ScriptId": "Interaction_RunCaptureTarget",
                             "DistanceToPlayer": 5,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"

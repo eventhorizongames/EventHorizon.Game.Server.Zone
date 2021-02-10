@@ -16,26 +16,48 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
-// TODO: Promote this logic into a Agent System Event
-var entity = Data.Get<IObjectEntity>("Actor");
-var pathState = entity.GetProperty<PathState>(PathState.PROPERTY_NAME);
-pathState = pathState.SetPath(null);
-entity.SetProperty(
-    PathState.PROPERTY_NAME,
-    pathState
-);
-await Services.Mediator.Send(
-    new UpdateEntityCommand(
-        AgentAction.PATH,
-        entity
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
+
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
     )
-);
-await Services.Mediator.Publish(
-    new AgentFinishedMoveEvent
     {
-        EntityId = entity.Id,
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        // TODO: Promote this logic into a Agent System Event
+        var entity = data.Get<IObjectEntity>("Actor");
+        var pathState = entity.GetProperty<PathState>(PathState.PROPERTY_NAME);
+        pathState = pathState.SetPath(null);
+        entity.SetProperty(
+            PathState.PROPERTY_NAME,
+            pathState
+        );
+        await services.Mediator.Send(
+            new UpdateEntityCommand(
+                AgentAction.PATH,
+                entity
+            )
+        );
+        await services.Mediator.Publish(
+            new AgentFinishedMoveEvent
+            {
+                EntityId = entity.Id,
+            }
+        );
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.SUCCESS
+        );
     }
-);
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.SUCCESS
-);
+}

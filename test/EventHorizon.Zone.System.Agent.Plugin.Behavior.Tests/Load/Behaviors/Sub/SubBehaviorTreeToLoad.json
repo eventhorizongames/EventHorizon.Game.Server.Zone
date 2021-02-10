@@ -11,11 +11,11 @@
                 "nodeList": [
                     {
                         "type": "CONDITION",
-                        "fire": "Behavior_Condition_LookForPlayer.csx"
+                        "fire": "Behavior_Condition_LookForPlayer"
                     },
                     {
                         "type": "ACTION",
-                        "fire": "Behavior_Action_FollowPlayer.csx"
+                        "fire": "Behavior_Action_FollowPlayer"
                     }
                 ]
             },
@@ -26,12 +26,12 @@
                         "comments": "This will return a action to populate the Agents move to path.",
                         "comments2": "If the path is filled it will",
                         "type": "ACTION",
-                        "fire": "Behavior_Action_FindNewMoveLocation.csx"
+                        "fire": "Behavior_Action_FindNewMoveLocation"
                     },
                     {
                         "comments": "This will will return a differed state of Actor movement.",
                         "type": "ACTION",
-                        "fire": "Behavior_Action_MoveToLocation.csx"
+                        "fire": "Behavior_Action_MoveToLocation"
                     }
                 ]
             }

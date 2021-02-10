@@ -1,16 +1,19 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.System;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Run
 {
-    public class RunServerScriptCommandHandler : IRequestHandler<RunServerScriptCommand, ServerScriptResponse>
+    using EventHorizon.Zone.System.Server.Scripts.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.System;
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using EventHorizon.Zone.System.Server.Scripts.Run.Model;
+
+    public class RunServerScriptCommandHandler
+        : IRequestHandler<RunServerScriptCommand, ServerScriptResponse>
     {
         readonly ILogger _logger;
         readonly ServerScriptRepository _serverScriptRepository;
@@ -35,14 +38,16 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
             try
             {
                 _logger.LogDebug(
-                    "Running Script: \n\r\t {ScriptId}", 
+                    "Running Script: \n\r\t {ScriptId}",
                     request.Id
                 );
                 return _serverScriptRepository.Find(
                     request.Id
                 ).Run(
                     _serverScriptServices,
-                    request.Data
+                    new StandardServerScriptData(
+                        request.Data
+                    )
                 );
             }
             catch (ServerScriptNotFound ex)

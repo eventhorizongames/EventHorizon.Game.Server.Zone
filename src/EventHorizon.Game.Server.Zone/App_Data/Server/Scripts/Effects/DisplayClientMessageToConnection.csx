@@ -15,9 +15,29 @@ using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 
-var caster = Data.Get<IObjectEntity>("Caster");
-var target = Data.Get<IObjectEntity>("Target");
-var priorState = Data.Get<IDictionary<string, object>>("PriorState");
+    
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
+
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+var caster = data.Get<IObjectEntity>("Caster");
+var target = data.Get<IObjectEntity>("Target");
+var priorState = data.Get<IDictionary<string, object>>("PriorState");
 
 var actionData = new
 {
@@ -35,3 +55,5 @@ return SkillEffectScriptResponse
     .Add(
         action
     );
+    }
+}

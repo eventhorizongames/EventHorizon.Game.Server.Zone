@@ -18,33 +18,55 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-var actor = Data.Get<AgentEntity>("Actor");
-var agentBehaviorState = actor.GetProperty<AgentBehavior>(AgentBehavior.PROPERTY_NAME);
-var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
-var companionState = actor.GetProperty<CompanionState>(CompanionState.PROPERTY_NAME);
-var resetScriptId = companionState.DefaultBehaviorTreeId;
 
-ownerState.CanBeCaptured = true;
-ownerState.OwnerId = string.Empty;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-actor.SetProperty(
-    OwnerState.PROPERTY_NAME,
-    ownerState
-);
-await Services.Mediator.Send(
-    new AgentUpdateEntityCommand(
-        actor,
-        AgentAction.SCRIPT
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
     )
-);
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-await Services.Mediator.Send(
-    new ChangeActorBehaviorTreeCommand(
-        actor,
-        resetScriptId
-    )
-);
+        var actor = data.Get<AgentEntity>("Actor");
+        var agentBehaviorState = actor.GetProperty<AgentBehavior>(AgentBehavior.PROPERTY_NAME);
+        var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+        var companionState = actor.GetProperty<CompanionState>(CompanionState.PROPERTY_NAME);
+        var resetScriptId = companionState.DefaultBehaviorTreeId;
 
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.SUCCESS
-);
+        ownerState.CanBeCaptured = true;
+        ownerState.OwnerId = string.Empty;
+
+        actor.SetProperty(
+            OwnerState.PROPERTY_NAME,
+            ownerState
+        );
+        await services.Mediator.Send(
+            new AgentUpdateEntityCommand(
+                actor,
+                AgentAction.SCRIPT
+            )
+        );
+
+        await services.Mediator.Send(
+            new ChangeActorBehaviorTreeCommand(
+                actor,
+                resetScriptId
+            )
+        );
+
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.SUCCESS
+        );
+    }
+}

@@ -1,6 +1,6 @@
 {
     "command": "agent-new",
-    "scriptFile": "Admin_Agent_RegisterNewAgent.csx",
+    "scriptFile": "Admin_Agent_RegisterNewAgent",
     "args": {
         "count": "Count to create"
     }

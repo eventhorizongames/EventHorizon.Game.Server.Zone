@@ -7,7 +7,6 @@
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
     using FluentAssertions;
     using global::System;
     using global::System.Collections.Generic;

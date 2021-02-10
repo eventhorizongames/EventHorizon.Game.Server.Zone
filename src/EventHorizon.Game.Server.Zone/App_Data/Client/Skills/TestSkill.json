@@ -5,23 +5,23 @@
     "target": "ENTITY",
     "validatorList": [
         {
-            "validator": "Validators_CoolDownCheck.csx"
+            "validator": "Validators_CoolDownCheck"
         },
         {
-            "validator": "Validators_TargetNotCaster.csx"
+            "validator": "Validators_TargetNotCaster"
         },
         {
-            "validator": "Validators_TargetInRangeOfCaster.csx",
+            "validator": "Validators_TargetInRangeOfCaster",
             "data": {
                 "min": 0,
                 "max": 25
             }
         },
         {
-            "validator": "Validators_TargetInLineOfSightFromCaster.csx"
+            "validator": "Validators_TargetInLineOfSightFromCaster"
         },
         {
-            "validator": "Validators_CasterHasCost.csx",
+            "validator": "Validators_CasterHasCost",
             "data": {
                 "propertyName": "lifeState",
                 "valueProperty": "actionPoints",
@@ -32,39 +32,39 @@
     "failedList": [
         {
             "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "Effects_SkillValidationFailed.csx",
+            "effect": "Effects_SkillValidationFailed",
             "data": {
                 "messageCode": "skill_validation_failed",
                 "messageTemplateKey": "skillFailedForReason"
             }
         },
         {
-            "effect": "Effects_UnFreezeCaster.csx",
+            "effect": "Effects_UnFreezeCaster",
             "comment": "This was created from the Skill Editor."
         }
     ],
     "next": [
         {
             "comment": "Set CoolDown on Caster.",
-            "effect": "Effects_SetCasterSkillCoolDown.csx",
+            "effect": "Effects_SetCasterSkillCoolDown",
             "data": {
                 "coolDown": 1000
             }
         },
         {
             "comment": "Freeze the Caster Entity. (Server Caster.Position.CanMove = false) | (ClientAction Caster.Position.CanMove = false)",
-            "effect": "Effects_FreezeCaster.csx",
+            "effect": "Effects_FreezeCaster",
             "duration": 500,
             "next": [
                 {
                     "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) | (ClientAction Caster.Position.CanMove = false)",
-                    "effect": "Effects_UnFreezeCaster.csx"
+                    "effect": "Effects_UnFreezeCaster"
                 }
             ]
         },
         {
             "comment": "Validate target_not_caster, target_in_range, target_in_line_of_sight, caster_has_cost_ap, if not valid ignore next. (Server Caster.LifeState.ActionPoints -= 1) | (ClientAction ChangeEntityState)",
-            "effect": "Effects_DecreaseCasterProperty.csx",
+            "effect": "Effects_DecreaseCasterProperty",
             "data": {
                 "propertyName": "lifeState",
                 "valueProperty": "actionPoints",
@@ -74,7 +74,7 @@
             },
             "validatorList": [
                 {
-                    "validator": "Validators_CasterHasCost.csx",
+                    "validator": "Validators_CasterHasCost",
                     "data": {
                         "propertyName": "lifeState",
                         "valueProperty": "actionPoints",
@@ -85,10 +85,10 @@
             "next": [
                 {
                     "comment": "Validate that target can be hit.",
-                    "effect": "Effects_ValidatorEffect.csx",
+                    "effect": "Effects_ValidatorEffect",
                     "validatorList": [
                         {
-                            "validator": "Validators_ValidateSuccess.csx",
+                            "validator": "Validators_ValidateSuccess",
                             "data": {
                                 "percent": 80
                             }
@@ -97,7 +97,7 @@
                     "next": [
                         {
                             "comment": "Start the cast of Fire Skill animation. (ClientAction Animation = FireSkillAtEntity)",
-                            "effect": "Effects_StartAnimationFromCasterToTarget.csx",
+                            "effect": "Effects_StartAnimationFromCasterToTarget",
                             "duration": 50,
                             "data": {
                                 "animation": "fire_skill_at_direction_entity",
@@ -106,13 +106,13 @@
                             "next": [
                                 {
                                     "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time. (Server Caster.Position.CanMove = true) (ClientAction Caster.Position.CanMove = false)",
-                                    "effect": "Effects_UnFreezeCaster.csx"
+                                    "effect": "Effects_UnFreezeCaster"
                                 }
                             ]
                         },
                         {
                             "comment": "Create fire particle that will move from caster to target. (ClientAction CreateMovingParticle)",
-                            "effect": "Effects_ParticleCasterToTarget.csx",
+                            "effect": "Effects_ParticleCasterToTarget",
                             "duration": 500,
                             "data": {
                                 "particleTemplateId": "ranged_fire",
@@ -121,7 +121,7 @@
                             "next": [
                                 {
                                     "comment": "Make sure the fired particle hits target. (Target.LifeState.HealthPoints -= 1) | (ClientAction = Target.LifeState.HealthPoints -= 1)",
-                                    "effect": "Effects_DecreaseTargetProperty.csx",
+                                    "effect": "Effects_DecreaseTargetProperty",
                                     "data": {
                                         "propertyName": "lifeState",
                                         "valueProperty": "healthPoints",
@@ -132,7 +132,7 @@
                                     "next": [
                                         {
                                             "comment": "Send all clients a message that damage was done to the Target",
-                                            "effect": "Effects_DamageMessage.csx",
+                                            "effect": "Effects_DamageMessage",
                                             "data": {
                                                 "messageCode": "damage_target",
                                                 "messageTemplateKey": "casterDamagedTarget"
@@ -142,7 +142,7 @@
                                 },
                                 {
                                     "comment": "Set the target to hit animation. (ClientAction Animation = HitForDamage)",
-                                    "effect": "Effects_StartTargetAnimation.csx",
+                                    "effect": "Effects_StartTargetAnimation",
                                     "data": {
                                         "animation": "hit_for_damage"
                                     }
@@ -153,7 +153,7 @@
                     "failedList": [
                         {
                             "comment": "Send all clients a message Caster missed Target.",
-                            "effect": "Effects_CasterTargetMessage.csx",
+                            "effect": "Effects_CasterTargetMessage",
                             "data": {
                                 "messageCode": "caster_missed_target",
                                 "messageTemplateKey": "casterMissedTarget"
@@ -161,20 +161,20 @@
                         },
                         {
                             "comment": "Start the cast of Fire Skill animation",
-                            "effect": "Effects_StartAnimationFromCasterToTargetOffset.csx",
+                            "effect": "Effects_StartAnimationFromCasterToTargetOffset",
                             "data": {
                                 "animation": "fire_skill_at_direction"
                             },
                             "next": [
                                 {
                                     "comment": "UnFreeze the caster after a set amount of time, so they are not frozen for all time.",
-                                    "effect": "Effects_UnFreezeCaster.csx"
+                                    "effect": "Effects_UnFreezeCaster"
                                 }
                             ]
                         },
                         {
                             "comment": "Create fire particle that will move from caster to target.",
-                            "effect": "Effects_ParticleCasterToTarget.csx",
+                            "effect": "Effects_ParticleCasterToTarget",
                             "duration": 500,
                             "data": {
                                 "particleTemplateId": "ranged_fire",

@@ -1,4 +1,4 @@
 {
     "command": "agent-remove-random",
-    "scriptFile": "Admin_Agent_RemoveRandomAgent.csx"
+    "scriptFile": "Admin_Agent_RemoveRandomAgent"
 }

@@ -36,6 +36,6 @@ foreach ($CoverageFile in $CoverageFiles) {
 }
 
 ### RUn the Merging of LCOV files
-npx --no-install lcov-result-merger $ReportFilePattern $ReportOutputFile
+npx lcov-result-merger $ReportFilePattern $ReportOutputFile
 
 Write-Host "Finished Test Run"

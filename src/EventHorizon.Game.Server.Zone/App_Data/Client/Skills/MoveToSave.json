@@ -6,32 +6,32 @@
     "target": "ENTITY",
     "validatorList": [
         {
-            "validator": "Validators_CoolDownCheck.csx"
+            "validator": "Validators_CoolDownCheck"
         },
         {
-            "validator": "Validators_TargetNotCaster.csx"
+            "validator": "Validators_TargetNotCaster"
         },
         {
-            "validator": "Validators_Agent_TargetIsCasterCompanion.csx"
+            "validator": "Validators_Agent_TargetIsCasterCompanion"
         }
     ],
     "next": [
         {
             "comment": "Set CoolDown on Caster.",
-            "effect": "Effects_SetCasterSkillCoolDown.csx",
+            "effect": "Effects_SetCasterSkillCoolDown",
             "data": {
                 "coolDown": 1000
             }
         },
         {
             "comment": "Move target to position",
-            "effect": "Effects_MoveTargetToTargetPosition.csx"
+            "effect": "Effects_MoveTargetToTargetPosition"
         }
     ],
     "failedList": [
         {
             "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "Effects_SkillValidationFailed.csx",
+            "effect": "Effects_SkillValidationFailed",
             "data": {
                 "messageCode": "skill_validation_failed",
                 "messageTemplateKey": "skillFailedForReason"

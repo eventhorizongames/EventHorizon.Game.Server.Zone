@@ -27,43 +27,64 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.Core.Model.Entity;
 
-var actor = Data.Get<IObjectEntity>("Actor");
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-Nullable<DateTime> nextRunDate = actor.GetProperty<DateTime?>("NextRunTime");
-if (!nextRunDate.HasValue)
+public class __SCRIPT__
+    : ServerScript
 {
-    // Not Found, so lets make once so we wait some time
-    nextRunDate = DateTime.Now.AddSeconds(
-        Services.Random.Next(
-            1, // TODO: Pass this in from some setting
-            20 // TODO: Pass this in from some setting
-        )
-    );
-    // Add MoveToNode to Actor State
-    actor.SetProperty(
-        "NextRunTime",
-        nextRunDate
-    );
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.RUNNING
-    );
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        var actor = data.Get<IObjectEntity>("Actor");
+
+        Nullable<DateTime> nextRunDate = actor.GetProperty<DateTime?>("NextRunTime");
+        if (!nextRunDate.HasValue)
+        {
+            // Not Found, so lets make once so we wait some time
+            nextRunDate = DateTime.Now.AddSeconds(
+                services.Random.Next(
+                    1, // TODO: Pass this in from some setting
+                    20 // TODO: Pass this in from some setting
+                )
+            );
+            // Add MoveToNode to Actor State
+            actor.SetProperty(
+                "NextRunTime",
+                nextRunDate
+            );
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.RUNNING
+            );
+        }
+
+        var canRunNext = DateTime.Now.CompareTo(
+            nextRunDate.Value
+        ) >= 0;
+
+        if (canRunNext)
+        {
+            actor.SetProperty<DateTime?, IObjectEntity>(
+                "NextRunTime",
+                null
+            );
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
+        }
+
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.RUNNING
+        );
+    }
 }
-
-var canRunNext = DateTime.Now.CompareTo(
-    nextRunDate.Value
-) >= 0;
-
-if (canRunNext)
-{
-    actor.SetProperty<DateTime?, IObjectEntity>(
-        "NextRunTime",
-        null
-    );
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
-}
-
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.RUNNING
-);

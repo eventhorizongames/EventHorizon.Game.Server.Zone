@@ -3,8 +3,9 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.Set;
+    using EventHorizon.Zone.System.Server.Scripts.State;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
@@ -14,40 +15,47 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
     public class LoadServerScriptsCommandHandler
         : IRequestHandler<LoadServerScriptsCommand>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly SystemProvidedAssemblyList _systemAssemblyList;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly ServerScriptDetailsRepository _detailsRepository;
 
         public LoadServerScriptsCommandHandler(
             IMediator mediator,
             ServerInfo serverInfo,
-            SystemProvidedAssemblyList systemAssemblyList
+            ServerScriptDetailsRepository detailsRepository
         )
         {
             _mediator = mediator;
             _serverInfo = serverInfo;
-            _systemAssemblyList = systemAssemblyList;
+            _detailsRepository = detailsRepository;
         }
 
-        public Task<Unit> Handle(
+        public async Task<Unit> Handle(
             LoadServerScriptsCommand request,
             CancellationToken cancellationToken
-        ) => _mediator.Send(
-            new ProcessFilesRecursivelyFromDirectory(
-                Path.Combine(
-                    _serverInfo.ServerScriptsPath
-                ),
-                OnProcessFile,
-                new Dictionary<string, object>
-                {
+        )
+        {
+            _detailsRepository.Clear();
+
+            await _mediator.Send(
+                new ProcessFilesRecursivelyFromDirectory(
+                    Path.Combine(
+                        _serverInfo.ServerScriptsPath
+                    ),
+                    OnProcessFile,
+                    new Dictionary<string, object>
                     {
-                        "RootPath",
-                        $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
-                    },
-                }
-            ),
-            cancellationToken
-        );
+                        {
+                            "RootPath",
+                            $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
+                        },
+                    }
+                ),
+                cancellationToken
+            );
+
+            return Unit.Value;
+        }
 
         private async Task OnProcessFile(
             StandardFileInfo fileInfo,
@@ -55,20 +63,21 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
         )
         {
             var rootPath = arguments["RootPath"] as string;
-            var scriptReferenceAssemblies = _systemAssemblyList.List;
+
             // Register Script with Platform
             await _mediator.Send(
-                new RegisterServerScriptCommand(
-                    fileInfo.Name,
-                    rootPath.MakePathRelative(
-                        fileInfo.DirectoryName
-                    ),
-                    await _mediator.Send(
-                        new ReadAllTextFromFile(
-                            fileInfo.FullName
+                new SetServerScriptDetailsCommand(
+                    new ServerScriptDetails(
+                        fileInfo.Name.Replace(".csx", string.Empty),
+                        rootPath.MakePathRelative(
+                            fileInfo.DirectoryName
+                        ),
+                        await _mediator.Send(
+                            new ReadAllTextFromFile(
+                                fileInfo.FullName
+                            )
                         )
-                    ),
-                    scriptReferenceAssemblies
+                    )
                 )
             );
         }

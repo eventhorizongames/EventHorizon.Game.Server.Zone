@@ -29,16 +29,42 @@ using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
 
-var player = Data.Get<PlayerEntity>("Player");
-var target = Data.Get<IObjectEntity>("Target");
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-await Services.Mediator.Publish(
-    new RunSkillWithTargetOfEntityEvent
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
     {
-        Player = player,
-        ConnectionId = player.ConnectionId,
-        SkillId = "Skills_CaptureTarget.json",
-        CasterId = player.Id,
-        TargetId = target.Id
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        var player = data.Get<PlayerEntity>("Player");
+        var target = data.Get<IObjectEntity>("Target");
+
+        await services.Mediator.Publish(
+            new RunSkillWithTargetOfEntityEvent
+            {
+                Player = player,
+                ConnectionId = player.ConnectionId,
+                SkillId = "Skills_CaptureTarget.json",
+                CasterId = player.Id,
+                TargetId = target.Id
+            }
+        );
+
+        return new StandardServerScriptResponse(
+            true,
+            "ran_capture_target_interation"
+        );
     }
-);
+}

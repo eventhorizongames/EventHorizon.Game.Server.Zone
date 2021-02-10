@@ -6,16 +6,16 @@
     "target": "ENTITY",
     "validatorList": [
         {
-            "validator": "Validators_TargetNotCaster.csx"
+            "validator": "Validators_TargetNotCaster"
         },
         {
-            "validator": "Validators_Agent_TargetIsNotCasterCompanion.csx"
+            "validator": "Validators_Agent_TargetIsNotCasterCompanion"
         },
         {
-            "validator": "Validators_Agent_TargetIsAbleToBeCaptured.csx"
+            "validator": "Validators_Agent_TargetIsAbleToBeCaptured"
         },
         {
-            "validator": "Validators_TargetInRangeOfCaster.csx",
+            "validator": "Validators_TargetInRangeOfCaster",
             "data": {
                 "min": 0,
                 "max": 5
@@ -25,7 +25,7 @@
     "failedList": [
         {
             "comment": "Send a message to Caster client about why the validation failed for the Skill.",
-            "effect": "Effects_SkillValidationFailed.csx",
+            "effect": "Effects_SkillValidationFailed",
             "data": {
                 "messageCode": "skill_validation_failed",
                 "messageTemplateKey": "skillFailedForReason"
@@ -35,10 +35,10 @@
     "next": [
         {
             "comment": "This will set the Target.OwnerState.OwnerId to the Caster.GlobalId, if successful.",
-            "effect": "Effects_ValidatorEffect.csx",
+            "effect": "Effects_ValidatorEffect",
             "validatorList": [
                 {
-                    "validator": "Validators_ValidateSuccess.csx",
+                    "validator": "Validators_ValidateSuccess",
                     "data": {
                         "percent": 20,
                         "errorMessageTemplateKey": "notFastEnoughToCapture"
@@ -48,11 +48,11 @@
             "next": [
                 {
                     "comment": "Make the Caster the owner of the target.",
-                    "effect": "Effects_Agent_MakeTargetOwnerCaster.csx",
+                    "effect": "Effects_Agent_MakeTargetOwnerCaster",
                     "next": [
                         {
                             "comment": "Send to all clients a message that Caster captured Target.",
-                            "effect": "Effects_CasterTargetMessage.csx",
+                            "effect": "Effects_CasterTargetMessage",
                             "data": {
                                 "messageCode": "target_is_now_owned",
                                 "messageTemplateKey": "targetIsNowOwnedBy"
@@ -64,7 +64,7 @@
             "failedList": [
                 {
                     "comment": "Send all clients a message Caster failed to capture Target.",
-                    "effect": "Effects_CasterTargetMessage.csx",
+                    "effect": "Effects_CasterTargetMessage",
                     "data": {
                         "messageCode": "casted_failed_to_capture_target",
                         "messageTemplateKey": "casterFailedToCaptureTarget"

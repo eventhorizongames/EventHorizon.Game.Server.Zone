@@ -4,6 +4,6 @@
     "description": "",
     "root": {
         "type": "ACTION",
-        "fire": "System_Behaviors_$DEFAULT$SCRIPT.csx"
+        "fire": "$DEFAULT$SCRIPT"
     }
 }

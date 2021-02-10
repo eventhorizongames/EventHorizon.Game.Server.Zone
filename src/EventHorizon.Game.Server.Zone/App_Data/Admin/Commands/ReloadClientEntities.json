@@ -1,4 +1,4 @@
 {
     "command": "reload-system",
-    "scriptFile": "Admin_Client_ReloadEntitiesSystem.csx"
+    "scriptFile": "Admin_Client_ReloadEntitiesSystem"
 }

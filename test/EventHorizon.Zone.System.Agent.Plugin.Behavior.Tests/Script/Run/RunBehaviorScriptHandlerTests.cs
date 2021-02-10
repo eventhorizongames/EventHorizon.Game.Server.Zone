@@ -1,19 +1,20 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Script.Run
 {
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+    using FluentAssertions;
+
     public class RunBehaviorScriptHandlerTests
     {
         [Fact]
@@ -78,6 +79,51 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Script.Run
                     CancellationToken.None
                 )
             );
+        }
+
+        [Fact]
+        public async Task ShouldReturnSuccessResponseWhenScriptIdIsDefaultScriptId()
+        {
+            // Given
+            var expected = BehaviorNodeStatus.SUCCESS;
+            var expectedMessage = string.Empty;
+            var scriptId = "$DEFAULT$SCRIPT";
+            var actor = new DefaultEntity();
+
+            var loggerMock = new Mock<ILogger<RunBehaviorScriptHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new BehaviorScriptResponse(
+                    expected
+                )
+            );
+
+            // When
+            var runBehaviorScriptHandler = new RunBehaviorScriptHandler(
+                loggerMock.Object,
+                mediatorMock.Object
+            );
+            var actual = await runBehaviorScriptHandler.Handle(
+                new RunBehaviorScript(
+                    actor,
+                    scriptId
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Status
+                .Should().Be(expected);
+            actual.Success
+                .Should().BeTrue();
+            actual.Message
+                .Should().Be(expectedMessage);
         }
 
         [Fact]

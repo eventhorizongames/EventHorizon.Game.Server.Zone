@@ -55,10 +55,6 @@
             await CheckCreateDefaultBehaviorTree(
                 cancellationToken
             );
-            // Check/Create Default Actor Behavior Script
-            await CheckCreateDefaultBehaviorScript(
-                cancellationToken
-            );
 
             return new OnServerStartupResult(
                 true
@@ -121,43 +117,6 @@
                     new WriteAllTextToFile(
                         defaultShapeFile,
                         BehaviorDefaultSettings.DEFAULT_SHAPE
-                    ),
-                    cancellationToken
-                );
-            }
-        }
-
-        private async Task CheckCreateDefaultBehaviorScript(
-            CancellationToken cancellationToken
-        )
-        {
-            var defaultScriptFile = Path.Combine(
-                _serverInfo.ServerScriptsPath,
-                "System",
-                "Behaviors",
-                "$DEFAULT$SCRIPT.csx"
-            );
-            // Validate Directory Exists
-            if (!await _mediator.Send(
-                new DoesFileExist(
-                    defaultScriptFile
-                ),
-                cancellationToken
-            ))
-            {
-                _logger.LogWarning(
-                    "Default Behavior Script was not found, creating..."
-                );
-                await _mediator.Send(
-                    new CreateFile(
-                        defaultScriptFile
-                    ),
-                    cancellationToken
-                );
-                await _mediator.Send(
-                    new WriteAllTextToFile(
-                        defaultScriptFile,
-                        BehaviorDefaultSettings.DEFAULT_SCRIPT
                     ),
                     cancellationToken
                 );

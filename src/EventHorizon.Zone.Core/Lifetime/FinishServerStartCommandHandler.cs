@@ -29,7 +29,8 @@ namespace EventHorizon.Zone.Core.Lifetime
                 true
             );
             await _mediator.Publish(
-                new ServerFinishedStartingEvent()
+                new ServerFinishedStartingEvent(),
+                cancellationToken
             );
 
             return _serverLifetimeState.IsServerStarted();

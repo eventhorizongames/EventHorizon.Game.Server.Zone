@@ -1,18 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.Run;
-using EventHorizon.Zone.System.Server.Scripts.System;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Run;
+    using EventHorizon.Zone.System.Server.Scripts.System;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+
     public class RunServerScriptCommandHandlerTests
     {
         [Fact]
@@ -39,7 +40,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
             serverScriptMock.Setup(
                 mock => mock.Run(
                     serverScriptServicesMock.Object,
-                    data
+                    It.IsAny<ServerScriptData>()
                 )
             ).ReturnsAsync(
                 expected
@@ -93,7 +94,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
             serverScriptMock.Setup(
                 mock => mock.Run(
                     serverScriptServicesMock.Object,
-                    data
+                    It.IsAny<ServerScriptData>()
                 )
             ).Throws(
                 new ServerScriptNotFound(
@@ -150,7 +151,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
             serverScriptMock.Setup(
                 mock => mock.Run(
                     serverScriptServicesMock.Object,
-                    data
+                    It.IsAny<ServerScriptData>()
                 )
             ).Throws(
                 new Exception("error")

@@ -14,27 +14,48 @@ using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
 
-var caster = Data.Get<IObjectEntity>("Caster");
-var skill = Data.Get<SkillInstance>("Skill");
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-var skillState = caster.GetProperty<SkillState>("skillState");
-
-var skillReady = Services.DateTime.Now > skillState
-                .SkillMap.Get(
-                    skill.Id
-                ).CooldownFinishes;
-
-if (skillReady)
+public class __SCRIPT__
+    : ServerScript
 {
-    return new SkillValidatorResponse
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
     {
-        Success = true
-    };
-}
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-return new SkillValidatorResponse
-{
-    Success = false,
-    ErrorCode = "skill_not_ready",
-    ErrorMessageTemplateKey = "skillNotReady",
-};
+        var caster = data.Get<IObjectEntity>("Caster");
+        var skill = data.Get<SkillInstance>("Skill");
+
+        var skillState = caster.GetProperty<SkillState>("skillState");
+
+        var skillReady = services.DateTime.Now > skillState
+                        .SkillMap.Get(
+                            skill.Id
+                        ).CooldownFinishes;
+
+        if (skillReady)
+        {
+            return new SkillValidatorResponse
+            {
+                Success = true
+            };
+        }
+
+        return new SkillValidatorResponse
+        {
+            Success = false,
+            ErrorCode = "skill_not_ready",
+            ErrorMessageTemplateKey = "skillNotReady",
+        };
+    }
+}

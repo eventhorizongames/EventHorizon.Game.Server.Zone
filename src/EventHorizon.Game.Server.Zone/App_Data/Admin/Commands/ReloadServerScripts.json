@@ -1,4 +1,4 @@
 {
     "command": "reload-system",
-    "scriptFile": "Admin_Server_ReloadServerScripts.csx"
+    "scriptFile": "Admin_Server_ReloadServerScripts"
 }

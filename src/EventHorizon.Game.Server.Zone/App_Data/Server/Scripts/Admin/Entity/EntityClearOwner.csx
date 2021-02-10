@@ -20,50 +20,71 @@ using EventHorizon.Zone.Core.Events.Entity.Update;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 using EventHorizon.Zone.System.Agent.Events.Update;
 
-var command = Data.Get<IAdminCommand>("Command");
-if (command.Parts.Count != 1)
-{
-    return new AdminCommandScriptResponse(
-        false, // Success
-        "not_valid_command" // Message
-    );
-}
-var globalId = command.Parts[0];
-// Using Query find Entities
-var entityList = await Services.Mediator.Send(
-        new QueryForEntities
-        {
-            Query = (
-                entity => entity.Type != EntityType.PLAYER
-                && entity.GlobalId == globalId
-            )
-        }
-    );
-if (entityList.Count() != 1)
-{
-    return new AdminCommandScriptResponse(
-        false, // Success
-        "invalid_entity_id" // Message
-    );
-}
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-var entity = entityList.First();
-var ownerState = entity.GetProperty<OwnerState>("ownerState");
-ownerState["ownerId"] = "";
-ownerState["canBeCaptured"] = true;
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
 
-entity = entity.SetProperty(
-    "ownerState",
-    ownerState
-);
-await Services.Mediator.Send(
-    new UpdateEntityCommand(
-        EntityAction.PROPERTY_CHANGED,
-        entity
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
     )
-);
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-return new AdminCommandScriptResponse(
-    true, // Success
-    "entity_owner_cleared" // Message
-);
+        var command = data.Get<IAdminCommand>("Command");
+        if (command.Parts.Count != 1)
+        {
+            return new AdminCommandScriptResponse(
+                false, // Success
+                "not_valid_command" // Message
+            );
+        }
+        var globalId = command.Parts[0];
+        // Using Query find Entities
+        var entityList = await services.Mediator.Send(
+                new QueryForEntities
+                {
+                    Query = (
+                        entity => entity.Type != EntityType.PLAYER
+                        && entity.GlobalId == globalId
+                    )
+                }
+            );
+        if (entityList.Count() != 1)
+        {
+            return new AdminCommandScriptResponse(
+                false, // Success
+                "invalid_entity_id" // Message
+            );
+        }
+
+        var entity = entityList.First();
+        var ownerState = entity.GetProperty<OwnerState>("ownerState");
+        ownerState["ownerId"] = "";
+        ownerState["canBeCaptured"] = true;
+
+        entity = entity.SetProperty(
+            "ownerState",
+            ownerState
+        );
+        await services.Mediator.Send(
+            new UpdateEntityCommand(
+                EntityAction.PROPERTY_CHANGED,
+                entity
+            )
+        );
+
+        return new AdminCommandScriptResponse(
+            true, // Success
+            "entity_owner_cleared" // Message
+        );
+    }
+}

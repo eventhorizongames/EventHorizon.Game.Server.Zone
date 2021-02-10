@@ -260,3 +260,5 @@ global.json
 __Backup__
 **/App_Data/_generated
 **/App_Data.back
+
+**\sub-processes

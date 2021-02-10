@@ -214,8 +214,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
         {
             // Given
             var expectedStatus = "SUCCESS";
-            var expectedScriptId1 = "Behavior_Action_FindNewMoveLocation.csx";
-            var expectedScriptId2 = "Behavior_Action_MoveToLocation.csx";
+            var expectedScriptId1 = "Behavior_Action_FindNewMoveLocation";
+            var expectedScriptId2 = "Behavior_Action_MoveToLocation";
 
             var agentBehaviorTree = JsonConvert.DeserializeObject<SerializedAgentBehaviorTree>(
                 await File.ReadAllTextAsync(

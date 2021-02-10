@@ -11,17 +11,14 @@
     public class Worker
         : BackgroundService
     {
-        private readonly ILogger _logger;
         private readonly IHostApplicationLifetime _lifeTime;
         private readonly IMediator _mediator;
 
         public Worker(
-            ILogger<Worker> logger,
             IHostApplicationLifetime lifeTime,
             IMediator mediator
         )
         {
-            _logger = logger;
             _lifeTime = lifeTime;
             _mediator = mediator;
         }
@@ -30,16 +27,8 @@
             CancellationToken stoppingToken
         )
         {
-            _logger.LogInformation(
-                "Worker Started Running at: {StartTime}",
-                DateTimeOffset.Now
-            );
             await _mediator.Send(
                 new CompileClientScriptsCommand(),
-                stoppingToken
-            );
-            await Task.Delay(
-                5000,
                 stoppingToken
             );
             _lifeTime.StopApplication();

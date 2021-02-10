@@ -27,49 +27,72 @@ using EventHorizon.Zone.Core.Events.Entity.Search;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-var actor = Data.Get<IObjectEntity>("Actor");
-var distance = 25; // TODO: Move this to Actor State
-var palyerEntityId = await GetIdOfPlayerInArea(
-    distance
-);
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-if (palyerEntityId > -1)
+public class __SCRIPT__
+    : ServerScript
 {
-    actor.SetProperty(
-        "Behavior:RunFromPlayer.csx:RunFromPlayerId",
-        palyerEntityId
-    );
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
-}
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
 
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.FAILED
-);
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
 
-/// <summary>
-/// Searchs for any player within the distance passed in.
-/// </summary>
-/// <param name="distance">The Units to search for player in.</param>
-/// <returns>The Id of the player found, otherwise -1.</returns>
-private async Task<long> GetIdOfPlayerInArea(
-    int distance
-)
-{
-    // Find the nearest player, within a certain distance/radius
-    var entityList = await Services.Mediator.Send(
-            new SearchInAreaWithTagEvent
-            {
-                SearchPositionCenter = actor.Transform.Position,
-                SearchRadius = distance,
-                TagList = new List<string> { "player" }
-            }
+        var actor = data.Get<IObjectEntity>("Actor");
+        var distance = 25; // TODO: Move this to Actor State
+        var palyerEntityId = await GetIdOfPlayerInArea(
+            services,
+            actor,
+            distance
         );
 
-    if (entityList.Count() >= 1)
-    {
-        return entityList.First();
+        if (palyerEntityId > -1)
+        {
+            actor.SetProperty(
+                "Behavior:RunFromPlayer.csx:RunFromPlayerId",
+                palyerEntityId
+            );
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
+        }
+
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.FAILED
+        );
     }
-    return -1;
+
+    /// <summary>
+    /// Searchs for any player within the distance passed in.
+    /// </summary>
+    /// <param name="distance">The Units to search for player in.</param>
+    /// <returns>The Id of the player found, otherwise -1.</returns>
+    private async Task<long> GetIdOfPlayerInArea(
+        ServerScriptServices services,
+        IObjectEntity actor,
+        int distance
+    )
+    {
+        // Find the nearest player, within a certain distance/radius
+        var entityList = await services.Mediator.Send(
+                new SearchInAreaWithTagEvent
+                {
+                    SearchPositionCenter = actor.Transform.Position,
+                    SearchRadius = distance,
+                    TagList = new List<string> { "player" }
+                }
+            );
+
+        if (entityList.Count() >= 1)
+        {
+            return entityList.First();
+        }
+        return -1;
+    }
 }

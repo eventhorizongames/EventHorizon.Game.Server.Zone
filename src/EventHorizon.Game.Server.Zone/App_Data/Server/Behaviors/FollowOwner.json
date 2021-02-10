@@ -11,11 +11,11 @@
                 "nodeList": [
                     {
                         "type": "CONDITION",
-                        "fire": "Behavior_Owner_HasNoOwner.csx"
+                        "fire": "Behavior_Owner_HasNoOwner"
                     },
                     {
                         "type": "ACTION",
-                        "fire": "Behavior_Owner_ResetToDefaultBehavior.csx"
+                        "fire": "Behavior_Owner_ResetToDefaultBehavior"
                     }
                 ]
             },
@@ -30,12 +30,12 @@
                         "nodeList": [
                             {
                                 "type": "CONDITION",
-                                "fire": "Behavior_Owner_OwnerFarFromMoveToPosition.csx"
+                                "fire": "Behavior_Owner_OwnerFarFromMoveToPosition"
                             },
                             {
                                 "comments": "This should stop the actor from moving.",
                                 "type": "ACTION",
-                                "fire": "Behavior_Owner_StopActor.csx"
+                                "fire": "Behavior_Owner_StopActor"
                             }
                         ]
                     },
@@ -45,18 +45,18 @@
                         "nodeList": [
                             {
                                 "type": "CONDITION",
-                                "fire": "Behavior_Owner_IsFarFromOwner.csx"
+                                "fire": "Behavior_Owner_IsFarFromOwner"
                             },
                             {
                                 "comments": "This will return a action to populate the Agents move to path.",
                                 "comments2": "If the path is filled it will",
                                 "type": "ACTION",
-                                "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner.csx"
+                                "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner"
                             },
                             {
                                 "comments": "This will will return a differed state of Actor movement.",
                                 "type": "ACTION",
-                                "fire": "Behavior_Action_MoveToLocation.csx"
+                                "fire": "Behavior_Action_MoveToLocation"
                             }
                         ]
                     },
@@ -67,18 +67,18 @@
                             {
                                 "comments": "Wait an amount of time before moving on.",
                                 "type": "ACTION",
-                                "fire": "Behavior_Action_WaitSomeTime.csx"
+                                "fire": "Behavior_Action_WaitSomeTime"
                             },
                             {
                                 "comments": "This will return a action to populate the Agents move to path.",
                                 "comments2": "If the path is filled it will",
                                 "type": "ACTION",
-                                "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner.csx"
+                                "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner"
                             },
                             {
                                 "comments": "This will will return a differed state of Actor movement.",
                                 "type": "ACTION",
-                                "fire": "Behavior_Action_MoveToLocation.csx"
+                                "fire": "Behavior_Action_MoveToLocation"
                             }
                         ]
                     }

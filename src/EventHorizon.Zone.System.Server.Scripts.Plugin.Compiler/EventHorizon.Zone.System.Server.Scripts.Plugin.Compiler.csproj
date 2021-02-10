@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+        <PackageReference Include="CS-Script.Core" Version="1.4.2-preview" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

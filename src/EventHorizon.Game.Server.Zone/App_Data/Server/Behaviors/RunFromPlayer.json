@@ -11,15 +11,15 @@
                 "nodeList": [
                     {
                         "type": "CONDITION",
-                        "fire": "Behavior_Condition_FindClosetsPlayer.csx"
+                        "fire": "Behavior_Condition_FindClosetsPlayer"
                     },
                     {
                         "type": "ACTION",
-                        "fire": "Behavior_Player_RunFromPlayer.csx"
+                        "fire": "Behavior_Player_RunFromPlayer"
                     },
                     {
                         "type": "ACTION",
-                        "fire": "Behavior_Action_MoveToLocation.csx"
+                        "fire": "Behavior_Action_MoveToLocation"
                     }
                 ]
             },
@@ -30,18 +30,18 @@
                     {
                         "comments": "Wait an amount of time before moving on.",
                         "type": "ACTION",
-                        "fire": "Behavior_Action_WaitSomeTime.csx"
+                        "fire": "Behavior_Action_WaitSomeTime"
                     },
                     {
                         "comments": "This will return a action to populate the Agents move to path.",
                         "comments2": "If the path is filled it will",
                         "type": "ACTION",
-                        "fire": "Behavior_Action_FindNewMoveLocation.csx"
+                        "fire": "Behavior_Action_FindNewMoveLocation"
                     },
                     {
                         "comments": "This will will return a differed state of Actor movement.",
                         "type": "ACTION",
-                        "fire": "Behavior_Action_MoveToLocation.csx"
+                        "fire": "Behavior_Action_MoveToLocation"
                     }
                 ]
             }

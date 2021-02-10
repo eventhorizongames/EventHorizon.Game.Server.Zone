@@ -1,18 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-using MediatR;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
 {
-    public class RunBehaviorScriptHandler : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+
+    public class RunBehaviorScriptHandler
+        : IRequestHandler<RunBehaviorScript, BehaviorScriptResponse>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
 
         public RunBehaviorScriptHandler(
             ILogger<RunBehaviorScriptHandler> logger,
@@ -30,6 +31,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
         {
             try
             {
+                if (request.ScriptId == "$DEFAULT$SCRIPT")
+                {
+                    return new BehaviorScriptResponse(
+                        BehaviorNodeStatus.SUCCESS
+                    );
+                }
                 var result = await _mediator.Send(
                     new RunServerScriptCommand(
                         request.ScriptId,

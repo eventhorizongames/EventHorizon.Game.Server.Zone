@@ -1,6 +1,6 @@
 {
     "command": "set-property-on-entity",
-    "scriptFile": "Admin_Entity_SetPropertyOnEntity.csx",
+    "scriptFile": "Admin_Entity_SetPropertyOnEntity",
     "args": {
         "globalId": "The global Id of the entity to update property on.",
         "stateToUpdate": "The name of the state to update.",

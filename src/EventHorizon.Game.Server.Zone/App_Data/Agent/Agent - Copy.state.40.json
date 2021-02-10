@@ -85,7 +85,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -116,7 +116,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -131,7 +131,7 @@
                     "Active": true,
                     "List": [
                         {
-                            "ScriptId": "Interaction_DialogInteraction.csx",
+                            "ScriptId": "Interaction_DialogInteraction",
                             "DistanceToPlayer": 25,
                             "Data": {
                                 "dialogTreeId": "Assets_Dialog_ExplainThatWorld.001.json"
@@ -214,7 +214,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -245,7 +245,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -265,7 +265,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -357,7 +357,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -388,7 +388,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -408,7 +408,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -500,7 +500,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -531,7 +531,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -551,7 +551,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -643,7 +643,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -674,7 +674,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -694,7 +694,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -786,7 +786,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -817,7 +817,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -837,7 +837,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -929,7 +929,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -960,7 +960,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -980,7 +980,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1072,7 +1072,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1103,7 +1103,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1123,7 +1123,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1215,7 +1215,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1246,7 +1246,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1266,7 +1266,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1358,7 +1358,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1389,7 +1389,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1409,7 +1409,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1501,7 +1501,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1532,7 +1532,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1552,7 +1552,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1644,7 +1644,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1675,7 +1675,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1695,7 +1695,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1787,7 +1787,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1818,7 +1818,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1838,7 +1838,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -1930,7 +1930,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_MoveToLocation.csx",
+                        "Fire": "Behavior_Action_MoveToLocation",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -1961,7 +1961,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1981,7 +1981,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_MoveToLocation.csx",
+                            "Fire": "Behavior_Action_MoveToLocation",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -1991,7 +1991,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -2001,7 +2001,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "Behavior_Action_FindNewMoveLocation.csx",
+                            "Fire": "Behavior_Action_FindNewMoveLocation",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2089,7 +2089,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2120,7 +2120,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2205,7 +2205,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2236,7 +2236,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2321,7 +2321,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2352,7 +2352,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2437,7 +2437,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2468,7 +2468,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2553,7 +2553,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2584,7 +2584,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2669,7 +2669,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2700,7 +2700,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2785,7 +2785,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2816,7 +2816,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -2901,7 +2901,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -2932,7 +2932,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3017,7 +3017,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3048,7 +3048,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3133,7 +3133,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3164,7 +3164,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3249,7 +3249,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3280,7 +3280,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3365,7 +3365,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3396,7 +3396,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3481,7 +3481,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3512,7 +3512,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3597,7 +3597,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3628,7 +3628,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3713,7 +3713,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3744,7 +3744,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3829,7 +3829,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3860,7 +3860,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -3945,7 +3945,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -3976,7 +3976,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4061,7 +4061,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4092,7 +4092,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4177,7 +4177,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4208,7 +4208,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4293,7 +4293,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4324,7 +4324,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4409,7 +4409,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4440,7 +4440,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4525,7 +4525,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4556,7 +4556,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4641,7 +4641,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4672,7 +4672,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4757,7 +4757,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4788,7 +4788,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4873,7 +4873,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -4904,7 +4904,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -4989,7 +4989,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5020,7 +5020,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -5105,7 +5105,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5136,7 +5136,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -5221,7 +5221,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5252,7 +5252,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -5337,7 +5337,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5368,7 +5368,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -5453,7 +5453,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "SUCCESS",
-                        "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                        "Fire": "$DEFAULT$SCRIPT",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5484,7 +5484,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "SUCCESS",
-                            "Fire": "System_Behaviors_$DEFAULT$SCRIPT.csx",
+                            "Fire": "$DEFAULT$SCRIPT",
                             "FailGate": 0,
                             "NodeList": null
                         }
@@ -5570,7 +5570,7 @@
                             "Name": "ACTION"
                         },
                         "Status": "RUNNING",
-                        "Fire": "Behavior_Action_WaitSomeTime.csx",
+                        "Fire": "Behavior_Action_WaitSomeTime",
                         "FailGate": 0,
                         "NodeList": null
                     },
@@ -5601,7 +5601,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         },
@@ -5621,7 +5621,7 @@
                                 "Name": "ACTION"
                             },
                             "Status": "RUNNING",
-                            "Fire": "Behavior_Action_WaitSomeTime.csx",
+                            "Fire": "Behavior_Action_WaitSomeTime",
                             "FailGate": 0,
                             "NodeList": null
                         }

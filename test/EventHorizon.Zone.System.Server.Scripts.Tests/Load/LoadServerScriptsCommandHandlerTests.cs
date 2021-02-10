@@ -8,17 +8,19 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Load;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Register;
     using MediatR;
     using Moq;
     using Xunit;
     using EventHorizon.Zone.System.Server.Scripts.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Set;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+    using FluentAssertions;
 
     public class LoadServerScriptsCommandHandlerTests
     {
         [Fact]
-        public async Task TestName()
+        public async Task ShouldSendSetEventWhenOnProcessFileIsRanForFoundFileInfo()
         {
             // Given
             Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
@@ -45,13 +47,18 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 fileExtension
             );
 
-            var expectedFileName = loadedScriptFileName;
-            var expectedPath = "Loaded";
-            var expectedFileContent = loadedScriptFileContent;
+            var expectedFileName = loadedScriptFileName.Replace(".csx", string.Empty);
+            var expected = new SetServerScriptDetailsCommand(
+                new ServerScriptDetails(
+                    expectedFileName,
+                    "Loaded",
+                    loadedScriptFileContent
+                )
+            );
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
-            var systemProvidedAssemblyListMock = new Mock<SystemProvidedAssemblyList>();
+            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
 
             serverInfoMock.Setup(
                 mock => mock.ServerScriptsPath
@@ -87,16 +94,14 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
             var handler = new LoadServerScriptsCommandHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
-                systemProvidedAssemblyListMock.Object
+                detailsRepositoryMock.Object
             );
 
             await handler.Handle(
                 new LoadServerScriptsCommand(),
                 CancellationToken.None
             );
-            Assert.NotNull(
-                onProcessFile
-            );
+            onProcessFile.Should().NotBeNull();
 
             await onProcessFile(
                 loadedScriptFileInfo,
@@ -106,13 +111,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    It.Is<RegisterServerScriptCommand>(
-                        command => command.FileName == expectedFileName
-                            && command.Path == expectedPath
-                            && command.ScriptString == expectedFileContent
-                    ),
+                    expected,
                     CancellationToken.None
                 )
+            );
+            detailsRepositoryMock.Verify(
+                mock => mock.Clear()
             );
         }
     }

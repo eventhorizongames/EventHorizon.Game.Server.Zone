@@ -4,3 +4,4 @@
 **/appsettings.*.json
 **/certificate.pfx
 _scripts/
+sub-processes/

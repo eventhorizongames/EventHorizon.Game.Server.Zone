@@ -24,50 +24,73 @@ using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
 using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
-var actor = Data.Get<IObjectEntity>("Actor");
-var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
 
-// The Actor is not an Agent Entity, only agents can have owners.
-if (!(actor is AgentEntity))
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
+
+public class __SCRIPT__
+    : ServerScript
 {
-    // Actor is not a valid Agent Entity
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
-}
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
 
-// Check Owner is valid
-if (string.IsNullOrEmpty(ownerState.OwnerId))
-{
-    // OwnerId not valid, so no owner
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
-}
-
-// Get Current Owner of Actor of type Player
-var ownerList = await Services.Mediator.Send(
-    new QueryForEntities
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
     {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        var actor = data.Get<IObjectEntity>("Actor");
+        var ownerState = actor.GetProperty<OwnerState>(OwnerState.PROPERTY_NAME);
+
+        // The Actor is not an Agent Entity, only agents can have owners.
+        if (!(actor is AgentEntity))
+        {
+            // Actor is not a valid Agent Entity
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
+        }
+
+        // Check Owner is valid
+        if (string.IsNullOrEmpty(ownerState.OwnerId))
+        {
+            // OwnerId not valid, so no owner
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
+        }
+
+        // Get Current Owner of Actor of type Player
+        var ownerList = await services.Mediator.Send(
+            new QueryForEntities
+            {
         // Entity Must be a Player and have a Global Id same as the Owner's
         Query = (
-            entity => entity.Type == EntityType.PLAYER
-            && entity.GlobalId == ownerState.OwnerId
-        )
+                    entity => entity.Type == EntityType.PLAYER
+                    && entity.GlobalId == ownerState.OwnerId
+                )
+            }
+        );
+
+        // Check the count of the owner list
+        var ownerListCount = ownerList.Count();
+        if (ownerListCount == 0 || ownerListCount >= 2)
+        {
+            // No owner or to many owners, so no owner
+            return new BehaviorScriptResponse(
+                BehaviorNodeStatus.SUCCESS
+            );
+        }
+
+        // They have an owner so this script fails.
+        return new BehaviorScriptResponse(
+            BehaviorNodeStatus.FAILED
+        );
     }
-);
-
-// Check the count of the owner list
-var ownerListCount = ownerList.Count();
-if (ownerListCount == 0 || ownerListCount >= 2)
-{
-    // No owner or to many owners, so no owner
-    return new BehaviorScriptResponse(
-        BehaviorNodeStatus.SUCCESS
-    );
 }
-
-// They have an owner so this script fails.
-return new BehaviorScriptResponse(
-    BehaviorNodeStatus.FAILED
-);

@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Zone.System.Server.Scripts.State;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+    using Xunit;
+    using FluentAssertions;
+
     public class ServerScriptInMemoryRepositoryTests
     {
         [Fact]
@@ -57,20 +58,18 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
             var actualException = Assert.Throws<ServerScriptNotFound>(
                 action
             );
-            Assert.Equal(
-                expected,
-                actualException.Message 
-            );
-            Assert.Equal(
-                expectedScriptId,
-                actualException.ScriptId
-            );
+
+            actualException.Message
+                .Should().Be(expected);
+            actualException.ScriptId
+                .Should().Be(expectedScriptId);
         }
 
-        public struct TestServerScript : ServerScript
+        public struct TestServerScript 
+            : ServerScript
         {
             public string Id { get; set; }
-            public string Hash { get; set; }
+            public IEnumerable<string> Tags { get; }
 
             public Task<ServerScriptResponse> Run(
                 ServerScriptServices services,
@@ -78,6 +77,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
             )
             {
                 throw new global::System.NotImplementedException();
+            }
+
+            public Task<ServerScriptResponse> Run(ServerScriptServices services, ServerScriptData data)
+            {
+                throw new NotImplementedException();
             }
         }
     }

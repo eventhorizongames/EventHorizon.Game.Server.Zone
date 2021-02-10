@@ -13,6 +13,16 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Remove="App_Data\Generated\Server_Scripts.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="App_Data\Generated\Server_Scripts.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -25,6 +35,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\EventHorizon.Zone.System.Server.Scripts\EventHorizon.Zone.System.Server.Scripts.csproj" />
+        <ProjectReference Include="..\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj" />
     </ItemGroup>
 
 </Project>

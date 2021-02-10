@@ -1,4 +1,4 @@
 {
     "command": "reload-system",
-    "scriptFile": "Admin_Agent_ReloadBehaviorSystem.csx"
+    "scriptFile": "Admin_Agent_ReloadBehaviorSystem"
 }

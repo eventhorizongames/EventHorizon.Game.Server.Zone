@@ -10,11 +10,11 @@
                 "nodeList": [
                     {
                         "type": "CONDITION",
-                        "script": "Behavior_Condition_PlayerFound.csx"
+                        "script": "Behavior_Condition_PlayerFound"
                     },
                     {
                         "type": "BEHAVIOR",
-                        "script": "Behaviors_GoToPlayer.csx"
+                        "script": "Behaviors_GoToPlayer"
                     }
                 ]
             }

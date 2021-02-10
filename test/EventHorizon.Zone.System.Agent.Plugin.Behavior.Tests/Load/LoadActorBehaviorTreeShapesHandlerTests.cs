@@ -10,7 +10,6 @@ using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Server.Scripts.Events.Register;
 using MediatR;
 using Moq;
 using Xunit;

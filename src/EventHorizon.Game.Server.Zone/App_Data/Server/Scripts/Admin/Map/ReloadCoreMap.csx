@@ -9,11 +9,32 @@
 using EventHorizon.Zone.Core.Map.Load;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 
-await Services.Mediator.Send(
-    new LoadCoreMap()
-);
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using Microsoft.Extensions.Logging;
 
-return new AdminCommandScriptResponse(
-    true, // Success
-    "core_map_reloaded" // Message
-);
+public class __SCRIPT__
+    : ServerScript
+{
+    public string Id => "__SCRIPT__";
+    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+
+    public async Task<ServerScriptResponse> Run(
+        ServerScriptServices services,
+        ServerScriptData data
+    )
+    {
+        var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("__SCRIPT__ - Server Script");
+
+        await services.Mediator.Send(
+            new LoadCoreMap()
+        );
+
+        return new AdminCommandScriptResponse(
+            true, // Success
+            "core_map_reloaded" // Message
+        );
+    }
+}
