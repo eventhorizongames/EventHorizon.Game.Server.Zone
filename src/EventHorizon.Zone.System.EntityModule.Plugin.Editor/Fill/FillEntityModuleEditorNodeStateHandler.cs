@@ -73,7 +73,7 @@ namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
         {
             return (await _mediator.Send(
                 new QueryForEditorNodeFromPath(
-                    new List<string> { rootFolder, modulesFolder },
+                    new List<string> { rootFolder },
                     _serverInfo.ClientPath,
                     Path.Combine(
                         _serverInfo.ClientPath,
@@ -94,7 +94,7 @@ namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
         {
             return (await _mediator.Send(
                 new QueryForEditorNodeFromPath(
-                    new List<string> { rootFolder, modulesFolder },
+                    new List<string> { rootFolder },
                     _serverInfo.ClientPath,
                     Path.Combine(
                         _serverInfo.ClientPath,
