@@ -25,6 +25,10 @@ namespace EventHorizon.Zone.System.Agent.Model
             {
                 return this.AgentId;
             }
+            set
+            {
+                AgentId = value;
+            }
         }
         public EntityType Type { get; set; }
 

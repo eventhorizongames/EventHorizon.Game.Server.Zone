@@ -14,6 +14,8 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Model\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
     </ItemGroup>

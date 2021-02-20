@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.System.Agent.Save.Mapper
                 Id = entity.AgentId,
                 Name = entity.Name,
                 Transform = entity.Transform,
-                Location = entity.GetProperty<LocationState>(
+                Location = entity.PopulateData<LocationState>(
                     LocationState.PROPERTY_NAME
                 ),
                 TagList = entity.TagList,
