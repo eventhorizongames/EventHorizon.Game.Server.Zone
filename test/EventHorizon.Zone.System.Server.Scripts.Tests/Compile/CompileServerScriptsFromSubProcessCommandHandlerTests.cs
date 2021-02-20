@@ -347,7 +347,6 @@
         public async Task ShouldReturnErrorCodeWhenSubProcessStartFails()
         {
             // Given
-            var hash = "hash";
             var notNullOrEmptyHash = "not-null-or-empty";
             var generatedPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
