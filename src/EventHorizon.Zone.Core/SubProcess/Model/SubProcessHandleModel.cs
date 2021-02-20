@@ -1,8 +1,9 @@
-﻿namespace EventHorizon.Zone.Core.Model.SubProcess
+﻿namespace EventHorizon.Zone.Core.SubProcess.Model
 {
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.SubProcess;
 
     public class SubProcessHandleModel
         : SubProcessHandle

@@ -7,6 +7,7 @@
     using EventHorizon.Zone.Core.Events.SubProcess;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.SubProcess;
+    using EventHorizon.Zone.Core.SubProcess.Model;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
