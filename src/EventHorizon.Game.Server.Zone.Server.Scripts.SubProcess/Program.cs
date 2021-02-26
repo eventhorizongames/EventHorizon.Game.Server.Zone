@@ -19,6 +19,7 @@
                 .UseSerilog((ctx, cfg) => cfg
                         .Enrich.WithProperty("EnvironmentName", ctx.HostingEnvironment.EnvironmentName)
                         .Enrich.WithProperty("ProcessIdentifier", Identifier)
+                        .Enrich.WithProperty("PlatformId", ctx.Configuration["OwnerDetails:PlatformId"])
                         .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
                         .Enrich.WithProperty("ServiceName", "Zone")
                         .ReadFrom.Configuration(ctx.Configuration)
