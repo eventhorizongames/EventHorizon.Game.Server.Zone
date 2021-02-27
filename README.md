@@ -8,6 +8,11 @@ dotnet publish --output ./sub-processes/server-scripts/ --configuration Release 
 # Docker
 
 ~~~ bash
+# Create Local :dev Image
+docker build -t canhorn/ehz-platform-server-zone:dev .
+~~~
+
+~~~ bash
 dotnet publish -c Release .\src\EventHorizon.Game.Server.Zone\EventHorizon.Game.Server.Zone.csproj;
 docker build -f Dockerfile.devops -t canhorn/ehz-platform-server-zone:dev .
 ~~~

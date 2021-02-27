@@ -10,6 +10,8 @@ namespace EventHorizon.Zone.Core.Reporter.Model
         {
             bool IsEnabled { get; }
             string Url { get; }
+            string Username { get; }
+            string Password { get; }
         }
     }
 }

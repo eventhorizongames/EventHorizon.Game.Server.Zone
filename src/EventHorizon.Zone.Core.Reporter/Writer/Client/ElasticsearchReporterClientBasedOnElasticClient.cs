@@ -64,11 +64,14 @@
             {
                 var settings = new ConnectionConfiguration(
                     new Uri(
-                        //_settings.Elasticsearch.Url,
-                        "http://localhost:9200"
+                        _settings.Elasticsearch.Url
                     )
                 ).RequestTimeout(
                     TimeSpan.FromMinutes(2)
+                );
+                settings.BasicAuthentication(
+                    _settings.Elasticsearch.Username,
+                    _settings.Elasticsearch.Password
                 );
 
                 ElasticClient = new ElasticLowLevelClient(
@@ -88,6 +91,7 @@
 
                 // Build the Index, we need to make sure that it has date_nanos
                 ElasticClient.Indices.Create<StringResponse>(
+                    // TODO: Reporter - This will need an index created specifically for the PlatformId.
                     "report",
                     PostData.Serializable(
                         new

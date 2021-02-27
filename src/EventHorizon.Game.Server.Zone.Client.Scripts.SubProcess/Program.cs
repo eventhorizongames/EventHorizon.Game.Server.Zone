@@ -11,6 +11,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Serilog;
+    using Serilog.Sinks.Elasticsearch;
 
     class Program
     {
@@ -27,6 +28,7 @@
                         .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
                         .Enrich.WithProperty("ServiceName", "Zone")
                         .ReadFrom.Configuration(ctx.Configuration)
+                        .ConfigureElasticsearchLogging(ctx)
                 ).ConfigureServices(
                     (host, services) => services
                         .AddMediatR(
@@ -49,5 +51,44 @@
                         .AddSingleton<ClientScriptCompiler, ClientScriptCompilerForCSharp>()
                         .AddHostedService<Worker>()
                 );
+    }
+
+    public static class SerilogElasticsearchExtensions
+    {
+        public static LoggerConfiguration ConfigureElasticsearchLogging(
+            this LoggerConfiguration loggerConfig,
+            HostBuilderContext context
+        )
+        {
+            if (context.Configuration.GetValue<bool>("Serilog:Elasticsearch:Enabled"))
+            {
+                var sinkOptions = new ElasticsearchSinkOptions(
+                    new Uri(
+                        context.Configuration["Elasticsearch:Uri"]
+                    )
+                )
+                {
+                    ModifyConnectionSettings = conn =>
+                    {
+                        conn.BasicAuthentication(
+                            context.Configuration["Elasticsearch:Username"],
+                            context.Configuration["Elasticsearch:Password"]
+                        );
+                        return conn;
+                    }
+
+                };
+                context.Configuration.GetSection(
+                    "Serilog:Elasticsearch"
+                ).Bind(
+                    sinkOptions
+                );
+                return loggerConfig.WriteTo.Elasticsearch(
+                    sinkOptions
+                );
+            }
+
+            return loggerConfig;
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
     public class ReporterSettingsByConfiguration : ReporterSettings
     {
         private const string CONFIGURATION_SECTION = "Reporter";
+        private const string ELASITCSEARCH_CONFIGURATION_SECTION = "Elasticsearch";
 
         private readonly IConfiguration _configuration;
 
@@ -21,6 +22,13 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
             _configuration.GetSection(
                 CONFIGURATION_SECTION
             ).Bind(this);
+            Elasticsearch = new ConfigurationElasticsearchReporterSettings
+            {
+                IsEnabled = Elasticsearch.IsEnabled,
+                Url = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
+                Username = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Username"],
+                Password = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Password"],
+            };
             RegisterChangeCallback();
         }
 
@@ -34,6 +42,13 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
                         _configuration.GetSection(
                             CONFIGURATION_SECTION
                         ).Bind(this);
+                        Elasticsearch = new ConfigurationElasticsearchReporterSettings
+                        {
+                            IsEnabled = Elasticsearch.IsEnabled,
+                            Url = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
+                            Username = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Username"],
+                            Password = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Password"],
+                        };
                         RegisterChangeCallback();
                     },
                     token
@@ -44,6 +59,8 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
         {
             public bool IsEnabled { get; set; }
             public string Url { get; set; }
+            public string Username { get; set; }
+            public string Password { get; set; }
         }
     }
 }
