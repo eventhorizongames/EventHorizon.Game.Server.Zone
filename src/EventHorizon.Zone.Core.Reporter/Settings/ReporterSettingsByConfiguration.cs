@@ -25,7 +25,7 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
             Elasticsearch = new ConfigurationElasticsearchReporterSettings
             {
                 IsEnabled = Elasticsearch.IsEnabled,
-                Url = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
+                Uri = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
                 Username = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Username"],
                 Password = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Password"],
             };
@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
                         Elasticsearch = new ConfigurationElasticsearchReporterSettings
                         {
                             IsEnabled = Elasticsearch.IsEnabled,
-                            Url = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
+                            Uri = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Uri"],
                             Username = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Username"],
                             Password = _configuration[$"{ELASITCSEARCH_CONFIGURATION_SECTION}:Password"],
                         };
@@ -58,7 +58,7 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
         public class ConfigurationElasticsearchReporterSettings : ReporterSettings.ElasticsearchReporterSettings
         {
             public bool IsEnabled { get; set; }
-            public string Url { get; set; }
+            public string Uri { get; set; }
             public string Username { get; set; }
             public string Password { get; set; }
         }

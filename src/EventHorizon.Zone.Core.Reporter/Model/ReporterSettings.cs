@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.Core.Reporter.Model
         public interface ElasticsearchReporterSettings
         {
             bool IsEnabled { get; }
-            string Url { get; }
+            string Uri { get; }
             string Username { get; }
             string Password { get; }
         }

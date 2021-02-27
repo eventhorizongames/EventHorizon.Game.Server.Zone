@@ -12,8 +12,12 @@
         public void ShouldSetIsEnabledBasedOnConfigurationWhenCreated()
         {
             // Given
-            var elasticsearchUrl = "https://the.world";
-            var expectedElasticsearchUrl = elasticsearchUrl;
+            var elasticsearchUri = "https://the.world";
+            var elasticsearchUsername = "es_username";
+            var elasticsearchPassword = "es_password";
+            var expectedElasticsearchUri = elasticsearchUri;
+            var expectedElasticsearchUsername = elasticsearchUsername;
+            var expectedElasticsearchPassword = elasticsearchPassword;
             var configurationMock = new ConfigurationBuilder()
                 .AddInMemoryCollection(
                     new Dictionary<string, string>
@@ -21,7 +25,9 @@
                         { "Reporter:IsEnabled", "true" },
                         { "Reporter:IsWriteToFileEnabled", "false" },
                         { "Reporter:Elasticsearch:IsEnabled", "true" },
-                        { "Reporter:Elasticsearch:Url", elasticsearchUrl }
+                        { "Elasticsearch:Uri", elasticsearchUri },
+                        { "Elasticsearch:Username", elasticsearchUsername },
+                        { "Elasticsearch:Password", elasticsearchPassword },
                     }
                 )
                 .Build();
@@ -38,8 +44,12 @@
                 .Should().BeFalse();
             actual.Elasticsearch.IsEnabled
                 .Should().BeTrue();
-            actual.Elasticsearch.Url
-                .Should().Be(expectedElasticsearchUrl);
+            actual.Elasticsearch.Uri
+                .Should().Be(expectedElasticsearchUri);
+            actual.Elasticsearch.Username
+                .Should().Be(expectedElasticsearchUsername);
+            actual.Elasticsearch.Password
+                .Should().Be(expectedElasticsearchPassword);
         }
 
         [Fact]
@@ -55,7 +65,9 @@
                         { "Reporter:IsEnabled", "true" },
                         { "Reporter:IsWriteToFileEnabled", "false" },
                         { "Reporter:Elasticsearch:IsEnabled", "true" },
-                        { "Reporter:Elasticsearch:Url", initialElasticsearchUrl }
+                        { "Elasticsearch:Uri", initialElasticsearchUrl },
+                        { "Elasticsearch:Username", "username" },
+                        { "Elasticsearch:Password", "password" },
                     }
                 )
                 .Build();
@@ -69,12 +81,12 @@
             actual.Elasticsearch
                 .IsEnabled.Should().BeTrue();
             actual.Elasticsearch
-                .Url.Should().Be(initialElasticsearchUrl);
+                .Uri.Should().Be(initialElasticsearchUrl);
 
             // Update the Configuration Value, triggering change
             configurationMock["Reporter:IsEnabled"] = "false";
             configurationMock["Reporter:Elasticsearch:IsEnabled"] = "false";
-            configurationMock["Reporter:Elasticsearch:Url"] = expectedElasticsearchUrl;
+            configurationMock["Elasticsearch:Uri"] = expectedElasticsearchUrl;
             configurationMock.Reload();
 
             // Then
@@ -83,7 +95,7 @@
             actual.Elasticsearch
                 .IsEnabled.Should().BeFalse();
             actual.Elasticsearch
-                .Url.Should().Be(expectedElasticsearchUrl);
+                .Uri.Should().Be(expectedElasticsearchUrl);
         }
     }
 }

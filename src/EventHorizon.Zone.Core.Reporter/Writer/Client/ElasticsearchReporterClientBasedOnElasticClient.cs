@@ -50,12 +50,12 @@
                 IsConnected = false;
                 return;
             }
-            if (string.IsNullOrEmpty(_settings.Elasticsearch.Url))
+            if (string.IsNullOrEmpty(_settings.Elasticsearch.Uri))
             {
                 ElasticClient = null;
                 IsConnected = false;
                 _logger.LogError(
-                    "Elasticsearch.Url is not configured. {@Settings}",
+                    "Elasticsearch.Uri is not configured. {@Settings}",
                     _settings.Elasticsearch
                 );
                 return;
@@ -64,7 +64,7 @@
             {
                 var settings = new ConnectionConfiguration(
                     new Uri(
-                        _settings.Elasticsearch.Url
+                        _settings.Elasticsearch.Uri
                     )
                 ).RequestTimeout(
                     TimeSpan.FromMinutes(2)
