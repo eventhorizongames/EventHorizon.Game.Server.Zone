@@ -2,7 +2,13 @@
 # .NET
 
 ~~~ bash
+# Pusblih SubProcesses
+dotnet publish --configuration Release ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess
+dotnet publish --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
+
+# Create Output Direcotry SubProcesses
 dotnet publish --output ./sub-processes/server-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess
+dotnet publish --output ./sub-processes/client-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
 ~~~
 
 # Docker
