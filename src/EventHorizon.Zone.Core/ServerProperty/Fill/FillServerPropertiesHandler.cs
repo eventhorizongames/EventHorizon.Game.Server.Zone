@@ -6,7 +6,8 @@ namespace EventHorizon.Zone.Core.ServerProperty.Fill
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class FillHostServerPropertyHandler : INotificationHandler<FillServerPropertiesEvent>
+    public class FillHostServerPropertyHandler
+        : INotificationHandler<FillServerPropertiesEvent>
     {
         private readonly IServerProperty _serverProperty;
         private readonly IConfiguration _configuration;
@@ -27,7 +28,11 @@ namespace EventHorizon.Zone.Core.ServerProperty.Fill
         {
             _serverProperty.Set(
                 ServerPropertyKeys.HOST,
-                _configuration["HOST"]
+                _configuration[ServerPropertyKeys.HOST]
+            );
+            _serverProperty.Set(
+                ServerPropertyKeys.APPLICATION_VERSION,
+                _configuration[ServerPropertyKeys.APPLICATION_VERSION]
             );
             return Task.CompletedTask;
         }

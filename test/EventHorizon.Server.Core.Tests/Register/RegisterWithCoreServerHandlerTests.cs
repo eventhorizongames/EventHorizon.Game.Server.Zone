@@ -23,6 +23,7 @@
             var expectedKey = ServerPropertyKeys.SERVER_ID;
             var expectedServerId = "server-id";
             var serverAddress = "server-address";
+            var applicationVersion = "application-version";
             var tag = "tag";
 
             var coreServerConnectionApiMock = new Mock<CoreServerConnectionApi>();
@@ -45,7 +46,10 @@
                 mock => mock.RegisterZone(
                     new ZoneRegistrationDetails(
                         serverAddress,
-                        tag
+                        tag,
+                        new ServiceDetails(
+                            applicationVersion
+                        )
                     )
                 )
             ).ReturnsAsync(
@@ -61,6 +65,13 @@
                 )
             ).Returns(
                 serverAddress
+            );
+            serverPropertyMock.Setup(
+                mock => mock.Get<string>(
+                    ServerPropertyKeys.APPLICATION_VERSION
+                )
+            ).Returns(
+                applicationVersion
             );
 
             // When

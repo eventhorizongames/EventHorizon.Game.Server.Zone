@@ -137,23 +137,24 @@ stages:
           releaseType: stable
 
       - task: Docker@2
-        enabled: 'false'
-        displayName: Build and Push Image (ACR)
+        displayName: Build Image (docker-hub) - EventHorizon.Game.Server.Zone
         inputs: 
-          command: buildAndPush
-          containerRegistry: eventHorizonGamesConnection
+          command: build
+          containerRegistry: docker-hub
+          repository: canhorn/ehz-platform-server-zone
           Dockerfile: Dockerfile.devops
-          repository: ehz/game/server/zone
+          arguments: --build-arg BUILD_VERSION=$(Build.BuildNumber)
           tags: |
             latest
-      
+            $(Build.BuildNumber)
+
       - task: Docker@2
-        displayName: Build and Push Image (docker-hub)
+        displayName: Push Image (docker-hub) - EventHorizon.Game.Server.Zone 
         inputs: 
-          command: buildAndPush
+          command: push
           containerRegistry: docker-hub
-          Dockerfile: Dockerfile.devops
           repository: canhorn/ehz-platform-server-zone
+          Dockerfile: Dockerfile.devops
           tags: |
             latest
             $(Build.BuildNumber)

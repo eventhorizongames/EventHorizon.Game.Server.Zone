@@ -11,7 +11,8 @@ namespace EventHorizon.Server.Core.Register
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class RegisterWithCoreServerHandler : INotificationHandler<RegisterWithCoreServer>
+    public class RegisterWithCoreServerHandler
+        : INotificationHandler<RegisterWithCoreServer>
     {
         private readonly ILogger _logger;
         private readonly ZoneSettings _zoneSettings;
@@ -40,13 +41,17 @@ namespace EventHorizon.Server.Core.Register
             {
                 var response = await _connection.Api
                     .RegisterZone(
-                        new ZoneRegistrationDetails
-                        {
-                            Tag = _zoneSettings.Tag,
-                            ServerAddress = _serverProperty.Get<string>(
+                        new ZoneRegistrationDetails(
+                            _serverProperty.Get<string>(
                                 ServerPropertyKeys.HOST
+                            ),
+                            _zoneSettings.Tag,
+                            new ServiceDetails(
+                                _serverProperty.Get<string>(
+                                    ServerPropertyKeys.APPLICATION_VERSION
+                                )
                             )
-                        }
+                        )
                     );
                 _serverProperty.Set(
                     ServerPropertyKeys.SERVER_ID,

@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Server.Zone
 {
     using System;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
@@ -26,6 +27,7 @@
                         .Enrich.WithProperty("PlatformId", ctx.Configuration["OwnerDetails:PlatformId"])
                         .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
                         .Enrich.WithProperty("ServiceName", "Zone")
+                        .Enrich.WithProperty("ApplicationVersion", ctx.Configuration[ServerPropertyKeys.APPLICATION_VERSION])
                         .ReadFrom.Configuration(ctx.Configuration)
                         .ConfigureElasticsearchLogging(ctx)
                     );

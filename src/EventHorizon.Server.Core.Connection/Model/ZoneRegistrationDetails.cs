@@ -2,16 +2,19 @@ namespace EventHorizon.Server.Core.Connection.Model
 {
     public struct ZoneRegistrationDetails
     {
-        public string ServerAddress { get; set; }
-        public string Tag { get; set; }
+        public string ServerAddress { get; }
+        public string Tag { get; }
+        public ServiceDetails Details { get; }
 
         public ZoneRegistrationDetails(
             string serverAddress, 
-            string tag
+            string tag,
+            ServiceDetails details
         )
         {
             ServerAddress = serverAddress;
             Tag = tag;
+            Details = details;
         }
     }
 }

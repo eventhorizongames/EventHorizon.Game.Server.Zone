@@ -64,6 +64,9 @@ RUN dotnet publish --output /sub-processes/client-scripts/ --configuration Relea
 
 # Runtime Zone Server target
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+ARG BUILD_VERSION=0.0.0
+ENV APPLICATION_VERSION=$BUILD_VERSION
+
 WORKDIR /app
 COPY --from=build-publish /app /app
 COPY --from=server-scripts-sub-process /sub-processes/server-scripts /sub-processes/server-scripts
