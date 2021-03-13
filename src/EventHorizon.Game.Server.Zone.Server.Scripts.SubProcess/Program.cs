@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using EventHorizon.Game.Server.Zone.SDK;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
     using MediatR;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,7 @@
                         .Enrich.WithProperty("PlatformId", ctx.Configuration["OwnerDetails:PlatformId"])
                         .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
                         .Enrich.WithProperty("ServiceName", "Zone")
+                        .Enrich.WithProperty("ApplicationVersion", ctx.Configuration[ServerPropertyKeys.APPLICATION_VERSION])
                         .ReadFrom.Configuration(ctx.Configuration)
                         .ConfigureElasticsearchLogging(ctx)
                 ).ConfigureServices(

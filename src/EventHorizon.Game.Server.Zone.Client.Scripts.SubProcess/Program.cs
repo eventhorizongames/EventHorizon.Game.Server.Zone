@@ -3,6 +3,7 @@
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Consolidate;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
@@ -27,6 +28,7 @@
                         .Enrich.WithProperty("PlatformId", ctx.Configuration["OwnerDetails:PlatformId"])
                         .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
                         .Enrich.WithProperty("ServiceName", "Zone")
+                        .Enrich.WithProperty("ApplicationVersion", ctx.Configuration[ServerPropertyKeys.APPLICATION_VERSION])
                         .ReadFrom.Configuration(ctx.Configuration)
                         .ConfigureElasticsearchLogging(ctx)
                 ).ConfigureServices(
