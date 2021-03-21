@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Server.Scripts.System
 {
     using EventHorizon.Game.I18n;
+    using EventHorizon.Observer.State;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.RandomNumber;
@@ -18,6 +19,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         public IRandomNumberGenerator Random { get; }
         public IDateTimeService DateTime { get; }
         public I18nLookup I18n { get; }
+        public ObserverState ObserverState { get; }
 
         public SystemServerScriptServices(
             ServerInfo serverInfo,
@@ -25,6 +27,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             IRandomNumberGenerator random,
             IDateTimeService dateTime,
             I18nLookup i18n,
+            ObserverState observerState,
             ILoggerFactory loggerFactory
         )
         {
@@ -33,6 +36,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             Random = random;
             DateTime = dateTime;
             I18n = i18n;
+            ObserverState = observerState;
             _loggerFactory = loggerFactory;
         }
 

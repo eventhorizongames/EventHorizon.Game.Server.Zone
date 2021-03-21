@@ -1,14 +1,16 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Tests
 {
     using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Observer.Admin.State;
+    using EventHorizon.Observer.State;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
+    using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.System;
-    using Xunit;
-    using EventHorizon.Zone.System.Server.Scripts.Api;
-    using EventHorizon.Test.Common.Utils;
-    using EventHorizon.Test.Common;
     using FluentAssertions;
+    using Xunit;
 
     public class SystemServerScriptsExtensionsTests
     {
@@ -60,6 +62,19 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
                 {
                     Assert.Equal(typeof(ServerScriptServices), service.ServiceType);
                     Assert.Equal(typeof(SystemServerScriptServices), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(GenericObserverState), service.ServiceType);
+                    Assert.Equal(typeof(GenericObserverState), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(ObserverState), service.ServiceType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(AdminObserverState), service.ServiceType);
                 }
             );
         }

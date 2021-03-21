@@ -7,10 +7,9 @@
     using EventHorizon.Zone.Core.Model.SubProcess;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Complie;
+    using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
-    using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.Validation;
     using FluentAssertions;
     using global::System;
@@ -51,20 +50,6 @@
                 Success = true,
                 Hash = hash,
             };
-            // This is an complied script available in the generated Server_Scripts.dll
-            var scriptId1 = "Admin_Map_ReloadCoreMap";
-            var scriptDetails1 = new ServerScriptDetails(
-                "script-1-file-name",
-                "script-1-file-path",
-                "script-1-string"
-            );
-            // This is an complied script available in the generated Server_Scripts.dll
-            var scriptId2 = "Admin_I18n_ReloadI18nSystem";
-            var scriptDetails2 = new ServerScriptDetails(
-                "script-2-file-name",
-                "script-2-file-path",
-                "script-2-string"
-            );
 
             var expected = hash;
 
@@ -77,8 +62,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             var subProcessHandleMock = new Mock<SubProcessHandle>();
 
@@ -129,21 +112,14 @@
                 compiledResult
             );
 
-            detailsRepositoryMock.Setup(
-                mock => mock.Find(
-                    scriptId1
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new LoadNewServerScriptAssemblyCommand(),
+                    CancellationToken.None
                 )
-            ).Returns(
-                scriptDetails1
+            ).ReturnsAsync(
+                new StandardCommandResult()
             );
-            detailsRepositoryMock.Setup(
-                mock => mock.Find(
-                    scriptId2
-                )
-            ).Returns(
-                scriptDetails2
-            );
-
 
             // When
             var handler = new CompileServerScriptsFromSubProcessCommandHandler(
@@ -152,9 +128,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -167,54 +141,10 @@
             actual.Success
                 .Should().BeTrue();
 
-            detailsRepositoryMock.Verify(
-                mock => mock.Add(
-                    scriptId1,
-                    It.Is<ServerScriptDetails>(
-                        a => a.Id == scriptId1
-                            && a.Hash == scriptDetails1.Hash
-                            && a.FileName == scriptDetails1.FileName
-                            && a.Path == scriptDetails1.Path
-                            && a.ScriptString == scriptDetails1.ScriptString
-                    )
-                )
-            );
-            detailsRepositoryMock.Verify(
-                mock => mock.Add(
-                    scriptId2,
-                    It.Is<ServerScriptDetails>(
-                        a => a.Id == scriptId2
-                            && a.Hash == scriptDetails2.Hash
-                            && a.FileName == scriptDetails2.FileName
-                            && a.Path == scriptDetails2.Path
-                            && a.ScriptString == scriptDetails2.ScriptString
-                    )
-                )
-            );
-
-            scriptRepositoryMock.Verify(
-                mock => mock.Add(
-                    It.Is<ServerScript>(
-                        a => a.Id == scriptId1
-                    )
-                )
-            );
-            scriptRepositoryMock.Verify(
-                mock => mock.Add(
-                    It.Is<ServerScript>(
-                        a => a.Id == scriptId2
-                    )
-                )
-            );
-
             stateMock.Verify(
                 mock => mock.UpdateHash(
                     expected
                 )
-            );
-
-            scriptRepositoryMock.Verify(
-                mock => mock.Clear()
             );
         }
 
@@ -238,8 +168,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             stateMock.Setup(
                 mock => mock.CurrentHash
@@ -265,9 +193,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -300,8 +226,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             stateMock.Setup(
                 mock => mock.CurrentHash
@@ -327,9 +251,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -371,8 +293,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             var subProcessHandleMock = new Mock<SubProcessHandle>();
 
@@ -410,7 +330,6 @@
                 )
             );
 
-
             // When
             var handler = new CompileServerScriptsFromSubProcessCommandHandler(
                 loggerMock.Object,
@@ -418,9 +337,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -465,8 +382,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             var subProcessHandleMock = new Mock<SubProcessHandle>();
 
@@ -516,9 +431,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -574,8 +487,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             var subProcessHandleMock = new Mock<SubProcessHandle>();
 
@@ -634,9 +545,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(
@@ -672,8 +581,6 @@
                 compilerSubProcess
             );
             var stateMock = new Mock<ServerScriptsState>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
 
             stateMock.Setup(
                 mock => mock.CurrentHash
@@ -699,9 +606,7 @@
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 scriptSettings,
-                stateMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object
+                stateMock.Object
             );
             var actual = await handler.Handle(
                 new CompileServerScriptsFromSubProcessCommand(

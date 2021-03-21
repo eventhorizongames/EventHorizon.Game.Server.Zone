@@ -1,22 +1,16 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Complie
 {
-    using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Events.SubProcess;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Server.Scripts.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
-    using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.Validation;
     using global::System;
-    using global::System.Collections.Generic;
     using global::System.IO;
-    using global::System.Linq;
-    using global::System.Reflection;
-    using global::System.Runtime.Loader;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -31,8 +25,6 @@
         private readonly IJsonFileLoader _jsonFileLoader;
         private readonly ServerScriptsSettings _scriptsSettings;
         private readonly ServerScriptsState _state;
-        private readonly ServerScriptDetailsRepository _detailsRepository;
-        private readonly ServerScriptRepository _scriptRepository;
 
         public CompileServerScriptsFromSubProcessCommandHandler(
             ILogger<CompileServerScriptsFromSubProcessCommandHandler> logger,
@@ -40,9 +32,7 @@
             ServerInfo serverInfo,
             IJsonFileLoader jsonFileLoader,
             ServerScriptsSettings scriptsSettings,
-            ServerScriptsState state,
-            ServerScriptDetailsRepository detailsRepository,
-            ServerScriptRepository scriptRepository
+            ServerScriptsState state
         )
         {
             _logger = logger;
@@ -51,8 +41,6 @@
             _jsonFileLoader = jsonFileLoader;
             _scriptsSettings = scriptsSettings;
             _state = state;
-            _detailsRepository = detailsRepository;
-            _scriptRepository = scriptRepository;
         }
 
         public async Task<StandardCommandResult> Handle(
@@ -140,70 +128,20 @@
                     );
                 }
 
-                // TODO: Move this into a Separate Command
-                // TODO: This should use the ReadAllTextAsBytesFromFile or create new ReadFromFileAsFileStream
-                var scriptsAssemblyStream = File.OpenRead(
-                    Path.Combine(
-                        _serverInfo.GeneratedPath,
-                        GeneratedServerScriptsResultModel.SCRIPTS_ASSEMBLY_FILE_NAME
-                    )
-                );
-                // Load Assembly into Default context
-                var assembly = AssemblyLoadContext.Default.LoadFromStream(
-                    scriptsAssemblyStream
+                var loadAssemblyResult = await _mediator.Send(
+                    new LoadNewServerScriptAssemblyCommand(),
+                    cancellationToken
                 );
 
-                // Update ServerScript Details and Add ServerScript from DLL
-                var scriptTypeList = GetScriptTypesList(
-                    assembly
-                );
-
-                // TODO: Move this to after the scripts have been created
-                if (scriptTypeList.Any())
+                if (!loadAssemblyResult.Success)
                 {
-                    // Only clear current script repository if scripts were found.
-                    _scriptRepository.Clear();
+                    return loadAssemblyResult;
                 }
-
-                foreach (var item in scriptTypeList)
-                {
-                    var scriptInstance = assembly.CreateInstance(
-                        item.FullName
-                    );
-                    if (scriptInstance is ServerScript serverScript)
-                    {
-                        // Update ServerScriptDetails for each ServerScript
-                        var id = serverScript.Id;
-                        var tags = serverScript.Tags;
-                        var existingDetails = _detailsRepository.Find(
-                            id
-                        );
-                        var updatedDetails = new ServerScriptDetails(
-                            id,
-                            existingDetails.Hash,
-                            existingDetails.FileName,
-                            existingDetails.Path,
-                            existingDetails.ScriptString,
-                            tags
-                        );
-                        _detailsRepository.Add(
-                            id,
-                            updatedDetails
-                        );
-
-                        // Add Script to Repository
-                        _scriptRepository.Add(
-                            serverScript
-                        );
-                    }
-                }
-
 
                 // Update ServerScriptState hash
                 _state.UpdateHash(
                     compiledResult.Hash
                 );
-
 
                 return new();
             }
@@ -217,18 +155,6 @@
                     ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                 );
             }
-        }
-
-        private static IEnumerable<Type> GetScriptTypesList(
-            Assembly assembly
-        )
-        {
-            return assembly
-                .GetTypes()
-                .Where(
-                    a => (a.FullName?.StartsWith("css_root+") ?? false)
-                        && a.IsAssignableTo(typeof(ServerScript))
-                );
         }
     }
 }

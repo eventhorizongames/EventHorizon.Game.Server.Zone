@@ -56,7 +56,7 @@ public class __SCRIPT__
         var property = entity.GetProperty<StandardObjectProperty>(
             data.Get<string>("propertyName")
         );
-        var propertyValue = property[valueProperty].Cast<decimal>();
+        var propertyValue = property[valueProperty].To<decimal>();
         propertyValue = propertyValue - amount;
         property[valueProperty] = propertyValue;
         entity.SetProperty(

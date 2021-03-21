@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using System;
-
 namespace EventHorizon.Zone.System.Agent.State
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+
     public class AgentWrappedEntityRepository : IAgentRepository
     {
         readonly EntityRepository _entityRepository;

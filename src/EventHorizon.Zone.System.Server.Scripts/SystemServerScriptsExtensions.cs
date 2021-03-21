@@ -1,12 +1,12 @@
 namespace EventHorizon.Game.Server.Zone
 {
     using System;
+    using EventHorizon.Observer.Admin.State;
+    using EventHorizon.Observer.State;
     using EventHorizon.Zone.System.Server.Scripts.Api;
-    using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.System;
-    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -35,6 +35,10 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<ServerScriptRepository, ServerScriptInMemoryRepository>()
                 .AddSingleton<ServerScriptDetailsRepository, ServerScriptDetailsInMemoryRepository>()
                 .AddTransient<ServerScriptServices, SystemServerScriptServices>()
+
+                .AddSingleton<GenericObserverState>()
+                .AddSingleton<ObserverState>(services => services.GetRequiredService<GenericObserverState>())
+                .AddSingleton<AdminObserverState>(services => services.GetRequiredService<GenericObserverState>())
             ;
         }
         

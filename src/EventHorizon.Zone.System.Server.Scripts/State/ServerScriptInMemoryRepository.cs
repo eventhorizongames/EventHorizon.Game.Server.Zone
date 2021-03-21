@@ -1,14 +1,18 @@
 namespace EventHorizon.Zone.System.Server.Scripts.State
 {
-    using global::System.Collections.Concurrent;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
     using EventHorizon.Zone.System.Server.Scripts.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
 
     public class ServerScriptInMemoryRepository
         : ServerScriptRepository
     {
         private readonly ConcurrentDictionary<string, ServerScript> _map = new ConcurrentDictionary<string, ServerScript>();
+
+        public IEnumerable<ServerScript> All
+            => _map.Values;
 
         public void Clear()
         {

@@ -147,8 +147,8 @@ public class __SCRIPT__Observer
             && lifeState.ContainsKey("maxHealthPoints")
         )
         {
-            var healthPoints = lifeState["healthPoints"].Cast<decimal>();
-            var maxHealthPoints = lifeState["maxHealthPoints"].Cast<decimal>();
+            var healthPoints = lifeState["healthPoints"].To<decimal>();
+            var maxHealthPoints = lifeState["maxHealthPoints"].To<decimal>();
 
             var percent = (healthPoints / maxHealthPoints) * 100;
             return (int)percent;
