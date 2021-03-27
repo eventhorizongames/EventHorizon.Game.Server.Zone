@@ -119,6 +119,10 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.Interaction\EventHorizon.Zone.System.Interaction.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.ModelState\EventHorizon.Zone.System.ModelState.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Wizard.Plugin.Editor\EventHorizon.Zone.System.Wizard.Plugin.Editor.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Wizard\EventHorizon.Zone.System.Wizard.csproj" />
     </ItemGroup>
 
 </Project>

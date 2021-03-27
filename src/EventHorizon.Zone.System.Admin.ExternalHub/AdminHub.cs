@@ -1,6 +1,5 @@
 namespace EventHorizon.Zone.System.Admin.ExternalHub
 {
-    using global::System;
     using MediatR;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;

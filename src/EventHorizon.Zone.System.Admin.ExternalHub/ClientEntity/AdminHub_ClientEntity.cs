@@ -19,14 +19,17 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
         ) => _mediator.Send(
             new SaveClientEntityCommand(
                 clientEntity
-            )
+            ),
+            Context.ConnectionAborted
         );
+
         public Task<CreateClientEntityResponse> ClientEntity_Create(
             ClientEntity clientEntity
         ) => _mediator.Send(
             new CreateClientEntityCommand(
                 clientEntity
-            )
+            ),
+            Context.ConnectionAborted
         );
 
         public Task<DeleteClientEntityResponse> ClientEntity_Delete(
@@ -34,7 +37,8 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
         ) => _mediator.Send(
             new DeleteClientEntityCommand(
                 clientEntityId
-            )
+            ),
+            Context.ConnectionAborted
         );
     }
 }

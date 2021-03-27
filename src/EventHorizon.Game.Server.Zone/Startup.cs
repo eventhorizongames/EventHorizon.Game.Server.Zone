@@ -220,6 +220,9 @@
                 typeof(SystemPlayerPluginActionExtensions).Assembly,
 
                 typeof(SystemInteractionExtensions).Assembly,
+
+                typeof(SystemWizardExtensions).Assembly,
+                typeof(SystemWizardPluginEditorExtensions).Assembly,
                 
                 // Game Specific Loading
                 typeof(GameExtensions).Assembly,
@@ -350,6 +353,9 @@
                 .AddSystemPlayerPluginAction()
 
                 .AddSystemInteraction()
+
+                .AddSystemWizard()
+                .AddSystemWizardPluginEditor()
             ;
 
             // Game Specific Loading
@@ -462,6 +468,9 @@
             app.UseSystemPlayerPluginAction();
 
             app.UseSystemInteraction();
+
+            app.UseSystemWizard()
+                .UseSystemWizardPluginEditor();
 
             // Game Specific Loading
             app.UseGame();
