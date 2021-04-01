@@ -9,13 +9,13 @@ namespace EventHorizon.Zone.System.Wizard.Plugin.Editor.Fill
     using global::System.Threading.Tasks;
     using MediatR;
 
-    public class FillServerScriptsEditorNodeStateHandler
+    public class FillWizardEditorNodeStateHandler
         : INotificationHandler<FillEditorNodeState>
     {
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
 
-        public FillServerScriptsEditorNodeStateHandler(
+        public FillWizardEditorNodeStateHandler(
             IMediator mediator,
             ServerInfo serverInfo
         )

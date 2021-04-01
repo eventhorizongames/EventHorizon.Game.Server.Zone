@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
@@ -21,7 +21,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj" />
-        <ProjectReference Include="..\..\src\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.csproj" />
+        <ProjectReference Include="..\..\src\EventHorizon.Zone.System.Wizard.Plugin.Editor\EventHorizon.Zone.System.Wizard.Plugin.Editor.csproj" />
     </ItemGroup>
 
 </Project>

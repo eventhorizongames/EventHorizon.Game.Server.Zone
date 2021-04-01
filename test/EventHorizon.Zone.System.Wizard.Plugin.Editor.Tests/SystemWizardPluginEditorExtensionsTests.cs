@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests
+namespace EventHorizon.Zone.System.Wizard.Plugin.Editor.Tests
 {
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
@@ -6,7 +6,7 @@
     using FluentAssertions;
     using Xunit;
 
-    public class SystemServerScriptsPluginEditorExtensionsTests
+    public class SystemWizardPluginEditorExtensionsTests
     {
         [Fact]
         public void ShouldReturnPassedInCall()
@@ -16,7 +16,7 @@
             var expected = serviceCollectionMock;
 
             // When
-            var actual = SystemServerScriptsPluginEditorExtensions.AddSystemServerScriptsPluginEditor(
+            var actual = SystemWizardPluginEditorExtensions.AddSystemWizardPluginEditor(
                 serviceCollectionMock
             );
 
@@ -32,7 +32,7 @@
             var expected = applicationBuilder.ApplicationBuilderMock.Object;
 
             // When
-            var actual = SystemServerScriptsPluginEditorExtensions.UseSystemServerScriptsPluginEditor(
+            var actual = SystemWizardPluginEditorExtensions.UseSystemWizardPluginEditor(
                 applicationBuilder.ApplicationBuilderMock.Object
             );
 
