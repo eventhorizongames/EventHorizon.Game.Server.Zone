@@ -23,8 +23,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
         public async Task ShouldSendSetEventWhenOnProcessFileIsRanForFoundFileInfo()
         {
             // Given
-            Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
-            IDictionary<string, object> arguments = null;
+            var onProcessFile = default(Func<StandardFileInfo, IDictionary<string, object>, Task>);
+            var arguments = default(IDictionary<string, object>);
+            var systemsOnProcessFile = default(Func<StandardFileInfo, IDictionary<string, object>, Task>);
+            var systemsArguments = default(IDictionary<string, object>);
+
             var serverScriptsPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "Scripts"
@@ -39,7 +42,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 loadedScriptFileName
             );
             var loadedScriptFileContent = "// Script Comment";
-            var fileExtension = ".exe";
+            var fileExtension = ".csx";
             var loadedScriptFileInfo = new StandardFileInfo(
                 loadedScriptFileName,
                 loadedScriptsPath,
@@ -47,11 +50,44 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 fileExtension
             );
 
+            var systemsPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Systems_Data"
+            );
+            var systemsScriptsPath = Path.Combine(
+                systemsPath,
+                "Wizard",
+                "Wizards"
+            );
+            var systemsScriptFileName = "Script.csx";
+            var systemsScriptFileFullName = Path.Combine(
+                systemsScriptsPath,
+                systemsScriptFileName
+            );
+            var systemsScriptFileInfo = new StandardFileInfo(
+                systemsScriptFileName,
+                systemsScriptsPath,
+                systemsScriptFileFullName,
+                fileExtension
+            );
+
             var expectedFileName = loadedScriptFileName.Replace(".csx", string.Empty);
-            var expected = new SetServerScriptDetailsCommand(
+            var expectedServerScript = new SetServerScriptDetailsCommand(
                 new ServerScriptDetails(
                     expectedFileName,
                     "Loaded",
+                    loadedScriptFileContent
+                )
+            );
+            var systemsFileName = systemsScriptFileName.Replace(".csx", string.Empty);
+            var systemsFilePath = Path.Combine(
+                "Wizard",
+                "Wizards"
+            );
+            var expectedSystemScript = new SetServerScriptDetailsCommand(
+                new ServerScriptDetails(
+                    systemsFileName,
+                    systemsFilePath,
                     loadedScriptFileContent
                 )
             );
@@ -66,6 +102,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 serverScriptsPath
             );
 
+            serverInfoMock.Setup(
+                mock => mock.SystemsPath
+            ).Returns(
+                systemsPath
+            );
+
             mediatorMock.Setup(
                 mock => mock.Send(
                     It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
@@ -74,8 +116,16 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
             ).Callback<IRequest<Unit>, CancellationToken>(
                 (evt, token) =>
                 {
-                    onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
-                    arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    if (onProcessFile == null)
+                    {
+                        onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
+                    else
+                    {
+                        systemsOnProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        systemsArguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
                 }
             );
 
@@ -83,6 +133,17 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 mock => mock.Send(
                     new ReadAllTextFromFile(
                         loadedScriptFileFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                loadedScriptFileContent
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ReadAllTextFromFile(
+                        systemsScriptFileFullName
                     ),
                     CancellationToken.None
                 )
@@ -107,16 +168,115 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
                 loadedScriptFileInfo,
                 arguments
             );
+            await systemsOnProcessFile(
+                systemsScriptFileInfo,
+                systemsArguments
+            );
 
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    expected,
+                    expectedServerScript,
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedSystemScript,
                     CancellationToken.None
                 )
             );
             detailsRepositoryMock.Verify(
                 mock => mock.Clear()
+            );
+        }
+
+        [Fact]
+        public async Task ShouldNotSendSetCommandWhenExtensionIsNotCSX()
+        {
+            // Given
+            var onProcessFile = default(Func<StandardFileInfo, IDictionary<string, object>, Task>);
+            var arguments = default(IDictionary<string, object>);
+            var systemOnProcessFile = default(Func<StandardFileInfo, IDictionary<string, object>, Task>);
+            var systemArguments = default(IDictionary<string, object>);
+
+            var serverScriptsPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Scripts"
+            );
+            var loadedScriptsPath = Path.Combine(
+                serverScriptsPath,
+                "Loaded"
+            );
+            var loadedScriptFileName = "Script.exe";
+            var loadedScriptFileFullName = Path.Combine(
+                loadedScriptsPath,
+                loadedScriptFileName
+            );
+            var fileExtension = ".exe";
+            var loadedScriptFileInfo = new StandardFileInfo(
+                loadedScriptFileName,
+                loadedScriptsPath,
+                loadedScriptFileFullName,
+                fileExtension
+            );
+
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
+
+            serverInfoMock.Setup(
+                mock => mock.ServerScriptsPath
+            ).Returns(
+                serverScriptsPath
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
+                    CancellationToken.None
+                )
+            ).Callback<IRequest<Unit>, CancellationToken>(
+                (evt, token) =>
+                {
+                    if (onProcessFile == null)
+                    {
+                        onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
+                    else
+                    {
+                        systemOnProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        systemArguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
+                }
+            );
+
+            // When
+            var handler = new LoadServerScriptsCommandHandler(
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                detailsRepositoryMock.Object
+            );
+
+            await handler.Handle(
+                new LoadServerScriptsCommand(),
+                CancellationToken.None
+            );
+            onProcessFile.Should().NotBeNull();
+
+            await onProcessFile(
+                loadedScriptFileInfo,
+                arguments
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<SetServerScriptDetailsCommand>(),
+                    CancellationToken.None
+                ),
+                Times.Never()
             );
         }
     }

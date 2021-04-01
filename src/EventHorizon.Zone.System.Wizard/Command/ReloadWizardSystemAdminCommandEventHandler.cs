@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+    using EventHorizon.Zone.System.Wizard.Clear;
     using EventHorizon.Zone.System.Wizard.Load;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -38,12 +39,24 @@
                 nameof(ReloadWizardSystemAdminCommandEventHandler)
             );
 
-            var result = await _mediator.Send(
+            await _mediator.Send(
+                new ClearWizardListCommand(),
+                cancellationToken
+            );
+
+            var loadSystemsResult = await _mediator.Send(
+                new LoadSystemsWizardListCommand(),
+                cancellationToken
+            );
+
+            var loadCustomResult = await _mediator.Send(
                 new LoadWizardListCommand(),
                 cancellationToken
             );
 
-            if (!result)
+            if (!loadSystemsResult 
+                || !loadCustomResult
+            )
             {
                 await _mediator.Send(
                     new RespondToAdminCommand(
@@ -61,8 +74,7 @@
             }
 
             await _mediator.Send(
-                new RespondToAdminCommand(
-                    notification.ConnectionId,
+                new SendAdminCommandResponseToAllCommand(
                     new StandardAdminCommandResponse(
                         notification.Command.Command,
                         notification.Command.RawCommand,

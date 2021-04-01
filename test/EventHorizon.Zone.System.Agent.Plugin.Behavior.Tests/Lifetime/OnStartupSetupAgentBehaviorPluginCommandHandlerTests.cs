@@ -23,7 +23,6 @@
             // Given
             var serverScriptsPath = "server-scripts-path";
             var serverPath = "server-path";
-            var systemPath = "system-path";
             var expectedList = new List<CreateDirectory>
             {
                 new CreateDirectory(
@@ -53,11 +52,6 @@
                 mock => mock.ServerPath
             ).Returns(
                 serverPath
-            );
-            serverInfoMock.Setup(
-                mock => mock.SystemPath
-            ).Returns(
-                systemPath
             );
 
             // When
@@ -95,7 +89,6 @@
             // Given
             var serverScriptsPath = "server-scripts-path";
             var serverPath = "server-path";
-            var systemPath = "system-path";
             var behaviorScriptPath = Path.Combine(
                 serverScriptsPath,
                 "Behavior"
@@ -118,11 +111,6 @@
                 mock => mock.ServerPath
             ).Returns(
                 serverPath
-            );
-            serverInfoMock.Setup(
-                mock => mock.SystemPath
-            ).Returns(
-                systemPath
             );
 
             mediatorMock.Setup(
@@ -167,87 +155,6 @@
             mediatorMock.Verify(
                 mock => mock.Send(
                     It.IsAny<CreateDirectory>(),
-                    CancellationToken.None
-                ),
-                Times.Never()
-            );
-        }
-
-        [Fact]
-        public async Task ShouldNotCreateDefaultFilesWhenExisting()
-        {
-            // Given
-            var serverScriptsPath = "server-scripts-path";
-            var serverPath = "server-path";
-            var systemPath = "system-path";
-            var defaultShapeFile = Path.Combine(
-                systemPath,
-                "Behaviors",
-                "$DEFAULT$SHAPE.json"
-            );
-
-            var loggerMock = new Mock<ILogger<OnStartupSetupAgentBehaviorPluginCommandHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
-
-            serverInfoMock.Setup(
-                mock => mock.ServerScriptsPath
-            ).Returns(
-                serverScriptsPath
-            );
-            serverInfoMock.Setup(
-                mock => mock.ServerPath
-            ).Returns(
-                serverPath
-            );
-            serverInfoMock.Setup(
-                mock => mock.SystemPath
-            ).Returns(
-                systemPath
-            );
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesDirectoryExist(
-                        It.IsAny<string>()
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesFileExist(
-                        defaultShapeFile
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
-
-            // When
-            var handler = new OnStartupSetupAgentBehaviorPluginCommandHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverInfoMock.Object
-            );
-            var actual = await handler.Handle(
-                new OnStartupSetupAgentBehaviorPluginCommand(),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Should().Be(
-                new OnServerStartupResult(
-                    true
-                )
-            );
-
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    It.IsAny<WriteAllTextToFile>(),
                     CancellationToken.None
                 ),
                 Times.Never()

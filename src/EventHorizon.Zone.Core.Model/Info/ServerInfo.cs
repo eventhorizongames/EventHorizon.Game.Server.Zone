@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.Core.Model.Info
         /// The Path to save Server generated content.
         /// </summary>
         string GeneratedPath { get; }
-        string SystemPath { get; }
+        string SystemsPath { get; }
         string SystemBackupPath { get; }
         string AppDataPath { get; }
         string PluginsPath { get; }

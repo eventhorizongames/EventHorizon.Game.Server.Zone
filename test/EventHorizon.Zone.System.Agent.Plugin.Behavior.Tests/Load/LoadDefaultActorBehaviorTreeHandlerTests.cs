@@ -18,12 +18,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
         public async Task ShouldRegisterDefaultBehaviorTreeShapeWhenCalled()
         {
             // Given
-            var systemPath = Path.Combine(
+            var systemsPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
-                "System"
+                "Systems"
             );
             var defaultBehaviorShapePath = Path.Combine(
-                systemPath,
+                systemsPath,
+                "Agent",
+                "Plugin",
+                "Behavior",
                 "Behaviors",
                 "$DEFAULT$SHAPE.json"
             );
@@ -33,9 +36,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
 
             serverInfoMock.SetupGet(
-                mock => mock.SystemPath
+                mock => mock.SystemsPath
             ).Returns(
-                systemPath
+                systemsPath
             );
 
             fileLoaderMock.Setup(

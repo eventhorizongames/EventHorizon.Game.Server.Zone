@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Events.Query;
+    using EventHorizon.Zone.System.Wizard.Events.Run;
     using EventHorizon.Zone.System.Wizard.Model;
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
@@ -15,6 +16,21 @@
     {
         public Task<CommandResult<IEnumerable<WizardMetadata>>> Wizard_All() => _mediator.Send(
             new QueryForAllWizards(),
+            Context.ConnectionAborted
+        );
+
+        public Task<StandardCommandResult> Wizard_RunScriptProcessor(
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            WizardData wizardData
+        ) => _mediator.Send(
+            new RunWizardScriptProcessorCommand(
+                wizardId,
+                wizardStepId,
+                processorScriptId,
+                wizardData
+            ),
             Context.ConnectionAborted
         );
     }

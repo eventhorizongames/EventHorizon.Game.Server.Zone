@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <Folder Include="Game\" />
+        <Folder Include="Systems_Data\" />
         <Folder Include="wwwroot\" />
         <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />

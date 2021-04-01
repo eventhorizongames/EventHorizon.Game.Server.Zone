@@ -26,6 +26,7 @@
             var data = new { };
 
             var expected = new LoadWizardListCommand();
+            var expectedSystemCommand = new LoadSystemsWizardListCommand();
 
             var loggerMock = new Mock<ILogger<ReloadWizardSystemAdminCommandEventHandler>>();
             var mediatorMock = new Mock<IMediator>();
@@ -55,6 +56,55 @@
                     CancellationToken.None
                 ),
                 Times.Never()
+            );
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expectedSystemCommand,
+                    CancellationToken.None
+                ),
+                Times.Never()
+            );
+        }
+
+        [Fact]
+        public async Task ShouldSendLoadSystemsWizardListCommandWhenCommandIsSystemReload()
+        {
+            // Given
+            var connectionId = "command-id";
+            var rawCommand = "raw-command";
+            var command = "reload-system";
+            var commandParts = new List<string>();
+            var data = new { };
+
+            var expected = new LoadSystemsWizardListCommand();
+
+            var loggerMock = new Mock<ILogger<ReloadWizardSystemAdminCommandEventHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+
+            // When
+            var handler = new ReloadWizardSystemAdminCommandEventHandler(
+                loggerMock.Object,
+                mediatorMock.Object
+            );
+            await handler.Handle(
+                new AdminCommandEvent(
+                    connectionId,
+                    new StandardAdminCommand(
+                        rawCommand,
+                        command,
+                        commandParts
+                    ),
+                    data
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    expected,
+                    CancellationToken.None
+                )
             );
         }
 
@@ -111,8 +161,7 @@
             var data = new { };
             var responseMessage = "wizard_system_reloaded";
 
-            var expected = new RespondToAdminCommand(
-                connectionId,
+            var expected = new SendAdminCommandResponseToAllCommand(
                 new StandardAdminCommandResponse(
                     command,
                     rawCommand,
@@ -123,6 +172,15 @@
 
             var loggerMock = new Mock<ILogger<ReloadWizardSystemAdminCommandEventHandler>>();
             var mediatorMock = new Mock<IMediator>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new LoadSystemsWizardListCommand(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new StandardCommandResult()
+            );
 
             mediatorMock.Setup(
                 mock => mock.Send(
@@ -186,7 +244,7 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    It.IsAny<LoadWizardListCommand>(),
+                    It.IsAny<LoadSystemsWizardListCommand>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(

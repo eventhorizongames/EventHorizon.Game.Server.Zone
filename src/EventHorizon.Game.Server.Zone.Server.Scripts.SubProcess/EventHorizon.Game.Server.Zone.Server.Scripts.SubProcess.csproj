@@ -17,6 +17,12 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <CopyToPublishDirectory>Never</CopyToPublishDirectory>
         </Content>
+        <!-- Include Systems_Data -->
+        <Content Include="..\EventHorizon.Game.Server.Zone\Systems_Data\**\*">
+            <Link>Systems_Data\%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>

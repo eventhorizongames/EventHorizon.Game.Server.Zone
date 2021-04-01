@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.Core.Info
         public string AssembliesPath { get; }
         public string GeneratedPath { get; }
         public string AppDataPath { get; }
-        public string SystemPath { get; }
+        public string SystemsPath { get; }
         public string SystemBackupPath { get; }
         public string AdminPath { get; }
         public string PluginsPath { get; }
@@ -38,7 +38,7 @@ namespace EventHorizon.Zone.Core.Info
             AppDataPath = GenerateAppDataPath(
                 hostEnvironment
             );
-            SystemPath = GenerateSystemPath(
+            SystemsPath = GenerateSystemsPath(
                 hostEnvironment
             );
             SystemBackupPath = GenerateSystemBackupPath(
@@ -110,16 +110,17 @@ namespace EventHorizon.Zone.Core.Info
                 "App_Data"
             );
         }
-        private string GenerateSystemPath(
+
+        private string GenerateSystemsPath(
             IHostEnvironment hostEnvironment
         )
         {
             return Path.Combine(
                 hostEnvironment.ContentRootPath,
-                "App_Data",
-                "System"
+                "Systems_Data"
             );
         }
+
         private string GenerateSystemBackupPath(
             IHostEnvironment hostEnvironment
         )

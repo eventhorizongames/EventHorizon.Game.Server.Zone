@@ -20,7 +20,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
             var expectedAssembliesPathPath = AppDomain.CurrentDomain.BaseDirectory;
             var expectedGeneratedPath = ToValidPath(contentRootPath, "App_Data", "_generated");
             var expectedAppDataPath = ToValidPath(contentRootPath, "App_Data");
-            var expectedSystemPath = ToValidPath(contentRootPath, "App_Data", "System");
+            var expectedSystemsPath = ToValidPath(contentRootPath, "Systems_Data");
             var expectedSystemBackupPath = ToValidPath(contentRootPath, "App_Data", "__Backup__");
             var expectedAdminPath = ToValidPath(contentRootPath, "App_Data", "Admin");
             var expectedPluginsPath = ToValidPath(contentRootPath, "App_Data", "Plugins");
@@ -51,7 +51,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
             Assert.Equal(expectedAssembliesPathPath, serverInfo.AssembliesPath);
             Assert.Equal(expectedGeneratedPath, serverInfo.GeneratedPath);
             Assert.Equal(expectedAppDataPath, serverInfo.AppDataPath);
-            Assert.Equal(expectedSystemPath, serverInfo.SystemPath);
+            Assert.Equal(expectedSystemsPath, serverInfo.SystemsPath);
             Assert.Equal(expectedSystemBackupPath, serverInfo.SystemBackupPath);
             Assert.Equal(expectedAdminPath, serverInfo.AdminPath);
             Assert.Equal(expectedPluginsPath, serverInfo.PluginsPath);

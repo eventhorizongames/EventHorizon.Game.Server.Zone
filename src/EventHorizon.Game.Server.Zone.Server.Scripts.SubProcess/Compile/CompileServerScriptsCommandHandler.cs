@@ -56,36 +56,10 @@
             );
             // Load all scripts from File System
             var serverScriptList = new List<ServerScriptDetails>();
-            await _mediator.Send(
-                new ProcessFilesRecursivelyFromDirectory(
-                    _serverInfo.ServerScriptsPath,
-                    async (
-                        fileInfo,
-                        arguments
-                    ) =>
-                    {
-                        if (!fileInfo.FullName.EndsWith(
-                            ".csx"
-                        ))
-                        {
-                            return;
-                        }
 
-                        var rootPath = arguments["RootPath"] as string;
-                        serverScriptList.Add(
-                            new ServerScriptDetails(
-                                fileName: fileInfo.Name.Replace(".csx", string.Empty),
-                                path: rootPath.MakePathRelative(
-                                    fileInfo.DirectoryName
-                                ),
-                                scriptString: await _mediator.Send(
-                                    new ReadAllTextFromFile(
-                                        fileInfo.FullName
-                                    )
-                                )
-                            )
-                        );
-                    },
+            var loadServerScriptsResult = await _mediator.Send(
+                new LoadScriptsFromDirectoryCommand(
+                    _serverInfo.ServerScriptsPath,
                     new Dictionary<string, object>
                     {
                         ["RootPath"] = _serverInfo.ServerScriptsPath,
@@ -93,9 +67,44 @@
                 ),
                 cancellationToken
             );
+            if (!loadServerScriptsResult)
+            {
+                _logger.LogError(
+                    "Failed to load Server Scripts. {ErrorCode}",
+                    loadServerScriptsResult.ErrorCode
+                );
+                return "SERVER_SCRIPTS_LOAD_FAILED";
+            }
+
+            serverScriptList.AddRange(
+                loadServerScriptsResult.Result
+            );
+
+            var loadSystemsScriptsResult = await _mediator.Send(
+                new LoadScriptsFromDirectoryCommand(
+                    _serverInfo.SystemsPath,
+                    new Dictionary<string, object>
+                    {
+                        ["RootPath"] = _serverInfo.SystemsPath,
+                    }
+                ),
+                cancellationToken
+            );
+            if (!loadSystemsScriptsResult)
+            {
+                _logger.LogError(
+                    "Failed to load System Scripts. {ErrorCode}",
+                    loadSystemsScriptsResult.ErrorCode
+                );
+                return "SYSTEMS_SCRIPTS_LOAD_FAILED";
+            }
+
+            serverScriptList.AddRange(
+                loadSystemsScriptsResult.Result
+            );
 
             _logger.LogInformation(
-                "Loaded {ScriptCount} Server Scripts.",
+                "Loaded {ScriptCount} System/Server Scripts.",
                 serverScriptList.Count
             );
 

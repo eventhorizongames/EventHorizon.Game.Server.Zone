@@ -19,6 +19,8 @@
         )
         {
             return app.SendMediatorCommand(
+                new LoadSystemsWizardListCommand()
+            ).SendMediatorCommand(
                 new LoadWizardListCommand()
             );
         }

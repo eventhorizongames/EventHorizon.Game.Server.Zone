@@ -1,7 +1,7 @@
 {
-    "Id": "6CC5234A-4962-4D00-83B7-0D2D8B033D84",
-    "Name": "Script Observer",
-    "Description": "Create a Script Event that can triggered any Observers.",
+    "Id": "06E4ED06-9D14-4AA3-8983-92B45BA44185",
+    "Name": "[SYSTEM] Script Observer",
+    "Description": "Create a Script Event that can triggered any Observers",
     "FirstStep": "B4D20B3C-C5A9-4D49-ADF2-C594D4F93DB6",
     "StepList": [
         {

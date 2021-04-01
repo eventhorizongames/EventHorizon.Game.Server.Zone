@@ -13,15 +13,15 @@
     using global::System.Threading.Tasks;
     using MediatR;
 
-    public class LoadWizardListCommandHandler
-        : IRequestHandler<LoadWizardListCommand, StandardCommandResult>
+    public class LoadSystemsWizardListCommandHandler
+        : IRequestHandler<LoadSystemsWizardListCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
         private readonly IJsonFileLoader _jsonFileLoader;
         private readonly WizardRepository _wizardRepository;
 
-        public LoadWizardListCommandHandler(
+        public LoadSystemsWizardListCommandHandler(
             IMediator mediator,
             ServerInfo serverInfo,
             IJsonFileLoader jsonFileLoader,
@@ -35,14 +35,15 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            LoadWizardListCommand request,
+            LoadSystemsWizardListCommand request,
             CancellationToken cancellationToken
         )
         {
             await _mediator.Send(
                 new ProcessFilesRecursivelyFromDirectory(
                     Path.Combine(
-                        _serverInfo.ServerPath,
+                        _serverInfo.SystemsPath,
+                        "Wizard",
                         "Wizards"
                     ),
                     OnProcessFile,

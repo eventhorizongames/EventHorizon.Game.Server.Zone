@@ -39,16 +39,23 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
 
             await _mediator.Send(
                 new ProcessFilesRecursivelyFromDirectory(
-                    Path.Combine(
-                        _serverInfo.ServerScriptsPath
-                    ),
+                    _serverInfo.ServerScriptsPath,
                     OnProcessFile,
                     new Dictionary<string, object>
                     {
-                        {
-                            "RootPath",
-                            $"{_serverInfo.ServerScriptsPath}{Path.DirectorySeparatorChar}"
-                        },
+                        ["RootPath"] = _serverInfo.ServerScriptsPath,
+                    }
+                ),
+                cancellationToken
+            );
+
+            await _mediator.Send(
+                new ProcessFilesRecursivelyFromDirectory(
+                    _serverInfo.SystemsPath,
+                    OnProcessFile,
+                    new Dictionary<string, object>
+                    {
+                        ["RootPath"] = _serverInfo.SystemsPath,
                     }
                 ),
                 cancellationToken
@@ -62,6 +69,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
             IDictionary<string, object> arguments
         )
         {
+            if (fileInfo.Extension != ".csx")
+            {
+                return;
+            }
+
             var rootPath = arguments["RootPath"] as string;
 
             // Register Script with Platform

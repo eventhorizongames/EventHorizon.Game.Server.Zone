@@ -17,20 +17,21 @@
     using Moq;
     using Xunit;
 
-    public class LoadWizardListCommandHandlerTests
+    public class LoadSystemsWizardListCommandHandlerTests
     {
         [Fact]
         public async Task ShouldHaveWizardsServerPathWhenProcessingFilesRecursively()
         {
             // Given
-            var serverPath = "server-path";
+            var systemsPath = "systems-path";
 
             var fromDirectory = default(string);
             var onProcessFile = default(Func<StandardFileInfo, IDictionary<string, object>, Task>);
             var arguments = default(IDictionary<string, object>);
 
             var expected = Path.Combine(
-                serverPath,
+                systemsPath,
+                "Wizard",
                 "Wizards"
             );
 
@@ -54,20 +55,20 @@
             );
 
             serverInfoMock.Setup(
-                mock => mock.ServerPath
+                mock => mock.SystemsPath
             ).Returns(
-                serverPath
+                systemsPath
             );
 
             // When
-            var handler = new LoadWizardListCommandHandler(
+            var handler = new LoadSystemsWizardListCommandHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 wizardRepositoryMock.Object
             );
             var actual = await handler.Handle(
-                new LoadWizardListCommand(),
+                new LoadSystemsWizardListCommand(),
                 CancellationToken.None
             );
 
@@ -86,7 +87,7 @@
         )
         {
             // Given
-            var serverPath = "server-path";
+            var systemsPath = "systems-path";
             var fileFullName = "file-full-name";
             var fileInfo = new StandardFileInfo(
                 "name",
@@ -124,9 +125,9 @@
             );
 
             serverInfoMock.Setup(
-                mock => mock.ServerPath
+                mock => mock.SystemsPath
             ).Returns(
-                serverPath
+                systemsPath
             );
 
             jsonFileLoaderMock.Setup(
@@ -138,14 +139,14 @@
             );
 
             // When
-            var handler = new LoadWizardListCommandHandler(
+            var handler = new LoadSystemsWizardListCommandHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 wizardRepositoryMock.Object
             );
             await handler.Handle(
-                new LoadWizardListCommand(),
+                new LoadSystemsWizardListCommand(),
                 CancellationToken.None
             );
 
@@ -176,7 +177,7 @@
         {
             // Given
             var wizardId = "is-valid-id";
-            var serverPath = "server-path";
+            var systemsPath = "systems-path";
             var fileFullName = "file-full-name";
             var fileInfo = new StandardFileInfo(
                 "name",
@@ -214,9 +215,9 @@
             );
 
             serverInfoMock.Setup(
-                mock => mock.ServerPath
+                mock => mock.SystemsPath
             ).Returns(
-                serverPath
+                systemsPath
             );
 
             jsonFileLoaderMock.Setup(
@@ -228,14 +229,14 @@
             );
 
             // When
-            var handler = new LoadWizardListCommandHandler(
+            var handler = new LoadSystemsWizardListCommandHandler(
                 mediatorMock.Object,
                 serverInfoMock.Object,
                 jsonFileLoaderMock.Object,
                 wizardRepositoryMock.Object
             );
             await handler.Handle(
-                new LoadWizardListCommand(),
+                new LoadSystemsWizardListCommand(),
                 CancellationToken.None
             );
 

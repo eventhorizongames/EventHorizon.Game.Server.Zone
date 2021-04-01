@@ -39,7 +39,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                     "DEFAULT",
                     await _fileLoader.GetFile<SerializedAgentBehaviorTree>(
                         Path.Combine(
-                            _serverInfo.SystemPath,
+                            _serverInfo.SystemsPath,
+                            "Agent",
+                            "Plugin",
+                            "Behavior",
                             "Behaviors",
                             "$DEFAULT$SHAPE.json"
                         )

@@ -19,6 +19,12 @@
         ) : base(errorCode)
         {
         }
+
+        public static implicit operator StandardCommandResult(
+            string errorCode
+        ) => new(
+            errorCode
+        );
     }
 
     public struct VoidResult

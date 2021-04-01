@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Lifetime
 {
     using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -51,11 +49,6 @@
                 cancellationToken
             );
 
-            // Check/Create Default Actor Behavior Tree
-            await CheckCreateDefaultBehaviorTree(
-                cancellationToken
-            );
-
             return new OnServerStartupResult(
                 true
             );
@@ -81,42 +74,6 @@
                 await _mediator.Send(
                     new CreateDirectory(
                         directory
-                    ),
-                    cancellationToken
-                );
-            }
-        }
-
-        private async Task CheckCreateDefaultBehaviorTree(
-            CancellationToken cancellationToken
-        )
-        {
-            var defaultShapeFile = Path.Combine(
-                _serverInfo.SystemPath,
-                "Behaviors",
-                "$DEFAULT$SHAPE.json"
-            );
-            // Validate Directory Exists
-            if (!await _mediator.Send(
-                new DoesFileExist(
-                    defaultShapeFile
-                ),
-                cancellationToken
-            ))
-            {
-                _logger.LogWarning(
-                    "Default Behavior Shape was not found, creating..."
-                );
-                await _mediator.Send(
-                    new CreateFile(
-                        defaultShapeFile
-                    ),
-                    cancellationToken
-                );
-                await _mediator.Send(
-                    new WriteAllTextToFile(
-                        defaultShapeFile,
-                        BehaviorDefaultSettings.DEFAULT_SHAPE
                     ),
                     cancellationToken
                 );
