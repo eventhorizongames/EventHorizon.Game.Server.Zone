@@ -14,6 +14,24 @@
 
         public void Clear() => _map.Clear();
 
+        public Option<WizardMetadata> Get(
+            string id
+        )
+        {
+            if (_map.TryGetValue(
+                id,
+                out var value
+            ))
+            {
+                return value
+                    .ToOption();
+            }
+
+            return new(
+                null
+            );
+        }
+
         public void Set(
             string id,
             WizardMetadata wizard

@@ -9,6 +9,10 @@
 
         void Clear();
 
+        Option<WizardMetadata> Get(
+            string id
+        );
+
         void Set(
             string id,
             WizardMetadata wizard

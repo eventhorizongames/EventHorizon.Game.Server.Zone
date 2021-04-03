@@ -98,5 +98,51 @@
                 .And
                 .Subject.Should().NotContain(wizard1);
         }
+
+        [Fact]
+        public void ShouldReturnEmptyOptionWhenWizardIsNotInRepository()
+        {
+            // Given
+            var wizardId = "wizard-1";
+
+            // When
+            var repository = new StandardWizardRepository();
+            var actual = repository.Get(
+                wizardId
+            );
+
+            // Then
+            actual.HasValue
+                .Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldReturnWizardInOptionWhenRepositoryContainsWizard()
+        {
+            // Given
+            var wizardId = "wizard-1";
+            var wizard = new WizardMetadata
+            {
+                Id = wizardId,
+                Name = "Fist Set Wizard",
+            };
+
+            // When
+            var repository = new StandardWizardRepository();
+            repository.Set(
+                wizardId,
+                wizard
+            );
+
+            var actual = repository.Get(
+                wizardId
+            );
+
+            // Then
+            actual.HasValue
+                .Should().BeTrue();
+            actual.Value
+                .Should().Be(wizard);
+        }
     }
 }

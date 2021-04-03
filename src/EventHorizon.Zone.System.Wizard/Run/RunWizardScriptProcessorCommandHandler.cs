@@ -1,7 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Run
 {
     using EventHorizon.Zone.Core.Model.Command;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+    using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Events.Run;
+    using EventHorizon.Zone.System.Wizard.Model;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -9,25 +14,84 @@
     public class RunWizardScriptProcessorCommandHandler
         : IRequestHandler<RunWizardScriptProcessorCommand, StandardCommandResult>
     {
+        private readonly IMediator _mediator;
+        private readonly WizardRepository _wizardRepository;
+
+        public RunWizardScriptProcessorCommandHandler(
+            IMediator mediator,
+            WizardRepository wizardRepository
+        )
+        {
+            _mediator = mediator;
+            _wizardRepository = wizardRepository;
+        }
+
         public async Task<StandardCommandResult> Handle(
             RunWizardScriptProcessorCommand request,
             CancellationToken cancellationToken
         )
         {
-            // TODO: Finish Implementation
-
-            // TODO: Get Wizard
-            // TODO: Get Wizard Step from Wizard
             var wizardData = request.WizardData;
-            // TODO: Create Script Data Dictionary
-
-            // TODO: Run Script found in Wizard Step
-
-            await Task.Delay(2000);
-
-            return new(
-                "NOT_IMPLEMENTED"
+            var wizardOption = _wizardRepository.Get(
+                request.WizardId
             );
+            if (!wizardOption.HasValue)
+            {
+                return "wizard_not_found";
+            }
+
+            var wizardStep = wizardOption.Value.StepList.FirstOrDefault(
+                a => a.Id == request.WizardStepId
+            );
+            if (wizardStep.IsNull())
+            {
+                return "wizard_step_not_found";
+            }
+
+            var processorScriptId = string.Empty;
+            if (IsInvalidProcessorId(
+                wizardStep,
+                request.ProcessorScriptId,
+                out processorScriptId
+            ))
+            {
+                return "wizard_invalid_processor_script_id";
+            }
+
+            var scriptData = new Dictionary<string, object>
+            {
+                ["Wizard"] = wizardOption.Value,
+                ["WizardStep"] = wizardStep,
+                ["WizardData"] = wizardData,
+            };
+
+            var result = await _mediator.Send(
+                new RunServerScriptCommand(
+                    processorScriptId,
+                    scriptData
+                ),
+                cancellationToken
+            );
+
+            if (result.IsNull()
+                || !result.Success
+            )
+            {
+                return result?.Message ?? "wizard_failed_script_run";
+            }
+
+            return new();
         }
+
+        private static bool IsInvalidProcessorId(
+            WizardStep wizardStep,
+            string expectedProcessorScriptId,
+            out string processorScriptId
+        ) => !wizardStep.Details.TryGetValue(
+            "ProcessorScriptId",
+            out processorScriptId
+        ) || string.IsNullOrWhiteSpace(
+            processorScriptId
+        ) || processorScriptId != expectedProcessorScriptId;
     }
 }
