@@ -60,12 +60,22 @@ public class __SCRIPT__
                 "Observer",
                 contentFileName
             );
+            var fileToCreateFullName = Path.Combine(
+                absoluteDirectory,
+                fileToCreate
+            );
+            if(await services.Mediator.Send(
+                new DoesFileExist(
+                    fileToCreateFullName
+                )
+            ))
+            {
+                // Already exists, do not overwrite file.
+                continue;
+            }
             await services.Mediator.Send(
-                new AppendTextToFile(
-                    Path.Combine(
-                        absoluteDirectory,
-                        fileToCreate
-                    ),
+                new WriteAllTextToFile(
+                    fileToCreateFullName,
                     await CreateFile(
                         services.Mediator,
                         folder,
