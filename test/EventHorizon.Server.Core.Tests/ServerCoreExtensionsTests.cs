@@ -84,13 +84,6 @@ namespace EventHorizon.Server.Core.Tests
             Assert.Contains(
                 serviceCollectionMock,
                 service =>
-                    service.ServiceType == typeof(CoreServerConnection)
-                    &&
-                    service.ImplementationFactory(serviceProviderMock.Object) == expectedCoreServerConnection
-            );
-            Assert.Contains(
-                serviceCollectionMock,
-                service =>
                     service.ServiceType == typeof(IConfigureOptions<CoreSettings>)
             );
         }

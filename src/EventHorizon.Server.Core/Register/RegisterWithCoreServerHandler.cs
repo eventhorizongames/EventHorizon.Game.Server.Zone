@@ -17,19 +17,19 @@ namespace EventHorizon.Server.Core.Register
         private readonly ILogger _logger;
         private readonly ZoneSettings _zoneSettings;
         private readonly IServerProperty _serverProperty;
-        private readonly CoreServerConnection _connection;
+        private readonly CoreServerConnectionFactory _connectionFactory;
 
         public RegisterWithCoreServerHandler(
             ILogger<RegisterWithCoreServerHandler> logger,
             ZoneSettings zoneSettings,
             IServerProperty serverProperty,
-            CoreServerConnection connection
+            CoreServerConnectionFactory connectionFactory
         )
         {
             _logger = logger;
             _zoneSettings = zoneSettings;
             _serverProperty = serverProperty;
-            _connection = connection;
+            _connectionFactory = connectionFactory;
         }
 
         public async Task Handle(
@@ -39,7 +39,8 @@ namespace EventHorizon.Server.Core.Register
         {
             try
             {
-                var response = await _connection.Api
+                var connection = await _connectionFactory.GetConnection();
+                var response = await connection.Api
                     .RegisterZone(
                         new ZoneRegistrationDetails(
                             _serverProperty.Get<string>(

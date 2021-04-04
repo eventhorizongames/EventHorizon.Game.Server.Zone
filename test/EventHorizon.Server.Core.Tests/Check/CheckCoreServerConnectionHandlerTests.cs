@@ -8,6 +8,7 @@ namespace EventHorizon.Server.Core.Tests.Check
     using EventHorizon.Server.Core.Events.Stop;
     using EventHorizon.Server.Core.State;
     using MediatR;
+    using Microsoft.Extensions.Logging;
     using Moq;
     using Xunit;
 
@@ -18,6 +19,7 @@ namespace EventHorizon.Server.Core.Tests.Check
         {
             // Given
 
+            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
@@ -32,6 +34,7 @@ namespace EventHorizon.Server.Core.Tests.Check
 
             // When
             var handler = new CheckCoreServerConnectionHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverCoreCheckStateMock.Object
             );
@@ -52,6 +55,7 @@ namespace EventHorizon.Server.Core.Tests.Check
             // Given
             var expected = new RegisterWithCoreServer();
 
+            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
@@ -66,6 +70,7 @@ namespace EventHorizon.Server.Core.Tests.Check
 
             // When
             var handler = new CheckCoreServerConnectionHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverCoreCheckStateMock.Object
             );
@@ -87,6 +92,7 @@ namespace EventHorizon.Server.Core.Tests.Check
         public async Task ShouldCallCheckWhenCoreServerIsRegistered()
         {
             // Given
+            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
@@ -101,6 +107,7 @@ namespace EventHorizon.Server.Core.Tests.Check
 
             // When
             var handler = new CheckCoreServerConnectionHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverCoreCheckStateMock.Object
             );
@@ -124,6 +131,7 @@ namespace EventHorizon.Server.Core.Tests.Check
         )
         {
             // Given
+            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
@@ -144,6 +152,7 @@ namespace EventHorizon.Server.Core.Tests.Check
 
             // When
             var handler = new CheckCoreServerConnectionHandler(
+                loggerMock.Object,
                 mediatorMock.Object,
                 serverCoreCheckStateMock.Object
             );

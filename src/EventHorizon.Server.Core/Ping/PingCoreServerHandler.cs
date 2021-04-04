@@ -14,17 +14,17 @@ namespace EventHorizon.Server.Core.Ping
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
-        private readonly CoreServerConnection _connection;
+        private readonly CoreServerConnectionFactory _connectionFactory;
 
         public PingCoreServerHandler(
             ILogger<PingCoreServerHandler> logger,
             IMediator mediator,
-            CoreServerConnection connection
+            CoreServerConnectionFactory connectionFactory
         )
         {
             _logger = logger;
             _mediator = mediator;
-            _connection = connection;
+            _connectionFactory = connectionFactory;
         }
 
         public async Task Handle(
@@ -41,7 +41,8 @@ namespace EventHorizon.Server.Core.Ping
                     return;
                 }
 
-                await _connection.Api.Ping();
+                var connection = await _connectionFactory.GetConnection();
+                await connection.Api.Ping();
                 _logger.LogWarning(
                     "Zone Core Server Ping."
                 );

@@ -23,12 +23,8 @@ namespace EventHorizon.Server.Core
 
             .AddSingleton<CoreServerConnectionCache, SystemCoreServerConnectionCache>()
             .AddTransient<CoreServerConnectionFactory, SystemCoreServerConnectionFactory>()
-            .AddTransient<CoreServerConnection>(
-                services => services.GetService<CoreServerConnectionFactory>()
-                    .GetConnection().GetAwaiter().GetResult()
-            )
 
-            .Configure<CoreSettings>(
+            .Configure(
                 configureCoreSettings
             )
         ;

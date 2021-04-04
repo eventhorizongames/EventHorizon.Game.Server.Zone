@@ -21,13 +21,21 @@
 
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
+
+            connectionFactoryMock.Setup(
+                mock => mock.GetConnection()
+            ).ReturnsAsync(
+                coreServerConnectionMock.Object
+            );
 
             // When
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                coreServerConnectionMock.Object
+                connectionFactoryMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),
@@ -53,7 +61,15 @@
 
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
+
+            connectionFactoryMock.Setup(
+                mock => mock.GetConnection()
+            ).ReturnsAsync(
+                coreServerConnectionMock.Object
+            );
 
             mediatorMock.Setup(
                 mock => mock.Send(
@@ -74,7 +90,7 @@
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                coreServerConnectionMock.Object
+                connectionFactoryMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),
@@ -103,7 +119,15 @@
 
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
+            var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
+
+            connectionFactoryMock.Setup(
+                mock => mock.GetConnection()
+            ).ReturnsAsync(
+                coreServerConnectionMock.Object
+            );
 
             mediatorMock.Setup(
                 mock => mock.Send(
@@ -130,7 +154,7 @@
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                coreServerConnectionMock.Object
+                connectionFactoryMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),

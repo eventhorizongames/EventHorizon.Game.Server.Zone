@@ -5,11 +5,34 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="App_Data\Server\Scripts\Observers\" />
+        <Folder Include="App_Data\Server\Wizards\" />
         <Folder Include="Game\" />
-        <Folder Include="Systems_Data\" />
         <Folder Include="wwwroot\" />
         <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Systems_Data\Wizard\Templates\Observer\Event.csx.template" />
+      <None Remove="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template" />
+      <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template" />
+      <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Systems_Data\Wizard\Templates\Observer\Event.csx.template">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
     <ItemGroup>

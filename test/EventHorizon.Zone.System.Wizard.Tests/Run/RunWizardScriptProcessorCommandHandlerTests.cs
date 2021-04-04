@@ -34,7 +34,7 @@
                 Description = "wziard-step-description",
                 Details = new WizardStepDetails
                 {
-                    ["ProcessorScriptId"] = processorScriptId,
+                    ["Processor:ScriptId"] = processorScriptId,
                 },
                 NextStep = "next-step-id",
                 PreviousStep = "previous-step-id",
@@ -228,7 +228,7 @@
                         Id = wizardStepId,
                         Details = new WizardStepDetails
                         {
-                            ["ProcessorScriptId"] = stepProcessorScriptId,
+                            ["Processor:ScriptId"] = stepProcessorScriptId,
                         }
                     }
                 }
@@ -289,7 +289,7 @@
                         Id = wizardStepId,
                         Details = new WizardStepDetails
                         {
-                            ["ProcessorScriptId"] = processorScriptId,
+                            ["Processor:ScriptId"] = processorScriptId,
                         }
                     }
                 }
@@ -363,7 +363,7 @@
                         Id = wizardStepId,
                         Details = new WizardStepDetails
                         {
-                            ["ProcessorScriptId"] = processorScriptId,
+                            ["Processor:ScriptId"] = processorScriptId,
                         }
                     }
                 }

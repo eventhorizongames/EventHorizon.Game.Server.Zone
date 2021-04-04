@@ -31,7 +31,8 @@
             "Name": "Validate Script Observer",
             "Description": "Validate the Folder/Name are valid for Script Observer Creation",
             "Details": {
-                "ProcessorScriptId": "Wizard_Scripts_Validation_ScriptObserver"
+                "Processor:ScriptId": "Wizard_Scripts_Validation_ScriptObserver",
+                "disablePrevious": "true"
             },
             "PreviousStep": "5C91226B-CDAB-4BC1-8DF8-662652B92942",
             "NextStep": "F550C884-B2A7-4C3F-B291-E05A8EF60707"
@@ -42,7 +43,8 @@
             "Name": "Create Script Observer",
             "Description": "Create the Scripts necessary for Handling an Observer",
             "Details": {
-                "ProcessorScriptId": "Wizard_Scripts_Processor_CreateScriptObserver"
+                "Processor:ScriptId": "Wizard_Scripts_Processor_CreateScriptObserver",
+                "DisablePrevious": "true"
             },
             "PreviousStep": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792",
             "NextStep": "4F637533-10FA-4599-943A-580CDFE9AFDD"

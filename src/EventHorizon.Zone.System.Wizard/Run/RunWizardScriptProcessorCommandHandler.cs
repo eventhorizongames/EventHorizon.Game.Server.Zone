@@ -88,7 +88,7 @@
             string expectedProcessorScriptId,
             out string processorScriptId
         ) => !wizardStep.Details.TryGetValue(
-            "ProcessorScriptId",
+            "Processor:ScriptId",
             out processorScriptId
         ) || string.IsNullOrWhiteSpace(
             processorScriptId

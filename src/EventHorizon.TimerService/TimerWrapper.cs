@@ -104,7 +104,7 @@ namespace EventHorizon.TimerService
                     )
                     {
                         this.LogMessage(
-                            "Timer ran long.",
+                            "Timer caught an Exception.",
                             timerState,
                             ex
                         );

@@ -34,7 +34,15 @@
                 Tag = tag,
             };
             var serverPropertyMock = new Mock<IServerProperty>();
+            var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
+
+            connectionFactoryMock.Setup(
+                mock => mock.GetConnection()
+            ).ReturnsAsync(
+                coreServerConnectionMock.Object
+            );
 
             coreServerConnectionMock.Setup(
                 mock => mock.Api
@@ -79,7 +87,7 @@
                 loggerMock.Object,
                 zoneSettings,
                 serverPropertyMock.Object,
-                coreServerConnectionMock.Object
+                connectionFactoryMock.Object
             );
             await handler.Handle(
                 new RegisterWithCoreServer(),
@@ -106,7 +114,15 @@
             var loggerMock = new Mock<ILogger<RegisterWithCoreServerHandler>>();
             var zoneSettings = new ZoneSettings();
             var serverPropertyMock = new Mock<IServerProperty>();
+            var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
+
+            connectionFactoryMock.Setup(
+                mock => mock.GetConnection()
+            ).ReturnsAsync(
+                coreServerConnectionMock.Object
+            );
 
             coreServerConnectionMock.Setup(
                 mock => mock.Api
@@ -127,7 +143,7 @@
                 loggerMock.Object,
                 zoneSettings,
                 serverPropertyMock.Object,
-                coreServerConnectionMock.Object
+                connectionFactoryMock.Object
             );
             Func<Task> action = () => handler.Handle(
                 new RegisterWithCoreServer(),

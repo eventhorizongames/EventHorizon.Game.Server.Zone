@@ -5,6 +5,7 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
     using EventHorizon.Server.Core.Connection.Disconnected;
     using EventHorizon.Server.Core.Disconnected;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+    using Microsoft.Extensions.Logging;
     using Moq;
     using Xunit;
 
@@ -15,10 +16,12 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
         {
             // Given
 
+            var loggerMock = new Mock<ILogger<CoreServerConnectionDisconnectedHandler>>();
             var serverPropertyMock = new Mock<IServerProperty>();
 
             // When
             var handler = new CoreServerConnectionDisconnectedHandler(
+                loggerMock.Object,
                 serverPropertyMock.Object
             );
             await handler.Handle(
