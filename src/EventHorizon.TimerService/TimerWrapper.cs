@@ -1,6 +1,7 @@
 namespace EventHorizon.TimerService
 {
     using System;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -70,46 +71,48 @@ namespace EventHorizon.TimerService
             {
                 return;
             }
+
             try
             {
                 timerState.Guid = Guid.NewGuid();
                 timerState.IsRunning = true;
                 timerState.StartDate = DateTime.UtcNow;
-                using (var serviceScope = _serviceScopeFactory.CreateScope())
+
+                if (_timerTask.LogDetails)
                 {
-                    try
-                    {
-                        var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                        if (this._timerTask.OnValidationEvent != null)
-                        {
-                            if (!await mediator.Send(
-                                this._timerTask.OnValidationEvent
-                            ))
-                            {
-                                return;
-                            }
-                            await mediator.Publish(
-                                this._timerTask.OnRunEvent
-                            );
-                        }
-                        else
-                        {
-                            mediator.Publish(
-                                this._timerTask.OnRunEvent
-                            ).GetAwaiter().GetResult();
-                        }
-                    }
-                    catch (
-                        Exception ex
-                    )
-                    {
-                        this.LogMessage(
-                            "Timer caught an Exception.",
-                            timerState,
-                            ex
-                        );
-                    }
+                    LogMessage(
+                        "Starting timer run",
+                        timerState
+                    );
                 }
+
+                using var serviceScope = _serviceScopeFactory.CreateScope();
+                var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+
+                if (this._timerTask.OnValidationEvent != null
+                    && !await mediator.Send(
+                        this._timerTask.OnValidationEvent
+                    )
+                )
+                {
+                    // The validation failed for the Task, do not Publish Event.
+                    return;
+                }
+
+                await mediator.Publish(
+                    this._timerTask.OnRunEvent
+                );
+            }
+            catch (Exception ex)
+            {
+                this.LogMessage(
+                    "Timer caught an Exception.",
+                    timerState,
+                    ex
+                );
+            }
+            finally
+            {
                 if (
                     DateTime.UtcNow.Add(
                         DateTime.UtcNow - timerState.StartDate
@@ -125,9 +128,15 @@ namespace EventHorizon.TimerService
                         timerState
                     );
                 }
-            }
-            finally
-            {
+
+                if (_timerTask.LogDetails)
+                {
+                    LogMessage(
+                        "Finished timer run",
+                        timerState
+                    );
+                }
+
                 timerState.IsRunning = false;
                 timerState.StartDate = DateTime.UtcNow;
                 timerState.LOCK.Release();
@@ -153,7 +162,28 @@ namespace EventHorizon.TimerService
                 timeRunningTicks,
                 _timerTask
             };
-            message += " \nCheck for long running loop. \nTimerState: \n | Id: {Id} \n | Guid: {GUID} \n | Tag: {Tag} \n | StartDate: {StartDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | FinishedDate: {FinishedDate:MM-dd-yyyy HH:mm:ss.fffffffzzz} \n | TimeRunning: {TimeRunning} \n | TimeRunningTicks: {TimeRunningTicks} \n | TimerTask: {@TimerTask}";
+            message = new StringBuilder(
+                message
+            ).Append(
+                "\n TimerState: "
+            ).Append(
+                "\n | Id: {Id}"
+            ).Append(
+                "\n | Guid: {GUID}"
+            ).Append(
+                "\n | Tag: {Tag}"
+            ).Append(
+                "\n | StartDate: {StartDate:MM-dd-yyy HH:mm:ss.fffffffzzz}"
+            ).Append(
+                "\n | FinishedDate: {FinishedDate:MM-dd-yyy HH:mm:ss.fffffffzzz}"
+            ).Append(
+                "\n | TimeRunning: {TimeRunning}"
+            ).Append(
+                "\n | TimerRunningTicks: {TimerRunningTicks}"
+            ).Append(
+                "\n | TimerState: {@TimerTask}"
+            ).ToString();
+
             if (ex != null)
             {
                 _logger.LogError(
@@ -161,14 +191,13 @@ namespace EventHorizon.TimerService
                     message,
                     logArgs
                 );
+                return;
             }
-            else
-            {
-                _logger.LogWarning(
-                    message,
-                    logArgs
-                );
-            }
+
+            _logger.LogWarning(
+                message,
+                logArgs
+            );
         }
     }
 

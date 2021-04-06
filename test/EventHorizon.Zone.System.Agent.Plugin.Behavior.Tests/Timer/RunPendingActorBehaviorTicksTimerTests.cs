@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+    using FluentAssertions;
     using Xunit;
 
     public class RunPendingActorBehaviorTicksTimerTests
@@ -20,22 +21,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Timer
             var actual = new RunPendingActorBehaviorTicksTimer();
 
             // Then
-            Assert.Equal(
-                expectedPeriod,
-                actual.Period
-            );
-            Assert.Equal(
-                expectedTag,
-                actual.Tag
-            );
-            Assert.Equal(
-                expectedOnValidationEvent,
-                actual.OnValidationEvent
-            );
-            Assert.Equal(
-                expectedOnRunEvent,
-                actual.OnRunEvent
-            );
+            actual.Period
+                .Should().Be(expectedPeriod);
+            actual.Tag
+                .Should().Be(expectedTag);
+            actual.OnValidationEvent
+                .Should().Be(expectedOnValidationEvent);
+            actual.OnRunEvent
+                .Should().Be(expectedOnRunEvent);
+            actual.LogDetails
+                .Should().BeFalse();
         }
     }
 }

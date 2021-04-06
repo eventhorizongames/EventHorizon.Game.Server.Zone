@@ -29,6 +29,8 @@
                 .Should().Be(expectedOnValidationEvent);
             actual.OnRunEvent
                 .Should().Be(expectedOnRunEvent);
+            actual.LogDetails
+                .Should().BeFalse();
         }
     }
 }

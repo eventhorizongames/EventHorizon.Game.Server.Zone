@@ -7,24 +7,29 @@ namespace EventHorizon.Server.Core.Ping
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Ping;
     using EventHorizon.Server.Core.Events.Register;
+    using EventHorizon.Server.Core.State;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
-    public class PingCoreServerHandler : INotificationHandler<PingCoreServer>
+    public class PingCoreServerHandler
+        : INotificationHandler<PingCoreServer>
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly CoreServerConnectionFactory _connectionFactory;
+        private readonly ServerCoreCheckState _serverCoreCheckState;
 
         public PingCoreServerHandler(
             ILogger<PingCoreServerHandler> logger,
             IMediator mediator,
-            CoreServerConnectionFactory connectionFactory
+            CoreServerConnectionFactory connectionFactory,
+            ServerCoreCheckState serverCoreCheckState
         )
         {
             _logger = logger;
             _mediator = mediator;
             _connectionFactory = connectionFactory;
+            _serverCoreCheckState = serverCoreCheckState;
         }
 
         public async Task Handle(
@@ -46,6 +51,7 @@ namespace EventHorizon.Server.Core.Ping
                 _logger.LogWarning(
                     "Zone Core Server Ping."
                 );
+                _serverCoreCheckState.Reset();
             }
             catch (Exception ex)
             {

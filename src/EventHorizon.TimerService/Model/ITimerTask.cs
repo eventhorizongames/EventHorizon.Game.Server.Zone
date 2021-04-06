@@ -8,5 +8,6 @@ namespace EventHorizon.TimerService
         string Tag { get; }
         IRequest<bool> OnValidationEvent { get; }
         INotification OnRunEvent { get; }
+        bool LogDetails { get; }
     }
 }

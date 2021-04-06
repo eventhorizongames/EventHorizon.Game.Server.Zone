@@ -5,11 +5,13 @@ namespace EventHorizon.Server.Core.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using MediatR;
 
-    public class PingCoreServerTimerTask : ITimerTask
+    public class PingCoreServerTimerTask 
+        : ITimerTask
     {
         public int Period { get; } = 1000 * 30; // Every 30 Seconds
         public string Tag { get; } = "PingCoreServer";
         public IRequest<bool> OnValidationEvent { get; } = new IsServerStarted();
         public INotification OnRunEvent { get; } = new PingCoreServer();
+        public bool LogDetails { get; }
     }
 }

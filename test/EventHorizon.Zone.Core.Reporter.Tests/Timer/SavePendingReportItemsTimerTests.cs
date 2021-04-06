@@ -29,6 +29,8 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Timer
                 .Should().Be(expectedOnValidationEvent);
             actual.OnRunEvent
                 .Should().Be(expectedOnRunEvent);
+            actual.LogDetails
+                .Should().BeTrue();
         }
     }
 }

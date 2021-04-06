@@ -1,57 +1,36 @@
-using EventHorizon.Zone.System.Watcher.Check;
-using EventHorizon.Zone.System.Watcher.Timer;
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.Timer
 {
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.System.Watcher.Check;
+    using EventHorizon.Zone.System.Watcher.Timer;
+    using FluentAssertions;
+    using Xunit;
+
     public class WatchForSystemReloadTimerTests
     {
         [Fact]
         public void TestShouldHaveExpectedPeriodWhenCreated()
         {
             // Given
-            var expected = 5000;
-            
+            var expectedPeriod = 5000;
+            var expectedTag = "WatchForSystemReload";
+            var expectedOnValidationEvent = new IsServerStarted();
+            var expectedOnRunEvent = new CheckPendingReloadEvent();
+
             // When
             var actual = new WatchForSystemReloadTimer();
 
             // Then
-            Assert.Equal(
-                expected,
-                actual.Period
-            );
-        }
-
-        [Fact]
-        public void TestShouldHaveExpectedTagWhenCreated()
-        {
-            // Given
-            var expected = "WatchForSystemReload";
-            
-            // When
-            var actual = new WatchForSystemReloadTimer();
-
-            // Then
-            Assert.Equal(
-                expected,
-                actual.Tag
-            );
-        }
-
-        [Fact]
-        public void TestShouldHaveExpectedOnRunEventWhenCreated()
-        {
-            // Given
-            var expected = new CheckPendingReloadEvent();
-            
-            // When
-            var actual = new WatchForSystemReloadTimer();
-
-            // Then
-            Assert.Equal(
-                expected,
-                actual.OnRunEvent
-            );
+            actual.Period
+                .Should().Be(expectedPeriod);
+            actual.Tag
+                .Should().Be(expectedTag);
+            actual.OnValidationEvent
+                .Should().Be(expectedOnValidationEvent);
+            actual.OnRunEvent
+                .Should().Be(expectedOnRunEvent);
+            actual.LogDetails
+                .Should().BeFalse();
         }
     }
 }

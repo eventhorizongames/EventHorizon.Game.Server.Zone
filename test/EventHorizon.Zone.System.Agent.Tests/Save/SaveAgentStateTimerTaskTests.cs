@@ -1,10 +1,11 @@
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.System.Agent.Save;
-using EventHorizon.Zone.System.Agent.Save.Events;
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save
 {
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.System.Agent.Save;
+    using EventHorizon.Zone.System.Agent.Save.Events;
+    using FluentAssertions;
+    using Xunit;
+
     public class SaveAgentStateTimerTaskTests
     {
         [Fact]
@@ -20,18 +21,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save
             var saveAgentStateTimerTask = new SaveAgentStateTimerTask();
 
             // Then
-            Assert.Equal(
-                expectedPeriod, saveAgentStateTimerTask.Period
-            );
-            Assert.Equal(
-                expectedTag, saveAgentStateTimerTask.Tag
-            );
-            Assert.Equal(
-                expectedOnValidationEvent, saveAgentStateTimerTask.OnValidationEvent
-            );
-            Assert.Equal(
-                expectedOnRunEvent, saveAgentStateTimerTask.OnRunEvent
-            );
+            saveAgentStateTimerTask.Period
+                .Should().Be(expectedPeriod);
+            saveAgentStateTimerTask.Tag
+                .Should().Be(expectedTag);
+            saveAgentStateTimerTask.OnValidationEvent
+                .Should().Be(expectedOnValidationEvent);
+            saveAgentStateTimerTask.OnRunEvent
+                .Should().Be(expectedOnRunEvent);
+            saveAgentStateTimerTask.LogDetails
+                .Should().BeTrue();
         }
     }
 }

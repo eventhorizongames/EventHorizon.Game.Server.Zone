@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.Agent.Tests.Monitor.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Monitor.Path;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+    using FluentAssertions;
     using Xunit;
 
     public class CheckForStaleAgentPathTimerTests
@@ -20,22 +21,16 @@ namespace EventHorizon.Zone.System.Agent.Tests.Monitor.Timer
             var actual = new CheckForStaleAgentPathTimer();
 
             // Then
-            Assert.Equal(
-                expectedPeriod,
-                actual.Period
-            );
-            Assert.Equal(
-                expectedTag,
-                actual.Tag
-            );
-            Assert.Equal(
-                expectedOnValidationEvent,
-                actual.OnValidationEvent
-            );
-            Assert.Equal(
-                expectedOnRunEvent,
-                actual.OnRunEvent
-            );
+            actual.Period
+                .Should().Be(expectedPeriod);
+            actual.Tag
+                .Should().Be(expectedTag);
+            actual.OnValidationEvent
+                .Should().Be(expectedOnValidationEvent);
+            actual.OnRunEvent
+                .Should().Be(expectedOnRunEvent);
+            actual.LogDetails
+                .Should().BeFalse();
         }
     }
 }

@@ -7,6 +7,7 @@
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Ping;
+    using EventHorizon.Server.Core.State;
     using MediatR;
     using Microsoft.Extensions.Logging;
     using Moq;
@@ -22,6 +23,7 @@
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
 
@@ -35,7 +37,8 @@
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                connectionFactoryMock.Object
+                connectionFactoryMock.Object,
+                serverCoreCheckStateMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),
@@ -50,6 +53,10 @@
                 ),
                 Times.Never()
             );
+            serverCoreCheckStateMock.Verify(
+                mock => mock.Reset(),
+                Times.Never()
+            );
         }
 
         [Fact]
@@ -62,6 +69,7 @@
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
 
@@ -90,7 +98,8 @@
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                connectionFactoryMock.Object
+                connectionFactoryMock.Object,
+                serverCoreCheckStateMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),
@@ -100,6 +109,9 @@
             // Then
             coreServerConnectionApiMock.Verify(
                 mock => mock.Ping()
+            );
+            serverCoreCheckStateMock.Verify(
+                mock => mock.Reset()
             );
             mediatorMock.Verify(
                 mock => mock.Publish(
@@ -120,6 +132,7 @@
             var loggerMock = new Mock<ILogger<PingCoreServerHandler>>();
             var mediatorMock = new Mock<IMediator>();
             var connectionFactoryMock = new Mock<CoreServerConnectionFactory>();
+            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
 
@@ -154,7 +167,8 @@
             var handler = new PingCoreServerHandler(
                 loggerMock.Object,
                 mediatorMock.Object,
-                connectionFactoryMock.Object
+                connectionFactoryMock.Object,
+                serverCoreCheckStateMock.Object
             );
             await handler.Handle(
                 new Events.Ping.PingCoreServer(),

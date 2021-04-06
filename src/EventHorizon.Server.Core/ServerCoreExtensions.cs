@@ -19,6 +19,8 @@ namespace EventHorizon.Server.Core
             Action<CoreSettings> configureCoreSettings
         ) => services
             .AddSingleton<ITimerTask, PingCoreServerTimerTask>()
+            .AddSingleton<ITimerTask, CheckCoreServerConnectionTimerTask>()
+
             .AddSingleton<ServerCoreCheckState, SystemServerCoreCheckState>()
 
             .AddSingleton<CoreServerConnectionCache, SystemCoreServerConnectionCache>()
@@ -33,10 +35,8 @@ namespace EventHorizon.Server.Core
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                return app;
-            }
+            using var serviceScope = app.CreateServiceScope();
+            return app;
         }
 
         public static IApplicationBuilder UseRegisterWithCoreServer(
