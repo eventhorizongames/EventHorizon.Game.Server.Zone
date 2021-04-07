@@ -1,14 +1,14 @@
 {
     "Id": "06E4ED06-9D14-4AA3-8983-92B45BA44185",
     "Name": "[SYSTEM] Script Observer",
-    "Description": "Create a Script Event that can triggered any Observers",
+    "Description": "Create an Event and Observer that can be used to notify systems of different actions or changes.",
     "FirstStep": "B4D20B3C-C5A9-4D49-ADF2-C594D4F93DB6",
     "StepList": [
         {
             "Id": "B4D20B3C-C5A9-4D49-ADF2-C594D4F93DB6",
             "Type": "TextInput",
-            "Name": "Folder Input",
-            "Description": "Input location to save new Observer",
+            "Name": "Folder Name",
+            "Description": "The Folder the Event/Observer Scripts should be created in.",
             "Details": {
                 "Property": "Folder"
             },
@@ -17,8 +17,8 @@
         {
             "Id": "5C91226B-CDAB-4BC1-8DF8-662652B92942",
             "Type": "TextInput",
-            "Name": "Name Input",
-            "Description": "Input the Name Prefix for the Observer",
+            "Name": "Event Name",
+            "Description": "This is the Name of the Event that will used in the generation of the Scripts.",
             "Details": {
                 "Property": "Name"
             },
@@ -28,8 +28,8 @@
         {
             "Id": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792",
             "Type": "ServerProcess",
-            "Name": "Validate Script Observer",
-            "Description": "Validate the Folder/Name are valid for Script Observer Creation",
+            "Name": "Validation of Script Details",
+            "Description": "Validation of the Folder/Name will be done here, to check for already existing files and that the text is Alphanumeric.",
             "Details": {
                 "Processor:ScriptId": "Wizard_Scripts_Validation_ScriptObserver",
                 "disablePrevious": "true"
@@ -40,8 +40,8 @@
         {
             "Id": "F550C884-B2A7-4C3F-B291-E05A8EF60707",
             "Type": "ServerProcess",
-            "Name": "Create Script Observer",
-            "Description": "Create the Scripts necessary for Handling an Observer",
+            "Name": "Creates Observer Scripts",
+            "Description": "Creation of the Scripts will happen now, after you should see your scripts are available for selection.",
             "Details": {
                 "Processor:ScriptId": "Wizard_Scripts_Processor_CreateScriptObserver",
                 "DisablePrevious": "true"
