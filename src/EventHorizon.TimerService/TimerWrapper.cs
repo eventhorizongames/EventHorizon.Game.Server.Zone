@@ -30,10 +30,10 @@ namespace EventHorizon.TimerService
         public void Start()
         {
             _timer = new Timer(
-                this.OnRunTask,
+                OnRunTask,
                 new TimerState(),
                 0,
-                this._timerTask.Period
+                _timerTask.Period
             );
         }
 
@@ -60,7 +60,7 @@ namespace EventHorizon.TimerService
             if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
-                this.LogMessage(
+                LogMessage(
                     "Timer found that it was already running.",
                     timerState
                 );
@@ -89,9 +89,9 @@ namespace EventHorizon.TimerService
                 using var serviceScope = _serviceScopeFactory.CreateScope();
                 var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
 
-                if (this._timerTask.OnValidationEvent != null
+                if (_timerTask.OnValidationEvent != null
                     && !await mediator.Send(
-                        this._timerTask.OnValidationEvent
+                        _timerTask.OnValidationEvent
                     )
                 )
                 {
@@ -100,12 +100,13 @@ namespace EventHorizon.TimerService
                 }
 
                 await mediator.Publish(
-                    this._timerTask.OnRunEvent
+                    _timerTask.OnRunEvent
                 );
             }
             catch (Exception ex)
             {
-                this.LogMessage(
+                timerState.ErrorsCaught += 1;
+                LogMessage(
                     "Timer caught an Exception.",
                     timerState,
                     ex
@@ -123,7 +124,7 @@ namespace EventHorizon.TimerService
                     ) > 0
                 )
                 {
-                    this.LogMessage(
+                    LogMessage(
                         "Timer ran long.",
                         timerState
                     );
@@ -208,5 +209,6 @@ namespace EventHorizon.TimerService
         public Guid Guid { get; internal set; }
         public bool IsRunning { get; set; }
         public DateTime StartDate { get; set; }
+        public int ErrorsCaught { get; set; }
     }
 }
