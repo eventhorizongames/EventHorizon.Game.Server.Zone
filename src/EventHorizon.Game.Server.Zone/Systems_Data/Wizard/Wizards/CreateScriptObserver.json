@@ -52,11 +52,12 @@
         {
             "Id": "4F637533-10FA-4599-943A-580CDFE9AFDD",
             "Type": "Navigate",
-            "Name": "Navigate Editor",
-            "Description": "Redirect the User to the Location property on the Data, using Location in Step Details as a Fallback.",
+            "Name": "Navigating to Entity List",
+            "Description": "Navigating to the Zone Entity List, you can select an Entity to edit here.",
             "Details": {
                 "@Comment": "These are read by the Navigation Step Processor",
-                "Location": "/file/explorer"
+                "Delay": "2000",
+                "Location": "/zone/entity"
             },
             "PreviousStep": "F550C884-B2A7-4C3F-B291-E05A8EF60707"
         }
