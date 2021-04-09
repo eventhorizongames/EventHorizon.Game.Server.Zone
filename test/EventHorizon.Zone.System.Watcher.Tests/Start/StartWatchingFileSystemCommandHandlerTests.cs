@@ -149,7 +149,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
         [Fact]
         [Trait("WindowsOnly", "True")]
         // This test will only work on Linux when File System Pooling is enabled.
-        public async Task TestShouldCreateEventForOnChangeCallbacksWhenFileSystemChangesCreatedOrDeleted()
+        public void TestShouldCreateEventForOnChangeCallbacksWhenFileSystemChangesCreatedOrDeleted()
         {
             // Given
             var path = Path.Combine(
@@ -185,12 +185,11 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 reloadStateMock.Object,
                 fileSystemWatcherStateMock.Object
             );
-            await handler.Handle(
-                new StartWatchingFileSystemCommand(
+
+            using var fileSystemWatcher = handler.CreateWatcherFor(
                     path
-                ),
-                CancellationToken.None
             );
+
             // Create File (1 - Created)
             File.WriteAllText(
                 jsonTestFile,

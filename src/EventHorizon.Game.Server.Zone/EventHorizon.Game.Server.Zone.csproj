@@ -9,6 +9,7 @@
         <Folder Include="Game\" />
         <Folder Include="wwwroot\" />
         <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+        <Content Include="Systems_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
     </ItemGroup>
 
