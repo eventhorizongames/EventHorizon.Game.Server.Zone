@@ -1,6 +1,7 @@
 /// <summary>
 /// </summary>
 
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Wizard.Model.Scripts;
