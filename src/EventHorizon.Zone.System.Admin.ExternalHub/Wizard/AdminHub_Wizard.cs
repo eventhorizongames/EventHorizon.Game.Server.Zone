@@ -19,7 +19,7 @@
             Context.ConnectionAborted
         );
 
-        public Task<StandardCommandResult> Wizard_RunScriptProcessor(
+        public Task<CommandResult<WizardData>> Wizard_RunScriptProcessor(
             string wizardId,
             string wizardStepId,
             string processorScriptId,

@@ -5,6 +5,7 @@
     using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Events.Run;
     using EventHorizon.Zone.System.Wizard.Model;
+    using EventHorizon.Zone.System.Wizard.Model.Scripts;
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
@@ -12,7 +13,7 @@
     using MediatR;
 
     public class RunWizardScriptProcessorCommandHandler
-        : IRequestHandler<RunWizardScriptProcessorCommand, StandardCommandResult>
+        : IRequestHandler<RunWizardScriptProcessorCommand, CommandResult<WizardData>>
     {
         private readonly IMediator _mediator;
         private readonly WizardRepository _wizardRepository;
@@ -26,7 +27,7 @@
             _wizardRepository = wizardRepository;
         }
 
-        public async Task<StandardCommandResult> Handle(
+        public async Task<CommandResult<WizardData>> Handle(
             RunWizardScriptProcessorCommand request,
             CancellationToken cancellationToken
         )
@@ -77,10 +78,18 @@
                 || !result.Success
             )
             {
-                return result?.Message ?? "wizard_failed_script_run";
+                return result?.Message
+                    ?? "wizard_failed_script_run";
             }
 
-            return new();
+            if (result is WizardServerScriptResponse wizardScriptResponse)
+            {
+                return new WizardData(
+                    wizardScriptResponse.Data
+                );
+            }
+
+            return "wizard_failed_script_run";
         }
 
         private static bool IsInvalidProcessorId(

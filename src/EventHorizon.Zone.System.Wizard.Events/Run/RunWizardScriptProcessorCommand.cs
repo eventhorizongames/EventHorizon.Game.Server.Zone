@@ -5,7 +5,7 @@
     using MediatR;
 
     public struct RunWizardScriptProcessorCommand
-        : IRequest<StandardCommandResult>
+        : IRequest<CommandResult<WizardData>>
     {
         public string WizardId { get; }
         public string WizardStepId { get; }
