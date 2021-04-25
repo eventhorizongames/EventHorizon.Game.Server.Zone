@@ -1,0 +1,21 @@
+{
+  "solution": {
+    "path": "EventHorizon.Game.Server.Zone.sln",
+    "projects": [
+      "src\\EventHorizon.Extensions\\EventHorizon.Extensions.csproj",
+      "src\\EventHorizon.Game.I18n\\EventHorizon.Game.I18n.csproj",
+      "src\\EventHorizon.Zone.Core.Events\\EventHorizon.Zone.Core.Events.csproj",
+      "src\\EventHorizon.Zone.Core.Model\\EventHorizon.Zone.Core.Model.csproj",
+      "src\\EventHorizon.Zone.System.Admin.Plugin.Command.Events\\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj",
+      "src\\EventHorizon.Zone.System.Admin.Plugin.Command.Model\\EventHorizon.Zone.System.Admin.Plugin.Command.Model.csproj",
+      "src\\EventHorizon.Zone.System.Server.Scripts.Events\\EventHorizon.Zone.System.Server.Scripts.Events.csproj",
+      "src\\EventHorizon.Zone.System.Server.Scripts.Model\\EventHorizon.Zone.System.Server.Scripts.Model.csproj",
+      "src\\EventHorizon.Zone.System.Wizard.Events\\EventHorizon.Zone.System.Wizard.Events.csproj",
+      "src\\EventHorizon.Zone.System.Wizard.Model\\EventHorizon.Zone.System.Wizard.Model.csproj",
+      "src\\EventHorizon.Zone.System.Wizard.Plugin.Editor\\EventHorizon.Zone.System.Wizard.Plugin.Editor.csproj",
+      "src\\EventHorizon.Zone.System.Wizard\\EventHorizon.Zone.System.Wizard.csproj",
+      "test\\EventHorizon.Zone.System.Wizard.Plugin.Editor.Tests\\EventHorizon.Zone.System.Wizard.Plugin.Editor.Tests.csproj",
+      "test\\EventHorizon.Zone.System.Wizard.Tests\\EventHorizon.Zone.System.Wizard.Tests.csproj"
+    ]
+  }
+}

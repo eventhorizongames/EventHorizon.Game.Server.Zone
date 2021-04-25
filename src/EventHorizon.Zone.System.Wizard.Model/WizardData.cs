@@ -5,6 +5,16 @@
     public class WizardData
         : Dictionary<string, string>
     {
+        public WizardData()
+            : base()
+        { }
 
+        public WizardData(
+            IDictionary<string, string> dictionary
+        ) : base(
+            dictionary
+        )
+        {
+        }
     }
 }

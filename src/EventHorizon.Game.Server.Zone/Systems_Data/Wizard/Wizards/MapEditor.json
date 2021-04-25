@@ -1,0 +1,145 @@
+{
+    "Id": "1F9431BD-48E5-45D6-9802-7D3EDEE7A03A",
+    "Name": "[SYSTEM] Map Editor",
+    "Description": "Edit the details of the Map",
+    "FirstStep": "836B8953-3E3B-469C-AA77-F3471B7691B0",
+    "StepList": [
+        {
+            "Id": "836B8953-3E3B-469C-AA77-F3471B7691B0",
+            "Type": "ServerProcess",
+            "Name": "Fill Map Data",
+            "Description": "This fills the current Wizard Data with the Map values",
+            "Details": {
+                "Processor:ScriptId": "Wizard_Scripts_Processor_Map_FillMapData",
+                "_Processor:ScriptId": "Wizards_FillMapData"
+            },
+            "NextStep": "55EBC04C-CBD9-4C48-932F-5D45E3777D7A"
+        },
+        {
+            "Id": "55EBC04C-CBD9-4C48-932F-5D45E3777D7A",
+            "Type": "FormInput",
+            "Name": "Map Dimensions",
+            "Description": "Provide the Map and Tile Dimensions for the Map.",
+            "Details": {
+                "@PropertyBoolean": "Boolean",
+                "@PropertyDecimal": "Decimal",
+                "@PropertyLong": "Long",
+                "@PropertyString": "String",
+                "@PropertyVector3": "Vector3",
+                "@PropertyComplex": "Complex",
+                "@PropertyAsset": "Asset",
+
+                "property:dimensions": "Long",
+                "property:dimensions:label": "Dimensions",
+                "property:tileDimensions": "Long",
+                "property:tileDimensions:label": "Tile Dimensions"
+            },
+            "PreviousStep": "836B8953-3E3B-469C-AA77-F3471B7691B0",
+            "NextStep": "D8BD3CA9-9DFE-41F2-A0E7-33C72464EC44"
+        },
+        {
+            "Id": "D8BD3CA9-9DFE-41F2-A0E7-33C72464EC44",
+            "Type": "FormInput",
+            "Name": "Map Mesh Properties",
+            "Description": "Provide the Mesh details for the Map",
+            "Details": {
+                "property:mesh:heightMapUrl": "String",
+                "property:mesh:heightMapUrl:label": "Height Map Url",
+                "property:mesh:light": "String",
+                "property:mesh:light:label": "Light Id",
+                "property:mesh:width": "Long",
+                "property:mesh:width:label": "Width",
+                "property:mesh:height": "Long",
+                "property:mesh:height:label": "Height",
+                "property:mesh:subdivisions": "Long",
+                "property:mesh:subdivisions:label": "Sub Divisions",
+                "property:mesh:minHeight": "Long",
+                "property:mesh:minHeight:label": "Min Height",
+                "property:mesh:maxHeight": "Long",
+                "property:mesh:maxHeight:label": "Max Height",
+                "property:mesh:updatable": "Boolean",
+                "property:mesh:updatable:label": "Updatable",
+                "property:mesh:isPickable": "Boolean",
+                "property:mesh:isPickable:label": "Is Pickable"
+            },
+            "PreviousStep": "55EBC04C-CBD9-4C48-932F-5D45E3777D7A",
+            "NextStep": "2908A9AE-23AE-4BA9-A6C7-64FC4BD6C741"
+        },
+        {
+            "Id": "2908A9AE-23AE-4BA9-A6C7-64FC4BD6C741",
+            "Type": "FormInput",
+            "Name": "Map Mesh Material Properties",
+            "Description": "Provide the Mesh Material details for the Map.",
+            "Details": {
+                "property:mesh:material:assetPath": "String",
+                "property:mesh:material:assetPath:label": "Asset Path",
+                "property:mesh:material:shaderId": "String",
+                "property:mesh:material:shaderId:label": "Shader Id",
+                "property:mesh:material:shader": "String",
+                "property:mesh:material:shader:label": "Shader",
+                "property:mesh:material:sandLimit": "Long",
+                "property:mesh:material:sandLimit:label": "Sand Limit",
+                "property:mesh:material:rockLimit": "Long",
+                "property:mesh:material:rockLimit:label": "Rock Limit",
+                "property:mesh:material:snowLimit": "Long",
+                "property:mesh:material:snowLimit:label": "Snow Limit"
+            },
+            "PreviousStep": "D8BD3CA9-9DFE-41F2-A0E7-33C72464EC44",
+            "NextStep": "2D94C0B1-4B87-40E5-BD4C-90F00FE9B54F"
+        },
+        {
+            "Id": "2D94C0B1-4B87-40E5-BD4C-90F00FE9B54F",
+            "Type": "FormInput",
+            "Name": "Map Mesh Material Texture Properties",
+            "Description": "Provide the Mesh Material Texture details for the Map.",
+            "Details": {
+                "property:mesh:material:groundTexture:image": "String",
+                "property:mesh:material:groundTexture:image:label": "Ground Texture Image",
+                "property:mesh:material:groundTexture:uScale": "Long",
+                "property:mesh:material:groundTexture:uScale:label": "Ground Texture UScale",
+                "property:mesh:material:groundTexture:vScale": "Long",
+                "property:mesh:material:groundTexture:vScale:label": "Ground Texture VScale",
+                "property:mesh:material:grassTexture:image": "String",
+                "property:mesh:material:grassTexture:image:label": "Grass Texture Image",
+                "property:mesh:material:grassTexture:uScale": "Long",
+                "property:mesh:material:grassTexture:uScale:label": "Grass Texture UScale",
+                "property:mesh:material:grassTexture:vScale": "Long",
+                "property:mesh:material:grassTexture:vScale:label": "Grass Texture VScale",
+                "property:mesh:material:snowTexture:image": "String",
+                "property:mesh:material:snowTexture:image:label": "Snow Texture Image",
+                "property:mesh:material:snowTexture:uScale": "Long",
+                "property:mesh:material:snowTexture:uScale:label": "Snow Texture UScale",
+                "property:mesh:material:snowTexture:vScale": "Long",
+                "property:mesh:material:snowTexture:vScale:label": "Snow Texture VScale",
+                "property:mesh:material:sandTexture:image": "String",
+                "property:mesh:material:sandTexture:image:label": "Sand Texture Image",
+                "property:mesh:material:sandTexture:uScale": "Long",
+                "property:mesh:material:sandTexture:uScale:label": "Sand Texture UScale",
+                "property:mesh:material:sandTexture:vScale": "Long",
+                "property:mesh:material:sandTexture:vScale:label": "Sand Texture VScale",
+                "property:mesh:material:rockTexture:image": "String",
+                "property:mesh:material:rockTexture:image:label": "Rock Texture Image",
+                "property:mesh:material:rockTexture:uScale": "Long",
+                "property:mesh:material:rockTexture:uScale:label": "Rock Texture UScale",
+                "property:mesh:material:rockTexture:vScale:label": "Rock Texture VScale",
+                "property:mesh:material:rockTexture:vScale": "Long",
+                "property:mesh:material:blendTexture:image": "String",
+                "property:mesh:material:blendTexture:image:label": "Blend Texture Image"
+            },
+            "PreviousStep": "2908A9AE-23AE-4BA9-A6C7-64FC4BD6C741",
+            "NextStep": "85AB46A5-7CE0-45D5-B33A-9B38DF90DF49"
+        },
+        {
+            "Id": "85AB46A5-7CE0-45D5-B33A-9B38DF90DF49",
+            "Type": "ServerProcess",
+            "Name": "Save Map Data",
+            "Description": "Saving the Map Data.",
+            "Details": {
+                "DisablePrevious": "true",
+                "Processor:ScriptId": "Wizard_Scripts_Processor_Map_SaveMapData",
+                "_Processor:ScriptId": "Wizards_SaveMapData"
+            },
+            "PreviousStep": "2D94C0B1-4B87-40E5-BD4C-90F00FE9B54F"
+        }
+    ]
+}
