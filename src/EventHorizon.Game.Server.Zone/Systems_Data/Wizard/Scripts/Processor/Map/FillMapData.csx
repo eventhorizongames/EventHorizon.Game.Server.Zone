@@ -6,6 +6,7 @@ using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Wizard.Model.Scripts;
 using System.Text.Json;
+using System.Linq;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
