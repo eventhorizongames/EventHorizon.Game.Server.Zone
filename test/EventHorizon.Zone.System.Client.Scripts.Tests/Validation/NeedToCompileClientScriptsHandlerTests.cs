@@ -31,9 +31,7 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new ConsolidateClientScriptsCommand(
-                        scriptDetailsList
-                    ),
+                    It.IsAny<ConsolidateClientScriptsCommand>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -147,9 +145,7 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new ConsolidateClientScriptsCommand(
-                        scriptDetailsList
-                    ),
+                    It.IsAny<ConsolidateClientScriptsCommand>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -220,9 +216,7 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new ConsolidateClientScriptsCommand(
-                        scriptDetailsList
-                    ),
+                    It.IsAny<ConsolidateClientScriptsCommand>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
