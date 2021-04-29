@@ -18,6 +18,8 @@
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Model\EventHorizon.Zone.System.Client.Scripts.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Plugin.Shared\EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,79 +1,69 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Assemblies;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Consolidate;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Create;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
-    using EventHorizon.Zone.System.Client.Scripts.Model;
     using MediatR;
-    using EventHorizon.Zone.Core.Events.FileService;
     using Microsoft.Extensions.Logging;
-    using global::System.Security.Cryptography;
-    using global::System.Text;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Assemblies;
 
     public class ClientScriptCompilerForCSharp
         : ClientScriptCompiler
     {
-        private readonly static string AssemblyScriptTemplate = @"                        
-[[USING_SECTION]]
-
-[[SCRIPT_CLASSES]]
-";
-
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
         private readonly AssemblyBuilder _builder;
-        private readonly ClientScriptsConsolidator _clientScriptsConsolidator;
 
         public ClientScriptCompilerForCSharp(
             ILogger<ClientScriptCompilerForCSharp> logger,
             IMediator mediator,
             ServerInfo serverInfo,
-            AssemblyBuilder builder,
-            ClientScriptsConsolidator clientScriptsConsolidator
+            AssemblyBuilder builder
         )
         {
             _logger = logger;
             _mediator = mediator;
             _serverInfo = serverInfo;
             _builder = builder;
-            _clientScriptsConsolidator = clientScriptsConsolidator;
         }
 
         public async Task<CompiledScriptResult> Compile(
-            IEnumerable<ClientScript> scripts
+            IEnumerable<ClientScript> scripts,
+            CancellationToken cancellationToken
         )
         {
             var consolidatedScripts = string.Empty;
             try
             {
-                var usingList = new List<string>();
-
-                var scriptClasses = _clientScriptsConsolidator.IntoSingleTemplatedString(
-                    scripts,
-                    ref usingList
+                var consolidationResult = await _mediator.Send(
+                    new ConsolidateClientScriptsCommand(
+                        scripts
+                    ),
+                    cancellationToken
                 );
-                var usingSection = string.Join(
-                    Environment.NewLine,
-                    usingList
-                );
-
-                consolidatedScripts = AssemblyScriptTemplate.Replace(
-                    "[[USING_SECTION]]",
-                    usingSection
-                ).Replace(
-                    "[[SCRIPT_CLASSES]]",
-                    scriptClasses
-                );
+                if (!consolidationResult)
+                {
+                    return new(
+                        false,
+                        consolidationResult.ErrorCode
+                    );
+                }
+                consolidatedScripts = consolidationResult.Result.ConsolidatedScripts;
 
                 // Load all Assembly Libraries into Evaluator
                 var scriptAssemblies = await _mediator.Send(
-                    new QueryForScriptAssemblyList()
+                    new QueryForScriptAssemblyList(),
+                    cancellationToken
                 );
                 var assemblyNames = new List<string>();
 
@@ -93,9 +83,13 @@
                 );
 
                 // Create Hash For Content
-                var scriptHash = CreateHashFromContent(
-                    consolidatedScripts
+                var scriptHashResult = await _mediator.Send(
+                    new CreateHashFromContentCommand(
+                        consolidatedScripts
+                    ),
+                    cancellationToken
                 );
+                var scriptHash = scriptHashResult.Result;
 
                 // Create EncodedScriptFile
                 var encodedFileContent = Convert.ToBase64String(
@@ -106,15 +100,15 @@
 
                 // Log some information
                 _logger.LogInformation(
-                    "Script Assembly References Added: \n\r\t {ScriptAssemblyNames}",
+                    "Client Script Assembly References Added: \n\r\t {ScriptAssemblyNames}",
                     assemblyNames
                 );
                 _logger.LogInformation(
-                    "Script Source Hash: {ScriptHash}",
+                    "Client Script Source Hash: {ScriptHash}",
                     scriptHash
                 );
 
-                return new CompiledScriptResult(
+                return new(
                     scriptHash,
                     encodedFileContent
                 );
@@ -136,7 +130,8 @@
                     consolidatedScriptsSavePath
                 );
 
-                return new CompiledScriptResult(
+                return new(
+                    false,
                     "csharp_failed_to_compile"
                 );
             }
@@ -159,25 +154,5 @@
                 fileContents
             )
         );
-
-        private string CreateHashFromContent(
-            string consolidatedClasses
-        )
-        {
-            using var sha256Hash = SHA256.Create();
-            var scriptHashBytes = sha256Hash.ComputeHash(
-                consolidatedClasses.ToBytes()
-            );
-
-            // Convert byte array to a string   
-            var hashBuilder = new StringBuilder();
-            for (int i = 0; i < scriptHashBytes.Length; i++)
-            {
-                hashBuilder.Append(
-                    scriptHashBytes[i].ToString("x2")
-                );
-            }
-            return hashBuilder.ToString();
-        }
     }
 }

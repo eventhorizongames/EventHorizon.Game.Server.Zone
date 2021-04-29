@@ -5,6 +5,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Builders;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Logging;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
     using FluentAssertions;
@@ -42,6 +43,9 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
             serviceCollectionMock.Should().Contain(
                 service => typeof(AssemblyBuilder) == service.ServiceType
                     && typeof(CSharpAssemblyBuilder) == service.ImplementationType
+            ).And.Contain(
+                service => typeof(ClientScriptCompiler) == service.ServiceType
+                    && typeof(ClientScriptCompilerForCSharp) == service.ImplementationType
             ).And.Contain(
                 service => typeof(IHostedService) == service.ServiceType
                     && typeof(PluginFrameworkInitializer) == service.ImplementationType

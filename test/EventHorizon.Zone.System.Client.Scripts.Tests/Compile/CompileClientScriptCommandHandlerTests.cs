@@ -11,8 +11,8 @@
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
     using EventHorizon.Zone.System.Client.Scripts.Model.Generated;
+    using EventHorizon.Zone.System.Client.Scripts.Validation;
     using FluentAssertions;
-    using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -145,6 +145,119 @@
         }
 
         [Fact]
+        public async Task ShouldNotRunSubProcessCompiileWhenNeedToCompileValidationCheckReturnsFalse()
+        {
+            // Given
+            var currentHash = "hash";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+
+            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var scriptSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var stateMock = new Mock<ClientScriptsState>();
+
+            stateMock.Setup(
+                mock => mock.Hash
+            ).Returns(
+                currentHash
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new NeedToCompileClientScripts(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<bool>(
+                    false
+                )
+            );
+
+            // When
+            var handler = new CompileClientScriptCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                scriptSettings,
+                stateMock.Object
+            );
+            var actual = await handler.Handle(
+                new CompileClientScriptCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task ShouldReturnErrorCodeWhenNeedToCompileValidationCheckFails()
+        {
+            // Given
+            var currentHash = "hash";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+
+            var errorCode = "error-code";
+            var expected = errorCode;
+
+            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var scriptSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var stateMock = new Mock<ClientScriptsState>();
+
+            stateMock.Setup(
+                mock => mock.Hash
+            ).Returns(
+                currentHash
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new NeedToCompileClientScripts(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<bool>(
+                    errorCode
+                )
+            );
+
+            // When
+            var handler = new CompileClientScriptCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                scriptSettings,
+                stateMock.Object
+            );
+            var actual = await handler.Handle(
+                new CompileClientScriptCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Fact]
         public async Task ShouldReturnFileLoaderErrorCodeWhenNotSuccessful()
         {
             // Given
@@ -229,6 +342,116 @@
             actual.Success.Should().BeFalse();
             actual.ErrorCode.Should().Be(
                 expectedErrorCode
+            );
+        }
+
+        [Fact]
+        public async Task ShouldSetHashAndScriptAssemblyWhenHashIsSetAndNeedToCompileIsTrue()
+        {
+            // Given
+            var hash = "not-current-hash";
+            var generatedPath = "generate-path";
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var generatedFilePath = Path.Combine(
+                generatedPath,
+                GeneratedClientScriptsResultModel.GENERATED_FILE_NAME
+            );
+
+            var expectedHash = "hash";
+            var expectedScriptAssembly = "script-assembly";
+
+            var loggerMock = new Mock<ILogger<CompileClientScriptCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var clientScriptsSettings = new ClientScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var clientScriptsStateMock = new Mock<ClientScriptsState>();
+
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            clientScriptsStateMock.Setup(
+                mock => mock.Hash
+            ).Returns(
+                hash
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new NeedToCompileClientScripts(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<bool>(
+                    true
+                )
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                0
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedClientScriptsResultModel>(
+                    generatedFilePath
+                )
+            ).ReturnsAsync(
+                new GeneratedClientScriptsResultModel
+                {
+                    Success = true,
+                    Hash = expectedHash,
+                    ScriptAssembly = expectedScriptAssembly,
+                }
+            );
+
+            // When
+            var handler = new CompileClientScriptCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                clientScriptsSettings,
+                clientScriptsStateMock.Object
+            );
+            await handler.Handle(
+                new CompileClientScriptCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            clientScriptsStateMock.Verify(
+                mock => mock.SetAssembly(
+                    expectedHash,
+                    expectedScriptAssembly
+                )
             );
         }
 

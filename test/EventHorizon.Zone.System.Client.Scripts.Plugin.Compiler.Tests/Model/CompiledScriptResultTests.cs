@@ -1,9 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests.Model
 {
-    using System;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
     using FluentAssertions;
-    using global::System.Threading.Tasks;
     using Xunit;
 
     public class CompiledScriptResultTests
@@ -49,6 +47,7 @@
 
             // When
             var actual = new CompiledScriptResult(
+                false,
                 expectedErrorCode
             );
 

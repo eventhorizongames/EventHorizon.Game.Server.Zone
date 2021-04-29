@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Client.Scripts.Model\EventHorizon.Zone.System.Client.Scripts.Model.csproj" />
+    </ItemGroup>
+
+</Project>

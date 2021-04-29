@@ -21,7 +21,7 @@
                 _timerTasks.Add(
                     new TimerWrapper(
                         loggerFactory.CreateLogger(
-                            nameof(timerTask)
+                            timerTask.GetType().FullName
                         ),
                         serviceScopeFactory,
                         timerTask

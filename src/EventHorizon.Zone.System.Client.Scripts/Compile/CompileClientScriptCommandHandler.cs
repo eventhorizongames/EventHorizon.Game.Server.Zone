@@ -9,6 +9,7 @@
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
     using EventHorizon.Zone.System.Client.Scripts.Model.Generated;
+    using EventHorizon.Zone.System.Client.Scripts.Validation;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -47,6 +48,29 @@
             CancellationToken cancellationToken
         )
         {
+            if (!string.IsNullOrEmpty(
+                _state.Hash
+            ))
+            {
+                // Check if scripts need to be compiled
+                var hashResult = await _mediator.Send(
+                    new NeedToCompileClientScripts(),
+                    cancellationToken
+                );
+                if (!hashResult.Success)
+                {
+                    return new(
+                        hashResult.ErrorCode
+                    );
+                }
+
+                if (!hashResult.Result)
+                {
+                    // No need to compile scripts
+                    return new();
+                }
+            }
+
             // Start Sub Process - Client Scripts
             var processFullName = Path.Combine(
                 _clientScriptsSettings.CompilerSubProcessDirectory,

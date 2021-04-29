@@ -100,7 +100,8 @@
 
             // Compile Scripts & Create a DLL
             var result = await _clientScriptCompiler.Compile(
-                clientScriptList
+                clientScriptList,
+                cancellationToken
             );
 
             var generatedScriptResult = new GeneratedClientScriptsResultModel

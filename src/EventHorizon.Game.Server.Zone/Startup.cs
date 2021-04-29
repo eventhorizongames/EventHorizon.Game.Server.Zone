@@ -214,6 +214,7 @@
                 typeof(SystemClientEntitiesPluginEditorExtensions).Assembly,
 
                 typeof(SystemClientScriptsExtensions).Assembly,
+                typeof(SystemClientScriptsPluginSharedExtensions).Assembly,
                 typeof(SystemClientScriptsPluginEditorExtensions).Assembly,
 
                 typeof(SystemPlayerExtensions).Assembly,
@@ -347,7 +348,9 @@
                     ).Bind(
                         options
                     )
-                ).AddSystemClientScriptsPluginEditor()
+                ).AddSystemClientScriptsPluginShared()
+                .AddSystemClientScriptsPluginEditor()
+
 
                 .AddSystemPlayer()
                 .AddSystemPlayerPluginAction()
@@ -462,6 +465,7 @@
             app.UseSystemClientEntitiesPluginEditor();
 
             app.UseSystemClientScripts();
+            app.UseSystemClientScriptsPluginShared();
             app.UseSystemClientScriptsPluginEditor();
 
             app.UseSystemPlayer();

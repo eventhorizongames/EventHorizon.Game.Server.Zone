@@ -1,12 +1,16 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests.CSharp
 {
     using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Assemblies;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Consolidate;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Create;
+    using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Model;
     using FluentAssertions;
     using global::System;
     using global::System.Collections.Generic;
@@ -28,6 +32,8 @@
         public async Task ShouldReturnHashAndEncodedFileContentFromAssemblyEvaluator()
         {
             // Given
+            var usingList = new List<string>();
+            var scriptClasses = "script-classes";
             var scriptContent = "script-assembly";
             var scriptAssembly = "script-assembly";
             var consolidatedScripts = $"                        {nl}{nl}{nl}script-assembly{nl}";
@@ -50,15 +56,36 @@
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var assemblyBuilderMock = new Mock<AssemblyBuilder>();
-            var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
 
-            clientScriptsConsolidatorMock.Setup(
-                mock => mock.IntoSingleTemplatedString(
-                    scripts,
-                    ref It.Ref<List<string>>.IsAny
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ConsolidateClientScriptsCommand(
+                        scripts
+                    ),
+                    CancellationToken.None
                 )
-            ).Returns(
-                scriptAssembly
+            ).ReturnsAsync(
+                new CommandResult<ConsolidateClientScriptsResult>(
+                    new ConsolidateClientScriptsResult(
+                        usingList,
+                        scriptClasses,
+                        consolidatedScripts
+                    )
+                )
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new CreateHashFromContentCommand(
+                        consolidatedScripts
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<string>(
+                    true,
+                    expected
+                )
             );
 
             assemblyBuilderMock.Setup(
@@ -97,11 +124,11 @@
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object,
-                assemblyBuilderMock.Object,
-                clientScriptsConsolidatorMock.Object
+                assemblyBuilderMock.Object
             );
             var actual = await compiler.Compile(
-                scripts
+                scripts,
+                CancellationToken.None
             );
 
             // Then
@@ -117,6 +144,7 @@
             // Given
             var fileSystemTempPath = "file-system-temp-path";
             var expected = new CompiledScriptResult(
+                false,
                 "csharp_failed_to_compile"
             );
 
@@ -124,21 +152,19 @@
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var assemblyBuilderMock = new Mock<AssemblyBuilder>();
-            var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
 
             serverInfoMock.Setup(
                 mock => mock.FileSystemTempPath
             ).Returns(
                 fileSystemTempPath
             );
-
-            clientScriptsConsolidatorMock.Setup(
-                mock => mock.IntoSingleTemplatedString(
-                    It.IsAny<IEnumerable<ClientScript>>(),
-                    ref It.Ref<List<string>>.IsAny
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<ConsolidateClientScriptsCommand>(),
+                    CancellationToken.None
                 )
             ).Throws(
-                new Exception("error")
+                new Exception()
             );
 
             // When
@@ -146,11 +172,11 @@
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object,
-                assemblyBuilderMock.Object,
-                clientScriptsConsolidatorMock.Object
+                assemblyBuilderMock.Object
             );
             var actual = await compiler.Compile(
-                new List<ClientScript>()
+                new List<ClientScript>(),
+                CancellationToken.None
             );
 
 
@@ -164,6 +190,9 @@
         public async Task ShouldSaveFileOfConsolidatedScriptsWhenErrorIsCaught()
         {
             // Given
+            var scripts = new List<ClientScript>();
+            var usingList = new List<string>();
+            var scriptClasses = "script-classes";
             var scriptClassesConsolidated = "script-classes-consolidated";
             var fileSystemTempPath = "file-system-temp-path";
             var fileFullName = Path.Combine(
@@ -181,7 +210,6 @@
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
             var assemblyBuilderMock = new Mock<AssemblyBuilder>();
-            var clientScriptsConsolidatorMock = new Mock<ClientScriptsConsolidator>();
 
             serverInfoMock.Setup(
                 mock => mock.FileSystemTempPath
@@ -189,21 +217,29 @@
                 fileSystemTempPath
             );
 
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ConsolidateClientScriptsCommand(
+                        scripts
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<ConsolidateClientScriptsResult>(
+                    new ConsolidateClientScriptsResult(
+                        usingList,
+                        scriptClasses,
+                        consolidatedScripts
+                    )
+                )
+            );
+
             assemblyBuilderMock.Setup(
                 mock => mock.Compile(
-                    It.IsAny<string>()
+                    consolidatedScripts
                 )
             ).Throws(
                 new Exception("error")
-            );
-
-            clientScriptsConsolidatorMock.Setup(
-                mock => mock.IntoSingleTemplatedString(
-                    It.IsAny<IList<ClientScript>>(),
-                    ref It.Ref<List<string>>.IsAny
-                )
-            ).Returns(
-                scriptClassesConsolidated
             );
 
             // When
@@ -211,11 +247,11 @@
                 loggerMock.Object,
                 mediatorMock.Object,
                 serverInfoMock.Object,
-                assemblyBuilderMock.Object,
-                clientScriptsConsolidatorMock.Object
+                assemblyBuilderMock.Object
             );
             var actual = await compiler.Compile(
-                new List<ClientScript>()
+                scripts,
+                CancellationToken.None
             );
 
 
@@ -228,6 +264,52 @@
                     CancellationToken.None
                 )
             );
+        }
+
+        [Fact]
+        public async Task ShouldReturnErrorWhenConsolidatedClientScriptsReturnsFailure()
+        {
+            // Given
+            var errorCode = "error-code";
+            var expected = "error-code";
+
+            var scripts = new List<ClientScript>();
+
+            var loggerMock = new Mock<ILogger<ClientScriptCompilerForCSharp>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var assemblyBuilderMock = new Mock<AssemblyBuilder>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new ConsolidateClientScriptsCommand(
+                        scripts
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<ConsolidateClientScriptsResult>(
+                    errorCode
+                )
+            );
+
+            // When
+            var compiler = new ClientScriptCompilerForCSharp(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                assemblyBuilderMock.Object
+            );
+            var actual = await compiler.Compile(
+                scripts,
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
         }
     }
 }

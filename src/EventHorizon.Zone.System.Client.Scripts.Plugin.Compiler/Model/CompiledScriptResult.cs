@@ -1,7 +1,5 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model
 {
-    using System;
-
     public struct CompiledScriptResult
     {
         public bool Success { get; }
@@ -22,10 +20,11 @@
         }
 
         public CompiledScriptResult(
+            bool success,
             string errorCode
         )
         {
-            Success = false;
+            Success = success;
             ErrorCode = errorCode;
             Hash = string.Empty;
             ScriptAssembly = string.Empty;
