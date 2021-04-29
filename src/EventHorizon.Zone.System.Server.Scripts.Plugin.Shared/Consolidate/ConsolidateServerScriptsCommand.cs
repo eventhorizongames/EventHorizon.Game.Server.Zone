@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Consolidate
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;

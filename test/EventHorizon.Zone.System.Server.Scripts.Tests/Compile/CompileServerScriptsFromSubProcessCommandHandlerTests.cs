@@ -149,6 +149,130 @@
         }
 
         [Fact]
+        public async Task ShouldReturnErrorCodeWhenLoadNewServerScriptAssemblyCommandIsFailure()
+        {
+            // Given
+            var hash = "hash";
+            var notNullOrEmptyHash = "not-null-or-empty";
+            var generatedPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "App_Data",
+                "Generated"
+            );
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var subProcessErrorCode = 0;
+            var generatedScriptResultFullName = Path.Combine(
+                generatedPath,
+                GeneratedServerScriptsResultModel.SCRIPTS_RESULT_FILE_NAME
+            );
+            var compiledResult = new GeneratedServerScriptsResultModel
+            {
+                Success = true,
+                Hash = hash,
+            };
+            var errorCode = "error-code";
+
+            var expected = errorCode;
+
+            var loggerMock = new Mock<ILogger<CompileServerScriptsFromSubProcessCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var scriptSettings = new ServerScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var stateMock = new Mock<ServerScriptsState>();
+
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new NeedToCompileServerScripts(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<bool>(true)
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            stateMock.Setup(
+                mock => mock.CurrentHash
+            ).Returns(
+                notNullOrEmptyHash
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                subProcessErrorCode
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedServerScriptsResultModel>(
+                    generatedScriptResultFullName
+                )
+            ).ReturnsAsync(
+                compiledResult
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new LoadNewServerScriptAssemblyCommand(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new StandardCommandResult(
+                    errorCode
+                )
+            );
+
+            // When
+            var handler = new CompileServerScriptsFromSubProcessCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                scriptSettings,
+                stateMock.Object
+            );
+            var actual = await handler.Handle(
+                new CompileServerScriptsFromSubProcessCommand(
+
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Fact]
         public async Task ShouldReturnErrorCodeWhenNeedToCompileValidationCheckFails()
         {
             // Given

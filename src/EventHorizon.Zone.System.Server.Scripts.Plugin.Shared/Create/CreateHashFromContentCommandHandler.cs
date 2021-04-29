@@ -1,8 +1,6 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create
 {
     using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Create;
-    using global::System;
     using global::System.Security.Cryptography;
     using global::System.Text;
     using global::System.Threading;

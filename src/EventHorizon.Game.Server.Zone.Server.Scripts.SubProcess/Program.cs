@@ -41,8 +41,7 @@
                         ).AddCore(
                             // List of all SDK/API projects for Server Scripts
                             ZoneServerSDK.SystemProvidedAssemblyList
-                        )
-                        .AddSystemServerScriptsPluginShared()
+                        ).AddSystemServerScriptsPluginShared()
                         .AddSystemServerScriptsPluginCompiler()
                         .AddHostedService<WorkerService>()
                 );

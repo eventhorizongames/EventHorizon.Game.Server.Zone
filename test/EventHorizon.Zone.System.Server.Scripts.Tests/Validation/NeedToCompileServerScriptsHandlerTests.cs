@@ -3,8 +3,8 @@
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Consolidate;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Create;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.Validation;

@@ -5,7 +5,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
     using EventHorizon.Zone.System.Server.Scripts.State;
     using FluentAssertions;
     using global::System.Collections.Generic;
-    using global::System.Threading.Tasks;
     using Xunit;
 
     public class ServerScriptDetailsInMemoryRepositoryTests
@@ -183,6 +182,44 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
 
             // Then
             actual.Should().Be(
+                expected
+            );
+        }
+
+        [Fact]
+        public void ShouldReturnListOfAllAddedScriptDetailsWhenAllIsEnumerated()
+        {
+            // Given
+            var scriptDetails1 = new ServerScriptDetails(
+                "script-1-filename",
+                "script-1-path",
+                "script-1-string"
+            );
+            var scriptDetails2 = new ServerScriptDetails(
+                "script-2-filename",
+                "script-2-path",
+                "script-2-string"
+            );
+            var expected = new List<ServerScriptDetails>
+            {
+                scriptDetails1,
+                scriptDetails2,
+            };
+
+            // When
+            var repository = new ServerScriptDetailsInMemoryRepository();
+            repository.Add(
+                scriptDetails1.Id,
+                scriptDetails1
+            );
+            repository.Add(
+                scriptDetails2.Id,
+                scriptDetails2
+            );
+            var actual = repository.All;
+
+            // Then
+            actual.Should().BeEquivalentTo(
                 expected
             );
         }

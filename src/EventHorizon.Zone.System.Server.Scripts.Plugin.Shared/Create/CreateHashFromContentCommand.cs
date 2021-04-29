@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Create
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create
 {
     using EventHorizon.Zone.Core.Model.Command;
     using MediatR;

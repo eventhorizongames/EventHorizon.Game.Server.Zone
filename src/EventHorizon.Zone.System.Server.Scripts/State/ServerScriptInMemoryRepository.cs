@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
     public class ServerScriptInMemoryRepository
         : ServerScriptRepository
     {
-        private readonly ConcurrentDictionary<string, ServerScript> _map = new ConcurrentDictionary<string, ServerScript>();
+        private readonly ConcurrentDictionary<string, ServerScript> _map = new();
 
         public IEnumerable<ServerScript> All
             => _map.Values;
@@ -23,10 +23,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             ServerScript script
         )
         {
-            _map.TryRemove(script.Id, out _);
-            _map.TryAdd(
+            _map.AddOrUpdate(
                 script.Id,
-                script
+                script,
+                (_, __) => script
             );
         }
 

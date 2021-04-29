@@ -6,8 +6,8 @@
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Assemblies;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Consolidate;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Create;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;

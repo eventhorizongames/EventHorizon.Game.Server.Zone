@@ -10,6 +10,9 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
     using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.System;
     using FluentAssertions;
+    using global::System;
+    using Microsoft.Extensions.Logging;
+    using Moq;
     using Xunit;
 
     public class SystemServerScriptsExtensionsTests
@@ -20,7 +23,20 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
             // Given
             var expectedCompilerSubProcessDirectorySetting = "/sub-processes/server-scripts";
             var expectedCompilerSubProcessSetting = "EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess";
-            var serviceCollectionMock = new ServiceCollectionMock();
+
+        var serviceCollectionMock = new ServiceCollectionMock();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            var genericObserverStateMock = new Mock<GenericObserverState>(
+                It.IsAny<ILogger<GenericObserverState>>()
+            );
+
+            serviceProviderMock.Setup(
+                mock => mock.GetService(
+                    typeof(GenericObserverState)
+                )
+            ).Returns(
+                genericObserverStateMock.Object
+            );
 
             // When
             SystemServerScriptsExtensions.AddSystemServerScripts(
@@ -70,11 +86,19 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(ObserverState), service.ServiceType);
+                    service.ServiceType
+                        .Should().BeAssignableTo<ObserverState>();
+                    service.ImplementationFactory(
+                        serviceProviderMock.Object
+                    ).Should().BeAssignableTo<GenericObserverState>();
                 },
                 service =>
                 {
-                    Assert.Equal(typeof(AdminObserverState), service.ServiceType);
+                    service.ServiceType
+                        .Should().BeAssignableTo<AdminObserverState>();
+                    service.ImplementationFactory(
+                        serviceProviderMock.Object
+                    ).Should().BeAssignableTo<GenericObserverState>();
                 }
             );
         }

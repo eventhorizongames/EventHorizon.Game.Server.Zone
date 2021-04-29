@@ -1,11 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate
 {
     using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Hasher.Consolidate;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Linq;
     using global::System.Text;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -25,7 +25,7 @@
             CancellationToken cancellationToken
         )
         {
-            var scripts = request.Scripts;
+            var scripts = request.Scripts.OrderBy(a => a.Id);
             var stringBuilder = new StringBuilder(
                 string.Empty
             );
