@@ -40,6 +40,7 @@ COPY src/EventHorizon.Zone.Core.Model/EventHorizon.Zone.Core.Model.csproj ./src/
 COPY src/EventHorizon.Zone.Core.Events/EventHorizon.Zone.Core.Events.csproj ./src/EventHorizon.Zone.Core.Events/EventHorizon.Zone.Core.Events.csproj
 COPY src/EventHorizon.Zone.System.Client.Scripts.Model/EventHorizon.Zone.System.Client.Scripts.Model.csproj ./src/EventHorizon.Zone.System.Client.Scripts.Model/EventHorizon.Zone.System.Client.Scripts.Model.csproj
 COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.csproj ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.csproj
+COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.csproj ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.csproj
 
 COPY src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess.csproj
 
@@ -54,6 +55,7 @@ COPY src/EventHorizon.Zone.Core.Model ./src/EventHorizon.Zone.Core.Model
 COPY src/EventHorizon.Zone.Core.Events ./src/EventHorizon.Zone.Core.Events
 COPY src/EventHorizon.Zone.System.Client.Scripts.Model ./src/EventHorizon.Zone.System.Client.Scripts.Model
 COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler
+COPY src/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared ./src/EventHorizon.Zone.System.Client.Scripts.Plugin.Shared
 
 COPY src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
 
