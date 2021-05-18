@@ -6,6 +6,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.RandomNumber;
     using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Model.State;
     using MediatR;
     using Microsoft.Extensions.Logging;
 
@@ -20,6 +21,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         public IDateTimeService DateTime { get; }
         public I18nLookup I18n { get; }
         public ObserverState ObserverState { get; }
+        public ServerScriptRuntimeState State { get; }
 
         public SystemServerScriptServices(
             ServerInfo serverInfo,
@@ -28,6 +30,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             IDateTimeService dateTime,
             I18nLookup i18n,
             ObserverState observerState,
+            ServerScriptRuntimeState state,
             ILoggerFactory loggerFactory
         )
         {
@@ -37,6 +40,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
             DateTime = dateTime;
             I18n = i18n;
             ObserverState = observerState;
+            State = state;
             _loggerFactory = loggerFactory;
         }
 
