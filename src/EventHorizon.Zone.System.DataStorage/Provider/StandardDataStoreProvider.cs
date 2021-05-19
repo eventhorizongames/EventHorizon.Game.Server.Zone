@@ -1,12 +1,12 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.StateManagement
+﻿namespace EventHorizon.Zone.System.DataStorage.Provider
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model.State;
+    using EventHorizon.Zone.System.DataStorage.Model;
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Text.Json;
 
-    public class KeyValueServerScriptRuntimeState
-        : ServerScriptRuntimeState
+    public class StandardDataStoreProvider
+        : DataStore
     {
         private readonly ConcurrentDictionary<string, object> _map = new();
 

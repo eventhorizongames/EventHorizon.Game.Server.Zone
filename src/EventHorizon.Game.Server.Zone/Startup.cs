@@ -170,6 +170,7 @@
                 typeof(SystemWatcherExtensions).Assembly,
                 typeof(SystemEditorExtensions).Assembly,
                 typeof(SystemBackupExtensions).Assembly,
+                typeof(SystemDataStorageExtensions).Assembly,
 
                 typeof(SystemAdminExtensions).Assembly,
                 typeof(SystemAdminExternalHubExtensions).Assembly,
@@ -295,6 +296,7 @@
                 .AddSystemWatcher()
                 .AddSystemEditor()
                 .AddSystemBackup()
+                .AddSystemDataStorage()
 
                 .AddSystemAdmin()
                 .AddSystemAdminPluginCommand()
@@ -422,6 +424,7 @@
             app.UseSystemWatcher();
             app.UseSystemBackup();
             app.UseSystemEditor();
+            app.UseSystemDataStorage();
 
             app.UseSystemAdmin();
             app.UseSystemAdminPluginCommand();

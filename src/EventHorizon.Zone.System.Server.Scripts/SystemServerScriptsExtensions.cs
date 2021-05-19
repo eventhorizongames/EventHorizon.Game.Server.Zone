@@ -5,9 +5,7 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Observer.State;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model.State;
     using EventHorizon.Zone.System.Server.Scripts.State;
-    using EventHorizon.Zone.System.Server.Scripts.StateManagement;
     using EventHorizon.Zone.System.Server.Scripts.System;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
@@ -37,7 +35,6 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<ServerScriptRepository, ServerScriptInMemoryRepository>()
                 .AddSingleton<ServerScriptDetailsRepository, ServerScriptDetailsInMemoryRepository>()
                 .AddTransient<ServerScriptServices, SystemServerScriptServices>()
-                .AddSingleton<ServerScriptRuntimeState, KeyValueServerScriptRuntimeState>()
 
                 .AddSingleton<GenericObserverState>()
                 .AddSingleton<ObserverState>(services => services.GetRequiredService<GenericObserverState>())

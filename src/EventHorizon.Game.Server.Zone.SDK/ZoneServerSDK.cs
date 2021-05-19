@@ -34,6 +34,7 @@
             typeof(SystemWatcherExtensions).Assembly,
             typeof(SystemEditorExtensions).Assembly,
             typeof(SystemBackupExtensions).Assembly,
+            typeof(SystemDataStorageExtensions).Assembly,
 
             typeof(SystemAdminExtensions).Assembly,
             typeof(SystemAdminExternalHubExtensions).Assembly,

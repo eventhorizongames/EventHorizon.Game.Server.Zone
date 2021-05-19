@@ -14,6 +14,7 @@
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage.Model\EventHorizon.Zone.System.DataStorage.Model.csproj" />
     </ItemGroup>
 
 </Project>

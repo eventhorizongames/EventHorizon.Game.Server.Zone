@@ -76,27 +76,27 @@ public class __SCRIPT__
     {
         var message = args.EventMessage;
 
-        var score =0;
-        if(!_services.State.TryGetValue<int>("Score", out score))
+        var score = 0;
+        if (!_services.DataStore.TryGetValue<int>("Score", out score))
         {
             _logger.LogInformation("Did not find value");
         }
         score += 1;
 
         var scriptState = default(CustomScriptState);
-        if(!_services.State.TryGetValue<CustomScriptState>("ScoreState", out scriptState))
+        if (!_services.DataStore.TryGetValue<CustomScriptState>("ScoreState", out scriptState))
         {
             scriptState = new CustomScriptState();
         }
 
-        scriptState.Score += 2;
+        scriptState.Score += 1;
 
         _logger.LogInformation(
             $"Message in Observer Handler: {message} | Score: {score} | ScriptState.Score {scriptState.Score}"
         );
 
-        _services.State.AddOrUpdate("Score", score);
-        _services.State.AddOrUpdate("ScoreState", scriptState);
+        _services.DataStore.AddOrUpdate("Score", score);
+        _services.DataStore.AddOrUpdate("ScoreState", scriptState);
 
         return Task.CompletedTask;
     }
@@ -104,5 +104,5 @@ public class __SCRIPT__
 
 public class CustomScriptState
 {
-    public int Score {get; set;}
+    public int Score { get; set; }
 }

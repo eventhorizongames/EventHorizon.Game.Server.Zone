@@ -1,6 +1,6 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Model.State
+﻿namespace EventHorizon.Zone.System.DataStorage.Model
 {
-    public interface ServerScriptRuntimeState
+    public interface DataStore
     {
         bool TryGetValue<T>(
             string key,

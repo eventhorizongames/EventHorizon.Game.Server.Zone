@@ -5,7 +5,7 @@
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.RandomNumber;
-    using EventHorizon.Zone.System.Server.Scripts.Model.State;
+    using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.Server.Scripts.System;
     using FluentAssertions;
     using MediatR;
@@ -26,7 +26,7 @@
             var dateTimeMock = new Mock<IDateTimeService>();
             var i18nMock = new Mock<I18nLookup>();
             var observerStateMock = new Mock<ObserverState>();
-            var serverScriptRuntimeStateMock = new Mock<ServerScriptRuntimeState>();
+            var dataStoreMock = new Mock<DataStore>();
             var loggerFactoryMock = new Mock<ILoggerFactory>();
 
             // When
@@ -37,7 +37,7 @@
                 dateTimeMock.Object,
                 i18nMock.Object,
                 observerStateMock.Object,
-                serverScriptRuntimeStateMock.Object,
+                dataStoreMock.Object,
                 loggerFactoryMock.Object
             );
 
@@ -56,8 +56,8 @@
                 .Should().Be(dateTimeMock.Object);
             scriptServices.I18n
                 .Should().Be(i18nMock.Object);
-            scriptServices.State
-                .Should().Be(serverScriptRuntimeStateMock.Object);
+            scriptServices.DataStore
+                .Should().Be(dataStoreMock.Object);
             scriptServices.ObserverState
                 .Should().Be(observerStateMock.Object);
         }

@@ -1,11 +1,11 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Tests.StateManagement
+﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Provider
 {
-    using EventHorizon.Zone.System.Server.Scripts.StateManagement;
+    using EventHorizon.Zone.System.DataStorage.Provider;
     using FluentAssertions;
     using Xunit;
 
 
-    public class KeyValueServerScriptRuntimeStateTests
+    public class StandardDataStoreProviderTests
     {
         [Fact]
         public void ShouldAddNewValueWhenStateDoesNotAlreadyContainValue()
@@ -16,17 +16,17 @@
             var expected = "value";
 
             // When
-            var keyValueServerScriptRuntimeState = new KeyValueServerScriptRuntimeState();
-            keyValueServerScriptRuntimeState.TryGetValue<string>(
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.TryGetValue<string>(
                 key, out _
             ).Should().BeFalse();
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            dataStore.AddOrUpdate(
                 key,
                 expected
             );
 
             // Then
-            keyValueServerScriptRuntimeState.TryGetValue<string>(
+            dataStore.TryGetValue<string>(
                 key,
                 out var actual
             ).Should().BeTrue();
@@ -43,12 +43,12 @@
             var expected = "value";
 
             // When
-            var keyValueServerScriptRuntimeState = new KeyValueServerScriptRuntimeState();
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.AddOrUpdate(
                 key,
                 value
             );
-            keyValueServerScriptRuntimeState.TryGetValue<string>(
+            dataStore.TryGetValue<string>(
                 key,
                 out var initialValue
             ).Should().BeTrue();
@@ -56,13 +56,13 @@
                 .Should().Be(value);
 
             // Add expected value
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            dataStore.AddOrUpdate(
                 key,
                 expected
             );
 
             // Then
-            keyValueServerScriptRuntimeState.TryGetValue<string>(
+            dataStore.TryGetValue<string>(
                 key,
                 out var actual
             ).Should().BeTrue();
@@ -79,14 +79,14 @@
             var expected = 0;
 
             // When
-            var keyValueServerScriptRuntimeState = new KeyValueServerScriptRuntimeState();
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.AddOrUpdate(
                 key,
                 initialValue
             );
 
             // Then
-            keyValueServerScriptRuntimeState.TryGetValue<int>(
+            dataStore.TryGetValue<int>(
                 key,
                 out var actual
             ).Should().BeFalse();
@@ -100,14 +100,14 @@
             var key = "key";
             var initialValue = 123;
 
-            var keyValueServerScriptRuntimeState = new KeyValueServerScriptRuntimeState();
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.AddOrUpdate(
                 key,
                 initialValue
             );
 
             // Then
-            keyValueServerScriptRuntimeState.TryGetValue<string>(
+            dataStore.TryGetValue<string>(
                 key,
                 out var actual
             ).Should().BeFalse();
@@ -130,14 +130,14 @@
                 Count = count,
             };
 
-            var keyValueServerScriptRuntimeState = new KeyValueServerScriptRuntimeState();
-            keyValueServerScriptRuntimeState.AddOrUpdate(
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.AddOrUpdate(
                 key,
                 initialValue
             );
 
             // Then
-            keyValueServerScriptRuntimeState.TryGetValue<TestingNewStateType>(
+            dataStore.TryGetValue<TestingNewStateType>(
                 key,
                 out var actual
             ).Should().BeTrue();

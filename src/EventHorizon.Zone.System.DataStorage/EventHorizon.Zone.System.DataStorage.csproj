@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Mediatr" Version="8.1.0" />
+        <PackageReference Include="EventHorizon.Common" Version="0.1.57" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage.Model\EventHorizon.Zone.System.DataStorage.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage.Events\EventHorizon.Zone.System.DataStorage.Events.csproj" />
+    </ItemGroup>
+
+</Project>

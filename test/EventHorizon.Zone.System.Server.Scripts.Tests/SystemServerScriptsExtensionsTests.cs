@@ -7,9 +7,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Model.State;
     using EventHorizon.Zone.System.Server.Scripts.State;
-    using EventHorizon.Zone.System.Server.Scripts.StateManagement;
     using EventHorizon.Zone.System.Server.Scripts.System;
     using FluentAssertions;
     using global::System;
@@ -80,11 +78,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
                 {
                     Assert.Equal(typeof(ServerScriptServices), service.ServiceType);
                     Assert.Equal(typeof(SystemServerScriptServices), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(ServerScriptRuntimeState), service.ServiceType);
-                    Assert.Equal(typeof(KeyValueServerScriptRuntimeState), service.ImplementationType);
                 },
                 service =>
                 {
