@@ -1,14 +1,35 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Provider
 {
+    using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Model;
     using global::System;
     using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
     using global::System.Text.Json;
 
     public class StandardDataStoreProvider
-        : DataStore
+        : DataStore,
+        DataStoreManagement
     {
         private readonly ConcurrentDictionary<string, object> _map = new();
+
+        public IDictionary<string, object> Data()
+        {
+            return _map;
+        }
+
+        public void Set(
+            IDictionary<string, object> data
+        )
+        {
+            foreach (var item in data)
+            {
+                AddOrUpdate(
+                    item.Key,
+                    item.Value
+                );
+            }
+        }
 
         public void AddOrUpdate(
             string key,
@@ -76,6 +97,5 @@
             {
                 return default;
             }
-        }
-    }
+        }    }
 }

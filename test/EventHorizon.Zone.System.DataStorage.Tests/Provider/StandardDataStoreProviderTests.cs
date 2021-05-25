@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.DataStorage.Provider;
     using FluentAssertions;
+    using global::System.Collections.Generic;
     using Xunit;
 
 
@@ -144,6 +145,84 @@
             actual.Count
                 .Should().Be(expected);
         }
+
+        [Fact]
+        public void ShouldReturnDictionaryWithKeysWhenDataIsSet()
+        {
+            // Given
+            var input = new Dictionary<string, object>
+            {
+                ["string"] = "string",
+                ["int"] = 123,
+                ["complex"] = new
+                {
+                    Value = "value1",
+                },
+            };
+
+            // When
+            var standardDataStoreProvider = new StandardDataStoreProvider();
+
+            standardDataStoreProvider.Set(
+                input
+            );
+
+            var actual = standardDataStoreProvider.Data();
+
+            // Then
+            actual.Should().ContainKeys(
+                "string",
+                "int",
+                "complex"
+            );
+        }
+
+        [Fact]
+        public void ShouldReturnDictionaryWithValuesWhenDataIsSet()
+        {
+            // Given
+            var input = new Dictionary<string, object>
+            {
+                ["string"] = "string",
+                ["int"] = 123,
+                ["complex"] = new
+                {
+                    Value = "value1",
+                },
+            };
+
+            // When
+            var standardDataStoreProvider = new StandardDataStoreProvider();
+
+            standardDataStoreProvider.Set(
+                input
+            );
+
+            var actual = standardDataStoreProvider.Data();
+
+            // Then
+            actual.Should()
+                .ContainKey("string")
+                .And
+                .Subject["string"]
+                    .Should().Be("string");
+            actual.Should()
+                .ContainKey("int")
+                .And
+                .Subject["int"]
+                    .Should().Be(123);
+            actual.Should()
+                .ContainKey("complex")
+                .And
+                .Subject["complex"]
+                    .Should().BeEquivalentTo(
+                        new
+                        {
+                            Value = "value1",
+                        }
+                    );
+        }
+
 
         private class TestingInitialStateType
         {
