@@ -4,9 +4,28 @@
 
     public interface DataStoreManagement
     {
-        public IDictionary<string, object> Data();
-        public void Set(
+        IDictionary<string, object> Data();
+        
+        void Set(
             IDictionary<string, object> data
+        );
+        
+        void Set(
+            string key,
+            object value
+        );
+
+        void Delete(
+            string key
+        );
+
+        void UpdateSchema(
+            string key,
+            string type
+        );
+
+        void DeleteFromSchema(
+            string key
         );
     }
 }

@@ -11,6 +11,8 @@
         : DataStore,
         DataStoreManagement
     {
+        public const string DATA_STORE_SCHEMA_KEY = "dataStore:Schema";
+
         private readonly ConcurrentDictionary<string, object> _map = new();
 
         public IDictionary<string, object> Data()
@@ -29,6 +31,37 @@
                     item.Value
                 );
             }
+
+            if (!_map.ContainsKey(
+                DATA_STORE_SCHEMA_KEY
+            ))
+            {
+                AddOrUpdate(
+                    DATA_STORE_SCHEMA_KEY,
+                    new DataStoreSchema()
+                );
+            }
+        }
+
+        public void Set(
+            string key,
+            object value
+        )
+        {
+            AddOrUpdate(
+                key,
+                value
+            );
+        }
+
+        public void Delete(
+            string key
+        )
+        {
+            _map.Remove(
+                key,
+                out _
+            );
         }
 
         public void AddOrUpdate(
@@ -97,5 +130,50 @@
             {
                 return default;
             }
-        }    }
+        }
+
+        public void UpdateSchema(
+            string key,
+            string type
+        )
+        {
+            var metadata = new DataStoreSchema();
+            if (TryGetValue<DataStoreSchema>(
+                DATA_STORE_SCHEMA_KEY,
+                out var value
+            ))
+            {
+                metadata = value;
+            }
+            metadata[key] = type;
+
+            AddOrUpdate(
+                DATA_STORE_SCHEMA_KEY,
+                metadata
+            );
+        }
+
+        public void DeleteFromSchema(
+            string key
+        )
+        {
+            var metadata = new DataStoreSchema();
+            if (TryGetValue<DataStoreSchema>(
+                DATA_STORE_SCHEMA_KEY,
+                out var value
+            ))
+            {
+                metadata = value;
+            }
+
+            metadata.Remove(
+                key
+            );
+
+            AddOrUpdate(
+                DATA_STORE_SCHEMA_KEY,
+                metadata
+            );
+        }
+    }
 }

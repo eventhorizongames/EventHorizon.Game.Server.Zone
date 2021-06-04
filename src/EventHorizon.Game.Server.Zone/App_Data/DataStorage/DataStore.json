@@ -1,1 +1,1 @@
-{"ScoreState":{"Score":4},"Score":4}
+{"complex":{},"long":12,"string":"String Value","boolean":true,"score":12,"dataStore:Schema":{"score":"Long","scoreState":"Complex","long":"Long","complex":"Complex","string":"String","boolean":"Boolean","decimal":"Decimal"},"scoreState":{"score":4},"decimal":12}

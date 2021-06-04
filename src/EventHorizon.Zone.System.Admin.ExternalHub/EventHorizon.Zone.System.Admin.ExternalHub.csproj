@@ -20,6 +20,8 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
 
+        <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage.Events\EventHorizon.Zone.System.DataStorage.Events.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Wizard.Events\EventHorizon.Zone.System.Wizard.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Wizard.Model\EventHorizon.Zone.System.Wizard.Model.csproj" />
     </ItemGroup>
