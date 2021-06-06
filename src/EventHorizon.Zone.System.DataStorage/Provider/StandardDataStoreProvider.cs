@@ -137,14 +137,8 @@
             string type
         )
         {
-            var metadata = new DataStoreSchema();
-            if (TryGetValue<DataStoreSchema>(
-                DATA_STORE_SCHEMA_KEY,
-                out var value
-            ))
-            {
-                metadata = value;
-            }
+            var metadata = GetCurrentSchema();            
+            
             metadata[key] = type;
 
             AddOrUpdate(
@@ -157,14 +151,7 @@
             string key
         )
         {
-            var metadata = new DataStoreSchema();
-            if (TryGetValue<DataStoreSchema>(
-                DATA_STORE_SCHEMA_KEY,
-                out var value
-            ))
-            {
-                metadata = value;
-            }
+            var metadata = GetCurrentSchema();
 
             metadata.Remove(
                 key
@@ -174,6 +161,20 @@
                 DATA_STORE_SCHEMA_KEY,
                 metadata
             );
+        }
+
+        private DataStoreSchema GetCurrentSchema()
+        {
+            var metadata = new DataStoreSchema();
+            if (TryGetValue<DataStoreSchema>(
+                DATA_STORE_SCHEMA_KEY,
+                out var value
+            ))
+            {
+                metadata = value;
+            }
+
+            return metadata;
         }
     }
 }

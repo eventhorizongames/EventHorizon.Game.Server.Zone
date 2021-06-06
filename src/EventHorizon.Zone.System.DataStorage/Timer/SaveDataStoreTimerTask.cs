@@ -12,6 +12,6 @@ namespace EventHorizon.Zone.System.DataStorage.Timer
         public string Tag { get; } = nameof(SaveDataStoreTimerTask);
         public IRequest<bool> OnValidationEvent { get; } = new IsServerStarted();
         public INotification OnRunEvent { get; } = new RunSaveDataStoreEvent();
-        public bool LogDetails { get; } = true;
+        public bool LogDetails { get; }
     }
 }

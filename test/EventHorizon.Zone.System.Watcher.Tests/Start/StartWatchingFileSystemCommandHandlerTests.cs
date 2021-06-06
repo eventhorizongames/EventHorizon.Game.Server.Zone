@@ -205,6 +205,8 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 jsonTestFile
             );
 
+            Thread.Sleep(1);
+
             // Then
             reloadStateMock.Verify(
                 mock => mock.SetToPending(),

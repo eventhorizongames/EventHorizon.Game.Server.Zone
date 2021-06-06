@@ -4,7 +4,7 @@
     using EventHorizon.Zone.System;
     using MediatR;
 
-    public class SaveDataStoreCommand
+    public struct SaveDataStoreCommand
         : IRequest<StandardCommandResult>
     {
     }

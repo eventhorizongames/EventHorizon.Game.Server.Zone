@@ -21,14 +21,16 @@
             _dataStoreManagement = dataStoreManagement;
         }
 
-        public async Task<CommandResult<IReadOnlyDictionary<string, object>>> Handle(
+        public Task<CommandResult<IReadOnlyDictionary<string, object>>> Handle(
             QueryForAllDataStoreValues request,
             CancellationToken cancellationToken
         )
         {
-            return new ReadOnlyDictionary<string, object>(
-                _dataStoreManagement.Data()
-            );
+            return new CommandResult<IReadOnlyDictionary<string, object>>(
+                new ReadOnlyDictionary<string, object>(
+                    _dataStoreManagement.Data()
+                )
+            ).FromResult();
         }
     }
 }

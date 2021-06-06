@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Provider
 {
+    using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.DataStorage.Provider;
     using FluentAssertions;
     using global::System.Collections.Generic;
@@ -223,6 +224,179 @@
                     );
         }
 
+        [Fact]
+        public void ShouldSetKeyAndValueWhenInvidualSetIsCalled()
+        {
+            // Given
+            var key = "key";
+            var initialValue = "value1";
+            var expected = initialValue;
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.Set(
+                key,
+                initialValue
+            );
+
+            // Then
+            dataStore.TryGetValue<string>(
+                key,
+                out var actual
+            ).Should().BeTrue();
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
+        public void ShouldRemoveValueWhenDeletedFromProvider()
+        {
+            // Given
+            var key = "key";
+            var value = "value1";
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.Set(
+                key,
+                value
+            );
+            dataStore.TryGetValue<string>(
+                key,
+                out var existingValue
+            ).Should().BeTrue();
+            existingValue.Should().Be(value);
+            dataStore.Delete(
+                key
+            );
+
+            // Then
+            dataStore.TryGetValue<string>(
+                key,
+                out var _
+            ).Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldUpdateInternalSchemeDetailsWhenKeyTypeIsUpdated()
+        {
+            // Given
+            var key = "key";
+            var keyType = "key-type";
+            var expected = new DataStoreSchema
+            {
+                [key] = keyType,
+            };
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.UpdateSchema(
+                key,
+                keyType
+            );
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var actual
+            ).Should().BeTrue();
+
+            // Then
+            actual.Should().BeEquivalentTo(
+                expected
+            );
+        }
+
+        [Fact]
+        public void ShouldUpdateExistingInternalSchemeDetailsWhenKeyTypeIsUpdated()
+        {
+            // Given
+            var key = "key";
+            var initialType = "key-type";
+            var keyType = "update-type";
+            var expected = new DataStoreSchema
+            {
+                [key] = keyType,
+            };
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.UpdateSchema(
+                key,
+                initialType 
+            );
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var initialSchema
+            ).Should().BeTrue();
+            initialSchema.Should().ContainKey(key)
+                .And
+                .Subject.Should().ContainValue(initialType);
+            dataStore.UpdateSchema(
+                key,
+                keyType
+            );
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var actual
+            ).Should().BeTrue();
+
+            // Then
+            actual.Should().BeEquivalentTo(
+                expected
+            );
+        }
+
+
+        [Fact]
+        public void ShouldDeleteFromInternalSchemeDetailsWhenKeyDeleteIsExecuted()
+        {
+            // Given
+            var key = "key";
+            var expected = new DataStoreSchema();
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.DeleteFromSchema(
+                key
+            );
+
+            // Then
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var actual
+            ).Should().BeTrue();
+            actual.Should().BeEquivalentTo(
+                expected
+            );
+        }
+
+        [Fact]
+        public void ShouldDeleteFromExistingInternalSchemeDetailsWhenKeyDeleteIsExecuted()
+        {
+            // Given
+            var key = "key";
+            var initialType = "key-type";
+
+            // When
+            var dataStore = new StandardDataStoreProvider();
+            dataStore.UpdateSchema(
+                key,
+                initialType
+            );
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var initialSchema
+            ).Should().BeTrue();
+            initialSchema.Should().ContainKey(key);
+            dataStore.DeleteFromSchema(
+                key
+            );
+
+            // Then
+            dataStore.TryGetValue<DataStoreSchema>(
+                StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,
+                out var actual
+            ).Should().BeTrue();
+            actual.Should().NotContainKey(key);
+        }
 
         private class TestingInitialStateType
         {

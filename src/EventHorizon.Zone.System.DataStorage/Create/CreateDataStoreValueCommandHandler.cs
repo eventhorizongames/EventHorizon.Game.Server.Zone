@@ -1,9 +1,8 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Create
 {
     using EventHorizon.Zone.Core.Model.Command;
-using EventHorizon.Zone.System.DataStorage.Api;
+    using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Events.Create;
-    using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.DataStorage.Save;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -25,7 +24,7 @@ using EventHorizon.Zone.System.DataStorage.Api;
         }
 
         public async Task<StandardCommandResult> Handle(
-            CreateDataStoreValueCommand request, 
+            CreateDataStoreValueCommand request,
             CancellationToken cancellationToken
         )
         {

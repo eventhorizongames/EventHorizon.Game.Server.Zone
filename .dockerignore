@@ -5,3 +5,4 @@
 **/certificate.pfx
 _scripts/
 sub-processes/
+global.json

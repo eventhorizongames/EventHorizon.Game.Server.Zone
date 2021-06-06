@@ -29,7 +29,8 @@
 
 
         public async Task<StandardCommandResult> Handle(
-            SaveDataStoreCommand request, CancellationToken cancellationToken
+            SaveDataStoreCommand request, 
+            CancellationToken cancellationToken
         )
         {
             var (saveDirectory, saveFile) = DataStorageLocation.GenerateDataStorageLocation(
