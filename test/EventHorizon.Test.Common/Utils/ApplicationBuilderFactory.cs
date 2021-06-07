@@ -1,10 +1,12 @@
 namespace EventHorizon.Test.Common
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Moq;
 
+    [ExcludeFromCodeCoverage]
     public static class ApplicationBuilderFactory
     {
         public struct ApplicationBuilderMocks

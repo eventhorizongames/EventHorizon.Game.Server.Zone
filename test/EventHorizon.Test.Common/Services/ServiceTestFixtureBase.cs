@@ -1,8 +1,10 @@
 namespace EventHorizon.Test.Common.Services
 {
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.Extensions.DependencyInjection;
     using Xunit.Abstractions;
 
+    [ExcludeFromCodeCoverage]
     public class ServiceTestFixtureBase
     {
         protected readonly ITestOutputHelper _testOutputHelper;
@@ -14,9 +16,7 @@ namespace EventHorizon.Test.Common.Services
         {
             get
             {
-                return _serviceProvider == null
-                    ? _serviceProvider = _serviceCollection.BuildServiceProvider()
-                    : _serviceProvider;
+                return _serviceProvider ??= _serviceCollection.BuildServiceProvider();
             }
         }
 

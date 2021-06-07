@@ -1,11 +1,10 @@
 ﻿namespace EventHorizon.Test.Common.Attributes
 {
-    using System;
-    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Reflection;
     using Xunit.Sdk;
 
+    [ExcludeFromCodeCoverage]
     public class RepeatAttribute : DataAttribute
     {
         private readonly int count;
