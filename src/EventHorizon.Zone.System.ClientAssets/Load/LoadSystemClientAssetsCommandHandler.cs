@@ -1,18 +1,20 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.ClientAssets.Add;
-using EventHorizon.Zone.System.ClientAssets.Model;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ClientAssets.Load
 {
-    public class LoadSystemClientAssetsCommandHandler : IRequestHandler<LoadSystemClientAssetsCommand>
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Command;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.ClientAssets.Add;
+    using EventHorizon.Zone.System.ClientAssets.Model;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class LoadSystemClientAssetsCommandHandler
+        : IRequestHandler<LoadSystemClientAssetsCommand, StandardCommandResult>
     {
         readonly IMediator _mediator;
         readonly IJsonFileLoader _fileLoader;
@@ -28,32 +30,41 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
             _serverInfo = serverInfo;
         }
 
-        public Task<Unit> Handle(
+        public async Task<StandardCommandResult> Handle(
             LoadSystemClientAssetsCommand notification,
             CancellationToken cancellationToken
-        ) => _mediator.Send(
-            new ProcessFilesRecursivelyFromDirectory(
-                 Path.Combine(
-                    _serverInfo.ClientPath,
-                    "Assets"
+        )
+        {
+            await _mediator.Send(
+                new ProcessFilesRecursivelyFromDirectory(
+                     Path.Combine(
+                        _serverInfo.ClientPath,
+                        "Assets"
+                    ),
+                    OnProcessFile,
+                    new Dictionary<string, object>()
                 ),
-                OnProcessFile,
-                null
-            )
-        );
+                cancellationToken
+            );
+            return new();
+        }
 
         private async Task OnProcessFile(
             StandardFileInfo fileInfo,
             IDictionary<string, object> _
         )
         {
+            var clientAsset = await _fileLoader.GetFile<ClientAsset>(
+                fileInfo.FullName
+            );
+            clientAsset.SetFileFullName(
+                fileInfo.FullName
+            );
+
             await _mediator.Publish(
-                new AddClientAssetEvent
-                {
-                    ClientAsset = await _fileLoader.GetFile<ClientAsset>(
-                        fileInfo.FullName
-                    )
-                }
+                new AddClientAssetEvent(
+                    clientAsset
+                )
             );
         }
     }

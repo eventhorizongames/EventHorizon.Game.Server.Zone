@@ -261,6 +261,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		azure-pipelines.yml = azure-pipelines.yml
+		Directory.Build.props = Directory.Build.props
 		Dockerfile = Dockerfile
 		Dockerfile.devops = Dockerfile.devops
 		README.md = README.md
@@ -328,13 +329,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Cl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Tests\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Tests.csproj", "{00E1D779-BA67-4315-BA26-256A10289783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.DataStorage", "src\EventHorizon.Zone.System.DataStorage\EventHorizon.Zone.System.DataStorage.csproj", "{0B94FE18-ECD1-4FAF-ABB5-5F035B09EC0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.DataStorage", "src\EventHorizon.Zone.System.DataStorage\EventHorizon.Zone.System.DataStorage.csproj", "{0B94FE18-ECD1-4FAF-ABB5-5F035B09EC0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.DataStorage.Events", "src\EventHorizon.Zone.System.DataStorage.Events\EventHorizon.Zone.System.DataStorage.Events.csproj", "{169694B4-CCEE-4D02-8F6C-641E22D2CC7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.DataStorage.Model", "src\EventHorizon.Zone.System.DataStorage.Model\EventHorizon.Zone.System.DataStorage.Model.csproj", "{D79E9B26-356F-48E0-B0F7-720ED1C242B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.DataStorage.Tests", "test\EventHorizon.Zone.System.DataStorage.Tests\EventHorizon.Zone.System.DataStorage.Tests.csproj", "{F825809C-E06D-4592-B44B-C8D8F9C6C074}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets.Events", "src\EventHorizon.Zone.System.ClientAssets.Events\EventHorizon.Zone.System.ClientAssets.Events.csproj", "{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets.Model", "src\EventHorizon.Zone.System.ClientAssets.Model\EventHorizon.Zone.System.ClientAssets.Model.csproj", "{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2254,6 +2259,30 @@ Global
 		{F825809C-E06D-4592-B44B-C8D8F9C6C074}.Release|x64.Build.0 = Release|Any CPU
 		{F825809C-E06D-4592-B44B-C8D8F9C6C074}.Release|x86.ActiveCfg = Release|Any CPU
 		{F825809C-E06D-4592-B44B-C8D8F9C6C074}.Release|x86.Build.0 = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|x64.Build.0 = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Debug|x86.Build.0 = Debug|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|x64.ActiveCfg = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|x64.Build.0 = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|x86.ActiveCfg = Release|Any CPU
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}.Release|x86.Build.0 = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|x64.Build.0 = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Debug|x86.Build.0 = Debug|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|x64.ActiveCfg = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|x64.Build.0 = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|x86.ActiveCfg = Release|Any CPU
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2418,6 +2447,8 @@ Global
 		{169694B4-CCEE-4D02-8F6C-641E22D2CC7E} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{D79E9B26-356F-48E0-B0F7-720ED1C242B5} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{F825809C-E06D-4592-B44B-C8D8F9C6C074} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
+		{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758} = {FE232CB9-E002-4898-9117-E3162928E341}
+		{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A} = {FE232CB9-E002-4898-9117-E3162928E341}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}

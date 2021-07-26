@@ -52,7 +52,8 @@
                         true,
                         "client_assets_system_reloaded"
                     )
-                )
+                ),
+                cancellationToken
             );
         }
     }

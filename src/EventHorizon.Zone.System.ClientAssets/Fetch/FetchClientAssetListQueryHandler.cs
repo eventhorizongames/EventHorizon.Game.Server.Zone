@@ -1,13 +1,14 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.System.ClientAssets.State;
-using EventHorizon.Zone.System.ClientEntity.Api;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ClientAssets.Fetch
 {
-    public class FetchClientAssetListQueryHandler : IRequestHandler<FetchClientAssetListQuery, IEnumerable<IClientAsset>>
+    using EventHorizon.Zone.System.ClientAssets.Model;
+    using EventHorizon.Zone.System.ClientAssets.State.Api;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using MediatR;
+
+    public class FetchClientAssetListQueryHandler 
+        : IRequestHandler<FetchClientAssetListQuery, IEnumerable<ClientAsset>>
     {
         readonly ClientAssetRepository _assetRepository;
         public FetchClientAssetListQueryHandler(
@@ -16,14 +17,14 @@ namespace EventHorizon.Zone.System.ClientAssets.Fetch
         {
             _assetRepository = assetRepository;
         }
-        public Task<IEnumerable<IClientAsset>> Handle(
+        public Task<IEnumerable<ClientAsset>> Handle(
             FetchClientAssetListQuery request,
             CancellationToken cancellationToken
         )
         {
-            return Task.FromResult(
-                _assetRepository.All()
-            );
+            return _assetRepository
+                .All()
+                .FromResult();
         }
     }
 }

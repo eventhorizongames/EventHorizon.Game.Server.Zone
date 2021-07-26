@@ -17,6 +17,7 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Events\EventHorizon.Zone.System.Agent.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Agent.Model\EventHorizon.Zone.System.Agent.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.ClientAssets.Events\EventHorizon.Zone.System.ClientAssets.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.ClientEntities\EventHorizon.Zone.System.ClientEntities.csproj" />
 

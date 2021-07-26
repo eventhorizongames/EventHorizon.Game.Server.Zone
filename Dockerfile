@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build-publish
 WORKDIR /source
 
 COPY *.sln .
+COPY Directory.Build.props .
 COPY src/. ./src/
 COPY test/. ./test/
 
@@ -15,6 +16,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS server-scripts-sub-process
 WORKDIR /source
 
 ## Projects
+COPY Directory.Build.props .
 COPY src/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
 
@@ -37,6 +39,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS server-scripts-sub-process
 WORKDIR /source
 
 ## Projects
+COPY Directory.Build.props .
 COPY src/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
 
@@ -59,6 +62,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS client-scripts-sub-process
 WORKDIR /source
 
 ## Projects
+COPY Directory.Build.props .
 COPY src/EventHorizon.Extensions/EventHorizon.Extensions.csproj ./src/EventHorizon.Extensions/EventHorizon.Extensions.csproj
 COPY src/EventHorizon.Monitoring.Events/EventHorizon.Monitoring.Events.csproj ./src/EventHorizon.Monitoring.Events/EventHorizon.Monitoring.Events.csproj
 COPY src/EventHorizon.Zone.Core/EventHorizon.Zone.Core.csproj ./src/EventHorizon.Zone.Core/EventHorizon.Zone.Core.csproj

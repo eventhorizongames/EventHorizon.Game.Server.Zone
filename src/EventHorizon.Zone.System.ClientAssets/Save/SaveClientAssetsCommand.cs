@@ -1,9 +1,9 @@
-namespace EventHorizon.Zone.System.ClientAssets.Load
+﻿namespace EventHorizon.Zone.System.ClientAssets.Save
 {
     using EventHorizon.Zone.Core.Model.Command;
     using MediatR;
 
-    public struct LoadSystemClientAssetsCommand
+    public class SaveClientAssetsCommand
         : IRequest<StandardCommandResult>
     {
     }

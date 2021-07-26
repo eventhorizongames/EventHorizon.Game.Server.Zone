@@ -1,7 +1,7 @@
-using Newtonsoft.Json.Linq;
-
 namespace System.Collections.Generic
 {
+    using Newtonsoft.Json.Linq;
+
     public static class DictionaryExtensions
     {
         public static T GetValueOrDefault<T>(

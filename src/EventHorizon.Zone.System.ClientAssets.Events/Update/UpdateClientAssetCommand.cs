@@ -1,14 +1,15 @@
-namespace EventHorizon.Zone.System.ClientAssets.Add
+﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Update
 {
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.ClientAssets.Model;
     using MediatR;
 
-    public struct AddClientAssetEvent
-        : INotification
+    public struct UpdateClientAssetCommand
+        : IRequest<StandardCommandResult>
     {
         public ClientAsset ClientAsset { get; }
 
-        public AddClientAssetEvent(
+        public UpdateClientAssetCommand(
             ClientAsset clientAsset
         )
         {

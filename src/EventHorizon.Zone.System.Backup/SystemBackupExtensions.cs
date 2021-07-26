@@ -1,9 +1,8 @@
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemBackupExtensions
     {
         public static IServiceCollection AddSystemBackup(
@@ -13,13 +12,9 @@ namespace EventHorizon.Game.Server.Zone
             return services;
         }
         public static void UseSystemBackup(
-            this IApplicationBuilder app
+            this IApplicationBuilder _
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                
-            }
         }
     }
 }

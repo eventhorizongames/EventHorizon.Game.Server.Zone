@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using EventHorizon.Zone.System.ClientEntity.Api;
-using MediatR;
-
 namespace EventHorizon.Zone.System.ClientAssets.Fetch
 {
-    public struct FetchClientAssetListQuery : IRequest<IEnumerable<IClientAsset>>
+    using EventHorizon.Zone.System.ClientAssets.Model;
+    using global::System.Collections.Generic;
+    using MediatR;
+
+    public struct FetchClientAssetListQuery
+        : IRequest<IEnumerable<ClientAsset>>
     {
 
     }

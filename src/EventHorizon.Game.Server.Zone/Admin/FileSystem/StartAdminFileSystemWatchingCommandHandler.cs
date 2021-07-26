@@ -1,9 +1,9 @@
 namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
 {
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Watcher.Events.Start;
     using MediatR;
@@ -52,12 +52,33 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
             );
 
             // Add File System Watcher for Client Path
-            await _mediator.Send(
-                new StartWatchingFileSystemCommand(
-                    _serverInfo.ClientPath
-                ),
-                cancellationToken
-            );
+            #region Client Paths
+            var clientPaths = new List<string>
+            {
+                "Assets",
+                "Entity",
+                "Gui",
+                "Modules",
+                "Particle",
+                "Scripts",
+                "ServerModule",
+                "Skills",
+            };
+
+            foreach (var clientPath in clientPaths)
+            {
+                await _mediator.Send(
+                    new StartWatchingFileSystemCommand(
+                        Path.Combine(
+                            _serverInfo.ClientPath,
+                            clientPath
+                        )
+                    ),
+                    cancellationToken
+                );
+            }
+
+            #endregion
 
             // Add File System Watcher for Agent Reload Path
             await _mediator.Send(

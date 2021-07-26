@@ -93,12 +93,13 @@
                 {
                     options.EnableDetailedErrors = HostingEnvironment.IsDevelopment();
                 }
-            ).AddNewtonsoftJsonProtocol(config =>
+            ).AddNewtonsoftJsonProtocol(
+                config =>
                 {
                     config.PayloadSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     config.PayloadSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-                })
-            ;
+                }
+            );
 
             services.AddResponseCompression(options =>
             {

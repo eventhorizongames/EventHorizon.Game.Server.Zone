@@ -1,21 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Backup.Events;
-using EventHorizon.Zone.System.Backup.Model;
-using MediatR;
-
 namespace EventHorizon.Zone.System.Backup.Create
 {
-    public class CreateBackupOfFileContentCommandHandler : IRequestHandler<CreateBackupOfFileContentCommand, BackupFileResponse>
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Text;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Backup.Events;
+    using EventHorizon.Zone.System.Backup.Model;
+    using MediatR;
+
+    public class CreateBackupOfFileContentCommandHandler
+        : IRequestHandler<CreateBackupOfFileContentCommand, BackupFileResponse>
     {
-        private static DateTime JAVASCRIPT_OFFSET = new DateTime(
+        private static readonly DateTime JAVASCRIPT_OFFSET = new(
             1970,
             1,
             1,
@@ -24,9 +25,11 @@ namespace EventHorizon.Zone.System.Backup.Create
             0,
             DateTimeKind.Utc
         );
-        readonly ServerInfo _serverInfo;
-        readonly IDateTimeService _dateTimeService;
-        readonly IJsonFileSaver _fileSaver;
+
+        private readonly ServerInfo _serverInfo;
+        private readonly IDateTimeService _dateTimeService;
+        private readonly IJsonFileSaver _fileSaver;
+        
         public CreateBackupOfFileContentCommandHandler(
             ServerInfo serverInfo,
             IDateTimeService dateTimeService,
