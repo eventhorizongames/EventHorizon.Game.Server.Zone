@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Zone", "src\EventHorizon.Game.Server.Zone\EventHorizon.Game.Server.Zone.csproj", "{750FCC6E-CADE-4A57-83A5-3C89F9BCCFAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E21217AB-FD81-4F4D-8391-04C5DED1D324}"
+	ProjectSection(SolutionItems) = preProject
+		test\Directory.Build.props = test\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Game.Server.Zone.Tests", "test\EventHorizon.Game.Server.Zone.Tests\EventHorizon.Game.Server.Zone.Tests.csproj", "{1BC6418A-D9D8-4092-AAAD-E77F0A35E9FB}"
 EndProject
@@ -337,9 +340,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.DataStorage.Tests", "test\EventHorizon.Zone.System.DataStorage.Tests\EventHorizon.Zone.System.DataStorage.Tests.csproj", "{F825809C-E06D-4592-B44B-C8D8F9C6C074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets.Events", "src\EventHorizon.Zone.System.ClientAssets.Events\EventHorizon.Zone.System.ClientAssets.Events.csproj", "{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientAssets.Events", "src\EventHorizon.Zone.System.ClientAssets.Events\EventHorizon.Zone.System.ClientAssets.Events.csproj", "{3918CDB3-5F8B-4D9F-833B-7E73E4FB1758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.ClientAssets.Model", "src\EventHorizon.Zone.System.ClientAssets.Model\EventHorizon.Zone.System.ClientAssets.Model.csproj", "{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.ClientAssets.Model", "src\EventHorizon.Zone.System.ClientAssets.Model\EventHorizon.Zone.System.ClientAssets.Model.csproj", "{439BFA1B-C421-4C6D-BFD6-E7A453EA3A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

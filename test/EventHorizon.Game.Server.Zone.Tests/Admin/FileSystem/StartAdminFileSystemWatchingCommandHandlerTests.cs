@@ -1,6 +1,7 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 {
     using System;
+using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,9 +34,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
             );
             var expectedI18n = new StartWatchingFileSystemCommand(
                 i18nPath
-            );
-            var expectedClient = new StartWatchingFileSystemCommand(
-                clientPath
             );
             var expectedAgent = new StartWatchingFileSystemCommand(
                 Path.Combine(
@@ -117,12 +115,33 @@ namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
                     CancellationToken.None
                 )
             );
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expectedClient,
-                    CancellationToken.None
-                )
-            );
+
+            var clientPaths = new List<string>
+            {
+                "Assets",
+                "Entity",
+                "Gui",
+                "Modules",
+                "Particle",
+                "Scripts",
+                "ServerModule",
+                "Skills",
+            };
+            foreach (var clientSubPath in clientPaths)
+            {
+                mediatorMock.Verify(
+                    mock => mock.Send(
+                         new StartWatchingFileSystemCommand(
+                            Path.Combine(
+                                clientPath,
+                                clientSubPath
+                            )
+                        ),
+                        CancellationToken.None
+                    )
+                );
+            }
+
             mediatorMock.Verify(
                 mock => mock.Send(
                     expectedAgent,

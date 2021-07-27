@@ -7,7 +7,7 @@
     [ExcludeFromCodeCoverage]
     public class RepeatAttribute : DataAttribute
     {
-        private readonly int count;
+        private readonly int _count;
 
         public RepeatAttribute(int count)
         {
@@ -18,12 +18,12 @@
                     message: "Repeat count must be greater than 0."
                     );
             }
-            this.count = count;
+            _count = count;
         }
 
         public override System.Collections.Generic.IEnumerable<object[]> GetData(System.Reflection.MethodInfo testMethod)
         {
-            foreach (var iterationNumber in Enumerable.Range(start: 1, count: this.count))
+            foreach (var iterationNumber in Enumerable.Range(start: 1, count: _count))
             {
                 yield return new object[] { iterationNumber };
             }

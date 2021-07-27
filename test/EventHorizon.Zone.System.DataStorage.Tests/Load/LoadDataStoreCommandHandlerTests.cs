@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Load
 {
-    using EventHorizon.Zone.Core.Model.Info;
+    using AutoFixture.Xunit2;
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Load;
@@ -13,23 +14,15 @@
 
     public class LoadDataStoreCommandHandlerTests
     {
-        [Fact]
-        public async Task ShouldSetDataStoreLoadedFromFileLoaderWhenNotNull()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldSetDataStoreLoadedFromFileLoaderWhenNotNull(
             // Given
-            var appDataPath = "app-data-path";
-            var dataStoreFile = new Dictionary<string, object>();
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var fileLoaderMock = new Mock<IJsonFileLoader>();
-            var dataStoreManagementMock = new Mock<DataStoreManagement>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
-
+            Dictionary<string, object> dataStoreFile,
+            [Frozen] Mock<IJsonFileLoader> fileLoaderMock,
+            [Frozen] Mock<DataStoreManagement> dataStoreManagementMock,
+            LoadDataStoreCommandHandler handler
+        )
+        {
             fileLoaderMock.Setup(
                 mock => mock.GetFile<Dictionary<string, object>>(
                     It.IsAny<string>()
@@ -39,11 +32,6 @@
             );
 
             // When
-            var handler = new LoadDataStoreCommandHandler(
-                serverInfoMock.Object,
-                fileLoaderMock.Object,
-                dataStoreManagementMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadDataStoreCommand(),
                 CancellationToken.None
@@ -51,7 +39,6 @@
 
             // Then
             actual.Success.Should().BeTrue();
-
             dataStoreManagementMock.Verify(
                 mock => mock.Set(
                     dataStoreFile
@@ -59,37 +46,23 @@
             );
         }
 
-        [Fact]
-        public async Task ShouldNotSetDataStoreWhenFileLoaderReturnsNullDictionary()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldNotSetDataStoreWhenFileLoaderReturnsNullDictionary(
             // Given
-            var appDataPath = "app-data-path";
-            var dataStoreFile = default(Dictionary<string, object>);
-
-            var serverInfoMock = new Mock<ServerInfo>();
-            var fileLoaderMock = new Mock<IJsonFileLoader>();
-            var dataStoreManagementMock = new Mock<DataStoreManagement>();
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
-
+            [Frozen] Mock<IJsonFileLoader> fileLoaderMock,
+            [Frozen] Mock<DataStoreManagement> dataStoreManagementMock,
+            LoadDataStoreCommandHandler handler
+        )
+        {
             fileLoaderMock.Setup(
                 mock => mock.GetFile<Dictionary<string, object>>(
                     It.IsAny<string>()
                 )
             ).ReturnsAsync(
-                dataStoreFile
+                default(Dictionary<string, object>)
             );
 
             // When
-            var handler = new LoadDataStoreCommandHandler(
-                serverInfoMock.Object,
-                fileLoaderMock.Object,
-                dataStoreManagementMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadDataStoreCommand(),
                 CancellationToken.None

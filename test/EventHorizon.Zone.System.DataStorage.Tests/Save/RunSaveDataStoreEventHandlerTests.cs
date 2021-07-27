@@ -1,12 +1,6 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Save
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.DataStorage.Api;
-    using EventHorizon.Zone.System.DataStorage.Events.Query;
-    using EventHorizon.Zone.System.DataStorage.Query;
-using EventHorizon.Zone.System.DataStorage.Save;
-    using FluentAssertions;
-    using global::System.Collections.Generic;
+    using EventHorizon.Zone.System.DataStorage.Save;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -15,7 +9,8 @@ using EventHorizon.Zone.System.DataStorage.Save;
 
 
     public class RunSaveDataStoreEventHandlerTests
-    {        [Fact]
+    {
+        [Fact]
         public async Task ShouldSendSaveDataStoreCommandWhenHandled()
         {
             // Given

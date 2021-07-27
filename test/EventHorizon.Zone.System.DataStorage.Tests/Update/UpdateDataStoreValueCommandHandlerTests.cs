@@ -1,5 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Update
 {
+    using AutoFixture.Xunit2;
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Events.Update;
     using EventHorizon.Zone.System.DataStorage.Save;
@@ -13,28 +15,16 @@
 
     public class UpdateDataStoreValueCommandHandlerTests
     {
-        [Fact]
-        public async Task ShouldSetKeyAndValueIntoDataStoreWhenCommandIsHandled()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldSetKeyAndValueIntoDataStoreWhenCommandIsHandled(
             // Given
-            var key = "key";
-            var type = "String";
-            var value = "string";
-
-            var mediatorMock = new Mock<IMediator>();
-            var dataStoreManagementMock = new Mock<DataStoreManagement>();
-
+            [Frozen] Mock<DataStoreManagement> dataStoreManagementMock,
+            UpdateDataStoreValueCommand command,
+            UpdateDataStoreValueCommandHandler handler)
+        {
             // When
-            var handler = new UpdateDataStoreValueCommandHandler(
-                mediatorMock.Object,
-                dataStoreManagementMock.Object
-            );
             var actual = await handler.Handle(
-                new UpdateDataStoreValueCommand(
-                    key,
-                    type,
-                    value
-                ),
+                command,
                 CancellationToken.None
             );
 
@@ -42,34 +32,22 @@
             actual.Success.Should().BeTrue();
             dataStoreManagementMock.Verify(
                 mock => mock.Set(
-                    key,
-                    value
+                    command.Key,
+                    command.Value
                 )
             );
         }
 
-        [Fact]
-        public async Task ShouldUpdateSchemaWithKeyAndTypeWhenCommandIsHandled()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldUpdateSchemaWithKeyAndTypeWhenCommandIsHandled(
             // Given
-            var key = "key";
-            var type = "String";
-            var value = "string";
-
-            var mediatorMock = new Mock<IMediator>();
-            var dataStoreManagementMock = new Mock<DataStoreManagement>();
-
+            [Frozen] Mock<DataStoreManagement> dataStoreManagementMock,
+            UpdateDataStoreValueCommand command,
+            UpdateDataStoreValueCommandHandler handler)
+        {
             // When
-            var handler = new UpdateDataStoreValueCommandHandler(
-                mediatorMock.Object,
-                dataStoreManagementMock.Object
-            );
             var actual = await handler.Handle(
-                new UpdateDataStoreValueCommand(
-                    key,
-                    type,
-                    value
-                ),
+                command,
                 CancellationToken.None
             );
 
@@ -77,34 +55,22 @@
             actual.Success.Should().BeTrue();
             dataStoreManagementMock.Verify(
                 mock => mock.UpdateSchema(
-                    key,
-                    type
+                    command.Key,
+                    command.Type
                 )
             );
         }
 
-        [Fact]
-        public async Task ShouldPublishSaveDataStoreCommandWhenCommandIsHandled()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldPublishSaveDataStoreCommandWhenCommandIsHandled(
             // Given
-            var key = "key";
-            var type = "String";
-            var value = "string";
-
-            var mediatorMock = new Mock<IMediator>();
-            var dataStoreManagementMock = new Mock<DataStoreManagement>();
-
+            [Frozen] Mock<IMediator> mediatorMock,
+            UpdateDataStoreValueCommand command,
+            UpdateDataStoreValueCommandHandler handler)
+        {
             // When
-            var handler = new UpdateDataStoreValueCommandHandler(
-                mediatorMock.Object,
-                dataStoreManagementMock.Object
-            );
             var actual = await handler.Handle(
-                new UpdateDataStoreValueCommand(
-                    key,
-                    type,
-                    value
-                ),
+                command,
                 CancellationToken.None
             );
 
