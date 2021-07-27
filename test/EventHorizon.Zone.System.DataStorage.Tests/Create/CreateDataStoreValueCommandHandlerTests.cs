@@ -44,7 +44,8 @@
             // Given
             CreateDataStoreValueCommand command,
             [Frozen] Mock<DataStoreManagement> dataStoreManagementMock,
-            CreateDataStoreValueCommandHandler handler)
+            CreateDataStoreValueCommandHandler handler
+        )
         {
             // When
             var actual = await handler.Handle(
