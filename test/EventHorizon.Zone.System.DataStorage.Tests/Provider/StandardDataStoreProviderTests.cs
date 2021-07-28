@@ -6,7 +6,6 @@
     using global::System.Collections.Generic;
     using Xunit;
 
-
     public class StandardDataStoreProviderTests
     {
         [Fact]
@@ -343,7 +342,6 @@
                 expected
             );
         }
-
 
         [Fact]
         public void ShouldDeleteFromInternalSchemeDetailsWhenKeyDeleteIsExecuted()

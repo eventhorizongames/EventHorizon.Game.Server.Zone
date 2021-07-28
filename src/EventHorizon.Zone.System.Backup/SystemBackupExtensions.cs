@@ -11,10 +11,12 @@ namespace EventHorizon.Game.Server.Zone
         {
             return services;
         }
-        public static void UseSystemBackup(
-            this IApplicationBuilder _
+
+        public static IApplicationBuilder UseSystemBackup(
+            this IApplicationBuilder app
         )
         {
+            return app;
         }
     }
 }

@@ -16,9 +16,10 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
     public class LoadSystemClientAssetsCommandHandler
         : IRequestHandler<LoadSystemClientAssetsCommand, StandardCommandResult>
     {
-        readonly IMediator _mediator;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ServerInfo _serverInfo;
+        private readonly IMediator _mediator;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ServerInfo _serverInfo;
+
         public LoadSystemClientAssetsCommandHandler(
             IMediator mediator,
             IJsonFileLoader fileLoader,
@@ -46,6 +47,7 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
                 ),
                 cancellationToken
             );
+
             return new();
         }
 

@@ -49,7 +49,6 @@
                 _serverInfo.ClientPath,
                 "Assets"
             );
-            // Validate Directory Exists
             if (!await _mediator.Send(
                 new DoesDirectoryExist(
                     particlePath

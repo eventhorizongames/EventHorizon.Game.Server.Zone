@@ -7,7 +7,6 @@
     using Moq;
     using Xunit;
 
-
     public class RunSaveDataStoreEventHandlerTests
     {
         [Fact]

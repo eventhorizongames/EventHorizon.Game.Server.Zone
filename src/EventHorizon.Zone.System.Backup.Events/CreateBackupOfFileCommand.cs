@@ -6,15 +6,12 @@
     public struct CreateBackupOfFileCommand
         : IRequest<BackupFileResponse>
     {
-        public string RootPath { get; }
         public string FileFullName { get; }
 
         public CreateBackupOfFileCommand(
-            string rootPath,
             string fileFullName
         )
         {
-            RootPath = rootPath;
             FileFullName = fileFullName;
         }
     }

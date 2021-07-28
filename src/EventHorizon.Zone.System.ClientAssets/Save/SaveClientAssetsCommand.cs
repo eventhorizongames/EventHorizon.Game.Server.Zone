@@ -3,7 +3,7 @@
     using EventHorizon.Zone.Core.Model.Command;
     using MediatR;
 
-    public class SaveClientAssetsCommand
+    public struct SaveClientAssetsCommand
         : IRequest<StandardCommandResult>
     {
     }

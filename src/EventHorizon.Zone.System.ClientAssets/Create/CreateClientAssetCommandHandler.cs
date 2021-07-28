@@ -1,14 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Create
 {
-    using System;
     using EventHorizon.Zone.Core.Model.Command;
-using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.ClientAssets.Events.Create;
-using EventHorizon.Zone.System.ClientAssets.Model;
     using EventHorizon.Zone.System.ClientAssets.Save;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
     using global::System;
-    using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;

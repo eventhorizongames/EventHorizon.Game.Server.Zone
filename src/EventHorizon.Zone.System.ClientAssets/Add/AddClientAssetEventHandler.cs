@@ -5,15 +5,18 @@ namespace EventHorizon.Zone.System.ClientAssets.Add
     using global::System.Threading.Tasks;
     using MediatR;
 
-    public class AddClientAssetEventHandler : INotificationHandler<AddClientAssetEvent>
+    public class AddClientAssetEventHandler
+        : INotificationHandler<AddClientAssetEvent>
     {
-        readonly ClientAssetRepository _assetRepository;
+        private readonly ClientAssetRepository _assetRepository;
+
         public AddClientAssetEventHandler(
             ClientAssetRepository assetRepository
         )
         {
             _assetRepository = assetRepository;
         }
+
         public Task Handle(
             AddClientAssetEvent notification,
             CancellationToken cancellationToken
@@ -22,6 +25,7 @@ namespace EventHorizon.Zone.System.ClientAssets.Add
             _assetRepository.Add(
                 notification.ClientAsset
             );
+
             return Task.CompletedTask;
         }
     }

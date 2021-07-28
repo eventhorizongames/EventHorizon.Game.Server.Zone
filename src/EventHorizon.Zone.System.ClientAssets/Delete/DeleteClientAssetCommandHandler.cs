@@ -1,14 +1,10 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Delete
 {
-    using EventHorizon.Zone.Core.Events.Entity.Search;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.ClientAssets.Events.Delete;
-    using EventHorizon.Zone.System.ClientAssets.Save;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
-    using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
     using MediatR;
@@ -17,17 +13,14 @@
         : IRequestHandler<DeleteClientAssetCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
-        private readonly ServerInfo _serverInfo;
         private readonly ClientAssetRepository _repository;
 
         public DeleteClientAssetCommandHandler(
             IMediator mediator,
-            ServerInfo serverInfo,
             ClientAssetRepository repository
         )
         {
             _mediator = mediator;
-            _serverInfo = serverInfo;
             _repository = repository;
         }
 
@@ -44,18 +37,14 @@
                 // Nothing found, just return success
                 return new();
             }
-            var clientAsset = clientAssetOption.Value;
 
+            var clientAsset = clientAssetOption.Value;
             if (clientAsset.TryGetFileFullName(
                 out var assetFileFullName
             ))
             {
                 await _mediator.Send(
                     new CreateBackupOfFileCommand(
-                        Path.Combine(
-                            _serverInfo.ClientPath,
-                            "Assets"
-                        ),
                         assetFileFullName
                     ),
                     cancellationToken

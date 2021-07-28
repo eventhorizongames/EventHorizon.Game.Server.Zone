@@ -10,13 +10,15 @@ namespace EventHorizon.Zone.System.ClientAssets.Fetch
     public class FetchClientAssetListQueryHandler 
         : IRequestHandler<FetchClientAssetListQuery, IEnumerable<ClientAsset>>
     {
-        readonly ClientAssetRepository _assetRepository;
+        private readonly ClientAssetRepository _assetRepository;
+        
         public FetchClientAssetListQueryHandler(
             ClientAssetRepository assetRepository
         )
         {
             _assetRepository = assetRepository;
         }
+
         public Task<IEnumerable<ClientAsset>> Handle(
             FetchClientAssetListQuery request,
             CancellationToken cancellationToken

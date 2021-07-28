@@ -12,7 +12,6 @@
     using Moq;
     using Xunit;
 
-
     public class SaveDataStoreCommandHandlerTests
     {
         [Fact]
