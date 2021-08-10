@@ -1,9 +1,8 @@
 {
     "id": "f2f1d5f6-cc0d-4094-aecf-scripted",
-    "type": "SCRIPT",
+    "type": "SCRIPT:JavaScript",
     "name": "A Tree",
     "data": {
-        "type":  "JavaScript",
         "script": "Asset_Tree_Create.js",
         "branchSize": 4,
         "trunkSize": 4,

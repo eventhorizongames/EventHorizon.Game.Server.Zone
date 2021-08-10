@@ -3,7 +3,6 @@
     "type": "DIALOG",
     "name": "Explains the world to the player.",
     "data": {
-        "type": "DIALOG",
         "root": {
             "titleKey": "dialog:DEFAULT:npc_name",
             "title": "${npc.name}",

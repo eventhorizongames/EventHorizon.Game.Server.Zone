@@ -1,9 +1,8 @@
 {
     "id": "DEFAULT_MESH",
-    "type": "MESH",
+    "type": "MESH:GLTF",
     "name": "Default Mesh",
     "data": {
-        "type": "GLTF",
         "path": "/Assets/Meshes/",
         "file": "Default_Mesh.glb",
         "heightOffset": -1.2

@@ -3,7 +3,6 @@
     "type": "DIALOG",
     "name": "Hello World Dialog Tree",
     "data": {
-        "type": "DIALOG",
         "root": {
             "titleKey": "dialog:HelloWorld:title_001",
             "title": "${npc.name}",

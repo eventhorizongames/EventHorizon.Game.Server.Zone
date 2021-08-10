@@ -1,9 +1,8 @@
 {
     "id": "11B335CD-8D63-4001-ADDC-A866EEE1E416",
-    "type": "MESH",
+    "type": "MESH:GLTF",
     "name": "House",
     "data": {
-        "type": "GLTF",
         "path": "/Assets/Meshes/",
         "file": "House.gltf",
         "heightOffset": -0.5

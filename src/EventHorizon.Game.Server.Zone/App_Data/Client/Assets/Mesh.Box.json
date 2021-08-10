@@ -1,9 +1,8 @@
 {
     "id": "BOX",
-    "type": "MESH",
+    "type": "MESH:BOX",
     "name": "A Box",
     "data": {
-        "type": "BOX",
         "size": 2
     }
 }

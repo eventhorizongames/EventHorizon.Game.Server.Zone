@@ -1,1 +1,1 @@
-{"long":12,"dataStore:Schema":{"score":"Long","scoreState":"Complex","long":"Long","complex":"Complex","string":"String","boolean":"Boolean","decimal":"Decimal"},"decimal":12,"string":"String Value","score":12,"boolean":true,"complex":{},"scoreState":{"score":4}}
+{"dataStore:Schema":{"score":"Long","scoreState":"Complex","long":"Long","complex":"Complex","string":"String","boolean":"Boolean","decimal":"Decimal"},"ScoreState":{"Score":10},"string":"String Value","scoreState":{"score":4},"complex":{},"decimal":12,"score":12,"Score":10,"long":12,"boolean":true}

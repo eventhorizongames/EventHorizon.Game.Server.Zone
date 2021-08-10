@@ -1,9 +1,8 @@
 {
     "id": "SPHERE",
-    "type": "MESH",
+    "type": "MESH:SPHERE",
     "name": "A Sphere",
     "data": {
-        "type": "SPHERE",
         "segments": 16,
         "diameter": 2,
         "__heightOffset": -1.2

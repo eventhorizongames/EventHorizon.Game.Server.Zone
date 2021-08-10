@@ -1,9 +1,8 @@
 {
     "id": "AE9EBC54-1E81-4DED-9D9D-EEBE8769A36A",
-    "type": "MAP_MESH",
+    "type": "MESH:MAP",
     "name": "HomeLevel Map Mesh",
     "data": {
-        "type": "MAP",
         "HeightMapUrl": "/Assets/Game/Level/Home/Assets/HomeLevel.png",
         "_Width": 512,
         "_Height": 512,

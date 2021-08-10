@@ -1,9 +1,8 @@
 {
     "id": "DDFDD0D8-B49F-499C-AB46-4EA3C71815B3",
-    "type": "MAP_MATERIAL",
+    "type": "MATERIAL:MAP",
     "name": "HomeLevel Map Material",
     "data": {
-        "type": "MAP_MATERIAL",
         "AssetPath": "/Assets/Material/Ground",
         "ShaderId": "ground",
         "Shader": "/Assets/Material/Ground/Shaders/ground",

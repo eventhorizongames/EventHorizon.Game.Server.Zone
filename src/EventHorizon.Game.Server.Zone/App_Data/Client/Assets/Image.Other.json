@@ -1,9 +1,8 @@
 {
     "id": "7b43e838-ef-4c5595-b530-17f49c5feb16",
-    "type": "IMAGE",
+    "type": "IMAGE:URL",
     "name": "Other Image",
     "data": {
-        "type": "URL",
         "url": "/Assets/Game/Level/Home/Assets/HomeLevel.png"
     }
 }
