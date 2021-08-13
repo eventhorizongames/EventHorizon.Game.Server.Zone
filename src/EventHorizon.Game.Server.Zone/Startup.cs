@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Game.Server.Zone
 {
-    using System;
     using System.Linq;
     using System.Net;
     using System.Reflection;
@@ -9,6 +8,7 @@
     using EventHorizon.Game.Server.Zone.Controllers;
     using EventHorizon.Game.Server.Zone.Core;
     using EventHorizon.Game.Server.Zone.Core.JsonConverter;
+    using EventHorizon.Game.Server.Zone.HealthChecks;
     using EventHorizon.Game.Server.Zone.Player;
     using EventHorizon.Game.Server.Zone.Setup;
     using EventHorizon.Identity;
@@ -65,7 +65,7 @@
             if (HostingEnvironment.IsDevelopment())
             {
                 // Enabled TLS 1.2
-                System.Net.ServicePointManager.SecurityProtocol =
+                ServicePointManager.SecurityProtocol =
                     SecurityProtocolType.Tls12
                     | SecurityProtocolType.Tls11
                     | SecurityProtocolType.Tls;
@@ -133,6 +133,11 @@
                     }
                 )
             );
+
+            // Health Checks
+            services.AddHealthChecks()
+                .AddCheck<IsServerStartedHealthCheck>(nameof(IsServerStartedHealthCheck));
+
             // TODO: END MAIN SERVER CONFIGURATION
 
             // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
@@ -394,15 +399,38 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
-            // Also Sorted based on Load order
-            // Base -- These are common functionality; I18n, Identity Integrations, etc...
-            // Core -- From the Zone Core Services
-            // Server -- From the Zone Server Base Project
-            // System -- These are which Systems should be setup for this Zone Server
-            // Plugin -- These are Extended functionality for Systems.
-            // Dynamically Loaded Plugins -- These are Extra features, but not needed by Systems to function.
+            UseZonePlatform(
+                app
+            );
 
+            app.UseStaticFiles();
+            app.UseHealthChecks("/healthz");
+            app.UseEndpoints(
+                routes =>
+                {
+                    routes.MapMetrics("/metrics");
+
+                    routes.MapHub<AdminHub>("/admin");
+                    routes.MapHub<PlayerHub>("/playerHub");
+
+                    routes.MapHub<SystemEditorHub>("/systemEditor");
+                    routes.MapHub<SkillsEditorHub>("/skillsEditor");
+                }
+            );
+        }
+
+        // Organized into Base, Core, Server, System, Plugin, Dynamic Plugins
+        // Also Sorted based on Load order
+        // Base -- These are common functionality; I18n, Identity Integrations, etc...
+        // Core -- From the Zone Core Services
+        // Server -- From the Zone Server Base Project
+        // System -- These are which Systems should be setup for this Zone Server
+        // Plugin -- These are Extended functionality for Systems.
+        // Dynamically Loaded Plugins -- These are Extra features, but not needed by Systems to function.
+        private static IApplicationBuilder UseZonePlatform(
+            IApplicationBuilder app
+        )
+        {
             // Base
             app.UseI18n();
             app.UseEventHorizonIdentity();
@@ -488,20 +516,7 @@
 
             app.UseFinishStartingCore();
 
-            app.UseStaticFiles();
-            app.UseEndpoints(
-                routes =>
-                {
-                    routes.MapMetrics();
-                    routes.MapHub<AdminHub>("/admin");
-                    routes.MapHub<PlayerHub>("/playerHub");
-
-                    routes.MapHub<SystemEditorHub>("/systemEditor");
-                    routes.MapHub<SkillsEditorHub>("/skillsEditor");
-
-                    // routes.MapHub<EditorHub>("/editor");
-                }
-            );
+            return app;
         }
     }
 }

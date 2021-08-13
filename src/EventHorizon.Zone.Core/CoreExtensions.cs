@@ -1,5 +1,7 @@
 namespace EventHorizon.Game.Server.Zone
 {
+    using System.Reflection;
+    using System.Threading.Tasks;
     using EventHorizon.Monitoring.Events.Track;
     using EventHorizon.Zone.Core.DateTimeService;
     using EventHorizon.Zone.Core.Events.Lifetime;
@@ -23,8 +25,6 @@ namespace EventHorizon.Game.Server.Zone
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using System;
-    using System.Reflection;
 
     public static class CoreExtensions
     {
@@ -60,7 +60,7 @@ namespace EventHorizon.Game.Server.Zone
             using (var serviceScope = app.CreateServiceScope())
             {
                 var mediator = serviceScope.ServiceProvider
-                    .GetService<IMediator>();
+                    .GetRequiredService<IMediator>();
                 mediator.Publish(
                     new MonitoringTrackEvent(
                         "ZoneServer:Starting"
@@ -82,14 +82,13 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Publish(
-                        new FillServerPropertiesEvent()
-                    ).GetAwaiter().GetResult();
-            }
+            using var serviceScope = app.CreateServiceScope();
+            serviceScope.ServiceProvider
+                .GetRequiredService<IMediator>()
+                .Publish(
+                    new FillServerPropertiesEvent()
+                ).GetAwaiter().GetResult();
+
             return app;
         }
 
@@ -97,22 +96,19 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.CreateServiceScope())
+            // Here we create a background thread to run the FinishedServerStart Command
+            // This give use a responsive application on startup.
+            // Moves long startup process to moved to the background.
+            Task.Run(async () =>
             {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
+                using var serviceScope = app.CreateServiceScope();
+                await serviceScope.ServiceProvider
+                    .GetRequiredService<IMediator>()
                     .Send(
                         new FinishServerStartCommand()
-                    ).GetAwaiter().GetResult();
-
-                serviceScope.ServiceProvider
-                    .GetService<ILogger<CoreStartup>>()
-                    .LogInformation(
-                        "Server finished starting"
                     );
+            });
 
-                GC.Collect();
-            }
             return app;
         }
     }

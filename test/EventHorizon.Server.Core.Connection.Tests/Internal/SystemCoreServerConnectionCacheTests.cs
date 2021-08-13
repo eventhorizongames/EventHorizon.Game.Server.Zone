@@ -1,6 +1,5 @@
 namespace EventHorizon.Server.Core.Connection.Tests.Internal
 {
-    using System;
     using System.Net.Http;
     using System.Threading.Tasks;
     using EventHorizon.Server.Core.Connection.Internal;
@@ -31,7 +30,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
                 loggerMock.Object
             );
 
-            Func<Task> connectionAction = async () => await connectionCache.GetConnection(
+            async Task connectionAction() => await connectionCache.GetConnection(
                 url,
                 options => { },
                 (ex) => Task.CompletedTask
@@ -44,7 +43,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
         }
 
         [Fact]
-        public void ShouldPassWhenDisposeIsCalled()
+        public async Task ShouldPassWhenDisposeIsCalled()
         {
             // Given
             var loggerMock = new Mock<ILogger<SystemCoreServerConnectionCache>>();
@@ -53,7 +52,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             var connectionCache = new SystemCoreServerConnectionCache(
                 loggerMock.Object
             );
-            connectionCache.Dispose();
+            await connectionCache.DisposeAsync();
 
             // Then
             Assert.True(

@@ -1,21 +1,27 @@
 namespace EventHorizon.Zone.Core.Lifetime
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Lifetime.State;
     using MediatR;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using Microsoft.Extensions.Logging;
 
-    public class FinishServerStartCommandHandler : IRequestHandler<FinishServerStartCommand, bool>
+    public class FinishServerStartCommandHandler
+    : IRequestHandler<FinishServerStartCommand, bool>
     {
-        readonly IMediator _mediator;
-        readonly ServerLifetimeState _serverLifetimeState;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+        private readonly ServerLifetimeState _serverLifetimeState;
 
         public FinishServerStartCommandHandler(
+            ILogger<FinishServerStartCommandHandler> logger,
             IMediator mediator,
             ServerLifetimeState serverLifetimeState
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _serverLifetimeState = serverLifetimeState;
         }
@@ -25,13 +31,20 @@ namespace EventHorizon.Zone.Core.Lifetime
             CancellationToken cancellationToken
         )
         {
-            _serverLifetimeState.SetServerStarted(
-                true
-            );
             await _mediator.Publish(
                 new ServerFinishedStartingEvent(),
                 cancellationToken
             );
+
+            _serverLifetimeState.SetServerStarted(
+                true
+            );
+
+            _logger.LogInformation(
+                "Server finished starting"
+            );
+
+            GC.Collect();
 
             return _serverLifetimeState.IsServerStarted();
         }

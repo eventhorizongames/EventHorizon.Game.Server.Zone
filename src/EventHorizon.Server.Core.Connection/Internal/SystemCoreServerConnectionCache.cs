@@ -1,37 +1,44 @@
 namespace EventHorizon.Server.Core.Connection.Internal
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http.Connections.Client;
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class SystemCoreServerConnectionCache : CoreServerConnectionCache, IDisposable
+    public class SystemCoreServerConnectionCache
+        : CoreServerConnectionCache,
+        IAsyncDisposable
     {
         private readonly ILogger _logger;
+        private readonly SemaphoreSlim _lock;
 
-        // Internal State
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         public SystemCoreServerConnectionCache(
             ILogger<SystemCoreServerConnectionCache> logger
         )
         {
             _logger = logger;
+            _lock = new(1, 1);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _connection?.DisposeAsync().GetAwaiter().GetResult();
-            _connection = null;
+            await Stop();
         }
 
-        public Task Stop()
+        public async Task Stop()
         {
-            _connection?.StopAsync().GetAwaiter().GetResult();
+            if (_connection == null)
+            {
+                return;
+            }
+
+            await _connection.StopAsync();
             _connection = null;
-            return Task.CompletedTask;
         }
 
         public async Task<HubConnection> GetConnection(
@@ -42,8 +49,16 @@ namespace EventHorizon.Server.Core.Connection.Internal
         {
             if (_connection == null)
             {
+                await _lock.WaitAsync();
                 try
                 {
+                    if (_connection != null)
+                    {
+                        return _connection;
+                    }
+                    _logger.LogWarning(
+                        "Creating new Core Server Connection"
+                    );
                     _connection = new HubConnectionBuilder()
                         .AddNewtonsoftJsonProtocol()
                         .WithUrl(
@@ -53,24 +68,38 @@ namespace EventHorizon.Server.Core.Connection.Internal
                         .Build();
                     _connection.Closed += (ex) =>
                     {
+                        _logger.LogWarning(
+                            "Core Server {ConnectionId} Connection Closed.",
+                            _connection.ConnectionId
+                        );
                         _connection = null;
                         // TODO: Add publish of Connection Closed Event
                         return Task.CompletedTask;
                     };
                     _connection.Closed += onClosed;
                     await _connection.StartAsync();
+
+                    _logger.LogWarning(
+                        "Created new Core Server Connection of {ConnectionId}",
+                        _connection.ConnectionId
+                    );
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(
                         ex,
-                        "Error connecting to player hub"
+                        "Error connecting to Core hub"
                     );
                     _connection = null;
                     // TODO: Add publish of Connection Exception Event
                     throw;
                 }
+                finally
+                {
+                    _lock.Release();
+                }
             }
+
             return _connection;
         }
     }

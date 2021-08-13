@@ -1,34 +1,34 @@
-using System.Reflection;
-using System.Threading;
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Monitoring.Events.Track;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.Core.DateTimeService;
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.Core.Id;
-using EventHorizon.Zone.Core.Info;
-using EventHorizon.Zone.Core.Json;
-using EventHorizon.Zone.Core.Lifetime.State;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.Core.Model.RandomNumber;
-using EventHorizon.Zone.Core.Model.ServerProperty;
-using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
-using EventHorizon.Zone.Core.RandomNumber;
-using EventHorizon.Zone.Core.ServerProperty;
-using EventHorizon.Zone.Core.ServerProperty.Fill;
-using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq;
-using Xunit;
-using static EventHorizon.Game.Server.Zone.CoreExtensions;
-
 namespace EventHorizon.Zone.Core.Tests
 {
+    using System.Reflection;
+    using System.Threading;
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Monitoring.Events.Track;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.DateTimeService;
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.Core.Id;
+    using EventHorizon.Zone.Core.Info;
+    using EventHorizon.Zone.Core.Json;
+    using EventHorizon.Zone.Core.Lifetime.State;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.Core.Model.RandomNumber;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+    using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
+    using EventHorizon.Zone.Core.RandomNumber;
+    using EventHorizon.Zone.Core.ServerProperty;
+    using EventHorizon.Zone.Core.ServerProperty.Fill;
+    using MediatR;
+    using Microsoft.Extensions.Logging;
+    using Moq;
+    using Xunit;
+    using static EventHorizon.Game.Server.Zone.CoreExtensions;
+
     public class CoreExtensionsTests
     {
         [Fact]
@@ -181,17 +181,11 @@ namespace EventHorizon.Zone.Core.Tests
             var expected = new FinishServerStartCommand();
 
             var mediatorMock = new Mock<IMediator>();
-            var loggerMock = new Mock<ILogger<CoreStartup>>();
 
             applicationBuilderMocks.ServiceProviderMock.Setup(
                 mock => mock.GetService(typeof(IMediator))
             ).Returns(
                 mediatorMock.Object
-            );
-            applicationBuilderMocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(typeof(ILogger<CoreStartup>))
-            ).Returns(
-                loggerMock.Object
             );
 
             // When
