@@ -192,6 +192,8 @@ namespace EventHorizon.Zone.Core.Tests
             var actual = CoreExtensions.UseFinishStartingCore(
                 applicationBuilderMocks.ApplicationBuilderMock.Object
             );
+            // We need a slight delay so the background thread is triggered.
+            Thread.Sleep(100);
 
             // Then
             mediatorMock.Verify(
