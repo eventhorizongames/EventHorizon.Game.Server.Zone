@@ -4,6 +4,7 @@ namespace EventHorizon.Zone.Core.Tests
     using System.Threading;
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Monitoring.Events.Track;
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Tests.TestUtils;
     using EventHorizon.Zone.Core.DateTimeService;
     using EventHorizon.Zone.Core.Events.Lifetime;
@@ -173,7 +174,7 @@ namespace EventHorizon.Zone.Core.Tests
             );
         }
 
-        [Fact]
+        [RetryFact(MaxRetries = 3)]
         public void ShouldSendFinishServerStartCommandWhenUseFinishStartingCoreIsCalled()
         {
             // Given
@@ -192,8 +193,6 @@ namespace EventHorizon.Zone.Core.Tests
             var actual = CoreExtensions.UseFinishStartingCore(
                 applicationBuilderMocks.ApplicationBuilderMock.Object
             );
-            // We need a slight delay so the background thread is triggered.
-            Thread.Sleep(100);
 
             // Then
             mediatorMock.Verify(
