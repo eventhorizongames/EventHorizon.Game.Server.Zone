@@ -2,7 +2,9 @@ namespace EventHorizon.Zone.Core.Reporter.Writer
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Reporter.Model;
+
     using MediatR;
 
     public class WriteReportHandler

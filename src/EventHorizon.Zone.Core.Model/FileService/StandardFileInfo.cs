@@ -8,8 +8,8 @@ namespace EventHorizon.Zone.Core.Model.FileService
         public string Extension { get; }
 
         public StandardFileInfo(
-            string name, 
-            string directoryName, 
+            string name,
+            string directoryName,
             string fullName,
             string extension
         )

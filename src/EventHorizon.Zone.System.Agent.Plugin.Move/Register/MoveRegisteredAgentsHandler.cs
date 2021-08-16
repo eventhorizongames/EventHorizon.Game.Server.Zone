@@ -3,9 +3,12 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
     using EventHorizon.Performance;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class MoveRegisteredAgentsHandler : INotificationHandler<MoveRegisteredAgentsEvent>

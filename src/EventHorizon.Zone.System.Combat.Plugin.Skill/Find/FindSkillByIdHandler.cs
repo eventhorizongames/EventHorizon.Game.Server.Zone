@@ -2,8 +2,10 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class FindSkillByIdHandler
@@ -19,7 +21,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find
         }
 
         public Task<SkillInstance> Handle(
-            FindSkillByIdEvent request, 
+            FindSkillByIdEvent request,
             CancellationToken cancellationToken
         ) => _skillRepository.Find(
             request.SkillId

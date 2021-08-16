@@ -2,10 +2,12 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map.Client;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.Core.Map.State;
     using EventHorizon.Zone.Core.Model.Map.Client;
+
     using MediatR;
 
     public class LoadCoreMapHandler : IRequestHandler<LoadCoreMap>
@@ -23,7 +25,7 @@
         }
 
         public async Task<Unit> Handle(
-            LoadCoreMap request, 
+            LoadCoreMap request,
             CancellationToken cancellationToken
         )
         {

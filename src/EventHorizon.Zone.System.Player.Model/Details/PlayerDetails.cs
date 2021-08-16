@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Player.Model.Details
 {
     using EventHorizon.Zone.Core.Model.Core;
+
     using global::System.Collections.Concurrent;
 
     public struct PlayerDetails

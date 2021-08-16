@@ -3,9 +3,10 @@ namespace EventHorizon.Zone.System.Watcher.Timer
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Watcher.Check;
+
     using MediatR;
 
-    public class WatchForSystemReloadTimer 
+    public class WatchForSystemReloadTimer
         : ITimerTask
     {
         public int Period { get; } = 5000;

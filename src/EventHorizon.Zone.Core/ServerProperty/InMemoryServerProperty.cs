@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.Core.ServerProperty
 {
-    using EventHorizon.Zone.Core.Model.ServerProperty;
     using System.Collections.Concurrent;
+
+    using EventHorizon.Zone.Core.Model.ServerProperty;
 
     public class InMemoryServerProperty : IServerProperty
     {

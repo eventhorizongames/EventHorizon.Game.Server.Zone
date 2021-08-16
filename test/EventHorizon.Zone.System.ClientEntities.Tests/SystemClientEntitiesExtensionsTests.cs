@@ -4,12 +4,17 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.ClientEntities.Load;
     using EventHorizon.Zone.System.ClientEntities.State;
+
     using global::System;
     using global::System.Threading;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+
     using Moq;
+
     using Xunit;
 
     public class SystemClientEntitiesExtensionsTests

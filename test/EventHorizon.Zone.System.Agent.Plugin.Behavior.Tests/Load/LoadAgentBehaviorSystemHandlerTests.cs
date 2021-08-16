@@ -1,10 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadAgentBehaviorSystemHandlerTests

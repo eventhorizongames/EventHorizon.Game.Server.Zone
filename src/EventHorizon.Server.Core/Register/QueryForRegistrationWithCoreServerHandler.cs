@@ -2,8 +2,10 @@ namespace EventHorizon.Server.Core.Register
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using MediatR;
 
     public class QueryForRegistrationWithCoreServerHandler : IRequestHandler<QueryForRegistrationWithCoreServer, bool>

@@ -4,12 +4,15 @@ namespace EventHorizon.Zone.System.Player.Zone
     using EventHorizon.Zone.System.Player.Events.Info;
     using EventHorizon.Zone.System.Player.Events.Zone;
     using EventHorizon.Zone.System.Player.ExternalHub;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.AspNetCore.SignalR;
 
-    public class SendZoneInfoToPlayerHandler 
+    public class SendZoneInfoToPlayerHandler
         : IRequestHandler<SendZoneInfoToPlayerEvent, PlayerEntity>
     {
         private readonly IMediator _mediator;

@@ -1,9 +1,10 @@
 namespace EventHorizon.Zone.Core.Reporter.Tracker
 {
     using System.Collections.Concurrent;
-    using EventHorizon.Zone.Core.Reporter.Model;
     using System.Collections.Generic;
+
     using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Reporter.Model;
 
     public class ReportTrackingRepository : ReportTracker, ReportRepository
     {

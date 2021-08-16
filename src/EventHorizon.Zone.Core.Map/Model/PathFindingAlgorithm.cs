@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Map;
 
     public interface PathFindingAlgorithm

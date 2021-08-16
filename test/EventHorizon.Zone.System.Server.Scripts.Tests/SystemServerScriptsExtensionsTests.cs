@@ -9,10 +9,15 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
     using EventHorizon.Zone.System.Server.Scripts.System;
+
     using FluentAssertions;
+
     using global::System;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class SystemServerScriptsExtensionsTests
@@ -24,7 +29,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
             var expectedCompilerSubProcessDirectorySetting = "/sub-processes/server-scripts";
             var expectedCompilerSubProcessSetting = "EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess";
 
-        var serviceCollectionMock = new ServiceCollectionMock();
+            var serviceCollectionMock = new ServiceCollectionMock();
             var serviceProviderMock = new Mock<IServiceProvider>();
             var genericObserverStateMock = new Mock<GenericObserverState>(
                 It.IsAny<ILogger<GenericObserverState>>()

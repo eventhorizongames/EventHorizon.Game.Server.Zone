@@ -2,7 +2,9 @@
 {
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Asset;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class MapMeshMaterialTests

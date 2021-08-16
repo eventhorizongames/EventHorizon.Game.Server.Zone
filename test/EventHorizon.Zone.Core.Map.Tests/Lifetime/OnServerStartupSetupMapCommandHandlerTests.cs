@@ -6,6 +6,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Map.Lifetime;
     using EventHorizon.Zone.Core.Map.Model;
@@ -13,10 +14,15 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class OnServerStartupSetupMapCommandHandlerTests

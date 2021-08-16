@@ -1,9 +1,9 @@
 namespace EventHorizon.Zone.System.Agent.Save.Mapper
 {
-    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Connection.Model;
-    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.System.Agent.Model;
 
     public class AgentFromEntityToDetails
     {

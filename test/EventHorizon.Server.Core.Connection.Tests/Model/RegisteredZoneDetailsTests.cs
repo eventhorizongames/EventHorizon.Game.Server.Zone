@@ -1,6 +1,7 @@
 namespace EventHorizon.Server.Core.Connection.Tests.Model
 {
     using EventHorizon.Server.Core.Connection.Model;
+
     using Xunit;
 
     public class RegisteredZoneDetailsTests

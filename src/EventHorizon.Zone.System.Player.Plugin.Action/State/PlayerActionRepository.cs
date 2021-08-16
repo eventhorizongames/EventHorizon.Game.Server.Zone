@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.Player.Plugin.Action.Model;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.State

@@ -5,6 +5,7 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.DateTimeService;
@@ -13,7 +14,9 @@
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Model.Generated;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Api;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class CompileClientScriptsCommandHandler

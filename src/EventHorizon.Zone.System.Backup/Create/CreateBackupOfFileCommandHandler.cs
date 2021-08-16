@@ -4,9 +4,11 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.Backup.Model;
+
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class CreateBackupOfFileCommandHandler

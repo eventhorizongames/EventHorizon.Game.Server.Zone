@@ -1,11 +1,13 @@
 namespace EventHorizon.Extensions.Tests
 {
-    using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
     using System.Numerics;
+
+    using Newtonsoft.Json;
+
     using Xunit;
     using Xunit.Abstractions;
 

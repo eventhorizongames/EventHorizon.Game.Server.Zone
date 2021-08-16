@@ -4,9 +4,11 @@ namespace EventHorizon.Zone.System.Player.Find
     using EventHorizon.Zone.Core.Model.Entity.State;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Find;
+
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class FindPlayerByEntityIdHandler

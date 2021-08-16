@@ -1,7 +1,8 @@
 ﻿namespace EventHorizon.Zone.Core.Model.SystemLog.Client
 {
-    using EventHorizon.Zone.Core.Model.Client;
     using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.Client;
 
     public struct MessageFromSystemData : IClientActionData
     {

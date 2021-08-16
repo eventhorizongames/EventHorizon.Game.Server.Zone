@@ -3,9 +3,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Finished
     using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Model.Entity.Client;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Finished;
+
     using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class AgentFinishedMoveEventHandlerTests

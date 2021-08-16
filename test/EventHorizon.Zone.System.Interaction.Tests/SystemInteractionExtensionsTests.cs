@@ -2,11 +2,15 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Agent.Behavior
 {
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Tests.TestUtils;
+
+    using FluentAssertions;
+
     using Microsoft.AspNetCore.Builder;
+
     using Moq;
+
     using Xunit;
     using Xunit.Abstractions;
-    using FluentAssertions;
 
     public class SystemInteractionExtensionsTests
             : TestFixtureBase

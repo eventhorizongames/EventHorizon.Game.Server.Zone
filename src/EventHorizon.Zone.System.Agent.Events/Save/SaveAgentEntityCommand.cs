@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Agent.Events.Save
 {
     using EventHorizon.Zone.System.Agent.Model;
+
     using MediatR;
 
     public struct SaveAgentEntityCommand

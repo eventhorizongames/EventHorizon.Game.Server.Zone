@@ -1,11 +1,13 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge
 {
     using EventHorizon.Zone.Core.Model.Command;
+
     using global::System.Buffers;
     using global::System.Text;
     using global::System.Text.Json;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class MergeJsonStringsIntoSingleJsonStringCommandHandler

@@ -1,17 +1,22 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Interpreters
 {
-    using global::System;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils;
+    using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class ConditionInterpreterTests

@@ -1,11 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
 {
-    using global::System.Collections.Generic;
-    using global::System.Linq;
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
     using Moq;
+
     using Xunit;
 
     public class BehaviorTreeStateTests

@@ -3,11 +3,15 @@
     using EventHorizon.Zone.System.ServerModule.Fetch;
     using EventHorizon.Zone.System.ServerModule.Model;
     using EventHorizon.Zone.System.ServerModule.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class FetchServerModuleListHandlerTests

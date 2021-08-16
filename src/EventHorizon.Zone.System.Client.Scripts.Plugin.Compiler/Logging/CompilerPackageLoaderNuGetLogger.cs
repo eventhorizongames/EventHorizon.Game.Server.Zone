@@ -1,9 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Logging
 {
     using global::System.Threading.Tasks;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using NuGet.Common;
+
     using LogLevel = NuGet.Common.LogLevel;
 
     public class CompilerPackageLoaderNuGetLogger

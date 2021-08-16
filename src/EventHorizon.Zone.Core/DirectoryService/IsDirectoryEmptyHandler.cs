@@ -3,8 +3,10 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
+
     using MediatR;
 
     public class IsDirectoryEmptyHandler

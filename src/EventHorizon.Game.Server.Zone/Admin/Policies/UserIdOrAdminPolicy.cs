@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Server.Zone.Admin.Policies
 {
     using System;
+
     using Microsoft.AspNetCore.Authorization;
 
     public static class UserIdOrAdminPolicy

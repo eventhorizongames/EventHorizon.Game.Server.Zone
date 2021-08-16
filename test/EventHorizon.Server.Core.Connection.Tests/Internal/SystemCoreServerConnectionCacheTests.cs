@@ -2,9 +2,13 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
 {
     using System.Net.Http;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection.Internal;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     /// <summary>

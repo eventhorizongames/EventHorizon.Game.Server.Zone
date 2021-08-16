@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using MediatR;
 
     public struct IsValidActorBehaviorTick : IRequest<ActorBehaviorTickValidationResponse>
@@ -28,9 +29,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             ActorBehaviorTreeShape shape
         )
         {
-            IsValid = actor != null 
-                && actor.IsFound() 
-                && shape.IsValid 
+            IsValid = actor != null
+                && actor.IsFound()
+                && shape.IsValid
                 && shape.NodeList.Count > 0;
             Actor = actor;
             Shape = shape;

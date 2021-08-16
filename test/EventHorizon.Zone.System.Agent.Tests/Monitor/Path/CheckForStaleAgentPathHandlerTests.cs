@@ -1,24 +1,29 @@
 namespace EventHorizon.Zone.System.Agent.Tests.Monitor.Path
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Model;
-    using Xunit;
-    using Moq;
-    using MediatR;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using EventHorizon.Zone.System.Agent.Monitor.Path;
-    using global::System.Threading;
-    using EventHorizon.Zone.System.Agent.Events.Get;
-    using global::System.Linq;
-    using FluentAssertions;
-    using global::System.Collections.Concurrent;
     using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.System.Agent.Model.Path;
-    using global::System.Numerics;
-    using global::System;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.Path;
+    using EventHorizon.Zone.System.Agent.Monitor.Path;
+
+    using FluentAssertions;
+
+    using global::System;
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+    using global::System.Numerics;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
 
     public class CheckForStaleAgentPathHandlerTests
     {

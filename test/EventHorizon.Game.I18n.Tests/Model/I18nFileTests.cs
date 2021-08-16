@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using EventHorizon.Game.I18n.Model;
+
 using Xunit;
 
 namespace EventHorizon.Game.I18n.Tests.Model

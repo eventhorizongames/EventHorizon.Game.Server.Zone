@@ -3,10 +3,14 @@
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Client.Scripts.Compile;
     using EventHorizon.Zone.System.Client.Scripts.Lifetime;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class ClientScriptComplieOnServerFinishedStartingEventHandlerTests

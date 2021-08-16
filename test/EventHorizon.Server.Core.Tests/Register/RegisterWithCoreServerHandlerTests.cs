@@ -3,15 +3,20 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Connection.Model;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Register;
     using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.Core.Model.Settings;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class RegisterWithCoreServerHandlerTests

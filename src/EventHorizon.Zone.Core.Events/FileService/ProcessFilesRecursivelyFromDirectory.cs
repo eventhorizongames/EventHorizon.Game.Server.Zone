@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.FileService;
+
 using MediatR;
 
 namespace EventHorizon.Zone.Core.Events.FileService

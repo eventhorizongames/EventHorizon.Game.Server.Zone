@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.System.Agent.Model
 {
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
 

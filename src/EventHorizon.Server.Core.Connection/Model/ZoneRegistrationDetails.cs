@@ -7,7 +7,7 @@ namespace EventHorizon.Server.Core.Connection.Model
         public ServiceDetails Details { get; }
 
         public ZoneRegistrationDetails(
-            string serverAddress, 
+            string serverAddress,
             string tag,
             ServiceDetails details
         )

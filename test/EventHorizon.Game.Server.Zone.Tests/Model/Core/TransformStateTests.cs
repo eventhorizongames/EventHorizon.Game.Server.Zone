@@ -2,7 +2,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Core
 {
     using System;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Core;
+
     using Xunit;
 
     public class TransformStateTests

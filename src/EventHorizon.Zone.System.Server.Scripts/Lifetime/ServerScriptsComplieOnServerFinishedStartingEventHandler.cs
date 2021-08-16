@@ -1,11 +1,13 @@
 ﻿namespace EventHorizon.Zone.System.Client.Server.Lifetime
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Lifetime;
-    using MediatR;
     using EventHorizon.Zone.System.Server.Scripts.Complie;
     using EventHorizon.Zone.System.Server.Scripts.Load;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
 
     public class ServerScriptsComplieOnServerFinishedStartingEventHandler
         : INotificationHandler<ServerFinishedStartingEvent>

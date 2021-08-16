@@ -3,9 +3,10 @@ namespace EventHorizon.Server.Core.Timer
     using EventHorizon.Server.Core.Events.Ping;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using MediatR;
 
-    public class PingCoreServerTimerTask 
+    public class PingCoreServerTimerTask
         : ITimerTask
     {
         public int Period { get; } = 1000 * 30; // Every 30 Seconds

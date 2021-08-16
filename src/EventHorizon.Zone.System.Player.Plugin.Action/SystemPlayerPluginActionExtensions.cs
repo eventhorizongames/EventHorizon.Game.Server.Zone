@@ -1,6 +1,8 @@
 using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
 using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

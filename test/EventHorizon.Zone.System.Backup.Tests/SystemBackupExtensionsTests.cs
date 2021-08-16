@@ -4,9 +4,13 @@
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemBackupExtensionsTests

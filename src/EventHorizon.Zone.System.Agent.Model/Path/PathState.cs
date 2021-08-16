@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.System.Agent.Model.Path
         public Queue<Vector3> Path() => _path;
         public PathState SetPath(
             Queue<Vector3> path
-        ) 
+        )
         {
             _path = path;
             return this;

@@ -1,9 +1,13 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Player.Connection.Internal;
+
 using Microsoft.Extensions.Logging;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal

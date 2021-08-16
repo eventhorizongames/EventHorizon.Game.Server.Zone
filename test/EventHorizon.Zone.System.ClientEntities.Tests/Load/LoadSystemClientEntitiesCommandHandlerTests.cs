@@ -10,12 +10,16 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Load
     using EventHorizon.Zone.System.ClientEntities.Query;
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadSystemClientEntitiesCommandHandlerTests

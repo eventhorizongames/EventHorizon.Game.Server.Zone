@@ -2,7 +2,9 @@
 {
     using System;
     using System.Reflection;
+
     using EventHorizon.Zone.Core.Model.Command;
+
     using MediatR;
 
     public class WriteResourceToFile

@@ -1,17 +1,24 @@
 ﻿namespace EventHorizon.Zone.System.Admin.Tests.Lifetime
 {
     using System;
+
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
     using EventHorizon.Zone.System.Admin.Lifetime;
+
     using FluentAssertions;
+
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class OnStartupSetupAdminSystemCommandHandlerTests

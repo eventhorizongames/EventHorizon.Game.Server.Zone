@@ -1,13 +1,18 @@
 namespace EventHorizon.Monitoring.ApplicationInsights.Tests
 {
     using System;
+
     using EventHorizon.Monitoring.ApplicationInsights.Telemetry;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Microsoft.ApplicationInsights.AspNetCore.Extensions;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.AspNetCore.Builder;
+
     using Moq;
+
     using Xunit;
 
     public class EventHorizonMonitoringApplicatinInsightsExtensionsTests

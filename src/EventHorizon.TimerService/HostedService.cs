@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using Microsoft.Extensions.Hosting;
 
     public abstract class HostedService : IHostedService

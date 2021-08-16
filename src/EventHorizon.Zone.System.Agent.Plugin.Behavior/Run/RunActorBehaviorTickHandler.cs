@@ -2,10 +2,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 {
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class RunActorBehaviorTickHandler : IRequestHandler<RunActorBehaviorTick>

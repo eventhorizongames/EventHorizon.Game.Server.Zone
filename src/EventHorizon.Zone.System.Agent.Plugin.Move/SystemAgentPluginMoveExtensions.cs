@@ -1,11 +1,12 @@
 namespace EventHorizon.Game.Server.Zone
 {
-    using EventHorizon.Zone.System.Agent.Move.Timer;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Move.Repository;
+    using EventHorizon.Zone.System.Agent.Move.Timer;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
-    using EventHorizon.Zone.System.Agent.Model.State;
-    using EventHorizon.TimerService;
 
     public static class SystemAgentPluginMoveExtensions
     {

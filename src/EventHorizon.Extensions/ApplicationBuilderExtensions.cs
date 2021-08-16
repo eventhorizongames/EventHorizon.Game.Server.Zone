@@ -1,7 +1,7 @@
 namespace Microsoft.AspNetCore.Builder
 {
-
     using MediatR;
+
     using Microsoft.Extensions.DependencyInjection;
 
     public static class ApplicationBuilderExtensions

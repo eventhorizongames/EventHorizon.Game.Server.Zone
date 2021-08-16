@@ -4,9 +4,12 @@ namespace EventHorizon.Zone.System.Player.Tests.Details
     using EventHorizon.Zone.System.Player.Details;
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Model.Details;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class PlayerGetDetailsHandlerTests

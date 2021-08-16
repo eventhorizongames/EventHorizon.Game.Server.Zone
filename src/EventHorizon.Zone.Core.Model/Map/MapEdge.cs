@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.Core.Model.Map
         public float Cost { get; set; }
 
         public MapEdge(
-            int fromIndex, 
+            int fromIndex,
             int toIndex
         )
         {

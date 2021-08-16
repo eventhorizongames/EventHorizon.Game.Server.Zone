@@ -1,6 +1,7 @@
-using Xunit;
-using EventHorizon.Tests.TestUtils;
 using EventHorizon.Game.Server.Zone;
+using EventHorizon.Tests.TestUtils;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.Client.Tests
 {

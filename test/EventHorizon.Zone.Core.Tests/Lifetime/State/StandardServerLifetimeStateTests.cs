@@ -1,6 +1,9 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Lifetime.State;
+
 using FluentAssertions;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Lifetime.State
@@ -15,7 +18,7 @@ namespace EventHorizon.Zone.Core.Tests.Lifetime.State
             // When
             var state = new StandardServerLifetimeState();
             var actual = state.IsServerStarted();
-            
+
             // Then
             actual.Should()
                 .BeFalse();
@@ -33,7 +36,7 @@ namespace EventHorizon.Zone.Core.Tests.Lifetime.State
                 expected
             );
             var actual = state.IsServerStarted();
-            
+
             // Then
             actual.Should()
                 .Be(

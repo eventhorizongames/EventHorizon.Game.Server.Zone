@@ -4,11 +4,15 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Update;
+
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RegisterClientEntityCommandHandlerTests

@@ -4,12 +4,17 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
+
     using Castle.DynamicProxy.Generators;
+
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Tracker;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class ReportTrackingRepositoryBySettingsTests

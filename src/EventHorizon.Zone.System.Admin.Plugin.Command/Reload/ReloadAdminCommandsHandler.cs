@@ -1,8 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Reload
@@ -10,7 +12,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Reload
     public class ReloadAdminCommandsHandler : INotificationHandler<AdminCommandEvent>
     {
         readonly IMediator _mediator;
-        
+
         public ReloadAdminCommandsHandler(
             IMediator mediator
         )

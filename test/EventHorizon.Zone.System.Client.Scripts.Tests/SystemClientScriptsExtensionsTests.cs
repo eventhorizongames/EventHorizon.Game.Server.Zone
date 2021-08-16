@@ -7,9 +7,13 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.State;
+
     using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemClientScriptsExtensionsTests

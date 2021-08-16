@@ -2,11 +2,13 @@ namespace EventHorizon.Zone.Core.Reporter.Save
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Writer;
+
     using MediatR;
 
-    public class SavePendingReportItemsEventHandler 
+    public class SavePendingReportItemsEventHandler
         : INotificationHandler<SavePendingReportItemsEvent>
     {
         private readonly IMediator _mediator;

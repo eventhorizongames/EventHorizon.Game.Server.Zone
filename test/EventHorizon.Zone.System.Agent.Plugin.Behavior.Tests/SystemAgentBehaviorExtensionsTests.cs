@@ -1,7 +1,5 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
-    using global::System;
-    using global::System.Threading;
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Tests.TestUtils;
     using EventHorizon.TimerService;
@@ -12,10 +10,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+
+    using global::System;
+    using global::System.Threading;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+
     using Moq;
+
     using Xunit;
     using Xunit.Abstractions;
 

@@ -1,8 +1,10 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using MediatR;
 
     public class RegisterActorWithBehaviorTreeForNextTickCycleHandler : IRequestHandler<RegisterActorWithBehaviorTreeForNextTickCycle>

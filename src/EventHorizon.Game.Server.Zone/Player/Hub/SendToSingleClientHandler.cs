@@ -1,10 +1,13 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.Client;
-using MediatR;
-using Microsoft.AspNetCore.SignalR;
 using EventHorizon.Zone.System.Player.ExternalHub;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Bus
 {
@@ -19,7 +22,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Bus
         }
 
         public async Task Handle(
-            SendToAllClientsEvent notification, 
+            SendToAllClientsEvent notification,
             CancellationToken cancellationToken
         )
         {

@@ -1,9 +1,10 @@
-using Xunit;
-using EventHorizon.Tests.TestUtils;
 using EventHorizon.Game.Server.Zone;
-using EventHorizon.Zone.System.Watcher.State;
+using EventHorizon.Tests.TestUtils;
 using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Watcher.State;
 using EventHorizon.Zone.System.Watcher.Timer;
+
+using Xunit;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {

@@ -9,13 +9,18 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
     using EventHorizon.Zone.System.ClientEntities.Save;
     using EventHorizon.Zone.System.ClientEntities.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SaveClientEntityCommandHandlerTests
@@ -68,7 +73,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
                     expected
                 );
         }
-        
+
         [Fact]
         public async Task ShouldSendChangeClientActionToAllEventWhenSuccessfulySavedClientEntity()
         {

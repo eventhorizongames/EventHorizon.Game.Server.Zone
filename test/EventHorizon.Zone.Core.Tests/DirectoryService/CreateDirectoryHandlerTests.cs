@@ -2,10 +2,14 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class CreateDirectoryHandlerTests

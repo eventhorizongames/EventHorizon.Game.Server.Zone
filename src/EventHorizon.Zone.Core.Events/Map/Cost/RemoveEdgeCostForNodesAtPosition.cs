@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.Core.Events.Map.Cost
 {
     using System.Numerics;
+
     using MediatR;
 
     public struct RemoveEdgeCostForNodesAtPosition : IRequest<bool>

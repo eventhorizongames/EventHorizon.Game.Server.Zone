@@ -4,7 +4,9 @@ namespace EventHorizon.TimerService
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 

@@ -1,10 +1,13 @@
 namespace EventHorizon.Zone.Core.ServerProperty.Fill
 {
-    using EventHorizon.Zone.Core.Model.ServerProperty;
-    using MediatR;
-    using Microsoft.Extensions.Configuration;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Configuration;
 
     public class FillHostServerPropertyHandler
         : INotificationHandler<FillServerPropertiesEvent>

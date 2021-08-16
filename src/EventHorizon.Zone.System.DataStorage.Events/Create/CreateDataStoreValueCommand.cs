@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Events.Create
 {
-    using EventHorizon.Zone.Core.Model.Command; 
+    using EventHorizon.Zone.Core.Model.Command;
+
     using MediatR;
 
     public struct CreateDataStoreValueCommand

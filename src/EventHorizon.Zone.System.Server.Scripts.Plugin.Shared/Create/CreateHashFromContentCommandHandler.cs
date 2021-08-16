@@ -1,10 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create
 {
     using EventHorizon.Zone.Core.Model.Command;
+
     using global::System.Security.Cryptography;
     using global::System.Text;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class CreateHashFromContentCommandHandler

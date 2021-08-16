@@ -3,11 +3,13 @@ namespace EventHorizon.Zone.Core.Map.Find
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
-    public class GetMapEdgesOfNodeHandler 
+    public class GetMapEdgesOfNodeHandler
         : IRequestHandler<GetMapEdgesOfNodeEvent, IEnumerable<MapEdge>>
     {
         private readonly IMapGraph _map;

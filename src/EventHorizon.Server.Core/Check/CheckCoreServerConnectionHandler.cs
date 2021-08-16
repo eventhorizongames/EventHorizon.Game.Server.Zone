@@ -2,11 +2,14 @@ namespace EventHorizon.Server.Core.Check
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Events.Stop;
     using EventHorizon.Server.Core.State;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class CheckCoreServerConnectionHandler : INotificationHandler<CheckCoreServerConnection>
@@ -54,7 +57,7 @@ namespace EventHorizon.Server.Core.Check
             if (checksDone >= MAX_RETRIES)
             {
                 _logger.LogWarning(
-                    "Reached {MaxRetries} retries, Restarting connection.", 
+                    "Reached {MaxRetries} retries, Restarting connection.",
                     MAX_RETRIES
                 );
 

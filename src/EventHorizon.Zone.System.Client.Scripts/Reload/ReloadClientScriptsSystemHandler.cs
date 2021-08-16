@@ -6,8 +6,10 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
     using EventHorizon.Zone.System.Client.Scripts.Events.Reload;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class ReloadClientScriptsSystemHandler

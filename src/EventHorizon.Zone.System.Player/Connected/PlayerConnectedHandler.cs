@@ -10,12 +10,14 @@ namespace EventHorizon.Zone.System.Player.Connected
     using EventHorizon.Zone.System.Player.Mapper;
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PlayerConnectedHandler 
+    public class PlayerConnectedHandler
         : INotificationHandler<PlayerConnectedEvent>
     {
         private readonly IMediator _mediator;
@@ -87,7 +89,7 @@ namespace EventHorizon.Zone.System.Player.Connected
 
         private bool IsPlayerOnThisServer(
             PlayerDetails globalPlayer
-        ) => !string.IsNullOrEmpty(globalPlayer.Location.CurrentZone) 
+        ) => !string.IsNullOrEmpty(globalPlayer.Location.CurrentZone)
             && globalPlayer.Location.CurrentZone.Equals(
                 _serverProperty.Get<string>(
                     ServerPropertyKeys.SERVER_ID

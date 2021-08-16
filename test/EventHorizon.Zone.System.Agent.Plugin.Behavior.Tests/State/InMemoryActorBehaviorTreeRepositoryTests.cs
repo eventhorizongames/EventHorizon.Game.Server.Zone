@@ -1,8 +1,10 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System.Collections.Generic;
+
     using Xunit;
 
     public class InMemoryActorBehaviorTreeRepositoryTests

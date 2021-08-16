@@ -3,10 +3,14 @@
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class SaveCombatSkillHandlerTests

@@ -6,13 +6,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Run
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class PostProcessActorBehaviorTickResultHandlerTests

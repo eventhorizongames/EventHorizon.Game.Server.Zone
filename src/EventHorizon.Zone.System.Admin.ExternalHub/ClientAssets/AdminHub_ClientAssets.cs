@@ -6,8 +6,10 @@
     using EventHorizon.Zone.System.ClientAssets.Events.Query;
     using EventHorizon.Zone.System.ClientAssets.Events.Update;
     using EventHorizon.Zone.System.ClientAssets.Model;
+
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
+
     using Microsoft.AspNetCore.SignalR;
 
     /// <summary>

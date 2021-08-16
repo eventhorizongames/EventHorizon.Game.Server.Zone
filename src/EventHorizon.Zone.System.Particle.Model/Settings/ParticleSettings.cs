@@ -1,4 +1,5 @@
 using System.Numerics;
+
 using EventHorizon.Zone.Core.Model.Graphics;
 
 namespace EventHorizon.Zone.System.Particle.Model.Settings

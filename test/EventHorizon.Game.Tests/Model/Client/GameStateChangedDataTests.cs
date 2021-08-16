@@ -1,9 +1,12 @@
 ﻿namespace EventHorizon.Game.Tests.Model.Client
 {
     using System.Collections.Generic;
+
     using EventHorizon.Game.Model.Client;
     using EventHorizon.Game.State;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class GameStateChangedDataTests

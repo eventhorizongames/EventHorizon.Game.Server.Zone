@@ -3,14 +3,19 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Ping;
     using EventHorizon.Server.Core.State;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class PingCoreServerHandlerTests

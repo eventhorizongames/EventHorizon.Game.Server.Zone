@@ -1,12 +1,14 @@
 namespace EventHorizon.Zone.Core.DirectoryService
 {
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using MediatR;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+
+    using MediatR;
 
     public class GetListOfFilesFromDirectoryHandler : IRequestHandler<GetListOfFilesFromDirectory, IEnumerable<StandardFileInfo>>
     {

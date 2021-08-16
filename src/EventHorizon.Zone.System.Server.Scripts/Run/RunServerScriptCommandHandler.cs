@@ -2,15 +2,18 @@ namespace EventHorizon.Zone.System.Server.Scripts.Run
 {
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Run.Model;
     using EventHorizon.Zone.System.Server.Scripts.System;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
-    using EventHorizon.Zone.System.Server.Scripts.Run.Model;
 
     public class RunServerScriptCommandHandler
         : IRequestHandler<RunServerScriptCommand, ServerScriptResponse>

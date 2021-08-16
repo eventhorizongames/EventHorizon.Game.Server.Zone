@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.System.Particle.State
 {
+    using EventHorizon.Zone.System.Particle.Model.Template;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.Particle.Model.Template;
 
     public class StandardParticleTemplateRepository
         : ParticleTemplateRepository

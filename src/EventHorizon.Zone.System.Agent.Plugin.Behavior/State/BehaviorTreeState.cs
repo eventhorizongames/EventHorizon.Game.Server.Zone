@@ -1,10 +1,11 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
-    using global::System;
-    using global::System.Linq;
-    using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
 
     public partial struct BehaviorTreeState
     {

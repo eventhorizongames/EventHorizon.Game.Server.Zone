@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Wild.PopulateData
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.PopulateData;
+    using EventHorizon.Zone.System.Agent.Plugin.Wild.Model;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Plugin.Wild.Model;
-    using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
-    using EventHorizon.Zone.System.Agent.Events.PopulateData;
 
     public class PopulateAgentWildDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
     {

@@ -3,8 +3,10 @@ namespace EventHorizon.Zone.System.Player.Tests.Mapper
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.System.Player.Mapper;
     using EventHorizon.Zone.System.Player.Model.Details;
+
     using global::System.Collections.Concurrent;
     using global::System.Numerics;
+
     using Xunit;
 
     public class PlayerFromDetailsToEntityTests

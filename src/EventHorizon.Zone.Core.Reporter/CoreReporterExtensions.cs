@@ -8,7 +8,9 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.Core.Reporter.Writer.Client;
     using EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
     using EventHorizon.Zone.Core.Reporter.Writer.Client.Timer;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 

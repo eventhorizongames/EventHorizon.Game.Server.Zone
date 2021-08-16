@@ -3,11 +3,15 @@
     using System;
     using System.Reflection;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using MediatR;
+
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using Serilog;
     using Serilog.Sinks.Elasticsearch;
 

@@ -1,11 +1,14 @@
+using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Get;
 using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.Model.State;
+
 using Moq;
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
+
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
@@ -40,12 +43,12 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Get.Handler
                 new GetAgentEvent
                 {
                     EntityId = inputId
-                }, 
+                },
                 CancellationToken.None
             );
             // Then
             Assert.Equal(
-                expectedAgent, 
+                expectedAgent,
                 actual
             );
         }

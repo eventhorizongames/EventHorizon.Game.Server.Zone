@@ -4,10 +4,12 @@ namespace EventHorizon.Zone.Core.Map.Plugin.Editor.Fill
     using EventHorizon.Zone.System.Editor.Events;
     using EventHorizon.Zone.System.Editor.Events.Node;
     using EventHorizon.Zone.System.Editor.Model;
+
     using global::System;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class FillCoreMapEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>

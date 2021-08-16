@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests.Model
 {
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class CompiledScriptResultTests

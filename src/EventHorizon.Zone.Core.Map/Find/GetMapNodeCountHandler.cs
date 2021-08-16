@@ -2,11 +2,13 @@ namespace EventHorizon.Zone.Core.Map.Find
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
-    public class GetMapNodeCountHandler 
+    public class GetMapNodeCountHandler
         : IRequestHandler<GetMapNodeCountEvent, int>
     {
         private readonly IMapGraph _map;

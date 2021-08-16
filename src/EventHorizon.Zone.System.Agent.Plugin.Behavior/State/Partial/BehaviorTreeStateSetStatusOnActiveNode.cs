@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             BehaviorNodeStatus status
         )
         { // TODO: Create Unit Test
-            if (status.Equals(default(BehaviorNodeStatus))) 
+            if (status.Equals(default(BehaviorNodeStatus)))
             {
                 status = BehaviorNodeStatus.ERROR;
             }

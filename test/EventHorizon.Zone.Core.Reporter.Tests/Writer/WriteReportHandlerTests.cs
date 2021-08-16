@@ -4,11 +4,16 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Writer;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
+
     using static EventHorizon.Zone.Core.Reporter.Model.ReporterSettings;
 
     public class WriteReportHandlerTests
@@ -132,17 +137,17 @@
                 },
             };
 
-        public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
 
-    public class TestObject
-    {
-        public bool IsElasticSearchEnabled { get; set; }
-        public bool IsWriteToFileEnabled { get; set; }
-        public Report Report { get; set; }
-        public IList<IRequest> Expected { get; set; }
+        public class TestObject
+        {
+            public bool IsElasticSearchEnabled { get; set; }
+            public bool IsWriteToFileEnabled { get; set; }
+            public Report Report { get; set; }
+            public IList<IRequest> Expected { get; set; }
+        }
     }
-}
 }

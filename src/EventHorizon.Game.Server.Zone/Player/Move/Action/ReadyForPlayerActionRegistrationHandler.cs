@@ -1,10 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Game.Server.Zone.Player.Move.Stop;
+
 using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+using EventHorizon.Game.Server.Zone.Player.Move.Stop;
+using EventHorizon.Zone.Core.Model.Id;
+using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+
+using MediatR;
 
 namespace EventHorizon.Game.Server.Zone.Player.Move.Action
 {

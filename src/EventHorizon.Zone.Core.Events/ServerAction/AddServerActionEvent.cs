@@ -1,4 +1,5 @@
 using System;
+
 using MediatR;
 
 namespace EventHorizon.Zone.Core.Events.ServerAction

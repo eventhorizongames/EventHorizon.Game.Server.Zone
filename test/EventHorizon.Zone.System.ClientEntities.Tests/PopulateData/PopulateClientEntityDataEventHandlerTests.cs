@@ -3,11 +3,13 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.PopulateData
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.PopulateData;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class PopulateClientEntityDataEventHandlerTests

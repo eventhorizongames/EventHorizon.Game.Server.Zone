@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Linq;

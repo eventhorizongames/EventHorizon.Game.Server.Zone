@@ -1,9 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.Entity.Data;
-using MediatR;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Model;
+
+using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.PopulateData
 {
@@ -38,11 +40,11 @@ namespace EventHorizon.Zone.System.Combat.PopulateData
             if (levelState.AllTimeExperience == 0)
             {
                 entity.SetProperty(
-                    LifeState.PROPERTY_NAME, 
+                    LifeState.PROPERTY_NAME,
                     LifeState.NEW
                 );
                 entity.SetProperty(
-                    LevelState.PROPERTY_NAME, 
+                    LevelState.PROPERTY_NAME,
                     LevelState.NEW
                 );
             }

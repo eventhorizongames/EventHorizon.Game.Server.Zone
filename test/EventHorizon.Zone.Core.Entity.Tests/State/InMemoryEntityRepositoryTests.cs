@@ -3,15 +3,20 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Entity.Tests.Common;
     using EventHorizon.Zone.Core.Events.Entity.Action;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Id;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     [CleanupInMemoryEntityRepository]

@@ -5,13 +5,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Move.Queue;
+
     using global::System.Collections.Concurrent;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class QueueAgentToMoveHandlerTests

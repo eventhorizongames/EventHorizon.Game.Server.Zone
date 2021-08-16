@@ -7,12 +7,17 @@
     using EventHorizon.Zone.System.Wizard.Model;
     using EventHorizon.Zone.System.Wizard.Model.Scripts;
     using EventHorizon.Zone.System.Wizard.Run;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunWizardScriptProcessorCommandHandlerTests

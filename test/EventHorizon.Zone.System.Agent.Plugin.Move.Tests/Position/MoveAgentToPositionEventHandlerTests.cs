@@ -8,13 +8,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Position;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class MoveAgentToPositionEventHandlerTests

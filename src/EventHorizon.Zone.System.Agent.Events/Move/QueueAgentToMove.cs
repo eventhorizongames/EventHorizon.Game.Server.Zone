@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.System.Agent.Events.Move
 {
     using global::System.Collections.Generic;
     using global::System.Numerics;
+
     using MediatR;
 
     public struct QueueAgentToMove : IRequest

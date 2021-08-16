@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+
 using EventHorizon.Game.I18n.Lookup;
 using EventHorizon.Game.I18n.Model;
+
 using Xunit;
 
 namespace EventHorizon.Game.I18n.Tests.Repository

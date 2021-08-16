@@ -1,9 +1,13 @@
 ﻿namespace EventHorizon.Zone.System.Editor.Tests.Model
 {
     using EventHorizon.Zone.System.Editor.Model;
+
     using FluentAssertions;
+
     using global::System.Linq;
+
     using Moq;
+
     using Xunit;
 
     public class EditorStateTests

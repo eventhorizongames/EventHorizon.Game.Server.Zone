@@ -1,9 +1,13 @@
 ﻿namespace EventHorizon.Zone.Core.Reporter.Tests.Settings
 {
     using System.Collections.Generic;
+
     using EventHorizon.Zone.Core.Reporter.Settings;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.Configuration;
+
     using Xunit;
 
     public class ConfigurationReporterSettingsTests

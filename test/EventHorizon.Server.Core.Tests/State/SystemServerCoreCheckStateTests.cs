@@ -1,7 +1,9 @@
 namespace EventHorizon.Server.Core.Tests.State
 {
     using EventHorizon.Server.Core.State;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SystemServerCoreCheckStateTests

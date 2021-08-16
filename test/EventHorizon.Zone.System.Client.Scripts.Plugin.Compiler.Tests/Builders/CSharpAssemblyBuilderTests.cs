@@ -3,13 +3,18 @@
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Builders;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class CSharpAssemblyBuilderTests

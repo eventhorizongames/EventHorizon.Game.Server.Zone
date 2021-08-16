@@ -4,9 +4,11 @@
     using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Events.Query;
     using EventHorizon.Zone.System.Wizard.Model;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class QueryForAllWizardsHandler

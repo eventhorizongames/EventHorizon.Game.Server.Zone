@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Model;
+
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
@@ -137,8 +138,8 @@
             string type
         )
         {
-            var metadata = GetCurrentSchema();            
-            
+            var metadata = GetCurrentSchema();
+
             metadata[key] = type;
 
             AddOrUpdate(

@@ -1,17 +1,22 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using Xunit;
-    using Moq;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
     using EventHorizon.Performance;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Move.Register;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
 
     public class MoveRegisteredAgentsHandlerTests
     {

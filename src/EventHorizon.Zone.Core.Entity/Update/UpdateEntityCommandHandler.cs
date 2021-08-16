@@ -2,8 +2,10 @@ namespace EventHorizon.Zone.Core.Entity.Update
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Model.Entity.State;
+
     using MediatR;
 
     public class UpdateEntityCommandHandler

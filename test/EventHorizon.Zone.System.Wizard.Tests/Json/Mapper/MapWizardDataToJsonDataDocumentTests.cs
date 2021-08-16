@@ -2,11 +2,14 @@
 {
     using EventHorizon.Zone.System.Wizard.Json.Mapper;
     using EventHorizon.Zone.System.Wizard.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
 
@@ -173,7 +176,7 @@
                 a => a.Name == parentPropertyName
             );
             actualParentProperty.Should().NotBeNull();
-            
+
             var actualProperty = actualParentProperty.Data.FirstOrDefault(
                 a => a.Name == expectedPropertyName
             );

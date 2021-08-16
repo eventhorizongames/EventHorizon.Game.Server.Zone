@@ -6,12 +6,17 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Api;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Builders;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.CSharp;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class SystemServerScriptsPluginComplierExtensionsTests

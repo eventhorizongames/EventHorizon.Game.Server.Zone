@@ -5,13 +5,18 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Writer;
     using EventHorizon.Zone.Core.Reporter.Writer.Client;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class WriteReportToElasticsearchHandlerTests
@@ -168,8 +173,8 @@
         }
 
         private void VerifyReportIndex(
-            object actualRawObject, 
-            string expectedIndexIndex, 
+            object actualRawObject,
+            string expectedIndexIndex,
             string expectedIndexType
         )
         {

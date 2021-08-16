@@ -2,7 +2,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Client.Delete
 {
     using EventHorizon.Zone.System.ClientEntities.Client.Delete;
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SendClientEntityDeletedClientActionToAllEventTests

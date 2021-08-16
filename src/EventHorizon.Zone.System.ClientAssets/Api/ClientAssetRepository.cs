@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientAssets.State.Api
 {
     using EventHorizon.Zone.System.ClientAssets.Model;
+
     using global::System.Collections.Generic;
 
     public interface ClientAssetRepository

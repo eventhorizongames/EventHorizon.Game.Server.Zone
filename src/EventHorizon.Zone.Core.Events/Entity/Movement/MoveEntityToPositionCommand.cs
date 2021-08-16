@@ -1,7 +1,9 @@
 namespace EventHorizon.Zone.Core.Events.Entity.Movement
 {
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
 
     public struct MoveEntityToPositionCommand : IRequest<MoveEntityToPositionCommandResponse>

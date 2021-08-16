@@ -3,11 +3,16 @@
     using EventHorizon.Zone.System.Particle.Load;
     using EventHorizon.Zone.System.Particle.Reload;
     using EventHorizon.Zone.System.Particle.State;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
 

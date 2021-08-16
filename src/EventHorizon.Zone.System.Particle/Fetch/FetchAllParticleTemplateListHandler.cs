@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Particle.Model.Template;
 using EventHorizon.Zone.System.Particle.State;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Particle.Fetch

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Clear;
     using EventHorizon.Game.Model;
     using EventHorizon.Zone.Core.Events.Entity.Update;
@@ -10,6 +11,7 @@
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
+
     using MediatR;
 
     public class RunEscapeOfCapturesHandler

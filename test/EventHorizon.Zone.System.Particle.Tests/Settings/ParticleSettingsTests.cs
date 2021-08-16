@@ -1,6 +1,8 @@
 using System.Numerics;
+
 using EventHorizon.Zone.Core.Model.Graphics;
 using EventHorizon.Zone.System.Particle.Model.Settings;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Particle.Tests.Settings
@@ -85,7 +87,7 @@ namespace EventHorizon.Zone.System.Particle.Tests.Settings
             Assert.Equal(name, actual.Name);
             Assert.Equal(capacity, actual.Capacity);
             Assert.Equal(particleTexture, actual.ParticleTexture);
-            
+
             Assert.Equal(minEmitBox, actual.MinEmitBox);
             Assert.Equal(maxEmitBox, actual.MaxEmitBox);
 

@@ -10,10 +10,12 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
     using EventHorizon.Zone.System.Agent.Model.Path;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>

@@ -1,7 +1,9 @@
 namespace EventHorizon.Test.Common.Services
 {
     using System.Diagnostics.CodeAnalysis;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Xunit.Abstractions;
 
     [ExcludeFromCodeCoverage]

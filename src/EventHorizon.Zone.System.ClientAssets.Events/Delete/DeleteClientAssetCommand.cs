@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Delete
 {
     using EventHorizon.Zone.Core.Model.Command;
+
     using MediatR;
 
     public struct DeleteClientAssetCommand

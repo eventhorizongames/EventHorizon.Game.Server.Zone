@@ -2,8 +2,10 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect
 {
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
     using global::System.Collections.Generic;
     using global::System.Numerics;
+
     using MediatR;
 
     public struct RunSkillEffectWithTargetOfEntityEvent : INotification
@@ -17,12 +19,12 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Runner.Effect
         public IDictionary<string, object> State { get; set; }
 
         public RunSkillEffectWithTargetOfEntityEvent(
-            string connectionId, 
-            SkillEffect skillEffect, 
-            IObjectEntity caster, 
-            IObjectEntity target, 
-            SkillInstance skill, 
-            Vector3 targetPosition, 
+            string connectionId,
+            SkillEffect skillEffect,
+            IObjectEntity caster,
+            IObjectEntity target,
+            SkillInstance skill,
+            Vector3 targetPosition,
             IDictionary<string, object> state
         )
         {

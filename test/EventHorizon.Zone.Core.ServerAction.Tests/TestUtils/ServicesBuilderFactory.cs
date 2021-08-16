@@ -1,5 +1,7 @@
 using System;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Moq;
 
 namespace EventHorizon.Tests.TestUtils

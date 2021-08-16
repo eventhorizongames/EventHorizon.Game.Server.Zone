@@ -4,11 +4,16 @@ namespace EventHorizon.TimerService.Tests.TimerService
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Test.Common.Utils;
+
     using MediatR;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class TimerHostedServiceTests
@@ -30,7 +35,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
 
             var loggerFactoryMock = new Mock<ILoggerFactory>();
             var timerTasksMock = new List<ITimerTask>();
-            
+
             var serviceScopeMocks = ServiceScopeFactoryUtils.SetupServiceScopeFactoryWithMediatorMock(
                 mediatorMock
             );
@@ -65,12 +70,12 @@ namespace EventHorizon.TimerService.Tests.TimerService
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish<INotification>(
-                    It.IsAny<INotification>(), 
+                    It.IsAny<INotification>(),
                     CancellationToken.None
-                ), 
+                ),
                 Times.AtLeastOnce()
             );
-            
+
             await timerHostedService.StopAsync(
                 inputCancellationTokenSource.Token
             );

@@ -1,19 +1,25 @@
 ﻿namespace EventHorizon.Zone.System.Backup.Tests.Create
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Backup.Create;
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.Backup.Model;
+
     using FluentAssertions;
+
     using global::System.IO;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class CreateBackupOfFileCommandHandlerTests

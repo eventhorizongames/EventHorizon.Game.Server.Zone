@@ -5,12 +5,15 @@ namespace EventHorizon.Zone.System.Editor.Delete
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.Editor.Events.Delete;
     using EventHorizon.Zone.System.Editor.Model;
+
     using global::System;
     using global::System.IO;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class DeleteEditorFileHandler : IRequestHandler<DeleteEditorFile, EditorResponse>

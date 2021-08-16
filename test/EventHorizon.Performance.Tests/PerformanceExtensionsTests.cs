@@ -2,7 +2,9 @@ namespace EventHorizon.Performance.Tests
 {
     using EventHorizon.Performance.Model;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class PerformanceExtensionsTests

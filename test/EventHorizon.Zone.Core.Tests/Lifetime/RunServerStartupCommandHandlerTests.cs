@@ -3,12 +3,17 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Lifetime;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunServerStartupCommandHandlerTests

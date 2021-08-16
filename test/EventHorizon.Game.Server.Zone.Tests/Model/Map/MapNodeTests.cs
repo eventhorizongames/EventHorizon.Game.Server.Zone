@@ -1,7 +1,9 @@
-using Xunit;
-using System.Threading.Tasks;
 using System.Numerics;
+using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.Map;
+
+using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
 {

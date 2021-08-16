@@ -5,13 +5,17 @@
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Find;
     using EventHorizon.Zone.System.Player.Find;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class FindPlayerByEntityIdHandlerTests
@@ -143,7 +147,7 @@
                 mock => mock.Where(
                     It.IsAny<Func<IObjectEntity, bool>>()
                 )
-            ).Returns((Func<IObjectEntity, bool>  query) =>
+            ).Returns((Func<IObjectEntity, bool> query) =>
             {
                 return new List<IObjectEntity>
                 {

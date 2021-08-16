@@ -8,12 +8,14 @@
     using EventHorizon.Zone.System.Agent.Events.Register;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.Agent.Save.Model;
+
     using global::System;
     using global::System.IO;
     using global::System.Linq;
     using global::System.Text.Json;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class ReloadAgentSystemCommandHandler

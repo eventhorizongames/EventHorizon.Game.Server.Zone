@@ -1,7 +1,9 @@
 
 using EventHorizon.Game.I18n.Loader;
 using EventHorizon.Game.I18n.Lookup;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

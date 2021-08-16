@@ -2,13 +2,15 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
+    using EventHorizon.Game.Model;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Model.Entity;
-    using MediatR;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
-    using EventHorizon.Game.Model;
 
-    public class CheckSkillsEntityRegisteredHandler 
+    using MediatR;
+
+    public class CheckSkillsEntityRegisteredHandler
         : INotificationHandler<EntityRegisteredEvent>
     {
         public Task Handle(
@@ -25,7 +27,7 @@
             var skillState = entity.GetProperty<SkillState>(
                 SkillState.PROPERTY_NAME
             );
-            if(!skillState.SkillMap.Contains(
+            if (!skillState.SkillMap.Contains(
                 SkillConstants.ESCAPE_OF_CAPTURES_SKILL_ID
             ))
             {

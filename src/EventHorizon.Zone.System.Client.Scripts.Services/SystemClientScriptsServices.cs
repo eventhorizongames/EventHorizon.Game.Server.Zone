@@ -1,7 +1,9 @@
 ﻿/// This should only be used Omnisharp to setup Scripting Environment.
 /// The is used to intellisense the C# scripts.
 using EventHorizon.Observer.Model;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 public class ClientServices

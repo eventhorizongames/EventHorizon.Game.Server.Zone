@@ -1,13 +1,16 @@
-using Xunit;
-using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.Events.ServerAction;
+
 using EventHorizon.Tests.TestUtils;
+using EventHorizon.Zone.Core.Events.ServerAction;
 using EventHorizon.Zone.Core.ServerAction.Model;
-using EventHorizon.Zone.Core.ServerAction.State;
 using EventHorizon.Zone.Core.ServerAction.ServerAction.Add;
+using EventHorizon.Zone.Core.ServerAction.State;
+
+using Moq;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.ServerAction.Tests.Add
 {
@@ -20,12 +23,12 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.Add
             var expectedRunAt = DateTime.Now;
             var expectedEvent = new TestNotificationEvent();
             var expectedServerActionEntity = new ServerActionEntity(
-                expectedRunAt, 
+                expectedRunAt,
                 expectedEvent
             );
 
             var inputAddServerActionEvent = new AddServerActionEvent(
-                expectedRunAt, 
+                expectedRunAt,
                 expectedEvent
             );
 
@@ -37,7 +40,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.Add
             );
 
             await addServerActionHandler.Handle(
-                inputAddServerActionEvent, 
+                inputAddServerActionEvent,
                 CancellationToken.None
             );
 

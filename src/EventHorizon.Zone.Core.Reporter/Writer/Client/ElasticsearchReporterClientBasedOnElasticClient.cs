@@ -3,8 +3,11 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using Elasticsearch.Net;
+
     using EventHorizon.Zone.Core.Reporter.Model;
+
     using Microsoft.Extensions.Logging;
 
     public class ElasticsearchReporterClientBasedOnElasticClient

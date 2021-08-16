@@ -1,4 +1,5 @@
 using EventHorizon.Identity.Client;
+
 using Xunit;
 
 namespace EventHorizon.Identity.Tests.Client

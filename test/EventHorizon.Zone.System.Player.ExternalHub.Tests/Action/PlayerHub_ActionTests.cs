@@ -1,14 +1,19 @@
-using MediatR;
-using Moq;
-using Xunit;
-using EventHorizon.Zone.System.Player.Events.Connected;
-using System.Threading;
-using Microsoft.AspNetCore.SignalR;
-using System.Security.Claims;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+
+using EventHorizon.Zone.System.Player.Events.Connected;
 using EventHorizon.Zone.System.Player.Plugin.Action.Events;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
 
 namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
 {

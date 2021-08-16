@@ -1,11 +1,12 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
 {
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System.Threading.Tasks;
 
     public class BehaviorInterpreterDoWhileKernel : BehaviorInterpreterKernel
     {

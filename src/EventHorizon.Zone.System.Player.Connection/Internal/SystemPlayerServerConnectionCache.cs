@@ -2,10 +2,11 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
 {
     using global::System;
     using global::System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.AspNetCore.SignalR.Client;
+
     using Microsoft.AspNetCore.Http.Connections.Client;
+    using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public class SystemPlayerServerConnectionCache : PlayerServerConnectionCache, IDisposable
     {

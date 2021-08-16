@@ -1,9 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Identity.Client;
 using EventHorizon.Identity.Exceptions;
+
 using IdentityModel.Client;
+
 using MediatR;
+
 using Microsoft.Extensions.Configuration;
 
 namespace EventHorizon.Identity.AccessToken

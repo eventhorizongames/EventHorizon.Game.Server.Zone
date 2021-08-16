@@ -4,8 +4,10 @@
     using EventHorizon.Zone.System.ClientAssets.Events.Update;
     using EventHorizon.Zone.System.ClientAssets.Save;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class UpdateClientAssetCommandHandler

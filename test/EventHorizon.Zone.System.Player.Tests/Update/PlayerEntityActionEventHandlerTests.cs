@@ -5,10 +5,14 @@
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Update;
     using EventHorizon.Zone.System.Player.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class PlayerEntityActionEventHandlerTests

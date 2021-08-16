@@ -2,11 +2,15 @@
 {
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Assemblies;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForScriptAssemblyListHandlerTests

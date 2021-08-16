@@ -5,10 +5,12 @@ namespace EventHorizon.Zone.Core.Entity.State
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Action;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
     using EventHorizon.Zone.Core.Model.Id;
+
     using MediatR;
 
     public class InMemoryEntityRepository : EntityRepository

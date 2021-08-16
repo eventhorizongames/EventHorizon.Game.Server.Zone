@@ -1,12 +1,17 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Json;
 using EventHorizon.Zone.Core.Model.FileService;
-using MediatR;
-using Moq;
-using Xunit;
+
 using FluentAssertions;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Json
 {

@@ -1,9 +1,11 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
 {
-    using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.Core.Model.Entity;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+
     using Xunit;
 
     public class DefaultEntityTests

@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Id;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Id

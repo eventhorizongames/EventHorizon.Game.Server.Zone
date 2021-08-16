@@ -2,11 +2,15 @@ namespace EventHorizon.Zone.Core.Map.Tests.Find
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Map.Find;
     using EventHorizon.Zone.Core.Model.Map;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class GetMapNodeAtIndexHandlerTests

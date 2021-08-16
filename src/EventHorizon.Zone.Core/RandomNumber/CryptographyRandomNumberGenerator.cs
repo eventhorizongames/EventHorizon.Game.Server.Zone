@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.Core.RandomNumber
 {
-    using EventHorizon.Zone.Core.Model.RandomNumber;
     using System;
     using System.Security.Cryptography;
+
+    using EventHorizon.Zone.Core.Model.RandomNumber;
 
     public class CryptographyRandomNumberGenerator : IRandomNumberGenerator
     {

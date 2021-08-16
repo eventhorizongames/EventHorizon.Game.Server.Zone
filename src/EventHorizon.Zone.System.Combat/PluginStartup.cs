@@ -1,4 +1,5 @@
 using EventHorizon.Zone.System.Combat.Load;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat

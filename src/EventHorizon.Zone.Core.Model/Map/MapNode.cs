@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Model.Map
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Structure;
 
     public struct MapNode : IOctreeEntity
@@ -18,7 +19,7 @@ namespace EventHorizon.Zone.Core.Model.Map
             Position = position;
             Info = new Dictionary<string, object>();
         }
-        
+
         public MapNode(
             int index
         )

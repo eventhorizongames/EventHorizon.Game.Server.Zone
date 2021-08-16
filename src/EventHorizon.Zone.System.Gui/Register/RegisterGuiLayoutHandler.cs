@@ -1,7 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.Gui;
 using EventHorizon.Zone.System.Gui.Api;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Gui.Register
@@ -22,7 +24,7 @@ namespace EventHorizon.Zone.System.Gui.Register
         )
         {
             _guiState.AddLayout(
-                request.Layout.Id, 
+                request.Layout.Id,
                 request.Layout
             );
             return Unit.Task;

@@ -3,12 +3,15 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Settings.Load;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.Core.Model.Settings;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class LoadZoneSettingsHandler : INotificationHandler<LoadZoneSettingsEvent>

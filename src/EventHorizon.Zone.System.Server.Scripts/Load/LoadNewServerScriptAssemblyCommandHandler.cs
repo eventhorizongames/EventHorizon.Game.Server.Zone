@@ -9,6 +9,7 @@
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
     using EventHorizon.Zone.System.Server.Scripts.State;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
@@ -17,7 +18,9 @@
     using global::System.Runtime.Loader;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class LoadNewServerScriptAssemblyCommandHandler

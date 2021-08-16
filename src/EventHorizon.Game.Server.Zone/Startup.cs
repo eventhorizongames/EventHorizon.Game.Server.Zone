@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Net;
     using System.Reflection;
+
     using EventHorizon.Game.I18n;
     using EventHorizon.Game.Server.Zone.Admin.Policies;
     using EventHorizon.Game.Server.Zone.Controllers;
@@ -21,14 +22,18 @@
     using EventHorizon.Zone.System.Editor.ExternalHub;
     using EventHorizon.Zone.System.ModelState;
     using EventHorizon.Zone.System.Player.ExternalHub;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.ResponseCompression;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using Newtonsoft.Json;
+
     using Prometheus;
 
     public class Startup

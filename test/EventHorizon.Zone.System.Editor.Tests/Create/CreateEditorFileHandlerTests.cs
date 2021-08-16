@@ -4,15 +4,21 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Editor.Create;
     using EventHorizon.Zone.System.Editor.Events.Create;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class CreateEditorFileHandlerTests

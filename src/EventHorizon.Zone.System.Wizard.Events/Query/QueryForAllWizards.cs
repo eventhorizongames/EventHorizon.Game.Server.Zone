@@ -2,7 +2,9 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Model;
+
     using global::System.Collections.Generic;
+
     using MediatR;
 
     public struct QueryForAllWizards

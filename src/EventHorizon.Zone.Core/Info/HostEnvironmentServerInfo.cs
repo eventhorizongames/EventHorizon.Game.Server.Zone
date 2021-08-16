@@ -1,9 +1,11 @@
 namespace EventHorizon.Zone.Core.Info
 {
-    using EventHorizon.Zone.Core.Model.Info;
-    using Microsoft.Extensions.Hosting;
     using System;
     using System.IO;
+
+    using EventHorizon.Zone.Core.Model.Info;
+
+    using Microsoft.Extensions.Hosting;
 
     public class HostEnvironmentServerInfo
         : ServerInfo
@@ -79,7 +81,7 @@ namespace EventHorizon.Zone.Core.Info
                 Path.DirectorySeparatorChar.ToString(),
                 "temp"
             );
-            if(!Directory.Exists(
+            if (!Directory.Exists(
                 tempPath
             ))
             {

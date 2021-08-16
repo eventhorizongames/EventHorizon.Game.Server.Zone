@@ -5,6 +5,7 @@
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Capture.Logic;
     using EventHorizon.Game.Clear;
     using EventHorizon.Game.Model;
@@ -16,9 +17,13 @@
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
     using Xunit.Sdk;
 

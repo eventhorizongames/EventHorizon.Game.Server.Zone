@@ -3,15 +3,17 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using MediatR;
-    using EventHorizon.Zone.Core.Model.Map;
-    using EventHorizon.Game.Server.Zone.Player.Move.Model;
+
     using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+    using EventHorizon.Game.Server.Zone.Player.Move.Model;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
-    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Map;
+
+    using MediatR;
 
     public class MovePlayerHandler : INotificationHandler<MovePlayerEvent>
     {

@@ -2,8 +2,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.State
 {
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
+
     using Xunit;
 
     public class ClientEntityInMemoryRepositoryTests

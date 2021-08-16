@@ -3,10 +3,13 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
     using EventHorizon.Zone.System.Server.Scripts.Exceptions;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class ServerScriptInMemoryRepositoryTests

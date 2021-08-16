@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.EntityModule.Model;
 
 namespace EventHorizon.Zone.System.EntityModule.Api

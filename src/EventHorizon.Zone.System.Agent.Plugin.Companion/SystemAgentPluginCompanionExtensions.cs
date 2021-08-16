@@ -17,7 +17,7 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                
+
             }
             return app;
         }

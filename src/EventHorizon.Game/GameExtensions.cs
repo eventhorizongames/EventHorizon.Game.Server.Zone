@@ -3,6 +3,7 @@ namespace EventHorizon.Game
     using EventHorizon.Game.State;
     using EventHorizon.Game.Timer;
     using EventHorizon.TimerService;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 

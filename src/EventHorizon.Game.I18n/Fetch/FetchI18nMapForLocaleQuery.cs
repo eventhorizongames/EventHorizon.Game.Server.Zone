@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using MediatR;
 
 namespace EventHorizon.Game.I18n.Fetch

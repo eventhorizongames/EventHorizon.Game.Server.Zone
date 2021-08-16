@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
 {
     using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
 
     public struct ChangeActorBehaviorTreeCommand : IRequest<bool>

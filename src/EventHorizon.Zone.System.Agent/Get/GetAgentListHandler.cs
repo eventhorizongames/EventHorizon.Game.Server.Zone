@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.Model.State;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Get
@@ -22,7 +24,7 @@ namespace EventHorizon.Zone.System.Agent.Get
             CancellationToken cancellationToken
         )
         {
-            return (request.Query != null) 
+            return (request.Query != null)
                 ? _agentRepository.Where(
                     request.Query
                 ) : _agentRepository.All();

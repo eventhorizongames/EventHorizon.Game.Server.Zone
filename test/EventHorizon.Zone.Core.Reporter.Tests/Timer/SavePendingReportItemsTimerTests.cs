@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.Core.Reporter.Tests.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Reporter.Save;
     using EventHorizon.Zone.Core.Reporter.Timer;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SavePendingReportItemsTimerTests

@@ -1,12 +1,16 @@
 namespace EventHorizon.Zone.System.Player.Tests
 {
-    using global::System.Threading;
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Tests.TestUtils;
     using EventHorizon.Zone.System.Particle.Load;
     using EventHorizon.Zone.System.Particle.State;
+
+    using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemParticleExtensionsTests

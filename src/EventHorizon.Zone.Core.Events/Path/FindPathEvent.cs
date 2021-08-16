@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Events.Path
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using MediatR;
 
     public struct FindPathEvent : IRequest<Queue<Vector3>>

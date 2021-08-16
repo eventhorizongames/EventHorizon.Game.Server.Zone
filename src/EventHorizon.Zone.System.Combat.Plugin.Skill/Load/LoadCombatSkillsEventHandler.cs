@@ -6,10 +6,12 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class LoadCombatSkillsEventHandler

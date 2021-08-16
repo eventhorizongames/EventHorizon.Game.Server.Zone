@@ -1,10 +1,14 @@
 ﻿namespace EventHorizon.Zone.Core.Entity.Tests.Common
 {
     using System.Reflection;
+
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Model.Id;
+
     using MediatR;
+
     using Moq;
+
     using Xunit.Sdk;
 
     public class CleanupInMemoryEntityRepositoryAttribute : BeforeAfterTestAttribute

@@ -1,13 +1,15 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
 using EventHorizon.Zone.System.Server.Scripts.Events.Query;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Query
 {
-    public class EditorSystemCombatSkillScriptsFileQueryHandler 
+    public class EditorSystemCombatSkillScriptsFileQueryHandler
         : IRequestHandler<EditorSystemCombatSkillScriptsFileQuery, EditorSystemCombatSkillScriptsFile>
     {
         readonly IMediator _mediator;

@@ -7,11 +7,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class AgentRegisteredEventHandlerTests

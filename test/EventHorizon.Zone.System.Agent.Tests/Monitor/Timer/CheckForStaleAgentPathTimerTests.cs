@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.System.Agent.Tests.Monitor.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Monitor.Path;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class CheckForStaleAgentPathTimerTests

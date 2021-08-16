@@ -1,7 +1,10 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Identity.AccessToken;
 using EventHorizon.Zone.System.Agent.Model;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -37,7 +40,7 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
                     $"{_agentSettings.Server}/agent",
                     options =>
                     {
-                        options.AccessTokenProvider = async () => 
+                        options.AccessTokenProvider = async () =>
                             await _mediator.Send(
                                 new RequestIdentityAccessTokenEvent()
                             );

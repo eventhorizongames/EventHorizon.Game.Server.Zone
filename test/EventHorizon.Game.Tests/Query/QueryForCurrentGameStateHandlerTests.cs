@@ -3,10 +3,14 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Query;
     using EventHorizon.Game.State;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForCurrentGameStateHandlerTests

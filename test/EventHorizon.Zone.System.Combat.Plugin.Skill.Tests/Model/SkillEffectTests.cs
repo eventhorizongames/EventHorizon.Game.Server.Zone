@@ -1,9 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class SkillEffectTests

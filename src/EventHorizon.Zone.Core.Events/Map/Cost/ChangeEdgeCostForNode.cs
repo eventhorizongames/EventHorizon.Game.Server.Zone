@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.Core.Events.Map.Cost
 {
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
     public struct ChangeEdgeCostForNode : IRequest<bool>

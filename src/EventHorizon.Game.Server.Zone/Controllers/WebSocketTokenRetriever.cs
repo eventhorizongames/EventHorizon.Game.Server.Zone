@@ -1,5 +1,7 @@
 using System;
+
 using IdentityModel.AspNetCore.OAuth2Introspection;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 

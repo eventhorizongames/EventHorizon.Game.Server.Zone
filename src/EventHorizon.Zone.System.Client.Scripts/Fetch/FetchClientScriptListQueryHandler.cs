@@ -1,13 +1,15 @@
 namespace EventHorizon.Zone.System.Client.Scripts.Fetch
 {
+    using EventHorizon.Zone.System.Client.Scripts.Api;
+    using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Client.Scripts.Model;
+
     using MediatR;
-    using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
-    using EventHorizon.Zone.System.Client.Scripts.Api;
 
     public class FetchClientScriptListQueryHandler
         : IRequestHandler<FetchClientScriptListQuery, IEnumerable<ClientScript>>

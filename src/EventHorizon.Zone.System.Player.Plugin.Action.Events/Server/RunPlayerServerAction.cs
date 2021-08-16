@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Events

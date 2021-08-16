@@ -3,11 +3,14 @@
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.PopulateData;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class PopulateEntityDataForSkillHandlerTests

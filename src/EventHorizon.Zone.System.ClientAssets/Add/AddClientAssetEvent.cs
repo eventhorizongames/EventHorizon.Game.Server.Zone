@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientAssets.Add
 {
     using EventHorizon.Zone.System.ClientAssets.Model;
+
     using MediatR;
 
     public struct AddClientAssetEvent

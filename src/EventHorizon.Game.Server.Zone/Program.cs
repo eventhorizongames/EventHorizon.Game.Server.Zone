@@ -1,10 +1,13 @@
 ﻿namespace EventHorizon.Game.Server.Zone
 {
     using System;
+
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Hosting;
+
     using Serilog;
     using Serilog.Sinks.Elasticsearch;
 

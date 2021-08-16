@@ -1,9 +1,11 @@
 namespace EventHorizon.Zone.System.Agent.Update
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Agent.Events.Update;
     using EventHorizon.Zone.System.Agent.Model.State;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class AgentUpdateEntityCommandHandler : IRequestHandler<AgentUpdateEntityCommand>

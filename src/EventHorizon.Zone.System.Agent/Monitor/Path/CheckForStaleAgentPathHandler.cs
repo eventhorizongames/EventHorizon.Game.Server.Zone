@@ -6,8 +6,10 @@ namespace EventHorizon.Zone.System.Agent.Monitor.Path
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Move;
     using EventHorizon.Zone.System.Agent.Model.Path;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class CheckForStaleAgentPathHandler : INotificationHandler<CheckForStaleAgentPath>
@@ -25,7 +27,7 @@ namespace EventHorizon.Zone.System.Agent.Monitor.Path
         }
 
         public async Task Handle(
-            CheckForStaleAgentPath notification, 
+            CheckForStaleAgentPath notification,
             CancellationToken cancellationToken
         )
         {
@@ -33,7 +35,7 @@ namespace EventHorizon.Zone.System.Agent.Monitor.Path
                 new GetAgentListEvent(
                     agent => agent.GetProperty<LocationState>(
                         LocationState.PROPERTY_NAME
-                    ).CanMove 
+                    ).CanMove
                     && agent.GetProperty<LocationState>(
                         LocationState.PROPERTY_NAME
                     ).NextMoveRequest.CompareTo(

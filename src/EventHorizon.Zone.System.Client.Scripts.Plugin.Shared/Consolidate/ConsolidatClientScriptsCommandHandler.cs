@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Model;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
@@ -9,6 +10,7 @@
     using global::System.Text;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class ConsolidatClientScriptsCommandHandler

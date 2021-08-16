@@ -2,14 +2,20 @@ namespace EventHorizon.Zone.Core.Tests.Lifetime
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Lifetime;
     using EventHorizon.Zone.Core.Lifetime.State;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class FinishServerStartCommandHandlerTests

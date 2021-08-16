@@ -2,10 +2,14 @@
 {
     using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Clear;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class ClearWizardListCommandHandlerTests

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+
 using EventHorizon.Zone.Core.Map.Model;
 using EventHorizon.Zone.Core.Model.Map;
+
 using Xunit;
 using Xunit.Abstractions;
 

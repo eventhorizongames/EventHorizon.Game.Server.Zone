@@ -6,7 +6,7 @@
         public string CompilerSubProcess { get; }
 
         public ServerScriptsSettings(
-            string compilerSubProcessDirectory, 
+            string compilerSubProcessDirectory,
             string compilerSubProcess
         )
         {

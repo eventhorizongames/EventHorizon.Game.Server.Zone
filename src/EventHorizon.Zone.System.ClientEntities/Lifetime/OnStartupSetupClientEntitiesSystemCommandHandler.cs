@@ -1,11 +1,14 @@
 ﻿namespace EventHorizon.Zone.System.ClientEntities.Lifetime
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class OnStartupSetupClientEntitiesSystemCommandHandler
@@ -27,7 +30,7 @@
         }
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupClientEntitiesSystemCommand request, 
+            OnStartupSetupClientEntitiesSystemCommand request,
             CancellationToken cancellationToken
         )
         {

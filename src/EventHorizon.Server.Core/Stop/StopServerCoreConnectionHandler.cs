@@ -2,8 +2,10 @@ namespace EventHorizon.Server.Core.Stop
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Events.Stop;
+
     using MediatR;
 
     public class StopCoreServerConnectionHandler : INotificationHandler<StopCoreServerConnection>

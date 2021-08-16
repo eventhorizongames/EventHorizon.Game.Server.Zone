@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class RunPendingActorBehaviorTicksTimerTests

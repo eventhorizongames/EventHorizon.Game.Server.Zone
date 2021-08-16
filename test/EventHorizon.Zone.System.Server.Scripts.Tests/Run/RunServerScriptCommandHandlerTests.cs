@@ -1,17 +1,21 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Run
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
     using EventHorizon.Zone.System.Server.Scripts.Exceptions;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Run;
     using EventHorizon.Zone.System.Server.Scripts.System;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class RunServerScriptCommandHandlerTests

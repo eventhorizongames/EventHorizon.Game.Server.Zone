@@ -1,16 +1,23 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Tests.Lifetime
 {
     using System;
+
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
     using EventHorizon.Zone.System.Client.Scripts.Lifetime;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class OnStartupSetupClientScriptsSystemCommandHandlerTests

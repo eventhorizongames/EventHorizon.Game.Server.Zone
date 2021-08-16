@@ -1,12 +1,17 @@
 namespace EventHorizon.Monitoring.Tests
 {
     using System;
+
     using EventHorizon.Monitoring.Model;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.Options;
+
     using Moq;
+
     using Xunit;
 
     public class EventHorizonMonitoringExtensionsTests

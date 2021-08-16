@@ -1,10 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Client.Action;
 using EventHorizon.Zone.Core.Events.Client;
 using EventHorizon.Zone.Core.Model.Client;
+
 using MediatR;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Client.Tests.Action

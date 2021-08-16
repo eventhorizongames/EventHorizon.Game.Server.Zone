@@ -3,22 +3,24 @@ namespace EventHorizon.Zone.System.Player.Update
     using EventHorizon.Zone.System.Player.Connection;
     using EventHorizon.Zone.System.Player.Events.Update;
     using EventHorizon.Zone.System.Player.Mapper;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PlayerGlobalUpdateHandler 
+    public class PlayerGlobalUpdateHandler
         : INotificationHandler<PlayerGlobalUpdateEvent>
     {
         private readonly PlayerServerConnectionFactory _connectionFactory;
-        
+
         public PlayerGlobalUpdateHandler(
             PlayerServerConnectionFactory connectionFactory
         )
         {
             _connectionFactory = connectionFactory;
         }
-        
+
         public async Task Handle(
             PlayerGlobalUpdateEvent notification,
             CancellationToken cancellationToken

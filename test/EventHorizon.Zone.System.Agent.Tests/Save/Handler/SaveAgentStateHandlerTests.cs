@@ -1,5 +1,11 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
@@ -10,12 +16,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
     using EventHorizon.Zone.System.Agent.Save;
     using EventHorizon.Zone.System.Agent.Save.Events;
     using EventHorizon.Zone.System.Agent.Save.Model;
+
     using Moq;
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-    using System.Threading.Tasks;
+
     using Xunit;
 
     public class SaveAgentStateHandlerTests

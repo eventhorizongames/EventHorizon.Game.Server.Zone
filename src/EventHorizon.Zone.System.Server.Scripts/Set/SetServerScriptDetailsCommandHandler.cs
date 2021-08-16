@@ -1,10 +1,12 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Set
 {
+    using EventHorizon.Zone.Core.Model.Command;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Server.Scripts.State;
+
     using MediatR;
-    using EventHorizon.Zone.Core.Model.Command;
 
     public class SetServerScriptDetailsCommandHandler
         : IRequestHandler<SetServerScriptDetailsCommand, StandardCommandResult>

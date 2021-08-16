@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Model;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;

@@ -1,14 +1,18 @@
-using Xunit;
-using Moq;
-using System.Collections.Generic;
 using System;
-using MediatR;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using EventHorizon.Zone.Core.ServerAction.Run;
+
 using EventHorizon.Tests.TestUtils;
 using EventHorizon.Zone.Core.ServerAction.Model;
+using EventHorizon.Zone.Core.ServerAction.Run;
 using EventHorizon.Zone.Core.ServerAction.State;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.ServerAction.Tests.Run
 {

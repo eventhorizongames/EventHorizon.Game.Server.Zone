@@ -2,8 +2,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Model
 {
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
+
     using Xunit;
 
     public class ClientEntityTests

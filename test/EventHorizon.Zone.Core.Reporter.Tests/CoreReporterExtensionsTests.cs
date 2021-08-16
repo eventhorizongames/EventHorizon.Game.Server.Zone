@@ -1,23 +1,28 @@
 namespace EventHorizon.Zone.Core.Reporter.Tests
 {
-    using Xunit;
-    using EventHorizon.TimerService;
-    using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Zone.Core.Reporter.Model;
-    using EventHorizon.Zone.Core.Reporter.Tracker;
-    using EventHorizon.Zone.Core.Reporter.Timer;
-    using Moq;
     using System;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using EventHorizon.Zone.Core.Reporter.Settings;
-    using EventHorizon.Zone.Core.Reporter.Writer.Client;
-    using EventHorizon.Zone.Core.Reporter.Writer.Client.Timer;
-    using Microsoft.Extensions.Logging;
-    using EventHorizon.Test.Common;
-    using EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
-    using MediatR;
     using System.Threading;
+
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.Core.Reporter.Settings;
+    using EventHorizon.Zone.Core.Reporter.Timer;
+    using EventHorizon.Zone.Core.Reporter.Tracker;
+    using EventHorizon.Zone.Core.Reporter.Writer.Client;
+    using EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
+    using EventHorizon.Zone.Core.Reporter.Writer.Client.Timer;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
 
     public class CoreReporterExtensionsTests
     {

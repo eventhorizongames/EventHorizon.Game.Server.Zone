@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.ClientAction
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class ClientSkillActionEventTests

@@ -3,6 +3,7 @@ namespace EventHorizon.Game.I18n.Lookup
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+
     using EventHorizon.Game.I18n.Model;
 
     public class I18nLookupRepository : I18nLookup, I18nResolver, I18nRepository

@@ -3,9 +3,11 @@
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class SetClientEntityNodeDensityHandler : IRequestHandler<SetClientEntityNodeDensity>

@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Performance.Tests.Model
 {
     using EventHorizon.Performance.Model;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class EmptyTrackerInstanceTests

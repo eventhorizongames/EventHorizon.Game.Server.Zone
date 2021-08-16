@@ -1,11 +1,12 @@
 namespace EventHorizon.Zone.System.Combat.Timer
 {
-    using EventHorizon.Zone.System.Combat.Events.Level;
     using EventHorizon.TimerService;
-    using MediatR;
     using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.System.Combat.Events.Level;
 
-    public class EntityLevelUpTimer 
+    using MediatR;
+
+    public class EntityLevelUpTimer
         : ITimerTask
     {
         public int Period { get; } = 100;

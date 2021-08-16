@@ -1,12 +1,16 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Player.Connection.Internal;
+
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Logging;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal

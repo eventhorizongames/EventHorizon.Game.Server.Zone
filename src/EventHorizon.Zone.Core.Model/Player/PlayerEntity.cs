@@ -1,9 +1,10 @@
 namespace EventHorizon.Zone.Core.Model.Player
 {
-    using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.Core.Model.Entity;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
 
     public struct PlayerEntity : IObjectEntity
     {

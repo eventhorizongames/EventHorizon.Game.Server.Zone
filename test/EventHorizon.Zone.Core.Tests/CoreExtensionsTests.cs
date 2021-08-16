@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Tests
 {
     using System.Reflection;
     using System.Threading;
+
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Monitoring.Events.Track;
     using EventHorizon.Test.Common.Attributes;
@@ -24,10 +25,15 @@ namespace EventHorizon.Zone.Core.Tests
     using EventHorizon.Zone.Core.RandomNumber;
     using EventHorizon.Zone.Core.ServerProperty;
     using EventHorizon.Zone.Core.ServerProperty.Fill;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
+
     using static EventHorizon.Game.Server.Zone.CoreExtensions;
 
     public class CoreExtensionsTests

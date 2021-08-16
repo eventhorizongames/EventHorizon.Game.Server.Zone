@@ -5,7 +5,9 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.Core.Map.Search;
     using EventHorizon.Zone.Core.Map.State;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -32,7 +34,7 @@ namespace EventHorizon.Game.Server.Zone
                 )
             ;
         }
-        
+
         public static IApplicationBuilder UseCoreMap(
             this IApplicationBuilder app
         )

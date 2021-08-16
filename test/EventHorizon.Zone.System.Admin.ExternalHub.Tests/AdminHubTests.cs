@@ -2,13 +2,18 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
 {
     using EventHorizon.Game.Server.Zone.Info.Query;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+
     using global::System.Collections.Generic;
     using global::System.Security.Claims;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.AspNetCore.SignalR;
+
     using Moq;
+
     using Xunit;
 
     public class AdminHubTests

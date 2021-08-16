@@ -1,9 +1,10 @@
 namespace EventHorizon.Zone.Core.Json
 {
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
     using System.Text.Json;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Json;
 
     public class TextJsonFileLoader : IJsonFileLoader
     {

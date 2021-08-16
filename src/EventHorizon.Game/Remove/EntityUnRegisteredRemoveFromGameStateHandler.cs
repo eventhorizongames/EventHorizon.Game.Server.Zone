@@ -2,8 +2,10 @@ namespace EventHorizon.Game.Remove
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Clear;
     using EventHorizon.Zone.Core.Events.Entity.Register;
+
     using MediatR;
 
     public class EntityUnRegisteredRemoveFromGameStateHandler : INotificationHandler<EntityUnRegisteredEvent>

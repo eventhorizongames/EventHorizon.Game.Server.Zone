@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Gui.Model;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Gui.Events.Layout

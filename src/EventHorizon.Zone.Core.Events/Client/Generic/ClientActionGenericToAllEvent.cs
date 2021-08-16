@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.Core.Events.Client.Generic
 {
     using EventHorizon.Zone.Core.Model.Client;
+
     using MediatR;
 
     public class ClientActionGenericToAllEvent : ClientActionToAllEvent<IClientActionData>, INotification

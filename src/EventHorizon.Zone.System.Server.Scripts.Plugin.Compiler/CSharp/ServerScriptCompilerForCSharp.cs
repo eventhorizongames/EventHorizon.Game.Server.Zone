@@ -8,12 +8,15 @@
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Model;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class ServerScriptCompilerForCSharp

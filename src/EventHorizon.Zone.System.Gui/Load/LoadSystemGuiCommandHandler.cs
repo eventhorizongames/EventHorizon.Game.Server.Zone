@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.Gui;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Gui.Model;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Gui.Load
@@ -30,9 +32,9 @@ namespace EventHorizon.Zone.System.Gui.Load
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
         }
-        
+
         public async Task<Unit> Handle(
-            LoadSystemGuiCommand request, 
+            LoadSystemGuiCommand request,
             CancellationToken cancellationToken
         )
         {

@@ -1,10 +1,14 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.Lifetime;
 using EventHorizon.Zone.Core.Lifetime;
 using EventHorizon.Zone.Core.Lifetime.State;
+
 using FluentAssertions;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Lifetime
@@ -24,7 +28,7 @@ namespace EventHorizon.Zone.Core.Tests.Lifetime
             ).Returns(
                 expected
             );
-            
+
             // When
             var handler = new IsServerStartedHandler(
                 serverLifetimeStateMock.Object
@@ -33,7 +37,7 @@ namespace EventHorizon.Zone.Core.Tests.Lifetime
                 new IsServerStarted(),
                 CancellationToken.None
             );
-            
+
             // Then
             actual.Should()
                 .Be(

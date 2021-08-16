@@ -5,6 +5,7 @@
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Update;
@@ -15,9 +16,13 @@
     using EventHorizon.Zone.Core.Model.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Map;
     using EventHorizon.Zone.Core.Model.Settings;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class MoveEntityToPositionCommandHandlerTests

@@ -1,15 +1,17 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
 
     public class ChangeActorBehaviorTreeCommandHandler : IRequestHandler<ChangeActorBehaviorTreeCommand, bool>
     {

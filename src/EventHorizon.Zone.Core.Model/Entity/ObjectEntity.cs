@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.Core.Model.Entity
 {
-    using EventHorizon.Zone.Core.Model.Core;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.Core;
 
     public interface IObjectEntity
     {

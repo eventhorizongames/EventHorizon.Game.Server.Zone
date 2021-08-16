@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
 {
     using EventHorizon.Zone.System.Server.Scripts.State;
+
     using FluentAssertions;
+
     using Xunit;
 
 

@@ -3,7 +3,9 @@ namespace EventHorizon.Game.Server.Zone
 
     using EventHorizon.Zone.System.Particle.Load;
     using EventHorizon.Zone.System.Particle.State;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 

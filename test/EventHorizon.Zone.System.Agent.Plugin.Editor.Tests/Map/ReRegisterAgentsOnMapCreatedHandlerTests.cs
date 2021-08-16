@@ -1,15 +1,19 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Editor.Tests.Map
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Register;
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Editor.Map;
+
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class ReRegisterAgentsOnMapCreatedHandlerTests

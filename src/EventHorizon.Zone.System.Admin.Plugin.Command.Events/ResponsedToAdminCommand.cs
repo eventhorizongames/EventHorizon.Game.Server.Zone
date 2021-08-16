@@ -1,4 +1,5 @@
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Events

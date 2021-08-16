@@ -2,6 +2,7 @@ namespace EventHorizon.TimerService.Tests
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using Xunit;
 
     public class HostedServiceTests
@@ -66,7 +67,7 @@ namespace EventHorizon.TimerService.Tests
             await hostedService.StopAsync(
                 CancellationToken.None
             );
-            
+
             // Then
             Assert.True(true);
         }

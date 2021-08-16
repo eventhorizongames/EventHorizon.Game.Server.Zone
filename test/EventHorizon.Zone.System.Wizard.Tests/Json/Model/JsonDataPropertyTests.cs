@@ -1,10 +1,13 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Tests.Json.Model
 {
     using EventHorizon.Zone.System.Wizard.Json.Model;
+
     using FluentAssertions;
+
     using global::System.Buffers;
     using global::System.Text;
     using global::System.Text.Json;
+
     using Xunit;
 
 

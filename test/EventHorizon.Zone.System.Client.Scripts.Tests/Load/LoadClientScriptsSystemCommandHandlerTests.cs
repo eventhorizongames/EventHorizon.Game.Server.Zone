@@ -6,13 +6,17 @@
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadClientScriptsSystemCommandHandlerTests

@@ -3,12 +3,14 @@ namespace EventHorizon.Zone.Core.Entity.Search
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Entity.Register;
+
     using MediatR;
 
-    public class RemoveSearchEntityOnUnregisteredHandler 
+    public class RemoveSearchEntityOnUnregisteredHandler
         : INotificationHandler<EntityUnRegisteredEvent>
     {
         private readonly EntitySearchTree _entitySearchTree;

@@ -4,6 +4,7 @@ namespace EventHorizon.Test.Common.Utils
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+
     using Microsoft.Extensions.DependencyInjection;
 
     [ExcludeFromCodeCoverage]

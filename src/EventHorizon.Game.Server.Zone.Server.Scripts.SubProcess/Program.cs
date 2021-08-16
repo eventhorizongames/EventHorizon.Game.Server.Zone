@@ -2,12 +2,16 @@
 {
     using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.SDK;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using MediatR;
+
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+
     using Serilog;
     using Serilog.Sinks.Elasticsearch;
 

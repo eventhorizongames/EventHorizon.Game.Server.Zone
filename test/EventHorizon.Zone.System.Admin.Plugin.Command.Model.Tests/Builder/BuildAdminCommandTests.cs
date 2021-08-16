@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests.Builder
@@ -26,7 +28,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests.Builder
                 actual.Command
             );
         }
-        
+
         [Fact]
         public void TestShouldEchoTheRawCommandWhenTheCommandIsCreated()
         {

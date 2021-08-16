@@ -1,16 +1,22 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Tests.Update
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Events.Update;
     using EventHorizon.Zone.System.DataStorage.Save;
     using EventHorizon.Zone.System.DataStorage.Update;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class UpdateDataStoreValueCommandHandlerTests

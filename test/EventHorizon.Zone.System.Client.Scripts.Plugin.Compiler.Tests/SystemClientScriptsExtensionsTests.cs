@@ -8,17 +8,23 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.CSharp;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Logging;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Model;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Weikio.PluginFramework.Abstractions;
     using Weikio.PluginFramework.AspNetCore;
     using Weikio.PluginFramework.Catalogs;
     using Weikio.PluginFramework.Catalogs.NuGet;
+
     using Xunit;
 
     public class SystemClientScriptsPluginComplierExtensionsTests

@@ -1,8 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Tests.Json.Model
 {
     using EventHorizon.Zone.System.Wizard.Json.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
 

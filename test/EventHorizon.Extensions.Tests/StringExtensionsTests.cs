@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Extensions.Tests
 {
     using System;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class StringExtensionsTests

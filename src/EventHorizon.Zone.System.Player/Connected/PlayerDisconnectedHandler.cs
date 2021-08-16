@@ -3,11 +3,13 @@ namespace EventHorizon.Zone.System.Player.Connected
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Connected;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PlayerDisconnectedHandler 
+    public class PlayerDisconnectedHandler
         : INotificationHandler<PlayerDisconnectedEvent>
     {
         private readonly IMediator _mediator;

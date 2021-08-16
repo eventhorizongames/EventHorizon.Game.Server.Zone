@@ -2,9 +2,12 @@ namespace EventHorizon.Server.Core.Disconnected
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection.Disconnected;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class CoreServerConnectionDisconnectedHandler

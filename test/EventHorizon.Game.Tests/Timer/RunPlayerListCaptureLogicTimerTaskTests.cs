@@ -3,7 +3,9 @@
     using EventHorizon.Game.Capture;
     using EventHorizon.Game.Timer;
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class RunPlayerListCaptureLogicTimerTaskTests

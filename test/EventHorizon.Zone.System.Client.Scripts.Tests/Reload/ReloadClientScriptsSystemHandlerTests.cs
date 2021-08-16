@@ -6,10 +6,14 @@
     using EventHorizon.Zone.System.Client.Scripts.Events.Reload;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Reload;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class ReloadClientScriptsSystemHandlerTests

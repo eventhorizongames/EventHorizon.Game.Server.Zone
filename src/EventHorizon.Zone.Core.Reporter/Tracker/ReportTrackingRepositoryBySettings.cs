@@ -1,8 +1,9 @@
 namespace EventHorizon.Zone.Core.Reporter.Tracker
 {
-    using EventHorizon.Zone.Core.Reporter.Model;
-    using System.Collections.Generic;
     using System;
+    using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Reporter.Model;
 
     public class ReportTrackingRepositoryBySettings : ReportTracker, ReportRepository
     {

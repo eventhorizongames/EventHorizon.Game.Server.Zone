@@ -12,13 +12,19 @@
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
     using EventHorizon.Zone.System.Client.Scripts.Model.Generated;
     using EventHorizon.Zone.System.Client.Scripts.Validation;
+
     using FluentAssertions;
+
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class CompileClientScriptCommandHandlerTests

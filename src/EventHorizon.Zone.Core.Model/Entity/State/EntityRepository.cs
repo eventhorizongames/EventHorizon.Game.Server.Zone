@@ -17,7 +17,7 @@ namespace EventHorizon.Zone.Core.Model.Entity.State
             IObjectEntity entity
         );
         Task Update(
-            EntityAction action, 
+            EntityAction action,
             IObjectEntity entity
         );
         Task Remove(

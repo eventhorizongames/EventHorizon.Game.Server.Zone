@@ -12,8 +12,8 @@ namespace EventHorizon.Zone.System.Editor.Model
         public string Content { get; }
 
         public StandardEditorFile(
-            string fileName, 
-            IList<string> filePath, 
+            string fileName,
+            IList<string> filePath,
             string fileContent
         )
         {
@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.System.Editor.Model
         }
 
         public static string GenerateId(
-            string name, 
+            string name,
             IList<string> path
         )
         {

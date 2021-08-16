@@ -1,9 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
 using EventHorizon.Zone.System.Watcher.State;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Watcher.Check
@@ -26,7 +29,7 @@ namespace EventHorizon.Zone.System.Watcher.Check
         }
 
         public async Task Handle(
-            CheckPendingReloadEvent notification, 
+            CheckPendingReloadEvent notification,
             CancellationToken cancellationToken
         )
         {

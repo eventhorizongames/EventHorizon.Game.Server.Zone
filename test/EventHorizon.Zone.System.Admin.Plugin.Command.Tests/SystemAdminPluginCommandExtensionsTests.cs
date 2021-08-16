@@ -1,11 +1,15 @@
-using Xunit;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Game.Server.Zone;
-using Moq;
-using MediatR;
 using System.Threading;
-using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+using EventHorizon.Game.Server.Zone;
+using EventHorizon.Tests.TestUtils;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
+using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {

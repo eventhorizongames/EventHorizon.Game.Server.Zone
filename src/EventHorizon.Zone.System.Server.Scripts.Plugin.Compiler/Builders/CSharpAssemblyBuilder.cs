@@ -1,15 +1,18 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Builders
 {
-    using global::System.IO;
-    using global::System.Reflection;
-    using global::System.Threading.Tasks;
     using CSScriptLib;
+
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Api;
-    using MediatR;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Api;
+
+    using global::System.IO;
+    using global::System.Reflection;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
 
     public class CSharpAssemblyBuilder
         : AssemblyBuilder

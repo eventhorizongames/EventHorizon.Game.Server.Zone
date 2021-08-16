@@ -3,9 +3,10 @@
     using EventHorizon.Game.Capture;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using MediatR;
 
-    public class RunPlayerListCaptureLogicTimerTask 
+    public class RunPlayerListCaptureLogicTimerTask
         : ITimerTask
     {
         public int Period { get; } = 1000 * 1; // Every 1 second

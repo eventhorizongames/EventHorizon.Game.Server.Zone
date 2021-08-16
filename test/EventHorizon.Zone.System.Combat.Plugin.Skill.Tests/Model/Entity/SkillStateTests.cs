@@ -1,10 +1,13 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model.Entity
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Text;
+
     using Xunit;
 
     public class SkillStateTests

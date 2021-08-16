@@ -2,17 +2,22 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Capture.Logic;
     using EventHorizon.Game.Model;
     using EventHorizon.Game.Model.Client;
     using EventHorizon.Zone.Core.Events.Client.Generic;
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using MediatR;
-    using Moq;
-    using Xunit;
     using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+
     using FluentAssertions;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
 
     public class ProcessFiveSecondCaptureLogicHandlerTests
     {
@@ -69,7 +74,7 @@
                 captureState
             );
             var expected = new GamePlayerCaptureState()
-            { 
+            {
                 ShownFiveSecondMessage = true,
             };
 

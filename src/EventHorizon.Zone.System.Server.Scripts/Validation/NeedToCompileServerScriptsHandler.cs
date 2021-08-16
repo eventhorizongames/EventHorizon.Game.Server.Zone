@@ -5,8 +5,10 @@
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
     using EventHorizon.Zone.System.Server.Scripts.State;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class NeedToCompileServerScriptsHandler

@@ -5,13 +5,17 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Update
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.Update;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SetClientEntityNodeDensityHandlerTests

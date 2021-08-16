@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Player.Events.Connected
         public string ConnectionId { get; }
 
         public PlayerConnectedEvent(
-            string id, 
+            string id,
             string connectionId
         )
         {

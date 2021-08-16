@@ -3,8 +3,11 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests.Actions.Reload
     using EventHorizon.Zone.System.Client.Scripts.Actions.Reload;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Model.Client;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class ClientScriptsSystemReloadedClientActionToAllEventTests

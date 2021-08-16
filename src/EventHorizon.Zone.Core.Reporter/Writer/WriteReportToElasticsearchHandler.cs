@@ -4,9 +4,12 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Writer.Client;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class WriteReportToElasticsearchHandler

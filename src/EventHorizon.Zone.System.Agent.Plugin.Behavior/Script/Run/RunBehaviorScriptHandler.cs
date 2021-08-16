@@ -1,12 +1,15 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
 {
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class RunBehaviorScriptHandler

@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.ClientEntities.Create
 {
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using MediatR;
 
     public class CreateClientEntityCommand : IRequest<CreateClientEntityResponse>

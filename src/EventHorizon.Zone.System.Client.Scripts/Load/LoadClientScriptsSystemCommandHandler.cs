@@ -1,17 +1,19 @@
 namespace EventHorizon.Zone.System.Client.Scripts.Load
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Client.Scripts.Api;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Client.Scripts.Model;
-    using MediatR;
-    using EventHorizon.Zone.System.Client.Scripts.Api;
 
-    public class LoadClientScriptsSystemCommandHandler 
+    using MediatR;
+
+    public class LoadClientScriptsSystemCommandHandler
         : IRequestHandler<LoadClientScriptsSystemCommand>
     {
         private readonly IMediator _mediator;

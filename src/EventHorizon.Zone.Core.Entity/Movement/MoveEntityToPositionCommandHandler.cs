@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Entity.Movement
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Events.Entity.Update;
@@ -12,9 +13,10 @@ namespace EventHorizon.Zone.Core.Entity.Movement
     using EventHorizon.Zone.Core.Model.Entity.Client;
     using EventHorizon.Zone.Core.Model.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Settings;
+
     using MediatR;
 
-    public class MoveEntityToPositionCommandHandler 
+    public class MoveEntityToPositionCommandHandler
         : IRequestHandler<MoveEntityToPositionCommand, MoveEntityToPositionCommandResponse>
     {
         private readonly IMediator _mediator;

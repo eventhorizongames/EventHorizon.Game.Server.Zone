@@ -5,10 +5,12 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using EventHorizon.Zone.Core.Model.FileService;
+
     using MediatR;
 
     public class WriteResourceToFileHandler

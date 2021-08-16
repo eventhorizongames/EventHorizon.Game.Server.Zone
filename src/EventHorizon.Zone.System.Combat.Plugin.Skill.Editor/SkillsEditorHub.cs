@@ -1,15 +1,18 @@
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor
 {
-    using global::System;
-    using global::System.Threading.Tasks;
-    using MediatR;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.SignalR;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Query;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Fetch;
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    using EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
+
+    using global::System;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.SignalR;
 
     [Authorize("UserIdOrAdmin")]
     public class SkillsEditorHub : Hub

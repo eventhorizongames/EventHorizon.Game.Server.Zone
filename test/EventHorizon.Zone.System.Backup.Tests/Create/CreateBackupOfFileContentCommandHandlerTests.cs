@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Backup.Tests.Create
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Info;
@@ -8,11 +9,15 @@
     using EventHorizon.Zone.System.Backup.Create;
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.Backup.Model;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class CreateBackupOfFileContentCommandHandlerTests

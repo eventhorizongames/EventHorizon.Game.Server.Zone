@@ -2,8 +2,11 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using MediatR;
+
     using Microsoft.Extensions.Diagnostics.HealthChecks;
 
     public class IsServerStartedHealthCheck

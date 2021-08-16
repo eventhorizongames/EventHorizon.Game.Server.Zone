@@ -3,9 +3,10 @@
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Reporter.Writer.Client.Check;
+
     using MediatR;
 
-    public class CheckElasticsearchReporterClientConnectionTimerTask 
+    public class CheckElasticsearchReporterClientConnectionTimerTask
         : ITimerTask
     {
         public int Period { get; } = 30000; // Every 30 seconds

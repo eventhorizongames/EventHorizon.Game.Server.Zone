@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Client
     using EventHorizon.Zone.System.ClientEntities.Client;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SendClientEntityChangedClientActionToAllEventTests

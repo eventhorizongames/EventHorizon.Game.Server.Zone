@@ -5,10 +5,15 @@
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using FluentAssertions;
+
     using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemCompbatPluginSkillExtensionsTests

@@ -10,9 +10,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand, SaveClientEntityResponse>

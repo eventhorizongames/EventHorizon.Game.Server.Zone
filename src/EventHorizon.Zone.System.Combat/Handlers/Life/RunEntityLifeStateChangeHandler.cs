@@ -1,9 +1,11 @@
+using System.Threading;
+using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Events.Entity.Find;
 using EventHorizon.Zone.System.Combat.Events.Life;
 using EventHorizon.Zone.System.Combat.Life;
+
 using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace EventHorizon.Zone.System.Combat.Handlers.Life
 {

@@ -2,14 +2,19 @@ namespace EventHorizon.Server.Core.Tests.Check
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Check;
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Events.Stop;
     using EventHorizon.Server.Core.State;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class CheckCoreServerConnectionHandlerTests

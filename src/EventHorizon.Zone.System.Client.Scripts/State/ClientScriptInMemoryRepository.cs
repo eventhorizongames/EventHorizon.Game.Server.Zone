@@ -1,9 +1,10 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.State
 {
+    using EventHorizon.Zone.System.Client.Scripts.Api;
+    using EventHorizon.Zone.System.Client.Scripts.Model;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.Client.Scripts.Model;
-    using EventHorizon.Zone.System.Client.Scripts.Api;
 
     public class ClientScriptInMemoryRepository
         : ClientScriptRepository
@@ -15,8 +16,8 @@
         )
         {
             SCRIPT_MAP.AddOrUpdate(
-                script.Name, 
-                script, 
+                script.Name,
+                script,
                 (_, __) => script
             );
         }

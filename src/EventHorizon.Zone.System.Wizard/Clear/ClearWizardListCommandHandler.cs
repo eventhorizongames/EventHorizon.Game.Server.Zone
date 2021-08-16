@@ -2,8 +2,10 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Api;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class ClearWizardListCommandHandler
@@ -19,7 +21,7 @@
         }
 
         public Task<StandardCommandResult> Handle(
-            ClearWizardListCommand request, 
+            ClearWizardListCommand request,
             CancellationToken cancellationToken
         )
         {

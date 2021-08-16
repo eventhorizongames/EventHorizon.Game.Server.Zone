@@ -3,12 +3,15 @@ namespace EventHorizon.Server.Core.Ping
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Events.Ping;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.State;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class PingCoreServerHandler

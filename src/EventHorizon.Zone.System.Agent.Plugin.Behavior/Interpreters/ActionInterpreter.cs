@@ -1,11 +1,14 @@
 using System;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

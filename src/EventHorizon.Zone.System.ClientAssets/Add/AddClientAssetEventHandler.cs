@@ -1,8 +1,10 @@
 namespace EventHorizon.Zone.System.ClientAssets.Add
 {
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class AddClientAssetEventHandler

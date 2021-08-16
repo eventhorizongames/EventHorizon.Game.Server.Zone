@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.Gui.Api;
 using EventHorizon.Zone.System.Gui.Model;
 
@@ -10,13 +11,13 @@ namespace EventHorizon.Zone.System.Gui.State
         private static readonly ConcurrentDictionary<string, GuiLayout> LAYOUT_MAP = new ConcurrentDictionary<string, GuiLayout>();
 
         public void AddLayout(
-            string id, 
+            string id,
             GuiLayout layout
         )
         {
             LAYOUT_MAP.AddOrUpdate(
-                id, 
-                layout, 
+                id,
+                layout,
                 (key, old) => layout
             );
         }

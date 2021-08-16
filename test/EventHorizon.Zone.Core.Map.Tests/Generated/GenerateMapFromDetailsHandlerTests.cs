@@ -4,10 +4,13 @@
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map.Generate;
     using EventHorizon.Zone.Core.Map.Generate;
     using EventHorizon.Zone.Core.Model.Map;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class GenerateMapFromDetailsHandlerTests

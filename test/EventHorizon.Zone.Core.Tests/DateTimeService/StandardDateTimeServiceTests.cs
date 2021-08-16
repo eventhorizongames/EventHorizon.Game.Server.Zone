@@ -1,5 +1,7 @@
 using System;
+
 using EventHorizon.Zone.Core.DateTimeService;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.DateTimeService

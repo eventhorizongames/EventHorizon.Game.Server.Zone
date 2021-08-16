@@ -3,6 +3,7 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.System.ClientAssets.Load;
     using EventHorizon.Zone.System.ClientAssets.State;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 

@@ -4,14 +4,18 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Model;
     using EventHorizon.Game.Registered;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Xunit;
 
     public class CheckSkillsEntityRegisteredHandlerTests

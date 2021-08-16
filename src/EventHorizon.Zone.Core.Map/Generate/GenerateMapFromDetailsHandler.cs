@@ -4,12 +4,14 @@
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map.Generate;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
-    public class GenerateMapFromDetailsHandler 
+    public class GenerateMapFromDetailsHandler
         : IRequestHandler<GenerateMapFromDetails, IMapGraph>
     {
         public Task<IMapGraph> Handle(
@@ -27,13 +29,13 @@
 
             var mapGraph = new MapGraph(
                 new Vector3(
-                    -(dim * tileDim / 2), 
-                    0, 
+                    -(dim * tileDim / 2),
+                    0,
                     -(dim * tileDim / 2)
                 ),
                 new Vector3(
-                    dim * tileDim, 
-                    dim * tileDim, 
+                    dim * tileDim,
+                    dim * tileDim,
                     dim * tileDim
                 ),
                 true

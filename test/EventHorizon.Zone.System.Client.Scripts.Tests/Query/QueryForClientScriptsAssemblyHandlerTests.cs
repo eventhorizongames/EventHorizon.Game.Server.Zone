@@ -4,10 +4,14 @@
     using EventHorizon.Zone.System.Client.Scripts.Events.Query;
     using EventHorizon.Zone.System.Client.Scripts.Model.Query;
     using EventHorizon.Zone.System.Client.Scripts.Query;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForClientScriptsAssemblyHandlerTests

@@ -2,9 +2,13 @@ namespace EventHorizon.Zone.Core.Tests.Info
 {
     using System;
     using System.IO;
+
     using EventHorizon.Zone.Core.Info;
+
     using Microsoft.Extensions.Hosting;
+
     using Moq;
+
     using Xunit;
 
     public class HostingEnvironmentServerInfoTests

@@ -1,8 +1,11 @@
 
 using System.Numerics;
+
 using EventHorizon.Game.Server.Zone.Tests.TestUtil;
 using EventHorizon.Zone.Core.Model.Math;
+
 using Xunit;
+
 using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Math
@@ -107,7 +110,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             for (int i = 0; i < 9; i++)
             {
                 lastPoint = PointGenerator.GetRandomPoint(25, 0);
-                cell.Add(new NodeEntity(lastPoint));   
+                cell.Add(new NodeEntity(lastPoint));
             }
 
             Assert.True(cell.Has(new NodeEntity(lastPoint)));

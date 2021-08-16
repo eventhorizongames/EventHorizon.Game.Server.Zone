@@ -2,10 +2,13 @@ namespace EventHorizon.Server.Core.Tests.Stop
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Events.Stop;
     using EventHorizon.Server.Core.Stop;
+
     using Moq;
+
     using Xunit;
 
     public class StopCoreServerConnectionHandlerTests

@@ -3,7 +3,9 @@
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SystemAgentPluginEditorExtensionsTests

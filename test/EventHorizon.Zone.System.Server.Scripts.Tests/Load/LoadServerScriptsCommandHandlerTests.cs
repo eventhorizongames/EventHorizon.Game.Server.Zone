@@ -1,21 +1,26 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
 {
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.System.Server.Scripts.Load;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.Set;
+    using EventHorizon.Zone.System.Server.Scripts.State;
+
+    using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Info;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
-    using EventHorizon.Zone.System.Server.Scripts.Load;
-    using EventHorizon.Zone.System.Server.Scripts.Set;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-    using EventHorizon.Zone.System.Server.Scripts.State;
-    using FluentAssertions;
 
     public class LoadServerScriptsCommandHandlerTests
     {

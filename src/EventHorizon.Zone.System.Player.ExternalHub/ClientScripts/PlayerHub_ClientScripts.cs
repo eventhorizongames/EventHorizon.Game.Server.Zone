@@ -2,7 +2,9 @@
 {
     using EventHorizon.Zone.System.Client.Scripts.Events.Query;
     using EventHorizon.Zone.System.Client.Scripts.Model.Query;
+
     using global::System.Threading.Tasks;
+
     using Microsoft.AspNetCore.SignalR;
 
     public partial class PlayerHub

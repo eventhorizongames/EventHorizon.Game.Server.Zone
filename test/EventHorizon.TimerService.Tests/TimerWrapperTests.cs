@@ -3,11 +3,16 @@ namespace EventHorizon.TimerService.Tests.TimerService
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class TimerWrapperTests

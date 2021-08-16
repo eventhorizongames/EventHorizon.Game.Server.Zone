@@ -3,6 +3,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Setup
     using EventHorizon.Game.Server.Zone.Setup;
     using EventHorizon.Game.Server.Zone.Tests.TestUtil;
     using EventHorizon.Test.Common;
+
     using Xunit;
 
     public class ServerSetupExtensionsTests

@@ -2,9 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client;
     using EventHorizon.Game.State;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class InMemoryGameStateTests

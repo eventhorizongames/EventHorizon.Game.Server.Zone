@@ -1,10 +1,12 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Timer
 {
-    using Xunit;
+    using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Move.Timer;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-    using EventHorizon.Zone.Core.Events.Lifetime;
+
     using FluentAssertions;
+
+    using Xunit;
 
     public class MoveRegisteredAgentsTimeTests
     {

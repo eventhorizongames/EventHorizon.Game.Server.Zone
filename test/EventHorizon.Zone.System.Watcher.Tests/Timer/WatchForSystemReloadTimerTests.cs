@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Watcher.Check;
     using EventHorizon.Zone.System.Watcher.Timer;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class WatchForSystemReloadTimerTests

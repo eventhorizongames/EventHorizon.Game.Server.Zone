@@ -2,11 +2,15 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Server.Core.Register;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForRegistrationWithCoreServerHandlerTests

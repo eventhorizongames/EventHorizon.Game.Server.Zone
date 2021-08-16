@@ -4,12 +4,16 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Capture;
     using EventHorizon.Zone.Core.Events.Entity.Find;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Player;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunCaptureLogicForAllPlayersHandlerTests
@@ -36,7 +40,7 @@
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                (QueryForEntities request, CancellationToken _) => 
+                (QueryForEntities request, CancellationToken _) =>
                 {
                     return playerList.Where(request.Query);
                 }

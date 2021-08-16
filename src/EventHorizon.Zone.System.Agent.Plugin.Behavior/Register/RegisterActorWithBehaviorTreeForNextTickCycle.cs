@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
 {
     using MediatR;
-    
+
     public struct RegisterActorWithBehaviorTreeForNextTickCycle : IRequest
     {
         public string ShapeId { get; }

@@ -4,11 +4,15 @@
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Events.Query;
     using EventHorizon.Zone.System.DataStorage.Query;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForAllDataStoreValuesHandlerTests

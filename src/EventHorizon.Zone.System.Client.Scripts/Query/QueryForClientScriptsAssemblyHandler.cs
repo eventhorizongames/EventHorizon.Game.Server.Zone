@@ -1,11 +1,14 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Query
 {
     using System;
+
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Events.Query;
     using EventHorizon.Zone.System.Client.Scripts.Model.Query;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class QueryForClientScriptsAssemblyHandler

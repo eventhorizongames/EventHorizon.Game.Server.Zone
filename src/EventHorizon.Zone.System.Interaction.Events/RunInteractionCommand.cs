@@ -1,4 +1,5 @@
 using EventHorizon.Zone.Core.Model.Player;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Interaction.Events

@@ -4,9 +4,12 @@ namespace EventHorizon.Zone.System.Agent.Tests.Update
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class AgentUpdateEntityCommandHandlerTests

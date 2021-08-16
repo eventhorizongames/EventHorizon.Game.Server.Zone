@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Zone.System.Agent.Model.State
@@ -18,7 +19,7 @@ namespace EventHorizon.Zone.System.Agent.Model.State
             string agentId
         );
         Task Update(
-            EntityAction action, 
+            EntityAction action,
             AgentEntity entity
         );
     }

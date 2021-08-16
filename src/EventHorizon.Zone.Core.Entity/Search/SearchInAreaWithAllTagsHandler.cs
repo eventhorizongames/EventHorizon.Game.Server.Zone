@@ -4,12 +4,14 @@ namespace EventHorizon.Zone.Core.Entity.Search
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Entity.Search;
+
     using MediatR;
 
-    public class SearchInAreaWithAllTagsHandler 
+    public class SearchInAreaWithAllTagsHandler
         : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
     {
         private readonly EntitySearchTree _entitySearchTree;

@@ -1,9 +1,12 @@
 namespace EventHorizon.Zone.System.Particle.Tests.State
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Particle.Model.Template;
     using EventHorizon.Zone.System.Particle.State;
+
     using FluentAssertions;
+
+    using global::System.Collections.Generic;
+
     using Xunit;
 
     public class StandardParticleTemplateRepositoryTests
@@ -24,7 +27,7 @@ namespace EventHorizon.Zone.System.Particle.Tests.State
             {
                 Id = "3_template"
             };
-            
+
             // When
             var repository = new StandardParticleTemplateRepository();
             repository.Add(

@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.Core.Model.FileService
             string fileFullName
         );
         void WriteAllBytes(
-            string fileFullName, 
+            string fileFullName,
             byte[] bytes
         );
     }

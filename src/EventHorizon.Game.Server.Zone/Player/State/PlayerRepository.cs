@@ -2,6 +2,7 @@ namespace EventHorizon.Game.Server.Zone.Player.State
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
     using EventHorizon.Zone.Core.Model.Player;

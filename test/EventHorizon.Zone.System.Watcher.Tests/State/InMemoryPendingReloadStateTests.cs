@@ -1,4 +1,5 @@
 using EventHorizon.Zone.System.Watcher.State;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Watcher.Tests.State
@@ -9,7 +10,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.State
         public void TestShouldDefaultIsPendingIsTruenWhenFirstCreated()
         {
             // Given
-            
+
             // When
             var pendingReloadState = new InMemoryPendingReloadState();
 
@@ -18,15 +19,15 @@ namespace EventHorizon.Zone.System.Watcher.Tests.State
                 pendingReloadState.IsPending
             );
         }
-        
+
         [Fact]
         public void TestShouldSetIsPendingToTrueWhenSetToPendingIsCalled()
         {
             // Given
-            
+
             // When
             var pendingReloadState = new InMemoryPendingReloadState();
-            
+
             pendingReloadState.SetToPending();
 
             // Then
@@ -34,17 +35,17 @@ namespace EventHorizon.Zone.System.Watcher.Tests.State
                 pendingReloadState.IsPending
             );
         }
-        
+
         [Fact]
         public void TestShouldSetIsPendingToFalseWhenSetToRemovePendingIsCalled()
         {
             // Given
-            
+
             // When
             var pendingReloadState = new InMemoryPendingReloadState();
 
             pendingReloadState.SetToPending();
-            
+
             // Make Sure IsPending is True
             Assert.True(
                 pendingReloadState.IsPending

@@ -1,9 +1,13 @@
 ﻿namespace EventHorizon.Performance.Tests.Model
 {
     using EventHorizon.Performance.Model;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class DetailsToLoggerPerformanceTrackerTests

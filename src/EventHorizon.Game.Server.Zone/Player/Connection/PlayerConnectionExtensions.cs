@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Player.Model.Details;
 
 namespace EventHorizon.Zone.System.Player.Connection
@@ -6,12 +7,12 @@ namespace EventHorizon.Zone.System.Player.Connection
     public static class PlayerConnectionExtensions
     {
         public static async Task<PlayerServerConnection> UpdatePlayer(
-            this PlayerServerConnection connection, 
+            this PlayerServerConnection connection,
             PlayerDetails player
         )
         {
             await connection.SendAction(
-                "UpdatePlayer", 
+                "UpdatePlayer",
                 player
             );
             return connection;

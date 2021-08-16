@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+
 using Xunit;
 
 namespace EventHorizon.Extensions.Tests
@@ -131,8 +132,8 @@ namespace EventHorizon.Extensions.Tests
                             "RootDirectory"
                         ),
                         Path.Combine(
-                            "http://localhost", 
-                            "RootDirectory", 
+                            "http://localhost",
+                            "RootDirectory",
                             "OffRootDirectory"
                         ),
                         "OffRootDirectory"
@@ -142,12 +143,12 @@ namespace EventHorizon.Extensions.Tests
                     new TestData(
                         Path.Combine(
                             Path.DirectorySeparatorChar.ToString(),
-                            "localhost", 
+                            "localhost",
                             "RootDirectory"
                         ),
                         Path.Combine(
                             Path.DirectorySeparatorChar.ToString(),
-                            "localhost", 
+                            "localhost",
                             "RootDirectory",
                             "OffRootDirectory"
                         ),
@@ -162,7 +163,7 @@ namespace EventHorizon.Extensions.Tests
                         ),
                         Path.Combine(
                             Path.DirectorySeparatorChar.ToString(),
-                            "localhost", 
+                            "localhost",
                             "RootDirectory",
                             "OffRootDirectory"
                         ),
@@ -173,7 +174,7 @@ namespace EventHorizon.Extensions.Tests
                     new TestData(
                         Path.Combine(
                             Path.DirectorySeparatorChar.ToString(),
-                            "localhost", 
+                            "localhost",
                             "RootDirectory",
                             "OffRootDirectory"
                         ),

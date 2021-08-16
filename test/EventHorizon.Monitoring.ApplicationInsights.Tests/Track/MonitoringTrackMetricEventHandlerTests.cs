@@ -4,12 +4,16 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Monitoring.ApplicationInsights.Tests.Utils;
     using EventHorizon.Monitoring.ApplicationInsights.Track;
+
     using FluentAssertions;
+
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility;
+
     using Xunit;
 
     public class MonitoringTrackMetricEventHandlerTests

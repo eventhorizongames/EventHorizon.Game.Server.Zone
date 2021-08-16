@@ -1,6 +1,7 @@
 namespace EventHorizon.Server.Core.Connection
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection.Model;
 
     public interface CoreServerConnectionApi

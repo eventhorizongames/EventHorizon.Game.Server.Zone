@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Server.Scripts.Model;
+
+    using global::System.Collections.Generic;
 
     public struct SkillEffectScriptResponse : ServerScriptResponse
     {

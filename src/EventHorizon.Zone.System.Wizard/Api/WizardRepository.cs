@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Api
 {
     using EventHorizon.Zone.System.Wizard.Model;
+
     using global::System.Collections.Generic;
 
     public interface WizardRepository

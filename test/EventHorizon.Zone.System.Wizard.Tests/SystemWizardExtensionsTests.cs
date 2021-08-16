@@ -6,9 +6,13 @@ namespace EventHorizon.Zone.System.Wizard.Tests
     using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Load;
     using EventHorizon.Zone.System.Wizard.State;
+
     using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemWizardExtensionsTests

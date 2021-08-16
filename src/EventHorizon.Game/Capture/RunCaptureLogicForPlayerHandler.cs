@@ -3,11 +3,13 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Capture.Logic;
     using EventHorizon.Game.Model;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Player.Events.Find;
+
     using MediatR;
 
     public class RunCaptureLogicForPlayerHandler : IRequestHandler<RunCaptureLogicForPlayer>
@@ -96,7 +98,7 @@
                 _dateTime.Now.AddSeconds(10) // Within 10 Seconds
             ) <= 0 && !captureState.ShownTenSecondMessage;
         }
-        
+
         private bool ShouldProcessFiveSecondMessage(
             GamePlayerCaptureState captureState,
             DateTime escapeCaptureTime

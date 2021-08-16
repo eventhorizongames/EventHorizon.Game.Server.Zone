@@ -4,11 +4,13 @@ namespace EventHorizon.Zone.System.ServerModule.Reload
     using EventHorizon.Zone.System.ServerModule.Fetch;
     using EventHorizon.Zone.System.ServerModule.Load;
     using EventHorizon.Zone.System.ServerModule.Model.Client;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class ReloadServerModuleSystemHandler 
+    public class ReloadServerModuleSystemHandler
         : IRequestHandler<ReloadServerModuleSystem>
     {
         private readonly IMediator _mediator;

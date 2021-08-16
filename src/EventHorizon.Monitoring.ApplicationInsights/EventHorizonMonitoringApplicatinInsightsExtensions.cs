@@ -1,7 +1,9 @@
 namespace EventHorizon.Monitoring
 {
     using System;
+
     using EventHorizon.Monitoring.ApplicationInsights.Telemetry;
+
     using Microsoft.ApplicationInsights.AspNetCore.Extensions;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.AspNetCore.Builder;

@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Tests.Model
 {
     using EventHorizon.Zone.System.Server.Scripts.Model;
+
     using FluentAssertions;
+
     using Xunit;
 
 

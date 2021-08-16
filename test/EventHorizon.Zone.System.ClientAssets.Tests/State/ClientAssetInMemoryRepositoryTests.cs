@@ -3,8 +3,11 @@
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.ClientAssets.Model;
     using EventHorizon.Zone.System.ClientAssets.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class ClientAssetInMemoryRepositoryTests

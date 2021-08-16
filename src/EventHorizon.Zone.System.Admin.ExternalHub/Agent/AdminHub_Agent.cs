@@ -4,7 +4,9 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
     using EventHorizon.Zone.System.Agent.Events.Delete;
     using EventHorizon.Zone.System.Agent.Events.Save;
     using EventHorizon.Zone.System.Agent.Model;
+
     using global::System.Threading.Tasks;
+
     using Microsoft.AspNetCore.SignalR;
 
     /// <summary>

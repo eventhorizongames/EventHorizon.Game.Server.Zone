@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Run.Model
 {
     using EventHorizon.Zone.System.Server.Scripts.Model;
+
     using global::System.Collections.Generic;
 
     public class StandardServerScriptData

@@ -2,7 +2,9 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
 {
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+
     using global::System.Threading.Tasks;
+
     using Microsoft.AspNetCore.SignalR;
 
     /// <summary>

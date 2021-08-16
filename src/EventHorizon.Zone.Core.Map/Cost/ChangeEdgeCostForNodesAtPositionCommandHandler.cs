@@ -2,11 +2,13 @@ namespace EventHorizon.Zone.Core.Map.Cost
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Map.Cost;
+
     using MediatR;
 
-    public class ChangeEdgeCostForNodesAtPositionCommandHandler 
+    public class ChangeEdgeCostForNodesAtPositionCommandHandler
         : IRequestHandler<ChangeEdgeCostForNodesAtPositionCommand, bool>
     {
         private readonly IMediator _mediator;

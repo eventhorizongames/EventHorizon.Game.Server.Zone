@@ -8,7 +8,7 @@ namespace EventHorizon.Monitoring.Events.Track
         public double Average { get; }
 
         public MonitoringTrackMetricEvent(
-            string name, 
+            string name,
             double average
         )
         {

@@ -1,4 +1,5 @@
 using EventHorizon.Zone.Core.Model.Map;
+
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Map

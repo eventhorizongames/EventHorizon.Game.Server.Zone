@@ -1,11 +1,14 @@
 using System;
-using System.Linq;
 using System.IO;
-using Xunit;
+using System.Linq;
+
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.FileService;
-using FluentAssertions;
 using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
+
+using FluentAssertions;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.DirectoryService
 {
@@ -406,7 +409,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
             // Make sure the input directory exists, create is not
             if (!Directory.Exists(
                 input
-            )) 
+            ))
             {
                 Directory.CreateDirectory(
                     input

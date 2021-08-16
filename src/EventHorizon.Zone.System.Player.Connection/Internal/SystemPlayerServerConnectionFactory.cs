@@ -1,8 +1,11 @@
 using System;
 using System.Threading.Tasks;
+
 using EventHorizon.Identity.AccessToken;
 using EventHorizon.Zone.System.Player.Connection.Model;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

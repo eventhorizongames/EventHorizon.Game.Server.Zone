@@ -1,8 +1,10 @@
-using Xunit;
 using System;
-using EventHorizon.Zone.Core.ServerAction.Model;
+
 using EventHorizon.Tests.TestUtils;
+using EventHorizon.Zone.Core.ServerAction.Model;
 using EventHorizon.Zone.Core.ServerAction.State;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.ServerAction.Tests.State
 {
@@ -16,31 +18,31 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             var expectedActionEntity1 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(1)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var expectedActionEntity2 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(23)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var expectedActionEntity3 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(44)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity4 = new ServerActionEntity(
                 DateTime.UtcNow.Add(
                     TimeSpan.FromMinutes(4)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity5 = new ServerActionEntity(
                 DateTime.UtcNow.Add(
                     TimeSpan.FromMinutes(3)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
 
@@ -82,31 +84,31 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             var expectedActionEntity1 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(1)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var expectedActionEntity2 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(23)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var expectedActionEntity3 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(44)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity4 = new ServerActionEntity(
                 DateTime.UtcNow.Add(
                     TimeSpan.FromMinutes(4)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity5 = new ServerActionEntity(
                 DateTime.UtcNow.Add(
                     TimeSpan.FromMinutes(3)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
 
@@ -156,31 +158,31 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             var expectedActionEntity1 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(1)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var expectedActionEntity2 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(23)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity3 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(44)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity4 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(4)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
             var actionEntity5 = new ServerActionEntity(
                 DateTime.UtcNow.Subtract(
                     TimeSpan.FromMinutes(3)
-                ), 
+                ),
                 new TestNotificationEvent()
             );
 

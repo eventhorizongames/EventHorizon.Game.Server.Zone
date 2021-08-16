@@ -4,11 +4,14 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
     using System.Diagnostics;
     using System.Linq;
     using System.Numerics;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Map.Search;
     using EventHorizon.Zone.Core.Model.Map;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class AStarSearchTests

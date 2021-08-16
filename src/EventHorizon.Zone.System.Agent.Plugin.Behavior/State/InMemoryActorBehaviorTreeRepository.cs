@@ -1,9 +1,10 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
 
     public class InMemoryActorBehaviorTreeRepository : ActorBehaviorTreeRepository
     {

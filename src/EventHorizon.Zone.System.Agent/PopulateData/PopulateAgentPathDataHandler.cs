@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.PopulateData
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
-    using MediatR;
     using EventHorizon.Zone.System.Agent.Events.PopulateData;
     using EventHorizon.Zone.System.Agent.Model.Path;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
 
     public class PopulateAgentPathDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
     {

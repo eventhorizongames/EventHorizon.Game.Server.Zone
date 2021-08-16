@@ -1,7 +1,9 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Events.Run
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Server.Scripts.Model;
+
+    using global::System.Collections.Generic;
+
     using MediatR;
 
     public struct RunServerScriptCommand

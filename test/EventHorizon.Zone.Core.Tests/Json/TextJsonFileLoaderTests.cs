@@ -1,11 +1,15 @@
 namespace EventHorizon.Zone.Core.Tests.Json
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Json;
     using EventHorizon.Zone.Core.Model.FileService;
-    using Moq;
-    using Xunit;
+
     using FluentAssertions;
+
+    using Moq;
+
+    using Xunit;
 
     public class TextJsonFileLoaderTests
     {

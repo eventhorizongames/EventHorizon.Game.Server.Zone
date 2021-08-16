@@ -1,8 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class SkillValidatorTests

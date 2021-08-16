@@ -2,14 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client;
     using EventHorizon.Game.Model;
     using EventHorizon.Game.Model.Client;
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
 
-    public class ProcessFiveSecondCaptureLogicHandler 
+    public class ProcessFiveSecondCaptureLogicHandler
         : IRequestHandler<ProcessFiveSecondCaptureLogic>
     {
         private readonly IMediator _mediator;
@@ -22,7 +24,7 @@
         }
 
         public async Task<Unit> Handle(
-            ProcessFiveSecondCaptureLogic request, 
+            ProcessFiveSecondCaptureLogic request,
             CancellationToken cancellationToken
         )
         {

@@ -4,11 +4,15 @@ namespace EventHorizon.Zone.System.Player.Tests.Interaction.Run
     using EventHorizon.Zone.System.Interaction.Events;
     using EventHorizon.Zone.System.Player.Events.Interaction.Run;
     using EventHorizon.Zone.System.Player.Interaction.Run;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunEntityInteractionActionEventHandlerTests

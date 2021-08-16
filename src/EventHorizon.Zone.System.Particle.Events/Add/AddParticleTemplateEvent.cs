@@ -1,4 +1,5 @@
 using EventHorizon.Zone.System.Particle.Model.Template;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Particle.Events.Add

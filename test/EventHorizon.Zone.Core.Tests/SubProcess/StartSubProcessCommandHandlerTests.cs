@@ -3,11 +3,16 @@
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.SubProcess;
     using EventHorizon.Zone.Core.SubProcess;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class StartSubProcessCommandHandlerTests

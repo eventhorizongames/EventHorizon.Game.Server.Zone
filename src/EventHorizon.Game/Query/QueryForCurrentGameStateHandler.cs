@@ -2,10 +2,12 @@ namespace EventHorizon.Game.Query
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.State;
+
     using MediatR;
 
-    public class QueryForCurrentGameStateHandler 
+    public class QueryForCurrentGameStateHandler
         : IRequestHandler<QueryForCurrentGameState, CurrentGameState>
     {
         private readonly GameState _gameState;

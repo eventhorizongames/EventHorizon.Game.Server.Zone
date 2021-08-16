@@ -1,17 +1,22 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests
 {
-    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Game.Server.Zone;
-    using Xunit;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
-    using EventHorizon.Zone.System.Agent.Move.Repository;
     using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Move.Repository;
     using EventHorizon.Zone.System.Agent.Move.Timer;
-    using Moq;
-    using Microsoft.AspNetCore.Builder;
-    using MediatR;
+
     using global::System;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+
+    using Moq;
+
+    using Xunit;
 
     public class SystemAgentPluginMoveExtensionsTests
     {

@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Test.Common.Attributes
 {
     using System;
+
     using AutoFixture;
     using AutoFixture.AutoMoq;
     using AutoFixture.Xunit2;

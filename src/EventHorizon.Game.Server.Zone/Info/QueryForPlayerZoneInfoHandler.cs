@@ -3,6 +3,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.I18n.Fetch;
     using EventHorizon.Game.Query;
     using EventHorizon.Performance;
@@ -18,6 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using EventHorizon.Zone.System.Particle.Fetch;
     using EventHorizon.Zone.System.Player.Events.Info;
     using EventHorizon.Zone.System.ServerModule.Fetch;
+
     using MediatR;
 
     /// <summary>
@@ -144,7 +146,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
                         new QueryForCurrentGameState()
                     )
                 );
-                
+
                 return zoneInfo;
             }
         }

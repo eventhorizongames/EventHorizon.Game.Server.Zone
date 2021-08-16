@@ -2,13 +2,15 @@ namespace EventHorizon.Zone.Core.Entity.Search
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Entity.Action;
     using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
 
-    public class EntityPositionChangedHandler 
+    public class EntityPositionChangedHandler
         : INotificationHandler<EntityActionEvent>
     {
         private readonly EntitySearchTree _searchTree;

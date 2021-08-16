@@ -1,22 +1,27 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
 {
-    using Xunit;
-    using Moq;
-    using MediatR;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using IOPath = System.IO.Path;
     using System.Threading;
-    using EventHorizon.Zone.System.Agent.Startup;
+    using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.Core.Model.Settings;
     using EventHorizon.Zone.System.Agent.Connection;
     using EventHorizon.Zone.System.Agent.Connection.Model;
-    using EventHorizon.Zone.System.Agent.Save.Model;
-    using EventHorizon.Zone.Core.Model.Settings;
-    using EventHorizon.Zone.System.Agent.Events.Startup;
-    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Events.Startup;
+    using EventHorizon.Zone.System.Agent.Save.Model;
+    using EventHorizon.Zone.System.Agent.Startup;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
+    using IOPath = System.IO.Path;
 
     public class LoadZoneAgentStateHandlerTests
     {
@@ -117,7 +122,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Startup.Handler
                 "Agent.state.json"
             );
             var tag = "server-tag";
-            
+
             var zoneSettings = new ZoneSettings
             {
                 Tag = tag

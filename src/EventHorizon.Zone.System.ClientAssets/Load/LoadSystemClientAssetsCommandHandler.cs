@@ -7,10 +7,12 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.ClientAssets.Add;
     using EventHorizon.Zone.System.ClientAssets.Model;
+
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class LoadSystemClientAssetsCommandHandler

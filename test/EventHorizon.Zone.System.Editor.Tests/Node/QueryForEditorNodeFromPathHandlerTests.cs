@@ -5,13 +5,18 @@
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.System.Editor.Events.Node;
     using EventHorizon.Zone.System.Editor.Node;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class QueryForEditorNodeFromPathHandlerTests
@@ -144,7 +149,7 @@
                 .IsFolder
                 .Should().BeFalse();
         }
-        
+
         [Theory]
         [InlineData(".js", "javascript")]
         [InlineData(".json", "json")]
@@ -243,7 +248,7 @@
                     expected
                 );
         }
-        
+
         [Theory]
         [InlineData("")]
         [InlineData("    ")]

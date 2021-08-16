@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.Timer
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.ServerAction.Run;
     using EventHorizon.Zone.Core.ServerAction.Timer;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class RunServerActionsTimerTaskTests
@@ -31,6 +33,6 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.Timer
                 .Should().Be(expectedOnRunEvent);
             runServerActionsTimerTask.LogDetails
                 .Should().BeFalse();
-       }
+        }
     }
 }

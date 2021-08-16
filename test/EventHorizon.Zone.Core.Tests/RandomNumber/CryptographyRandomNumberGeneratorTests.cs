@@ -1,5 +1,7 @@
 using System;
+
 using EventHorizon.Zone.Core.RandomNumber;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.RandomNumber
@@ -98,7 +100,7 @@ namespace EventHorizon.Zone.Core.Tests.RandomNumber
                 minValue,
                 maxValue
             );
-            
+
             // Then
             Assert.Throws<ArgumentOutOfRangeException>(
                 action

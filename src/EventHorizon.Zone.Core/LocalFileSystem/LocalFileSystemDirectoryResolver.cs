@@ -1,10 +1,11 @@
 namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
 {
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using EventHorizon.Zone.Core.Model.FileService;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
 
     public class LocalFileSystemDirectoryResolver : DirectoryResolver
     {

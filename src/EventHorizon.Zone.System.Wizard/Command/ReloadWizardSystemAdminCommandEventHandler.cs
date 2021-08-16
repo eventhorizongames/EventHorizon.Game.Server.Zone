@@ -4,9 +4,12 @@
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
     using EventHorizon.Zone.System.Wizard.Clear;
     using EventHorizon.Zone.System.Wizard.Load;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class ReloadWizardSystemAdminCommandEventHandler
@@ -54,7 +57,7 @@
                 cancellationToken
             );
 
-            if (!loadSystemsResult 
+            if (!loadSystemsResult
                 || !loadCustomResult
             )
             {

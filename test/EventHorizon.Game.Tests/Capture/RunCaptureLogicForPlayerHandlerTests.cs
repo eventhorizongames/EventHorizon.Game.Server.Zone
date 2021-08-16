@@ -1,20 +1,24 @@
 ﻿namespace EventHorizon.Game.Tests.Capture
 {
+    using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Capture;
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using Xunit;
-    using EventHorizon.Game.Model;
-    using Moq;
-    using MediatR;
-    using EventHorizon.Zone.System.Player.Events.Find;
-    using System;
     using EventHorizon.Game.Capture.Logic;
+    using EventHorizon.Game.Model;
     using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Events.Find;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
 
     // ClientActionShowTenSecondCaptureMessage
     /// | Capture Resets to 30s

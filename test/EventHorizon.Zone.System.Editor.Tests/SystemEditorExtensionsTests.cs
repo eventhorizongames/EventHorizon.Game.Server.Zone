@@ -3,8 +3,11 @@
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Microsoft.AspNetCore.Builder;
+
     using Xunit;
 
     public class SystemEditorExtensionsTests

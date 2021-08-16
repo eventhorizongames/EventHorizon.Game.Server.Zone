@@ -5,8 +5,10 @@
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.ClientAssets.Events.Delete;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class DeleteClientAssetCommandHandler

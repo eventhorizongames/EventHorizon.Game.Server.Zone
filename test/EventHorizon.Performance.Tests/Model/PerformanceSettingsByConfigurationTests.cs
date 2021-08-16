@@ -1,9 +1,13 @@
 ﻿namespace EventHorizon.Performance.Tests.Model
 {
     using System.Collections.Generic;
+
     using EventHorizon.Performance.Model;
+
     using FluentAssertions;
+
     using Microsoft.Extensions.Configuration;
+
     using Xunit;
 
     public class PerformanceSettingsByConfigurationTests

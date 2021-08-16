@@ -1,20 +1,22 @@
 namespace EventHorizon.Zone.System.Agent.Startup
 {
-    using global::System;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Connection;
-    using EventHorizon.Zone.Core.Model.Json;
-    using MediatR;
     using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.Core.Model.Settings;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
     using EventHorizon.Zone.System.Agent.Events.Register;
     using EventHorizon.Zone.System.Agent.Events.Startup;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.Agent.Save.Model;
-    using EventHorizon.Zone.Core.Model.Settings;
+
+    using global::System;
     using global::System.Collections.Generic;
-    using EventHorizon.Zone.System.Agent.Connection.Model;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
 
     public class LoadZoneAgentStateHandler : IRequestHandler<LoadZoneAgentStateEvent, Unit>
     {

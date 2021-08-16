@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.Core.Json
 {
+    using System.IO;
+    using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Json;
+
     using Newtonsoft.Json;
-    using System.IO;
-    using System.Threading.Tasks;
 
     public class NewtonsoftJsonFileSaver : IJsonFileSaver
     {

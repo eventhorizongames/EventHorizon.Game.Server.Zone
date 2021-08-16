@@ -2,9 +2,12 @@
 {
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class ClientScriptInMemoryRepositoryTests

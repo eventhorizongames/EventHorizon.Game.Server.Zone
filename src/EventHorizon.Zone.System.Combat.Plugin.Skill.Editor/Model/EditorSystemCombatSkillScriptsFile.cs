@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.Server.Scripts.Model.Details;
 
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model

@@ -1,7 +1,8 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+    using global::System.Collections.Generic;
 
     public interface SkillRepository
     {

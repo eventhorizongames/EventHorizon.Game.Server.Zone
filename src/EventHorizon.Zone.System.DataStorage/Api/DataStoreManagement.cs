@@ -5,11 +5,11 @@
     public interface DataStoreManagement
     {
         IDictionary<string, object> Data();
-        
+
         void Set(
             IDictionary<string, object> data
         );
-        
+
         void Set(
             string key,
             object value

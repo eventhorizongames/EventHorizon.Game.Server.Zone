@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge
 {
     using EventHorizon.Zone.Core.Model.Command;
+
     using MediatR;
 
     public struct MergeJsonStringsIntoSingleJsonStringCommand

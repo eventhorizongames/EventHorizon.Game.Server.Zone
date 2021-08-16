@@ -5,8 +5,10 @@
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Model;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class SaveDataStoreCommandHandler
@@ -29,7 +31,7 @@
 
 
         public async Task<StandardCommandResult> Handle(
-            SaveDataStoreCommand request, 
+            SaveDataStoreCommand request,
             CancellationToken cancellationToken
         )
         {

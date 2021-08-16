@@ -1,7 +1,8 @@
-using System.Linq;
-using System.Collections.Generic;
-using System.Numerics;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+
 using EventHorizon.Zone.Core.Model.Structure;
 
 namespace EventHorizon.Zone.Core.Model.Math

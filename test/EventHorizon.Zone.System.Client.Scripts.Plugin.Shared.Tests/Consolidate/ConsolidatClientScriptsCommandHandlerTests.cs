@@ -2,11 +2,14 @@
 {
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Consolidate;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class ConsolidatClientScriptsCommandHandlerTests

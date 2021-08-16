@@ -2,8 +2,11 @@
 {
     using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.DataStorage.Provider;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class StandardDataStoreProviderTests
@@ -319,7 +322,7 @@
             var dataStore = new StandardDataStoreProvider();
             dataStore.UpdateSchema(
                 key,
-                initialType 
+                initialType
             );
             dataStore.TryGetValue<DataStoreSchema>(
                 StandardDataStoreProvider.DATA_STORE_SCHEMA_KEY,

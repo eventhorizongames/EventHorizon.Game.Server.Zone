@@ -2,8 +2,11 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
 {
     using System;
     using System.Collections.Generic;
+
     using EventHorizon.Zone.Core.Map.Find.Search.Collections;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class BinaryHeapTests

@@ -2,10 +2,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
 {
     using global::System;
     using global::System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http.Connections.Client;
     using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public class AgentConnectionCache : IAgentConnectionCache, IDisposable
     {
@@ -48,7 +49,7 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
                 catch (Exception ex)
                 {
                     _logger.LogError(
-                        ex, 
+                        ex,
                         "Error connecting to player hub"
                     );
                     _connection = null;

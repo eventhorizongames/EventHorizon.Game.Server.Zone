@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Map.Search
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Map.Find.Search.Collections;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
@@ -9,8 +10,8 @@ namespace EventHorizon.Zone.Core.Map.Search
     public class AStarSearch : PathFindingAlgorithm
     {
         public Queue<Vector3> Search(
-            IMapGraph mapGraph, 
-            MapNode fromMapNode, 
+            IMapGraph mapGraph,
+            MapNode fromMapNode,
             MapNode toMapNode
         )
         {

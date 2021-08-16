@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.Core.ServerAction.Model;
 
 namespace EventHorizon.Zone.Core.ServerAction.State

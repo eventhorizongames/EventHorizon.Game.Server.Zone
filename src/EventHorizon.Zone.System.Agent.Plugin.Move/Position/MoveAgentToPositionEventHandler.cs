@@ -1,21 +1,23 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
 {
+    using EventHorizon.Performance;
+    using EventHorizon.Zone.Core.Events.Path;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Move;
+    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.Path;
-    using EventHorizon.Performance;
+
     using MediatR;
-    using EventHorizon.Zone.System.Agent.Events.Get;
-    using EventHorizon.Zone.System.Agent.Events.Move;
-    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
 
     public class MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
     {
         private readonly IMediator _mediator;
         private readonly PerformanceTrackerFactory _performanceTrackerFactory;
-        
+
         public MoveAgentToPositionEventHandler(
             IMediator mediator,
             PerformanceTrackerFactory performanceTrackerFactory

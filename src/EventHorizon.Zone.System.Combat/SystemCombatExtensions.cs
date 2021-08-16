@@ -1,15 +1,17 @@
+using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Combat.Level;
+using EventHorizon.Zone.System.Combat.Level.Upgrade;
 using EventHorizon.Zone.System.Combat.Life;
+using EventHorizon.Zone.System.Combat.Load;
 using EventHorizon.Zone.System.Combat.Model.Level;
 using EventHorizon.Zone.System.Combat.Model.Life;
 using EventHorizon.Zone.System.Combat.State;
 using EventHorizon.Zone.System.Combat.Timer;
-using EventHorizon.TimerService;
+
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using EventHorizon.Zone.System.Combat.Load;
+
 using Microsoft.AspNetCore.Builder;
-using EventHorizon.Zone.System.Combat.Level;
-using EventHorizon.Zone.System.Combat.Level.Upgrade;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Game.Server.Zone.Core
 {

@@ -1,17 +1,23 @@
 ﻿namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Lifetime
 {
-    using global::System.Threading;
-    using global::System.IO;
-    using global::System.Threading.Tasks;
-    using Xunit;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Lifetime;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using MediatR;
-    using EventHorizon.Zone.Core.Model.Info;
+
     using FluentAssertions;
-    using EventHorizon.Zone.Core.Events.DirectoryService;
+
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
 
     public class OnStartupSetupAdminCommandsPluginCommandHandlerTests
     {

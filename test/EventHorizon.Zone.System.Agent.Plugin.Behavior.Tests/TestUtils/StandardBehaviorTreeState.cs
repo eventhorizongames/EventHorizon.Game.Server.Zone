@@ -1,6 +1,7 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
 {
     using System.Collections.Generic;
+
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 

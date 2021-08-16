@@ -2,11 +2,13 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client;
     using EventHorizon.Game.State;
+
     using MediatR;
 
-    public class ClearPlayerScoreHandler 
+    public class ClearPlayerScoreHandler
         : IRequestHandler<ClearPlayerScore>
     {
         private readonly IMediator _mediator;
@@ -22,7 +24,7 @@
         }
 
         public async Task<Unit> Handle(
-            ClearPlayerScore request, 
+            ClearPlayerScore request,
             CancellationToken cancellationToken
         )
         {

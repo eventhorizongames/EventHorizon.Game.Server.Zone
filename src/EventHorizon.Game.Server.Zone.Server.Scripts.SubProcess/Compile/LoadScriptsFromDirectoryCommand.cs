@@ -3,8 +3,10 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
     using MediatR;
 
     public struct LoadScriptsFromDirectoryCommand

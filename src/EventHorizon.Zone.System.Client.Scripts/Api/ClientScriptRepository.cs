@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Client.Scripts.Api
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Client.Scripts.Model;
+
+    using global::System.Collections.Generic;
 
     public interface ClientScriptRepository
     {

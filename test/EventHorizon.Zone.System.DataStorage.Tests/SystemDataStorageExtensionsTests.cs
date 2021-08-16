@@ -9,10 +9,14 @@ namespace EventHorizon.Zone.System.DataStorage.Tests
     using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.DataStorage.Provider;
     using EventHorizon.Zone.System.DataStorage.Timer;
+
     using global::System;
     using global::System.Threading;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class SystemDataStorageExtensionsTests

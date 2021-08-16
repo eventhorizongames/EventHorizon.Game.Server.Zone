@@ -6,7 +6,9 @@
     using EventHorizon.Zone.Core.Map.Search;
     using EventHorizon.Zone.Core.Map.State;
     using EventHorizon.Zone.Core.Model.Map;
+
     using Moq;
+
     using Xunit;
 
     public class CoreMapExtensionsTests

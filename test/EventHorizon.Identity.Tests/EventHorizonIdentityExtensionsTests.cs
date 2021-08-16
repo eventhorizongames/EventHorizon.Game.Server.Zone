@@ -1,9 +1,12 @@
-using Xunit;
-using EventHorizon.Tests.TestUtils;
+using System;
+
 using EventHorizon.Identity.Client;
 using EventHorizon.Identity.Model;
-using System;
+using EventHorizon.Tests.TestUtils;
+
 using Microsoft.Extensions.Options;
+
+using Xunit;
 
 namespace EventHorizon.Identity.Tests
 {

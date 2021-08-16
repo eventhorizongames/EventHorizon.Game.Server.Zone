@@ -1,14 +1,16 @@
 namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Editor.Fill
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Editor.Events;
     using EventHorizon.Zone.System.Editor.Events.Node;
     using EventHorizon.Zone.System.Editor.Model;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class FillClientScriptsEditorNodeStateHandler 
+    public class FillClientScriptsEditorNodeStateHandler
         : INotificationHandler<FillEditorNodeState>
     {
         readonly IMediator _mediator;

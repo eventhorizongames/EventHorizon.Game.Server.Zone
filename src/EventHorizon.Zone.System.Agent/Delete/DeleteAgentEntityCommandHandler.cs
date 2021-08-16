@@ -2,8 +2,10 @@
 {
     using EventHorizon.Zone.System.Agent.Events.Delete;
     using EventHorizon.Zone.System.Agent.Events.Register;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class DeleteAgentEntityCommandHandler

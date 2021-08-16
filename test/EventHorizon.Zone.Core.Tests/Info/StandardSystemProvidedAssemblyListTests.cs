@@ -1,5 +1,7 @@
 using System.Reflection;
+
 using EventHorizon.Zone.Core.Info;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.Info

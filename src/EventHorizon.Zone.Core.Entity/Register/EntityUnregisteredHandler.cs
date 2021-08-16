@@ -2,12 +2,14 @@ namespace EventHorizon.Zone.Core.Entity.Register
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Client;
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Model.Entity.Client;
+
     using MediatR;
 
-    public class EntityUnregisteredHandler 
+    public class EntityUnregisteredHandler
         : INotificationHandler<EntityUnRegisteredEvent>
     {
         private readonly IMediator _mediator;

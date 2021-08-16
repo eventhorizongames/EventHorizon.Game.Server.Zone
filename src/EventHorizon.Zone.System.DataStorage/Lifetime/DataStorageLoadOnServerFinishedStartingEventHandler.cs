@@ -1,10 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Lifetime
 {
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.System.DataStorage.Load;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.Lifetime;
+
     using MediatR;
-    using EventHorizon.Zone.System.DataStorage.Load;
 
     public class DataStorageLoadOnServerFinishedStartingEventHandler
         : INotificationHandler<ServerFinishedStartingEvent>

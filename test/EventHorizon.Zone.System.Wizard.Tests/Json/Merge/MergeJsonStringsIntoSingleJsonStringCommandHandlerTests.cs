@@ -1,9 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Tests.Json.Merge
 {
     using EventHorizon.Zone.System.Wizard.Json.Merge;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
 

@@ -1,9 +1,10 @@
 ﻿namespace EventHorizon.Zone.Core.Events.FileService
 {
     using System;
+
     using MediatR;
 
-    public struct WriteAllBytesToFile 
+    public struct WriteAllBytesToFile
         : IRequest
     {
         public string FileFullName { get; }

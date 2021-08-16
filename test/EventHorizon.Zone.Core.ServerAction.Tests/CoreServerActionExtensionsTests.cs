@@ -1,10 +1,11 @@
 
-using Xunit;
-using EventHorizon.TimerService;
-using EventHorizon.Tests.TestUtils;
 using EventHorizon.Game.Server.Zone;
+using EventHorizon.Tests.TestUtils;
+using EventHorizon.TimerService;
 using EventHorizon.Zone.Core.ServerAction.State;
 using EventHorizon.Zone.Core.ServerAction.Timer;
+
+using Xunit;
 
 namespace EventHorizon.Zone.Core.ServerAction.Tests
 {

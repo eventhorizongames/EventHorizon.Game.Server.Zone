@@ -1,11 +1,13 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Mapper
 {
+    using System.Collections.Concurrent;
+    using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
-    using System.Collections.Concurrent;
-    using System.Numerics;
+
     using Xunit;
 
     public class AgentFromEntityToDetailsTests

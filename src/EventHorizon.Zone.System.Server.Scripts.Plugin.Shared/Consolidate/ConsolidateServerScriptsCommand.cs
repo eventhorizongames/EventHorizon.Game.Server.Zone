@@ -3,7 +3,9 @@
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
+
     using global::System.Collections.Generic;
+
     using MediatR;
 
     public struct ConsolidateServerScriptsCommand

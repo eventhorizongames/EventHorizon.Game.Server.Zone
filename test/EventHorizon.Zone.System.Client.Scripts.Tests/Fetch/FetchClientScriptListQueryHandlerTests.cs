@@ -1,15 +1,19 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Tests.Fetch
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading;
+    using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
     using EventHorizon.Zone.System.Client.Scripts.Fetch;
     using EventHorizon.Zone.System.Client.Scripts.Model;
-    using global::System.Threading.Tasks;
-    using Moq;
-    using Xunit;
+
     using FluentAssertions;
-    using EventHorizon.Zone.System.Client.Scripts.Api;
+
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using Moq;
+
+    using Xunit;
 
     public class FetchClientScriptListQueryHandlerTests
     {

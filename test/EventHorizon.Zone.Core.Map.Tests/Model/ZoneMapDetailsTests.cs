@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.Core.Map.Tests.Model
 {
     using EventHorizon.Zone.Core.Map.Model;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class ZoneMapDetailsTests

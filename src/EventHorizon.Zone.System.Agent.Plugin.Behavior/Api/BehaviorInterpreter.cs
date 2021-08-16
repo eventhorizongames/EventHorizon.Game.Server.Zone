@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 

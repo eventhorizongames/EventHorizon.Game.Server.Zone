@@ -1,10 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Json.Mapper
 {
     using EventHorizon.Zone.System.Wizard.Json.Model;
+
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class MapWizardDataToJsonDataDocumentHandler

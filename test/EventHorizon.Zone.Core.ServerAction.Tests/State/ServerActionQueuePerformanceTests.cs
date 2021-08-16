@@ -1,12 +1,14 @@
-using Xunit;
-using System.Threading.Tasks;
 using System;
-using Xunit.Abstractions;
 using System.Diagnostics;
 using System.Linq;
-using EventHorizon.Zone.Core.ServerAction.State;
-using EventHorizon.Zone.Core.ServerAction.Model;
+using System.Threading.Tasks;
+
 using EventHorizon.Tests.TestUtils;
+using EventHorizon.Zone.Core.ServerAction.Model;
+using EventHorizon.Zone.Core.ServerAction.State;
+
+using Xunit;
+using Xunit.Abstractions;
 
 namespace EventHorizon.Zone.Core.ServerAction.Tests.State
 {
@@ -19,7 +21,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             _testOutputHelper = testOutputHelper;
             Prime();
         }
-        
+
         private void Prime()
         {
             var input = 1_000;
@@ -32,7 +34,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
                     new ServerActionEntity(
                         now.Subtract(
                             TimeSpan.FromMinutes(1)
-                        ), 
+                        ),
                         new TestNotificationEvent()
                     )
                 );
@@ -48,8 +50,8 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
         [InlineData(1, 1, 1)]
         [InlineData(1, 100, 100)]
         public void TestShouldBeWithInLimitOfPassedInLimits(
-            int expectedLessThan, 
-            int input, 
+            int expectedLessThan,
+            int input,
             int entitiesToCreate
         )
         {
@@ -63,7 +65,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
                     new ServerActionEntity(
                         now.Subtract(
                             TimeSpan.FromMinutes(1)
-                        ), 
+                        ),
                         new TestNotificationEvent()
                     )
                 );
@@ -77,17 +79,17 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             // Then
             var elapsed = watch.ElapsedMilliseconds;
             _testOutputHelper.WriteLine(
-                "{0} | {1} | {2}", 
-                expectedLessThan, 
-                input, 
+                "{0} | {1} | {2}",
+                expectedLessThan,
+                input,
                 entitiesToCreate
             );
             _testOutputHelper.WriteLine(
-                "Time: {0}ms", 
+                "Time: {0}ms",
                 elapsed
             );
             _testOutputHelper.WriteLine(
-                "Count: {0}", 
+                "Count: {0}",
                 actual.Count()
             );
             Assert.True(

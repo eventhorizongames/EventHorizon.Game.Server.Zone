@@ -2,9 +2,13 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Model.Math;
+
     using FluentAssertions;
+
     using Xunit;
+
     using static EventHorizon.Game.Server.Zone.Tests.Math.OctreeTest;
 
     public class Cell_RemoveTests

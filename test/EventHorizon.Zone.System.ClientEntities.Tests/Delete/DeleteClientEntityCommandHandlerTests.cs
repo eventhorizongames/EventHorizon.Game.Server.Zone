@@ -6,13 +6,18 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Delete
     using EventHorizon.Zone.System.ClientEntities.Delete;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class DeleteClientEntityCommandHandlerTests
@@ -264,7 +269,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Delete
                 )
             );
         }
-        
+
         [Fact]
         public async Task ShouldReturnNotFoundErrorCodeWhenEntityIsNotInRepository()
         {

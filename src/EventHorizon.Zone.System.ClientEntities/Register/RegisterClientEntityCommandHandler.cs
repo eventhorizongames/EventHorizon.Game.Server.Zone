@@ -3,8 +3,10 @@ namespace EventHorizon.Zone.System.ClientEntities.Register
     using EventHorizon.Zone.System.ClientEntities.PopulateData;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class RegisterClientEntityCommandHandler : IRequestHandler<RegisterClientEntityCommand>

@@ -2,8 +2,10 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Validation
 {
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
     using global::System.Collections.Generic;
     using global::System.Numerics;
+
     using MediatR;
 
     public struct RunSkillValidation : IRequest<IEnumerable<SkillValidatorResponse>>

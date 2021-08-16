@@ -1,8 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Combat.Events.Level;
 using EventHorizon.Zone.System.Combat.Model.Level;
 using EventHorizon.Zone.System.Combat.State;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Combat.Handlers.Level

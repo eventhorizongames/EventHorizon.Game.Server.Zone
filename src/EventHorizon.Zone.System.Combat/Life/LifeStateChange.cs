@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Combat.Life.Change;
 using EventHorizon.Zone.System.Combat.Life.Change.Property;

@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.Player.Tests
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+
     using Xunit;
 
     public class SystemPlayerExtensionsTests

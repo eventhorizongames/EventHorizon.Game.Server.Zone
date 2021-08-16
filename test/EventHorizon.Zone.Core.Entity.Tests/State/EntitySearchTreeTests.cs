@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.Core.Entity.Tests.State
 {
-    using Xunit;
-    using EventHorizon.Game.Server.Zone.Entity.Model;
+    using System.Collections.Generic;
     using System.Numerics;
     using System.Threading.Tasks;
-    using System.Collections.Generic;
+
+    using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Entity.State;
+
+    using Xunit;
 
     public class EntitySearchTreeTests
     {

@@ -3,8 +3,10 @@
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Particle.Load;
     using EventHorizon.Zone.System.Particle.State;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class ReloadParticleSystemCommandHandler
@@ -23,7 +25,7 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            ReloadParticleSystemCommand request, 
+            ReloadParticleSystemCommand request,
             CancellationToken cancellationToken
         )
         {

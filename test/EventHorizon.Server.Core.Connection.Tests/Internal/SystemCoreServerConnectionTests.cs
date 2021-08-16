@@ -3,12 +3,16 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
     using System;
     using System.Net;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection.Internal;
+
     using Microsoft.AspNetCore.Connections;
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.AspNetCore.SignalR.Protocol;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     /// <summary>

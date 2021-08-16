@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Events.Update
 {
     using EventHorizon.Zone.Core.Model.Command;
+
     using MediatR;
 
     public class UpdateDataStoreValueCommand

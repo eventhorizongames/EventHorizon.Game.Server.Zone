@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientEntities.Model
 {
     using EventHorizon.Zone.Core.Model.Core;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
 

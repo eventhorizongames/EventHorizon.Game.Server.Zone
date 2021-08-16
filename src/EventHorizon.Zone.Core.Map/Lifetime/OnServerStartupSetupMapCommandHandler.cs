@@ -6,12 +6,15 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class OnServerStartupSetupMapCommandHandler

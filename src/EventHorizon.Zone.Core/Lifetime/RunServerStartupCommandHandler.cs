@@ -5,7 +5,9 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using MediatR;
 
     public class RunServerStartupCommandHandler

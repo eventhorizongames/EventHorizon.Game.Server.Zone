@@ -3,9 +3,11 @@ namespace EventHorizon.Zone.System.Gui.Get
     using EventHorizon.Zone.System.Gui.Api;
     using EventHorizon.Zone.System.Gui.Events.Layout;
     using EventHorizon.Zone.System.Gui.Model;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class GetGuiLayoutListForPlayerCommandHandler : IRequestHandler<GetGuiLayoutListForPlayerCommand, IEnumerable<GuiLayout>>

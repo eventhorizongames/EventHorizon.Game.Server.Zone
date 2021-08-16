@@ -1,6 +1,7 @@
 namespace EventHorizon.Performance.Model
 {
     using System.Diagnostics;
+
     using Microsoft.Extensions.Logging;
 
     public sealed class DetailsToLoggerPerformanceTracker : PerformanceTracker
@@ -20,8 +21,8 @@ namespace EventHorizon.Performance.Model
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Design", 
-            "CA1063:Implement IDisposable Correctly", 
+            "Design",
+            "CA1063:Implement IDisposable Correctly",
             Justification = "not disposing of managed resources"
         )]
         public void Dispose()

@@ -2,10 +2,13 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.I18n.Loader;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class ReloadI18nAdminCommandEventHandler

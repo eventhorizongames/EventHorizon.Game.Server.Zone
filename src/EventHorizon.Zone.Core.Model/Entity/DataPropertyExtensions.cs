@@ -1,10 +1,11 @@
 namespace EventHorizon.Zone.Core.Model.Entity
 {
-    using Newtonsoft.Json.Linq;
     using System;
     using System.Buffers;
     using System.Collections.Concurrent;
     using System.Text.Json;
+
+    using Newtonsoft.Json.Linq;
 
     public static class DataPropertyExtensions
     {

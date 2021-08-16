@@ -1,11 +1,14 @@
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.Core.Model.Entity.State;
 using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.State;
+
 using Moq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
@@ -184,7 +187,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 
             // Then
             Assert.Equal(
-                expectedAgent, 
+                expectedAgent,
                 actual
             );
         }
@@ -250,7 +253,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 
             // Then
             Assert.Equal(
-                expectedAgent, 
+                expectedAgent,
                 actual
             );
         }
@@ -378,7 +381,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 actual.IsFound()
             );
             Assert.Equal(
-                default(AgentEntity), 
+                default(AgentEntity),
                 actual
             );
         }
@@ -403,14 +406,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
             );
 
             await agentRepository.Update(
-                expectedEntityAction, 
+                expectedEntityAction,
                 expectedAgent
             );
 
             // Then
             entityRepositoryMock.Verify(
                 mock => mock.Update(
-                    expectedEntityAction, 
+                    expectedEntityAction,
                     expectedAgent
                 )
             );

@@ -1,16 +1,20 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Admin.FileSystem
 {
     using System;
-using System.Collections.Generic;
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Admin.FileSystem;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Watcher.Events.Start;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class StartAdminFileSystemWatchingCommandHandlerTests

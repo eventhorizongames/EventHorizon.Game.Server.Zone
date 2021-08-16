@@ -2,8 +2,11 @@
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class InMemorySkillRepositoryTests

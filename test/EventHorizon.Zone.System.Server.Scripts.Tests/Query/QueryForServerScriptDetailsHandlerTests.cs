@@ -1,16 +1,20 @@
 namespace EventHorizon.Zone.System.Server.Scripts.Tests.Query
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Server.Scripts.Events.Query;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Query;
     using EventHorizon.Zone.System.Server.Scripts.State;
-    using Moq;
-    using Xunit;
+
     using FluentAssertions;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using Moq;
+
+    using Xunit;
 
     public class QueryForServerScriptDetailsHandlerTests
     {

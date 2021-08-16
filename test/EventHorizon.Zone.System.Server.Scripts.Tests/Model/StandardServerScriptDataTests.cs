@@ -1,8 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Tests.Model
 {
     using EventHorizon.Zone.System.Server.Scripts.Run.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
 

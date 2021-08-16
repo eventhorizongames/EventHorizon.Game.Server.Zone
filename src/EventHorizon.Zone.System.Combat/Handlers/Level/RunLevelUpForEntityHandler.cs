@@ -5,8 +5,10 @@ namespace EventHorizon.Zone.System.Combat.Handlers.Level
     using EventHorizon.Zone.Core.Model.Entity.Client;
     using EventHorizon.Zone.System.Combat.Events.Level;
     using EventHorizon.Zone.System.Combat.Level;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class RunLevelUpForEntityHandler : INotificationHandler<RunLevelUpForEntityEvent>

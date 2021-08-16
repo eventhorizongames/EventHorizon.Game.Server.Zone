@@ -3,7 +3,9 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SystemServerScriptsPluginSharedExtensionsTests

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
+
 using EventHorizon.Zone.Core.Model.Structure;
 
 namespace EventHorizon.Zone.Core.Model.Math

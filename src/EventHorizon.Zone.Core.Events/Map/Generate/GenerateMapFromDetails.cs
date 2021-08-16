@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.Core.Events.Map.Generate
 {
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
     public struct GenerateMapFromDetails : IRequest<IMapGraph>

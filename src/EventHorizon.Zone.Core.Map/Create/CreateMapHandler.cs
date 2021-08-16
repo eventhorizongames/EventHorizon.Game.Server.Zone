@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.Core.Map.Create
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.Core.Events.Map.Generate;
@@ -10,9 +11,10 @@ namespace EventHorizon.Zone.Core.Map.Create
     using EventHorizon.Zone.Core.Map.State;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
+
     using MediatR;
 
-    public class CreateMapHandler 
+    public class CreateMapHandler
         : IRequestHandler<CreateMap>
     {
         private readonly IMediator _mediator;

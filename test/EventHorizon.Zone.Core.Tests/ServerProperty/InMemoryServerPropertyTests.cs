@@ -1,4 +1,5 @@
 using EventHorizon.Zone.Core.ServerProperty;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.ServerProperty

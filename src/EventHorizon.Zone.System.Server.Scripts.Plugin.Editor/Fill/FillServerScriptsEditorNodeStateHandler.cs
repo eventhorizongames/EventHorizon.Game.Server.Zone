@@ -4,8 +4,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Fill
     using EventHorizon.Zone.System.Editor.Events;
     using EventHorizon.Zone.System.Editor.Events.Node;
     using EventHorizon.Zone.System.Editor.Model;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class FillServerScriptsEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>

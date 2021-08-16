@@ -3,13 +3,17 @@ namespace EventHorizon.Zone.Core.Map.Tests.Find
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Path;
     using EventHorizon.Zone.Core.Map.Find;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class FindPathHandlerTests

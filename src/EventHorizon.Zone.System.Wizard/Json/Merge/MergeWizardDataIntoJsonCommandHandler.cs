@@ -3,8 +3,10 @@
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Events.Json.Merge;
     using EventHorizon.Zone.System.Wizard.Json.Mapper;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class MergeWizardDataIntoJsonCommandHandler

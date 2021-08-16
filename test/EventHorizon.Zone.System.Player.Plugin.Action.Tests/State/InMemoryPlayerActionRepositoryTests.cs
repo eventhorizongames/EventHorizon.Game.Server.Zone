@@ -1,7 +1,10 @@
 using EventHorizon.Zone.System.Player.Plugin.Action.Model;
 using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
 using Moq;
+
 using Xunit;
+
 using SystemAction = System.Action;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
@@ -20,10 +23,10 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
                 actionName,
                 actionEventMock.Object
             );
-            
+
             // When
             var repository = new InMemoryPlayerActionRepository();
-            
+
             Assert.Empty(
                 repository.Where(
                     actionName
@@ -40,7 +43,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
             var actual = repository.Where(
                 actionName
             );
-            
+
             // Then
             Assert.Collection(
                 actual,
@@ -62,10 +65,10 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
                 actionName,
                 actionEventMock.Object
             );
-            
+
             // When
             var repository = new InMemoryPlayerActionRepository();
-            
+
             Assert.Empty(
                 repository.Where(
                     actionName
@@ -83,7 +86,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
             var actual = Record.Exception(
                 action
             ) as AlreadyContainsPlayerAction;
-            
+
             // Then
             Assert.Equal(
                 expected,

@@ -2,10 +2,13 @@ namespace EventHorizon.Server.Core.Connection.Internal
 {
     using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Identity.AccessToken;
     using EventHorizon.Server.Core.Connection.Disconnected;
     using EventHorizon.Server.Core.Connection.Model;
+
     using MediatR;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;

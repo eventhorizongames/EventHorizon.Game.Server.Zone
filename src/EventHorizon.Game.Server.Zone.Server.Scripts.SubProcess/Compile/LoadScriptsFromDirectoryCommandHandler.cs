@@ -1,13 +1,15 @@
 ﻿namespace EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess.Compile
 {
     using System;
-    using System.IO;
     using System.Collections.Generic;
+    using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
     using MediatR;
 
     public class LoadScriptsFromDirectoryCommandHandler

@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.Core.Model.Entity.Client
 {
-    using EventHorizon.Zone.Core.Model.Client;
     using System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Client;
 
     public struct EntityClientMoveData : IClientActionData
     {

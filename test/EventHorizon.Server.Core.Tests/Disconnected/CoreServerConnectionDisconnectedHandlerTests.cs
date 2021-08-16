@@ -2,11 +2,15 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection.Disconnected;
     using EventHorizon.Server.Core.Disconnected;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class CoreServerConnectionDisconnectedHandlerTests

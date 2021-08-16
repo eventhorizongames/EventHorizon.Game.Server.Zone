@@ -1,10 +1,13 @@
 namespace EventHorizon.Server.Core.Connection.Tests.Internal
 {
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Connection.Internal;
     using EventHorizon.Server.Core.Connection.Model;
+
     using Moq;
+
     using Xunit;
 
     public class SystemCoreServerConnectionApiTests

@@ -4,15 +4,20 @@
     using EventHorizon.Zone.System.DataStorage.Delete;
     using EventHorizon.Zone.System.DataStorage.Events.Delete;
     using EventHorizon.Zone.System.DataStorage.Save;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class DeleteDataStoreValueCommandHandlerTests
-    {   
+    {
         [Fact]
         public async Task ShouldDeleteKeyFromDataStoreWhenCommandIsHandled()
         {

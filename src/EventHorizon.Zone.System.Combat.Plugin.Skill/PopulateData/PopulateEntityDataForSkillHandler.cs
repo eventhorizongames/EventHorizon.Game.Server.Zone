@@ -3,11 +3,13 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.PopulateData
     using EventHorizon.Zone.Core.Events.Entity.Data;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PopulateEntityDataForSkillHandler 
+    public class PopulateEntityDataForSkillHandler
         : INotificationHandler<PopulateEntityDataEvent>
     {
         public Task Handle(

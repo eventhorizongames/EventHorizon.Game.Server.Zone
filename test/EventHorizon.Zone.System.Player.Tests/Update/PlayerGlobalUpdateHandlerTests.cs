@@ -5,9 +5,12 @@ namespace EventHorizon.Zone.System.Player.Tests.Update
     using EventHorizon.Zone.System.Player.Events.Update;
     using EventHorizon.Zone.System.Player.Model.Details;
     using EventHorizon.Zone.System.Player.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class PlayerGlobalUpdateHandlerTests

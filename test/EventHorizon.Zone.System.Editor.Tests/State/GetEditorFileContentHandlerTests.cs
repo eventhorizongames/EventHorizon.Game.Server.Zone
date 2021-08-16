@@ -5,13 +5,18 @@
     using EventHorizon.Zone.System.Editor.Events.State;
     using EventHorizon.Zone.System.Editor.Model;
     using EventHorizon.Zone.System.Editor.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class GetEditorFileContentHandlerTests

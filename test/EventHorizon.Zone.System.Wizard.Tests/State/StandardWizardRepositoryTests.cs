@@ -2,8 +2,11 @@
 {
     using EventHorizon.Zone.System.Wizard.Model;
     using EventHorizon.Zone.System.Wizard.State;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
+
     using Xunit;
 
     public class StandardWizardRepositoryTests

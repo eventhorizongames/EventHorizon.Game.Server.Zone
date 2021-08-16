@@ -2,6 +2,7 @@ namespace EventHorizon.Server.Core.Connection
 {
     using System;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http.Connections.Client;
     using Microsoft.AspNetCore.SignalR.Client;
 

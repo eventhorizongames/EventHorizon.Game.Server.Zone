@@ -2,6 +2,7 @@ namespace EventHorizon.Game.Server.Zone
 {
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Model.Entity.State;
+
     using Microsoft.Extensions.DependencyInjection;
 
     public static class CoreEntityExtensions

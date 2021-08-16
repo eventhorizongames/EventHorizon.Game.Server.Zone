@@ -4,12 +4,14 @@ namespace EventHorizon.Zone.Core.Map.Cost
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
-    public class UpdateDensityAndCostDetailsForNodeHandler 
+    public class UpdateDensityAndCostDetailsForNodeHandler
         : IRequestHandler<UpdateDensityAndCostDetailsForNode>
     {
         private readonly IMediator _mediator;

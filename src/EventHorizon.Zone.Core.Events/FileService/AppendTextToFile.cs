@@ -6,9 +6,9 @@ namespace EventHorizon.Zone.Core.Events.FileService
     {
         public string FileFullName { get; }
         public string Text { get; }
-        
+
         public AppendTextToFile(
-            string fileFullName, 
+            string fileFullName,
             string text
         )
         {

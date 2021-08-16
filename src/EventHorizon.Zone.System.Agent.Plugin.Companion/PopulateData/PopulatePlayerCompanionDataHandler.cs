@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
 {
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
-    using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
-    using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
-    using EventHorizon.Zone.Core.Events.Entity.Data;
 
     public class PopulatePlayerCompanionDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {

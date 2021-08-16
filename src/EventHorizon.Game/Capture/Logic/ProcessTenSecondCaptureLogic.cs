@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Game.Capture.Logic
 {
     using EventHorizon.Zone.Core.Model.Player;
+
     using MediatR;
 
     public struct ProcessTenSecondCaptureLogic : IRequest

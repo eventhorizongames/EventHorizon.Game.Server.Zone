@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State.Queue
 {
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using Xunit;
 
     public class InMemoryActorBehaviorTickQueueTests

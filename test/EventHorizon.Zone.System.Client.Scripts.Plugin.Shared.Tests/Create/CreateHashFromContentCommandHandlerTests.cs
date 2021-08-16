@@ -1,9 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Tests.Create
 {
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Create;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using Xunit;
 
     public class CreateHashFromContentCommandHandlerTests

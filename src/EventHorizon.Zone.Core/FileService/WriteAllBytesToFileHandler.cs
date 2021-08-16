@@ -2,11 +2,13 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
+
     using MediatR;
 
-    public class WriteAllBytesToFileHandler 
+    public class WriteAllBytesToFileHandler
         : IRequestHandler<WriteAllBytesToFile>
     {
         readonly FileResolver _fileResolver;

@@ -4,8 +4,10 @@
     using EventHorizon.Zone.System.Agent.Events.Save;
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class SaveAgentEntityCommandHandler
@@ -21,7 +23,7 @@
         }
 
         public async Task<SaveAgentEntityResponse> Handle(
-            SaveAgentEntityCommand request, 
+            SaveAgentEntityCommand request,
             CancellationToken cancellationToken
         )
         {

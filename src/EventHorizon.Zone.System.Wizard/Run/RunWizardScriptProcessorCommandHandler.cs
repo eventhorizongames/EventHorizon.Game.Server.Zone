@@ -6,10 +6,12 @@
     using EventHorizon.Zone.System.Wizard.Events.Run;
     using EventHorizon.Zone.System.Wizard.Model;
     using EventHorizon.Zone.System.Wizard.Model.Scripts;
+
     using global::System.Collections.Generic;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class RunWizardScriptProcessorCommandHandler

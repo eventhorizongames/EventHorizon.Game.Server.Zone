@@ -4,9 +4,11 @@
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Consolidate;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Create;
+
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class NeedToCompileClientScriptsHandler

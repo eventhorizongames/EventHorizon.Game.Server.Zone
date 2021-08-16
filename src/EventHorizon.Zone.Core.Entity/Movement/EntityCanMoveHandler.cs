@@ -2,13 +2,15 @@ namespace EventHorizon.Zone.Core.Entity.Movement
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Movement;
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
+
     using MediatR;
 
-    public class EntityCanMoveHandler 
+    public class EntityCanMoveHandler
         : INotificationHandler<EntityCanMoveEvent>
     {
         private readonly EntityRepository _entityRepository;

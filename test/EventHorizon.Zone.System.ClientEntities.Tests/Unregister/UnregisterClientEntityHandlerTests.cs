@@ -5,14 +5,19 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Register
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class UnregisterClientEntityHandlerTests

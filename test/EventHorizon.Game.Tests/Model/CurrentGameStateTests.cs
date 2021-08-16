@@ -1,10 +1,13 @@
 namespace EventHorizon.Game.Tests.Model
 {
     using System.Collections.Generic;
+
     using EventHorizon.Game.State;
+
     using FluentAssertions;
+
     using Xunit;
-    
+
     public class CurrentGameStateTests
     {
         [Fact]

@@ -5,11 +5,15 @@ namespace EventHorizon.Zone.System.Agent.Tests.Register
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Register.Handler;
-    using MediatR;
-    using Moq;
+
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Moq;
+
     using Xunit;
 
     public class RegisterAgentHandlerTests

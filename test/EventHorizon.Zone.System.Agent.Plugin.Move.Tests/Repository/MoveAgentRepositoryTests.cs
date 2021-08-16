@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Repository
 {
     using EventHorizon.Zone.System.Agent.Move.Repository;
+
     using Xunit;
 
     public class MoveAgentRepositoryTests

@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Model;
+
     using MediatR;
 
     public struct RunWizardScriptProcessorCommand

@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Move
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Events.Move;
     using EventHorizon.Zone.System.Agent.Model.Path;
     using EventHorizon.Zone.System.Agent.Model.State;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class IsAgentMovingHandler : IRequestHandler<IsAgentMoving, bool>

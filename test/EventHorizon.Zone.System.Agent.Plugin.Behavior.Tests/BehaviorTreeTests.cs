@@ -1,27 +1,33 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
     using global::System;
     using global::System.Diagnostics;
     using global::System.IO;
     using global::System.Text;
-    using global::System.Threading.Tasks;
     using global::System.Threading;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using Newtonsoft.Json;
-    using Xunit;
-    using Xunit.Abstractions;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters;
-    using Moq;
+    using global::System.Threading.Tasks;
+
     using MediatR;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-    using EventHorizon.Tests.TestUtils;
-    using EventHorizon.Zone.Core.Reporter.Model;
+
+    using Moq;
+
+    using Newtonsoft.Json;
+
+    using Xunit;
+    using Xunit.Abstractions;
 
     public class BehaviorTreeTests : TestFixtureBase
     {

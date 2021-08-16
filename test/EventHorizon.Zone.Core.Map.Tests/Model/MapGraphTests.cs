@@ -2,9 +2,12 @@ namespace EventHorizon.Zone.Core.Map.Tests.Model
 {
     using System.Collections.Generic;
     using System.Numerics;
+
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class MapGraphTests

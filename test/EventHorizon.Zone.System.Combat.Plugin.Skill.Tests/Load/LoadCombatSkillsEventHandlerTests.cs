@@ -7,15 +7,20 @@
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Reflection;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadCombatSkillsEventHandlerTests

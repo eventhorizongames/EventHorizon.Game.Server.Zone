@@ -48,7 +48,8 @@ namespace EventHorizon.Zone.System.Editor.Model
         }
         public IEditorNode AddChild(
             IEditorNode child
-        ) {
+        )
+        {
             Children.Add(
                 child
             );

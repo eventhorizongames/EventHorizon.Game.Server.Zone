@@ -1,4 +1,5 @@
 using System;
+
 using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Server.Core.External.Tests.TestUtil

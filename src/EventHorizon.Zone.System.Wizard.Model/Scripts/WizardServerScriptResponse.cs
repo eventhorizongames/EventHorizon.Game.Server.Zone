@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Model.Scripts
 {
     using EventHorizon.Zone.System.Server.Scripts.Model;
+
     using global::System.Collections.Generic;
 
     public struct WizardServerScriptResponse

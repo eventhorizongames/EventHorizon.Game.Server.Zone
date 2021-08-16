@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.Core.Reporter.Settings
 {
     using EventHorizon.Zone.Core.Reporter.Model;
+
     using Microsoft.Extensions.Configuration;
 
     public class ReporterSettingsByConfiguration : ReporterSettings

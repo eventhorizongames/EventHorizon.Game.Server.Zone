@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Threading;
     using System.Threading.Tasks;
+
     using Xunit;
     using Xunit.Abstractions;
     using Xunit.Sdk;
@@ -128,7 +129,7 @@
 
                 diagnosticMessageSink.OnMessage(
                     new DiagnosticMessage(
-                        "Execution of '{0}' failed (attempt #{1}), retrying...", 
+                        "Execution of '{0}' failed (attempt #{1}), retrying...",
                         DisplayName,
                         runCount
                     )

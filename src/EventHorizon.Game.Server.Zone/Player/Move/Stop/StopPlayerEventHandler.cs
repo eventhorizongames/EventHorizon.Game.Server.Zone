@@ -1,10 +1,12 @@
 namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
 {
-    using EventHorizon.Zone.Core.Events.Entity.Client;
-    using EventHorizon.Zone.Core.Model.Entity.Client;
-    using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Client;
+    using EventHorizon.Zone.Core.Model.Entity.Client;
+
+    using MediatR;
 
     public class StopPlayerEventHandler : INotificationHandler<StopPlayerEvent>
     {

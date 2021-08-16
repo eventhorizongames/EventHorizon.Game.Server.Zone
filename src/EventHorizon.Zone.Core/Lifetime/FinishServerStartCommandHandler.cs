@@ -3,9 +3,12 @@ namespace EventHorizon.Zone.Core.Lifetime
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Lifetime.State;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class FinishServerStartCommandHandler

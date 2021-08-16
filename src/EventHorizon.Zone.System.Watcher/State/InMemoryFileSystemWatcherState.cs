@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+
 using EventHorizon.Zone.System.Watcher.Model;
 
 namespace EventHorizon.Zone.System.Watcher.State

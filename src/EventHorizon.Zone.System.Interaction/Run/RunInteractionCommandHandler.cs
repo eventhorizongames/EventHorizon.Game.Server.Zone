@@ -7,8 +7,10 @@ namespace EventHorizon.Zone.System.Interaction.Run
     using EventHorizon.Zone.System.Interaction.Events;
     using EventHorizon.Zone.System.Interaction.Model;
     using EventHorizon.Zone.System.Interaction.Script.Run;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class RunInteractionCommandHandler : IRequestHandler<RunInteractionCommand>

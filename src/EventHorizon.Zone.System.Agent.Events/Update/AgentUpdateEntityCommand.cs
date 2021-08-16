@@ -1,5 +1,6 @@
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Agent.Model;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Events.Update
@@ -10,7 +11,7 @@ namespace EventHorizon.Zone.System.Agent.Events.Update
         public AgentAction UpdateAction { get; }
 
         public AgentUpdateEntityCommand(
-            AgentEntity agent, 
+            AgentEntity agent,
             AgentAction updateAction
         )
         {

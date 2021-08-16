@@ -1,7 +1,9 @@
 namespace EventHorizon.TimerService.Tests.TimerService
 {
     using EventHorizon.Test.Common.Utils;
+
     using Microsoft.Extensions.Hosting;
+
     using Xunit;
 
     public class TimerExtensionsTests
@@ -23,11 +25,11 @@ namespace EventHorizon.TimerService.Tests.TimerService
                 service =>
                 {
                     Assert.Equal(
-                        typeof(IHostedService), 
+                        typeof(IHostedService),
                         service.ServiceType
                     );
                     Assert.Equal(
-                        typeof(TimerHostedService), 
+                        typeof(TimerHostedService),
                         service.ImplementationType
                     );
                 }

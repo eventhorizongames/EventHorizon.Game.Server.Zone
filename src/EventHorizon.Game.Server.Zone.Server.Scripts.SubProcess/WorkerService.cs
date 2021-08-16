@@ -3,8 +3,11 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess.Compile;
+
     using MediatR;
+
     using Microsoft.Extensions.Hosting;
 
     public class WorkerService

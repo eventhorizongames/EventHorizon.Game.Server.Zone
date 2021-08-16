@@ -1,14 +1,17 @@
 namespace EventHorizon.Zone.System.Editor.ExternalHub
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Editor.Events.Create;
     using EventHorizon.Zone.System.Editor.Events.Delete;
     using EventHorizon.Zone.System.Editor.Events.Save;
     using EventHorizon.Zone.System.Editor.Events.State;
     using EventHorizon.Zone.System.Editor.Model;
+
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 

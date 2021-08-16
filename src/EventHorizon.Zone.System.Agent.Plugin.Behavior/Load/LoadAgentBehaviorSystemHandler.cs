@@ -2,9 +2,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 {
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class LoadAgentBehaviorSystemHandler 
+    public class LoadAgentBehaviorSystemHandler
         : IRequestHandler<LoadAgentBehaviorSystem>
     {
         private readonly IMediator _mediator;

@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts;
 using EventHorizon.Zone.System.Admin.Plugin.Command.Run;
 using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Run

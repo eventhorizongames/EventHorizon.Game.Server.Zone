@@ -1,6 +1,7 @@
 namespace EventHorizon.Performance
 {
     using EventHorizon.Performance.Model;
+
     using Microsoft.Extensions.DependencyInjection;
 
     public static class PerformanceExtensions

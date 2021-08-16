@@ -3,11 +3,14 @@
     using System.Collections.Concurrent;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Entity.Update;
     using EventHorizon.Zone.Core.Events.Entity.Update;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
+
     using Moq;
+
     using Xunit;
 
     public class UpdateEntityCommandHandlerTests

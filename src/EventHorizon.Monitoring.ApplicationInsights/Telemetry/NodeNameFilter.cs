@@ -1,6 +1,7 @@
 namespace EventHorizon.Monitoring.ApplicationInsights.Telemetry
 {
     using EventHorizon.Monitoring.Model;
+
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.Extensibility;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;

@@ -3,10 +3,12 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.Save;
+
     using global::System;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class CreateClientEntityCommandHandler : IRequestHandler<CreateClientEntityCommand, CreateClientEntityResponse>
@@ -15,7 +17,7 @@
         private readonly ServerInfo _serverInfo;
 
         public CreateClientEntityCommandHandler(
-            IMediator mediator, 
+            IMediator mediator,
             ServerInfo serverInfo
         )
         {

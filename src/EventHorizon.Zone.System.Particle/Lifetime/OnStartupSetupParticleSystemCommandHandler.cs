@@ -3,12 +3,15 @@
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Reflection;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class OnStartupSetupParticleSystemCommandHandler

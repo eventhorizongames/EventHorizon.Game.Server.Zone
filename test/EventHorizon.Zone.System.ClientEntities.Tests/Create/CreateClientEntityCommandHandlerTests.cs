@@ -3,12 +3,17 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Create
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.ClientEntities.Create;
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class CreateClientEntityCommandHandlerTests

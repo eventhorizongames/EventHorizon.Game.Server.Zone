@@ -2,10 +2,13 @@ namespace EventHorizon.Zone.Core.Tests.FileService
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
+
     using Moq;
+
     using Xunit;
 
     public class WriteAllTextToFileHandlerTests

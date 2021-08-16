@@ -3,13 +3,18 @@
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using EventHorizon.Zone.Core.Map.Cost;
     using EventHorizon.Zone.Core.Model.Map;
+
     using FluentAssertions;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RemoveEdgeCostForNodeAtPositionHandlerTests

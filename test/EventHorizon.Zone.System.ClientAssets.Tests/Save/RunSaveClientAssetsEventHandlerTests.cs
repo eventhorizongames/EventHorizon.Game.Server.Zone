@@ -1,12 +1,17 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Tests.Save
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.ClientAssets.Save;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunSaveClientAssetsEventHandlerTests

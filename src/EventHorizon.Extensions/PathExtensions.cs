@@ -13,7 +13,7 @@ namespace System.IO
                 toPath
             )
         );
-        
+
         private static string GetPath(
             string path
         ) => path.StartsWith(Path.DirectorySeparatorChar)

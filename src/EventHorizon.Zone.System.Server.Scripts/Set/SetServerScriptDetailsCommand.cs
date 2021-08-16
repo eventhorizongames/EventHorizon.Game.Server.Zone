@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
     using MediatR;
 
     public struct SetServerScriptDetailsCommand

@@ -3,6 +3,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Monitor.Path;
+
     using MediatR;
 
     public class CheckForStaleAgentPathTimer

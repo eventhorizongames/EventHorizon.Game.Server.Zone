@@ -22,6 +22,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             }
             return this.NodeMap[token];
         }
-        
+
     }
 }

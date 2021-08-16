@@ -1,9 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
 using EventHorizon.Zone.System.Player.Plugin.Action.Model;
 using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Register

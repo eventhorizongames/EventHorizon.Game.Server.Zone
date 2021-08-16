@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.Wizard.Json.Model;
     using EventHorizon.Zone.System.Wizard.Model;
+
     using MediatR;
 
     public struct MapWizardDataToJsonDataDocument

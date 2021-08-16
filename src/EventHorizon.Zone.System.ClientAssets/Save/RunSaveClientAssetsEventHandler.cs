@@ -2,6 +2,7 @@
 {
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class RunSaveClientAssetsEventHandler

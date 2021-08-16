@@ -1,19 +1,25 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Script.Run
 {
-    using global::System;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
     using EventHorizon.Zone.System.Server.Scripts.Model;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
-    using Moq;
-    using Xunit;
+
     using FluentAssertions;
+
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
 
     public class RunBehaviorScriptHandlerTests
     {

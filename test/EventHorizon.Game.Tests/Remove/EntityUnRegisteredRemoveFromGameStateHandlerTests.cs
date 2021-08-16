@@ -2,12 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Clear;
     using EventHorizon.Game.Remove;
     using EventHorizon.Game.State;
     using EventHorizon.Zone.Core.Events.Entity.Register;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class EntityUnRegisteredRemoveFromGameStateHandlerTests

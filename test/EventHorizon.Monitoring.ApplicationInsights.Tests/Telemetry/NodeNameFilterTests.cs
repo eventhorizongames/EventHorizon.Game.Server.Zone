@@ -2,12 +2,16 @@
 {
     using EventHorizon.Monitoring.ApplicationInsights.Telemetry;
     using EventHorizon.Monitoring.Model;
+
     using FluentAssertions;
+
     using Microsoft.ApplicationInsights.Channel;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility.Implementation;
     using Microsoft.Extensions.Options;
+
     using Moq;
+
     using Xunit;
 
     public class NodeNameFilterTests

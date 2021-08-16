@@ -1,10 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Register
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using Moq;
+
     using Xunit;
 
     public class RegisterActorWithBehaviorTreeForNextTickCycleHandlerTests

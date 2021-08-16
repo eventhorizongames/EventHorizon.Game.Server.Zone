@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientEntities.PopulateData
 {
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using MediatR;
 
     public struct PopulateClientEntityDataEvent : INotification

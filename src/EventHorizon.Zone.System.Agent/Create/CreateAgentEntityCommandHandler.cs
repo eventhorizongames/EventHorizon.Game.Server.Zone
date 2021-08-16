@@ -4,9 +4,11 @@
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Events.Create;
     using EventHorizon.Zone.System.Agent.Events.Register;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class CreateAgentEntityCommandHandler
@@ -22,7 +24,7 @@
         }
 
         public async Task<CreateAgentEntityResponse> Handle(
-            CreateAgentEntityCommand request, 
+            CreateAgentEntityCommand request,
             CancellationToken cancellationToken
         )
         {

@@ -7,12 +7,17 @@
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Create;
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Model;
     using EventHorizon.Zone.System.Client.Scripts.Validation;
+
     using FluentAssertions;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class NeedToCompileClientScriptsHandlerTests

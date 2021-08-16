@@ -10,14 +10,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Move.Register;
     using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class MoveRegisteredAgentHandlerTests

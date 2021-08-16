@@ -7,8 +7,10 @@
     using EventHorizon.Zone.System.ClientEntities.Model.Client;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class DeleteClientEntityCommandHandler : IRequestHandler<DeleteClientEntityCommand, DeleteClientEntityResponse>

@@ -1,9 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.Model.ServerProperty;
 using EventHorizon.Zone.Core.ServerProperty.Fill;
+
 using Microsoft.Extensions.Configuration;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.ServerProperty.Fill
@@ -24,7 +28,7 @@ namespace EventHorizon.Zone.Core.Tests.ServerProperty.Fill
             ).Returns(
                 expected
             );
-            
+
             // When
             var handler = new FillHostServerPropertyHandler(
                 serverPropertyMock.Object,
@@ -32,7 +36,7 @@ namespace EventHorizon.Zone.Core.Tests.ServerProperty.Fill
             );
             await handler.Handle(
                 new FillServerPropertiesEvent(),
-                CancellationToken.None                
+                CancellationToken.None
             );
 
             // Then

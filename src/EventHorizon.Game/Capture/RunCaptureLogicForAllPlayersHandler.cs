@@ -2,8 +2,10 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Entity.Find;
     using EventHorizon.Zone.Core.Model.Entity;
+
     using MediatR;
 
     public class RunCaptureLogicForAllPlayersHandler : INotificationHandler<RunCaptureLogicForAllPlayers>
@@ -26,7 +28,7 @@
                 new QueryForEntities()
                 {
                     Query = entity => entity.Type == EntityType.PLAYER,
-                }, 
+                },
                 cancellationToken
             );
 

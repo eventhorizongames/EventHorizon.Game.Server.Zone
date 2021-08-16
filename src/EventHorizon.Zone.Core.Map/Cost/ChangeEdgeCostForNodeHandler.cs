@@ -2,10 +2,12 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Map.Cost;
+
     using MediatR;
 
-    public class ChangeEdgeCostForNodeHandler 
+    public class ChangeEdgeCostForNodeHandler
         : IRequestHandler<ChangeEdgeCostForNode, bool>
     {
         private readonly IMediator _mediator;

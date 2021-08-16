@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Tests.Load
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
@@ -8,13 +9,18 @@
     using EventHorizon.Zone.System.ClientAssets.Add;
     using EventHorizon.Zone.System.ClientAssets.Load;
     using EventHorizon.Zone.System.ClientAssets.Model;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadSystemClientAssetsCommandHandlerTests

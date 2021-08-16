@@ -1,8 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Agent.Events.Get;
 using EventHorizon.Zone.System.Agent.Model;
 using EventHorizon.Zone.System.Agent.Model.State;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Agent.Get

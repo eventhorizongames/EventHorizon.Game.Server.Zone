@@ -7,10 +7,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class IsValidActorBehaviorTickHandler : IRequestHandler<IsValidActorBehaviorTick, ActorBehaviorTickValidationResponse>
@@ -104,7 +107,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     default
                 );
             }
-            
+
             // Check to make sure that the request and Actor BehaviorTreeState match.
             var actorTreeState = actor.GetProperty<BehaviorTreeState>(
                 BehaviorTreeState.PROPERTY_NAME
@@ -133,7 +136,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     default
                 );
             }
-            
+
             return new ActorBehaviorTickValidationResponse(
                 actor,
                 shape

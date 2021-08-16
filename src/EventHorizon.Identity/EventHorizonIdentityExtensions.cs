@@ -1,6 +1,8 @@
 using System;
+
 using EventHorizon.Identity.Client;
 using EventHorizon.Identity.Model;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,9 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.Core.DirectoryService;
 using EventHorizon.Zone.Core.Model.DirectoryService;
+
 using FluentAssertions;
+
 using Moq;
+
 using Xunit;
 
 namespace EventHorizon.Zone.Core.Tests.DirectoryService
@@ -37,7 +41,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
                 ),
                 CancellationToken.None
             );
-            
+
             // Then
             actual.Should().Be(
                 expected

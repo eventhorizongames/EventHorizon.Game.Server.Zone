@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+
 using IdentityModel.Client;
 
 namespace EventHorizon.Identity.Client

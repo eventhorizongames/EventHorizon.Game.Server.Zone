@@ -3,6 +3,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.I18n.Fetch;
     using EventHorizon.Game.Query;
     using EventHorizon.Performance;
@@ -17,6 +18,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using EventHorizon.Zone.System.Gui.Events.Layout;
     using EventHorizon.Zone.System.Particle.Fetch;
     using EventHorizon.Zone.System.ServerModule.Fetch;
+
     using MediatR;
 
     /// <summary>
@@ -24,7 +26,7 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     ///  module that contains state that should be sent 
     ///  during a Zone's Full Info Request.
     /// </summary>
-    public class QueryForFullZoneInfoHandler 
+    public class QueryForFullZoneInfoHandler
         : IRequestHandler<QueryForFullZoneInfo, IDictionary<string, object>>
     {
         readonly IMediator _mediator;

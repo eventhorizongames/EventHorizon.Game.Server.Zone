@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+
 using EventHorizon.Zone.Core.Model.Player;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Player.Events.Info

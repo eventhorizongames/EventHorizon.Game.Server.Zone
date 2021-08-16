@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+
 using EventHorizon.Game.Server.Zone.Player.Action.Direction;
 using EventHorizon.Zone.Core.Model.Player;
+
 using Xunit;
 
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
@@ -29,7 +31,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
                 actual
             );
         }
-        
+
         [Fact]
         public void TestShouldSetMoveDirectionToDefaultWhenNotFoundInData()
         {
@@ -37,7 +39,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
             var expected = -1;
 
             // When
-            var actual = (MovePlayerEvent) new MovePlayerEvent()
+            var actual = (MovePlayerEvent)new MovePlayerEvent()
                 .SetData(
                     new Dictionary<string, object>()
                 );

@@ -11,7 +11,9 @@
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
@@ -19,9 +21,13 @@
     using global::System.Reflection;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class ServerScriptCompilerForCSharpTests

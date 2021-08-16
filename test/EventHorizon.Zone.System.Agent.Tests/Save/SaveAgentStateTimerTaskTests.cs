@@ -3,7 +3,9 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.System.Agent.Save;
     using EventHorizon.Zone.System.Agent.Save.Events;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class SaveAgentStateTimerTaskTests

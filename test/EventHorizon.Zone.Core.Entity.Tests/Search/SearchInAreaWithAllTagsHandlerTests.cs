@@ -4,12 +4,16 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Entity.Search;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Entity.Search;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class SearchInAreaWithAllTagsHandlerTests

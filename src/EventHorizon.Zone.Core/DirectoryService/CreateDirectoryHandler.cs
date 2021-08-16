@@ -1,10 +1,12 @@
 namespace EventHorizon.Zone.Core.DirectoryService
 {
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using MediatR;
     using System.Threading;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+
+    using MediatR;
 
     public class CreateDirectoryHandler : IRequestHandler<CreateDirectory, bool>
     {

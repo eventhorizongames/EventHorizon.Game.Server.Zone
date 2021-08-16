@@ -2,12 +2,16 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Events.Client.Generic;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.Core.Map.Load;
     using EventHorizon.Zone.Core.Map.State;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadCoreMapHandlerTests

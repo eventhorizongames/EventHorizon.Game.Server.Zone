@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api
 {
-    using global::System.Collections.Generic;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using global::System.Collections.Generic;
 
     public interface ActorBehaviorTreeRepository
     {

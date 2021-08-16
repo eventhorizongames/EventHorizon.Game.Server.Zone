@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Tests.State
 {
     using EventHorizon.Zone.System.Client.Scripts.State;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class InMemoryClientScriptsStateTests

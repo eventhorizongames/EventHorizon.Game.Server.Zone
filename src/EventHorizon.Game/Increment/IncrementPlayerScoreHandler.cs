@@ -2,8 +2,10 @@ namespace EventHorizon.Game.Increment
 {
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Game.Client;
     using EventHorizon.Game.State;
+
     using MediatR;
 
     public class IncrementPlayerScoreHandler : IRequestHandler<IncrementPlayerScore>
@@ -12,7 +14,7 @@ namespace EventHorizon.Game.Increment
         private readonly GameState _gameState;
 
         public IncrementPlayerScoreHandler(
-            IMediator mediator, 
+            IMediator mediator,
             GameState gameState
         )
         {

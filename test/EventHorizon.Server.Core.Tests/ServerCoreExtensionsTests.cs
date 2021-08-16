@@ -2,6 +2,7 @@ namespace EventHorizon.Server.Core.Tests
 {
     using System;
     using System.Threading;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Connection.Internal;
     using EventHorizon.Server.Core.Connection.Model;
@@ -11,9 +12,13 @@ namespace EventHorizon.Server.Core.Tests
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
+
     using MediatR;
+
     using Microsoft.Extensions.Options;
+
     using Moq;
+
     using Xunit;
 
     public class ServerCoreExtensionsTests

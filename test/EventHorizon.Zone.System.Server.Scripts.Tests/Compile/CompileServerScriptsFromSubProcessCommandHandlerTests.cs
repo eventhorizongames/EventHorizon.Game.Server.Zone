@@ -11,14 +11,20 @@
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
     using EventHorizon.Zone.System.Server.Scripts.Validation;
+
     using FluentAssertions;
+
     using global::System;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class CompileServerScriptsFromSubProcessCommandHandlerTests

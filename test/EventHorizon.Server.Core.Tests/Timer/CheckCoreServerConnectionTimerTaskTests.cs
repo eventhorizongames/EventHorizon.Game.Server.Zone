@@ -3,7 +3,9 @@
     using EventHorizon.Server.Core.Events.Check;
     using EventHorizon.Server.Core.Timer;
     using EventHorizon.Zone.Core.Events.Lifetime;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class CheckCoreServerConnectionTimerTaskTests

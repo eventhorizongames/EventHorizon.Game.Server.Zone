@@ -3,12 +3,16 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.DirectoryService;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using EventHorizon.Zone.Core.Model.FileService;
+
     using FluentAssertions;
+
     using Moq;
+
     using Xunit;
 
     public class GetListOfFilesFromDirectoryHandlerTests

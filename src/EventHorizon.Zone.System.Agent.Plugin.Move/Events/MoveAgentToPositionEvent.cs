@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Events
 {
     using global::System.Numerics;
+
     using MediatR;
 
     public struct MoveAgentToPositionEvent : IRequest

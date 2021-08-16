@@ -1,13 +1,17 @@
 ﻿namespace EventHorizon.Zone.System.ServerModule.Lifetime
 {
     using System;
+
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
+
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class OnStartupSetupServerModuleSystemCommandHandler
@@ -30,7 +34,7 @@
 
 
         public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupServerModuleSystemCommand request, 
+            OnStartupSetupServerModuleSystemCommand request,
             CancellationToken cancellationToken
         )
         {

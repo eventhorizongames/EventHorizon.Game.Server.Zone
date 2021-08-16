@@ -1,4 +1,5 @@
 using EventHorizon.Zone.Core.Model.Entity;
+
 using MediatR;
 
 namespace EventHorizon.Zone.Core.Events.Entity.Action
@@ -9,7 +10,7 @@ namespace EventHorizon.Zone.Core.Events.Entity.Action
         public IObjectEntity Entity { get; set; }
 
         public EntityActionEvent(
-            EntityAction action, 
+            EntityAction action,
             IObjectEntity entity
         )
         {

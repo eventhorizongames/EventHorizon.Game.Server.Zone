@@ -1,4 +1,5 @@
 using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Events.Register

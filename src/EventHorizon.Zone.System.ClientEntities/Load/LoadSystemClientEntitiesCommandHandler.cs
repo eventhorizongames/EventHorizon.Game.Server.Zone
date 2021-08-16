@@ -8,9 +8,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
     using EventHorizon.Zone.System.ClientEntities.Query;
     using EventHorizon.Zone.System.ClientEntities.Register;
     using EventHorizon.Zone.System.ClientEntities.Unregister;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     /// <summary>
@@ -67,7 +69,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Load
             }
             return Unit.Value;
         }
-        
+
         private async Task<IList<ClientEntityDetails>> GetClientEntitiesFromPath(
             string path
         )

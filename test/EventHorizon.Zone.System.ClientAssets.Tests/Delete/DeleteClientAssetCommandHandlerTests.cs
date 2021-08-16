@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Tests.Delete
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.System.Backup.Events;
@@ -8,11 +9,16 @@
     using EventHorizon.Zone.System.ClientAssets.Events.Delete;
     using EventHorizon.Zone.System.ClientAssets.Model;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class DeleteClientAssetCommandHandlerTests

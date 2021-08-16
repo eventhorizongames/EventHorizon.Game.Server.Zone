@@ -1,10 +1,14 @@
 ﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Load
 {
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class LoadCombatSystemPluginSkillHandlerTests

@@ -1,11 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Editor.Map
 {
-    using MediatR;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.Core.Events.Map.Create;
-    using global::System.Threading;
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Register;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
 
     public class ReRegisterAgentsOnMapCreatedHandler : INotificationHandler<MapCreatedEvent>
     {

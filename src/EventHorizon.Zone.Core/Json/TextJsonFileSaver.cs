@@ -1,11 +1,12 @@
 namespace EventHorizon.Zone.Core.Json
 {
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
     using System.IO;
     using System.Text.Json;
     using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Json;
 
     public class TextJsonFileSaver : IJsonFileSaver
     {

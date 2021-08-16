@@ -1,10 +1,13 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Watcher.Events.Start;
 using EventHorizon.Zone.System.Watcher.Model;
 using EventHorizon.Zone.System.Watcher.State;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace EventHorizon.Zone.System.Watcher.Start

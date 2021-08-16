@@ -10,12 +10,16 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class PlayerConnectedHandlerTests

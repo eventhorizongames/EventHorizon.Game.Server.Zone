@@ -9,12 +9,16 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Run
     using EventHorizon.Zone.System.Interaction.Model;
     using EventHorizon.Zone.System.Interaction.Run;
     using EventHorizon.Zone.System.Interaction.Script.Run;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class RunInteractionCommandHandlerTests

@@ -3,12 +3,14 @@ namespace EventHorizon.Zone.Core.Entity.Search
     using System.Numerics;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.Core.Model.Map;
+
     using MediatR;
 
-    public class EntitySearchMapCreatedHandler 
+    public class EntitySearchMapCreatedHandler
         : INotificationHandler<MapCreatedEvent>
     {
         private readonly IMapDetails _mapDetails;

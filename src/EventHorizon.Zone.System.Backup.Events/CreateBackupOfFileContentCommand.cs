@@ -1,7 +1,9 @@
 namespace EventHorizon.Zone.System.Backup.Events
 {
     using EventHorizon.Zone.System.Backup.Model;
+
     using global::System.Collections.Generic;
+
     using MediatR;
 
     public struct CreateBackupOfFileContentCommand

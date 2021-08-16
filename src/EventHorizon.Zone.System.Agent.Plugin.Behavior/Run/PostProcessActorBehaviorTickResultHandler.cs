@@ -1,15 +1,18 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using global::System;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
+    using global::System;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
 
     public class PostProcessActorBehaviorTickResultHandler : IRequestHandler<PostProcessActorBehaviorTickResult>
     {

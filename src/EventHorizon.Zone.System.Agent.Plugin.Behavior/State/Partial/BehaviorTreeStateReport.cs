@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
-    using global::System;
     using EventHorizon.Zone.Core.Reporter.Model;
+
+    using global::System;
 
     public partial struct BehaviorTreeState
     {

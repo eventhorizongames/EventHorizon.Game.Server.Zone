@@ -5,13 +5,16 @@ namespace EventHorizon.Zone.System.Editor.Save
     using EventHorizon.Zone.System.Backup.Events;
     using EventHorizon.Zone.System.Editor.Events.Save;
     using EventHorizon.Zone.System.Editor.Model;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+
     using global::System;
     using global::System.IO;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
 
     public class SaveEditorFileContentHandler : IRequestHandler<SaveEditorFileContent, EditorResponse>
     {

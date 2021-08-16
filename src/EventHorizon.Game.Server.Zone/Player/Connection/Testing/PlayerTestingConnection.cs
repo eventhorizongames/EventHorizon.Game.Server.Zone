@@ -1,13 +1,15 @@
 namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 {
     using System;
-    using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Model.Json;
-    using Microsoft.Extensions.Logging;
-    using EventHorizon.Zone.System.Player.Connection;
     using System.IO;
-    using EventHorizon.Zone.System.Player.Model.Details;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.Core.Model.ServerProperty;
+    using EventHorizon.Zone.System.Player.Connection;
+    using EventHorizon.Zone.System.Player.Model.Details;
+
+    using Microsoft.Extensions.Logging;
 
     public class PlayerTestingConnection : PlayerServerConnection
     {
@@ -29,7 +31,7 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
         public void OnAction<T>(string actionName, Action<T> action)
         {
         }
-        
+
         public void OnAction(string actionName, Action action)
         {
         }

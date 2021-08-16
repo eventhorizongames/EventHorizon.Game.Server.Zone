@@ -1,16 +1,22 @@
 ﻿namespace EventHorizon.Zone.System.ClientAssets.Tests.Create
 {
     using AutoFixture.Xunit2;
+
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.ClientAssets.Create;
     using EventHorizon.Zone.System.ClientAssets.Events.Create;
     using EventHorizon.Zone.System.ClientAssets.Save;
     using EventHorizon.Zone.System.ClientAssets.State.Api;
+
     using FluentAssertions;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class CreateClientAssetCommandHandlerTests

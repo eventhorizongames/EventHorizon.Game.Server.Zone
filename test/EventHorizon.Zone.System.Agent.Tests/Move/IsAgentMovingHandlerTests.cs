@@ -6,12 +6,15 @@ namespace EventHorizon.Zone.System.Agent.Tests.Move
     using EventHorizon.Zone.System.Agent.Model.Path;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Move;
-    using Moq;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
+    using Moq;
+
     using Xunit;
 
     public class IsAgentMovingHandlerTests

@@ -4,11 +4,13 @@ namespace EventHorizon.Zone.System.Player.Update
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PlayerEntityActionEventHandler 
+    public class PlayerEntityActionEventHandler
         : INotificationHandler<EntityActionEvent>
     {
         private readonly IMediator _mediator;
@@ -38,7 +40,7 @@ namespace EventHorizon.Zone.System.Player.Update
 
         private static bool IsPlayerEntity(
             EntityActionEvent notification
-        ) => notification.Entity.Type == EntityType.PLAYER 
+        ) => notification.Entity.Type == EntityType.PLAYER
             && notification.Entity is PlayerEntity;
     }
 }

@@ -2,10 +2,12 @@ namespace EventHorizon.Zone.System.ClientEntities.PopulateData
 {
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.ClientEntities.Model;
+
     using global::System;
     using global::System.Numerics;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class PopulateClientEntityDataEventHandler : INotificationHandler<PopulateClientEntityDataEvent>
@@ -16,7 +18,7 @@ namespace EventHorizon.Zone.System.ClientEntities.PopulateData
         )
         {
             var entity = notification.ClientEntity;
-            
+
             // Populate Data for "assetId"
             entity.PopulateData<string>(
                 nameof(ClientEntityMetadataTypes.assetId),
@@ -46,7 +48,7 @@ namespace EventHorizon.Zone.System.ClientEntities.PopulateData
                 nameof(ClientEntityMetadataTypes.heightOffset),
                 setDefaultValue: false
             );
-            
+
 
             return Task.CompletedTask;
         }

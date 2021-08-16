@@ -1,4 +1,5 @@
 using System;
+
 using EventHorizon.Zone.Core.Model.Entity;
 
 namespace EventHorizon.Zone.System.Combat.Life.Change

@@ -1,12 +1,18 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests
 {
     using EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Logging;
+
     using global::System.Threading.Tasks;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using NuGet.Common;
+
     using Xunit;
+
     using LogLevel = NuGet.Common.LogLevel;
 
     public class CompilerPackageLoaderNuGetLoggerTests
@@ -42,7 +48,7 @@
             var logger = new CompilerPackageLoaderNuGetLogger(
                 serviceCollection
             );
-            
+
             await logger.LogAsync(
                 logMessageMock.Object
             );

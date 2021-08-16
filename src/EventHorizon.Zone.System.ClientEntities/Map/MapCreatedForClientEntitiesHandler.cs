@@ -3,8 +3,10 @@
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Update;
+
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
 
     public class MapCreatedForClientEntitiesHandler : INotificationHandler<MapCreatedEvent>

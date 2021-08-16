@@ -5,11 +5,15 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Map
     using EventHorizon.Zone.System.ClientEntities.Model;
     using EventHorizon.Zone.System.ClientEntities.State;
     using EventHorizon.Zone.System.ClientEntities.Update;
+
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
+
     using MediatR;
+
     using Moq;
+
     using Xunit;
 
     public class MapCreatedForClientEntitiesHandlerTests

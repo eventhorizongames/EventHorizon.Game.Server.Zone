@@ -5,7 +5,9 @@ namespace EventHorizon.Game.Tests
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
+
     using FluentAssertions;
+
     using Xunit;
 
     public class GameExtensionsTests

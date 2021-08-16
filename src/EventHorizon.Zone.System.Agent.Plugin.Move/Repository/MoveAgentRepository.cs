@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Agent.Move.Repository
 {
-    using global::System.Collections.Concurrent;
     using EventHorizon.Zone.System.Agent.Model.State;
+
+    using global::System.Collections.Concurrent;
 
     public class MoveAgentRepository : IMoveAgentRepository
     {

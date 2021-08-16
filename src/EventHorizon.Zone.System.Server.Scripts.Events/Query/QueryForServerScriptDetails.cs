@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+
 using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
 using MediatR;
 
 namespace EventHorizon.Zone.System.Server.Scripts.Events.Query

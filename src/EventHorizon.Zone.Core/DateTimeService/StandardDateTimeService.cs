@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.Core.DateTimeService
 {
-    using EventHorizon.Zone.Core.Model.DateTimeService;
     using System;
+
+    using EventHorizon.Zone.Core.Model.DateTimeService;
 
     public class StandardDateTimeService : IDateTimeService
     {

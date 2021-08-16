@@ -21,11 +21,11 @@ namespace EventHorizon.Zone.Core.Model.Core
             CurrentZone = string.Empty,
             ZoneTag = string.Empty,
         };
-        
+
         public static LocationState New(
             string currentZone,
             string zoneTag
-        ) 
+        )
         {
             var newLocation = NEW;
             newLocation.CurrentZone = currentZone;

@@ -1,6 +1,9 @@
 using System;
+
 using MediatR;
+
 using Microsoft.Extensions.DependencyInjection;
+
 using Moq;
 
 namespace EventHorizon.Tests.TestUtils

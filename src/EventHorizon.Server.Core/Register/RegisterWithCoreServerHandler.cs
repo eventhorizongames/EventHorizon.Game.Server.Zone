@@ -3,12 +3,15 @@ namespace EventHorizon.Server.Core.Register
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Connection.Model;
     using EventHorizon.Server.Core.Events.Register;
     using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.Core.Model.Settings;
+
     using MediatR;
+
     using Microsoft.Extensions.Logging;
 
     public class RegisterWithCoreServerHandler

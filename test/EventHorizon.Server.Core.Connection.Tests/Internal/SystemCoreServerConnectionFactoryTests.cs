@@ -2,15 +2,20 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
 {
     using System;
     using System.Threading.Tasks;
+
     using EventHorizon.Server.Core.Connection;
     using EventHorizon.Server.Core.Connection.Internal;
     using EventHorizon.Server.Core.Connection.Model;
+
     using MediatR;
+
     using Microsoft.AspNetCore.Http.Connections.Client;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
+
     using Moq;
+
     using Xunit;
 
     public class SystemCoreServerConnectionFactoryTests

@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Interaction.Model.Client;
+
 using Xunit;
 
 namespace EventHorizon.Zone.System.Interaction.Tests.Model.Client

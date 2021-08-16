@@ -1,15 +1,19 @@
 namespace EventHorizon.Zone.System.Watcher.Tests.Start
 {
-    using global::System;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
     using EventHorizon.Zone.System.Watcher.Events.Start;
     using EventHorizon.Zone.System.Watcher.Model;
     using EventHorizon.Zone.System.Watcher.Start;
     using EventHorizon.Zone.System.Watcher.State;
+
+    using global::System;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using Microsoft.Extensions.Logging;
+
     using Moq;
+
     using Xunit;
 
     public class StartWatchingFileSystemCommandHandlerTests
@@ -215,7 +219,7 @@ namespace EventHorizon.Zone.System.Watcher.Tests.Start
                 Times.AtLeast(3)
             );
         }
-        
+
         [Fact]
         public async Task TestShouldNotCauseExceptionWhenAPathWatcherIsNotExisting()
         {

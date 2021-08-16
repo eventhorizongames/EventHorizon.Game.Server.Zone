@@ -1,12 +1,16 @@
 namespace EventHorizon.Zone.Core.Reporter.Tests.Tracker
 {
-    using FluentAssertions;
-    using EventHorizon.Zone.Core.Reporter.Tracker;
-    using Xunit;
-    using Moq;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
     using System;
+
+    using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Reporter.Model;
+    using EventHorizon.Zone.Core.Reporter.Tracker;
+
+    using FluentAssertions;
+
+    using Moq;
+
+    using Xunit;
 
     public class ReportTrackingRepositoryTests
     {

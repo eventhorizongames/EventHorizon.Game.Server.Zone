@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using EventHorizon.Zone.System.Agent.Connection;
 using EventHorizon.Zone.System.Agent.Connection.Factory;
 using EventHorizon.Zone.System.Agent.Connection.Model;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventHorizon.Zone.System.Agent
