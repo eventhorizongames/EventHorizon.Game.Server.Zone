@@ -23,26 +23,30 @@
         )
         {
             writer.WritePropertyName(Name);
-            if (Type == "String")
+            switch (Type)
             {
-                writer.WriteStringValue(Value);
-            }
-            else if (Type == "Long")
-            {
-                writer.WriteNumberValue(long.Parse(Value));
-            }
-            else if (Type == "Boolean")
-            {
-                writer.WriteBooleanValue(bool.Parse(Value));
-            }
-            else if (Type == "Object")
-            {
-                writer.WriteStartObject();
-                foreach (var childProperty in Data)
-                {
-                    childProperty.WriteTo(writer);
-                }
-                writer.WriteEndObject();
+                case "String":
+                    writer.WriteStringValue(Value);
+                    break;
+                case "Long":
+                    writer.WriteNumberValue(long.Parse(Value));
+                    break;
+                case "Boolean":
+                    writer.WriteBooleanValue(bool.Parse(Value));
+                    break;
+                case "Object":
+                    {
+                        writer.WriteStartObject();
+                        foreach (var childProperty in Data)
+                        {
+                            childProperty.WriteTo(writer);
+                        }
+                        writer.WriteEndObject();
+                        break;
+                    }
+                default:
+                    writer.WriteStringValue(Value);
+                    break;
             }
         }
     }
