@@ -7,11 +7,11 @@ namespace EventHorizon.Zone.System.Agent.Connection.Model
 
     public class AgentDetails
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public TransformState Transform { get; set; }
         public LocationState Location { get; set; }
-        public IList<string> TagList { get; set; }
-        public ConcurrentDictionary<string, object> Data { get; set; }
+        public IList<string>? TagList { get; set; }
+        public ConcurrentDictionary<string, object>? Data { get; set; }
     }
 }

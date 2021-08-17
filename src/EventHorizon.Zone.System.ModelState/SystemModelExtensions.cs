@@ -1,10 +1,8 @@
-using MediatR;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Zone.System.ModelState
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemModelExtensions
     {
         public static IServiceCollection AddSystemModelState(
@@ -13,13 +11,11 @@ namespace EventHorizon.Zone.System.ModelState
         {
             return services;
         }
-        public static void UseSystemModelState(
+        public static IApplicationBuilder UseSystemModelState(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-            }
+            return app;
         }
     }
 }

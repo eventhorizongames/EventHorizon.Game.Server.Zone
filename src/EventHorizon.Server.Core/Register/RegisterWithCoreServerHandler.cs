@@ -43,20 +43,40 @@ namespace EventHorizon.Server.Core.Register
             try
             {
                 var connection = await _connectionFactory.GetConnection();
+                var host = _serverProperty.Get<string>(
+                    ServerPropertyKeys.HOST
+                );
+                var applicationVersion = _serverProperty.Get<string>(
+                    ServerPropertyKeys.APPLICATION_VERSION
+                );
+                if (string.IsNullOrWhiteSpace(
+                    host
+                ))
+                {
+                    throw new NullReferenceException(
+                        "Host was not registered in Server Properties"
+                    );
+                }
+                else if (string.IsNullOrWhiteSpace(
+                    applicationVersion
+                ))
+                {
+                    throw new NullReferenceException(
+                        "Application Version was not registered in Server Properties"
+                    );
+                }
+
                 var response = await connection.Api
                     .RegisterZone(
                         new ZoneRegistrationDetails(
-                            _serverProperty.Get<string>(
-                                ServerPropertyKeys.HOST
-                            ),
+                            host,
                             _zoneSettings.Tag,
                             new ServiceDetails(
-                                _serverProperty.Get<string>(
-                                    ServerPropertyKeys.APPLICATION_VERSION
-                                )
+                                applicationVersion
                             )
                         )
                     );
+
                 _serverProperty.Set(
                     ServerPropertyKeys.SERVER_ID,
                     response.Id

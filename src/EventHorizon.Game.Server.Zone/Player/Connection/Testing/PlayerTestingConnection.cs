@@ -11,19 +11,17 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
 
     using Microsoft.Extensions.Logging;
 
-    public class PlayerTestingConnection : PlayerServerConnection
+    public class PlayerTestingConnection
+        : PlayerServerConnection
     {
-        readonly ILogger _logger;
         readonly IServerProperty _serverProperty;
         readonly IJsonFileLoader _fileLoader;
 
         public PlayerTestingConnection(
-            ILogger logger,
             IServerProperty serverProperty,
             IJsonFileLoader fileLoader
         )
         {
-            _logger = logger;
             _serverProperty = serverProperty;
             _fileLoader = fileLoader;
         }
@@ -36,14 +34,14 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
         {
         }
 
-        public async Task<T> SendAction<T>(string actionName, object[] args)
+        public async Task<T?> SendAction<T>(string actionName, object[] args)
         {
             if ("GetPlayer".Equals(actionName))
             {
                 dynamic playerEntity = await CreateTestEntity((string)args[0]);
                 return playerEntity;
             }
-            return default(T);
+            return default;
         }
 
         public Task SendAction(string actionName, object[] args)

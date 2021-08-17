@@ -4,15 +4,16 @@ namespace EventHorizon.Zone.Core.ServerProperty
 
     using EventHorizon.Zone.Core.Model.ServerProperty;
 
-    public class InMemoryServerProperty : IServerProperty
+    public class InMemoryServerProperty
+        : IServerProperty
     {
-        private ConcurrentDictionary<string, object> PROPERTIES = new ConcurrentDictionary<string, object>();
+        private readonly ConcurrentDictionary<string, object> _properties = new();
 
         public T Get<T>(
             string key
         )
         {
-            PROPERTIES.TryGetValue(
+            _properties.TryGetValue(
                 key,
                 out var value
             );
@@ -24,7 +25,7 @@ namespace EventHorizon.Zone.Core.ServerProperty
             object value
         )
         {
-            PROPERTIES.AddOrUpdate(
+            _properties.AddOrUpdate(
                 key,
                 value,
                 (_, __) => value

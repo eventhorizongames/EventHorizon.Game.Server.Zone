@@ -17,6 +17,7 @@ namespace EventHorizon.Server.Core.Connection.Internal
         private readonly SemaphoreSlim _lock;
 
         private HubConnection? _connection;
+        private string _lastConnectionId = "not-set";
 
         public SystemCoreServerConnectionCache(
             ILogger<SystemCoreServerConnectionCache> logger
@@ -71,9 +72,8 @@ namespace EventHorizon.Server.Core.Connection.Internal
                     {
                         _logger.LogWarning(
                             "Core Server {ConnectionId} Connection Closed.",
-                            _connection.ConnectionId
+                            _lastConnectionId
                         );
-                        _connection = null;
                         // TODO: Add publish of Connection Closed Event
                         return Task.CompletedTask;
                     };
@@ -84,6 +84,7 @@ namespace EventHorizon.Server.Core.Connection.Internal
                         "Created new Core Server Connection of {ConnectionId}",
                         _connection.ConnectionId
                     );
+                    _lastConnectionId = _connection.ConnectionId;
                 }
                 catch (Exception ex)
                 {

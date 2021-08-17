@@ -1,7 +1,9 @@
-using EventHorizon.Zone.System.Combat.Model.Life;
-
 namespace EventHorizon.Zone.System.Combat.Model
 {
+    using EventHorizon.Zone.System.Combat.Model.Life;
+
+    using global::System;
+
     public struct LifeState
     {
         public static readonly string PROPERTY_NAME = "lifeState";
@@ -16,56 +18,52 @@ namespace EventHorizon.Zone.System.Combat.Model
 
         public long Attack { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "condition":
-                        return this.Condition;
-
-                    case "healthPoints":
-                        return this.HealthPoints;
-                    case "maxHealthPoints":
-                        return this.MaxHealthPoints;
-
-                    case "actionPoints":
-                        return this.ActionPoints;
-                    case "maxActionPoints":
-                        return this.MaxActionPoints;
-
-                    case "attack":
-                        return this.Attack;
-
-                    default:
-                        return null;
-                }
+                    "condition" => Condition,
+                    "healthPoints" => HealthPoints,
+                    "maxHealthPoints" => MaxHealthPoints,
+                    "actionPoints" => ActionPoints,
+                    "maxActionPoints" => MaxActionPoints,
+                    "attack" => Attack,
+                    _ => null,
+                };
             }
             set
             {
+                if (value is null)
+                {
+                    throw new ArgumentNullException(
+                        $"{index} cannot be set to null"
+                    );
+                }
+
                 switch (index)
                 {
                     case "condition":
-                        this.Condition = (LifeCondition)value;
+                        Condition = (LifeCondition)value;
                         break;
 
                     case "healthPoints":
-                        this.HealthPoints = (int)value;
+                        HealthPoints = (int)value;
                         break;
                     case "maxHealthPoints":
-                        this.MaxHealthPoints = (int)value;
+                        MaxHealthPoints = (int)value;
                         break;
 
                     case "actionPoints":
-                        this.ActionPoints = (int)value;
+                        ActionPoints = (int)value;
                         break;
                     case "maxActionPoints":
-                        this.MaxActionPoints = (int)value;
+                        MaxActionPoints = (int)value;
                         break;
 
                     case "attack":
-                        this.Attack = (int)value;
+                        Attack = (int)value;
                         break;
 
                     default:
@@ -75,7 +73,7 @@ namespace EventHorizon.Zone.System.Combat.Model
         }
 
 
-        public static readonly LifeState NEW = new LifeState
+        public static readonly LifeState NEW = new()
         {
             Condition = LifeCondition.ALIVE,
 

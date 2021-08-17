@@ -67,7 +67,7 @@
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    expected as object,
+                    expected,
                     CancellationToken.None
                 )
             );

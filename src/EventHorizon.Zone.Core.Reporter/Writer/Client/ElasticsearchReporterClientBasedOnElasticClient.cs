@@ -11,9 +11,10 @@
     using Microsoft.Extensions.Logging;
 
     public class ElasticsearchReporterClientBasedOnElasticClient
-        : ElasticsearchReporterClient, ElasticsearchReporterClientStartup
+        : ElasticsearchReporterClient,
+        ElasticsearchReporterClientStartup
     {
-        private ElasticLowLevelClient ElasticClient;
+        private ElasticLowLevelClient? _client;
 
         private readonly ILogger _logger;
         private readonly ReporterSettings _settings;
@@ -34,14 +35,17 @@
             CancellationToken cancellationToken
         )
         {
-            if (!IsConnected)
+            if (!IsConnected
+                || _client == null
+            )
             {
                 return false;
             }
-            var asyncIndexResponse = await ElasticClient.BulkAsync<StringResponse>(
+
+            await _client.BulkAsync<StringResponse>(
                 PostData.MultiJson(body)
             );
-            string responseString = asyncIndexResponse.Body;
+
             return true;
         }
 
@@ -49,13 +53,15 @@
         {
             if (!_settings.Elasticsearch.IsEnabled)
             {
-                ElasticClient = null;
+                _client = null;
                 IsConnected = false;
                 return;
             }
-            if (string.IsNullOrEmpty(_settings.Elasticsearch.Uri))
+            if (string.IsNullOrEmpty(
+                _settings.Elasticsearch.Uri
+            ))
             {
-                ElasticClient = null;
+                _client = null;
                 IsConnected = false;
                 _logger.LogError(
                     "Elasticsearch.Uri is not configured. {@Settings}",
@@ -63,7 +69,7 @@
                 );
                 return;
             }
-            if (ElasticClient == null)
+            if (_client == null)
             {
                 var settings = new ConnectionConfiguration(
                     new Uri(
@@ -77,13 +83,13 @@
                     _settings.Elasticsearch.Password
                 );
 
-                ElasticClient = new ElasticLowLevelClient(
+                _client = new ElasticLowLevelClient(
                     settings
                 );
-                var response = ElasticClient.Ping<PingResponse>();
+                var response = _client.Ping<PingResponse>();
                 if (!response.Success)
                 {
-                    ElasticClient = null;
+                    _client = null;
                     IsConnected = false;
                     _logger.LogError(
                         "Did not receive successful Ping response from Elasticsearch.",
@@ -93,7 +99,7 @@
                 }
 
                 // Build the Index, we need to make sure that it has date_nanos
-                ElasticClient.Indices.Create<StringResponse>(
+                _client.Indices.Create<StringResponse>(
                     // TODO: Reporter - This will need an index created specifically for the PlatformId.
                     "report",
                     PostData.Serializable(
@@ -116,7 +122,8 @@
             IsConnected = true;
         }
 
-        public class PingResponse : ElasticsearchResponse<VoidResponse>
+        public class PingResponse
+            : ElasticsearchResponse<VoidResponse>
         {
 
         }

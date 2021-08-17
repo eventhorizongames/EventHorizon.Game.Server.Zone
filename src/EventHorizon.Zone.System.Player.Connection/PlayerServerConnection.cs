@@ -1,8 +1,8 @@
-using System;
-using System.Threading.Tasks;
-
 namespace EventHorizon.Zone.System.Player.Connection
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
     public interface PlayerServerConnection
     {
         void OnAction<T>(
@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.System.Player.Connection
             string actionName,
             Action action
         );
-        Task<T> SendAction<T>(
+        Task<T?> SendAction<T>(
             string actionName,
             params object[] args
         );

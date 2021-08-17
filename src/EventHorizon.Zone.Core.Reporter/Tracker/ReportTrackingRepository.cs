@@ -6,9 +6,11 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Reporter.Model;
 
-    public class ReportTrackingRepository : ReportTracker, ReportRepository
+    public class ReportTrackingRepository
+        : ReportTracker,
+        ReportRepository
     {
-        private readonly ConcurrentDictionary<string, Report> _reports = new ConcurrentDictionary<string, Report>();
+        private readonly ConcurrentDictionary<string, Report> _reports = new();
 
         private readonly IDateTimeService _dateTime;
 
@@ -40,7 +42,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             string id,
             string correlationId,
             string message,
-            object data
+            object? data
         )
         {
             var timestamp = _dateTime.Now;

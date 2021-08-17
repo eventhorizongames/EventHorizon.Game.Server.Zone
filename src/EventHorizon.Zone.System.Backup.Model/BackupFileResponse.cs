@@ -5,19 +5,21 @@ namespace EventHorizon.Zone.System.Backup.Model
         public bool Successful { get; }
         public BackupFileData FileData { get; }
         public string ErrorCode { get; }
+
         public BackupFileResponse(
             BackupFileData fileData
-        ) : this(true, null)
+        ) : this(true, string.Empty)
         {
             FileData = fileData;
         }
+
         public BackupFileResponse(
             bool successful,
             string errorCode
         )
         {
             Successful = successful;
-            FileData = default(BackupFileData);
+            FileData = default;
             ErrorCode = errorCode;
         }
     }

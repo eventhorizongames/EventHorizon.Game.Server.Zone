@@ -18,6 +18,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests
 
     using MediatR;
 
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
     using Moq;
@@ -155,7 +156,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    expected,
+                    new StartupElasticsearchReporterClient(),
                     CancellationToken.None
                 )
             );

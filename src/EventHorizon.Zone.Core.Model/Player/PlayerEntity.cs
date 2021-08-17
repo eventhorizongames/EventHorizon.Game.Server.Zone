@@ -6,9 +6,10 @@ namespace EventHorizon.Zone.Core.Model.Player
     using EventHorizon.Zone.Core.Model.Core;
     using EventHorizon.Zone.Core.Model.Entity;
 
-    public struct PlayerEntity : IObjectEntity
+    public struct PlayerEntity
+        : IObjectEntity
     {
-        private static PlayerEntity NULL = default(PlayerEntity);
+        private static PlayerEntity NULL = default;
 
         public long Id { get; set; }
         public string PlayerId { get; set; }
@@ -23,7 +24,7 @@ namespace EventHorizon.Zone.Core.Model.Player
         public string Locale { get; set; }
         public EntityType Type { get; set; }
         public TransformState Transform { get; set; }
-        public IList<string> TagList { get; set; }
+        public IList<string>? TagList { get; set; }
         public string ConnectionId { get; set; }
 
         private ConcurrentDictionary<string, object> _data;
@@ -54,7 +55,7 @@ namespace EventHorizon.Zone.Core.Model.Player
 
         public bool IsFound()
         {
-            return !this.Equals(NULL);
+            return !Equals(NULL);
         }
     }
 }

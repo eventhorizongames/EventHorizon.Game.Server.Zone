@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
         string GlobalId { get; }
         EntityType Type { get; }
         TransformState Transform { get; set; }
-        IList<string> TagList { get; set; }
+        IList<string>? TagList { get; set; }
         ConcurrentDictionary<string, object> Data { get; }
         ConcurrentDictionary<string, object> RawData { get; set; }
 

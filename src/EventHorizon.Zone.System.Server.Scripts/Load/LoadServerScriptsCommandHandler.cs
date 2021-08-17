@@ -76,7 +76,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
                 return;
             }
 
-            var rootPath = arguments["RootPath"] as string;
+            var rootPath = (string)arguments["RootPath"];
 
             // Register Script with Platform
             await _mediator.Send(

@@ -11,9 +11,9 @@ namespace System.Collections.Generic
         ) => data.TryGetValue(
                 prop,
                 out var propValue
-            ) ? CastValue<T>(
-                propValue
-            ) : defaultValue;
+            )
+            ? (CastValue<T>(propValue) ?? defaultValue)
+            : defaultValue;
 
         /// <summary>
         /// This is used to help with the casting of objects Deserialize by Newtonsoft.Json 
@@ -21,13 +21,13 @@ namespace System.Collections.Generic
         /// <param name="propValue"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static T CastValue<T>(
+        private static T? CastValue<T>(
             object propValue
         )
         {
-            if (propValue is JObject)
+            if (propValue is JObject obj)
             {
-                return ((JObject)propValue).ToObject<T>();
+                return obj.ToObject<T>();
             }
             return (T)propValue;
         }

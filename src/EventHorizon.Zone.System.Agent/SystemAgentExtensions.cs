@@ -35,15 +35,11 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                mediator.Send(
-                    new LoadZoneAgentStateEvent()
-                ).GetAwaiter().GetResult();
+            app.SendMediatorCommand(
+                new LoadZoneAgentStateEvent()
+            );
 
-                return app;
-            }
+            return app;
         }
     }
 }

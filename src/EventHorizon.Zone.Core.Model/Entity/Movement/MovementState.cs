@@ -6,25 +6,22 @@ namespace EventHorizon.Zone.Core.Model.Entity.Movement
 
         public float Speed { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "speed":
-                        return this.Speed;
-
-                    default:
-                        return null;
-                }
+                    "speed" => Speed,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "speed":
-                        this.Speed = (float)value;
+                        Speed = (float?)value ?? 1.0f;
                         break;
 
                     default:
@@ -33,7 +30,7 @@ namespace EventHorizon.Zone.Core.Model.Entity.Movement
             }
         }
 
-        public static readonly MovementState NEW = new MovementState
+        public static readonly MovementState NEW = new()
         {
             Speed = 1.0f,
         };

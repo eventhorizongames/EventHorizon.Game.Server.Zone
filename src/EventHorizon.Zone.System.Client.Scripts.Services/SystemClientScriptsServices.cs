@@ -8,20 +8,28 @@ using Microsoft.Extensions.Logging;
 
 public class ClientServices
 {
-    public static IMediator Mediator;
+    public static IMediator Mediator = null!;
 
     public static ILogger Logger<T>()
     {
-        return default;
+        return default!;
     }
 
+#pragma warning disable IDE0051 // Remove unused private members
     void RegisterObserver(
+#pragma warning restore IDE0051 // Remove unused private members
+#pragma warning disable IDE0060 // Remove unused parameter
         ObserverBase observer
+#pragma warning restore IDE0060 // Remove unused parameter
     )
     { }
 
+#pragma warning disable IDE0051 // Remove unused private members
     void UnRegisterObserver(
+#pragma warning restore IDE0051 // Remove unused private members
+#pragma warning disable IDE0060 // Remove unused parameter
         ObserverBase observer
+#pragma warning restore IDE0060 // Remove unused parameter
     )
     { }
 }
@@ -29,7 +37,9 @@ public class ClientServices
 
 public static class ClientData
 {
-    public static T Get<T>(
+    public static T? Get<T>(
+#pragma warning disable IDE0060 // Remove unused parameter
         string name
-    ) => default(T);
+#pragma warning restore IDE0060 // Remove unused parameter
+    ) => default;
 }

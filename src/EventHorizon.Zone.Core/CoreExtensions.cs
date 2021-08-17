@@ -1,5 +1,6 @@
 namespace EventHorizon.Game.Server.Zone
 {
+    using System;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -105,8 +106,16 @@ namespace EventHorizon.Game.Server.Zone
             Task.Run(async () =>
             {
                 using var serviceScope = app.CreateServiceScope();
-                await serviceScope.ServiceProvider
-                    .GetRequiredService<IMediator>()
+                var mediator = serviceScope.ServiceProvider
+                    .GetService<IMediator>();
+                if (mediator == null)
+                {
+                    throw new InvalidOperationException(
+                        $"{typeof(IMediator)} was not found"
+                    );
+                }
+
+                await mediator
                     .Send(
                         new FinishServerStartCommand()
                     );

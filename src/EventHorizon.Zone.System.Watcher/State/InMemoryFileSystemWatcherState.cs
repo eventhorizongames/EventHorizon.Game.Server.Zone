@@ -1,42 +1,43 @@
-using System.Collections.Concurrent;
-
-using EventHorizon.Zone.System.Watcher.Model;
-
 namespace EventHorizon.Zone.System.Watcher.State
 {
-    public class InMemoryFileSystemWatcherState : FileSystemWatcherState
+    using EventHorizon.Zone.System.Watcher.Model;
+
+    using global::System.Collections.Concurrent;
+
+    public class InMemoryFileSystemWatcherState
+        : FileSystemWatcherState
     {
-        private readonly ConcurrentDictionary<string, PathWatcher> MAP = new ConcurrentDictionary<string, PathWatcher>();
+        private readonly ConcurrentDictionary<string, PathWatcher> _map = new();
 
         public void Add(
             string path,
             PathWatcher watcher
         )
         {
-            MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 path,
                 watcher,
-                (_, __) => watcher
+                (_, _) => watcher
             );
         }
 
-        public PathWatcher Get(
+        public PathWatcher? Get(
             string path
         )
         {
-            if (MAP.TryGetValue(
+            if (_map.TryGetValue(
                 path,
                 out var watcher
             ))
             {
                 return watcher;
             }
-            return default(PathWatcher);
+            return default;
         }
 
         public void Remove(string path)
         {
-            MAP.TryRemove(
+            _map.TryRemove(
                 path,
                 out _
             );

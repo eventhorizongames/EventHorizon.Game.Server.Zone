@@ -15,7 +15,6 @@ namespace EventHorizon.Server.Core.Connection.Internal
 
     public class SystemCoreServerConnectionFactory : CoreServerConnectionFactory
     {
-        private readonly ILogger _logger;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IMediator _mediator;
         private readonly CoreSettings _coreSettings;
@@ -30,8 +29,6 @@ namespace EventHorizon.Server.Core.Connection.Internal
             IServiceScopeFactory serviceScopeFactory
         )
         {
-            _logger = loggerFactory.CreateLogger<SystemCoreServerConnectionFactory>();
-
             _loggerFactory = loggerFactory;
             _mediator = mediator;
             _coreSettings = playerSettings.Value;
@@ -52,21 +49,21 @@ namespace EventHorizon.Server.Core.Connection.Internal
                                 new RequestIdentityAccessTokenEvent()
                             );
                     },
-                    this.OnClose
+                    OnClose
                 )
             );
         }
 
-        private Task OnClose(
+        private async Task OnClose(
             Exception exception
         )
         {
-            using (var serviceScope = _serviceScopeFactory.CreateScope())
-            {
-                return serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+            using var serviceScope = _serviceScopeFactory.CreateScope();
+
+            await serviceScope.ServiceProvider
+                .GetRequiredService<IMediator>().Publish(
                     new ServerCoreConnectionDisconnected()
                 );
-            }
         }
     }
 }

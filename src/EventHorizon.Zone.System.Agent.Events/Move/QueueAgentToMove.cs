@@ -5,7 +5,8 @@ namespace EventHorizon.Zone.System.Agent.Events.Move
 
     using MediatR;
 
-    public struct QueueAgentToMove : IRequest
+    public struct QueueAgentToMove
+        : IRequest
     {
         public long EntityId { get; }
         public Queue<Vector3> Path { get; }

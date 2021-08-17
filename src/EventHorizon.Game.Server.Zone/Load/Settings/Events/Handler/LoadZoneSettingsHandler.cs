@@ -52,7 +52,8 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
             if (!await _mediator.Send(
                 new DoesFileExist(
                     settingsFile
-                )
+                ),
+                cancellationToken
             ))
             {
                 _logger.LogWarning(
@@ -60,8 +61,8 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
                     settingsFile
                 );
                 await _fileSaver.SaveToFile(
-                    Path.GetDirectoryName(settingsFile),
-                    Path.GetFileName(settingsFile),
+                    Path.GetDirectoryName(settingsFile).ValidateForNull(),
+                    Path.GetFileName(settingsFile).ValidateForNull(),
                     _zoneSettingsFactory.Settings
                 );
                 return;

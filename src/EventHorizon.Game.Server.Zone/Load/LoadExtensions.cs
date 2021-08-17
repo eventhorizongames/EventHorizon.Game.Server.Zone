@@ -1,15 +1,14 @@
-using EventHorizon.Game.Server.Zone.Load.Settings.Events;
-using EventHorizon.Game.Server.Zone.Load.Settings.Factory;
-using EventHorizon.Game.Server.Zone.Settings.Load;
-using EventHorizon.Zone.Core.Model.Settings;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone.Core
 {
+    using EventHorizon.Game.Server.Zone.Load.Settings.Events;
+    using EventHorizon.Game.Server.Zone.Load.Settings.Factory;
+    using EventHorizon.Game.Server.Zone.Settings.Load;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class LoadExtensions
     {
         public static IServiceCollection AddServerLoad(
@@ -22,7 +21,7 @@ namespace EventHorizon.Game.Server.Zone.Core
                     zoneSettingsFactory
                 ).AddSingleton<IZoneSettingsSetter>(
                     zoneSettingsFactory
-                ).AddTransient<ZoneSettings>(
+                ).AddTransient(
                     _ => zoneSettingsFactory.Settings
                 )
             ;
@@ -34,7 +33,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             using (var serviceScope = app.CreateServiceScope())
             {
                 serviceScope.ServiceProvider
-                    .GetService<IMediator>()
+                    .GetRequiredService<IMediator>()
                     .Publish(
                         new LoadZoneSettingsEvent()
                     ).GetAwaiter().GetResult();

@@ -1,5 +1,7 @@
 namespace EventHorizon.Zone.System.Combat.Model
 {
+    using global::System;
+
     public struct LevelState
     {
         public static readonly string PROPERTY_NAME = "levelState";
@@ -11,47 +13,46 @@ namespace EventHorizon.Zone.System.Combat.Model
         public long Experience { get; set; }
         public long AllTimeExperience { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "healthPointsLevel":
-                        return this.HealthPointsLevel;
-                    case "actionPointsLevel":
-                        return this.ActionPointsLevel;
-                    case "attackLevel":
-                        return this.AttackLevel;
-
-                    case "experience":
-                        return this.Experience;
-                    case "allTimeExperience":
-                        return this.AllTimeExperience;
-
-                    default:
-                        return null;
-                }
+                    "healthPointsLevel" => HealthPointsLevel,
+                    "actionPointsLevel" => ActionPointsLevel,
+                    "attackLevel" => AttackLevel,
+                    "experience" => Experience,
+                    "allTimeExperience" => AllTimeExperience,
+                    _ => null,
+                };
             }
             set
             {
+                if (value is null)
+                {
+                    throw new ArgumentNullException(
+                        $"{index} cannot be set to null"
+                    );
+                }
+
                 switch (index)
                 {
                     case "healthPointsLevel":
-                        this.HealthPointsLevel = (long)value;
+                        HealthPointsLevel = (long)value;
                         break;
                     case "actionPointsLevel":
-                        this.ActionPointsLevel = (long)value;
+                        ActionPointsLevel = (long)value;
                         break;
                     case "attackLevel":
-                        this.AttackLevel = (long)value;
+                        AttackLevel = (long)value;
                         break;
 
                     case "experience":
-                        this.Experience = (long)value;
+                        Experience = (long)value;
                         break;
                     case "allTimeExperience":
-                        this.AllTimeExperience = (long)value;
+                        AllTimeExperience = (long)value;
                         break;
 
                     default:
@@ -60,7 +61,7 @@ namespace EventHorizon.Zone.System.Combat.Model
             }
         }
 
-        public static readonly LevelState NEW = new LevelState
+        public static readonly LevelState NEW = new()
         {
             HealthPointsLevel = 1,
 

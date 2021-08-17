@@ -6,9 +6,10 @@ namespace EventHorizon.Zone.System.Agent.Model
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
 
-    public struct AgentEntity : IObjectEntity
+    public struct AgentEntity
+        : IObjectEntity
     {
-        private static AgentEntity NULL = default(AgentEntity);
+        private static AgentEntity NULL = default;
         public static AgentEntity CreateNotFound()
         {
             return NULL;
@@ -24,7 +25,7 @@ namespace EventHorizon.Zone.System.Agent.Model
         {
             get
             {
-                return this.AgentId;
+                return AgentId;
             }
             set
             {
@@ -34,7 +35,7 @@ namespace EventHorizon.Zone.System.Agent.Model
         public EntityType Type { get; set; }
 
         public TransformState Transform { get; set; }
-        public IList<string> TagList { get; set; }
+        public IList<string>? TagList { get; set; }
 
         public string Name { get; set; }
         public ConcurrentDictionary<string, object> RawData
@@ -62,7 +63,7 @@ namespace EventHorizon.Zone.System.Agent.Model
         }
 
         public AgentEntity(
-            ConcurrentDictionary<string, object> rawData
+            ConcurrentDictionary<string, object>? rawData
         )
         {
             _data = new ConcurrentDictionary<string, object>();
@@ -71,14 +72,14 @@ namespace EventHorizon.Zone.System.Agent.Model
             IsGlobal = false;
             AgentId = string.Empty;
             Type = EntityType.AGENT;
-            Transform = default(TransformState);
+            Transform = default;
             TagList = null;
             Name = string.Empty;
         }
 
         public bool IsFound()
         {
-            return !this.Equals(NULL);
+            return !Equals(NULL);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace EventHorizon.Zone.Core.Events.Client
         public abstract string Action { get; }
         public abstract T Data { get; }
 
+        #region Equals/GetHashCode Generated
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -16,16 +17,14 @@ namespace EventHorizon.Zone.Core.Events.Client
 
             var castObj = obj as ClientActionToAllEvent<T>;
 
-            return Action.Equals(castObj.Action)
+            return Action.Equals(castObj?.Action)
                 && Data.Equals(castObj.Data);
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 3124515;
-            hashCode = hashCode * -12341515 + Action.GetHashCode();
-            hashCode = hashCode * -12341515 + Data.GetHashCode();
-            return hashCode;
+            return System.HashCode.Combine(Action, Data);
         }
+        #endregion
     }
 }

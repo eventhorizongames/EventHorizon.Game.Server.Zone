@@ -1,63 +1,122 @@
-using System.Collections.Generic;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Structure;
-
 namespace EventHorizon.Zone.Core.Model.Math
 {
-    public class Octree<T> where T : struct, IOctreeEntity
+    using System.Collections.Generic;
+    using System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Structure;
+
+    public class Octree<T>
+        where T : struct, IOctreeEntity
     {
         public static int MAX_LEVEL = 8;
-        private float _maxDistance;
+
         private Cell<T> _root;
+
         public int Accuracy { get; internal set; }
 
-        public Octree(Vector3 position, Vector3 size, int accuracy)
+        public Octree(
+            Vector3 position,
+            Vector3 size,
+            int accuracy
+        )
         {
-            this.Reset(position, size, accuracy);
+            _root = new Cell<T>(
+                accuracy,
+                position,
+                size,
+                accuracy
+            );
+            Reset(
+                position,
+                size,
+                accuracy
+            );
         }
 
-        public void Reset(Vector3 position, Vector3 size, int accuracy)
+        public void Reset(
+            Vector3 position,
+            Vector3 size,
+            int accuracy
+        )
         {
-            this._maxDistance = System.Math.Max(size.X, System.Math.Max(size.Y, size.Z));
-            this.Accuracy = accuracy;
-            this._root = new Cell<T>(accuracy, position, size, accuracy);
+            Accuracy = accuracy;
+            _root = new Cell<T>(
+                accuracy,
+                position,
+                size,
+                accuracy
+            );
         }
 
-        public void Add(T point)
+        public void Add(
+            T point
+        )
         {
-            this._root.Add(point);
+            _root.Add(
+                point
+            );
         }
-        public void Remove(T point)
+
+        public void Remove(
+            T point
+        )
         {
-            this._root.Remove(point);
+            _root.Remove(
+                point
+            );
         }
-        public bool Has(T point)
+
+        public bool Has(
+            T point
+        )
         {
-            return this._root.Has(point);
+            return _root.Has(
+                point
+            );
         }
+
         public List<T> All()
         {
-            return this._root.All(new List<T>());
+            return _root.All(
+                new List<T>()
+            );
         }
-        public T FindNearestPoint(Vector3 p, IOctreeOptions options = null)
+
+        public T FindNearestPoint(
+            Vector3 point,
+            IOctreeOptions? options = null
+        )
         {
-            return this._root.FindNearestPoint(p, options ?? IOctreeOptions.DEFAULT);
+            return _root.FindNearestPoint(
+                point,
+                options ?? IOctreeOptions.DEFAULT
+            );
         }
-        public IList<T> FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options = null)
-        {
-            var result = new List<T>();
-            this._root.FindNearbyPoints(position, radius, options ?? IOctreeOptions.DEFAULT, ref result);
-            return result;
-        }
+
         public IList<T> FindNearbyPoints(
             Vector3 position,
-            Vector3 dimension,
-            IOctreeOptions options = null
+            float radius,
+            IOctreeOptions? options = null
         )
         {
             var result = new List<T>();
-            this._root.FindNearbyPointsInDimension(
+            _root.FindNearbyPoints(
+                position,
+                radius,
+                options ?? IOctreeOptions.DEFAULT,
+                ref result
+            );
+            return result;
+        }
+
+        public IList<T> FindNearbyPoints(
+            Vector3 position,
+            Vector3 dimension,
+            IOctreeOptions? options = null
+        )
+        {
+            var result = new List<T>();
+            _root.FindNearbyPointsInDimension(
                 position,
                 dimension,
                 options ?? IOctreeOptions.DEFAULT,
@@ -66,15 +125,19 @@ namespace EventHorizon.Zone.Core.Model.Math
             return result;
         }
     }
+
     public class IOctreeOptions
     {
-        public static readonly IOctreeOptions DEFAULT = new IOctreeOptions(float.MaxValue, false);
+        public static readonly IOctreeOptions DEFAULT = new(float.MaxValue, false);
         public float MaxDist { get; }
         public bool NotSelf { get; }
 
-        public IOctreeOptions(float maxDist, bool notSelf)
+        public IOctreeOptions(
+            float maxDist,
+            bool notSelf
+        )
         {
-            MaxDist = float.MaxValue;
+            MaxDist = maxDist;
             NotSelf = notSelf;
         }
     }

@@ -1,19 +1,19 @@
-using System;
-
 namespace EventHorizon.Zone.Core.Reporter.Model
 {
+    using System;
+
     public struct ReportItem
     {
         public string CorrelationId { get; }
         public string Message { get; }
         public DateTime Timestamp { get; set; }
-        public object Data { get; }
+        public object? Data { get; }
 
         public ReportItem(
             string correlationId,
             string message,
             DateTime timestamp,
-            object data
+            object? data
         )
         {
             CorrelationId = correlationId;

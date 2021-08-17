@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Wizard.Api;
     using EventHorizon.Zone.System.Wizard.Load;
     using EventHorizon.Zone.System.Wizard.State;
@@ -19,9 +20,9 @@
             this IApplicationBuilder app
         )
         {
-            return app.SendMediatorCommand(
+            return app.SendMediatorCommand<LoadSystemsWizardListCommand, StandardCommandResult>(
                 new LoadSystemsWizardListCommand()
-            ).SendMediatorCommand(
+            ).SendMediatorCommand<LoadWizardListCommand, StandardCommandResult>(
                 new LoadWizardListCommand()
             );
         }

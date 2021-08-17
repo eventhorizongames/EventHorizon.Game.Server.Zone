@@ -1,21 +1,22 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
-using EventHorizon.Zone.System.Watcher.State;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Watcher.Check
 {
-    public class CheckPendingReloadEventHandler : INotificationHandler<CheckPendingReloadEvent>
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+    using EventHorizon.Zone.System.Watcher.State;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    public class CheckPendingReloadEventHandler
+        : INotificationHandler<CheckPendingReloadEvent>
     {
-        readonly IMediator _mediator;
-        readonly ILogger _logger;
-        readonly PendingReloadState _pendingReload;
+        private readonly IMediator _mediator;
+        private readonly ILogger _logger;
+        private readonly PendingReloadState _pendingReload;
 
         public CheckPendingReloadEventHandler(
             IMediator mediator,
@@ -35,15 +36,19 @@ namespace EventHorizon.Zone.System.Watcher.Check
         {
             if (_pendingReload.IsPending)
             {
-                _logger.LogInformation("Running System Reload");
+                _logger.LogInformation(
+                    "Running System Reload"
+                );
+
                 await _mediator.Publish(
                     new AdminCommandEvent(
                         BuildAdminCommand.FromString(
                             "reload-system"
                         ),
-                        null
+                        "reload-system"
                     )
                 );
+
                 _pendingReload.RemovePending();
             }
         }

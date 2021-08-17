@@ -6,7 +6,10 @@ namespace EventHorizon.Game.I18n.Lookup
 
     using EventHorizon.Game.I18n.Model;
 
-    public class I18nLookupRepository : I18nLookup, I18nResolver, I18nRepository
+    public class I18nLookupRepository
+        : I18nLookup,
+        I18nResolver,
+        I18nRepository
     {
         private static readonly IDictionary<string, string> DEFAULT_LOOKUP = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
         private Dictionary<string, IDictionary<string, string>> I18N_LOOKUP = new Dictionary<string, IDictionary<string, string>>();
@@ -30,20 +33,18 @@ namespace EventHorizon.Game.I18n.Lookup
             string key
         )
         {
-            IDictionary<string, string> localeTranslationDictionary;
             if (I18N_LOOKUP.TryGetValue(
                 locale,
-                out localeTranslationDictionary
+                out IDictionary<string, string> localeTranslationDictionary
             ))
             {
-                string translation;
                 if (key == null)
                 {
-                    key = "";
+                    key = "''";
                 }
                 if (localeTranslationDictionary.TryGetValue(
                     key,
-                    out translation
+                    out string translation
                 ))
                 {
                     return translation;

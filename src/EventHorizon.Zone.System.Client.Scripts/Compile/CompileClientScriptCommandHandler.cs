@@ -122,10 +122,10 @@
             {
                 _logger.LogError(
                     "Failed to Compile Client Scripts: {ErrorCode}",
-                    compiledResult.ErrorCode
+                    compiledResult.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
                 );
                 return new(
-                    compiledResult.ErrorCode
+                    compiledResult.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
                 );
             }
 

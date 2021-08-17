@@ -6,7 +6,7 @@
         public static string SCRIPTS_ASSEMBLY_FILE_NAME => "Server_Scripts.dll";
 
         public bool Success { get; set; }
-        public string ErrorCode { get; set; }
+        public string? ErrorCode { get; set; }
         public string Hash { get; set; } = string.Empty;
     }
 }

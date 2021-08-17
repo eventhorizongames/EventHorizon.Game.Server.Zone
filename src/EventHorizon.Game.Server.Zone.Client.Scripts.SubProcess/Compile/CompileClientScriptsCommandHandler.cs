@@ -71,7 +71,7 @@
                             return;
                         }
 
-                        var rootPath = arguments["RootPath"] as string;
+                        var rootPath = (string)arguments["RootPath"];
                         // Create ClientScript AND Add to Repository
                         clientScriptList.Add(
                             ClientScript.Create(

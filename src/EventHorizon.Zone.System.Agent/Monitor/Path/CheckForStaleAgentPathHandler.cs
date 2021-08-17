@@ -12,7 +12,8 @@ namespace EventHorizon.Zone.System.Agent.Monitor.Path
 
     using MediatR;
 
-    public class CheckForStaleAgentPathHandler : INotificationHandler<CheckForStaleAgentPath>
+    public class CheckForStaleAgentPathHandler
+        : INotificationHandler<CheckForStaleAgentPath>
     {
         private readonly IMediator _mediator;
         private readonly IDateTimeService _dateTime;
@@ -51,11 +52,19 @@ namespace EventHorizon.Zone.System.Agent.Monitor.Path
                 var pathState = agent.GetProperty<PathState>(
                     PathState.PROPERTY_NAME
                 );
+                var path = pathState.Path();
+                if (path.IsNull()
+                    || !pathState.MoveTo.HasValue
+                )
+                {
+                    continue;
+                }
+
                 await _mediator.Send(
                     new QueueAgentToMove(
                         agent.Id,
-                        pathState.Path(),
-                        pathState.MoveTo
+                        path,
+                        pathState.MoveTo.Value
                     )
                 );
             }

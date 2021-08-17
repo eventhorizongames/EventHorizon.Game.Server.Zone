@@ -19,13 +19,11 @@ namespace EventHorizon.Game.Server.Zone
                 .AddSingleton<ITimerTask, MoveRegisteredAgentsTimer>()
             ;
         }
-        public static void UseSystemAgentPluginMove(
+        public static IApplicationBuilder UseSystemAgentPluginMove(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-            }
+            return app;
         }
     }
 }

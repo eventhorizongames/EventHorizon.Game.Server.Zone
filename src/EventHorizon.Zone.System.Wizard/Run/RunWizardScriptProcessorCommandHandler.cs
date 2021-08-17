@@ -8,6 +8,7 @@
     using EventHorizon.Zone.System.Wizard.Model.Scripts;
 
     using global::System.Collections.Generic;
+    using global::System.Diagnostics.CodeAnalysis;
     using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -97,7 +98,7 @@
         private static bool IsInvalidProcessorId(
             WizardStep wizardStep,
             string expectedProcessorScriptId,
-            out string processorScriptId
+            [MaybeNullWhen(true)] out string processorScriptId
         ) => !wizardStep.Details.TryGetValue(
             "Processor:ScriptId",
             out processorScriptId

@@ -7,8 +7,8 @@
     public struct MessageFromSystemData : IClientActionData
     {
         public string Message { get; }
-        public IDictionary<string, object> SenderControlOptions { get; }
-        public IDictionary<string, object> MessageControlOptions { get; }
+        public IDictionary<string, object>? SenderControlOptions { get; }
+        public IDictionary<string, object>? MessageControlOptions { get; }
 
         public MessageFromSystemData(
             string message
@@ -16,8 +16,8 @@
 
         public MessageFromSystemData(
             string message,
-            IDictionary<string, object> senderControlOptions,
-            IDictionary<string, object> messageControlOptions
+            IDictionary<string, object>? senderControlOptions,
+            IDictionary<string, object>? messageControlOptions
         )
         {
             Message = message;

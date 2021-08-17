@@ -105,7 +105,7 @@
                 if (process.ExitCode != 0)
                 {
                     _logger.LogError(
-                        "Bad ExitCode for SubProcess Client Scripts Compile. Check Logs for more Detail."
+                        "Bad ExitCode for SubProcess Server Scripts Compile. Check Logs for more Detail."
                     );
                     return new(
                         ServerScriptsErrorCodes.SERVER_SCRIPT_INVALID_PROCESS_ERROR_CODE
@@ -123,11 +123,11 @@
                 if (!compiledResult.Success)
                 {
                     _logger.LogError(
-                        "Failed to Compile Client Scripts: {ErrorCode}",
-                        compiledResult.ErrorCode
+                        "Failed to Compile Server Scripts: {ErrorCode}",
+                        compiledResult.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                     );
                     return new(
-                        compiledResult.ErrorCode
+                        compiledResult.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                     );
                 }
 

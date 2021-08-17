@@ -56,8 +56,8 @@
                 );
 
                 await _fileSaver.SaveToFile(
-                    directory,
-                    fileName,
+                    directory.ValidateForNull(),
+                    fileName.ValidateForNull(),
                     clientAsset
                 );
             }

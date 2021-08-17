@@ -18,7 +18,8 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
 
     using MediatR;
 
-    public class MoveRegisteredAgentHandler : INotificationHandler<MoveRegisteredAgentEvent>
+    public class MoveRegisteredAgentHandler
+        : INotificationHandler<MoveRegisteredAgentEvent>
     {
         private readonly IMediator _mediator;
         private readonly IDateTimeService _dateTime;
@@ -52,7 +53,8 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
                 PathState.PROPERTY_NAME
             );
             var path = pathState.Path();
-            if (path == null)
+            if (path == null
+                || !pathState.MoveTo.HasValue)
             {
                 await RemoveAgent(
                     agent,
@@ -72,7 +74,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             {
                 await QueueForNextUpdateCycle(
                     entityId,
-                    pathState.MoveTo,
+                    pathState.MoveTo.Value,
                     path
                 );
                 return;
@@ -104,7 +106,7 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
             }
             await QueueForNextUpdateCycle(
                 entityId,
-                pathState.MoveTo,
+                pathState.MoveTo.Value,
                 path
             );
         }

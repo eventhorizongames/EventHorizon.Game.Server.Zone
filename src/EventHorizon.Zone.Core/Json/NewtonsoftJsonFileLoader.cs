@@ -7,7 +7,8 @@ namespace EventHorizon.Zone.Core.Json
 
     using Newtonsoft.Json;
 
-    public class NewtonsoftJsonFileLoader : IJsonFileLoader
+    public class NewtonsoftJsonFileLoader
+        : IJsonFileLoader
     {
         private readonly FileResolver _fileResolver;
 
@@ -26,8 +27,11 @@ namespace EventHorizon.Zone.Core.Json
                 fileFullName
             ))
             {
-                return default(T).FromResult();
+                // TODO: Update this to support new() or struct
+                return default(T)!
+                    .FromResult();
             }
+
             return JsonConvert.DeserializeObject<T>(
                 _fileResolver.GetFileText(
                     fileFullName

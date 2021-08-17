@@ -12,7 +12,7 @@ namespace EventHorizon.TimerService
 
     public class TimerWrapper
     {
-        private Timer _timer;
+        private Timer? _timer;
 
         private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
@@ -89,7 +89,7 @@ namespace EventHorizon.TimerService
                 }
 
                 using var serviceScope = _serviceScopeFactory.CreateScope();
-                var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
+                var mediator = serviceScope.ServiceProvider.GetRequiredService<IMediator>();
 
                 if (_timerTask.OnValidationEvent != null
                     && !await mediator.Send(
@@ -149,7 +149,7 @@ namespace EventHorizon.TimerService
         private void LogMessage(
             string message,
             TimerState state,
-            Exception ex = null
+            Exception? ex = null
         )
         {
             var timeRunning = DateTime.UtcNow - state.StartDate;

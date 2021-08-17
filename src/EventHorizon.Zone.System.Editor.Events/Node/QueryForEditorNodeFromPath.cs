@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.Editor.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Editor.Events.Node
 {
-    public struct QueryForEditorNodeFromPath : IRequest<IEditorNode>
+    using EventHorizon.Zone.System.Editor.Model;
+
+    using global::System.Collections.Generic;
+
+    using MediatR;
+
+    public struct QueryForEditorNodeFromPath
+        : IRequest<IEditorNode>
     {
         public IList<string> NodePath { get; }
         public string RootDirectoryFullName { get; }
@@ -22,7 +23,7 @@ namespace EventHorizon.Zone.System.Editor.Events.Node
             NodePath = nodePath;
             RootDirectoryFullName = rootDirectoryFullName;
             DirectoryToLoadFullName = diretoryToLoadFullName;
-            NodeType = null;
+            NodeType = string.Empty;
         }
 
         public QueryForEditorNodeFromPath(

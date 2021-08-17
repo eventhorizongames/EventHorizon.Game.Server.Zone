@@ -1,18 +1,20 @@
-using System.Collections.Generic;
-
-using EventHorizon.Game.I18n.Lookup;
-using EventHorizon.Game.I18n.Model;
-
-using Xunit;
-
 namespace EventHorizon.Game.I18n.Tests.Repository
 {
+    using System.Collections.Generic;
+
+    using EventHorizon.Game.I18n.Lookup;
+    using EventHorizon.Game.I18n.Model;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class I18nLookupRepositoryTests
     {
         [Fact]
         public void TestLookup_ShouldReturnExpectedRepository()
         {
-            //Given
+            // Given
             var locale = "en_US";
             var key = "HelloWorld";
             var keyValue = "hi";
@@ -22,7 +24,7 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                     key, keyValue
                 }};
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -33,16 +35,14 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 locale
             );
 
-            //Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            // Then
+            actual.Should().BeEquivalentTo(expected);
         }
+
         [Fact]
         public void TestLookup_ShouldMergeRepositoriesWhenSameLocaleRepositoriesAreSet()
         {
-            //Given
+            // Given
             var locale = "en_US";
             var key1 = "HelloWorld";
             var expectedValue1 = "hi";
@@ -58,7 +58,7 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                     key2, expectedValue2
                 }};
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -73,23 +73,23 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 locale
             );
 
-            //Then
-            Assert.Equal(
-                expectedValue1,
-                actual[key1]
-            );
-            Assert.Equal(
-                expectedValue2,
-                actual[key2]
+            // Then
+            actual.Should().BeEquivalentTo(
+                new Dictionary<string, string>
+                {
+                    [key1] = expectedValue1,
+                    [key2] = expectedValue2,
+                }
             );
         }
+
         [Fact]
         public void TestSetRepository_ShouldSetEmptyDictionaryOnNullSet()
         {
-            //Given
+            // Given
             var locale = "en_US";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -99,39 +99,37 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 locale
             );
 
-            //Then
-            Assert.Empty(
-                actual
-            );
+            // Then
+            actual.Should().BeEmpty();
         }
+
         [Fact]
         public void TestLookup_ShouldReturnEmptyRepositoryWhenNotIsFound()
         {
-            //Given
+            // Given
             var locale = "en_US";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
 
             var actual = i18nLookupRepository.GetRepository(
                 locale
             );
 
-            //Then
-            Assert.Empty(
-                actual
-            );
+            // Then
+            actual.Should().BeEmpty();
         }
+
         [Fact]
         public void TestLookup_ShouldReturnNotFoundTranslationWhenNotFound()
         {
-            //Given
+            // Given
             var expected = "[[HelloWorld (NOT_FOUND)]]";
 
             var locale = "en_US";
             var key = "HelloWorld";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
 
             var actual = i18nLookupRepository.Lookup(
@@ -139,22 +137,20 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 key
             );
 
-            //Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            // Then
+            actual.Should().Be(expected);
         }
+
         [Fact]
         public void TestLookup_ShouldReturnExpectedTranslationWhenFound()
         {
-            //Given
+            // Given
             var expected = "Hello, World!";
 
             var locale = "en_US";
             var key = "HelloWorld";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -169,22 +165,20 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 key
             );
 
-            //Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            // Then
+            actual.Should().Be(expected);
         }
+
         [Fact]
         public void TestLookup_ShouldReturnNotFoundWhenTranslationKeyIsNotFoundInLocaleList()
         {
-            //Given
+            // Given
             var expected = "[[HelloWorld (NOT_FOUND)]]";
 
             var locale = "en_US";
             var key = "HelloWorld";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -196,16 +190,14 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 key
             );
 
-            //Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            // Then
+            actual.Should().Be(expected);
         }
+
         [Fact]
-        public void TestLookup_ShouldReturnExpectedResolvedKeyValueTranslationWhenFound()
+        public void ShouldReturnExpectedResolvedKeyValueTranslationWhenFound()
         {
-            //Given
+            // Given
             var expected = "Hello, World!";
 
             var locale = "en_US";
@@ -216,7 +208,7 @@ namespace EventHorizon.Game.I18n.Tests.Repository
             var secondToken = "second";
             var secondValue = "World";
 
-            //When
+            // When
             var i18nLookupRepository = new I18nLookupRepository();
             i18nLookupRepository.SetRepository(
                 locale,
@@ -241,11 +233,36 @@ namespace EventHorizon.Game.I18n.Tests.Repository
                 }
             );
 
-            //Then
-            Assert.Equal(
-                expected,
-                actual
+            // Then
+            actual.Should().Be(expected);
+        }
+
+
+        [Fact]
+        public void ShouldReturnNotFoundWhenKeyIsNull()
+        {
+            // Given
+            var expected = "[['' (NOT_FOUND)]]";
+
+            var locale = "en_US";
+            var key = default(string);
+
+            // When
+            var i18nLookupRepository = new I18nLookupRepository();
+            i18nLookupRepository.SetRepository(
+                locale,
+                new Dictionary<string, string>()
             );
+
+            var actual = i18nLookupRepository.Resolve(
+                locale,
+                key,
+                new I18nTokenValue(),
+                new I18nTokenValue()
+            );
+
+            // Then
+            actual.Should().Be(expected);
         }
     }
 }

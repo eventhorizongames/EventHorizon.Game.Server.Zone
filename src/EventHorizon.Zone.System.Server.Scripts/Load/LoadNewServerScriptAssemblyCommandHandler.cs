@@ -8,6 +8,7 @@
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
+using EventHorizon.Zone.System.Server.Scripts.Run.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
 
     using global::System;
@@ -76,6 +77,11 @@
                 var newScriptList = new List<(string id, ServerScriptDetails scriptDetails, ServerScript serverScript)>();
                 foreach (var item in scriptTypeList)
                 {
+                    if (item.FullName.IsNull())
+                    {
+                        continue;
+                    }
+
                     var scriptInstance = assembly.CreateInstance(
                         item.FullName
                     );
@@ -146,7 +152,9 @@
                         );
                         await serverScript.Run(
                             _serverScriptServices,
-                            null
+                            new StandardServerScriptData(
+                                null
+                            )
                         );
                     }
                 }

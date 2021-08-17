@@ -51,9 +51,10 @@ namespace EventHorizon.Zone.System.Interaction.Run
             var interactionState = interactionEntity.GetProperty<InteractionState>(
                 InteractionState.PROPERTY_NAME
             );
-            if (!IsActiveInteraction(
-                interactionState
-            ))
+
+            if (!interactionState.Active
+                || interactionState.List.IsNull()
+            )
             {
                 await PublishMessageToPlayer(
                     player.ConnectionId,
@@ -62,6 +63,7 @@ namespace EventHorizon.Zone.System.Interaction.Run
                 );
                 return Unit.Value;
             }
+
             // Finally we can script interaction
             foreach (var interactionItem in interactionState.List)
             {
@@ -74,14 +76,6 @@ namespace EventHorizon.Zone.System.Interaction.Run
                 );
             }
             return Unit.Value;
-        }
-
-        private static bool IsActiveInteraction(
-            InteractionState interactionState
-        )
-        {
-            return interactionState.Active
-                    && interactionState.List != null;
         }
 
         private async Task PublishMessageToPlayer(

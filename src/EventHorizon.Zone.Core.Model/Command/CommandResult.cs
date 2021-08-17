@@ -1,8 +1,5 @@
 ﻿namespace EventHorizon.Zone.Core.Model.Command
 {
-    using System;
-
-
     public class CommandResult<T>
     {
         public bool Success { get; }
@@ -15,7 +12,7 @@
         {
             Success = true;
             Result = result;
-            ErrorCode = null;
+            ErrorCode = string.Empty;
         }
 
         public CommandResult(
@@ -25,7 +22,7 @@
         {
             Success = success;
             Result = result;
-            ErrorCode = null;
+            ErrorCode = string.Empty;
         }
 
         public CommandResult(
@@ -33,7 +30,7 @@
         )
         {
             Success = false;
-            Result = default;
+            Result = default!;
             ErrorCode = errorCode;
         }
 

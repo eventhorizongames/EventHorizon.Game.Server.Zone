@@ -1,10 +1,10 @@
-using System;
-using System.Collections.Concurrent;
-
-using IdentityModel.Client;
-
 namespace EventHorizon.Identity.Client
 {
+    using System;
+    using System.Collections.Concurrent;
+
+    using IdentityModel.Client;
+
     public interface ITokenClientFactory
     {
         TokenClient Create(
@@ -13,9 +13,12 @@ namespace EventHorizon.Identity.Client
             string clientSecret
         );
     }
-    public class CachingTokenClientFactory : ITokenClientFactory, IDisposable
+
+    public class CachingTokenClientFactory 
+        : ITokenClientFactory,
+        IDisposable
     {
-        private readonly ConcurrentDictionary<string, TokenClient> CLIENT_MAP = new ConcurrentDictionary<string, TokenClient>();
+        private readonly ConcurrentDictionary<string, TokenClient> _clientMap = new();
 
         public TokenClient Create(
             string url,
@@ -23,15 +26,14 @@ namespace EventHorizon.Identity.Client
             string clientSecret
         )
         {
-            var client = default(TokenClient);
             var clientKey = CreateClientKey(
                 url,
                 clientId,
                 clientSecret
             );
-            if (CLIENT_MAP.TryGetValue(
+            if (_clientMap.TryGetValue(
                 clientKey,
-                out client
+                out TokenClient? client
             ))
             {
                 return client;
@@ -41,7 +43,7 @@ namespace EventHorizon.Identity.Client
                 clientId,
                 clientSecret
             );
-            CLIENT_MAP.AddOrUpdate(
+            _clientMap.AddOrUpdate(
                 clientKey,
                 client,
                 (_, oldClient) =>
@@ -63,27 +65,27 @@ namespace EventHorizon.Identity.Client
         }
 
         #region IDisposable Support
-        private bool disposedValue = false;
+        private bool _disposedValue = false;
 
         protected virtual void Dispose(
             bool disposing
         )
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
                     // Dispose managed state (managed objects).
                 }
 
-                foreach (var client in CLIENT_MAP)
+                foreach (var client in _clientMap)
                 {
                     client.Value.Dispose();
                 }
 
-                CLIENT_MAP.Clear();
+                _clientMap.Clear();
 
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

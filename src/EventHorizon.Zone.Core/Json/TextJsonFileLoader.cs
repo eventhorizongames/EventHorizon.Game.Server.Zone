@@ -6,9 +6,10 @@ namespace EventHorizon.Zone.Core.Json
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Json;
 
-    public class TextJsonFileLoader : IJsonFileLoader
+    public class TextJsonFileLoader
+        : IJsonFileLoader
     {
-        private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions JSON_OPTIONS = new()
         {
             PropertyNameCaseInsensitive = true
         };
@@ -22,7 +23,7 @@ namespace EventHorizon.Zone.Core.Json
             _fileResolver = fileResolver;
         }
 
-        public Task<T> GetFile<T>(
+        public Task<T?> GetFile<T>(
             string fileFullName
         )
         {

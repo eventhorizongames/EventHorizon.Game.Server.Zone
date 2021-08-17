@@ -24,10 +24,10 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
                 serviceScope.ServiceProvider
-                    .GetService<IMediator>()
+                    .GetRequiredService<IMediator>()
                     .Publish(new LoadServerModuleSystem())
                     .GetAwaiter()
                     .GetResult();

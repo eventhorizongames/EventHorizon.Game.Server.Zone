@@ -75,16 +75,19 @@
                     var agentState = JsonSerializer.Deserialize<AgentSaveState>(
                         text
                     );
-                    foreach (var agent in agentState.AgentList)
+                    if (agentState.IsNotNull())
                     {
-                        await _mediator.Send(
-                            new RegisterAgentEvent(
-                                AgentFromDetailsToEntity.MapToNew(
-                                    agent,
-                                    Guid.NewGuid().ToString()
+                        foreach (var agent in agentState.AgentList)
+                        {
+                            await _mediator.Send(
+                                new RegisterAgentEvent(
+                                    AgentFromDetailsToEntity.MapToNew(
+                                        agent,
+                                        Guid.NewGuid().ToString()
+                                    )
                                 )
-                            )
-                        );
+                            );
+                        }
                     }
                     // Remove the File from Agent/Reload Folder
                     await _mediator.Send(

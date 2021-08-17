@@ -7,42 +7,38 @@ namespace EventHorizon.Zone.System.Agent.Model.Path
     {
         public static readonly string PROPERTY_NAME = "pathState";
 
-        private Queue<Vector3> _path;
-        public Vector3 MoveTo { get; set; }
+        private Queue<Vector3>? _path;
+        public Vector3? MoveTo { get; set; }
 
-        public Queue<Vector3> Path() => _path;
+        public Queue<Vector3>? Path() => _path;
         public PathState SetPath(
-            Queue<Vector3> path
+            Queue<Vector3>? path
         )
         {
             _path = path;
             return this;
         }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "path":
-                        return this._path;
-                    case "moveTo":
-                        return this.MoveTo;
-
-                    default:
-                        return null;
-                }
+                    "path" => _path,
+                    "moveTo" => MoveTo,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "path":
-                        this._path = (Queue<Vector3>)value;
+                        _path = (Queue<Vector3>?)value;
                         break;
                     case "moveTo":
-                        this.MoveTo = (Vector3)value;
+                        MoveTo = (Vector3?)value;
                         break;
 
                     default:
@@ -51,7 +47,7 @@ namespace EventHorizon.Zone.System.Agent.Model.Path
             }
         }
 
-        public static readonly PathState NEW = new PathState
+        public static readonly PathState NEW = new()
         {
             MoveTo = Vector3.Zero,
         };

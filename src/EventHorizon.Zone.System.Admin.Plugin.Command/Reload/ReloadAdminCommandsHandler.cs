@@ -1,17 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Reload
 {
-    public class ReloadAdminCommandsHandler : INotificationHandler<AdminCommandEvent>
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    public class ReloadAdminCommandsHandler
+        : INotificationHandler<AdminCommandEvent>
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public ReloadAdminCommandsHandler(
             IMediator mediator

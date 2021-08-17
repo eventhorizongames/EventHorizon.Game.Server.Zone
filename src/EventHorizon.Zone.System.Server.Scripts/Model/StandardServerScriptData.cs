@@ -10,13 +10,13 @@
         private readonly IDictionary<string, object> _data;
 
         public StandardServerScriptData(
-            IDictionary<string, object> data
+            IDictionary<string, object>? data
         )
         {
-            _data = data;
+            _data = data ?? new Dictionary<string, object>();
         }
 
-        public T Get<T>(
+        public T? Get<T>(
             string key
         )
         {

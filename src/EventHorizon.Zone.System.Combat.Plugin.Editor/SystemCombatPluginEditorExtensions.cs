@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone.Core
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemCombatPluginEditorExtensions
     {
         public static IServiceCollection AddSystemCombatPluginEditor(
@@ -15,10 +15,7 @@ namespace EventHorizon.Game.Server.Zone.Core
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                return app;
-            }
+            return app;
         }
     }
 }

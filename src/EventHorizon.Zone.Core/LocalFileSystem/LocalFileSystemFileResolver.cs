@@ -14,10 +14,16 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             var fileInfo = new FileInfo(
                fileFullName
             );
+            if (fileInfo.Directory == null)
+            {
+                return false;
+            }
+
             if (!fileInfo.Directory.Exists)
             {
                 fileInfo.Directory.Create();
             }
+
             using (fileInfo.Create())
             {
                 return fileInfo.Exists;
@@ -33,7 +39,7 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             );
             return new StandardFileInfo(
                 fileInfo.Name,
-                fileInfo.DirectoryName,
+                fileInfo.DirectoryName ?? string.Empty,
                 fileInfo.FullName,
                 fileInfo.Extension
             );
@@ -51,7 +57,9 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
                 fileFullName
             ))
             {
+#pragma warning disable IDE0063 // Use simple 'using' statement
                 using (var writer = fileInfo.AppendText())
+#pragma warning restore IDE0063 // Use simple 'using' statement
                 {
                     writer.Write(
                         text
@@ -60,11 +68,17 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             }
             else
             {
+                if(fileInfo.Directory == null)
+                {
+                    return false;
+                }
+
                 if (!fileInfo.Directory.Exists)
                 {
                     fileInfo.Directory.Create();
                 }
-                this.WriteAllText(
+
+                WriteAllText(
                     fileFullName,
                     text
                 );

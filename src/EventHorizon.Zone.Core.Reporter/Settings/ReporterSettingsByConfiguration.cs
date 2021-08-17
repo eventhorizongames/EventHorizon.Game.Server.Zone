@@ -56,12 +56,13 @@ namespace EventHorizon.Zone.Core.Reporter.Settings
                 );
         }
 
-        public class ConfigurationElasticsearchReporterSettings : ReporterSettings.ElasticsearchReporterSettings
+        public class ConfigurationElasticsearchReporterSettings
+            : ReporterSettings.ElasticsearchReporterSettings
         {
             public bool IsEnabled { get; set; }
-            public string Uri { get; set; }
-            public string Username { get; set; }
-            public string Password { get; set; }
+            public string Uri { get; set; } = string.Empty;
+            public string Username { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
     {
         public BehaviorTreeState Report(
             string message,
-            object data = null
+            object? data = null
         )
         {
             _reportTracker?.Track(

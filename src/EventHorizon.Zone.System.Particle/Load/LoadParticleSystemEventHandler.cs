@@ -57,7 +57,7 @@
             IDictionary<string, object> arguments
         )
         {
-            var rootPath = arguments["RootPath"] as string;
+            var rootPath = (string)arguments["RootPath"];
             var particleTemplate = await _fileLoader.GetFile<ParticleTemplate>(
                 fileInfo.FullName
             );

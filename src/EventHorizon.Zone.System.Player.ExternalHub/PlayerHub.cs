@@ -13,7 +13,8 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
     using Microsoft.Extensions.Logging;
 
     [Authorize]
-    public partial class PlayerHub : Hub
+    public partial class PlayerHub
+        : Hub
     {
         private readonly ILogger<PlayerHub> _logger;
         private readonly IMediator _mediator;
@@ -32,10 +33,14 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             var playerId = GetPlayerId();
             if (playerId == null)
             {
-                this.Context.Abort();
+                Context.Abort();
                 return;
             }
-            _logger.LogDebug("Player Connected: {PlayerId}", playerId);
+
+            _logger.LogDebug(
+                "Player Connected: {PlayerId}",
+                playerId
+            );
             await _mediator.Publish(
                 new PlayerConnectedEvent(
                     playerId,
@@ -53,6 +58,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             {
                 return;
             }
+
             _logger.LogError(
                 exception,
                 "Player Disconnected: {PlayerId}",
@@ -65,7 +71,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
             );
         }
 
-        private string GetPlayerId()
+        private string? GetPlayerId()
         {
             return Context.User.Claims
                 .FirstOrDefault(

@@ -75,6 +75,13 @@
                     _builder.ReferenceAssembly(
                         assembly
                     );
+                    if (string.IsNullOrEmpty(
+                        assembly.FullName
+                    ))
+                    {
+                        continue;
+                    }
+
                     assemblyNames.Add(
                         assembly.FullName
                     );

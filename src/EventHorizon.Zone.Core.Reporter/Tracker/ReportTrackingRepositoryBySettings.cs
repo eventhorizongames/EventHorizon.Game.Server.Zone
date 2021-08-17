@@ -5,7 +5,9 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
 
     using EventHorizon.Zone.Core.Reporter.Model;
 
-    public class ReportTrackingRepositoryBySettings : ReportTracker, ReportRepository
+    public class ReportTrackingRepositoryBySettings
+        : ReportTracker,
+        ReportRepository
     {
         private readonly ReportTrackingRepository _reportTrackingRepository;
         private readonly ReporterSettings _reporterSettings;
@@ -45,7 +47,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tracker
             string id,
             string correlationId,
             string message,
-            object data
+            object? data
         )
         {
             if (_reporterSettings.IsEnabled)

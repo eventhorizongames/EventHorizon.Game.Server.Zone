@@ -2,6 +2,6 @@
 {
     public interface ServerScriptData
     {
-        T Get<T>(string key);
+        T? Get<T>(string key);
     }
 }

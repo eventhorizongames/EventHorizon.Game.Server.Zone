@@ -47,6 +47,13 @@
                         }
 
                         var rootPath = arguments["RootPath"] as string;
+                        if(string.IsNullOrEmpty(
+                            rootPath
+                        ))
+                        {
+                            return;
+                        }
+
                         scriptList.Add(
                             new ServerScriptDetails(
                                 fileName: fileInfo.Name.Replace(".csx", string.Empty),

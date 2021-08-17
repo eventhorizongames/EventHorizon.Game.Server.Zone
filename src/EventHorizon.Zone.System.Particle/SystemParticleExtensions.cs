@@ -25,7 +25,7 @@ namespace EventHorizon.Game.Server.Zone
         {
             using (var serviceScope = app.CreateServiceScope())
             {
-                serviceScope.ServiceProvider.GetService<IMediator>().Publish(
+                serviceScope.ServiceProvider.GetRequiredService<IMediator>().Publish(
                     new LoadParticleSystemEvent()
                 ).GetAwaiter().GetResult();
             }

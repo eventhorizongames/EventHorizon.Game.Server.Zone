@@ -227,7 +227,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             {
                 Id = inputId,
             };
-            expectedAgent.PopulateData<LocationState>(
+            expectedAgent.PopulateData(
                 LocationState.PROPERTY_NAME,
                 new LocationState
                 {
@@ -238,14 +238,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
                     ),
                 }
             );
-            expectedAgent.PopulateData<PathState>(
+            expectedAgent.PopulateData(
                 PathState.PROPERTY_NAME,
                 new PathState()
-                    .SetPath(
-                        new Queue<Vector3>(
-                            new List<Vector3>()
-                        )
+                {
+                    MoveTo = Vector3.One,
+                }.SetPath(
+                    new Queue<Vector3>(
+                        new List<Vector3>()
                     )
+                )
             );
 
             var mediatorMock = new Mock<IMediator>();

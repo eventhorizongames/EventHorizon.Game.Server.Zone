@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Events
 
     public struct AdminCommandEvent : INotification
     {
-        public string ConnectionId { get; }
+        public string? ConnectionId { get; }
         public IAdminCommand Command { get; }
         public object Data { get; }
 
@@ -16,19 +16,19 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Events
             object data
         )
         {
-            this.ConnectionId = connectionId;
-            this.Command = command;
-            this.Data = data;
+            ConnectionId = connectionId;
+            Command = command;
+            Data = data;
         }
+
         public AdminCommandEvent(
             IAdminCommand command,
             object data
         )
         {
-            this.ConnectionId = null;
-            this.Command = command;
-            this.Data = data;
+            ConnectionId = null;
+            Command = command;
+            Data = data;
         }
-
     }
 }

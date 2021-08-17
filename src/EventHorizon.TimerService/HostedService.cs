@@ -5,10 +5,11 @@
 
     using Microsoft.Extensions.Hosting;
 
-    public abstract class HostedService : IHostedService
+    public abstract class HostedService
+        : IHostedService
     {
-        private Task _executingTask;
-        private CancellationTokenSource _cts;
+        private Task? _executingTask;
+        private CancellationTokenSource? _cts;
 
         public Task StartAsync(
             CancellationToken cancellationToken
@@ -39,7 +40,7 @@
             }
 
             // Signal cancellation to the executing method
-            _cts.Cancel();
+            _cts?.Cancel();
 
             // Wait until the task completes or the stop token triggers
             await Task.WhenAny(
@@ -56,6 +57,8 @@
 
         // Derived classes should override this and execute a long running method until 
         // cancellation is requested
-        protected abstract Task ExecuteAsync(CancellationToken cancellationToken);
+        protected abstract Task ExecuteAsync(
+            CancellationToken cancellationToken
+        );
     }
 }

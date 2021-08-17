@@ -9,8 +9,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
     using EventHorizon.Zone.Core.Reporter.Writer.Client.Timer;
 
-    using MediatR;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -39,14 +37,10 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Send(
-                        new StartupElasticsearchReporterClient()
-                    ).GetAwaiter().GetResult();
-            }
+            app.SendMediatorCommand(
+                new StartupElasticsearchReporterClient()
+            );
+            
             return app;
         }
     }

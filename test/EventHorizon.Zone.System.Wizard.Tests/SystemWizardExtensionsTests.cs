@@ -67,7 +67,7 @@ namespace EventHorizon.Zone.System.Wizard.Tests
 
             mediatorMock.Verify(
                 mock => mock.Send(
-                    new LoadSystemsWizardListCommand() as object,
+                    new LoadSystemsWizardListCommand(),
                     It.IsAny<CancellationToken>()
                 )
             );

@@ -41,6 +41,7 @@
                 );
                 return Unit.Value;
             }
+
             var report = request.Report;
             var reportItemIndexes = new object[report.ItemList.Count * 2];
             for (int i = 0; i < report.ItemList.Count; i++)
@@ -69,13 +70,14 @@
             return Unit.Value;
         }
     }
+
     public class ReportIndexItem
     {
         public string Id { get; set; }
         public DateTime Timestamp { get; set; }
         public string CorrelationId { get; set; }
         public string Message { get; set; }
-        public object Data { get; set; }
+        public object? Data { get; set; }
 
         public ReportIndexItem(
             Report report,
