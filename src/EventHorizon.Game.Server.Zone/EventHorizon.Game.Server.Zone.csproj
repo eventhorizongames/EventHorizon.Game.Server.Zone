@@ -8,7 +8,6 @@
         <Folder Include="App_Data\Server\Scripts\Observers\" />
         <Folder Include="App_Data\Server\Scripts\Wizards\" />
         <Folder Include="App_Data\Server\Wizards\" />
-        <Folder Include="Game\" />
         <Folder Include="wwwroot\" />
         <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="Systems_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />

@@ -53,7 +53,9 @@ public class __SCRIPT__
             actorOwnerState,
             actor
         );
-        if (actorPathState.Path() == null)
+        if (actorPathState.Path() == null
+		    || !actorPathState.MoveTo.HasValue
+        )
         {
             // Owner is not Far from their delta location.
             return new BehaviorScriptResponse(
@@ -61,16 +63,14 @@ public class __SCRIPT__
             );
         }
         // This will is the position they are moving to.
-        var ownerMoveTo = actorPathState.MoveTo;
+        var ownerMoveTo = actorPathState.MoveTo.Value;
         var ownerCurrentPosition = owner.Transform.Position;
         // Get distance between Owner Move To and Current Position.
         var distance = Vector3.Distance(
             ownerMoveTo,
             ownerCurrentPosition
         );
-        // System.Console.WriteLine("Owner Distance: " + ownerCurrentPosition);
-        // System.Console.WriteLine("Owner Distance: " + ownerMoveTo);
-        // System.Console.WriteLine("Owner Distance: " + distance);
+
         // Check still within delta
         if (distance <= delta)
         {

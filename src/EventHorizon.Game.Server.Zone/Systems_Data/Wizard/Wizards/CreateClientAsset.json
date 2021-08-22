@@ -1,0 +1,83 @@
+{
+    "Id": "E526860C-348A-4F2A-9F4D-BD8E4BC1BE11",
+    "Name": "[SYSTEM] CreateClientAsset",
+    "Description": "Create a new Client Asset.",
+    "FirstStep": "0FA8CD69-2B94-4BCF-A617-4753EC680EE8",
+    "StepOrder": {
+        "0FA8CD69-2B94-4BCF-A617-4753EC680EE8": 0,
+        "5C91226B-CDAB-4BC1-8DF8-662652B92942": 1,
+        "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792": 2,
+        "F550C884-B2A7-4C3F-B291-E05A8EF60707": 3,
+        "4F637533-10FA-4599-943A-580CDFE9AFDD": 4
+    },
+    "StepList": [
+        {
+            "Id": "0FA8CD69-2B94-4BCF-A617-4753EC680EE8",
+            "Type": "CaptureCurrentLocation",
+            "@Type": "TextInput",
+            "Name": "Capture Current Location",
+            "Description": "Recording Current Location...",
+            "Details": {
+                "Delay": "1000",
+                "Property": "Location",
+                "CurrentLocationProperty": "ReturnLocation"
+            },
+            "NextStep": "5C91226B-CDAB-4BC1-8DF8-662652B92942"
+        },
+        {
+            "Id": "5C91226B-CDAB-4BC1-8DF8-662652B92942",
+            "Type": "Navigate",
+            "Name": "Navigating to Client Assets Creation Page.",
+            "Description": "Navigating to Client Asset Creation Page...",
+            "Details": {
+                "Delay": "200",
+                "Location": "/asset/management/zone/create",
+                "AutoNext": "true"
+            },
+            "PreviousStep": "0FA8CD69-2B94-4BCF-A617-4753EC680EE8",
+            "NextStep": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792"
+        },
+        {
+            "Id": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792",
+            "Type": "WaitForActivityEvent",
+            "@Type": "TextInput",
+            "Name": "Wait for Creation",
+            "Description": "Waiting for Successful Client Asset to be created...",
+            "Details": {
+                "Property": "OtherLocation",
+                "@ActivityEvent": "AssetManagement.Created.ClientAsset",
+                "ActivityEvent:Category": "AssetManagement",
+                "ActivityEvent:Action": "Created",
+                "ActivityEvent:Tag": "ClientAsset",
+                "disablePrevious": "true",
+                "disableNext": "true"
+            },
+            "PreviousStep": "5C91226B-CDAB-4BC1-8DF8-662652B92942",
+            "NextStep": "F550C884-B2A7-4C3F-B291-E05A8EF60707"
+        },
+        {
+            "Id": "F550C884-B2A7-4C3F-B291-E05A8EF60707",
+            "Type": "InfoText",
+            "@Type": "TextInput",
+            "Name": "Successful Created Client Asset",
+            "Description": "Your Client Asset was successfully created, proceed to next step for some links.",
+            "Details": {
+                "DisablePrevious": "true"
+            },
+            "PreviousStep": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792",
+            "NextStep": "4F637533-10FA-4599-943A-580CDFE9AFDD"
+        },
+        {
+            "Id": "4F637533-10FA-4599-943A-580CDFE9AFDD",
+            "Type": "LocationNavigate",
+            "@Type": "Navigate",
+            "Name": "Returning Start",
+            "Description": "Returning to last active location.",
+            "Details": {
+                "DisablePrevious": "true",
+                "LocationProperty": "ReturnLocation"
+            },
+            "PreviousStep": "F550C884-B2A7-4C3F-B291-E05A8EF60707"
+        }
+    ]
+}

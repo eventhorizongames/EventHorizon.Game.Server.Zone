@@ -66,7 +66,7 @@ namespace EventHorizon.Server.Core.Connection.Internal
                         .WithUrl(
                             url,
                             configureHttpConnection
-                        )
+                        ).WithAutomaticReconnect()
                         .Build();
                     _connection.Closed += (ex) =>
                     {
