@@ -1,13 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Particle.Events.Add;
-using EventHorizon.Zone.System.Particle.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Particle.Add
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Particle.Events.Add;
+    using EventHorizon.Zone.System.Particle.State;
+
+    using MediatR;
+
     public class AddParticleTemplateHandler : INotificationHandler<AddParticleTemplateEvent>
     {
         readonly ParticleTemplateRepository _repository;

@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.ServerAction.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.ServerAction.Run
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.ServerAction.State;
+
+    using MediatR;
+
     public class RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
     {
         readonly IMediator _mediator;

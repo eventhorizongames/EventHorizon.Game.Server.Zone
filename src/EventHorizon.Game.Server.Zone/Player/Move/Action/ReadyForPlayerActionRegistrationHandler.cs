@@ -1,15 +1,15 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.Server.Zone.Player.Action.Direction;
-using EventHorizon.Game.Server.Zone.Player.Move.Stop;
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-
-using MediatR;
-
 namespace EventHorizon.Game.Server.Zone.Player.Move.Action
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+    using EventHorizon.Game.Server.Zone.Player.Move.Stop;
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+
+    using MediatR;
+
     public class RegisterPlayerMoveActionsHandler : INotificationHandler<ReadyForPlayerActionRegistration>
     {
         readonly IMediator _mediator;

@@ -1,19 +1,19 @@
-using System;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-
-using MediatR;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using MediatR;
+
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     /// <summary>
     /// Actions which finally implement an actors or game world state changes, for example to plan a path and move on it, to sense for the nearest enemies, to show certain animations, switch weapons, or run a specified sound. 
     /// 

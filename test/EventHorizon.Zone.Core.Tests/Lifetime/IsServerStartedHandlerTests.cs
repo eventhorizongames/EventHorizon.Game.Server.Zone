@@ -1,18 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Lifetime;
-using EventHorizon.Zone.Core.Lifetime;
-using EventHorizon.Zone.Core.Lifetime.State;
-
-using FluentAssertions;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Lifetime
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Lifetime;
+    using EventHorizon.Zone.Core.Lifetime;
+    using EventHorizon.Zone.Core.Lifetime.State;
+
+    using FluentAssertions;
+
+    using Moq;
+
+    using Xunit;
+
     public class IsServerStartedHandlerTests
     {
         [Fact]

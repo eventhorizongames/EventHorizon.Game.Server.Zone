@@ -1,8 +1,9 @@
-using MediatR;
-
 namespace EventHorizon.Monitoring.Events.Track
 {
-    public struct MonitoringTrackEvent : INotification
+    using MediatR;
+
+    public struct MonitoringTrackEvent
+        : INotification
     {
         public string Name { get; }
 

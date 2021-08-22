@@ -1,19 +1,19 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.Core.Events.ServerAction;
-using EventHorizon.Zone.Core.ServerAction.Model;
-using EventHorizon.Zone.Core.ServerAction.ServerAction.Add;
-using EventHorizon.Zone.Core.ServerAction.State;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.ServerAction.Tests.Add
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.Events.ServerAction;
+    using EventHorizon.Zone.Core.ServerAction.Model;
+    using EventHorizon.Zone.Core.ServerAction.ServerAction.Add;
+    using EventHorizon.Zone.Core.ServerAction.State;
+
+    using Moq;
+
+    using Xunit;
+
     public class AddServerActionHandlerTests
     {
         [Fact]

@@ -1,8 +1,9 @@
-using MediatR;
-
 namespace EventHorizon.Monitoring.Events.Track
 {
-    public struct MonitoringTrackMetricEvent : INotification
+    using MediatR;
+
+    public struct MonitoringTrackMetricEvent
+        : INotification
     {
         public string Name { get; }
         public double Average { get; }

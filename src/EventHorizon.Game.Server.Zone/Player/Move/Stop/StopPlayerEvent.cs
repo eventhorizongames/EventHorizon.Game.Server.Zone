@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
 namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
 {
+    using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
     public struct StopPlayerEvent : PlayerActionEvent
     {
         public PlayerEntity Player { get; private set; }

@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-
-using EventHorizon.Game.Server.Zone.Player.Action.Direction;
-using EventHorizon.Zone.Core.Model.Player;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 {
+    using System.Collections.Generic;
+
+    using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+    using EventHorizon.Zone.Core.Model.Player;
+
+    using Xunit;
+
     public class MovePlayerEventTests
     {
         [Fact]

@@ -1,11 +1,12 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
 namespace EventHorizon.Zone.System.Player.Events.Interaction.Run
 {
-    public struct RunEntityInteractionActionEvent : PlayerActionEvent
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+    using global::System.Collections.Generic;
+
+    public struct RunEntityInteractionActionEvent
+        : PlayerActionEvent
     {
         public PlayerEntity Player { get; private set; }
         public long InteractionEntityId { get; private set; }

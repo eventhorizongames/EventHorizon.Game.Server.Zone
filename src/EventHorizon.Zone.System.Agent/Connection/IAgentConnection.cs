@@ -1,8 +1,8 @@
-using System;
-using System.Threading.Tasks;
-
 namespace EventHorizon.Zone.System.Agent.Connection
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
     public interface IAgentConnection
     {
         void OnAction<T>(string actionName, Action<T> action);

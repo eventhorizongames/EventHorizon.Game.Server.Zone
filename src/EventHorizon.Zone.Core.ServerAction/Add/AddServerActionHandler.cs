@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.ServerAction;
-using EventHorizon.Zone.Core.ServerAction.Model;
-using EventHorizon.Zone.Core.ServerAction.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.ServerAction.ServerAction.Add
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.ServerAction;
+    using EventHorizon.Zone.Core.ServerAction.Model;
+    using EventHorizon.Zone.Core.ServerAction.State;
+
+    using MediatR;
+
     public class AddServerActionHandler : INotificationHandler<AddServerActionEvent>
     {
         readonly IServerActionQueue _serverActionQueue;

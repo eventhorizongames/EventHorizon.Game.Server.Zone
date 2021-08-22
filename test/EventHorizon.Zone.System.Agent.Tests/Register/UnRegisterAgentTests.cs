@@ -1,21 +1,21 @@
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.UnRegister;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.Register
 {
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.UnRegister;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class UnRegisterAgentTests
     {
         [Fact]

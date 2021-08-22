@@ -1,10 +1,7 @@
-using System;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Model.Life;
-
 namespace EventHorizon.Zone.System.Combat.Life
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public interface ILifeStateChange
     {
         LifeStateChangeResponse Change(IObjectEntity entity, string property, long points);
@@ -18,7 +15,7 @@ namespace EventHorizon.Zone.System.Combat.Life
             IObjectEntity changedEntity
         )
         {
-            this.Success = success;
+            Success = success;
             ChangedEntity = changedEntity;
         }
     }

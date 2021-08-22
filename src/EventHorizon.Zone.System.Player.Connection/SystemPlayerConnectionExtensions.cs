@@ -1,14 +1,14 @@
-
-using EventHorizon.Zone.System.Player.Connection;
-using EventHorizon.Zone.System.Player.Connection.Internal;
-using EventHorizon.Zone.System.Player.Connection.Model;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+
+    using EventHorizon.Zone.System.Player.Connection;
+    using EventHorizon.Zone.System.Player.Connection.Internal;
+    using EventHorizon.Zone.System.Player.Connection.Model;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemPlayerConnectionExtensions
     {
         public static IServiceCollection AddSystemPlayerConnection(

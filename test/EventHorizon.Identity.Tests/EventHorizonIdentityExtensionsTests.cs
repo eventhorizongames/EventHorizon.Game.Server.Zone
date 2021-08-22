@@ -1,15 +1,15 @@
-using System;
-
-using EventHorizon.Identity.Client;
-using EventHorizon.Identity.Model;
-using EventHorizon.Tests.TestUtils;
-
-using Microsoft.Extensions.Options;
-
-using Xunit;
-
 namespace EventHorizon.Identity.Tests
 {
+    using System;
+
+    using EventHorizon.Identity.Client;
+    using EventHorizon.Identity.Model;
+    using EventHorizon.Tests.TestUtils;
+
+    using Microsoft.Extensions.Options;
+
+    using Xunit;
+
     public class EventHorizonIdentityExtensionsTests
     {
         [Fact]

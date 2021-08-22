@@ -1,16 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
     public class RegisterPlayerActionHandler : IRequestHandler<RegisterPlayerAction>
     {
         readonly ILogger _logger;

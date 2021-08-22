@@ -1,12 +1,12 @@
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Graphics;
-using EventHorizon.Zone.System.Particle.Model.Settings;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Particle.Tests.Settings
 {
+    using global::System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Graphics;
+    using EventHorizon.Zone.System.Particle.Model.Settings;
+
+    using Xunit;
+
     public class ParticleSettingsTests
     {
         [Fact]

@@ -1,11 +1,11 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 {
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
     public class AdminCommandInMemoryRepository : AdminCommandRepository
     {
         private readonly ConcurrentBag<AdminCommandInstance> INSTANCE_MAP = new ConcurrentBag<AdminCommandInstance>();

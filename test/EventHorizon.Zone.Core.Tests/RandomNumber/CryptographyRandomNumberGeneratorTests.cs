@@ -1,11 +1,11 @@
-using System;
-
-using EventHorizon.Zone.Core.RandomNumber;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.RandomNumber
 {
+    using System;
+
+    using EventHorizon.Zone.Core.RandomNumber;
+
+    using Xunit;
+
     public class CryptographyRandomNumberGeneratorTests
     {
         [Fact]

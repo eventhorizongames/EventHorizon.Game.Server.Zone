@@ -1,8 +1,8 @@
-using System;
-using System.Runtime.Serialization;
-
 namespace EventHorizon.Identity.Exceptions
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [Serializable]
     public class IdentityServerRequestException : Exception
     {

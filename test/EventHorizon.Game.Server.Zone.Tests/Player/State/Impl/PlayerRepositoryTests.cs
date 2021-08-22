@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.Server.Zone.Player.State;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using EventHorizon.Zone.Core.Model.Player;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Player.State.Impl
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.Server.Zone.Player.State;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.Core.Model.Player;
+
+    using Moq;
+
+    using Xunit;
+
     public class PlayerRepositoryTests
     {
         [Fact]

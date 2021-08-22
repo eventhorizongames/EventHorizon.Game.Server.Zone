@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 namespace EventHorizon.Zone.Core.Model.Entity.State
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface EntityRepository
     {
         Task<List<IObjectEntity>> All();

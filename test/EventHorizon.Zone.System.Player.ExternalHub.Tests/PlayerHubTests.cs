@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Player.Events.Connected;
-
-using MediatR;
-
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Logging;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Security.Claims;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Player.Events.Connected;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.SignalR;
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
+
     public class PlayerHubTests
     {
         [Fact]

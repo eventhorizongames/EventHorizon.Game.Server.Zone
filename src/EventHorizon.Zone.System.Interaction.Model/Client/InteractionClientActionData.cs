@@ -1,7 +1,7 @@
-using EventHorizon.Zone.Core.Model.Client;
-
 namespace EventHorizon.Zone.System.Interaction.Model.Client
 {
+    using EventHorizon.Zone.Core.Model.Client;
+
     public struct InteractionClientActionData : IClientActionData
     {
         public string CommandType { get; }

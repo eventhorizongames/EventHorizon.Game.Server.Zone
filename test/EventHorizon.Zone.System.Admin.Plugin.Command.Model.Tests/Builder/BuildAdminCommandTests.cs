@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests.Builder
 {
+    using global::System;
+    using global::System.Collections;
+    using global::System.Collections.Generic;
+
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+
+    using Xunit;
+
     public class BuildAdminCommandTests
     {
         [Fact]

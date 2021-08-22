@@ -68,7 +68,7 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             }
             else
             {
-                if(fileInfo.Directory == null)
+                if (fileInfo.Directory == null)
                 {
                     return false;
                 }

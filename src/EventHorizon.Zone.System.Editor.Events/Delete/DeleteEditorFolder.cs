@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.Editor.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Editor.Events.Delete
 {
+    using global::System.Collections.Generic;
+
+    using EventHorizon.Zone.System.Editor.Model;
+
+    using MediatR;
+
     public struct DeleteEditorFolder : IRequest<EditorResponse>
     {
         public IList<string> FolderPath { get; }

@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.PopulateData
 {
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Model;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
     public class PopulateEntityDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {
         public Task Handle(PopulateEntityDataEvent notification, CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ namespace EventHorizon.Zone.System.Combat.PopulateData
                 LevelState.PROPERTY_NAME
             );
 
-            this.ValidateLifeState(
+            ValidateLifeState(
                 entity
             );
 

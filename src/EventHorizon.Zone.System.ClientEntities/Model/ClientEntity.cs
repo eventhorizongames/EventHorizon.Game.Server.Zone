@@ -6,7 +6,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
 
-    public struct ClientEntity : IObjectEntity
+    public struct ClientEntity
+        : IObjectEntity
     {
         public string ClientEntityId => GlobalId;
 
@@ -16,7 +17,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
         public long Id { get; set; }
         public string Name { get; set; }
         public TransformState Transform { get; set; }
-        public IList<string> TagList { get; set; }
+        public IList<string>? TagList { get; set; }
         public ConcurrentDictionary<string, object> Data { get; set; }
         public ConcurrentDictionary<string, object> RawData { get; set; }
 
@@ -28,7 +29,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
             Id = -1;
             GlobalId = clientEntityId;
             Name = string.Empty;
-            Transform = default(TransformState);
+            Transform = default;
             TagList = new List<string>();
             Data = new ConcurrentDictionary<string, object>();
             RawData = rawData;

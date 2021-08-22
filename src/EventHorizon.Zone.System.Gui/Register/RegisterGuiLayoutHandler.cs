@@ -1,13 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Gui;
-using EventHorizon.Zone.System.Gui.Api;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Gui.Register
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Gui;
+    using EventHorizon.Zone.System.Gui.Api;
+
+    using MediatR;
+
     public class RegisterGuiLayoutHandler : IRequestHandler<RegisterGuiLayoutCommand>
     {
         readonly GuiState _guiState;

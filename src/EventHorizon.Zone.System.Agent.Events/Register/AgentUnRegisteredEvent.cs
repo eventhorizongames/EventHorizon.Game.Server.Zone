@@ -1,7 +1,7 @@
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Events.Register
 {
+    using MediatR;
+
     public struct AgentUnRegisteredEvent : INotification
     {
         public long EntityId { get; }

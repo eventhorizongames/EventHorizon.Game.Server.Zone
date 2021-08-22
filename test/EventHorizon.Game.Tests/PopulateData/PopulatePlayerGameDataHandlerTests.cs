@@ -1,18 +1,19 @@
-﻿using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.Model;
-using EventHorizon.Game.PopulateData;
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-
-using FluentAssertions;
-
-using Xunit;
-namespace EventHorizon.Game.Tests.PopulateData
+﻿namespace EventHorizon.Game.Tests.PopulateData
 {
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.Model;
+    using EventHorizon.Game.PopulateData;
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class PopulatePlayerGameDataHandlerTests
     {
         [Fact]

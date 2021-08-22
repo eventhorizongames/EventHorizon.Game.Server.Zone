@@ -1,7 +1,7 @@
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.System.Agent.Model
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public class AgentAction : EntityAction
     {
         public static readonly AgentAction PATH = new AgentAction("Agent.Path");

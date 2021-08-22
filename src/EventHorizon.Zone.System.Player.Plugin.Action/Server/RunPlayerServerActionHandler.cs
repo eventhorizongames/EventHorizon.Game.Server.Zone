@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events;
-using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Server
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events;
+    using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using MediatR;
+
     public class RunPlayerServerActionHandler : INotificationHandler<RunPlayerServerAction>
     {
         readonly IMediator _mediator;

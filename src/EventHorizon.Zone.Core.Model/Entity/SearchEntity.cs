@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Structure;
-
 namespace EventHorizon.Game.Server.Zone.Entity.Model
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Structure;
+
     public struct SearchEntity : IOctreeEntity
     {
         public Vector3 Position { get; }

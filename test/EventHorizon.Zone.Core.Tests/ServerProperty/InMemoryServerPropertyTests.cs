@@ -1,9 +1,9 @@
-using EventHorizon.Zone.Core.ServerProperty;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.ServerProperty
 {
+    using EventHorizon.Zone.Core.ServerProperty;
+
+    using Xunit;
+
     public class InMemoryServerPropertyTests
     {
         [Fact]

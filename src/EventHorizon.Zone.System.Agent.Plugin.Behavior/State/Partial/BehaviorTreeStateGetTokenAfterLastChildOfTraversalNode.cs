@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
     public partial struct BehaviorTreeState
     {
         public int GetTokenAfterLastChildOfTraversalNode()

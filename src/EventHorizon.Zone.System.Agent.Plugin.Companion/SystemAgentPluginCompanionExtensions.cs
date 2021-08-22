@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemAgentPluginCompanionExtensions
     {
         public static IServiceCollection AddSystemAgentPluginCompanion(
@@ -11,14 +11,11 @@ namespace EventHorizon.Game.Server.Zone
         {
             return services;
         }
+
         public static IApplicationBuilder UseSystemAgentPluginCompanion(
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-
-            }
             return app;
         }
     }

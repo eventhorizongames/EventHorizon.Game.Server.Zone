@@ -1,13 +1,13 @@
-using System.IO;
-
-using EventHorizon.Zone.System.Watcher.Model;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.Model
 {
+    using global::System.IO;
+
+    using EventHorizon.Zone.System.Watcher.Model;
+
+    using Moq;
+
+    using Xunit;
+
     public class StandardPathWatcherTests
     {
         [Fact]

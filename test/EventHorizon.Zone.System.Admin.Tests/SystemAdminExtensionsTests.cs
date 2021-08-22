@@ -1,10 +1,10 @@
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Tests
 {
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+
+    using Xunit;
+
     public class SystemAdminExtensionsTests
     {
         [Fact]

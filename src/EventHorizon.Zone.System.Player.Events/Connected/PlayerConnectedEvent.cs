@@ -1,7 +1,7 @@
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Events.Connected
 {
+    using MediatR;
+
     public struct PlayerConnectedEvent : INotification
     {
         public string Id { get; }

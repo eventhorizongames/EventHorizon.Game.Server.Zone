@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.EntityModule.Model;
-
 namespace EventHorizon.Zone.System.EntityModule.Api
 {
+    using global::System.Collections.Generic;
+
+    using EventHorizon.Zone.System.EntityModule.Model;
+
     public interface EntityModuleRepository
     {
         void AddBaseModule(EntityScriptModule baseModule);

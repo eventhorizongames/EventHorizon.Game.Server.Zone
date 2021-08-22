@@ -1,13 +1,13 @@
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.TimerService;
-using EventHorizon.Zone.System.Watcher.State;
-using EventHorizon.Zone.System.Watcher.Timer;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Watcher.State;
+    using EventHorizon.Zone.System.Watcher.Timer;
+
+    using Xunit;
+
     public class SystemAdminPluginCommandExtensionsTests
     {
         [Fact]

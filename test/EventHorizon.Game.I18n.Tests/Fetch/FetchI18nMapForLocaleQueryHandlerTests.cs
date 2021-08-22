@@ -1,16 +1,16 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.I18n;
-using EventHorizon.Game.I18n.Fetch;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.I18n.Tests.Fetch
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Game.I18n.Fetch;
+
+    using Moq;
+
+    using Xunit;
+
     public class FetchI18nMapForLocaleQueryHandlerTests
     {
         [Fact]

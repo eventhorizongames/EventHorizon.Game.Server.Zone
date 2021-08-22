@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Interaction.Script.Api;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Interaction.Script.Run
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Interaction.Script.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+
+    using MediatR;
+
     public class RunInteractionScriptCommandHandler
         : IRequestHandler<RunInteractionScriptCommand, RunInteractionScriptResponse>
     {

@@ -1,24 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Identity.AccessToken;
-using EventHorizon.Identity.Client;
-using EventHorizon.Identity.Exceptions;
-using EventHorizon.Identity.Tests.TestUtils;
-
-using IdentityModel.Client;
-
-using Moq;
-
-using Newtonsoft.Json;
-
-using Xunit;
-
 namespace EventHorizon.Identity.Tests.AccessToken
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Net;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Identity.AccessToken;
+    using EventHorizon.Identity.Client;
+    using EventHorizon.Identity.Exceptions;
+    using EventHorizon.Identity.Tests.TestUtils;
+
+    using IdentityModel.Client;
+
+    using Moq;
+
+    using Newtonsoft.Json;
+
+    using Xunit;
+
     public class RequestIdentityAccessTokenHandlerTests
     {
         [Fact]

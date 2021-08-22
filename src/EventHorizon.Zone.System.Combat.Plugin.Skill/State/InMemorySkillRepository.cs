@@ -8,18 +8,18 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
 
     public class InMemorySkillRepository : SkillRepository
     {
-        private readonly ConcurrentDictionary<string, SkillInstance> SCRIPT_MAP = new ConcurrentDictionary<string, SkillInstance>();
+        private readonly ConcurrentDictionary<string, SkillInstance> _map = new();
 
         public IList<SkillInstance> All()
         {
-            return SCRIPT_MAP.Values.ToList();
+            return _map.Values.ToList();
         }
 
         public SkillInstance Find(
             string id
         )
         {
-            SCRIPT_MAP.TryGetValue(
+            _map.TryGetValue(
                 id,
                 out var skill
             );
@@ -30,10 +30,10 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.State
             SkillInstance skill
         )
         {
-            SCRIPT_MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 skill.Id,
                 skill,
-                (_, __) => skill
+                (_, _) => skill
             );
         }
     }

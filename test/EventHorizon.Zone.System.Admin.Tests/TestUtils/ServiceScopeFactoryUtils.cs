@@ -1,13 +1,13 @@
-using System;
-
-using MediatR;
-
-using Microsoft.Extensions.DependencyInjection;
-
-using Moq;
-
 namespace EventHorizon.Tests.TestUtils
 {
+    using System;
+
+    using MediatR;
+
+    using Microsoft.Extensions.DependencyInjection;
+
+    using Moq;
+
     public static class ServiceScopeFactoryUtils
     {
         public static Mock<IServiceScopeFactory> SetupServiceScopeFactoryWithMediatorMock(

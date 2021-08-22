@@ -1,14 +1,14 @@
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-using Moq;
-
-using Xunit;
-
-using SystemAction = System.Action;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
 {
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using Moq;
+
+    using Xunit;
+
+    using SystemAction = global::System.Action;
+
     public class InMemoryPlayerActionRepositoryTests
     {
         [Fact]

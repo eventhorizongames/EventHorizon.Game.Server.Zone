@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.FileService;
-
 namespace EventHorizon.Zone.Core.Model.DirectoryService
 {
+    using System.Collections.Generic;
+
+    using EventHorizon.Zone.Core.Model.FileService;
+
     public interface DirectoryResolver
     {
         bool DoesDirectoryExist(

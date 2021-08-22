@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-
-using Xunit;
-
 namespace EventHorizon.Extensions.Tests
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+
+    using Xunit;
+
     public class PathExtensionsTests
     {
         [Theory]

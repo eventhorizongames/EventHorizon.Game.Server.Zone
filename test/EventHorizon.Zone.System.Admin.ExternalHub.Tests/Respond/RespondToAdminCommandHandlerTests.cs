@@ -1,18 +1,18 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Admin.ExternalHub.Respond;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-
-using Microsoft.AspNetCore.SignalR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests.Respond
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Admin.ExternalHub.Respond;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
+    using Microsoft.AspNetCore.SignalR;
+
+    using Moq;
+
+    using Xunit;
+
     public class RespondToAdminCommandHandlerTests
     {
         [Fact]

@@ -1,9 +1,9 @@
-using EventHorizon.Zone.Core.Model.Entity;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Events.Entity.Update
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+
+    using MediatR;
+
     public struct UpdateEntityCommand : IRequest
     {
         public EntityAction Action { get; }

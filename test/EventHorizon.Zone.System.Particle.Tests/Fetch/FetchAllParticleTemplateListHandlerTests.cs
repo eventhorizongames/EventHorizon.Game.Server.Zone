@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Particle.Fetch;
-using EventHorizon.Zone.System.Particle.Model.Template;
-using EventHorizon.Zone.System.Particle.State;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Particle.Tests.Fetch
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Particle.Fetch;
+    using EventHorizon.Zone.System.Particle.Model.Template;
+    using EventHorizon.Zone.System.Particle.State;
+
+    using Moq;
+
+    using Xunit;
+
     public class FetchAllParticleTemplateListHandlerTests
     {
         [Fact]

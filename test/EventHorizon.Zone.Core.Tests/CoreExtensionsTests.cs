@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.Core.Tests
 {
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Monitoring.Events.Track;
@@ -181,7 +182,7 @@ namespace EventHorizon.Zone.Core.Tests
         }
 
         [RetryFact(MaxRetries = 3)]
-        public void ShouldSendFinishServerStartCommandWhenUseFinishStartingCoreIsCalled()
+        public async Task ShouldSendFinishServerStartCommandWhenUseFinishStartingCoreIsCalled()
         {
             // Given
             var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
@@ -199,6 +200,8 @@ namespace EventHorizon.Zone.Core.Tests
             var actual = CoreExtensions.UseFinishStartingCore(
                 applicationBuilderMocks.ApplicationBuilderMock.Object
             );
+
+            await Task.Delay(10);
 
             // Then
             mediatorMock.Verify(

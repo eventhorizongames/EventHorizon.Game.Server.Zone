@@ -1,18 +1,18 @@
-using System.Threading;
-
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
-using EventHorizon.Zone.System.Admin.Plugin.Command.State;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {
+    using global::System.Threading;
+
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class SystemAdminPluginCommandExtensionsTests
     {
         [Fact]

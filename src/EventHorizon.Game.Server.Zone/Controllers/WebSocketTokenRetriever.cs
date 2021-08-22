@@ -1,12 +1,12 @@
-using System;
-
-using IdentityModel.AspNetCore.OAuth2Introspection;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
-
 namespace EventHorizon.Game.Server.Zone.Controllers
 {
+    using System;
+
+    using IdentityModel.AspNetCore.OAuth2Introspection;
+
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Primitives;
+
     public class WebSocketTokenRetriever
     {
         static Func<HttpRequest, string> AuthHeaderTokenRetriever { get; set; }

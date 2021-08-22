@@ -1,12 +1,12 @@
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
 {
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
     /// <summary>
     /// On each traversal priority selectors check which child to run in priority order until the first one succeeds or returns that it is running. 
     /// 

@@ -1,17 +1,17 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.EntityModule.Api;
-using EventHorizon.Zone.System.EntityModule.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.EntityModule.Load
 {
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.EntityModule.Api;
+    using EventHorizon.Zone.System.EntityModule.Model;
+
+    using MediatR;
+
     public class LoadEntityModuleSystemCommandHandler : INotificationHandler<LoadEntityModuleSystemCommand>
     {
         readonly IMediator _mediator;

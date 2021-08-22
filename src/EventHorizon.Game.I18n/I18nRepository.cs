@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Game.I18n
 {
+    using System.Collections.Generic;
+
     public interface I18nRepository
     {
         IDictionary<string, string> GetRepository(

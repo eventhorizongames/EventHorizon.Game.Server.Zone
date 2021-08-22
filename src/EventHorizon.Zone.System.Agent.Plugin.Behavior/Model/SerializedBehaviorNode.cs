@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
+    using global::System.Collections.Generic;
+
     public class SerializedBehaviorNode
     {
         public string Type { get; set; }

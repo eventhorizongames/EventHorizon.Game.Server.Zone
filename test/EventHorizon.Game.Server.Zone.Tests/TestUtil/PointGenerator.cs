@@ -1,8 +1,8 @@
-using System;
-using System.Numerics;
-
 namespace EventHorizon.Game.Server.Zone.Tests.TestUtil
 {
+    using System;
+    using System.Numerics;
+
     public static class PointGenerator
     {
         static Random RANDOM = new Random();

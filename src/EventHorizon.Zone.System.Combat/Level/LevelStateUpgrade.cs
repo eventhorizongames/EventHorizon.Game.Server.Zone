@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Level.Upgrade.Property;
-using EventHorizon.Zone.System.Combat.Model.Level;
-
 namespace EventHorizon.Zone.System.Combat.Level.Upgrade
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Level.Upgrade.Property;
+    using EventHorizon.Zone.System.Combat.Model.Level;
+
+    using global::System.Collections.Generic;
+
     public class LevelStateUpgrade : ILevelStateUpgrade
     {
-        private static IDictionary<LevelProperty, IUpgradePropertyLevel> _upgradePropertyLevelList = new Dictionary<LevelProperty, IUpgradePropertyLevel>()
+        private readonly IDictionary<LevelProperty, IUpgradePropertyLevel> _upgradePropertyLevelList = new Dictionary<LevelProperty, IUpgradePropertyLevel>()
         {
             {
                 LevelProperty.HP,

@@ -1,29 +1,29 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.TimerService;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent.Connection.Factory;
-using EventHorizon.Zone.System.Agent.Events.Startup;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Save;
-using EventHorizon.Zone.System.Agent.State;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.TimerService;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Factory;
+    using EventHorizon.Zone.System.Agent.Events.Startup;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Save;
+    using EventHorizon.Zone.System.Agent.State;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using Moq;
+
+    using Xunit;
+
     public class AgentExtensionsTests
     {
         [Fact]

@@ -40,7 +40,7 @@ namespace EventHorizon.Game.Server.Zone
             app.SendMediatorCommand(
                 new StartupElasticsearchReporterClient()
             );
-            
+
             return app;
         }
     }

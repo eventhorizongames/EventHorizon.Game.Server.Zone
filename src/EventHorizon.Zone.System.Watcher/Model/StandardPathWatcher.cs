@@ -1,8 +1,8 @@
-using System;
-using System.IO;
-
 namespace EventHorizon.Zone.System.Watcher.Model
 {
+    using global::System;
+    using global::System.IO;
+
     public struct StandardPathWatcher : PathWatcher
     {
         public string Path { get; }

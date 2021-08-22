@@ -1,21 +1,21 @@
-
-using System.Collections.Generic;
-
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.System.Player.Connection;
-using EventHorizon.Zone.System.Player.Connection.Internal;
-using EventHorizon.Zone.System.Player.Connection.Model;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Server.Core.Tests
 {
+
+    using System.Collections.Generic;
+
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.System.Player.Connection;
+    using EventHorizon.Zone.System.Player.Connection.Internal;
+    using EventHorizon.Zone.System.Player.Connection.Model;
+
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
+
+    using Moq;
+
+    using Xunit;
+
     public class SystemPlayerConnectionExtensionsTests
     {
         [Fact]

@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Map.Model;
-using EventHorizon.Zone.Core.Model.Map;
-
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Math
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Numerics;
+
+    using EventHorizon.Zone.Core.Map.Model;
+    using EventHorizon.Zone.Core.Model.Map;
+
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class TestDataGenerator : IEnumerable<object[]>
     {
         private readonly List<object[]> _data = new List<object[]>

@@ -1,25 +1,25 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.I18n;
-using EventHorizon.Game.I18n.Loader;
-using EventHorizon.Game.I18n.Model;
-using EventHorizon.Game.Server.Zone.I18n.Loader;
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.I18n.Loader
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.I18n;
+    using EventHorizon.Game.I18n.Loader;
+    using EventHorizon.Game.I18n.Model;
+    using EventHorizon.Game.Server.Zone.I18n.Loader;
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class I18nLoadHandlerTests
     {
         [Fact]

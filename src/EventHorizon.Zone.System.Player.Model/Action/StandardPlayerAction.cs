@@ -1,7 +1,7 @@
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.System.Player.Model.Action
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public class StandardPlayerAction : EntityAction
     {
         public static readonly StandardPlayerAction CONNECTION_ID = new StandardPlayerAction("Player.ConnectionId");

@@ -1,9 +1,9 @@
-using System;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Events.ServerAction
 {
+    using System;
+
+    using MediatR;
+
     public struct AddServerActionEvent : INotification
     {
         public DateTime RunAt { get; private set; }

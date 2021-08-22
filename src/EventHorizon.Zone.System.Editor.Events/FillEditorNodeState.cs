@@ -1,9 +1,9 @@
-using EventHorizon.Zone.System.Editor.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Editor.Events
 {
+    using EventHorizon.Zone.System.Editor.Model;
+
+    using MediatR;
+
     public struct FillEditorNodeState : INotification
     {
         public IEditorNodeList EditorState { get; }

@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent.Connection.Factory;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Zone.System.Agent
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Factory;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
+
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class AgentConnectionExtensions
     {
         public static Task<IList<AgentDetails>> GetAgentList(

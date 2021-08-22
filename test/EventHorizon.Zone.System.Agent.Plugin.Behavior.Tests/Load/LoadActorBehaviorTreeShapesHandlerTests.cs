@@ -1,25 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class LoadActorBehaviorTreeShapesHandlerTests
     {
         [Fact]

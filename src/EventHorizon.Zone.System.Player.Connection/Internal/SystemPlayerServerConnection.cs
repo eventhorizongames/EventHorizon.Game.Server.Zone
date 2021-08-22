@@ -1,11 +1,11 @@
-using System;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Player.Connection.Internal
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.SignalR.Client;
+    using Microsoft.Extensions.Logging;
+
     public class SystemPlayerServerConnection : PlayerServerConnection
     {
         readonly ILogger _logger;

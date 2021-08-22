@@ -1,12 +1,12 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Interaction.Model;
-using EventHorizon.Zone.System.Interaction.Script.Api;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Interaction.Script.Run
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Interaction.Model;
+    using EventHorizon.Zone.System.Interaction.Script.Api;
+
+    using MediatR;
+
     public struct RunInteractionScriptCommand : IRequest<RunInteractionScriptResponse>
     {
         public InteractionItem Interaction { get; }

@@ -1,13 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using EventHorizon.Zone.Core.Model.Entity;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.ModelState.PopulateData
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+
+    using MediatR;
+
     public class PopulateEntityModelDataHandler : INotificationHandler<PopulateEntityDataEvent>
     {
         public Task Handle(PopulateEntityDataEvent notification, CancellationToken cancellationToken)

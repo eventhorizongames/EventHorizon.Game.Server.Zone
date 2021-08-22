@@ -1,16 +1,16 @@
-using System;
-using System.Threading.Tasks;
-
-using EventHorizon.Identity.AccessToken;
-using EventHorizon.Zone.System.Player.Connection.Model;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
 namespace EventHorizon.Zone.System.Player.Connection.Internal
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Identity.AccessToken;
+    using EventHorizon.Zone.System.Player.Connection.Model;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+
     public class SystemPlayerServerConnectionFactory : PlayerServerConnectionFactory
     {
         readonly ILogger _logger;

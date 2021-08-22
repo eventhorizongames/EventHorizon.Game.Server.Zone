@@ -1,15 +1,15 @@
-using System.Diagnostics;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Combat.State;
-
-using Moq;
-
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Combat.State
 {
+    using System.Diagnostics;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Combat.State;
+
+    using Moq;
+
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class EntityQueueTests
     {
         [Fact]

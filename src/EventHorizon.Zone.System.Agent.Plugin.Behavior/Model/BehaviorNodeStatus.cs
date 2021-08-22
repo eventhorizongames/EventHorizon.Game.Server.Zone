@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
     public struct BehaviorNodeStatus
     {
         public static BehaviorNodeStatus READY = new BehaviorNodeStatus("READY", null);

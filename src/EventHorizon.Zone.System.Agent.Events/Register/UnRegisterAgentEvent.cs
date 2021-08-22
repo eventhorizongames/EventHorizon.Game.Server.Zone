@@ -1,7 +1,7 @@
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Events.Register
 {
+    using MediatR;
+
     public struct UnRegisterAgent : IRequest
     {
         public string AgentId { get; }

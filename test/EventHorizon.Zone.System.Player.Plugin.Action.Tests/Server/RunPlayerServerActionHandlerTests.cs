@@ -1,21 +1,21 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-using EventHorizon.Zone.System.Player.Plugin.Action.Server;
-using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.Server
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Server;
+    using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class RunPlayerServerActionHandlerTests
     {
         [Fact]

@@ -1,17 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.ServerProperty;
-using EventHorizon.Zone.Core.ServerProperty.Fill;
-
-using Microsoft.Extensions.Configuration;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.ServerProperty.Fill
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.ServerProperty;
+    using EventHorizon.Zone.Core.ServerProperty.Fill;
+
+    using Microsoft.Extensions.Configuration;
+
+    using Moq;
+
+    using Xunit;
+
     public class FillHostServerPropertyHandlerTests
     {
         [Fact]

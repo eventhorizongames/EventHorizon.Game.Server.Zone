@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Particle.Model.Template;
-using EventHorizon.Zone.System.Particle.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Particle.Fetch
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Particle.Model.Template;
+    using EventHorizon.Zone.System.Particle.State;
+
+    using MediatR;
+
     public class FetchAllParticleTemplateListHandler : IRequestHandler<FetchAllParticleTemplateListEvent, IEnumerable<ParticleTemplate>>
     {
         readonly ParticleTemplateRepository _repository;

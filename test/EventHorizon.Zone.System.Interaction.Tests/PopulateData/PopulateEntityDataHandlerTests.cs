@@ -1,16 +1,16 @@
-using System.Collections.Concurrent;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Plugin.Zone.Interaction.PopulateData;
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Interaction.Model;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
 {
+    using global::System.Collections.Concurrent;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Plugin.Zone.Interaction.PopulateData;
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Interaction.Model;
+
+    using Xunit;
+
     public class PopulateEntityDataHandlerTests
     {
         [Fact]

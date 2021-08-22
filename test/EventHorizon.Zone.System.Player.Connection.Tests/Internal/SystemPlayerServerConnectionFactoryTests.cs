@@ -1,21 +1,21 @@
-using System;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Player.Connection.Internal;
-using EventHorizon.Zone.System.Player.Connection.Model;
-
-using MediatR;
-
-using Microsoft.AspNetCore.Http.Connections.Client;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
 {
+    using global::System;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Player.Connection.Internal;
+    using EventHorizon.Zone.System.Player.Connection.Model;
+
+    using MediatR;
+
+    using Microsoft.AspNetCore.Http.Connections.Client;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+
+    using Moq;
+
+    using Xunit;
+
     public class SystemPlayerServerConnectionFactoryTests
     {
         [Fact]

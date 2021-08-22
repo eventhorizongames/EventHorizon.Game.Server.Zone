@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 {
+    using global::System.Collections.Generic;
+
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
     public interface AdminCommandRepository
     {
         void Clear();

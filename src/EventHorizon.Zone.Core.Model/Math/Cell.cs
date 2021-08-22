@@ -1,20 +1,20 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Structure;
-
 namespace EventHorizon.Zone.Core.Model.Math
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Structure;
+
     /// <summary>
     ///     
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class Cell<T> where T : struct, IOctreeEntity
     {
-        private readonly object UPDATE_LOCK = new object();
-        private static int ALLOWED_POINTS = 8;
+        private static readonly int ALLOWED_POINTS = 8;
+
         public IDictionary<long, T> Points { get; }
         public IList<Cell<T>> Children { get; }
         public ConcurrentDictionary<long, T> Search_Points { get; private set; }
@@ -23,7 +23,8 @@ namespace EventHorizon.Zone.Core.Model.Math
         public Vector3 Size { get; }
         public int Level { get; }
 
-        private int _accuracy;
+        private readonly int _accuracy;
+        private readonly object _updateLock = new();
 
         public Cell(int accuracy, Vector3 position, Vector3 size, int level)
         {
@@ -41,7 +42,7 @@ namespace EventHorizon.Zone.Core.Model.Math
 
         public bool Has(T point)
         {
-            if (!this.Contains(point))
+            if (!Contains(point))
             {
                 return false;
             }
@@ -52,7 +53,7 @@ namespace EventHorizon.Zone.Core.Model.Math
                     return true;
                 }
             }
-            var minDistSqrt = this._accuracy * this._accuracy;
+            var minDistSqrt = _accuracy * _accuracy;
             foreach (var otherPoint in Search_Points)
             {
                 var distSq = Vector3.DistanceSquared(otherPoint.Value.Position, point.Position);
@@ -79,37 +80,37 @@ namespace EventHorizon.Zone.Core.Model.Math
 
         public bool Contains(T point)
         {
-            return point.Position.X >= this.Position.X - this._accuracy
-                && point.Position.Y >= this.Position.Y - this._accuracy
-                && point.Position.Z >= this.Position.Z - this._accuracy
-                && point.Position.X < this.Position.X + this.Size.X + this._accuracy
-                && point.Position.Y < this.Position.Y + this.Size.Y + this._accuracy
-                && point.Position.Z < this.Position.Z + this.Size.Z + this._accuracy;
+            return point.Position.X >= Position.X - _accuracy
+                && point.Position.Y >= Position.Y - _accuracy
+                && point.Position.Z >= Position.Z - _accuracy
+                && point.Position.X < Position.X + Size.X + _accuracy
+                && point.Position.Y < Position.Y + Size.Y + _accuracy
+                && point.Position.Z < Position.Z + Size.Z + _accuracy;
         }
         public void Add(T point)
         {
-            lock (UPDATE_LOCK)
+            lock (_updateLock)
             {
-                if (this.Children.Count > 0)
+                if (Children.Count > 0)
                 {
-                    this.AddToChildren(point);
+                    AddToChildren(point);
                 }
                 else
                 {
-                    this.Points.Remove(point.GetHashCode());
-                    this.Points.Add(point.GetHashCode(), point);
-                    if (this.Points.Count > ALLOWED_POINTS && this.Level < Octree<T>.MAX_LEVEL)
+                    Points.Remove(point.GetHashCode());
+                    Points.Add(point.GetHashCode(), point);
+                    if (Points.Count > ALLOWED_POINTS && Level < Octree<T>.MAX_LEVEL)
                     {
-                        this.Split();
+                        Split();
                     }
                 }
-                this.Search_Points = new ConcurrentDictionary<long, T>(this.Points);
-                this.Search_Children = new ConcurrentBag<Cell<T>>(this.Children);
+                Search_Points = new ConcurrentDictionary<long, T>(Points);
+                Search_Children = new ConcurrentBag<Cell<T>>(Children);
             }
         }
         public bool Remove(T pointToRemove)
         {
-            lock (UPDATE_LOCK)
+            lock (_updateLock)
             {
                 var removed = false;
                 foreach (var point in Points)
@@ -138,8 +139,8 @@ namespace EventHorizon.Zone.Core.Model.Math
                         Merge();
                     }
                 }
-                this.Search_Points = new ConcurrentDictionary<long, T>(this.Points);
-                this.Search_Children = new ConcurrentBag<Cell<T>>(this.Children);
+                Search_Points = new ConcurrentDictionary<long, T>(Points);
+                Search_Children = new ConcurrentBag<Cell<T>>(Children);
                 return removed;
             }
         }
@@ -163,10 +164,10 @@ namespace EventHorizon.Zone.Core.Model.Math
             {
                 foreach (var point in child.Points)
                 {
-                    this.Points.Add(point.Value.GetHashCode(), point.Value);
+                    Points.Add(point.Value.GetHashCode(), point.Value);
                 }
             }
-            this.Children.Clear();
+            Children.Clear();
         }
         private void AddToChildren(T point)
         {
@@ -181,98 +182,98 @@ namespace EventHorizon.Zone.Core.Model.Math
         }
         private void Split()
         {
-            var x = this.Position.X;
-            var y = this.Position.Y;
-            var z = this.Position.Z;
-            var w2 = this.Size.X / 2;
-            var h2 = this.Size.Y / 2;
-            var d2 = this.Size.Z / 2;
-            this.Children.Add(
+            var x = Position.X;
+            var y = Position.Y;
+            var z = Position.Z;
+            var w2 = Size.X / 2;
+            var h2 = Size.Y / 2;
+            var d2 = Size.Z / 2;
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x, y, z),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x + w2, y, z),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x, y, z + d2),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x + w2, y, z + d2),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x, y + h2, z),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x + w2, y + h2, z),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x, y + h2, z + d2),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
-            this.Children.Add(
+            Children.Add(
                 new Cell<T>(
                     _accuracy,
                     new Vector3(x + w2, y + h2, z + d2),
                     new Vector3(w2, h2, d2),
-                    this.Level + 1
+                    Level + 1
                 )
             );
             foreach (var point in Points)
             {
-                this.AddToChildren(point.Value);
+                AddToChildren(point.Value);
             }
-            this.Points.Clear();
+            Points.Clear();
         }
 
 
         private float SquareDistanceToCenter(Vector3 point)
         {
-            var dx = point.X - (this.Position.X + this.Size.X / 2);
-            var dy = point.Y - (this.Position.Y + this.Size.Y / 2);
-            var dz = point.Z - (this.Position.Z + this.Size.Z / 2);
+            var dx = point.X - (Position.X + Size.X / 2);
+            var dy = point.Y - (Position.Y + Size.Y / 2);
+            var dz = point.Z - (Position.Z + Size.Z / 2);
             return dx * dx + dy * dy + dz * dz;
         }
 
         public T FindNearestPoint(Vector3 position, IOctreeOptions options)
         {
-            T nearest = default(T);
+            T nearest = default;
             var bestDist = options.MaxDist;
 
-            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
+            if (Search_Points.Count > 0 && Search_Children.Count == 0)
             {
                 foreach (var point in Search_Points)
                 {
@@ -289,10 +290,10 @@ namespace EventHorizon.Zone.Core.Model.Math
                 }
             }
 
-            var children = this.Search_Children
+            var children = Search_Children
                 .Select((child) => new
                 {
-                    child = child,
+                    child,
                     dist = child.SquareDistanceToCenter(position),
                 })
                 .OrderBy(a => a.dist)
@@ -327,7 +328,7 @@ namespace EventHorizon.Zone.Core.Model.Math
 
         public void FindNearbyPoints(Vector3 position, float radius, IOctreeOptions options, ref List<T> result)
         {
-            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
+            if (Search_Points.Count > 0 && Search_Children.Count == 0)
             {
                 foreach (var point in Search_Points)
                 {
@@ -342,7 +343,7 @@ namespace EventHorizon.Zone.Core.Model.Math
                     }
                 }
             }
-            foreach (var child in this.Search_Children)
+            foreach (var child in Search_Children)
             {
                 child.FindNearbyPoints(position, radius, options, ref result);
             }
@@ -354,7 +355,7 @@ namespace EventHorizon.Zone.Core.Model.Math
             ref List<T> result
         )
         {
-            if (this.Search_Points.Count > 0 && this.Search_Children.Count == 0)
+            if (Search_Points.Count > 0 && Search_Children.Count == 0)
             {
                 foreach (var point in Search_Points)
                 {
@@ -393,7 +394,7 @@ namespace EventHorizon.Zone.Core.Model.Math
                     }
                 }
             }
-            foreach (var child in this.Search_Children)
+            foreach (var child in Search_Children)
             {
                 child.FindNearbyPointsInDimension(
                     position,

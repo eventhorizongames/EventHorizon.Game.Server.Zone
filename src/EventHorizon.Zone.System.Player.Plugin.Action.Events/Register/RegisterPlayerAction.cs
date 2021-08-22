@@ -1,10 +1,11 @@
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Events.Register
 {
-    public struct RegisterPlayerAction : IRequest
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+    using MediatR;
+
+    public struct RegisterPlayerAction
+        : IRequest
     {
         public long Id { get; }
         public string ActionName { get; }

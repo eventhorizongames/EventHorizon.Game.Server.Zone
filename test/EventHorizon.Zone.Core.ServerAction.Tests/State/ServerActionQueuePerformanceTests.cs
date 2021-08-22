@@ -1,17 +1,17 @@
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.Core.ServerAction.Model;
-using EventHorizon.Zone.Core.ServerAction.State;
-
-using Xunit;
-using Xunit.Abstractions;
-
 namespace EventHorizon.Zone.Core.ServerAction.Tests.State
 {
+    using System;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.ServerAction.Model;
+    using EventHorizon.Zone.Core.ServerAction.State;
+
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class ServerActionQueuePerformanceTests
     {
         private readonly ITestOutputHelper _testOutputHelper;

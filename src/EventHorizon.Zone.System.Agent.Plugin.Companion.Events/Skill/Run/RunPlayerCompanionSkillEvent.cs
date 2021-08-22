@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run
 {
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
     public struct RunPlayerCompanionSkillEvent : PlayerActionEvent
     {
         public string ConnectionId { get; private set; }

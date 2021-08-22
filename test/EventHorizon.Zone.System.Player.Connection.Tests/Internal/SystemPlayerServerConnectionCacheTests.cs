@@ -1,17 +1,17 @@
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Player.Connection.Internal;
-
-using Microsoft.Extensions.Logging;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
 {
+    using global::System;
+    using global::System.Net.Http;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Player.Connection.Internal;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
+
     /// <summary>
     /// Since this class is a Wrapper around a SignalR Connection we cannot create a valid
     ///  connection to the Player Server without having an up and running Player Server.

@@ -1,12 +1,12 @@
-using System.Numerics;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Map;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
 {
+    using System.Numerics;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Map;
+
+    using Xunit;
+
     public class MapNodeTests
     {
         [Fact]

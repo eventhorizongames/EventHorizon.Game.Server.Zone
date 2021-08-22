@@ -1,17 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.PopulateData;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Register.Handler
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.PopulateData;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+
+    using MediatR;
+
     public class RegisterAgentHandler : IRequestHandler<RegisterAgentEvent, AgentEntity>
     {
         readonly IMediator _mediator;

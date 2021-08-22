@@ -1,14 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Combat.Model.Level;
-
 namespace EventHorizon.Zone.System.Combat.State
 {
-    public class EntityQueue<T> : IEntityQueue<T>
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+
+    public class EntityQueue<T>
+        : IEntityQueue<T>
     {
-        private Queue<T> _queue = new Queue<T>();
+        private readonly Queue<T> _queue = new();
 
         public Task Enqueue(T entity)
         {
@@ -16,7 +14,7 @@ namespace EventHorizon.Zone.System.Combat.State
             return Task.CompletedTask;
         }
 
-        public Task<T> Dequeue()
+        public Task<T?> Dequeue()
         {
             if (_queue.Count == 0)
             {
@@ -26,7 +24,7 @@ namespace EventHorizon.Zone.System.Combat.State
             }
             return Task.FromResult(
                 _queue.Dequeue()
-            );
+            )!;
         }
     }
 }

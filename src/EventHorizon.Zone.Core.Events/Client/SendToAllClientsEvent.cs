@@ -1,7 +1,7 @@
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Events.Client
 {
+    using MediatR;
+
     public struct SendToAllClientsEvent : INotification
     {
         public string Method { get; set; }

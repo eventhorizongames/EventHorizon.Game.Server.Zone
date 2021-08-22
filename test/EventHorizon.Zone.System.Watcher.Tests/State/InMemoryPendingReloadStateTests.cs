@@ -1,9 +1,9 @@
-using EventHorizon.Zone.System.Watcher.State;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.State
 {
+    using EventHorizon.Zone.System.Watcher.State;
+
+    using Xunit;
+
     public class InMemoryPendingReloadStateTests
     {
         [Fact]

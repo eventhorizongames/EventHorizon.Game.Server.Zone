@@ -1,11 +1,10 @@
-using System;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Model;
-
 namespace EventHorizon.Zone.System.Combat.Life.Change.Property
 {
-    public class ChangeActionPoints : IChangeLifeProperty
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Model;
+
+    public class ChangeActionPoints
+        : IChangeLifeProperty
     {
         public LifeStateChangeResponse Change(IObjectEntity entity, long points)
         {

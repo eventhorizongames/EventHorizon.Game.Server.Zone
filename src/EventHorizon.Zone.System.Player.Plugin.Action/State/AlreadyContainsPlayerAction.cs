@@ -1,7 +1,7 @@
-using System;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.State
 {
+    using global::System;
+
     [Serializable]
     public class AlreadyContainsPlayerAction : Exception
     {

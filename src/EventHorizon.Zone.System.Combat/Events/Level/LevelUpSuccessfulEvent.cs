@@ -1,8 +1,9 @@
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Events.Level
 {
-    public struct LevelUpSuccessfulEvent : INotification
+    using MediatR;
+
+    public struct LevelUpSuccessfulEvent
+        : INotification
     {
         public long EntityId { get; set; }
     }

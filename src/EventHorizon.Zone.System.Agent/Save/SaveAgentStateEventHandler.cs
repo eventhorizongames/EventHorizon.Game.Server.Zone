@@ -1,22 +1,22 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Performance;
-using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.Core.Model.Json;
-using EventHorizon.Zone.System.Agent.Connection;
-using EventHorizon.Zone.System.Agent.Connection.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-using EventHorizon.Zone.System.Agent.Save.Events;
-using EventHorizon.Zone.System.Agent.Save.Mapper;
-using EventHorizon.Zone.System.Agent.Save.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Save
 {
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Performance;
+    using EventHorizon.Zone.Core.Model.Info;
+    using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Agent.Connection;
+    using EventHorizon.Zone.System.Agent.Connection.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+    using EventHorizon.Zone.System.Agent.Save.Events;
+    using EventHorizon.Zone.System.Agent.Save.Mapper;
+    using EventHorizon.Zone.System.Agent.Save.Model;
+
+    using MediatR;
+
     public class SaveAgentStateHandler : INotificationHandler<SaveAgentStateEvent>
     {
         readonly ServerInfo _serverInfo;

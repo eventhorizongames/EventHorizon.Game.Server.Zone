@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.PopulateData;
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.PopulateData
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.PopulateData;
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using MediatR;
+
     public class PopulateBaseAgentEntityDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
     {
         public Task Handle(

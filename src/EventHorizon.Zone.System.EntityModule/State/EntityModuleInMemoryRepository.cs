@@ -1,11 +1,11 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-
-using EventHorizon.Zone.System.EntityModule.Api;
-using EventHorizon.Zone.System.EntityModule.Model;
-
 namespace EventHorizon.Zone.System.EntityModule.State
 {
+    using global::System.Collections.Concurrent;
+    using global::System.Collections.Generic;
+
+    using EventHorizon.Zone.System.EntityModule.Api;
+    using EventHorizon.Zone.System.EntityModule.Model;
+
     public class EntityModuleInMemoryRepository : EntityModuleRepository
     {
         private static readonly ConcurrentDictionary<string, EntityScriptModule> BASE_MODULE_MAP = new ConcurrentDictionary<string, EntityScriptModule>();

@@ -1,15 +1,15 @@
-using System.Threading.Tasks;
-
-using EventHorizon.Identity.AccessToken;
-using EventHorizon.Zone.System.Agent.Model;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
 namespace EventHorizon.Zone.System.Agent.Connection.Factory
 {
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Identity.AccessToken;
+    using EventHorizon.Zone.System.Agent.Model;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+
     public class AgentConnectionFactory : IAgentConnectionFactory
     {
         readonly ILogger _logger;

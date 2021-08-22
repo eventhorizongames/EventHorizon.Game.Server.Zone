@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.System.Agent.Model.State
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+
     public interface IAgentRepository
     {
         Task<IEnumerable<AgentEntity>> All();

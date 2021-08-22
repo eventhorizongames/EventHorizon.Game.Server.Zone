@@ -1,10 +1,10 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Events.Update
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Model;
+
+    using MediatR;
+
     public struct AgentUpdateEntityCommand : IRequest
     {
         public AgentEntity Agent { get; }

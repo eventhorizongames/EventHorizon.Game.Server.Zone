@@ -1,18 +1,18 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.State;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.State;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.State;
+
+    using Moq;
+
+    using Xunit;
+
     public class AgentWrappedEntityRepositoryTests
     {
         [Fact]

@@ -1,17 +1,17 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Json;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Json
 {
+    using System;
+    using System.IO;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Json;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+
+    using Moq;
+
+    using Xunit;
+
     public class NewtonsoftJsonFileSaverTests
     {
         [Fact]

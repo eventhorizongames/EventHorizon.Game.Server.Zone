@@ -1,11 +1,11 @@
-using System;
-
-using EventHorizon.Zone.Core.DateTimeService;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.DateTimeService
 {
+    using System;
+
+    using EventHorizon.Zone.Core.DateTimeService;
+
+    using Xunit;
+
     public class StandardDateTimeServiceTests
     {
         [Fact]

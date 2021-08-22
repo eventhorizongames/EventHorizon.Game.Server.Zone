@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Backup.Model
 {
+    using global::System;
+    using global::System.Collections.Generic;
+
     public struct BackupFileData
     {
         public string FileName { get; }

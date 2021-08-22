@@ -1,17 +1,17 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Get;
-using EventHorizon.Zone.System.Agent.Model;
-using EventHorizon.Zone.System.Agent.Model.State;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Tests.Get
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Get;
+    using EventHorizon.Zone.System.Agent.Model;
+    using EventHorizon.Zone.System.Agent.Model.State;
+
+    using Moq;
+
+    using Xunit;
+
     public class FindAgentByIdHandlerTests
     {
         [Fact]

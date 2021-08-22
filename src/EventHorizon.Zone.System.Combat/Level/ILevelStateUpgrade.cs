@@ -1,8 +1,8 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Model.Level;
-
 namespace EventHorizon.Zone.System.Combat.Level
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Model.Level;
+
     public interface ILevelStateUpgrade
     {
         LevelStateUpgradeResponse Upgrade(IObjectEntity entity, LevelProperty property);
@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.System.Combat.Level
             IObjectEntity changedEntity
         )
         {
-            this.Success = success;
+            Success = success;
             ChangedEntity = changedEntity;
         }
     }

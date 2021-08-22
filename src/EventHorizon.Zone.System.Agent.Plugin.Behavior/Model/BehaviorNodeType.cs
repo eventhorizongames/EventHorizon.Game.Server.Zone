@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
+    using global::System.Collections.Generic;
+
     public struct BehaviorNodeType
     {
         public static IList<string> TRAVERSAL_NODE_LIST = new List<string>

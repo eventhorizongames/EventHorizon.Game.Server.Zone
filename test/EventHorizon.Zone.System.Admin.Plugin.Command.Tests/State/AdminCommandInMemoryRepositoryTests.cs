@@ -1,10 +1,10 @@
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-using EventHorizon.Zone.System.Admin.Plugin.Command.State;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.State
 {
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+    using Xunit;
+
     public class AdminCommandInMemoryRepositoryTests
     {
         [Fact]

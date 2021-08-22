@@ -1,7 +1,7 @@
-using System;
-
 namespace EventHorizon.Zone.System.ModelState
 {
+    using global::System;
+
     public struct EntityModelState
     {
         public static readonly string PROPERTY_NAME = "modelState";

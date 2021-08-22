@@ -1,16 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Register;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.Get;
-using EventHorizon.Zone.System.Agent.Events.Register;
-using EventHorizon.Zone.System.Agent.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.UnRegister
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.Get;
+    using EventHorizon.Zone.System.Agent.Events.Register;
+    using EventHorizon.Zone.System.Agent.Model;
+
+    using MediatR;
+
     public class UnRegisterAgentHandler : IRequestHandler<UnRegisterAgent>
     {
         readonly IMediator _mediator;

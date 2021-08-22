@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard
 {
+    using global::System.Collections.Generic;
+
     public struct StandardAdminCommand : IAdminCommand
     {
         public string RawCommand { get; }

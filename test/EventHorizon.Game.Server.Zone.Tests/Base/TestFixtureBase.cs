@@ -1,7 +1,7 @@
-using Xunit.Abstractions;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Base
 {
+    using Xunit.Abstractions;
+
     public class TestFixtureBase
     {
         protected readonly ITestOutputHelper _testOutputHelper;

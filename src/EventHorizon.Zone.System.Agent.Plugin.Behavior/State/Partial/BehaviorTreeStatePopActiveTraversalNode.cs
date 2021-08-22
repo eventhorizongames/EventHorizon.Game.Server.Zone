@@ -1,7 +1,7 @@
-using System.Linq;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 {
+    using global::System.Linq;
+
     public partial struct BehaviorTreeState
     {
         public BehaviorTreeState PopActiveTraversalNode()

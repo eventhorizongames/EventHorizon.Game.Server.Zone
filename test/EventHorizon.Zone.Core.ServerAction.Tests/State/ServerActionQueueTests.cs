@@ -1,13 +1,13 @@
-using System;
-
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.Core.ServerAction.Model;
-using EventHorizon.Zone.Core.ServerAction.State;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.ServerAction.Tests.State
 {
+    using System;
+
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.ServerAction.Model;
+    using EventHorizon.Zone.Core.ServerAction.State;
+
+    using Xunit;
+
     public class ServerActionQueueTests
     {
         [Fact]

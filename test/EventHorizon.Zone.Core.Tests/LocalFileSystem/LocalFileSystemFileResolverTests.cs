@@ -1,16 +1,16 @@
-using System;
-using System.IO;
-using System.Text;
-
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
-
-using FluentAssertions;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.LocalFileSystem
 {
+    using System;
+    using System.IO;
+    using System.Text;
+
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class LocalFileSystemFileResolverTests
     {
         private readonly LocalFileSystemFileResolver _fileResolver;

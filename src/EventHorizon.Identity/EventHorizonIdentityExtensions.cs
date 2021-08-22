@@ -1,13 +1,13 @@
-using System;
-
-using EventHorizon.Identity.Client;
-using EventHorizon.Identity.Model;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Identity
 {
+    using System;
+
+    using EventHorizon.Identity.Client;
+    using EventHorizon.Identity.Model;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class EventHorizonIdentityExtensions
     {
         public static IServiceCollection AddEventHorizonIdentity(

@@ -1,11 +1,11 @@
-using System;
-
-using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
 {
+    using global::System;
+
+    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+    using Xunit;
+
     public class BehaviorNodeTests
     {
         [Fact]

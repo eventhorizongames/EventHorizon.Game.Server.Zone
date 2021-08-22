@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Zone.System.Gui.Model
 {
+    using global::System.Collections.Generic;
+
     public struct GuiLayout
     {
         public string Id { get; set; }

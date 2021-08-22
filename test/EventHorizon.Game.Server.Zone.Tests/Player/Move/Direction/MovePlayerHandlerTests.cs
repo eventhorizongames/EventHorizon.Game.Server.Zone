@@ -1,28 +1,28 @@
-using System;
-using System.Collections.Concurrent;
-using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Game.Server.Zone.Player.Action.Direction;
-using EventHorizon.Game.Server.Zone.Player.Move.Direction;
-using EventHorizon.Game.Server.Zone.Player.Move.Model;
-using EventHorizon.Zone.Core.Events.Entity.Movement;
-using EventHorizon.Zone.Core.Events.Map;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.DateTimeService;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Map;
-using EventHorizon.Zone.Core.Model.Player;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Player.Move.Direction
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Numerics;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Game.Server.Zone.Player.Action.Direction;
+    using EventHorizon.Game.Server.Zone.Player.Move.Direction;
+    using EventHorizon.Game.Server.Zone.Player.Move.Model;
+    using EventHorizon.Zone.Core.Events.Entity.Movement;
+    using EventHorizon.Zone.Core.Events.Map;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.DateTimeService;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Map;
+    using EventHorizon.Zone.Core.Model.Player;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class MovePlayerHandlerTests
     {
         [Fact]

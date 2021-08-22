@@ -1,9 +1,10 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Model;
-
 namespace EventHorizon.Zone.System.Combat.Level.Upgrade.Property
 {
-    public class UpgradeActionPointLevel : IUpgradePropertyLevel
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Model;
+
+    public class UpgradeActionPointLevel
+        : IUpgradePropertyLevel
     {
         public LevelStateUpgradeResponse Upgrade(IObjectEntity entity)
         {

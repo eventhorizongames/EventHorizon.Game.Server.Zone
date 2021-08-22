@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Tests.TestUtils
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Microsoft.Extensions.DependencyInjection;
+
     public class ServiceCollectionMock : IServiceCollection
     {
         public Dictionary<int, ServiceDescriptor> Services = new Dictionary<int, ServiceDescriptor>();

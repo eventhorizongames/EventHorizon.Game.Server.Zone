@@ -1,9 +1,9 @@
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Graphics;
-
 namespace EventHorizon.Zone.System.Particle.Model.Settings
 {
+    using global::System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Graphics;
+
     public struct ParticleSettings
     {
         public string Name { get; set; }

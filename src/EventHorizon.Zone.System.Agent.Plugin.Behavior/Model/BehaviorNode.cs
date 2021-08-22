@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Linq;
+
     public struct BehaviorNode
     {
         public int Token { get; }

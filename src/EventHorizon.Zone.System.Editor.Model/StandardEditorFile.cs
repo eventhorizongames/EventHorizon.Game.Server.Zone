@@ -1,9 +1,9 @@
-
-using System.Collections.Generic;
-using System.Text;
-
 namespace EventHorizon.Zone.System.Editor.Model
 {
+
+    using global::System.Collections.Generic;
+    using global::System.Text;
+
     public class StandardEditorFile
     {
         public string Id { get; }

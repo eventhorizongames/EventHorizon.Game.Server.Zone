@@ -1,7 +1,7 @@
-using EventHorizon.Zone.System.Server.Scripts.Model;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Scripts
 {
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+
     /// <summary>
     /// Used in Scripts to create Script Responses.
     /// </summary>

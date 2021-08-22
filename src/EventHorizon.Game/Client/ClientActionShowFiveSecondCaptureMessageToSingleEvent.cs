@@ -1,8 +1,8 @@
-﻿using EventHorizon.Game.Model.Client;
-using EventHorizon.Zone.Core.Events.Client.Generic;
-
-namespace EventHorizon.Game.Client
+﻿namespace EventHorizon.Game.Client
 {
+    using EventHorizon.Game.Model.Client;
+    using EventHorizon.Zone.Core.Events.Client.Generic;
+
     public static class ClientActionShowFiveSecondCaptureMessageToSingleEvent
     {
         public static ClientActionGenericToSingleEvent Create(

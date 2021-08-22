@@ -1,13 +1,13 @@
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Lifetime.State;
-
-using FluentAssertions;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Lifetime.State
 {
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Lifetime.State;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class StandardServerLifetimeStateTests
     {
         [Fact]

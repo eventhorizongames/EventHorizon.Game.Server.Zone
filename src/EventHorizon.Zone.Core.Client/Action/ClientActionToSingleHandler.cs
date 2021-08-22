@@ -1,13 +1,13 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Client;
-using EventHorizon.Zone.Core.Model.Client;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.Client.Action
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Client;
+    using EventHorizon.Zone.Core.Model.Client;
+
+    using MediatR;
+
     public class ClientActionToSingleHandler<T, J> where T : ClientActionToSingleEvent<J> where J : IClientActionData
     {
         readonly IMediator _mediator;

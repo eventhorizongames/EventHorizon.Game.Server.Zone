@@ -1,12 +1,12 @@
-using System;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
-using Moq;
-
 namespace EventHorizon.Tests.TestUtils
 {
+    using System;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
+    using Moq;
+
     public static class ApplicationBuilderFactory
     {
         public struct ApplicationBuilderMocks

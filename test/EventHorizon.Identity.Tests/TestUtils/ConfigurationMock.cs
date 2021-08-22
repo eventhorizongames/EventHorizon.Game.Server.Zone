@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
-
 namespace EventHorizon.Identity.Tests.TestUtils
 {
+    using System.Collections.Generic;
+
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Primitives;
+
     public class ConfigurationMock : IConfiguration
     {
         private IDictionary<string, string> _data = new Dictionary<string, string>();

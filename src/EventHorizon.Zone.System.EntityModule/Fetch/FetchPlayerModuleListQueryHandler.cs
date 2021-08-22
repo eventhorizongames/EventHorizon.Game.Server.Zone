@@ -1,15 +1,15 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.EntityModule.Api;
-using EventHorizon.Zone.System.EntityModule.Model;
-using EventHorizon.Zone.System.EntityModule.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.EntityModule.Fetch
 {
+    using global::System.Collections.Generic;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.EntityModule.Api;
+    using EventHorizon.Zone.System.EntityModule.Model;
+    using EventHorizon.Zone.System.EntityModule.State;
+
+    using MediatR;
+
     public class FetchPlayerModuleListQueryHandler : IRequestHandler<FetchPlayerModuleListQuery, IEnumerable<EntityScriptModule>>
     {
         readonly EntityModuleRepository _entityModuleRepository;

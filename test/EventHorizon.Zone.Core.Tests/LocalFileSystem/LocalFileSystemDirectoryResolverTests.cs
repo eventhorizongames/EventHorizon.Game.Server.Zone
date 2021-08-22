@@ -1,17 +1,17 @@
-using System;
-using System.IO;
-using System.Linq;
-
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
-
-using FluentAssertions;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.DirectoryService
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+    using EventHorizon.Zone.Core.Plugin.LocalFileSystem;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class LocalFileSystemDirectoryResolverTests
     {
         string notExistingDirectoryName = "";

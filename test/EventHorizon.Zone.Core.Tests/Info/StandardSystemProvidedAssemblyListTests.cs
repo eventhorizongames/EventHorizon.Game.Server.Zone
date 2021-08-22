@@ -1,11 +1,11 @@
-using System.Reflection;
-
-using EventHorizon.Zone.Core.Info;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Info
 {
+    using System.Reflection;
+
+    using EventHorizon.Zone.Core.Info;
+
+    using Xunit;
+
     public class StandardSystemProvidedAssemblyListTests
     {
         [Fact]

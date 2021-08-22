@@ -6,25 +6,22 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
 
         public string DefaultBehaviorTreeId { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "defaultBehaviorTreeId":
-                        return this.DefaultBehaviorTreeId;
-
-                    default:
-                        return null;
-                }
+                    "defaultBehaviorTreeId" => DefaultBehaviorTreeId,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "defaultBehaviorTreeId":
-                        this.DefaultBehaviorTreeId = (string)value;
+                        DefaultBehaviorTreeId = (string?)value ?? "DEFAULT";
                         break;
 
                     default:

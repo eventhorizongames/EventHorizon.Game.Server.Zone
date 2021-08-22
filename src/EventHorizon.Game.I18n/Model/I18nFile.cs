@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace EventHorizon.Game.I18n.Model
 {
+    using System.Collections.Generic;
+
     public struct I18nFile
     {
         public string Locale { get; set; }

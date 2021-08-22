@@ -1,9 +1,9 @@
-using System;
-
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Server.Core.External.Tests.TestUtil
 {
+    using System;
+
+    using Microsoft.Extensions.Logging;
+
     public class TestingLogger : ILogger
     {
         public IDisposable BeginScope<TState>(

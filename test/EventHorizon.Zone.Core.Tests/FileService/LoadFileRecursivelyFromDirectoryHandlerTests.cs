@@ -1,25 +1,25 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.DirectoryService;
-using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.FileService;
-using EventHorizon.Zone.Core.Model.DirectoryService;
-using EventHorizon.Zone.Core.Model.FileService;
-
-using FluentAssertions;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.FileService
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.DirectoryService;
+    using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.FileService;
+    using EventHorizon.Zone.Core.Model.DirectoryService;
+    using EventHorizon.Zone.Core.Model.FileService;
+
+    using FluentAssertions;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class ProcessFilesRecursivelyFromDirectoryHandlerTests
     {
         private struct ProcessedFileInfo

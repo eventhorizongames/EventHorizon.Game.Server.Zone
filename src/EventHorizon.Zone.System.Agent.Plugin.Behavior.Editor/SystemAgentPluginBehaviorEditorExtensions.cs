@@ -1,10 +1,10 @@
-using MediatR;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-
 namespace EventHorizon.Game.Server.Zone
 {
+    using MediatR;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+
     public static class SystemAgentPluginBehaviorEditorExtensions
     {
         public static IServiceCollection AddSystemAgentPluginBehaviorEditor(

@@ -1,15 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Combat.Events.Life;
-using EventHorizon.Zone.System.Combat.Model.Life;
-using EventHorizon.Zone.System.Combat.State;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Handlers.Life
 {
-    public class IncreaseLifePropertyHandler : INotificationHandler<IncreaseLifePropertyEvent>
+    using EventHorizon.Zone.System.Combat.Events.Life;
+    using EventHorizon.Zone.System.Combat.Model.Life;
+    using EventHorizon.Zone.System.Combat.State;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    public class IncreaseLifePropertyHandler
+        : INotificationHandler<IncreaseLifePropertyEvent>
     {
         readonly IEntityQueue<ChangeEntityLife> _entityQueue;
         public IncreaseLifePropertyHandler(

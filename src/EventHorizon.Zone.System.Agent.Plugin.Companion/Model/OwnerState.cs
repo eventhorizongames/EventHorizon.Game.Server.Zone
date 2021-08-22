@@ -8,35 +8,30 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
         public bool CanBeCaptured { get; set; }
         public int OwnerFollowDistance { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "ownerId":
-                        return this.OwnerId;
-                    case "canBeCaptured":
-                        return this.CanBeCaptured;
-                    case "ownerFollowDistance":
-                        return this.OwnerFollowDistance;
-
-                    default:
-                        return null;
-                }
+                    "ownerId" => OwnerId,
+                    "canBeCaptured" => CanBeCaptured,
+                    "ownerFollowDistance" => OwnerFollowDistance,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "ownerId":
-                        this.OwnerId = (string)value;
+                        OwnerId = (string?)value ?? string.Empty;
                         break;
                     case "canBeCaptured":
-                        this.CanBeCaptured = (bool)value;
+                        CanBeCaptured = (bool?)value ?? false;
                         break;
                     case "ownerFollowDistance":
-                        this.OwnerFollowDistance = (int)value;
+                        OwnerFollowDistance = (int?)value ?? 1;
                         break;
 
                     default:

@@ -1,18 +1,18 @@
-using System.Threading;
-
-using EventHorizon.Game.Server.Zone;
-using EventHorizon.Tests.TestUtils;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Tests
 {
+    using global::System.Threading;
+
+    using EventHorizon.Game.Server.Zone;
+    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+    using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class SystemPlayerPluginActionExtensionsTests
     {
         [Fact]

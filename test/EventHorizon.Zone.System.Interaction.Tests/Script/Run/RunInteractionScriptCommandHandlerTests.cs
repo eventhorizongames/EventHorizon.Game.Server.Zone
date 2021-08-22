@@ -1,22 +1,22 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Interaction.Model;
-using EventHorizon.Zone.System.Interaction.Script.Run;
-using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
-using static EventHorizon.Zone.System.Interaction.Script.Run.RunInteractionScriptCommandHandler;
-
 namespace EventHorizon.Zone.System.Interaction.Tests.Script.Run
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Interaction.Model;
+    using EventHorizon.Zone.System.Interaction.Script.Run;
+    using EventHorizon.Zone.System.Server.Scripts.Events.Run;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
+    using static EventHorizon.Zone.System.Interaction.Script.Run.RunInteractionScriptCommandHandler;
+
     public class RunInteractionScriptCommandHandlerTests
     {
         [Fact]

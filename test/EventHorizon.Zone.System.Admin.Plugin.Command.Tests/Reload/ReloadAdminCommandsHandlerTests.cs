@@ -1,20 +1,20 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Reload;
-
-using MediatR;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests.Reload
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Reload;
+
+    using MediatR;
+
+    using Moq;
+
+    using Xunit;
+
     public class ReloadAdminCommandsHandlerTests
     {
         [Fact]

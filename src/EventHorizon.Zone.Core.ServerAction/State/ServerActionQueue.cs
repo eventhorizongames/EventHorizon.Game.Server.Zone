@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-
-using EventHorizon.Zone.Core.ServerAction.Model;
-
 namespace EventHorizon.Zone.Core.ServerAction.State
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using EventHorizon.Zone.Core.ServerAction.Model;
+
     public class ServerActionQueue : IServerActionQueue
     {
         private readonly ConcurrentQueue<ServerActionEntity> _actionList = new ConcurrentQueue<ServerActionEntity>();

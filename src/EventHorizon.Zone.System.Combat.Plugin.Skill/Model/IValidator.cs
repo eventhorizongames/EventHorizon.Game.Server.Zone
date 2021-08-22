@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.Entity;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 {
+    using EventHorizon.Zone.Core.Model.Entity;
+
+    using global::System.Collections.Generic;
+
     public interface IValidator
     {
         string Id { get; }

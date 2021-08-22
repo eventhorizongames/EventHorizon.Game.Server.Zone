@@ -1,9 +1,9 @@
-using EventHorizon.Identity.Client;
-
-using Xunit;
-
 namespace EventHorizon.Identity.Tests.Client
 {
+    using EventHorizon.Identity.Client;
+
+    using Xunit;
+
     public class CachingTokenClientFactoryTests
     {
         [Fact]

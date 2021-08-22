@@ -1,21 +1,21 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-using EventHorizon.Zone.System.Watcher.Check;
-using EventHorizon.Zone.System.Watcher.State;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.Check
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+    using EventHorizon.Zone.System.Watcher.Check;
+    using EventHorizon.Zone.System.Watcher.State;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
+
     public class CheckPendingReloadEventHandlerTests
     {
         [Fact]

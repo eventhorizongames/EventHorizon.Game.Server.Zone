@@ -1,8 +1,9 @@
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Events.Level
 {
-    public struct EntityLevelUpFromQueueEvent : INotification
+    using MediatR;
+
+    public struct EntityLevelUpFromQueueEvent
+        : INotification
     {
 
     }

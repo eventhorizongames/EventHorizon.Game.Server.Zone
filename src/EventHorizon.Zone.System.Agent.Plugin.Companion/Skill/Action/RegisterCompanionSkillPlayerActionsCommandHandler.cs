@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Id;
-using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
-using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Action
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Id;
+    using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+
+    using MediatR;
+
     public class RegisterCompanionSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
     {
         readonly IMediator _mediator;

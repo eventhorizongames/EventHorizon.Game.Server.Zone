@@ -47,7 +47,7 @@
                         }
 
                         var rootPath = arguments["RootPath"] as string;
-                        if(string.IsNullOrEmpty(
+                        if (string.IsNullOrEmpty(
                             rootPath
                         ))
                         {

@@ -1,14 +1,14 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Agent.Events.PopulateData;
-using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
 {
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Agent.Events.PopulateData;
+    using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
+
+    using MediatR;
+
     public class PopulateAgentCompanionDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
     {
         private static CompanionState DEFAULT_COMPANION_STATE = new CompanionState

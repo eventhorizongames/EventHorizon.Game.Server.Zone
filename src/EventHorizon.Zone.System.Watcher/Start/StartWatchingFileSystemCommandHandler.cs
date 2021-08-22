@@ -1,17 +1,17 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Watcher.Events.Start;
-using EventHorizon.Zone.System.Watcher.Model;
-using EventHorizon.Zone.System.Watcher.State;
-
-using MediatR;
-
-using Microsoft.Extensions.Logging;
-
 namespace EventHorizon.Zone.System.Watcher.Start
 {
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Watcher.Events.Start;
+    using EventHorizon.Zone.System.Watcher.Model;
+    using EventHorizon.Zone.System.Watcher.State;
+
+    using MediatR;
+
+    using Microsoft.Extensions.Logging;
+
     public class StartWatchingFileSystemCommandHandler : IRequestHandler<StartWatchingFileSystemCommand>
     {
         private readonly ILogger<StartWatchingFileSystemCommandHandler> _logger;

@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-using System.Numerics;
-
-using EventHorizon.Game.Server.Zone.Entity.Model;
-
-using Xunit;
-
 namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
 {
+    using System.Collections.Generic;
+    using System.Numerics;
+
+    using EventHorizon.Game.Server.Zone.Entity.Model;
+
+    using Xunit;
+
     public class SearchEntityTests
     {
         [Fact]

@@ -1,9 +1,9 @@
-using System;
-
-using MediatR;
-
 namespace EventHorizon.Zone.Core.ServerAction.Model
 {
+    using System;
+
+    using MediatR;
+
     public struct ServerActionEntity
     {
         public Guid _guid;

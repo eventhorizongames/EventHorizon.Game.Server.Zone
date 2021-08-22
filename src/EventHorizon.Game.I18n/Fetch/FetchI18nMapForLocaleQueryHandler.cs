@@ -1,12 +1,12 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using MediatR;
-
 namespace EventHorizon.Game.I18n.Fetch
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using MediatR;
+
     public class FetchI18nMapForLocaleQueryHandler : IRequestHandler<FetchI18nMapForLocaleQuery, IDictionary<string, string>>
     {
         private static string DEFAULT_LOCALE = "default";

@@ -1,20 +1,20 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.System.Player.Connection.Internal;
-
-using Microsoft.AspNetCore.Connections;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.AspNetCore.SignalR.Protocol;
-using Microsoft.Extensions.Logging;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
 {
+    using global::System;
+    using global::System.Net;
+    using global::System.Threading.Tasks;
+
+    using EventHorizon.Zone.System.Player.Connection.Internal;
+
+    using Microsoft.AspNetCore.Connections;
+    using Microsoft.AspNetCore.SignalR.Client;
+    using Microsoft.AspNetCore.SignalR.Protocol;
+    using Microsoft.Extensions.Logging;
+
+    using Moq;
+
+    using Xunit;
+
     /// <summary>
     /// Since the SystemPlayerServerConnection is just a wrapper around the HubConnection for 
     ///  SignalR we are just checking that the logging is correctly done on Exceptions.

@@ -1,12 +1,12 @@
-using EventHorizon.Zone.System.Watcher.Model;
-using EventHorizon.Zone.System.Watcher.State;
-
-using Moq;
-
-using Xunit;
-
 namespace EventHorizon.Zone.System.Watcher.Tests.State
 {
+    using EventHorizon.Zone.System.Watcher.Model;
+    using EventHorizon.Zone.System.Watcher.State;
+
+    using Moq;
+
+    using Xunit;
+
     public class InMemoryFileSystemWatcherStateTests
     {
         [Fact]

@@ -1,15 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Find;
-using EventHorizon.Zone.System.Combat.Events.Life;
-using EventHorizon.Zone.System.Combat.Life;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Combat.Handlers.Life
 {
-    public class RunEntityLifeStateChangeHandler : INotificationHandler<RunEntityLifeStateChangeEvent>
+    using EventHorizon.Zone.Core.Events.Entity.Find;
+    using EventHorizon.Zone.System.Combat.Events.Life;
+    using EventHorizon.Zone.System.Combat.Life;
+
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
+    using MediatR;
+
+    public class RunEntityLifeStateChangeHandler
+        : INotificationHandler<RunEntityLifeStateChangeEvent>
     {
         readonly IMediator _mediator;
         readonly ILifeStateChange _lifeStateChange;

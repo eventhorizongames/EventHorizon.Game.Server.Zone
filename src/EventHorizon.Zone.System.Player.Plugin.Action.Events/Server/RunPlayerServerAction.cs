@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-
-using MediatR;
-
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Events
 {
-    public struct RunPlayerServerAction : INotification
+    using global::System.Collections.Generic;
+
+    using MediatR;
+
+    public struct RunPlayerServerAction
+        : INotification
     {
         public string PlayerId { get; }
         public string Action { get; }
@@ -16,9 +17,9 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Events
             IDictionary<string, object> data
         )
         {
-            this.PlayerId = playerId;
-            this.Action = action;
-            this.Data = data;
+            PlayerId = playerId;
+            Action = action;
+            Data = data;
         }
     }
 }

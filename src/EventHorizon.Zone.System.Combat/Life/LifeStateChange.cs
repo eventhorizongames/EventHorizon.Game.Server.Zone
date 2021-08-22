@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.System.Combat.Life.Change;
-using EventHorizon.Zone.System.Combat.Life.Change.Property;
-using EventHorizon.Zone.System.Combat.Model.Life;
-
 namespace EventHorizon.Zone.System.Combat.Life
 {
-    public class LifeStateChange : ILifeStateChange
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.System.Combat.Life.Change;
+    using EventHorizon.Zone.System.Combat.Life.Change.Property;
+    using EventHorizon.Zone.System.Combat.Model.Life;
+
+    using global::System.Collections.Generic;
+
+    public class LifeStateChange
+        : ILifeStateChange
     {
-        private static IDictionary<string, IChangeLifeProperty> _changeLifePropertyList = new Dictionary<string, IChangeLifeProperty>()
+        private readonly IDictionary<string, IChangeLifeProperty> _changeLifePropertyList = new Dictionary<string, IChangeLifeProperty>()
         {
             {
                 LifeProperty.HP,

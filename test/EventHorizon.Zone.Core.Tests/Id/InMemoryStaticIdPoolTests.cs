@@ -1,11 +1,11 @@
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Id;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.Id
 {
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Id;
+
+    using Xunit;
+
     public class InMemoryStaticIdPoolTests
     {
         [Fact]

@@ -1,20 +1,20 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-
-using EventHorizon.Zone.Core.Events.Entity.Data;
-using EventHorizon.Zone.Core.Model.Core;
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Entity.Movement;
-using EventHorizon.Zone.Core.PopulateData;
-
-using FluentAssertions;
-
-using Xunit;
-
 namespace EventHorizon.Zone.Core.Tests.PopulateData
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Events.Entity.Data;
+    using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Movement;
+    using EventHorizon.Zone.Core.PopulateData;
+
+    using FluentAssertions;
+
+    using Xunit;
+
     public class PopulateCoreEntityDataHandlerTests
     {
         [Fact]

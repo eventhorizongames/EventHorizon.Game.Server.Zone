@@ -14,7 +14,7 @@ namespace EventHorizon.Identity.Client
         );
     }
 
-    public class CachingTokenClientFactory 
+    public class CachingTokenClientFactory
         : ITokenClientFactory,
         IDisposable
     {

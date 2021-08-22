@@ -60,7 +60,7 @@
             var directorName = Path.GetDirectoryName(
                 request.SaveFileFullName
             );
-            if(string.IsNullOrEmpty(
+            if (string.IsNullOrEmpty(
                 directorName
             ))
             {

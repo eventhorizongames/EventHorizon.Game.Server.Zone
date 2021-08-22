@@ -5,27 +5,24 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
     {
         public static readonly string PROPERTY_NAME = "companionManagementState";
 
-        public string CapturedBehaviorTreeId { get; set; }
+        public string? CapturedBehaviorTreeId { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "capturedBehaviorTreeId":
-                        return this.CapturedBehaviorTreeId;
-
-                    default:
-                        return null;
-                }
+                    "capturedBehaviorTreeId" => CapturedBehaviorTreeId,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "capturedBehaviorTreeId":
-                        this.CapturedBehaviorTreeId = (string)value;
+                        CapturedBehaviorTreeId = (string?)value;
                         break;
 
                     default:

@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Numerics;
-
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
 namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Events.Runner
 {
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Numerics;
+
+    using EventHorizon.Zone.Core.Model.Player;
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
     public struct RunSkillWithTargetOfEntityEvent : PlayerActionEvent
     {
         public string ConnectionId { get; set; }
