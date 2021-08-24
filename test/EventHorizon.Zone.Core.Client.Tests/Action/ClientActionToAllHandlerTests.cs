@@ -54,8 +54,9 @@ namespace EventHorizon.Zone.Core.Client.Tests.Action
 
         public class TestClientActionEvent : ClientActionToAllEvent<TestClientActionData>
         {
-            private string _action;
-            private TestClientActionData _data;
+            private readonly string _action;
+            private readonly TestClientActionData _data;
+
             public override string Action => _action;
             public override TestClientActionData Data
             {

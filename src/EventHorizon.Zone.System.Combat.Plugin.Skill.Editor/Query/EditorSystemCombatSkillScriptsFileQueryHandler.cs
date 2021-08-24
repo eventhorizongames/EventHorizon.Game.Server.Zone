@@ -32,14 +32,16 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Query
                         script => script.TagList.Contains(
                             "Type:SkillEffectScript"
                         )
-                    )
+                    ),
+                    cancellationToken
                 ),
                 await _mediator.Send(
                     new QueryForServerScriptDetails(
                         script => script.TagList.Contains(
                             "Type:SkillValidatorScript"
                         )
-                    )
+                    ),
+                    cancellationToken
                 )
             );
         }

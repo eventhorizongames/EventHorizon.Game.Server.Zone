@@ -6,7 +6,7 @@
     {
         public static ClientActionGenericToSingleEvent Create(
             ClientActionRunSkillActionForConnectionEvent data
-        ) => new ClientActionGenericToSingleEvent(
+        ) => new(
             data.ConnectionId,
             "RunSkillAction",
             data

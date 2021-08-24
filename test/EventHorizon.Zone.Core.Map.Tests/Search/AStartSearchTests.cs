@@ -266,12 +266,12 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             actual.Should().BeEmpty();
         }
 
-        private void AddWallsToMapGraph(MapGraph mapGraph, float x, float z)
+        private static void AddWallsToMapGraph(MapGraph mapGraph, float x, float z)
         {
             var node = mapGraph.GetClosestNode(new Vector3(x, 0, z));
             var edges = mapGraph.GetEdgesOfNode(node.Index).ToList();
             IList<MapEdge> updatedEdges = new List<MapEdge>();
-            for (int i = 0; i < edges.Count(); i++)
+            for (int i = 0; i < edges.Count; i++)
             {
                 var edge = edges[i];
                 edge.Cost = float.PositiveInfinity;
@@ -295,7 +295,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             }
         }
 
-        private MapGraph CreateWorldMapGraph(int dim)
+        private static MapGraph CreateWorldMapGraph(int dim)
         {
             var tileDim = 2;
             var dimensions = new Vector2(dim, dim);
@@ -384,7 +384,8 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             }
             return mapGraph;
         }
-        private int GetTopIndex(int cHeight, int cWidth, float maxHeight)
+
+        private static int GetTopIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight - 1;
             if (index == -1)
@@ -393,7 +394,8 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             }
             return (int)(index * maxHeight) + cWidth;
         }
-        private int GetRightIndex(int cHeight, int cWidth, float maxWidth)
+
+        private static int GetRightIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth + 1;
             if (index == maxWidth)
@@ -402,7 +404,8 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             }
             return (int)(cHeight * maxWidth) + index;
         }
-        private int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
+
+        private static int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth - 1;
             if (index == -1)
@@ -411,7 +414,8 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             }
             return (int)(cHeight * maxWidth) + index;
         }
-        private int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
+
+        private static int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight + 1;
             if (index == maxHeight)

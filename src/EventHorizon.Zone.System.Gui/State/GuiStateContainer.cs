@@ -6,9 +6,10 @@ namespace EventHorizon.Zone.System.Gui.State
     using EventHorizon.Zone.System.Gui.Api;
     using EventHorizon.Zone.System.Gui.Model;
 
-    public class InMemoryGuiState : GuiState
+    public class InMemoryGuiState
+        : GuiState
     {
-        private static readonly ConcurrentDictionary<string, GuiLayout> LAYOUT_MAP = new ConcurrentDictionary<string, GuiLayout>();
+        private static readonly ConcurrentDictionary<string, GuiLayout> LAYOUT_MAP = new();
 
         public void AddLayout(
             string id,
@@ -18,7 +19,7 @@ namespace EventHorizon.Zone.System.Gui.State
             LAYOUT_MAP.AddOrUpdate(
                 id,
                 layout,
-                (key, old) => layout
+                (_, _) => layout
             );
         }
 

@@ -5,7 +5,8 @@ namespace EventHorizon.Zone.Core.RandomNumber
 
     using EventHorizon.Zone.Core.Model.RandomNumber;
 
-    public class CryptographyRandomNumberGenerator : IRandomNumberGenerator
+    public class CryptographyRandomNumberGenerator
+        : IRandomNumberGenerator
     {
         private static readonly RandomNumberGenerator RANDOM = RandomNumberGenerator.Create();
 
@@ -26,14 +27,19 @@ namespace EventHorizon.Zone.Core.RandomNumber
         {
             if (minValue > maxValue)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(
+                    nameof(minValue),
+                    nameof(maxValue),
+                    "minValue is larger then the maxValue"
+                );
             }
+
             return (int)Math.Floor(
-                (minValue + ((double)maxValue - minValue) * NextDouble())
+                minValue + ((double)maxValue - minValue) * NextDouble()
             );
         }
 
-        private double NextDouble()
+        private static double NextDouble()
         {
             var data = new byte[sizeof(uint)];
             RANDOM.GetBytes(

@@ -10,10 +10,11 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Action
 
     using MediatR;
 
-    public class RegisterPlayerMoveActionsHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    public class RegisterPlayerMoveActionsHandler
+        : INotificationHandler<ReadyForPlayerActionRegistration>
     {
-        readonly IMediator _mediator;
-        readonly IdPool _idPool;
+        private readonly IMediator _mediator;
+        private readonly IdPool _idPool;
 
         public RegisterPlayerMoveActionsHandler(
             IMediator mediator,
@@ -23,6 +24,7 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Action
             _mediator = mediator;
             _idPool = idPool;
         }
+
         public async Task Handle(
             ReadyForPlayerActionRegistration request,
             CancellationToken cancellationToken
@@ -34,9 +36,9 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Action
                     _idPool.NextId(),
                     PlayerMoveActions.MOVE,
                     new MovePlayerEvent()
-                )
+                ),
+                cancellationToken
             );
-
 
             // TODO: Move this Run into the Player System Move Plugin
             await _mediator.Send(
@@ -44,7 +46,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Action
                     _idPool.NextId(),
                     PlayerMoveActions.STOP,
                     new StopPlayerEvent()
-                )
+                ),
+                cancellationToken
             );
         }
     }

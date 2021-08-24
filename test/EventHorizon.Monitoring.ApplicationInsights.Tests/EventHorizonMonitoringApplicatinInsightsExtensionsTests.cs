@@ -21,7 +21,7 @@ namespace EventHorizon.Monitoring.ApplicationInsights.Tests
         public void ShouldReturnRegisteredServicesWhenCalled()
         {
             // Given
-            Action<ApplicationInsightsServiceOptions> options = options => { };
+            static void options(ApplicationInsightsServiceOptions options) { }
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When

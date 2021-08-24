@@ -68,7 +68,7 @@ namespace EventHorizon.Zone.Core.Tests.Info
             Assert.Equal(expectedCoreMapPath, serverInfo.CoreMapPath);
         }
 
-        private object ToValidPath(params string[] paths)
+        private static object ToValidPath(params string[] paths)
         {
             return Path.Combine(
                 paths

@@ -26,8 +26,10 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             // Given
             var server = "core_server_url";
             var expected = $"{server}/zoneCore";
-            var coreSettings = new CoreSettings();
-            coreSettings.Server = server;
+            var coreSettings = new CoreSettings
+            {
+                Server = server
+            };
 
             var loggerFactoryMock = new Mock<ILoggerFactory>();
             var mediatorMock = new Mock<IMediator>();

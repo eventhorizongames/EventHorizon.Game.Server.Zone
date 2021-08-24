@@ -24,7 +24,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity
             return this;
         }
 
-        public static readonly SkillState NEW = new SkillState
+        public static readonly SkillState NEW = new()
         {
             SkillMap = new SkillStateMap
             {

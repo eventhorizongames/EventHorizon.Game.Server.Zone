@@ -22,7 +22,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests.State
             Prime();
         }
 
-        private void Prime()
+        private static void Prime()
         {
             var input = 1_000;
             var entitiesToCreate = 1_000_000;

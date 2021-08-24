@@ -62,7 +62,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
             var tagList = new List<string>() { "player" };
             var entityId1 = 1;
             var entityId2 = 2;
-            List<int> expected = new List<int>
+            List<int> expected = new()
             {
                 entityId1,
                 entityId2,

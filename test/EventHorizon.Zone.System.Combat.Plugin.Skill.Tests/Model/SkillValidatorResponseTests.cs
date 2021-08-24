@@ -37,9 +37,9 @@
 
             // Then
             actual.Validator
-                .Should().Be(validator);
+                .Should().Be(expectedValidator);
             actual.Success
-                .Should().Be(success);
+                .Should().Be(expectedSuccess);
             actual.ErrorCode
                 .Should().Be(expectedErrorCode);
             actual.ErrorMessageTemplateKey

@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Interaction.Events.Client
         public static ClientActionGenericToSingleEvent Create(
             string connectionId,
             InteractionClientActionData data
-        ) => new ClientActionGenericToSingleEvent(
+        ) => new(
             connectionId,
             "SERVER_INTERACTION_CLIENT_ACTION_EVENT",
             data

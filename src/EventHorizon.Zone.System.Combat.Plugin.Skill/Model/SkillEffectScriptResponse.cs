@@ -40,7 +40,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
         }
 
         public static SkillEffectScriptResponse New()
-            => new SkillEffectScriptResponse
+            => new()
             {
                 State = new Dictionary<string, object>(),
                 ActionList = new List<ClientSkillAction>(),

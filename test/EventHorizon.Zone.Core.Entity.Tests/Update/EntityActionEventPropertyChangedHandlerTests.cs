@@ -94,7 +94,7 @@
 
         public class EntityActionsTestDataGenerator : IEnumerable<object[]>
         {
-            private readonly List<object[]> _data = new List<object[]>
+            private readonly List<object[]> _data = new()
             {
                 new object[] { EntityAction.ADD },
                 new object[] { EntityAction.POSITION },

@@ -8,9 +8,10 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
 
     using MediatR;
 
-    public class StopPlayerEventHandler : INotificationHandler<StopPlayerEvent>
+    public class StopPlayerEventHandler
+        : INotificationHandler<StopPlayerEvent>
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public StopPlayerEventHandler(
             IMediator mediator
@@ -30,7 +31,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
                     {
                         EntityId = notification.Player.Id
                     }
-                )
+                ),
+                cancellationToken
             );
         }
     }

@@ -1,6 +1,5 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
 {
-    using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Events.Path;
     using EventHorizon.Zone.System.Agent.Events.Get;
     using EventHorizon.Zone.System.Agent.Events.Move;
@@ -13,18 +12,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
 
     using MediatR;
 
-    public class MoveAgentToPositionEventHandler : IRequestHandler<MoveAgentToPositionEvent>
+    public class MoveAgentToPositionEventHandler
+        : IRequestHandler<MoveAgentToPositionEvent>
     {
         private readonly IMediator _mediator;
-        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public MoveAgentToPositionEventHandler(
-            IMediator mediator,
-            PerformanceTrackerFactory performanceTrackerFactory
+            IMediator mediator
         )
         {
             _mediator = mediator;
-            _performanceTrackerFactory = performanceTrackerFactory;
         }
 
         public async Task<Unit> Handle(
@@ -33,14 +30,18 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Position
         )
         {
             // Get entity position
-            var agent = await _mediator.Send(new GetAgentEvent
-            {
-                EntityId = request.AgentId,
-            });
+            var agent = await _mediator.Send(
+                new GetAgentEvent
+                {
+                    EntityId = request.AgentId,
+                },
+                cancellationToken
+            );
             if (!agent.IsFound())
             {
                 return Unit.Value;
             }
+
             Queue<Vector3> path;
             // Get Path to node
             path = await _mediator.Send(new FindPathEvent

@@ -14,21 +14,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 
     using Microsoft.Extensions.Logging;
 
-    public class PostProcessActorBehaviorTickResultHandler : IRequestHandler<PostProcessActorBehaviorTickResult>
+    public class PostProcessActorBehaviorTickResultHandler
+        : IRequestHandler<PostProcessActorBehaviorTickResult>
     {
-        private readonly IMediator _mediator;
         private readonly ILogger _logger;
         private readonly IDateTimeService _dateTime;
         private readonly ActorBehaviorTickQueue _queue;
 
         public PostProcessActorBehaviorTickResultHandler(
-            IMediator mediator,
             ILogger<PostProcessActorBehaviorTickResultHandler> logger,
             IDateTimeService dateTime,
             ActorBehaviorTickQueue queue
         )
         {
-            _mediator = mediator;
             _logger = logger;
             _dateTime = dateTime;
             _queue = queue;
@@ -53,7 +51,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     request
                 );
                 _queue.RegisterFailed(
-                    request.ActorBehaviorTick
+                    actorBehaviorTick
                 );
                 return Unit.Task;
             }

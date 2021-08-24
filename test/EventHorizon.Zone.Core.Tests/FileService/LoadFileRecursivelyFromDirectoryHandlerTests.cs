@@ -76,18 +76,17 @@ namespace EventHorizon.Zone.Core.Tests.FileService
                 subDirectoryFile
             );
 
-            Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile =
-                (fileInfo, args) =>
-                {
-                    actualProcessedFileInfo.Add(
-                        new ProcessedFileInfo
-                        {
-                            FileInfo = fileInfo,
-                            Args = args,
-                        }
-                    );
-                    return Task.CompletedTask;
-                };
+            Task onProcessFile(StandardFileInfo fileInfo, IDictionary<string, object> args)
+            {
+                actualProcessedFileInfo.Add(
+                    new ProcessedFileInfo
+                    {
+                        FileInfo = fileInfo,
+                        Args = args,
+                    }
+                );
+                return Task.CompletedTask;
+            }
 
             var mediatorMock = new Mock<IMediator>();
 

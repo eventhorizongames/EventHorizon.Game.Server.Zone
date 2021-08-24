@@ -53,7 +53,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests.State
 
             // When
             var repository = new ServerScriptInMemoryRepository();
-            Func<ServerScript> action = () => repository.Find(
+            ServerScript action() => repository.Find(
                 scriptId
             );
 

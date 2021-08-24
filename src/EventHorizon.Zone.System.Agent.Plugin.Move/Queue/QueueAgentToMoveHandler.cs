@@ -12,23 +12,19 @@ namespace EventHorizon.Zone.System.Agent.Move.Queue
 
     using MediatR;
 
-    using Microsoft.Extensions.Logging;
-
-    public class QueueAgentToMoveHandler : IRequestHandler<QueueAgentToMove>
+    public class QueueAgentToMoveHandler
+        : IRequestHandler<QueueAgentToMove>
     {
-        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly IAgentRepository _agentRepository;
         private readonly IMoveAgentRepository _moveRepository;
 
         public QueueAgentToMoveHandler(
-            ILogger<QueueAgentToMoveHandler> logger,
             IMediator mediator,
             IAgentRepository agentRepository,
             IMoveAgentRepository moveRepository
         )
         {
-            _logger = logger;
             _mediator = mediator;
             _agentRepository = agentRepository;
             _moveRepository = moveRepository;

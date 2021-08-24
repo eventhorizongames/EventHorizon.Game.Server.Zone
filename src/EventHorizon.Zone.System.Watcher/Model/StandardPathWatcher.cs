@@ -1,12 +1,12 @@
 namespace EventHorizon.Zone.System.Watcher.Model
 {
-    using global::System;
     using global::System.IO;
 
     public struct StandardPathWatcher : PathWatcher
     {
+        private readonly FileSystemWatcher _fileWatcher;
+
         public string Path { get; }
-        FileSystemWatcher _fileWatcher;
 
         public StandardPathWatcher(
             string path,

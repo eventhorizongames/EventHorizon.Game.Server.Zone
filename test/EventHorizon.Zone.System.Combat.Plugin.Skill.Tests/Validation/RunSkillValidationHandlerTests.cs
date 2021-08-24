@@ -225,9 +225,6 @@
             // Given
             var expected = new List<SkillValidatorResponse>();
 
-            var skillEffect = new SkillEffect
-            {
-            };
             var skill = new SkillInstance();
             var validatorList = new List<SkillValidator>();
             var caster = new DefaultEntity();

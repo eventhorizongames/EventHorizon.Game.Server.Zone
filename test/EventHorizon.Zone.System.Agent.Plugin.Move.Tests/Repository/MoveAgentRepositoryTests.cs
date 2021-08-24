@@ -46,9 +46,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Repository
                 inputId1
             );
             moveAgentRepository.MergeRegisteredIntoQueue();
-            var actualId = 0L;
             var actual = moveAgentRepository.Dequeue(
-                out actualId
+                out var actualId
             );
 
             // Then

@@ -19,7 +19,7 @@
 
     public class CSharpAssemblyBuilderTests
     {
-        string _fileTempDirectory = string.Empty;
+        private readonly string _fileTempDirectory = string.Empty;
 
         public CSharpAssemblyBuilderTests()
         {

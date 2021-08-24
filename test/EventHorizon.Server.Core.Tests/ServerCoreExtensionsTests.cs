@@ -30,7 +30,7 @@ namespace EventHorizon.Server.Core.Tests
             var coreServerConnectionMock = new Mock<CoreServerConnection>();
             var expectedCoreServerConnection = coreServerConnectionMock.Object;
 
-            Action<CoreSettings> configureCoreSettings = options => { };
+            static void configureCoreSettings(CoreSettings options) { }
 
             var serviceCollectionMock = new ServiceCollectionMock();
 

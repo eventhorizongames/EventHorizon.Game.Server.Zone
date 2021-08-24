@@ -6,7 +6,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
     using System.Threading;
     using System.Threading.Tasks;
 
-    using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Connection;
@@ -62,7 +61,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
             var serverInfoMock = new Mock<ServerInfo>();
             var jsonFileSaverMock = new Mock<IJsonFileSaver>();
             var agentRepositoryMock = new Mock<IAgentRepository>();
-            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
             var agentConnectionMock = new Mock<IAgentConnection>();
 
             serverInfoMock.Setup(
@@ -81,8 +79,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Save.Handler
                 serverInfoMock.Object,
                 jsonFileSaverMock.Object,
                 agentRepositoryMock.Object,
-                agentConnectionMock.Object,
-                performanceTrackerFactoryMock.Object
+                agentConnectionMock.Object
             );
 
             await saveAgentStateHandler.Handle(

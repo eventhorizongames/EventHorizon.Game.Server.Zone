@@ -12,12 +12,6 @@ namespace EventHorizon.Game.Server.Zone.Setup
 
         public static IApplicationBuilder UseServerSetup(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                return app;
-            }
-        }
+        ) => app;
     }
 }

@@ -93,10 +93,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(
+            )
+            {
                 input
-            );
+            };
             var actual = binaryHeap.IsEmpty;
 
             // Then
@@ -115,7 +115,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
             );
-            Action action = () => binaryHeap.Dequeue();
+            void action() => binaryHeap.Dequeue();
             var actual = Assert.Throws<InvalidOperationException>(
                 action
             );
@@ -136,7 +136,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
             );
-            Action action = () => binaryHeap.Peek();
+            void action() => binaryHeap.Peek();
             var actual = Assert.Throws<InvalidOperationException>(
                 action
             );
@@ -156,8 +156,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(input);
+            )
+            {
+                input
+            };
             binaryHeap.IsEmpty
                 .Should().BeFalse();
             binaryHeap.Clear();
@@ -177,8 +179,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(input);
+            )
+            {
+                input
+            };
 
             // Then
             binaryHeap.Contains(input)
@@ -213,8 +217,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(input);
+            )
+            {
+                input
+            };
 
             // Then
             binaryHeap.Count
@@ -232,8 +238,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(input);
+            )
+            {
+                input
+            };
             var actual = binaryHeap.Peek();
 
             // Then
@@ -251,8 +259,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             // When
             var binaryHeap = new BinaryHeap<string>(
                 stringComparer
-            );
-            binaryHeap.Add(input);
+            )
+            {
+                input
+            };
             var actual = binaryHeap.Peek();
 
             // Then

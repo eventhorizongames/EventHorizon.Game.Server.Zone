@@ -1,10 +1,8 @@
 ﻿namespace EventHorizon.Zone.Core.Map.Model
 {
-    using System;
-
     public static class DefaultMapSettings
     {
-        public static ZoneMapDetails DEFAULT_MAP = new ZoneMapDetails
+        public static ZoneMapDetails DEFAULT_MAP = new()
         {
             Dimensions = 16,
             TileDimensions = 1,

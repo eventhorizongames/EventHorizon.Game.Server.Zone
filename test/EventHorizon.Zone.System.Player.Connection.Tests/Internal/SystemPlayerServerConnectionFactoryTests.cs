@@ -23,8 +23,10 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
         {
             // Given
             var server = "server_server_url";
-            var connectionSettings = new PlayerServerConnectionSettings();
-            connectionSettings.Server = server;
+            var connectionSettings = new PlayerServerConnectionSettings
+            {
+                Server = server
+            };
 
             var loggerFactoryMock = new Mock<ILoggerFactory>();
             var mediatorMock = new Mock<IMediator>();

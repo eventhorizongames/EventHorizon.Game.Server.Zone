@@ -24,15 +24,13 @@ namespace EventHorizon.Game.Server.Zone
             this IApplicationBuilder app
         )
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetRequiredService<IMediator>()
-                    .Publish(new LoadServerModuleSystem())
-                    .GetAwaiter()
-                    .GetResult();
-                return app;
-            }
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            serviceScope.ServiceProvider
+                .GetRequiredService<IMediator>()
+                .Publish(new LoadServerModuleSystem())
+                .GetAwaiter()
+                .GetResult();
+            return app;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
 
     public class TestDataGenerator : IEnumerable<object[]>
     {
-        private readonly List<object[]> _data = new List<object[]>
+        private readonly List<object[]> _data = new()
         {
             new object[] { new Cell_ScenarioTestData { ExpectedIndex = 480, Input = new Vector3(-1, 0, 0), Expected = new Vector3(0, 0, 0)} },
         };
@@ -67,7 +67,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             // Create Graph Nodes
             var indexMap = new List<int>();
             var key = 0;
-            Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new();
 
             for (var i = 0; i < zoneHeight; i++)
             {
@@ -143,7 +143,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             }
             return mapGraph;
         }
-        private int GetTopIndex(int cHeight, int cWidth, float maxHeight)
+
+        private static int GetTopIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight - 1;
             if (index == -1)
@@ -152,7 +153,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             }
             return (int)(index * maxHeight) + cWidth;
         }
-        private int GetRightIndex(int cHeight, int cWidth, float maxWidth)
+
+        private static int GetRightIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth + 1;
             if (index == maxWidth)
@@ -161,7 +163,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             }
             return (int)(cHeight * maxWidth) + index;
         }
-        private int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
+
+        private static int GetLeftIndex(int cHeight, int cWidth, float maxWidth)
         {
             var index = cWidth - 1;
             if (index == -1)
@@ -170,7 +173,8 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             }
             return (int)(cHeight * maxWidth) + index;
         }
-        private int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
+
+        private static int GetBottomIndex(int cHeight, int cWidth, float maxHeight)
         {
             var index = cHeight + 1;
             if (index == maxHeight)

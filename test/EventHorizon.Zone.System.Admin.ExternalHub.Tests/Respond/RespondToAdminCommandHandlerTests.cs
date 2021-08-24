@@ -92,7 +92,7 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests.Respond
             var actual = await handler.Handle(
                 new RespondToAdminCommand(
                     connectionId,
-                    default(IAdminCommandResponse)
+                    default
                 ),
                 CancellationToken.None
             );

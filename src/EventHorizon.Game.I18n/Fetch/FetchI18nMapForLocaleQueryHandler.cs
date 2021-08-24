@@ -7,17 +7,20 @@ namespace EventHorizon.Game.I18n.Fetch
 
     using MediatR;
 
-    public class FetchI18nMapForLocaleQueryHandler : IRequestHandler<FetchI18nMapForLocaleQuery, IDictionary<string, string>>
+    public class FetchI18nMapForLocaleQueryHandler
+        : IRequestHandler<FetchI18nMapForLocaleQuery, IDictionary<string, string>>
     {
-        private static string DEFAULT_LOCALE = "default";
+        private static readonly string DEFAULT_LOCALE = "default";
 
-        readonly I18nRepository _i18nRepo;
+        private readonly I18nRepository _i18nRepo;
+
         public FetchI18nMapForLocaleQueryHandler(
             I18nRepository i18nRepo
         )
         {
             _i18nRepo = i18nRepo;
         }
+
         public Task<IDictionary<string, string>> Handle(
             FetchI18nMapForLocaleQuery request,
             CancellationToken cancellationToken
@@ -38,6 +41,7 @@ namespace EventHorizon.Game.I18n.Fetch
                 i18nRepo
             );
         }
+
         public bool IsEmpty<TSource>(
             IEnumerable<TSource> source
         )

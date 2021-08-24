@@ -7,14 +7,14 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
 
     public class BehaviorTreeStateBuilder
     {
-        private static IList<SerializedBehaviorNode> EMPTY_LIST = new List<SerializedBehaviorNode>().AsReadOnly();
+        private static readonly IList<SerializedBehaviorNode> EMPTY_LIST = new List<SerializedBehaviorNode>().AsReadOnly();
 
-        SerializedBehaviorNode _root;
-        List<SerializedBehaviorNode> _nodeList;
+        private SerializedBehaviorNode _root;
+        private readonly List<SerializedBehaviorNode> _nodeList;
 
         public BehaviorTreeStateBuilder()
         {
-            _root = default(SerializedBehaviorNode);
+            _root = default;
             _nodeList = new List<SerializedBehaviorNode>();
         }
 
@@ -29,7 +29,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.Behavior.TestUtils
             SerializedBehaviorNode node
         )
         {
-            node.NodeList = node.NodeList ?? EMPTY_LIST;
+            node.NodeList ??= EMPTY_LIST;
             _nodeList.Add(
                 node
             );

@@ -28,12 +28,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
         {
             //Given
             var mediatorMock = new Mock<IMediator>();
-            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             //When
             var handler = new MoveAgentToPositionEventHandler(
-                mediatorMock.Object,
-                performanceTrackerFactoryMock.Object
+                mediatorMock.Object
             );
 
             await handler.Handle(
@@ -80,7 +78,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
             var expectedMoveToPosition = new Vector3(1, 1, 1);
 
             var mediatorMock = new Mock<IMediator>();
-            var performanceTrackerFactoryMock = new Mock<PerformanceTrackerFactory>();
 
             mediatorMock.Setup(
                 mock => mock.Send(
@@ -107,8 +104,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Position
 
             //When
             var handler = new MoveAgentToPositionEventHandler(
-                mediatorMock.Object,
-                performanceTrackerFactoryMock.Object
+                mediatorMock.Object
             );
 
             await handler.Handle(

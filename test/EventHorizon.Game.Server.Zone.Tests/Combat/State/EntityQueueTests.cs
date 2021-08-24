@@ -1,14 +1,10 @@
 namespace EventHorizon.Game.Server.Zone.Tests.Combat.State
 {
-    using System.Diagnostics;
     using System.Threading.Tasks;
 
     using EventHorizon.Zone.System.Combat.State;
 
-    using Moq;
-
     using Xunit;
-    using Xunit.Abstractions;
 
     public class EntityQueueTests
     {
@@ -63,7 +59,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Combat.State
             var actualEntity6 = await entityQueue.Dequeue();
             Assert.Equal(6, actualEntity6.Index);
             var actualEntity7 = await entityQueue.Dequeue();
-            Assert.Equal(default(EntityQueueTestStruct), actualEntity7);
+            Assert.Equal(default, actualEntity7);
         }
 
         public struct EntityQueueTestStruct

@@ -59,8 +59,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.PlayerAction(
                 actionName,
@@ -108,8 +110,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.OnConnectedAsync();
 

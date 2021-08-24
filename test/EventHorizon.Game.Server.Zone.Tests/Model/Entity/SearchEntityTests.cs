@@ -61,7 +61,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
         {
             // Given
             var inputId = 123;
-            SearchEntity input = new SearchEntity(inputId, Vector3.Zero, null);
+            SearchEntity input = new(inputId, Vector3.Zero, null);
 
             // When
             var searchEntity = new SearchEntity(inputId, Vector3.Zero, null);

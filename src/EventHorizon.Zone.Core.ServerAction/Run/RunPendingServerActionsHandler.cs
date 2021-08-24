@@ -8,10 +8,12 @@ namespace EventHorizon.Zone.Core.ServerAction.Run
 
     using MediatR;
 
-    public class RunPendingServerActionsHandler : INotificationHandler<RunPendingServerActionsEvent>
+    public class RunPendingServerActionsHandler
+        : INotificationHandler<RunPendingServerActionsEvent>
     {
-        readonly IMediator _mediator;
-        readonly IServerActionQueue _serverActionQueue;
+        private readonly IMediator _mediator;
+        private readonly IServerActionQueue _serverActionQueue;
+
         public RunPendingServerActionsHandler(
             IMediator mediator,
             IServerActionQueue serverActionQueue
@@ -20,6 +22,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Run
             _mediator = mediator;
             _serverActionQueue = serverActionQueue;
         }
+
         public async Task Handle(
             RunPendingServerActionsEvent notification,
             CancellationToken cancellationToken
@@ -31,7 +34,8 @@ namespace EventHorizon.Zone.Core.ServerAction.Run
             foreach (var action in list.Values())
             {
                 await _mediator.Publish(
-                    action.EventToSend
+                    action.EventToSend,
+                    cancellationToken
                 );
             }
         }

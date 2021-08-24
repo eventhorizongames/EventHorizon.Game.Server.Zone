@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.ServerModule.Actions.Reload
     {
         public static ClientActionGenericToAllEvent Create(
             ServerModuleSystemReloadedClientActionData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "SERVER_MODULE_SYSTEM_RELOADED_CLIENT_ACTION_EVENT",
             data
         );

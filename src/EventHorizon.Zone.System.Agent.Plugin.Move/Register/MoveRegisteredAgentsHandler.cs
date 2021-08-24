@@ -9,23 +9,19 @@ namespace EventHorizon.Zone.System.Agent.Move.Register
 
     using MediatR;
 
-    using Microsoft.Extensions.Logging;
-
-    public class MoveRegisteredAgentsHandler : INotificationHandler<MoveRegisteredAgentsEvent>
+    public class MoveRegisteredAgentsHandler
+        : INotificationHandler<MoveRegisteredAgentsEvent>
     {
-        readonly ILogger _logger;
-        readonly IMediator _mediator;
-        readonly IMoveAgentRepository _moveRepository;
-        readonly PerformanceTrackerFactory _performanceTrackerFactory;
+        private readonly IMediator _mediator;
+        private readonly IMoveAgentRepository _moveRepository;
+        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public MoveRegisteredAgentsHandler(
-            ILogger<MoveRegisteredAgentsHandler> logger,
             IMediator mediator,
             IMoveAgentRepository moveRepository,
             PerformanceTrackerFactory performanceTrackerFactory
         )
         {
-            _logger = logger;
             _mediator = mediator;
             _moveRepository = moveRepository;
             _performanceTrackerFactory = performanceTrackerFactory;

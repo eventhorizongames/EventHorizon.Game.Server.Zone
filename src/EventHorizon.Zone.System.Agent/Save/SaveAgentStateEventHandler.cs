@@ -1,11 +1,5 @@
 namespace EventHorizon.Zone.System.Agent.Save
 {
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Connection;
@@ -15,31 +9,34 @@ namespace EventHorizon.Zone.System.Agent.Save
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.Agent.Save.Model;
 
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class SaveAgentStateHandler : INotificationHandler<SaveAgentStateEvent>
+    public class SaveAgentStateHandler
+        : INotificationHandler<SaveAgentStateEvent>
     {
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileSaver _fileSaver;
-        readonly IAgentRepository _agentRepository;
-
-        readonly IAgentConnection _agentConnection;
-        readonly PerformanceTrackerFactory _performanceTrackerFactory;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileSaver _fileSaver;
+        private readonly IAgentRepository _agentRepository;
+        private readonly IAgentConnection _agentConnection;
 
         public SaveAgentStateHandler(
             ServerInfo serverInfo,
             IJsonFileSaver fileSaver,
             IAgentRepository agentRepository,
-            IAgentConnection agentConnection,
-            PerformanceTrackerFactory performanceTrackerFactory
+            IAgentConnection agentConnection
         )
         {
             _serverInfo = serverInfo;
             _fileSaver = fileSaver;
             _agentRepository = agentRepository;
             _agentConnection = agentConnection;
-            _performanceTrackerFactory = performanceTrackerFactory;
         }
+
         public async Task Handle(
             SaveAgentStateEvent notification,
             CancellationToken cancellationToken
@@ -79,6 +76,7 @@ namespace EventHorizon.Zone.System.Agent.Save
                 }
             );
         }
+
         private string GetAgentDataDirectory()
         {
             return Path.Combine(
@@ -86,6 +84,7 @@ namespace EventHorizon.Zone.System.Agent.Save
                 "Agent"
             );
         }
+
         private string GetAgentFileName()
         {
             return "Agent.state.json";

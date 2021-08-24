@@ -8,9 +8,11 @@ namespace EventHorizon.Zone.Core.Client.Action
 
     using MediatR;
 
-    public class ClientActionToAllHandler<T, J> where T : ClientActionToAllEvent<J> where J : IClientActionData
+    public class ClientActionToAllHandler<T, J>
+        where T : ClientActionToAllEvent<J>
+        where J : IClientActionData
     {
-        readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         public ClientActionToAllHandler(
             IMediator mediator
@@ -19,16 +21,20 @@ namespace EventHorizon.Zone.Core.Client.Action
             _mediator = mediator;
         }
 
-        public Task Handle(
+        public async Task Handle(
             T notification,
             CancellationToken cancellationToken
-        ) => _mediator.Publish(
-            new SendToAllClientsEvent
-            {
-                Method = "ClientAction",
-                Arg1 = notification.Action,
-                Arg2 = notification.Data
-            }
-        );
+        )
+        {
+            await _mediator.Publish(
+                new SendToAllClientsEvent
+                {
+                    Method = "ClientAction",
+                    Arg1 = notification.Action,
+                    Arg2 = notification.Data
+                },
+                cancellationToken
+            );
+        }
     }
 }

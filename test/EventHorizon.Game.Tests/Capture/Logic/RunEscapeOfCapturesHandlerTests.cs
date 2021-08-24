@@ -329,7 +329,7 @@
             );
         }
 
-        private bool VerifyEntityOwnerIsExpected(
+        private static bool VerifyEntityOwnerIsExpected(
             IObjectEntity entity,
             string expected
         )

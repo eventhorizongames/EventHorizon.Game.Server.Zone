@@ -110,7 +110,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
         {
             var octree = new Octree<NodeEntity>(Vector3.Zero, new Vector3(100), 0);
 
-            Assert.Equal(default(NodeEntity), octree.FindNearestPoint(Vector3.Zero));
+            Assert.Equal(default, octree.FindNearestPoint(Vector3.Zero));
         }
         [Fact]
         public void TestFindNearestPoint_ShouldReturnExpectedPointWhenContainsChildren()
@@ -259,6 +259,16 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
             public override string ToString()
             {
                 return Position.ToString();
+            }
+
+            public static bool operator ==(NodeEntity left, NodeEntity right)
+            {
+                return left.Equals(right);
+            }
+
+            public static bool operator !=(NodeEntity left, NodeEntity right)
+            {
+                return !(left == right);
             }
         }
     }

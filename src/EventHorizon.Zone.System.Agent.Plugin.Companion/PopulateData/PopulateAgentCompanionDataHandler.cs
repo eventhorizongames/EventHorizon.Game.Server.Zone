@@ -1,17 +1,18 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Events.PopulateData;
     using EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
 
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class PopulateAgentCompanionDataHandler : INotificationHandler<PopulateAgentEntityDataEvent>
+    public class PopulateAgentCompanionDataHandler
+        : INotificationHandler<PopulateAgentEntityDataEvent>
     {
-        private static CompanionState DEFAULT_COMPANION_STATE = new CompanionState
+        private static CompanionState DEFAULT_COMPANION_STATE = new()
         {
             DefaultBehaviorTreeId = "DEFAULT",
         };
@@ -29,7 +30,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
             );
 
             // Populates the Companion State on the Agent from loaded data.
-            agent.PopulateData<CompanionState>(
+            agent.PopulateData(
                 CompanionState.PROPERTY_NAME,
                 DEFAULT_COMPANION_STATE
             );

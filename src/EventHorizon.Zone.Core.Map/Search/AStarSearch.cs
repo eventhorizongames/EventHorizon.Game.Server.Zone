@@ -7,7 +7,8 @@ namespace EventHorizon.Zone.Core.Map.Search
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
 
-    public class AStarSearch : PathFindingAlgorithm
+    public class AStarSearch
+        : PathFindingAlgorithm
     {
         public Queue<Vector3> Search(
             IMapGraph mapGraph,
@@ -134,9 +135,9 @@ namespace EventHorizon.Zone.Core.Map.Search
             return Vector3.Distance(node1.Position, node2.Position);
         }
 
-        class MyComparer : IComparer<int>
+        private class MyComparer : IComparer<int>
         {
-            private float[] _costs;
+            private readonly float[] _costs;
             public MyComparer(float[] costs)
             {
                 _costs = costs;

@@ -33,9 +33,9 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
         public void ShouldRegisterExpectedServices()
         {
             // Given
-            Action<ClientScriptsPluginCompilerOptions> optionsAction = options =>
+            static void optionsAction(ClientScriptsPluginCompilerOptions options)
             {
-            };
+            }
 
             var serviceCollectionMock = new ServiceCollectionMock();
 
@@ -68,7 +68,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
         public void ShouldRegisterDefaultLoggerWhenAddIsCalled()
         {
             // Given
-            Action<ClientScriptsPluginCompilerOptions> optionsAction = options => { };
+            static void optionsAction(ClientScriptsPluginCompilerOptions options) { }
 
             var serviceCollection = new ServiceCollection();
 

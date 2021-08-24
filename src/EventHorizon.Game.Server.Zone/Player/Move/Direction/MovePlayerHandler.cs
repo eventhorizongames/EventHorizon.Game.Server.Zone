@@ -15,11 +15,12 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
 
     using MediatR;
 
-    public class MovePlayerHandler : INotificationHandler<MovePlayerEvent>
+    public class MovePlayerHandler
+        : INotificationHandler<MovePlayerEvent>
     {
-        readonly IMediator _mediator;
-        readonly IDateTimeService _dateTime;
-        readonly IMapDetails _mapDetails;
+        private readonly IMediator _mediator;
+        private readonly IDateTimeService _dateTime;
+        private readonly IMapDetails _mapDetails;
 
         public MovePlayerHandler(
             IMediator mediator,
@@ -49,68 +50,60 @@ namespace EventHorizon.Game.Server.Zone.Player.Move.Direction
             {
                 return;
             }
+
             var currentMoveToPosition = transform.Position;
             var direction = request.MoveDirection;
             var playerMapNode = await _mediator.Send(
                 new GetMapNodeAtPositionEvent(
                     currentMoveToPosition
-                )
+                ),
+                cancellationToken
             );
-            var moveTo = transform.Position;
 
-            switch (direction)
+            var moveTo = direction switch
             {
-                case MoveDirections.Left:
-                    moveTo = Vector3.Add(
-                        playerMapNode.Position,
-                        new Vector3(
-                            -_mapDetails.TileDimensions,
-                            0,
-                            0
-                        )
-                    );
-                    break;
-                case MoveDirections.Right:
-                    moveTo = Vector3.Add(
-                        playerMapNode.Position,
-                        new Vector3(
-                            _mapDetails.TileDimensions,
-                            0,
-                            0
-                        )
-                    );
-                    break;
-                case MoveDirections.Backwards:
-                    moveTo = Vector3.Add(
-                        playerMapNode.Position,
-                        new Vector3(
-                            0,
-                            0,
-                            -_mapDetails.TileDimensions
-                        )
-                    );
-                    break;
-                case MoveDirections.Forward:
-                    moveTo = Vector3.Add(
-                        playerMapNode.Position,
-                        new Vector3(
-                            0,
-                            0,
-                            _mapDetails.TileDimensions
-                        )
-                    );
-                    break;
-                default:
-                    moveTo = transform.Position;
-                    break;
-            }
+                MoveDirections.Left => Vector3.Add(
+                    playerMapNode.Position,
+                    new Vector3(
+                        -_mapDetails.TileDimensions,
+                        0,
+                        0
+                    )
+                ),
+                MoveDirections.Right => Vector3.Add(
+                    playerMapNode.Position,
+                    new Vector3(
+                        _mapDetails.TileDimensions,
+                        0,
+                        0
+                    )
+                ),
+                MoveDirections.Backwards => Vector3.Add(
+                    playerMapNode.Position,
+                     new Vector3(
+                        0,
+                        0,
+                        -_mapDetails.TileDimensions
+                    )
+                ),
+                MoveDirections.Forward => Vector3.Add(
+                    playerMapNode.Position,
+                    new Vector3(
+                        0,
+                        0,
+                        _mapDetails.TileDimensions
+                    )
+                ),
+                _ => transform.Position,
+            };
 
             await _mediator.Send(
                 new MoveEntityToPositionCommand(
                     player,
                     moveTo,
                     true
-                )
+                ),
+                cancellationToken
             );
         }
     }

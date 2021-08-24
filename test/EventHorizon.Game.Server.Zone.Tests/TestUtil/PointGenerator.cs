@@ -5,7 +5,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.TestUtil
 
     public static class PointGenerator
     {
-        static Random RANDOM = new Random();
+        private static readonly Random RANDOM = new();
 
         public static Vector3 GetRandomPoint(int high, int low = 0)
         {

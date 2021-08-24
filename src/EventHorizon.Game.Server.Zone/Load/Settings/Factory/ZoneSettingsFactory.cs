@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
         : IZoneSettingsFactory,
         IZoneSettingsSetter
     {
-        private static ZoneSettings EMPTY_ZONE_SETTINGS => new ZoneSettings { Tag = "home", BaseMovementTimeOffset = 100, };
+        private static readonly ZoneSettings EMPTY_ZONE_SETTINGS = new() { Tag = "home", BaseMovementTimeOffset = 100, };
 
         public ZoneSettings Settings { get; private set; } = EMPTY_ZONE_SETTINGS;
 

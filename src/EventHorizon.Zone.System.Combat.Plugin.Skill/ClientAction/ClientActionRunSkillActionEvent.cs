@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.ClientAction
     {
         public static ClientActionGenericToAllEvent Create(
             ClientSkillActionEvent data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "RunSkillAction",
             data
         );

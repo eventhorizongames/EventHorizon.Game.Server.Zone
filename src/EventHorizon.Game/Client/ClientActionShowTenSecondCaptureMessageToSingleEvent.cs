@@ -8,7 +8,7 @@
         public static ClientActionGenericToSingleEvent Create(
             string connectionId,
             ClientActionShowTenSecondCaptureMessageData data
-        ) => new ClientActionGenericToSingleEvent(
+        ) => new(
             connectionId,
             "Server.SHOW_TEN_SECOND_CAPTURE_MESSAGE",
             data

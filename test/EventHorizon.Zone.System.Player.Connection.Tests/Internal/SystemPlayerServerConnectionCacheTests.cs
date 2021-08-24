@@ -35,7 +35,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
                 loggerMock.Object
             );
 
-            Func<Task> connectionAction = async () => await connectionCache.GetConnection(
+            async Task connectionAction() => await connectionCache.GetConnection(
                 url,
                 options => { }
             );

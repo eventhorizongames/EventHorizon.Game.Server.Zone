@@ -1,18 +1,19 @@
 namespace EventHorizon.Zone.System.Watcher.Start
 {
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.System.Watcher.Events.Start;
     using EventHorizon.Zone.System.Watcher.Model;
     using EventHorizon.Zone.System.Watcher.State;
+
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
 
     using MediatR;
 
     using Microsoft.Extensions.Logging;
 
-    public class StartWatchingFileSystemCommandHandler : IRequestHandler<StartWatchingFileSystemCommand>
+    public class StartWatchingFileSystemCommandHandler
+        : IRequestHandler<StartWatchingFileSystemCommand>
     {
         private readonly ILogger<StartWatchingFileSystemCommandHandler> _logger;
         private readonly PendingReloadState _pendingReload;
@@ -60,12 +61,14 @@ namespace EventHorizon.Zone.System.Watcher.Start
             string path
         )
         {
-            var watcher = new FileSystemWatcher();
-            watcher.IncludeSubdirectories = true;
-            watcher.NotifyFilter = NotifyFilters.LastWrite
+            var watcher = new FileSystemWatcher
+            {
+                IncludeSubdirectories = true,
+                NotifyFilter = NotifyFilters.LastWrite
                                  | NotifyFilters.FileName
-                                 | NotifyFilters.DirectoryName;
-            watcher.Path = path;
+                                 | NotifyFilters.DirectoryName,
+                Path = path
+            };
             watcher.Changed += OnChanged;
             watcher.Created += OnChanged;
             watcher.Deleted += OnChanged;

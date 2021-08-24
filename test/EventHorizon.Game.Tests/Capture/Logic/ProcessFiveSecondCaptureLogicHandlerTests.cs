@@ -67,8 +67,10 @@
             {
                 ConnectionId = connectionId
             };
-            var captureState = new GamePlayerCaptureState();
-            captureState.ShownFiveSecondMessage = false;
+            var captureState = new GamePlayerCaptureState
+            {
+                ShownFiveSecondMessage = false
+            };
             playerEntity.SetProperty(
                 GamePlayerCaptureState.PROPERTY_NAME,
                 captureState

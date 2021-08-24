@@ -46,7 +46,8 @@ namespace EventHorizon.Zone.System.Client.Scripts.Reload
                 ClientScriptsSystemReloadedClientActionToAllEvent.Create(
                     new ClientScriptsSystemReloadedClientActionData(
                         await _mediator.Send(
-                            new FetchClientScriptListQuery()
+                            new FetchClientScriptListQuery(),
+                            cancellationToken
                         )
                     )
                 ),

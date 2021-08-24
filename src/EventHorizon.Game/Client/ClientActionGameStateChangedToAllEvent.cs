@@ -7,7 +7,7 @@ namespace EventHorizon.Game.Client
     {
         public static ClientActionGenericToAllEvent Create(
             GameStateChangedData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "CLIENT_ACTION_GAME_STATE_UPDATED",
             data
         );

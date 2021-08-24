@@ -20,7 +20,7 @@ namespace EventHorizon.Monitoring.Tests
         public void ShouldReturnRegisteredServicesWhenCalled()
         {
             // Given
-            Action<MonitoringServerConfiguration> options = options => { };
+            static void options(MonitoringServerConfiguration options) { }
 
             var serviceCollectionMock = new ServiceCollectionMock();
 

@@ -381,7 +381,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent.State.Impl
                 actual.IsFound()
             );
             Assert.Equal(
-                default(AgentEntity),
+                default,
                 actual
             );
         }

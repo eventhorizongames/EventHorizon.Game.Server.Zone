@@ -2,9 +2,9 @@ namespace EventHorizon.Zone.System.Combat.Model.Level
 {
     public struct LevelProperty
     {
-        public static readonly LevelProperty HP = new LevelProperty("HP");
-        public static readonly LevelProperty AP = new LevelProperty("AP");
-        public static readonly LevelProperty ATTACK = new LevelProperty("Attack");
+        public static readonly LevelProperty HP = new("HP");
+        public static readonly LevelProperty AP = new("AP");
+        public static readonly LevelProperty ATTACK = new("Attack");
 
         public string Property { get; }
 

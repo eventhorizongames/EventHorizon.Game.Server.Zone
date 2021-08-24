@@ -18,7 +18,7 @@
     public class WriteReportToFileHandler
         : IRequestHandler<WriteReportToFile>
     {
-        private static readonly JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions JSON_OPTIONS = new()
         {
             WriteIndented = true,
         };

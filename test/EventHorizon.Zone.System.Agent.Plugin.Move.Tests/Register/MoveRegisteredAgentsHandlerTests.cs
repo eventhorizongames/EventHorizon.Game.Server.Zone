@@ -71,7 +71,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
             );
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
                 new Mock<PerformanceTrackerFactory>().Object
@@ -134,7 +133,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
 
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
                 new Mock<PerformanceTrackerFactory>().Object
@@ -197,7 +195,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
 
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
                 new Mock<PerformanceTrackerFactory>().Object
@@ -252,7 +249,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Register
 
             // When
             var moveRegisteredAgentsHandler = new MoveRegisteredAgentsHandler(
-                loggerMock.Object,
                 mediatorMock.Object,
                 moveRepositoryMock.Object,
                 performanceTrackerFactoryMock.Object

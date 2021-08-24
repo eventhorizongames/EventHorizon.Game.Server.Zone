@@ -7,7 +7,7 @@
     {
         public static ClientActionGenericToAllEvent Create(
             GuiSystemReloadedClientActionData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "GUI_SYSTEM_RELOADED_CLIENT_ACTION_EVENT",
             data
         );

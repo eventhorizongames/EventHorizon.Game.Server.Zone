@@ -1,38 +1,39 @@
 namespace EventHorizon.Zone.System.EntityModule.Load
 {
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.EntityModule.Api;
     using EventHorizon.Zone.System.EntityModule.Model;
 
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
+
     using MediatR;
 
-    public class LoadEntityModuleSystemCommandHandler : INotificationHandler<LoadEntityModuleSystemCommand>
+    public class LoadEntityModuleSystemCommandHandler
+        : INotificationHandler<LoadEntityModuleSystemCommand>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly EntityModuleRepository _entityModuleRepository;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly EntityModuleRepository _entityModuleRepository;
 
         public LoadEntityModuleSystemCommandHandler(
-            IMediator mediator,
             ServerInfo serverInfo,
             IJsonFileLoader fileLoader,
             EntityModuleRepository entityModuleRepository
         )
         {
-            _mediator = mediator;
             _serverInfo = serverInfo;
             _fileLoader = fileLoader;
             _entityModuleRepository = entityModuleRepository;
         }
 
-        public async Task Handle(LoadEntityModuleSystemCommand notification, CancellationToken cancellationToken)
+        public async Task Handle(
+            LoadEntityModuleSystemCommand notification,
+            CancellationToken cancellationToken
+        )
         {
             // Load BaseModule list into repository
             foreach (var baseModule in await GetModuleList(GetModulePathForType("Base")))
@@ -41,6 +42,7 @@ namespace EventHorizon.Zone.System.EntityModule.Load
                     baseModule
                 );
             }
+
             // Load PlayerModule list into repository
             foreach (var playerModule in await GetModuleList(GetModulePathForType("Player")))
             {
@@ -49,7 +51,10 @@ namespace EventHorizon.Zone.System.EntityModule.Load
                 );
             }
         }
-        private string GetModulePathForType(string type)
+        
+        private string GetModulePathForType(
+            string type
+        )
         {
             return Path.Combine(
                 _serverInfo.ClientPath,
@@ -57,6 +62,7 @@ namespace EventHorizon.Zone.System.EntityModule.Load
                 type
             );
         }
+
         private async Task<IList<EntityScriptModule>> GetModuleList(
             string modulePath
         )

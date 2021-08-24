@@ -2,9 +2,9 @@ namespace EventHorizon.Zone.System.Combat.Model.Life
 {
     public struct LifeCondition
     {
-        public static LifeCondition NULL = default(LifeCondition);
-        public static LifeCondition ALIVE = new LifeCondition("ALIVE");
-        public static LifeCondition DEAD = new LifeCondition("DEAD");
+        public static LifeCondition NULL = default;
+        public static LifeCondition ALIVE = new("ALIVE");
+        public static LifeCondition DEAD = new("DEAD");
 
         public string Name { get; }
 

@@ -7,10 +7,11 @@ namespace EventHorizon.Zone.Core.ServerAction.State
 
     using EventHorizon.Zone.Core.ServerAction.Model;
 
-    public class ServerActionQueue : IServerActionQueue
+    public class ServerActionQueue
+        : IServerActionQueue
     {
-        private readonly ConcurrentQueue<ServerActionEntity> _actionList = new ConcurrentQueue<ServerActionEntity>();
-        private readonly ConcurrentBag<ServerActionEntity> _reQueueList = new ConcurrentBag<ServerActionEntity>();
+        private readonly ConcurrentQueue<ServerActionEntity> _actionList = new();
+        private readonly ConcurrentBag<ServerActionEntity> _reQueueList = new();
 
         public void Push(
             ServerActionEntity actionEntity
@@ -56,8 +57,9 @@ namespace EventHorizon.Zone.Core.ServerAction.State
         )
         {
             var now = DateTime.UtcNow;
-            var serverActionEntity = default(ServerActionEntity);
-            if (_actionList.TryDequeue(out serverActionEntity))
+            if (_actionList.TryDequeue(
+                out ServerActionEntity serverActionEntity
+            ))
             {
                 if (
                     now.CompareTo(
@@ -84,10 +86,8 @@ namespace EventHorizon.Zone.Core.ServerAction.State
                     take
                 );
             }
-            else
-            {
-                return response;
-            }
+            
+            return response;
         }
     }
 }

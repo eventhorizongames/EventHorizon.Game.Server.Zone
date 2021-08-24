@@ -34,7 +34,7 @@
             );
             var actual = await handler.Handle(
                 new StartSubProcessCommand(
-
+                    applicationFullName
                 ),
                 CancellationToken.None
             );

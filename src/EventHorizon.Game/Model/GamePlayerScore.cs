@@ -2,7 +2,7 @@
 {
     public struct GamePlayerScore
     {
-        private string _isFound;
+        private readonly string _isFound;
         public long PlayerEntityId { get; }
         public int Score { get; }
 

@@ -7,7 +7,8 @@ namespace EventHorizon.Identity.Tests.TestUtils
 
     public class ConfigurationMock : IConfiguration
     {
-        private IDictionary<string, string> _data = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> _data = new Dictionary<string, string>();
+
         public string this[string key]
         {
             get => _data[key];

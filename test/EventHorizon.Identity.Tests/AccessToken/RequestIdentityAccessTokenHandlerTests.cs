@@ -135,8 +135,10 @@ namespace EventHorizon.Identity.Tests.AccessToken
                 HttpStatusCode.InternalServerError,
                 "Error",
                 ""
-            );
-            tokenResponseMock.Exception = expectedException;
+            )
+            {
+                Exception = expectedException
+            };
 
             tokenClientMock.Setup(
                 mock => mock.RequestAsync(
@@ -154,7 +156,7 @@ namespace EventHorizon.Identity.Tests.AccessToken
             );
 
             //act
-            Func<Task> handlerAction = async () => await handler.Handle(
+            async Task handlerAction() => await handler.Handle(
                 new RequestIdentityAccessTokenEvent(),
                 CancellationToken.None
             );

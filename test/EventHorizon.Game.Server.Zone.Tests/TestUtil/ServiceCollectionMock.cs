@@ -8,7 +8,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.TestUtil
 
     public class ServiceCollectionMock : IServiceCollection
     {
-        public Dictionary<int, ServiceDescriptor> Services = new Dictionary<int, ServiceDescriptor>();
+        public Dictionary<int, ServiceDescriptor> Services = new();
 
         public ServiceDescriptor this[int index] { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 

@@ -10,7 +10,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         {
             if (token == -1)
             {
-                return default(BehaviorNode);
+                return default;
             }
             if (!NodeMap.ContainsKey(
                 token
@@ -22,6 +22,5 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             }
             return NodeMap[token];
         }
-
     }
 }

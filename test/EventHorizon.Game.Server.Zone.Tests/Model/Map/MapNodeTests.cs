@@ -44,7 +44,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
         {
             // Given
             var inputId = 123;
-            MapNode input = new MapNode(Vector3.Zero)
+            MapNode input = new(Vector3.Zero)
             {
                 Index = inputId
             };
@@ -66,7 +66,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
         {
             // Given
             var inputId = 123;
-            MapNode input = new MapNode(Vector3.Zero)
+            MapNode input = new(Vector3.Zero)
             {
                 Index = inputId
             };

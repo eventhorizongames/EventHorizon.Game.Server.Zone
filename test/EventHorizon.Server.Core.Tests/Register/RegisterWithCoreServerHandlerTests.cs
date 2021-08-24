@@ -259,7 +259,7 @@
                 serverPropertyMock.Object,
                 connectionFactoryMock.Object
             );
-            Func<Task> action = () => handler.Handle(
+            Task action() => handler.Handle(
                 new RegisterWithCoreServer(),
                 CancellationToken.None
             );

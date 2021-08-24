@@ -1,6 +1,5 @@
 namespace EventHorizon.Game.Server.Zone.Player.Bus
 {
-
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -11,10 +10,12 @@ namespace EventHorizon.Game.Server.Zone.Player.Bus
 
     using Microsoft.AspNetCore.SignalR;
 
-    public class SendToSingleClientHandler : INotificationHandler<SendToAllClientsEvent>
+    public class SendToAllClientsEventHandler
+        : INotificationHandler<SendToAllClientsEvent>
     {
-        readonly IHubContext<PlayerHub> _hubContext;
-        public SendToSingleClientHandler(
+        private readonly IHubContext<PlayerHub> _hubContext;
+
+        public SendToAllClientsEventHandler(
             IHubContext<PlayerHub> hubContext
         )
         {
@@ -30,7 +31,8 @@ namespace EventHorizon.Game.Server.Zone.Player.Bus
                 .SendAsync(
                     notification.Method,
                     notification.Arg1,
-                    notification.Arg2
+                    notification.Arg2,
+                    cancellationToken: cancellationToken
                 );
         }
     }

@@ -19,7 +19,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Model.Entity
             var expectedTransform = default(
                 TransformState
             );
-            Dictionary<string, object> expectedData = new Dictionary<string, object>();
+            Dictionary<string, object> expectedData = new();
 
             //When
             var actual = new DefaultEntity();

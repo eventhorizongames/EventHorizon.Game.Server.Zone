@@ -7,6 +7,10 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
     public interface IValidator
     {
         string Id { get; }
-        bool check(IObjectEntity caster, IObjectEntity target, Dictionary<string, object> data);
+        bool Check(
+            IObjectEntity caster,
+            IObjectEntity target,
+            Dictionary<string, object> data
+        );
     }
 }

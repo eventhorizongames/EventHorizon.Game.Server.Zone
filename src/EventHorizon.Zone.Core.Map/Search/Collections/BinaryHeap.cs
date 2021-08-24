@@ -9,30 +9,25 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
     /// https://www.cs.cmu.edu/~adamchik/15-121/lectures/Binary%20Heaps/heaps.html
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
-    public class BinaryHeap<TValue> : ICollection<TValue>
+    public class BinaryHeap<TValue>
+        : ICollection<TValue>
     {
         private readonly List<TValue> _baseHeap;
         private readonly IComparer<TValue> _comparer;
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of priority queue with default initial capacity and specified priority comparer
         /// </summary>
         /// <param name="comparer">priority comparer</param>
         public BinaryHeap(IComparer<TValue> comparer)
         {
-            if (comparer == null)
-                throw new ArgumentNullException(nameof(comparer));
-
             _baseHeap = new List<TValue>();
-            _comparer = comparer;
+            _comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
         }
-
         #endregion
 
         #region Priority queue operations
-
         /// <summary>
         /// Enqueue element into priority queue
         /// </summary>
@@ -84,11 +79,9 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         {
             get { return _baseHeap.Count == 0; }
         }
-
         #endregion
 
         #region Heap operations
-
         private void ExchangeElements(int pos1, int pos2)
         {
             TValue val = _baseHeap[pos1];
@@ -123,7 +116,6 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
             return pos;
         }
 
-
         private void DeleteRoot()
         {
             if (_baseHeap.Count <= 1)
@@ -132,7 +124,7 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
                 return;
             }
 
-            _baseHeap[0] = _baseHeap[_baseHeap.Count - 1];
+            _baseHeap[0] = _baseHeap[^1];
             _baseHeap.RemoveAt(_baseHeap.Count - 1);
 
             // heapify
@@ -164,11 +156,9 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
                 else break;
             }
         }
-
         #endregion
 
         #region ICollection<TValue> implementation
-
         /// <summary>
         /// Enqueus element into priority queue
         /// </summary>
@@ -241,7 +231,7 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
             if (elementIdx < 0) return false;
 
             //remove element
-            _baseHeap[elementIdx] = _baseHeap[_baseHeap.Count - 1];
+            _baseHeap[elementIdx] = _baseHeap[^1];
             _baseHeap.RemoveAt(_baseHeap.Count - 1);
 
             // heapify
@@ -273,7 +263,6 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         {
             return GetEnumerator();
         }
-
         #endregion
     }
 }

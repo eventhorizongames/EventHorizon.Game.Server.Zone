@@ -5,10 +5,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Model
 
     public class ClientEntityMetadataTypes
     {
-        public static ClientEntityMetadataTypes TYPE_DETAILS = new ClientEntityMetadataTypes();
+        public static ClientEntityMetadataTypes TYPE_DETAILS = new();
+
         public readonly Type assetId = typeof(string);
         public readonly Type dense = typeof(bool);
-        public readonly Type densityBox = typeof(Nullable<Vector3>);
+        public readonly Type densityBox = typeof(Vector3?);
         public readonly Type resolveHeight = typeof(bool);
         public readonly Type heightOffset = typeof(long);
     }

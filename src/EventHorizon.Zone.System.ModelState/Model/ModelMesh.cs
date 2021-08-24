@@ -2,7 +2,7 @@ namespace EventHorizon.Zone.System.ModelState
 {
     public struct ModelMesh
     {
-        public static readonly ModelMesh DEFAULT = new ModelMesh
+        public static readonly ModelMesh DEFAULT = new()
         {
             AssetId = "DEFAULT_MESH"
         };

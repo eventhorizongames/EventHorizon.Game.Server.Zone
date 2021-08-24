@@ -11,7 +11,6 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     using EventHorizon.Zone.Core.Model.Map;
     using EventHorizon.Zone.System.Client.Scripts.Events.Fetch;
     using EventHorizon.Zone.System.Client.Scripts.Events.Query;
-    using EventHorizon.Zone.System.Client.Scripts.Fetch;
     using EventHorizon.Zone.System.ClientAssets.Fetch;
     using EventHorizon.Zone.System.ClientEntities.Query;
     using EventHorizon.Zone.System.EntityModule.Fetch;
@@ -27,24 +26,22 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
     ///  module that contains state that should be sent 
     ///  during a Zone's Player Info Request.
     /// </summary>
-    public class QueryForPlayerZoneInfoHandler : IRequestHandler<QueryForPlayerZoneInfo, IDictionary<string, object>>
+    public class QueryForPlayerZoneInfoHandler
+        : IRequestHandler<QueryForPlayerZoneInfo, IDictionary<string, object>>
     {
-        readonly IMediator _mediator;
-        readonly IMapGraph _map;
-        readonly IMapMesh _mapMesh;
-        readonly EntityRepository _entityRepository;
-        readonly PerformanceTrackerFactory _performanceTrackerFactory;
+        private readonly IMediator _mediator;
+        private readonly IMapMesh _mapMesh;
+        private readonly EntityRepository _entityRepository;
+        private readonly PerformanceTrackerFactory _performanceTrackerFactory;
 
         public QueryForPlayerZoneInfoHandler(
             IMediator mediator,
-            IMapGraph map,
             IMapMesh mapMesh,
             EntityRepository entityRepository,
             PerformanceTrackerFactory performanceTrackerFactory
         )
         {
             _mediator = mediator;
-            _map = map;
             _mapMesh = mapMesh;
             _entityRepository = entityRepository;
             _performanceTrackerFactory = performanceTrackerFactory;
@@ -57,95 +54,108 @@ namespace EventHorizon.Game.Server.Zone.Info.Query
         {
             using (_performanceTrackerFactory.Build("Zone Info For Player Created"))
             {
-                var zoneInfo = new Dictionary<string, object>();
-                zoneInfo.Add(
-                    "Player",
-                    request.Player
-                );
-                zoneInfo.Add(
-                    "I18nMap",
-                    await _mediator.Send(
-                        new FetchI18nMapForLocaleQuery(
-                            request.Player.Locale
+                var zoneInfo = new Dictionary<string, object>
+                {
+                    {
+                        "Player",
+                        request.Player
+                    },
+                    {
+                        "I18nMap",
+                        await _mediator.Send(
+                            new FetchI18nMapForLocaleQuery(
+                                request.Player.Locale
+                            ),
+                            cancellationToken
                         )
-                    )
-                );
-                //zoneInfo.Add(
-                //    "Map",
-                //    _map
-                //);
-                zoneInfo.Add(
-                    "MapMesh",
-                    _mapMesh
-                );
-                zoneInfo.Add(
-                    "EntityList",
-                    await _entityRepository.All()
-                );
-                zoneInfo.Add(
-                    "GuiLayoutList",
-                    await _mediator.Send(
-                        new GetGuiLayoutListForPlayerCommand(
-                            request.Player
+                    },
+                    //zoneInfo.Add(
+                    //    "Map",
+                    //    _map
+                    //);
+                    {
+                        "MapMesh",
+                        _mapMesh
+                    },
+                    {
+                        "EntityList",
+                        await _entityRepository.All()
+                    },
+                    {
+                        "GuiLayoutList",
+                        await _mediator.Send(
+                            new GetGuiLayoutListForPlayerCommand(
+                                request.Player
+                            ),
+                            cancellationToken
                         )
-                    )
-                );
-                zoneInfo.Add(
-                    "ParticleTemplateList",
-                    await _mediator.Send(
-                        new FetchAllParticleTemplateListEvent()
-                    )
-                );
-                zoneInfo.Add(
-                    "ServerModuleScriptList",
-                    await _mediator.Send(
-                        new FetchServerModuleScriptList()
-                    )
-                );
-                zoneInfo.Add(
-                    "ClientAssetList",
-                    await _mediator.Send(
-                        new FetchClientAssetListQuery()
-                    )
-                );
-                zoneInfo.Add(
-                    "ClientEntityList",
-                    await _mediator.Send(
-                        new QueryForAllClientEntityDetailsList()
-                    )
-                );
-                zoneInfo.Add(
-                    "BaseEntityScriptModuleList",
-                    await _mediator.Send(
-                        new FetchBaseModuleListQuery()
-                    )
-                );
-                zoneInfo.Add(
-                    "PlayerEntityScriptModuleList",
-                    await _mediator.Send(
-                        new FetchPlayerModuleListQuery()
-                    )
-                );
-                zoneInfo.Add(
-                    "ClientScriptList",
-                    await _mediator.Send(
-                        new FetchClientScriptListQuery()
-                    )
-                );
-                zoneInfo.Add(
-                    "ClientScriptsAssemblyDetails",
-                    await _mediator.Send(
-                        new QueryForClientScriptsAssemblyDetails()
-                    )
-                );
+                    },
+                    {
+                        "ParticleTemplateList",
+                        await _mediator.Send(
+                            new FetchAllParticleTemplateListEvent(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "ServerModuleScriptList",
+                        await _mediator.Send(
+                            new FetchServerModuleScriptList(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "ClientAssetList",
+                        await _mediator.Send(
+                            new FetchClientAssetListQuery(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "ClientEntityList",
+                        await _mediator.Send(
+                            new QueryForAllClientEntityDetailsList(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "BaseEntityScriptModuleList",
+                        await _mediator.Send(
+                            new FetchBaseModuleListQuery(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "PlayerEntityScriptModuleList",
+                        await _mediator.Send(
+                            new FetchPlayerModuleListQuery(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "ClientScriptList",
+                        await _mediator.Send(
+                            new FetchClientScriptListQuery(),
+                            cancellationToken
+                        )
+                    },
+                    {
+                        "ClientScriptsAssemblyDetails",
+                        await _mediator.Send(
+                            new QueryForClientScriptsAssemblyDetails(),
+                            cancellationToken
+                        )
+                    },
 
-                // Game Specific State
-                zoneInfo.Add(
-                    "GameState",
-                    await _mediator.Send(
-                        new QueryForCurrentGameState()
-                    )
-                );
+                    // Game Specific State
+                    {
+                        "GameState",
+                        await _mediator.Send(
+                            new QueryForCurrentGameState(),
+                            cancellationToken
+                        )
+                    }
+                };
 
                 return zoneInfo;
             }

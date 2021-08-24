@@ -96,7 +96,7 @@ namespace EventHorizon.Zone.Core.Tests.RandomNumber
 
             // When
             var randomNumberGenerator = new CryptographyRandomNumberGenerator();
-            Action action = () => randomNumberGenerator.Next(
+            void action() => randomNumberGenerator.Next(
                 minValue,
                 maxValue
             );

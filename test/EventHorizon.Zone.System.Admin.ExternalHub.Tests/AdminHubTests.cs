@@ -45,8 +45,10 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
             //When
             var adminHub = new AdminHub(
                 mediatorMock.Object
-            );
-            adminHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
             await adminHub.OnConnectedAsync();
 
             //Then
@@ -76,8 +78,10 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
             // When
             var adminHub = new AdminHub(
                 mediatorMock.Object
-            );
-            adminHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
             await adminHub.Command(
                 command,
                 expectedData
@@ -117,8 +121,10 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
             // When
             var adminHub = new AdminHub(
                 mediatorMock.Object
-            );
-            adminHub.Context = hubCallerContextMock.Object;
+            )
+            {
+                Context = hubCallerContextMock.Object
+            };
             var actual = await adminHub.ZoneInfo();
 
             // Then

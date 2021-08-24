@@ -62,8 +62,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.OnConnectedAsync();
 
@@ -112,8 +114,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.OnDisconnectedAsync(
                 new Exception(
@@ -161,8 +165,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.OnConnectedAsync();
 
@@ -202,8 +208,10 @@ namespace EventHorizon.Zone.System.Player.ExternalHub.Tests
             var playerHub = new PlayerHub(
                 loggerMock.Object,
                 mediatorMock.Object
-            );
-            playerHub.Context = contextMock.Object;
+            )
+            {
+                Context = contextMock.Object
+            };
 
             await playerHub.OnDisconnectedAsync(
                 new Exception(

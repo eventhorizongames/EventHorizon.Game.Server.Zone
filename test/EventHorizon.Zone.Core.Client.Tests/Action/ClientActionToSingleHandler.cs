@@ -57,9 +57,10 @@ namespace EventHorizon.Zone.Core.Client.Tests.Action
 
         public class TestClientActionEvent : ClientActionToSingleEvent<TestClientActionData>
         {
-            private string _connectionId;
-            private string _action;
-            private TestClientActionData _data;
+            private readonly string _connectionId;
+            private readonly string _action;
+            private readonly TestClientActionData _data;
+
             public TestClientActionEvent(
                 string connectionId,
                 string action,

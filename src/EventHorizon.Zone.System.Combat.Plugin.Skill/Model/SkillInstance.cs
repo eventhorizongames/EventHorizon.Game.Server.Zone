@@ -26,9 +26,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
                 "_"
             ))
             {
-                return id.Substring(
-                    1
-                );
+                return id[1..];
             }
             return id;
         }

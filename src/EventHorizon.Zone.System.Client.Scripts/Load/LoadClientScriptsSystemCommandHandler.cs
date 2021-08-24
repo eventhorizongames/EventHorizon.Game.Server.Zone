@@ -45,7 +45,8 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
                         _serverInfo.ClientScriptsPath
                     }
                 }
-            )
+            ),
+            cancellationToken
         );
 
         private async Task OnProcessFile(

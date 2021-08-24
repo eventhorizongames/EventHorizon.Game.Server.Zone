@@ -12,18 +12,12 @@ namespace EventHorizon.Game
         public static IServiceCollection AddGame(
             this IServiceCollection services
         ) => services
-                .AddSingleton<GameState, InMemoryGameState>()
-                .AddSingleton<ITimerTask, RunPlayerListCaptureLogicTimerTask>()
-            ;
+            .AddSingleton<GameState, InMemoryGameState>()
+            .AddSingleton<ITimerTask, RunPlayerListCaptureLogicTimerTask>()
+        ;
 
         public static IApplicationBuilder UseGame(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                return app;
-            }
-        }
+        ) => app;
     }
 }

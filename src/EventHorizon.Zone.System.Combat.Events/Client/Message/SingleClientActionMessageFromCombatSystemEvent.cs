@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Combat.Events.Client.Messsage
         public static ClientActionGenericToSingleEvent Create(
             string connectionId,
             MessageFromCombatSystemData data
-        ) => new ClientActionGenericToSingleEvent(
+        ) => new(
             connectionId,
             "MessageFromCombatSystem",
             data

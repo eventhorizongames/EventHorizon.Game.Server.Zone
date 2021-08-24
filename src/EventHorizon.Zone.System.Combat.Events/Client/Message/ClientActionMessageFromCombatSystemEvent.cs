@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.Combat.Events.Client.Messsage
     {
         public static ClientActionGenericToAllEvent Create(
             MessageFromCombatSystemData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "MessageFromCombatSystem",
             data
         );

@@ -23,13 +23,12 @@ namespace EventHorizon.Zone.Core.Reporter.Model
             ReportItem item
         )
         {
-            var itemList = new List<ReportItem>(
+            ItemList = new List<ReportItem>(
                 ItemList
-            );
-            itemList.Add(
+            )
+            {
                 item
-            );
-            ItemList = itemList.AsReadOnly();
+            }.AsReadOnly();
 
             return this;
         }

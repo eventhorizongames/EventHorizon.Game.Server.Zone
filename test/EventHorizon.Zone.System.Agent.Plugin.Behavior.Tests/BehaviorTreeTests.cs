@@ -41,7 +41,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
         )
         { }
 
-        private Mock<IServiceScopeFactory> SetupServiceScopeFactoryWithMediatorMock(
+        private static Mock<IServiceScopeFactory> SetupServiceScopeFactoryWithMediatorMock(
             Mock<IMediator> mediatorMock
         )
         {

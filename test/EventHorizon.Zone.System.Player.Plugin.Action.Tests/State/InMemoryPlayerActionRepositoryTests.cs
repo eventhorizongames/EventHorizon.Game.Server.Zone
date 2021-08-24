@@ -79,7 +79,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
                 input
             );
 
-            SystemAction action = () => repository.On(
+            void action() => repository.On(
                 input
             );
 

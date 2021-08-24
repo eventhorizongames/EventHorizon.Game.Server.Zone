@@ -47,7 +47,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Queue
 
             // When
             var registerAgentMovePathHandler = new QueueAgentToMoveHandler(
-                new Mock<ILogger<QueueAgentToMoveHandler>>().Object,
                 mediatorMock.Object,
                 agentRepositoryMock.Object,
                 moveAgentRepositoryMock.Object

@@ -18,7 +18,7 @@ namespace EventHorizon.Identity.Tests
             // Given
             var serviceCollection = new ServiceCollectionMock();
             var expected = serviceCollection;
-            Action<AuthSettings> configureAuthSettings = options => { };
+            static void configureAuthSettings(AuthSettings options) { }
 
             // When
             var actual = EventHorizonIdentityExtensions.AddEventHorizonIdentity(
@@ -44,6 +44,7 @@ namespace EventHorizon.Identity.Tests
                     service.ServiceType == typeof(IConfigureOptions<AuthSettings>)
             );
         }
+
         [Fact]
         public void TestShouldRunWithoutFailing()
         {

@@ -3,6 +3,7 @@
     using System;
     using System.Dynamic;
     using System.Text.Json;
+    using System.Text.Json.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -172,7 +173,7 @@
             );
         }
 
-        private void VerifyReportIndex(
+        private static void VerifyReportIndex(
             object actualRawObject,
             string expectedIndexIndex,
             string expectedIndexType
@@ -184,24 +185,28 @@
                 )
             );
 
-            actual.index._index
+            actual.Index.Index
                 .Should().Be(expectedIndexIndex);
-            actual.index._type
+            actual.Index.Type
                 .Should().Be(expectedIndexType);
-            actual.index._id
+            actual.Index.Id
                 .Should().NotBeEmpty();
         }
 
         public class ReportIndexer
         {
-            public ReportIndexerIndex index { get; set; }
+            [JsonPropertyName("index")]
+            public ReportIndexerIndex Index { get; set; }
         }
 
         public class ReportIndexerIndex
         {
-            public string _index { get; set; }
-            public string _type { get; set; }
-            public string _id { get; set; }
+            [JsonPropertyName("_index")]
+            public string Index { get; set; }
+            [JsonPropertyName("_type")]
+            public string Type { get; set; }
+            [JsonPropertyName("_id")]
+            public string Id { get; set; }
         }
     }
 }

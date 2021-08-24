@@ -7,9 +7,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class TimerHostedService : HostedService
+    public class TimerHostedService
+        : HostedService
     {
-        private readonly List<TimerWrapper> _timerTasks = new List<TimerWrapper>();
+        private readonly List<TimerWrapper> _timerTasks = new();
 
         public TimerHostedService(
             ILoggerFactory loggerFactory,
@@ -43,6 +44,7 @@
             );
             return Task.CompletedTask;
         }
+
         private void StopTimerTasks()
         {
             _timerTasks.ForEach(

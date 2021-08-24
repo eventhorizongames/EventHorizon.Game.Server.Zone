@@ -26,7 +26,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
         {
             // Given
             var actionName = "action-name";
-            Action<TestResult> actionToRun = result => { };
+            void actionToRun(TestResult result) { }
 
             var loggerMock = new Mock<ILogger>();
             var hubConnectionMock = new Mock<HubConnectionMock>();
@@ -36,7 +36,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
                 loggerMock.Object,
                 hubConnectionMock.Object
             );
-            Action action = () => connection.OnAction<TestResult>(
+            void action() => connection.OnAction<TestResult>(
                 actionName,
                 actionToRun
             );
@@ -52,7 +52,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
         {
             // Given
             var actionName = "action-name";
-            Action actionToRun = () => { };
+            void actionToRun() { }
 
             var loggerMock = new Mock<ILogger>();
             var hubConnectionMock = new Mock<HubConnectionMock>();
@@ -62,7 +62,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
                 loggerMock.Object,
                 hubConnectionMock.Object
             );
-            Action action = () => connection.OnAction(
+            void action() => connection.OnAction(
                 actionName,
                 actionToRun
             );
@@ -88,7 +88,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
                 loggerMock.Object,
                 hubConnectionMock.Object
             );
-            Func<Task> action = async () => await connection.SendAction<TestResult>(
+            async Task action() => await connection.SendAction<TestResult>(
                 actionName,
                 actionArgs
             );
@@ -114,7 +114,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
                 loggerMock.Object,
                 hubConnectionMock.Object
             );
-            Func<Task> action = async () => await connection.SendAction(
+            async Task action() => await connection.SendAction(
                 actionName,
                 actionArgs
             );

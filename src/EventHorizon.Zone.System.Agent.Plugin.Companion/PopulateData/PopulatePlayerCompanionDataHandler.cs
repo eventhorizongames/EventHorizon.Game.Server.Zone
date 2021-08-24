@@ -9,13 +9,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Companion.PopulateData
 
     using MediatR;
 
-    public class PopulatePlayerCompanionDataHandler : INotificationHandler<PopulateEntityDataEvent>
+    public class PopulatePlayerCompanionDataHandler
+        : INotificationHandler<PopulateEntityDataEvent>
     {
-        private static CompanionState DEFAULT_COMPANION_STATE = new CompanionState
-        {
-            DefaultBehaviorTreeId = "$DEFAULT$SHAPE.json",
-        };
-
         public Task Handle(
             PopulateEntityDataEvent request,
             CancellationToken cancellationToken

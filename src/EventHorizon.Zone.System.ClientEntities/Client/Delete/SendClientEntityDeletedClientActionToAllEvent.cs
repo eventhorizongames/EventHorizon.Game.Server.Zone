@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Client.Delete
     {
         public static ClientActionGenericToAllEvent Create(
             ClientEntityDeletedClientActionData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT",
             data
         );

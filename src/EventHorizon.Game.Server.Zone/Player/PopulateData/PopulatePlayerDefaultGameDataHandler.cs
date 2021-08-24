@@ -9,9 +9,10 @@ namespace EventHorizon.Game.Server.Zone.Player.PopulateData
 
     using MediatR;
 
-    public class PopulatePlayerDefaultGameDataHandler : INotificationHandler<PopulateEntityDataEvent>
+    public class PopulatePlayerDefaultGameDataHandler
+        : INotificationHandler<PopulateEntityDataEvent>
     {
-        private static CompanionManagementState NEW_PLAYER_COMPANION_STATE = new CompanionManagementState
+        private static CompanionManagementState NEW_PLAYER_COMPANION_STATE = new()
         {
             CapturedBehaviorTreeId = "Behaviors_FollowOwner.json",
         };

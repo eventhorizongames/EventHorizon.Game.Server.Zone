@@ -1,23 +1,22 @@
 namespace EventHorizon.Zone.System.Player.Connection.Internal
 {
-    using global::System;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Identity.AccessToken;
     using EventHorizon.Zone.System.Player.Connection.Model;
+
+    using global::System.Threading.Tasks;
 
     using MediatR;
 
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
 
-    public class SystemPlayerServerConnectionFactory : PlayerServerConnectionFactory
+    public class SystemPlayerServerConnectionFactory
+        : PlayerServerConnectionFactory
     {
-        readonly ILogger _logger;
-        readonly ILoggerFactory _loggerFactory;
-        readonly IMediator _mediator;
-        readonly PlayerServerConnectionSettings _connectionSettings;
-        readonly PlayerServerConnectionCache _connectionCache;
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly IMediator _mediator;
+        private readonly PlayerServerConnectionSettings _connectionSettings;
+        private readonly PlayerServerConnectionCache _connectionCache;
 
         public SystemPlayerServerConnectionFactory(
             ILoggerFactory loggerFactory,
@@ -26,8 +25,6 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
             PlayerServerConnectionCache connectionCache
         )
         {
-            _logger = loggerFactory.CreateLogger<SystemPlayerServerConnectionFactory>();
-
             _loggerFactory = loggerFactory;
             _mediator = mediator;
             _connectionSettings = connectionSettings.Value;
