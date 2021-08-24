@@ -29,6 +29,6 @@
 
     public struct VoidResult
     {
-        public static VoidResult DEFAULT = new VoidResult();
+        public static VoidResult DEFAULT = new();
     }
 }

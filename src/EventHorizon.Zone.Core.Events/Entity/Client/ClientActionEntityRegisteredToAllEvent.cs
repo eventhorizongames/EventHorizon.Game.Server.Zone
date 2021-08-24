@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.Core.Events.Entity.Client
     {
         public static ClientActionGenericToAllEvent Create(
             EntityRegisteredData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "EntityRegistered",
             data
         );

@@ -1,20 +1,21 @@
 namespace EventHorizon.Zone.System.Player.Plugin.Action.State
 {
+    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
     using global::System.Linq;
 
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-
-    public class InMemoryPlayerActionRepository : PlayerActionRepository
+    public class InMemoryPlayerActionRepository
+        : PlayerActionRepository
     {
-        private readonly ConcurrentDictionary<long, PlayerActionEntity> MAP = new ConcurrentDictionary<long, PlayerActionEntity>();
+        private readonly ConcurrentDictionary<long, PlayerActionEntity> _map = new();
 
         public void On(
             PlayerActionEntity action
         )
         {
-            if (MAP.ContainsKey(
+            if (_map.ContainsKey(
                 action.Id
             ))
             {
@@ -22,7 +23,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.State
                     action.Id
                 );
             }
-            MAP.TryAdd(
+            _map.TryAdd(
                 action.Id,
                 action
             );
@@ -32,7 +33,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.State
             string actionName
         )
         {
-            return MAP.Where(
+            return _map.Where(
                 a => a.Value.ActionName == actionName
             ).Select(
                 pair => pair.Value

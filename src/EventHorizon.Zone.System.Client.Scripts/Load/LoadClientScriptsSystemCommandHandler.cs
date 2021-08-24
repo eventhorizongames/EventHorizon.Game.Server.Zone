@@ -61,7 +61,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
             _clientScriptRepository.Add(
                 ClientScript.Create(
                     scriptType,
-                    rootPath.MakePathRelative(
+                    rootPath!.MakePathRelative(
                         fileInfo.DirectoryName
                     ),
                     fileInfo.Name,

@@ -223,7 +223,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 serverPropertyMock.Object,
                 playerRepositoryMock.Object
             );
-            Func<Task> action = async () => await handler.Handle(
+            async Task action() => await handler.Handle(
                 new PlayerConnectedEvent(
                     playerId,
                     connectionId
@@ -300,7 +300,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 serverPropertyMock.Object,
                 playerRepositoryMock.Object
             );
-            Func<Task> action = async () => await handler.Handle(
+            async Task action() => await handler.Handle(
                 new PlayerConnectedEvent(
                     playerId,
                     connectionId

@@ -33,10 +33,10 @@ namespace EventHorizon.Server.Core.Disconnected
             _logger.LogWarning(
                 "Disconnected from Core Server."
             );
-            _serverProperty.Set(
-                ServerPropertyKeys.SERVER_ID,
-                null
+            _serverProperty.Remove(
+                ServerPropertyKeys.SERVER_ID
             );
+
             return Task.CompletedTask;
         }
     }

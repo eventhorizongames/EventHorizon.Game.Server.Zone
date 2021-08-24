@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             ActorBehaviorTick actorBehaviorTick
         )
         {
-            this.ActorBehaviorTick = actorBehaviorTick;
+            ActorBehaviorTick = actorBehaviorTick;
         }
     }
 }

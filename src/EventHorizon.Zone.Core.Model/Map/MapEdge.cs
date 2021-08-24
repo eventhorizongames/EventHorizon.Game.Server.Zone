@@ -2,7 +2,7 @@ namespace EventHorizon.Zone.Core.Model.Map
 {
     public struct MapEdge
     {
-        public static MapEdge NULL = new MapEdge(-1, -1);
+        public static MapEdge NULL = new(-1, -1);
 
         public int FromIndex { get; set; }
         public int ToIndex { get; set; }
@@ -13,9 +13,9 @@ namespace EventHorizon.Zone.Core.Model.Map
             int toIndex
         )
         {
-            this.FromIndex = fromIndex;
-            this.ToIndex = toIndex;
-            this.Cost = 0;
+            FromIndex = fromIndex;
+            ToIndex = toIndex;
+            Cost = 0;
         }
 
         public override bool Equals(object obj)
@@ -26,15 +26,17 @@ namespace EventHorizon.Zone.Core.Model.Map
             }
 
             var typedObj = (MapEdge)obj;
-            return typedObj.FromIndex == this.FromIndex
-                && typedObj.ToIndex == this.ToIndex;
+            return typedObj.FromIndex == FromIndex
+                && typedObj.ToIndex == ToIndex;
         }
 
+#pragma warning disable IDE0070 // Use 'System.HashCode' - Needs this to be deterministic
         public override int GetHashCode()
+#pragma warning restore IDE0070 // Use 'System.HashCode'
         {
             int hash = 17;
-            hash = hash * 31 + this.FromIndex.GetHashCode();
-            hash = hash * 31 + this.ToIndex.GetHashCode();
+            hash = hash * 31 + FromIndex.GetHashCode();
+            hash = hash * 31 + ToIndex.GetHashCode();
             return hash;
         }
     }

@@ -15,19 +15,24 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
 
     using MediatR;
 
+    using Microsoft.Extensions.Logging;
+
     public class LoadSystemClientAssetsCommandHandler
         : IRequestHandler<LoadSystemClientAssetsCommand, StandardCommandResult>
     {
+        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly IJsonFileLoader _fileLoader;
         private readonly ServerInfo _serverInfo;
 
         public LoadSystemClientAssetsCommandHandler(
+            ILogger<LoadSystemClientAssetsCommandHandler> logger,
             IMediator mediator,
             IJsonFileLoader fileLoader,
             ServerInfo serverInfo
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _fileLoader = fileLoader;
             _serverInfo = serverInfo;
@@ -61,6 +66,15 @@ namespace EventHorizon.Zone.System.ClientAssets.Load
             var clientAsset = await _fileLoader.GetFile<ClientAsset>(
                 fileInfo.FullName
             );
+            if (clientAsset.IsNull())
+            {
+                _logger.LogError(
+                    "Client Asset file was invalid. FileFull={FileFullName}",
+                    fileInfo.FullName
+                );
+                return;
+            }
+
             clientAsset.SetFileFullName(
                 fileInfo.FullName
             );

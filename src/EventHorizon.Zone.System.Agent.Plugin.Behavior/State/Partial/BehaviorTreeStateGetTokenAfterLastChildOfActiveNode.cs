@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         public int GetTokenAfterLastChildOfActiveNode()
         {
             var lastChildToken = _shape.GetChildren(
-                this._activeNodeToken
+                _activeNodeToken
             ).Last().Token;
             return GetNodeTokenAfterPassedToken(
                 lastChildToken

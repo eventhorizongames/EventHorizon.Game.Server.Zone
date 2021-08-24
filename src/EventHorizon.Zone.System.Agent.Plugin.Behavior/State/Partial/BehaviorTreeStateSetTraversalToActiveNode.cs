@@ -10,11 +10,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         {
             if (TraversalStack.Count == 0)
             {
-                return this.SetCheckTraversal(
+                return SetCheckTraversal(
                     false
                 );
             }
-            return this.SetCheckTraversal(
+            return SetCheckTraversal(
                 true
             );
         }

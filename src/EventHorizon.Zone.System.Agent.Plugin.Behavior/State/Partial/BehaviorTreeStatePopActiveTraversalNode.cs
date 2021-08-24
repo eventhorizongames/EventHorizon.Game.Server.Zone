@@ -6,17 +6,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
     {
         public BehaviorTreeState PopActiveTraversalNode()
         {
-            this.TraversalStack.Remove(
-                this._activeTraversalToken
+            TraversalStack.Remove(
+                _activeTraversalToken
             );
             if (ContainsNext)
             {
-                this._activeTraversalToken = this.TraversalStack.Last();
+                _activeTraversalToken = TraversalStack.Last();
             }
             else
             {
-                this._activeTraversalToken = -1;
-                this._checkTraversal = false;
+                _activeTraversalToken = -1;
+                _checkTraversal = false;
             }
             return this;
         }

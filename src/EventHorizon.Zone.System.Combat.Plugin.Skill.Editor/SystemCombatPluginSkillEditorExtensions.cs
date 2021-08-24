@@ -7,18 +7,10 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static IServiceCollection AddSystemCombatPluginSkillEditor(
             this IServiceCollection services
-        )
-        {
-            return services;
-        }
+        ) => services;
+
         public static IApplicationBuilder UseSystemCombatPluginSkillEditor(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                return app;
-            }
-        }
+        ) => app;
     }
 }

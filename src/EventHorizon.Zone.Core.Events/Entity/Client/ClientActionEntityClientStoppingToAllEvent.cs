@@ -7,7 +7,7 @@ namespace EventHorizon.Zone.Core.Events.Entity.Client
     {
         public static ClientActionGenericToAllEvent Create(
             EntityClientStoppingData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "ClientEntityStopping",
             data
         );

@@ -11,16 +11,16 @@ namespace EventHorizon.Game.I18n.Lookup
         I18nResolver,
         I18nRepository
     {
-        private static readonly IDictionary<string, string> DEFAULT_LOOKUP = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
-        private Dictionary<string, IDictionary<string, string>> I18N_LOOKUP = new Dictionary<string, IDictionary<string, string>>();
+        private readonly IDictionary<string, string> _defaultLookup = new ReadOnlyDictionary<string, string>(new Dictionary<string, string>());
+        private readonly Dictionary<string, IDictionary<string, string>> _i18nLookup = new();
 
         public IDictionary<string, string> GetRepository(
             string locale
         )
         {
-            IDictionary<string, string> repository;
-            if (I18N_LOOKUP.TryGetValue(
-                locale, out repository
+            if (_i18nLookup.TryGetValue(
+                locale, 
+                out var repository
             ))
             {
                 return repository;
@@ -33,7 +33,7 @@ namespace EventHorizon.Game.I18n.Lookup
             string key
         )
         {
-            if (I18N_LOOKUP.TryGetValue(
+            if (_i18nLookup.TryGetValue(
                 locale,
                 out IDictionary<string, string> localeTranslationDictionary
             ))
@@ -68,7 +68,7 @@ namespace EventHorizon.Game.I18n.Lookup
         )
         {
             // Resolve tokens in i18n translation with values passed in
-            var translation = this.Lookup(
+            var translation = Lookup(
                 locale,
                 key
             );
@@ -87,11 +87,11 @@ namespace EventHorizon.Game.I18n.Lookup
             IDictionary<string, string> i18nRepository
         )
         {
-            if (I18N_LOOKUP.ContainsKey(locale) && i18nRepository != null)
+            if (_i18nLookup.ContainsKey(locale) && i18nRepository != null)
             {
-                var existing = I18N_LOOKUP[locale];
+                var existing = _i18nLookup[locale];
                 // Merge the passed into existing
-                I18N_LOOKUP[locale] = existing.Concat(i18nRepository)
+                _i18nLookup[locale] = existing.Concat(i18nRepository)
                     .GroupBy(
                         item => item.Key,
                         item => item.Value
@@ -103,7 +103,7 @@ namespace EventHorizon.Game.I18n.Lookup
                 return;
             }
 
-            I18N_LOOKUP[locale] = i18nRepository ?? DEFAULT_LOOKUP;
+            _i18nLookup[locale] = i18nRepository ?? _defaultLookup;
         }
     }
 }

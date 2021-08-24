@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 
     public struct ActorBehaviorTreeShape
     {
-        private static IList<BehaviorNode> EMPTY_LIST = new List<BehaviorNode>().AsReadOnly();
+        private static readonly IList<BehaviorNode> EMPTY_LIST = new List<BehaviorNode>().AsReadOnly();
 
         public string Id { get; }
         public IList<BehaviorNode> NodeList { get; set; }
@@ -17,13 +17,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         )
         {
             Id = id;
-            this.NodeList = new List<BehaviorNode>();
-            NodeList.Add(
+            NodeList = new List<BehaviorNode>
+            {
                 new BehaviorNode(
                     tree.Root
                 )
-            );
-            this.FlattenNodeListIntoShape(
+            };
+            FlattenNodeListIntoShape(
                 NodeList.First().NodeList
             );
         }
@@ -38,9 +38,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         }
 
         private void FlattenNodeListIntoShape(
-            IList<BehaviorNode> nodeList
+            IList<BehaviorNode>? nodeList
         )
         {
+            if (nodeList == null)
+            {
+                return;
+            }
+
             foreach (var node in nodeList)
             {
                 NodeList.Add(

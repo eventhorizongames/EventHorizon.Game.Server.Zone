@@ -118,14 +118,16 @@
                     GeneratedClientScriptsResultModel.GENERATED_FILE_NAME
                 )
             );
-            if (!compiledResult.Success)
+            if (compiledResult == null
+                || !compiledResult.Success
+            )
             {
                 _logger.LogError(
                     "Failed to Compile Client Scripts: {ErrorCode}",
-                    compiledResult.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
+                    compiledResult?.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
                 );
                 return new(
-                    compiledResult.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
+                    compiledResult?.ErrorCode ?? ClientScriptsErrorCodes.CLIENT_SCRIPT_FAILED_TO_COMPILE
                 );
             }
 

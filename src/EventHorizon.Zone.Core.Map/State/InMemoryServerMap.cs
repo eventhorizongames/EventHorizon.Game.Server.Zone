@@ -1,12 +1,16 @@
 namespace EventHorizon.Zone.Core.Map.State
 {
+    using System.Numerics;
+
+    using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Model.Map;
 
-    public class InMemoryServerMap : IServerMap
+    public class InMemoryServerMap
+        : IServerMap
     {
-        private IMapGraph _map;
-        private IMapDetails _mapDetails;
-        private IMapMesh _mapMesh;
+        private IMapGraph _map = new MapGraph(Vector3.Zero, Vector3.One, false);
+        private IMapDetails _mapDetails = new ZoneMapDetails();
+        private IMapMesh _mapMesh = new ZoneMapMesh();
 
         public IMapGraph Map()
         {
@@ -27,7 +31,7 @@ namespace EventHorizon.Zone.Core.Map.State
             IMapGraph map
         )
         {
-            this._map = map;
+            _map = map;
         }
 
         public void SetMapDetails(

@@ -97,7 +97,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                 {
                     var navNodeIndex = indexMap[currentNodeIndex];
                     // Top
-                    var topIndex = this.GetTopIndex(i, j, zoneHeight);
+                    var topIndex = GetTopIndex(i, j, zoneHeight);
                     if (topIndex > -1)
                     {
                         mapGraph.AddEdge(new MapEdge
@@ -107,7 +107,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         });
                     }
                     // Right
-                    var rightIndex = this.GetRightIndex(i, j, zoneWidth);
+                    var rightIndex = GetRightIndex(i, j, zoneWidth);
                     if (rightIndex > -1)
                     {
                         mapGraph.AddEdge(new MapEdge
@@ -117,7 +117,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         });
                     }
                     // Bottom
-                    var bottomIndex = this.GetBottomIndex(i, j, zoneHeight);
+                    var bottomIndex = GetBottomIndex(i, j, zoneHeight);
                     if (bottomIndex > -1)
                     {
                         mapGraph.AddEdge(new MapEdge
@@ -127,7 +127,7 @@ namespace EventHorizon.Game.Server.Zone.Tests.Math
                         });
                     }
                     // Left
-                    var leftIndex = this.GetLeftIndex(i, j, zoneWidth);
+                    var leftIndex = GetLeftIndex(i, j, zoneWidth);
                     if (leftIndex > -1)
                     {
                         mapGraph.AddEdge(new MapEdge

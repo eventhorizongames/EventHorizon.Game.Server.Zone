@@ -2,10 +2,10 @@ namespace EventHorizon.Zone.Core.Model.Entity
 {
     public class EntityAction
     {
-        public static readonly EntityAction POSITION = new EntityAction("Entity.Position");
-        public static readonly EntityAction ADD = new EntityAction("Entity.Add");
-        public static readonly EntityAction REMOVE = new EntityAction("Entity.Remove");
-        public static readonly EntityAction PROPERTY_CHANGED = new EntityAction("Entity.PropertyChanged");
+        public static readonly EntityAction POSITION = new("Entity.Position");
+        public static readonly EntityAction ADD = new("Entity.Add");
+        public static readonly EntityAction REMOVE = new("Entity.Remove");
+        public static readonly EntityAction PROPERTY_CHANGED = new("Entity.PropertyChanged");
 
         public string Type { get; }
         protected EntityAction(string type)

@@ -14,7 +14,7 @@
         public void ShouldHaveExpectedValuesWhenCreated()
         {
             // Given
-            var expectedPeriod = 30000;
+            var expectedPeriod = 5000;
             var expectedTag = "PingCoreServer";
             var expectedOnValidationEvent = new IsServerStarted();
             var expectedOnRunEvent = new PingCoreServer();

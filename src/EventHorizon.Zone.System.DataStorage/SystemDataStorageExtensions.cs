@@ -1,13 +1,12 @@
 namespace EventHorizon.Game.Server.Zone
 {
     using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.DataStorage.Api;
     using EventHorizon.Zone.System.DataStorage.Load;
     using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.DataStorage.Provider;
     using EventHorizon.Zone.System.DataStorage.Timer;
-
-    using MediatR;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
@@ -30,16 +29,8 @@ namespace EventHorizon.Game.Server.Zone
 
         public static IApplicationBuilder UseSystemDataStorage(
             this IApplicationBuilder app
-        )
-        {
-            using var serviceScope = app.CreateServiceScope();
-            serviceScope.ServiceProvider
-                .GetService<IMediator>()
-                .Send(
-                    new LoadDataStoreCommand()
-                ).GetAwaiter()
-                .GetResult();
-            return app;
-        }
+        ) => app.SendMediatorCommand<LoadDataStoreCommand, StandardCommandResult>(
+            new LoadDataStoreCommand()
+        );
     }
 }

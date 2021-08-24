@@ -9,7 +9,7 @@ namespace EventHorizon.Zone.System.Agent.Events.Register
             string agentId
         )
         {
-            this.AgentId = agentId;
+            AgentId = agentId;
         }
     }
 }

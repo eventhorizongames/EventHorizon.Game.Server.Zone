@@ -75,7 +75,7 @@ namespace EventHorizon.Zone.Core.Info
             );
         }
 
-        private string GenerateFileSystemTempPath()
+        private static string GenerateFileSystemTempPath()
         {
             var tempPath = Path.Combine(
                 Path.DirectorySeparatorChar.ToString(),
@@ -92,10 +92,10 @@ namespace EventHorizon.Zone.Core.Info
             return tempPath;
         }
 
-        private string GenerateAssembliesPath()
+        private static string GenerateAssembliesPath()
             => AppDomain.CurrentDomain.BaseDirectory;
 
-        private string GenerateGeneratedPath(
+        private static string GenerateGeneratedPath(
                 IHostEnvironment hostEnvironment
         ) => Path.Combine(
             hostEnvironment.ContentRootPath,
@@ -103,7 +103,7 @@ namespace EventHorizon.Zone.Core.Info
             "_generated"
         );
 
-        private string GenerateAppDataPath(
+        private static string GenerateAppDataPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -113,7 +113,7 @@ namespace EventHorizon.Zone.Core.Info
             );
         }
 
-        private string GenerateSystemsPath(
+        private static string GenerateSystemsPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -123,7 +123,7 @@ namespace EventHorizon.Zone.Core.Info
             );
         }
 
-        private string GenerateSystemBackupPath(
+        private static string GenerateSystemBackupPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -133,7 +133,7 @@ namespace EventHorizon.Zone.Core.Info
                 "__Backup__"
             );
         }
-        private string GenerateAdminPath(
+        private static string GenerateAdminPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -143,7 +143,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Admin"
             );
         }
-        private string GeneratePluginsPath(
+        private static string GeneratePluginsPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -153,7 +153,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Plugins"
             );
         }
-        private string GenerateI18nPath(
+        private static string GenerateI18nPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -163,7 +163,7 @@ namespace EventHorizon.Zone.Core.Info
                 "I18n"
             );
         }
-        private string GenerateClientPath(
+        private static string GenerateClientPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -173,7 +173,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Client"
             );
         }
-        private string GenerateClientScriptsPath(
+        private static string GenerateClientScriptsPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -184,7 +184,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Scripts"
             );
         }
-        private string GenerateClientEntityPath(
+        private static string GenerateClientEntityPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -195,7 +195,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Entity"
             );
         }
-        private string GenerateServerPath(
+        private static string GenerateServerPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -205,7 +205,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Server"
             );
         }
-        private string GenerateServerScriptsPath(
+        private static string GenerateServerScriptsPath(
             IHostEnvironment hostEnvironment
         )
         {
@@ -216,7 +216,7 @@ namespace EventHorizon.Zone.Core.Info
                 "Scripts"
             );
         }
-        private string GenerateCoreMapPath(
+        private static string GenerateCoreMapPath(
             IHostEnvironment hostEnvironment
         )
         {

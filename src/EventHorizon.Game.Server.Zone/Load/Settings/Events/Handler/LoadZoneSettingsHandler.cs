@@ -14,7 +14,8 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
 
     using Microsoft.Extensions.Logging;
 
-    public class LoadZoneSettingsHandler : INotificationHandler<LoadZoneSettingsEvent>
+    public class LoadZoneSettingsHandler
+        : INotificationHandler<LoadZoneSettingsEvent>
     {
         private readonly IMediator _mediator;
         private readonly ILogger _logger;
@@ -67,10 +68,21 @@ namespace EventHorizon.Game.Server.Zone.Load.Settings.Events.Handler
                 );
                 return;
             }
-            _zoneSettingsBuilder.Set(
-                await _fileLoader.GetFile<ZoneSettings>(
+            var existingSettings = await _fileLoader.GetFile<ZoneSettings>(
+                settingsFile
+            );
+            if (existingSettings.IsNull())
+            {
+
+                _logger.LogWarning(
+                    "Settings file was not valid. {@SettingsFile}",
                     settingsFile
-                )
+                );
+                return;
+            }
+
+            _zoneSettingsBuilder.Set(
+                existingSettings
             );
         }
 

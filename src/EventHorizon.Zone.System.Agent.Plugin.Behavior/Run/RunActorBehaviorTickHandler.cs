@@ -49,7 +49,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                 }
                 var actor = response.Actor;
                 var behaviorTreeShape = response.Shape;
-                // Run Kernel Tick against valididated Shape and Actor 
+                // Run Kernel Tick against validated Shape and Actor 
                 var result = await _kernel.Tick(
                     behaviorTreeShape,
                     actor

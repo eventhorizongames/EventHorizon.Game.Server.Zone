@@ -1,14 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
 {
-    using global::System;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System;
+    using global::System.Threading.Tasks;
 
     using MediatR;
 
@@ -24,13 +24,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
     /// 
     /// When placed below a concurrent node, conditions become a kind of invariant check that prevents its sibling nodes from running if a necessary state becomes invalid.
     /// </summary>
-    public class ConditionInterpreter : ConditionBehaviorInterpreter
+    public class ConditionInterpreter
+        : ConditionBehaviorInterpreter
     {
-        private static readonly BehaviorScriptResponse FAILED_RESPONSE = new BehaviorScriptResponse(
+        private static readonly BehaviorScriptResponse FAILED_RESPONSE = new(
             BehaviorNodeStatus.FAILED
         );
-        readonly ILogger _logger;
-        readonly IServiceScopeFactory _serviceScopeFactory;
+
+        private readonly ILogger _logger;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
+
         public ConditionInterpreter(
             ILogger<ConditionInterpreter> logger,
             IServiceScopeFactory serviceScopeFactory
@@ -39,6 +42,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
         }
+
         public async Task<BehaviorTreeState> Run(
             IObjectEntity actor,
             BehaviorTreeState behaviorTreeState
@@ -67,7 +71,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                         .SetStatusOnActiveNode(
                             result.Status
                         ).SetTraversalToCheck(
-                        // Set Active proccessing node back to Traversal, 
+                        // Set Active processing node back to Traversal, 
                         // This is the parent of this node, triggering validation of status.
                         ).Report(
                             "Condition Interpreter EXIT"
@@ -80,7 +84,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
                     ).SetStatusOnTraversalNode(
                         BehaviorNodeStatus.FAILED
                     ).SetTraversalToCheck(
-                    // Set Active proccessing node back to Traversal, 
+                    // Set Active processing node back to Traversal, 
                     // This is the parent of this node, triggering validation of status.
                     ).Report(
                         "Condition Interpreter EXIT"
@@ -89,7 +93,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             // If not READY/RUNNING, reset active Node to Traversal Node.
             return behaviorTreeState
                 .SetTraversalToCheck(
-                // Set Active proccessing node back to Traversal, 
+                // Set Active processing node back to Traversal, 
                 // This is the parent of this node, triggering validation of status.
                 ).Report(
                     "Condition Interpreter EXIT"
@@ -103,16 +107,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
         {
             try
             {
-                using (var serviceScope = _serviceScopeFactory.CreateScope())
-                {
-                    var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                    return (await mediator.Send(
-                        new RunBehaviorScript(
-                            actor,
-                            script
-                        )
-                    ));
-                }
+                using var serviceScope = _serviceScopeFactory.CreateScope();
+                var mediator = serviceScope.ServiceProvider.GetRequiredService<IMediator>();
+                return await mediator.Send(
+                    new RunBehaviorScript(
+                        actor,
+                        script
+                    )
+                );
             }
             catch (Exception ex)
             {
@@ -124,12 +126,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             }
         }
 
-
-        private bool CheckIfStatusReadyOrRunning(string status) =>
-            BehaviorNodeStatus.READY.Equals(
-                status
-            ) || BehaviorNodeStatus.RUNNING.Equals(
-                status
-            );
+        private bool CheckIfStatusReadyOrRunning(
+            string? status
+        ) => BehaviorNodeStatus.READY.Equals(
+            status
+        ) || BehaviorNodeStatus.RUNNING.Equals(
+            status
+        );
     }
 }

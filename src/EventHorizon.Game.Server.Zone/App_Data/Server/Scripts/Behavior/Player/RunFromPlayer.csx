@@ -79,6 +79,7 @@ public class __SCRIPT__
                 BehaviorNodeStatus.FAILED
             );
         }
+        logger.LogDebug("__SCRIPT__ - Node Valid");
 
         // Add MoveToNode to Actor State
         actor.SetProperty(

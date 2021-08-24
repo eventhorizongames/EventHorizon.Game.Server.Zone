@@ -1,10 +1,12 @@
 ﻿namespace EventHorizon.Zone.System.DataStorage.Model
 {
+    using global::System.Diagnostics.CodeAnalysis;
+
     public interface DataStore
     {
         bool TryGetValue<T>(
             string key,
-            out T value
+            [MaybeNullWhen(false)] out T value
         );
 
         void AddOrUpdate(

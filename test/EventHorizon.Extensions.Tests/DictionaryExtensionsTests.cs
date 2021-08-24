@@ -177,7 +177,7 @@ namespace EventHorizon.Extensions.Tests
 
         public class TestDataGenerator : IEnumerable<object[]>
         {
-            private readonly List<object[]> _data = new List<object[]>
+            private readonly List<object[]> _data = new()
             {
                 new object[] {
                     new ValueOrDefaultScenarioTestData

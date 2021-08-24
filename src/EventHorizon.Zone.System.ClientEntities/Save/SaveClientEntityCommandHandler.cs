@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.System.ClientEntities.Save
 {
     using EventHorizon.Zone.Core.Events.FileService;
+    using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Save.Mapper;
     using EventHorizon.Zone.System.Backup.Events;
@@ -12,6 +13,7 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     using EventHorizon.Zone.System.ClientEntities.Unregister;
 
     using global::System;
+    using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -20,16 +22,19 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
     public class SaveClientEntityCommandHandler : IRequestHandler<SaveClientEntityCommand, SaveClientEntityResponse>
     {
         private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
         private readonly IJsonFileSaver _fileSaver;
         private readonly ClientEntityRepository _repository;
 
         public SaveClientEntityCommandHandler(
             IMediator mediator,
+            ServerInfo serverInfo,
             IJsonFileSaver fileSaver,
             ClientEntityRepository repository
         )
         {
             _mediator = mediator;
+            _serverInfo = serverInfo;
             _fileSaver = fileSaver;
             _repository = repository;
         }
@@ -43,6 +48,16 @@ namespace EventHorizon.Zone.System.ClientEntities.Save
             {
                 request.ClientEntity.Data.Clear();
                 var fileFullName = request.ClientEntity.RawData[ClientEntityConstants.METADATA_FILE_FULL_NAME] as string;
+                if (string.IsNullOrWhiteSpace(
+                    fileFullName
+                ))
+                {
+                    fileFullName = Path.Combine(
+                        _serverInfo.ClientEntityPath,
+                        $"{request.ClientEntity.ClientEntityId}.json"
+                    );
+                }
+
                 var fileInfo = await _mediator.Send(
                     new GetFileInfo(
                         fileFullName

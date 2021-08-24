@@ -4,27 +4,37 @@ namespace EventHorizon.Zone.System.Agent.Move.Repository
 
     using global::System.Collections.Concurrent;
 
-    public class MoveAgentRepository : IMoveAgentRepository
+    public class MoveAgentRepository
+        : IMoveAgentRepository
     {
-        private readonly ConcurrentQueue<long> ENTITIES = new ConcurrentQueue<long>();
-        private readonly ConcurrentQueue<long> TO_REGISTER = new ConcurrentQueue<long>();
+        private readonly ConcurrentQueue<long> _entities = new();
+        private readonly ConcurrentQueue<long> _toRegister = new();
 
-        public void Register(long entityId)
+        public void Register(
+            long entityId
+        )
         {
-            TO_REGISTER.Enqueue(entityId);
+            _toRegister.Enqueue(
+                entityId
+            );
         }
 
-        public bool Dequeue(out long entityId)
+        public bool Dequeue(
+            out long entityId
+        )
         {
-            return ENTITIES.TryDequeue(out entityId);
+            return _entities.TryDequeue(
+                out entityId
+            );
         }
 
         public void MergeRegisteredIntoQueue()
         {
-            long entityId = 0;
-            while (TO_REGISTER.TryDequeue(out entityId))
+            while (_toRegister.TryDequeue(
+                out long entityId
+            ))
             {
-                ENTITIES.Enqueue(
+                _entities.Enqueue(
                     entityId
                 );
             }

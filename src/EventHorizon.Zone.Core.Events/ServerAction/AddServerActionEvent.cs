@@ -11,8 +11,8 @@ namespace EventHorizon.Zone.Core.Events.ServerAction
         public INotification EventToSend { get; private set; }
         public AddServerActionEvent(DateTime runAt, INotification eventToSend)
         {
-            this.RunAt = runAt;
-            this.EventToSend = eventToSend;
+            RunAt = runAt;
+            EventToSend = eventToSend;
         }
     }
 }

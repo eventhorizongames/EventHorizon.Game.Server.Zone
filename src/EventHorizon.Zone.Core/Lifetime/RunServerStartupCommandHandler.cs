@@ -50,10 +50,17 @@
             {
                 try
                 {
+                    if (Activator.CreateInstance(
+                        onServerServerCommand
+                    ) is not OnServerStartupCommand command)
+                    {
+                        throw new SystemException(
+                            $"Failed '{onServerServerCommand.Name}' is not a {typeof(OnServerStartupCommand)}"
+                        );
+                    }
+
                     var result = await _mediator.Send(
-                        Activator.CreateInstance(
-                            onServerServerCommand
-                        ) as OnServerStartupCommand,
+                        command,
                         cancellationToken
                     );
 

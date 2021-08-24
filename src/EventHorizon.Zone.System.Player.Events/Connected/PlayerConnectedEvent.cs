@@ -12,8 +12,8 @@ namespace EventHorizon.Zone.System.Player.Events.Connected
             string connectionId
         )
         {
-            this.Id = id;
-            this.ConnectionId = connectionId;
+            Id = id;
+            ConnectionId = connectionId;
         }
     }
 }

@@ -271,7 +271,7 @@ namespace EventHorizon.Zone.Core.Map.Find.Search.Collections
         /// Returned enumerator does not iterate elements in sorted order.</remarks>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         #endregion

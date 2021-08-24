@@ -8,7 +8,7 @@
         public static ClientActionGenericToSingleEvent Create(
             string connectionId,
             MessageFromSystemData data
-        ) => new ClientActionGenericToSingleEvent(
+        ) => new(
             connectionId,
             "SystemLog",
             data

@@ -2,16 +2,18 @@
 {
     using System.Collections.Generic;
 
-    public class InMemoryGameState : GameState
+    public class InMemoryGameState
+        : GameState
     {
-        private object _LOCK = new object();
+        private readonly object _lock = new();
+
         public CurrentGameState CurrentGameState { get; private set; } = new CurrentGameState(new List<GamePlayerScore>());
 
         public void IncrementPlayer(
             long playerEntityId
         )
         {
-            lock (_LOCK)
+            lock (_lock)
             {
                 CurrentGameState = CurrentGameState.IncrementPlayer(
                     playerEntityId
@@ -23,7 +25,7 @@
             long playerEntityId
         )
         {
-            lock (_LOCK)
+            lock (_lock)
             {
                 CurrentGameState = CurrentGameState.RemovePlayer(
                     playerEntityId

@@ -47,7 +47,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
         }
 
         [Fact]
-        public void TestShouldPassWhenDisposeIsCalled()
+        public async Task TestShouldPassWhenDisposeIsCalled()
         {
             // Given
             var loggerMock = new Mock<ILogger<SystemPlayerServerConnectionCache>>();
@@ -56,7 +56,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Tests.Internal
             var connectionCache = new SystemPlayerServerConnectionCache(
                 loggerMock.Object
             );
-            connectionCache.Dispose();
+            await connectionCache.DisposeAsync();
 
             // Then
             Assert.True(

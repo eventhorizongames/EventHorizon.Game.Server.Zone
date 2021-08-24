@@ -120,14 +120,16 @@
                         GeneratedServerScriptsResultModel.SCRIPTS_RESULT_FILE_NAME
                     )
                 );
-                if (!compiledResult.Success)
+                if (compiledResult == null 
+                    || !compiledResult.Success
+                )
                 {
                     _logger.LogError(
                         "Failed to Compile Server Scripts: {ErrorCode}",
-                        compiledResult.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
+                        compiledResult?.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                     );
                     return new(
-                        compiledResult.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
+                        compiledResult?.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                     );
                 }
 

@@ -134,7 +134,7 @@
             );
 
             var id = "report-1-Id";
-            var timestamp = DateTime.Now;
+            var timestamp = DateTime.Parse("2021-10-10");
             var message = "report-1-Message";
             var correlationId = "report-1-CorrelationId";
             var data = "report-1-Data";
@@ -142,6 +142,7 @@
                 reportingPath,
                 "Reporting_report-1-Id.log"
             );
+            var expectedTimeStamp = timestamp.ToString("MM-dd-yyyy HH:mm:ss.fffffffzzz");
             var expectedMessage = $"\"{data}\"";
 
             var expectedReport1Text = string.Join(
@@ -150,6 +151,8 @@
                     "---",
                     Environment.NewLine,
                     message,
+                    Environment.NewLine,
+                    expectedTimeStamp,
                     Environment.NewLine,
                     expectedMessage,
                     Environment.NewLine,

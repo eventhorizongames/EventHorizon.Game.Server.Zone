@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.Core.FileService
             CancellationToken cancellationToken
         )
         {
-            await this.LoadFromDirectoryInfo(
+            await LoadFromDirectoryInfo(
                 request.FromDirectory,
                 request.OnProcessFile,
                 request.Arguments
@@ -49,14 +49,14 @@ namespace EventHorizon.Zone.Core.FileService
             ))
             {
                 // Load Files From Directories
-                await this.LoadFromDirectoryInfo(
+                await LoadFromDirectoryInfo(
                     subDirectoryInfo.FullName,
                     onProcessFile,
                     arguments
                 );
             }
             // Load script files into Repository
-            await this.LoadFileIntoRepository(
+            await LoadFileIntoRepository(
                 directoryFullName,
                 onProcessFile,
                 arguments

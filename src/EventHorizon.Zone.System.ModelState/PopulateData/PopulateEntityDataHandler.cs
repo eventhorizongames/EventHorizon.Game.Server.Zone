@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.System.ModelState.PopulateData
 
             entity.PopulateData<EntityModelState>(EntityModelState.PROPERTY_NAME);
 
-            this.ValidateModelState(entity);
+            ValidateModelState(entity);
 
             return Task.CompletedTask;
         }

@@ -16,7 +16,7 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
         {
             await _mediator.Publish(
                 new RunPlayerServerAction(
-                    GetPlayerId(),
+                    GetPlayerIdNotNull(),
                     actionName,
                     actionData
                 )

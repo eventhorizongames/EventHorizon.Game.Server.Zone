@@ -2,27 +2,28 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue
 {
     using global::System.Collections.Concurrent;
 
-    public class InMemoryActorBehaviorTickQueue : ActorBehaviorTickQueue
+    public class InMemoryActorBehaviorTickQueue
+        : ActorBehaviorTickQueue
     {
-        private readonly ConcurrentQueue<ActorBehaviorTick> ACTOR_BEHAVIOR_TICKS = new ConcurrentQueue<ActorBehaviorTick>();
-        private readonly ConcurrentQueue<ActorBehaviorTick> TO_REGISTER = new ConcurrentQueue<ActorBehaviorTick>();
+        private readonly ConcurrentQueue<ActorBehaviorTick> _actionBehaviorTicks = new();
+        private readonly ConcurrentQueue<ActorBehaviorTick> _toRegister = new();
 
         public bool Dequeue(
             out ActorBehaviorTick actorBehaviorTick
         )
         {
-            return ACTOR_BEHAVIOR_TICKS.TryDequeue(
+            return _actionBehaviorTicks.TryDequeue(
                 out actorBehaviorTick
             );
         }
 
         public void PrimeQueueWithRegisteredTicks()
         {
-            while (TO_REGISTER.TryDequeue(
+            while (_toRegister.TryDequeue(
                 out var actorBehaviorTick
             ))
             {
-                ACTOR_BEHAVIOR_TICKS.Enqueue(
+                _actionBehaviorTicks.Enqueue(
                     actorBehaviorTick
                 );
             }
@@ -33,7 +34,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue
             long actorId
         )
         {
-            TO_REGISTER.Enqueue(
+            _toRegister.Enqueue(
                 new ActorBehaviorTick(
                     shapeId,
                     actorId
@@ -47,7 +48,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue
         {
             // TODO: This will check the failed count.
             // If over a threshold, ignore?
-            TO_REGISTER.Enqueue(
+            _toRegister.Enqueue(
                 new ActorBehaviorTick(
                     actorBehaviorTick.FailedCount + 1,
                     actorBehaviorTick.ShapeId,

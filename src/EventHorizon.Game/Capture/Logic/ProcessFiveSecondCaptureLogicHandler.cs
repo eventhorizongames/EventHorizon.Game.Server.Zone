@@ -20,7 +20,7 @@
             IMediator mediator
         )
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(

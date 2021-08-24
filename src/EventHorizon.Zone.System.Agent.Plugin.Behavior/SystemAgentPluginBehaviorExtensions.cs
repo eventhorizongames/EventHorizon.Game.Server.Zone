@@ -9,8 +9,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Timer;
 
-    using MediatR;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -18,33 +16,23 @@ namespace EventHorizon.Game.Server.Zone
     {
         public static IServiceCollection AddSystemAgentPluginBehavior(
             this IServiceCollection services
-        )
-        {
-            return services
-                .AddSingleton<ITimerTask, RunPendingActorBehaviorTicksTimer>()
+        ) => services
+            .AddSingleton<ITimerTask, RunPendingActorBehaviorTicksTimer>()
 
-                .AddSingleton<ActorBehaviorTreeRepository, InMemoryActorBehaviorTreeRepository>()
-                .AddSingleton<ActorBehaviorTickQueue, InMemoryActorBehaviorTickQueue>()
+            .AddSingleton<ActorBehaviorTreeRepository, InMemoryActorBehaviorTreeRepository>()
+            .AddSingleton<ActorBehaviorTickQueue, InMemoryActorBehaviorTickQueue>()
 
-                .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>()
-                .AddSingleton<BehaviorInterpreterKernel, BehaviorInterpreterDoWhileKernel>()
+            .AddSingleton<BehaviorInterpreterMap, BehaviorInterpreterInMemoryMap>()
+            .AddSingleton<BehaviorInterpreterKernel, BehaviorInterpreterDoWhileKernel>()
 
-                .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>()
-                .AddSingleton<ConditionBehaviorInterpreter, ConditionInterpreter>()
-            ;
-        }
-        public static void UseSystemAgentPluginBehavior(
+            .AddSingleton<ActionBehaviorInterpreter, ActionInterpreter>()
+            .AddSingleton<ConditionBehaviorInterpreter, ConditionInterpreter>()
+        ;
+
+        public static IApplicationBuilder UseSystemAgentPluginBehavior(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<IMediator>()
-                    .Send(
-                        new LoadAgentBehaviorSystem()
-                    ).GetAwaiter(
-                    ).GetResult();
-            }
-        }
+        ) => app.SendMediatorCommand(
+            new LoadAgentBehaviorSystem()
+        );
     }
 }

@@ -20,7 +20,7 @@ namespace EventHorizon.Zone.System.Editor.Events
             IEditorNodeList editorState
         )
         {
-            this.EditorState = editorState;
+            EditorState = editorState;
         }
     }
 }

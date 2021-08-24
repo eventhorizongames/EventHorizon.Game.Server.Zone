@@ -66,7 +66,7 @@
             );
 
             if (string.IsNullOrWhiteSpace(
-                wizard.Id
+                wizard?.Id
             ))
             {
                 return;

@@ -8,14 +8,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 
     public class InMemoryActorBehaviorTreeRepository : ActorBehaviorTreeRepository
     {
-        private readonly ActorBehaviorTreeShape DEFAULT_TREE_SHAPE = default(ActorBehaviorTreeShape);
-        private readonly ConcurrentDictionary<string, ActorBehaviorTreeShape> MAP = new ConcurrentDictionary<string, ActorBehaviorTreeShape>();
+        private static readonly ActorBehaviorTreeShape DEFAULT_TREE_SHAPE = default;
+        private readonly ConcurrentDictionary<string, ActorBehaviorTreeShape> _map = new();
 
         public ActorBehaviorTreeShape FindTreeShape(
             string treeId
         )
         {
-            if (MAP.TryGetValue(
+            if (_map.TryGetValue(
                 treeId,
                 out var shape
             ))
@@ -30,16 +30,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             ActorBehaviorTreeShape behaviorTreeShape
         )
         {
-            MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 treeId,
                 behaviorTreeShape,
-                (_, __) => behaviorTreeShape
+                (_, _) => behaviorTreeShape
             );
         }
 
         public IEnumerable<string> TreeIdList()
         {
-            return MAP.Keys;
+            return _map.Keys;
         }
     }
 }

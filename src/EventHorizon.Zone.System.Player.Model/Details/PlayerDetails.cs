@@ -15,7 +15,7 @@ namespace EventHorizon.Zone.System.Player.Model.Details
 
         public bool IsNew()
         {
-            return this.Id == null;
+            return Id == null;
         }
     }
 }

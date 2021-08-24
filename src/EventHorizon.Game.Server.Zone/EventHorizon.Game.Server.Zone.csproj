@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="App_Data\Reporting\" />
         <Folder Include="App_Data\Server\Scripts\Observers\" />
         <Folder Include="App_Data\Server\Scripts\Wizards\" />
         <Folder Include="App_Data\Server\Wizards\" />

@@ -1,13 +1,13 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
 {
-    using global::System;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+    using global::System;
+    using global::System.Threading.Tasks;
 
     using MediatR;
 
@@ -50,27 +50,26 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreters
             {
                 try
                 {
-                    using (var serviceScope = _serviceScopeFactory.CreateScope())
-                    {
-                        var mediator = serviceScope.ServiceProvider.GetService<IMediator>();
-                        // When Ready run first pass
-                        return behaviorTreeState
-                            .SetStatusOnActiveNode(
-                                BehaviorNodeStatus.VISITING
-                            ).SetStatusOnActiveNode(
-                                // The response from the script fire will fill the status
-                                //  of the Active Node
-                                (await mediator.Send(
-                                    new RunBehaviorScript(
-                                        actor,
-                                        behaviorTreeState.ActiveNode.Fire
-                                    )
-                                )).Status
-                            ).SetTraversalToCheck()
-                            .Report(
-                                "Action Interpreter EXIT"
-                            );
-                    }
+                    using var serviceScope = _serviceScopeFactory.CreateScope();
+                    var mediator = serviceScope.ServiceProvider.GetRequiredService<IMediator>();
+
+                    // When Ready run first pass
+                    return behaviorTreeState
+                        .SetStatusOnActiveNode(
+                            BehaviorNodeStatus.VISITING
+                        ).SetStatusOnActiveNode(
+                            // The response from the script fire will fill the status
+                            //  of the Active Node
+                            (await mediator.Send(
+                                new RunBehaviorScript(
+                                    actor,
+                                    behaviorTreeState.ActiveNode.Fire
+                                )
+                            )).Status
+                        ).SetTraversalToCheck()
+                        .Report(
+                            "Action Interpreter EXIT"
+                        );
                 }
                 catch (Exception ex)
                 {

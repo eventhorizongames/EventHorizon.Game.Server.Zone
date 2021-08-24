@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.Core.ServerAction.State
         {
             lock (_actionList)
             {
-                return this.Pop(
+                return Pop(
                     take
                 );
             }

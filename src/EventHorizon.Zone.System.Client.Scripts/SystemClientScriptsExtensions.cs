@@ -7,8 +7,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.State;
 
-    using MediatR;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -40,17 +38,8 @@ namespace EventHorizon.Game.Server.Zone
 
         public static IApplicationBuilder UseSystemClientScripts(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Send(new LoadClientScriptsSystemCommand())
-                    .GetAwaiter()
-                    .GetResult();
-            }
-            return app;
-        }
+        ) => app.SendMediatorCommand(
+            new LoadClientScriptsSystemCommand()
+        );
     }
 }

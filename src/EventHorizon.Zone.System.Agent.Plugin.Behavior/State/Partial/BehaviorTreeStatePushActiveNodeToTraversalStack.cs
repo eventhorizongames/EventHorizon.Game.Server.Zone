@@ -4,7 +4,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
     {
         public BehaviorTreeState PushActiveNodeToTraversalStack()
         {
-            this.TraversalStack.Add(
+            TraversalStack.Add(
                 _activeNodeToken
             );
             _activeTraversalToken = _activeNodeToken;

@@ -63,7 +63,7 @@ namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
             var locationState = player.Location;
             locationState.CurrentZone = _serverProperty.Get<string>(
                 ServerPropertyKeys.SERVER_ID
-            );
+            ) ?? "home";
             player.Location = locationState;
 
             return player;

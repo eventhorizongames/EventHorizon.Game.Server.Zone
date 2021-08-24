@@ -2,10 +2,11 @@
 {
     using EventHorizon.Zone.Core.Model.Map;
 
-    public class ZoneMapMesh : IMapMesh
+    public class ZoneMapMesh
+        : IMapMesh
     {
-        public string HeightMapUrl { get; set; }
-        public string Light { get; set; }
+        public string HeightMapUrl { get; set; } = string.Empty;
+        public string Light { get; set; } = string.Empty;
         public int Width { get; set; }
         public int Height { get; set; }
         public int Subdivisions { get; set; }

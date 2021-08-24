@@ -156,7 +156,7 @@ namespace EventHorizon.Zone.Core.Reporter.Tests
             // Then
             mediatorMock.Verify(
                 mock => mock.Send(
-                    new StartupElasticsearchReporterClient(),
+                    expected,
                     CancellationToken.None
                 )
             );

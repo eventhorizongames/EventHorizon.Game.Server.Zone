@@ -14,12 +14,13 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
 
     using MediatR;
 
-    public class LoadActorBehaviorTreeShapesHandler : IRequestHandler<LoadActorBehaviorTreeShapes>
+    public class LoadActorBehaviorTreeShapesHandler
+        : IRequestHandler<LoadActorBehaviorTreeShapes>
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ActorBehaviorTreeRepository _actorBehaviorTreeRepository;
+        private readonly IMediator _mediator;
+        private readonly ServerInfo _serverInfo;
+        private readonly IJsonFileLoader _fileLoader;
+        private readonly ActorBehaviorTreeRepository _actorBehaviorTreeRepository;
 
         public LoadActorBehaviorTreeShapesHandler(
             IMediator mediator,
@@ -61,7 +62,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
         {
             var rootPath = arguments["RootPath"] as string;
             var treeId = GenerateName(
-                rootPath.MakePathRelative(
+                rootPath!.MakePathRelative(
                     fileInfo.DirectoryName
                 ), fileInfo.Name
             );

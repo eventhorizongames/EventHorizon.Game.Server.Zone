@@ -66,7 +66,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
             );
 
             loadedSkill.Id = SkillInstance.GenerateId(
-                rootPath.MakePathRelative(
+                rootPath!.MakePathRelative(
                     fileInfo.DirectoryName
                 ),
                 fileInfo.Name

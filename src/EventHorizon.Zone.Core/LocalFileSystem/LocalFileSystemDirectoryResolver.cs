@@ -7,7 +7,8 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
     using EventHorizon.Zone.Core.Model.DirectoryService;
     using EventHorizon.Zone.Core.Model.FileService;
 
-    public class LocalFileSystemDirectoryResolver : DirectoryResolver
+    public class LocalFileSystemDirectoryResolver
+        : DirectoryResolver
     {
         public bool CreateDirectory(
             string directoryFullName
@@ -35,7 +36,7 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             directory => new StandardDirectoryInfo(
                 directory.Name,
                 directory.FullName,
-                directory.Parent.FullName
+                directory.Parent?.FullName ?? string.Empty
             )
         );
 
@@ -49,7 +50,7 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             return new StandardDirectoryInfo(
                 directoryInfo.Name,
                 directoryInfo.FullName,
-                directoryInfo.Parent.FullName
+                directoryInfo.Parent?.FullName ?? string.Empty
             );
         }
 
@@ -60,7 +61,7 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
         ).GetFiles().Select(
             file => new StandardFileInfo(
                 file.Name,
-                file.DirectoryName,
+                file.DirectoryName ?? string.Empty,
                 file.FullName,
                 file.Extension
             )
@@ -73,10 +74,9 @@ namespace EventHorizon.Zone.Core.Plugin.LocalFileSystem
             var directoryInfo = new DirectoryInfo(
                 directoryFullName
             );
-            return (!directoryInfo.Exists)
-                ? true
-                : directoryInfo.GetFiles().Length <= 0
-                    && directoryInfo.GetDirectories().Length <= 0;
+            return !directoryInfo.Exists
+                || directoryInfo.GetFiles().Length <= 0
+                && directoryInfo.GetDirectories().Length <= 0;
         }
     }
 }

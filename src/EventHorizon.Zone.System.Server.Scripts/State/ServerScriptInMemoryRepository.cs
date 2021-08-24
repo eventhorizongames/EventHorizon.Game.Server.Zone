@@ -27,7 +27,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.State
             _map.AddOrUpdate(
                 script.Id,
                 script,
-                (_, __) => script
+                (_, _) => script
             );
         }
 

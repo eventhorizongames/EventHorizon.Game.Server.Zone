@@ -97,6 +97,8 @@
                 writer.WriteLine("---");
 
                 writer.WriteLine(reportItem.Message);
+                writer.WriteLine(reportItem.Timestamp.ToString("MM-dd-yyyy HH:mm:ss.fffffffzzz"));
+
                 if (reportItem.Data != null)
                 {
                     writer.WriteLine(

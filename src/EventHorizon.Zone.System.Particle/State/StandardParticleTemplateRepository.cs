@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Particle.State
     public class StandardParticleTemplateRepository
         : ParticleTemplateRepository
     {
-        private readonly ConcurrentDictionary<string, ParticleTemplate> _map = new ConcurrentDictionary<string, ParticleTemplate>();
+        private readonly ConcurrentDictionary<string, ParticleTemplate> _map = new();
 
         public void Add(
             string id,
@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.System.Particle.State
             _map.AddOrUpdate(
                 id,
                 template,
-                (_, __) => template
+                (_, _) => template
             );
         }
 

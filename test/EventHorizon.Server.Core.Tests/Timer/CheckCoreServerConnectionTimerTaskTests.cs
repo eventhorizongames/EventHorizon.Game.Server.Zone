@@ -14,7 +14,7 @@
         public void ShouldHaveExpectedValuesWhenCreated()
         {
             // Given
-            var expectedPeriod = 60000;
+            var expectedPeriod = 5000;
             var expectedTag = "CheckCoreServerConnection";
             var expectedOnValidationEvent = new IsServerStarted();
             var expectedOnRunEvent = new CheckCoreServerConnection();

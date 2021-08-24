@@ -4,9 +4,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Map.Search;
     using EventHorizon.Zone.Core.Map.State;
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
@@ -23,13 +20,13 @@ namespace EventHorizon.Game.Server.Zone
                     serverMap
                 )
                 .AddSingleton<PathFindingAlgorithm, AStarSearch>()
-                .AddTransient<IMapGraph>(
+                .AddTransient(
                     _ => serverMap.Map()
                 )
-                .AddTransient<IMapDetails>(
+                .AddTransient(
                     _ => serverMap.MapDetails()
                 )
-                .AddTransient<IMapMesh>(
+                .AddTransient(
                     _ => serverMap.MapMesh()
                 )
             ;
@@ -37,17 +34,8 @@ namespace EventHorizon.Game.Server.Zone
 
         public static IApplicationBuilder UseCoreMap(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Send(
-                        new CreateMap()
-                    ).GetAwaiter().GetResult();
-            }
-            return app;
-        }
+        ) => app.SendMediatorCommand(
+            new CreateMap()
+        );
     }
 }

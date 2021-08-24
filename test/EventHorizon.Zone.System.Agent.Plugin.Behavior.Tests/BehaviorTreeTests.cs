@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
+
     using EventHorizon.Tests.TestUtils;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Reporter.Model;
@@ -10,10 +11,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
 
+    using FluentAssertions;
+
     using global::System;
     using global::System.Diagnostics;
     using global::System.IO;
-    using global::System.Text;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -125,15 +128,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
             );
 
             // Then
-            Assert.Collection(
-                actual.NodeList(),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected),
-                node => Assert.Equal(node.Status, expected)
+            actual.NodeList().Select(
+                a => a.Status
+            ).Should().BeEquivalentTo(
+                expected,
+                expected,
+                expected,
+                expected,
+                expected,
+                expected,
+                expected
             );
         }
         [Fact]

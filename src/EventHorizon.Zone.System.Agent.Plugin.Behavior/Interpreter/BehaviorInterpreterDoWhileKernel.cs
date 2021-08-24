@@ -31,7 +31,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
                 shape,
                 actor
             ).Report(
-                "Kernel Tick START"
+                "Kernel Tick START",
+                new { shapeId = shape.Id }
             ).PopActiveNodeFromQueue();
             do
             {

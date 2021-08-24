@@ -16,8 +16,8 @@ namespace EventHorizon.Zone.Core.ServerAction.Model
         )
         {
             _guid = Guid.NewGuid();
-            this.RunAt = runAt;
-            this.EventToSend = eventToSend;
+            RunAt = runAt;
+            EventToSend = eventToSend;
         }
     }
 }

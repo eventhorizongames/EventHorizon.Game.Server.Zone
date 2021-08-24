@@ -6,7 +6,8 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.Logging;
 
-    public class SystemPlayerServerConnection : PlayerServerConnection
+    public class SystemPlayerServerConnection
+        : PlayerServerConnection
     {
         readonly ILogger _logger;
         readonly HubConnection _connection;
@@ -27,7 +28,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
         {
             try
             {
-                _connection.On<T>(
+                _connection.On(
                     actionName,
                     action
                 );
@@ -63,7 +64,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
             }
         }
 
-        public async Task<T> SendAction<T>(
+        public async Task<T?> SendAction<T>(
             string actionName,
             object[] args
         )

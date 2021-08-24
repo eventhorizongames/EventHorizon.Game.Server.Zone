@@ -13,7 +13,7 @@
             IAdminCommandResponse response
         )
         {
-            this.Response = response;
+            Response = response;
         }
     }
 }

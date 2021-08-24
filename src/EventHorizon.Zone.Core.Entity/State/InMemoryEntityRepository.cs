@@ -13,13 +13,14 @@ namespace EventHorizon.Zone.Core.Entity.State
 
     using MediatR;
 
-    public class InMemoryEntityRepository : EntityRepository
+    public class InMemoryEntityRepository
+        : EntityRepository
     {
         // TODO: Update this to not use static.
         // Move the IMediator publish events out of this and into the events.
         // Also remove the Mutation methods from entityRepository, 
         // Move mutation abstraction into a separate Mutation internal abstraction.
-        private readonly static ConcurrentDictionary<long, IObjectEntity> _entityMap = new ConcurrentDictionary<long, IObjectEntity>();
+        private readonly static ConcurrentDictionary<long, IObjectEntity> EntityMap = new();
 
         private readonly IMediator _mediator;
         private readonly IdPool _idPool;
@@ -35,14 +36,14 @@ namespace EventHorizon.Zone.Core.Entity.State
 
         public Task<List<IObjectEntity>> All()
         {
-            return _entityMap.Values.ToList().FromResult();
+            return EntityMap.Values.ToList().FromResult();
         }
 
         public Task<IEnumerable<IObjectEntity>> Where(
             Func<IObjectEntity, bool> predicate
         )
         {
-            return _entityMap.Values.Where(
+            return EntityMap.Values.Where(
                 predicate
             ).FromResult();
         }
@@ -51,7 +52,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             long id
         )
         {
-            return (_entityMap.FirstOrDefault(
+            return (EntityMap.FirstOrDefault(
                 entity => entity.Key == id
             ).Value ?? DefaultEntity.NULL).FromResult();
         }
@@ -61,7 +62,7 @@ namespace EventHorizon.Zone.Core.Entity.State
         )
         {
             entity.Id = _idPool.NextId();
-            _entityMap.TryAdd(
+            EntityMap.TryAdd(
                 entity.Id,
                 entity
             );
@@ -80,10 +81,10 @@ namespace EventHorizon.Zone.Core.Entity.State
             IObjectEntity entity
         )
         {
-            _entityMap.AddOrUpdate(
+            EntityMap.AddOrUpdate(
                 entity.Id,
                 entity,
-                (_, __) => entity
+                (_, _) => entity
             );
             _mediator.Publish(
                 new EntityActionEvent
@@ -99,7 +100,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             long id
         )
         {
-            _entityMap.TryRemove(
+            EntityMap.TryRemove(
                 id,
                 out var entity
             );

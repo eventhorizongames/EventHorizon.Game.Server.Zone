@@ -39,7 +39,7 @@
                 timerWrapper => timerWrapper.Start()
             );
             cancellationToken.Register(
-                this.StopTimerTasks
+                StopTimerTasks
             );
             return Task.CompletedTask;
         }

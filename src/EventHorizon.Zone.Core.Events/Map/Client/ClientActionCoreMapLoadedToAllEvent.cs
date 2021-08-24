@@ -7,7 +7,7 @@
     {
         public static ClientActionGenericToAllEvent Create(
             CoreMapLoadedClientData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "Core.Map.Created",
             data
         );

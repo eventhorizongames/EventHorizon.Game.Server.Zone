@@ -1,5 +1,6 @@
 namespace EventHorizon.Zone.Core.Tests
 {
+    using System;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace EventHorizon.Zone.Core.Tests
         public void TestShouldConfigureServiceCollectionWithExpectedServices()
         {
             // Given
-            var systemProvidedAssemblyList = new Assembly[0];
+            var systemProvidedAssemblyList = Array.Empty<Assembly>();
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When

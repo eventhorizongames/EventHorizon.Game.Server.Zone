@@ -8,9 +8,11 @@ namespace EventHorizon.Zone.Core.Entity.State
     using EventHorizon.Game.Server.Zone.Entity.Model;
     using EventHorizon.Zone.Core.Model.Math;
 
-    public class InMemoryEntitySearchTree : EntitySearchTree
+    public class InMemoryEntitySearchTree
+        : EntitySearchTree
     {
-        private static Octree<SearchEntity> _searchOctree = new Octree<SearchEntity>(
+        // TODO: Update this to not use static.
+        private static Octree<SearchEntity> SearchOctree = new(
             Vector3.Zero,
             new Vector3(
                 128,
@@ -24,7 +26,7 @@ namespace EventHorizon.Zone.Core.Entity.State
             SearchEntity searchEntity
         )
         {
-            _searchOctree.Add(
+            SearchOctree.Add(
                 searchEntity
             );
         }
@@ -33,14 +35,14 @@ namespace EventHorizon.Zone.Core.Entity.State
             SearchEntity entity
         )
         {
-            _searchOctree.Remove(
+            SearchOctree.Remove(
                 entity
             );
         }
 
         public void Reset()
         {
-            _searchOctree = new Octree<SearchEntity>(
+            SearchOctree = new Octree<SearchEntity>(
                 Vector3.Zero,
                 new Vector3(128, 128, 128),
                 0
@@ -60,13 +62,13 @@ namespace EventHorizon.Zone.Core.Entity.State
                 dimensions,
                 0
             );
-            foreach (var node in _searchOctree.All())
+            foreach (var node in SearchOctree.All())
             {
                 newSearchOctree.Add(
                     node
                 );
             }
-            _searchOctree = newSearchOctree;
+            SearchOctree = newSearchOctree;
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace EventHorizon.Zone.Core.Entity.State
         )
         {
             return Task.FromResult(
-                _searchOctree.FindNearbyPoints(
+                SearchOctree.FindNearbyPoints(
                     searchPositionCenter,
                     searchRadius
                 )
@@ -145,11 +147,11 @@ namespace EventHorizon.Zone.Core.Entity.State
         public Task<IList<SearchEntity>> SearchInArea(
             Vector3 searchPositionCenter,
             Vector3 searchDimension
-        ) => (Task.FromResult(
-            _searchOctree.FindNearbyPoints(
+        ) => Task.FromResult(
+            SearchOctree.FindNearbyPoints(
                 searchPositionCenter,
                 searchDimension
             )
-        ));
+        );
     }
 }

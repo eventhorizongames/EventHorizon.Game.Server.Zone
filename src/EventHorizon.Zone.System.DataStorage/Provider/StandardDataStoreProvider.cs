@@ -6,6 +6,7 @@
     using global::System;
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
+    using global::System.Diagnostics.CodeAnalysis;
     using global::System.Text.Json;
 
     public class StandardDataStoreProvider
@@ -73,13 +74,13 @@
             _map.AddOrUpdate(
                 key,
                 value,
-                (_, __) => value
+                (_, _) => value
             );
         }
 
         public bool TryGetValue<T>(
             string key,
-            out T value
+            [MaybeNullWhen(false)] out T value
         )
         {
             value = default;
@@ -92,6 +93,10 @@
                 try
                 {
                     value = existingValue.To<T>();
+                    if (value != null)
+                    {
+                        return true;
+                    }
                 }
                 catch (InvalidCastException)
                 {
@@ -108,14 +113,14 @@
                         key,
                         value
                     );
+                    return true;
                 }
-                return true;
             }
 
             return false;
         }
 
-        private static T TryAndFixCastException<T>(
+        private static T? TryAndFixCastException<T>(
             object existingValue
         )
         {

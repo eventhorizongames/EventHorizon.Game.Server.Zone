@@ -8,9 +8,10 @@ namespace EventHorizon.Zone.Core.Map.Model
     using EventHorizon.Zone.Core.Model.Map;
     using EventHorizon.Zone.Core.Model.Math;
 
-    public class MapGraph : IMapGraph
+    public class MapGraph
+        : IMapGraph
     {
-        private readonly IEnumerable<MapEdge> EMPTY_IMMUTABLE_LIST = new List<MapEdge>().AsReadOnly();
+        private readonly IEnumerable<MapEdge> _emptyImmutableList = new List<MapEdge>().AsReadOnly();
 
         private int _nextNodeIndex;
         private readonly ConcurrentDictionary<MapNode, MapNode> _nodes;
@@ -21,17 +22,17 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public int NumberOfNodes
         {
-            get { return this._nodes.Count; }
+            get { return _nodes.Count; }
         }
 
         public IList<MapNode> NodeList
         {
-            get { return this._nodes.Values.ToList(); }
+            get { return _nodes.Values.ToList(); }
         }
 
         public IList<MapEdge> EdgeList
         {
-            get { return this._edges.Values.ToList(); }
+            get { return _edges.Values.ToList(); }
         }
 
         public MapGraph(Vector3 position, Vector3 dimensions, bool isDirectionGraph)
@@ -48,22 +49,21 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public IList<MapNode> All()
         {
-            return this._octree.All();
+            return _octree.All();
         }
 
         public MapNode GetNode(int index)
         {
-            var mapNode = default(MapNode);
-            this._nodes.TryGetValue(
+            _nodes.TryGetValue(
                 new MapNode(index),
-                out mapNode
+                out var mapNode
             );
             return mapNode;
         }
 
         public IList<MapNode> GetClosestNodes(Vector3 position, float radius)
         {
-            return this._octree
+            return _octree
                 .FindNearbyPoints(GetClosestNode(position).Position, radius, null);
         }
 
@@ -72,7 +72,7 @@ namespace EventHorizon.Zone.Core.Map.Model
             Vector3 dimensions
         )
         {
-            return this._octree.FindNearbyPoints(
+            return _octree.FindNearbyPoints(
                 position,
                 dimensions,
                 null
@@ -81,34 +81,33 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public MapNode GetClosestNode(Vector3 position)
         {
-            return this._octree.FindNearestPoint(position, null);
+            return _octree.FindNearestPoint(position, null);
         }
 
         public MapEdge GetEdge(int from, int to)
         {
-            var edge = default(MapEdge);
-            this._edges.TryGetValue(
+            _edges.TryGetValue(
                 new MapEdge(from, to),
-                out edge
+                out var edge
             );
             return edge;
         }
 
         public MapNode AddNode(MapNode node)
         {
-            if (this.ContainsNode(node.Index))
+            if (ContainsNode(node.Index))
             {
                 return node;
             }
 
-            this._nextNodeIndex++;
-            node.Index = this._nextNodeIndex;
-            this._nodes.AddOrUpdate(
+            _nextNodeIndex++;
+            node.Index = _nextNodeIndex;
+            _nodes.AddOrUpdate(
                 node,
                 node,
-                (_, __) => node
+                (_, _) => node
             );
-            this._octree.Add(node);
+            _octree.Add(node);
 
             return node;
         }
@@ -116,12 +115,12 @@ namespace EventHorizon.Zone.Core.Map.Model
         public void AddEdge(MapEdge edge)
         {
             // Validate to and from
-            if (!this.ContainsNode(edge.FromIndex)
-                || !this.ContainsNode(edge.ToIndex))
+            if (!ContainsNode(edge.FromIndex)
+                || !ContainsNode(edge.ToIndex))
             {
                 return;
             }
-            this._edges.AddOrUpdate(
+            _edges.AddOrUpdate(
                 edge,
                 edge,
                 (key, current) => edge
@@ -130,14 +129,14 @@ namespace EventHorizon.Zone.Core.Map.Model
                 edge
             );
 
-            if (!this._isDirectionGraph)
+            if (!_isDirectionGraph)
             {
                 var reversedEdge = new MapEdge
                 {
                     ToIndex = edge.FromIndex,
                     FromIndex = edge.ToIndex
                 };
-                this._edges.AddOrUpdate(
+                _edges.AddOrUpdate(
                     reversedEdge,
                     reversedEdge,
                     (key, current) => reversedEdge
@@ -152,7 +151,7 @@ namespace EventHorizon.Zone.Core.Map.Model
             MapEdge edge
         )
         {
-            this._nodeFromEdges
+            _nodeFromEdges
                 .GetOrAdd(
                     edge.FromIndex,
                     new ConcurrentDictionary<MapEdge, MapEdge>()
@@ -164,11 +163,11 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public void RemoveEdge(MapEdge edge)
         {
-            this._edges.TryRemove(
+            _edges.TryRemove(
                 edge,
                 out _
             );
-            this._nodeFromEdges
+            _nodeFromEdges
                 .GetOrAdd(
                     edge.FromIndex,
                     new ConcurrentDictionary<MapEdge, MapEdge>()
@@ -180,18 +179,15 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public IEnumerable<MapEdge> GetEdgesOfNode(int nodeIndex)
         {
-            ConcurrentDictionary<MapEdge, MapEdge> edgeList;
-            if (this._nodeFromEdges
-                .TryGetValue(
-                    nodeIndex,
-                    out edgeList
-                )
-            )
+            if (_nodeFromEdges.TryGetValue(
+                nodeIndex,
+                out var edgeList
+            ))
             {
                 return edgeList.Values;
             }
 
-            return EMPTY_IMMUTABLE_LIST;
+            return _emptyImmutableList;
         }
 
         private bool ContainsNode(int index)

@@ -8,12 +8,14 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class SystemPlayerServerConnectionCache : PlayerServerConnectionCache, IDisposable
+    public class SystemPlayerServerConnectionCache
+        : PlayerServerConnectionCache,
+        IAsyncDisposable
     {
-        readonly ILogger _logger;
+        private readonly ILogger _logger;
 
         // Internal State
-        private HubConnection _connection;
+        private HubConnection? _connection;
 
         public SystemPlayerServerConnectionCache(
             ILogger<SystemPlayerServerConnectionCache> logger
@@ -22,17 +24,26 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
             _logger = logger;
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _connection?.DisposeAsync().GetAwaiter().GetResult();
+            if (_connection == null)
+            {
+                return;
+            }
+
+            await _connection.DisposeAsync();
             _connection = null;
         }
 
-        public Task Stop()
+        public async Task Stop()
         {
-            _connection?.StopAsync().GetAwaiter().GetResult();
+            if (_connection == null)
+            {
+                return;
+            }
+
+            await _connection.StopAsync();
             _connection = null;
-            return Task.CompletedTask;
         }
 
         public async Task<HubConnection> GetConnection(

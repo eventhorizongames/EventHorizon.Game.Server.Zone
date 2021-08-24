@@ -8,8 +8,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
     {
         public int Token { get; }
         public BehaviorNodeType Type { get; }
-        public string Status { get; private set; }
-        public IList<BehaviorNode> NodeList { get; private set; }
+        public string? Status { get; private set; }
+        public IList<BehaviorNode>? NodeList { get; private set; }
         public bool IsTraversal { get; }
         public string Fire { get; }
         public int FailGate { get; }
@@ -32,22 +32,23 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
                     "serailzedNode"
                 );
             }
-            this.Token = Guid.NewGuid().GetHashCode();
-            this.Type = BehaviorNodeType.Parse(
+
+            Token = Guid.NewGuid().GetHashCode();
+            Type = BehaviorNodeType.Parse(
                 serailzedNode.Type
             );
-            this.Status = serailzedNode.Status;
+            Status = serailzedNode.Status;
 
-            this.NodeList = new List<BehaviorNode>();
-            this.IsTraversal = this.Type.IsTraversal;
+            NodeList = new List<BehaviorNode>();
+            IsTraversal = Type.IsTraversal;
 
-            this.Fire = serailzedNode.Fire;
-            this.FailGate = serailzedNode.FailGate;
-            this.Reset = serailzedNode.Reset;
+            Fire = serailzedNode.Fire;
+            FailGate = serailzedNode.FailGate;
+            Reset = serailzedNode.Reset;
 
             if (serailzedNode.NodeList != null)
             {
-                this.NodeList = serailzedNode.NodeList
+                NodeList = serailzedNode.NodeList
                     .Select(
                         node => new BehaviorNode(
                             node
@@ -60,7 +61,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             string status
         )
         {
-            this.Status = status;
+            Status = status;
             return this;
         }
 

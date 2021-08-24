@@ -19,7 +19,7 @@ namespace EventHorizon.Zone.Core.Json
             _fileResolver = fileResolver;
         }
 
-        public Task<T> GetFile<T>(
+        public Task<T?> GetFile<T>(
             string fileFullName
         )
         {
@@ -28,11 +28,11 @@ namespace EventHorizon.Zone.Core.Json
             ))
             {
                 // TODO: Update this to support new() or struct
-                return default(T)!
+                return default(T)
                     .FromResult();
             }
 
-            return JsonConvert.DeserializeObject<T>(
+            return JsonConvert.DeserializeObject<T?>(
                 _fileResolver.GetFileText(
                     fileFullName
                 )

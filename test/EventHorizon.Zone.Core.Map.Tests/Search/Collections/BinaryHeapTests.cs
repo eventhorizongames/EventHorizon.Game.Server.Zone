@@ -409,7 +409,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search.Collections
             var expected = "comparer";
 
             // When
-            Action action = () => new BinaryHeap<string>(
+            static BinaryHeap<string> action() => new(
                 null
             );
             var actual = Assert.Throws<ArgumentNullException>(action);

@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             {
                 status = BehaviorNodeStatus.ERROR;
             }
-            this.NodeMap[_activeNodeToken] = ActiveNode.UpdateStatus(
+            NodeMap[_activeNodeToken] = ActiveNode.UpdateStatus(
                 status.ToString()
             );
             return this;

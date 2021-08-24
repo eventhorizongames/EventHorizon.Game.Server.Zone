@@ -11,7 +11,11 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
         public long EntityId { get; }
         public IList<string> TagList { get; }
 
-        public SearchEntity(long entityId, Vector3 position, IList<string> tagList)
+        public SearchEntity(
+            long entityId,
+            Vector3 position,
+            IList<string>? tagList
+        )
         {
             EntityId = entityId;
             Position = position;

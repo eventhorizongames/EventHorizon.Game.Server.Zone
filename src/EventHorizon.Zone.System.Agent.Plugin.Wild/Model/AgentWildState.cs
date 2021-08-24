@@ -7,30 +7,26 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Wild.Model
         public int DistanceToRunAway { get; set; }
         public int DeltaDistance { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "distanceToRunAway":
-                        return this.DistanceToRunAway;
-                    case "deltaDistance":
-                        return this.DeltaDistance;
-
-                    default:
-                        return null;
-                }
+                    "distanceToRunAway" => DistanceToRunAway,
+                    "deltaDistance" => DeltaDistance,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "distanceToRunAway":
-                        this.DistanceToRunAway = (int)value;
+                        DistanceToRunAway = (int?)value ?? 25;
                         break;
                     case "deltaDistance":
-                        this.DeltaDistance = (int)value;
+                        DeltaDistance = (int?)value ?? 5;
                         break;
 
                     default:
@@ -39,7 +35,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Wild.Model
             }
         }
 
-        public static readonly AgentWildState NEW = new AgentWildState
+        public static readonly AgentWildState NEW = new()
         {
             DistanceToRunAway = 25,
             DeltaDistance = 5,

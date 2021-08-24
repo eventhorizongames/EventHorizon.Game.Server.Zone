@@ -3,11 +3,12 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
     using System.Threading;
     using System.Threading.Tasks;
 
+    using AutoFixture.Xunit2;
+
     using EventHorizon.Server.Core.Connection.Disconnected;
     using EventHorizon.Server.Core.Disconnected;
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Model.ServerProperty;
-
-    using Microsoft.Extensions.Logging;
 
     using Moq;
 
@@ -15,19 +16,14 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
 
     public class CoreServerConnectionDisconnectedHandlerTests
     {
-        [Fact]
-        public async Task ShouldNullServerIdWhenRequestIsHandled()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldNullServerIdWhenRequestIsHandled(
             // Given
-
-            var loggerMock = new Mock<ILogger<CoreServerConnectionDisconnectedHandler>>();
-            var serverPropertyMock = new Mock<IServerProperty>();
-
+            [Frozen] Mock<IServerProperty> serverPropertyMock,
+            CoreServerConnectionDisconnectedHandler handler
+        )
+        {
             // When
-            var handler = new CoreServerConnectionDisconnectedHandler(
-                loggerMock.Object,
-                serverPropertyMock.Object
-            );
             await handler.Handle(
                 new ServerCoreConnectionDisconnected(),
                 CancellationToken.None
@@ -35,9 +31,8 @@ namespace EventHorizon.Server.Core.Tests.Disconnected
 
             // Then
             serverPropertyMock.Verify(
-                mock => mock.Set(
-                    ServerPropertyKeys.SERVER_ID,
-                    null
+                mock => mock.Remove(
+                    ServerPropertyKeys.SERVER_ID
                 )
             );
         }

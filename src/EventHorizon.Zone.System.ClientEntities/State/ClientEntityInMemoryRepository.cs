@@ -7,43 +7,43 @@ namespace EventHorizon.Zone.System.ClientEntities.State
 
     public class ClientEntityInMemoryRepository : ClientEntityRepository
     {
-        private readonly ConcurrentDictionary<string, ClientEntity> INSTANCE_MAP = new ConcurrentDictionary<string, ClientEntity>();
+        private readonly ConcurrentDictionary<string, ClientEntity> _map = new();
 
         public ClientEntity Find(
             string id
         )
         {
-            if (INSTANCE_MAP.TryGetValue(
+            if (_map.TryGetValue(
                 id,
                 out var entity
             ))
             {
                 return entity;
             }
-            return default(ClientEntity);
+            return default;
         }
 
         public void Add(
             ClientEntity entity
         )
         {
-            INSTANCE_MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 entity.ClientEntityId,
                 entity,
-                (_, __) => entity
+                (_, _) => entity
             );
         }
 
         public IEnumerable<ClientEntity> All()
         {
-            return INSTANCE_MAP.Values;
+            return _map.Values;
         }
 
         public void Remove(
             string id
         )
         {
-            INSTANCE_MAP.TryRemove(
+            _map.TryRemove(
                 id,
                 out _
             );

@@ -10,7 +10,7 @@ namespace EventHorizon.Zone.System.Player.Events.Connected
             string id
         )
         {
-            this.Id = id;
+            Id = id;
 
         }
     }

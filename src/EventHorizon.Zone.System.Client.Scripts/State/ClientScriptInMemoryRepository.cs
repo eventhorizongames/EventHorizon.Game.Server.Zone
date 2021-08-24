@@ -9,22 +9,22 @@
     public class ClientScriptInMemoryRepository
         : ClientScriptRepository
     {
-        private readonly ConcurrentDictionary<string, ClientScript> SCRIPT_MAP = new ConcurrentDictionary<string, ClientScript>();
+        private readonly ConcurrentDictionary<string, ClientScript> _map = new();
 
         public void Add(
             ClientScript script
         )
         {
-            SCRIPT_MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 script.Name,
                 script,
-                (_, __) => script
+                (_, _) => script
             );
         }
 
         public IEnumerable<ClientScript> All()
         {
-            return SCRIPT_MAP.Values;
+            return _map.Values;
         }
     }
 }

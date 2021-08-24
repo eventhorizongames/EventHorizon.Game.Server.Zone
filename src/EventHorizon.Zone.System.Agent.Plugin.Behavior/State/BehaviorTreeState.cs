@@ -18,7 +18,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 
         private string _reportId;
         private string _reportCorrelationId;
-        private ReportTracker _reportTracker;
+        private ReportTracker? _reportTracker;
 
         public bool ContainsNext => TraversalStack.Count > 0;
         public bool CheckTraversal => _checkTraversal;
@@ -48,9 +48,11 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             _checkTraversal = false;
             _activeNodeToken = -1;
             _activeTraversalToken = -1;
-            _reportId = null;
-            _reportCorrelationId = null;
+
+            _reportId = string.Empty;
+            _reportCorrelationId = Guid.NewGuid().ToString();
             _reportTracker = null;
+            
             ShapeQueue = new Queue<int>();
             ShapeOrder = new int[0];
 
@@ -81,7 +83,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
         {
             _shape = shape;
             _checkTraversal = false;
-            this.SetupQueueFromShape(
+            SetupQueueFromShape(
                 shape
             );
             // This will keep only the running, not traversal, Nodes in state.
@@ -105,21 +107,21 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
 
         public BehaviorTreeState PopActiveNodeFromQueue()
         {
-            this.Report(
+            Report(
                 "PopActiveNodeFromQueue ENTER",
-                new { _activeNodeToken = _activeNodeToken }
+                new { ActiveNode }
             );
             if (ShapeQueue.Count != 0)
             {
-                this._activeNodeToken = ShapeQueue.Dequeue();
+                _activeNodeToken = ShapeQueue.Dequeue();
             }
             else
             {
-                this._activeNodeToken = -1;
+                _activeNodeToken = -1;
             }
-            this.Report(
+            Report(
                 "PopActiveNodeFromQueue EXIT",
-                new { _activeNodeToken = _activeNodeToken }
+                new { ActiveNode }
             );
             return this;
         }
@@ -136,9 +138,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             int token
         )
         {
-            var result = this.Report(
+            var result = Report(
                 "AdvanceQueueToAfterPassedToken ENTER",
-                new { token }
+                new { ActiveNode, token, }
             );
             // Move the queue to the current token location
             while (result._activeNodeToken != token && result._activeNodeToken != -1)
@@ -147,7 +149,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             }
             result = result.Report(
                 "AdvanceQueueToAfterPassedToken EXIT",
-                new { token, result._activeNodeToken }
+                new { result.ActiveNode, token, }
             );
             // Pop out the current token to set next node token
             return result;

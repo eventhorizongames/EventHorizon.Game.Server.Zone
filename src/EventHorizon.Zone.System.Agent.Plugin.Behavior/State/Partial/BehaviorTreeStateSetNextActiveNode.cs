@@ -4,7 +4,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
     {
         public BehaviorTreeState SetNextActiveNode()
         {
-            return this.PopActiveNodeFromQueue();
+            return PopActiveNodeFromQueue();
         }
     }
 }

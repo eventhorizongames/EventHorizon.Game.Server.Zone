@@ -24,7 +24,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.PopulateData
                 SkillState.NEW
             );
 
-            this.ValidateSkillState(
+            ValidateSkillState(
                 entity
             );
 

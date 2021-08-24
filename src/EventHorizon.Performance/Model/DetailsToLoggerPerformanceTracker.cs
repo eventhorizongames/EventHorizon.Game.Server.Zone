@@ -7,7 +7,7 @@ namespace EventHorizon.Performance.Model
     public sealed class DetailsToLoggerPerformanceTracker : PerformanceTracker
     {
         private readonly ILogger _logger;
-        private readonly Stopwatch watch;
+        private readonly Stopwatch _watch;
 
         public DetailsToLoggerPerformanceTracker(
             ILogger logger
@@ -17,21 +17,16 @@ namespace EventHorizon.Performance.Model
             _logger.LogInformation(
                 "Starting Performance Tracking"
             );
-            watch = Stopwatch.StartNew();
+            _watch = Stopwatch.StartNew();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage(
-            "Design",
-            "CA1063:Implement IDisposable Correctly",
-            Justification = "not disposing of managed resources"
-        )]
         public void Dispose()
         {
-            watch.Stop();
+            _watch.Stop();
             _logger.LogInformation(
                 "Finished Performance Tracking, Details: \n | {ElapsedMilliseconds} ms \n | {ElapsedTicks} ticks ",
-                watch.ElapsedMilliseconds,
-                watch.ElapsedTicks
+                _watch.ElapsedMilliseconds,
+                _watch.ElapsedTicks
             );
         }
     }

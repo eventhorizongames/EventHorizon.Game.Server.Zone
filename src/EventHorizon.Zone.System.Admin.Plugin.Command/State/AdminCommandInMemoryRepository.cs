@@ -8,27 +8,27 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
 
     public class AdminCommandInMemoryRepository : AdminCommandRepository
     {
-        private readonly ConcurrentBag<AdminCommandInstance> INSTANCE_MAP = new ConcurrentBag<AdminCommandInstance>();
+        private readonly ConcurrentBag<AdminCommandInstance> _map = new();
 
         public void Add(
             AdminCommandInstance command
         )
         {
-            INSTANCE_MAP.Add(
+            _map.Add(
                 command
             );
         }
 
         public void Clear()
         {
-            while (INSTANCE_MAP.TryTake(out _)) { }
+            while (_map.TryTake(out _)) { }
         }
 
         public IEnumerable<AdminCommandInstance> Where(
             string command
         )
         {
-            return INSTANCE_MAP.Where(
+            return _map.Where(
                 adminCommand => adminCommand.Command == command
             );
         }

@@ -3,8 +3,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
     using EventHorizon.Zone.System.Admin.Plugin.Command.State;
 
-    using MediatR;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -18,17 +16,8 @@ namespace EventHorizon.Game.Server.Zone
 
         public static IApplicationBuilder UseSystemAdminPluginCommand(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                serviceScope.ServiceProvider
-                    .GetService<IMediator>()
-                    .Send(
-                        new LoadAdminCommands()
-                    ).GetAwaiter().GetResult();
-            }
-            return app;
-        }
+        ) => app.SendMediatorCommand(
+            new LoadAdminCommands()
+        );
     }
 }

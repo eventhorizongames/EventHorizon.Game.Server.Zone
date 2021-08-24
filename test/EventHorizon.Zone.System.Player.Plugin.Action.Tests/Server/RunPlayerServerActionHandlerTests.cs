@@ -235,7 +235,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.Server
                 PlayerEntity player
             )
             {
-                this.Player = player;
+                Player = player;
                 return this;
             }
         }

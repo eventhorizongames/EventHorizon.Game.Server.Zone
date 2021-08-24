@@ -78,5 +78,13 @@ namespace EventHorizon.Zone.System.Player.ExternalHub
                     claim => claim.Type == "sub"
                 )?.Value;
         }
+
+        private string GetPlayerIdNotNull()
+        {
+            return Context.User.Claims
+                .First(
+                    claim => claim.Type == "sub"
+                ).Value;
+        }
     }
 }

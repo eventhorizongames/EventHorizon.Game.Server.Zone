@@ -14,8 +14,8 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model
             IEnumerable<ServerScriptDetails> validatorList
         )
         {
-            this.EffectList = effectList;
-            this.ValidatorList = validatorList;
+            EffectList = effectList;
+            ValidatorList = validatorList;
         }
     }
 }

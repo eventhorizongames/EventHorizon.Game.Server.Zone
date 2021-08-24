@@ -10,35 +10,30 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         public string TreeId { get; set; }
         public DateTime NextTickRequest { get; set; }
 
-        public object this[string index]
+        public object? this[string index]
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case "isEnabled":
-                        return this.IsEnabled;
-                    case "treeId":
-                        return this.TreeId;
-                    case "nextTickRequest":
-                        return this.NextTickRequest;
-
-                    default:
-                        return null;
-                }
+                    "isEnabled" => IsEnabled,
+                    "treeId" => TreeId,
+                    "nextTickRequest" => NextTickRequest,
+                    _ => null,
+                };
             }
             set
             {
                 switch (index)
                 {
                     case "isEnabled":
-                        this.IsEnabled = (bool)value;
+                        IsEnabled = (bool?)value ?? false;
                         break;
                     case "treeId":
-                        this.TreeId = (string)value;
+                        TreeId = (string?)value ?? "DEFAULT";
                         break;
                     case "nextTickRequest":
-                        this.NextTickRequest = (DateTime)value;
+                        NextTickRequest = (DateTime?)value ?? DateTime.MinValue;
                         break;
 
                     default:
@@ -46,7 +41,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
                 }
             }
         }
-        public static readonly AgentBehavior NEW = new AgentBehavior
+        public static readonly AgentBehavior NEW = new()
         {
             IsEnabled = true,
             TreeId = "DEFAULT",

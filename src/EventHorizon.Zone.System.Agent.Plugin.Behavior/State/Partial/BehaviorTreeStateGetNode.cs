@@ -12,15 +12,15 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             {
                 return default(BehaviorNode);
             }
-            if (!this.NodeMap.ContainsKey(
+            if (!NodeMap.ContainsKey(
                 token
             ))
             {
-                this.NodeMap[token] = this._shape.GetNode(
+                NodeMap[token] = _shape.GetNode(
                     token
                 );
             }
-            return this.NodeMap[token];
+            return NodeMap[token];
         }
 
     }

@@ -5,15 +5,16 @@
     using global::System.Collections.Concurrent;
     using global::System.Collections.Generic;
 
-    public class ServerModuleInMemoryRepository : ServerModuleRepository
+    public class ServerModuleInMemoryRepository
+        : ServerModuleRepository
     {
-        private readonly ConcurrentDictionary<string, ServerModuleScripts> SCRIPT_MAP = new ConcurrentDictionary<string, ServerModuleScripts>();
+        private readonly ConcurrentDictionary<string, ServerModuleScripts> _map = new();
 
         public void Add(
             ServerModuleScripts script
         )
         {
-            SCRIPT_MAP.AddOrUpdate(
+            _map.AddOrUpdate(
                 script.Name,
                 script,
                 (key, old) => script
@@ -22,7 +23,7 @@
 
         public IEnumerable<ServerModuleScripts> All()
         {
-            return SCRIPT_MAP.Values;
+            return _map.Values;
         }
     }
 }

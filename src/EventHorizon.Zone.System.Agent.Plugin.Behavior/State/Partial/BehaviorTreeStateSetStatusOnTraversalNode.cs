@@ -8,7 +8,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             BehaviorNodeStatus status
         )
         {
-            this.NodeMap[_activeTraversalToken] = ActiveTraversal.UpdateStatus(
+            NodeMap[_activeTraversalToken] = ActiveTraversal.UpdateStatus(
                 status.ToString()
             );
             return this;

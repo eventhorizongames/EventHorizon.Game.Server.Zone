@@ -14,10 +14,10 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard
             string message
         )
         {
-            this.CommandFunction = commandFunction;
-            this.RawCommand = rawCommand;
-            this.Success = success;
-            this.Message = message;
+            CommandFunction = commandFunction;
+            RawCommand = rawCommand;
+            Success = success;
+            Message = message;
         }
     }
 }

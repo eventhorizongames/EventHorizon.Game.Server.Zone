@@ -18,7 +18,7 @@
             _map.AddOrUpdate(
                 asset.Id,
                 asset,
-                (_, __) => asset
+                (_, _) => asset
             );
         }
 

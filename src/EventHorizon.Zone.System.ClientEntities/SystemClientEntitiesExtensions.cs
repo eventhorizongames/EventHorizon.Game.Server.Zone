@@ -3,8 +3,6 @@ namespace EventHorizon.Game.Server.Zone
     using EventHorizon.Zone.System.ClientEntities.Load;
     using EventHorizon.Zone.System.ClientEntities.State;
 
-    using MediatR;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -20,16 +18,8 @@ namespace EventHorizon.Game.Server.Zone
         }
         public static void UseSystemClientEntities(
             this IApplicationBuilder app
-        )
-        {
-            using (var serviceScope = app.CreateServiceScope())
-            {
-                var mediator = serviceScope.ServiceProvider
-                    .GetService<IMediator>();
-                mediator.Send(
-                    new LoadSystemClientEntitiesCommand()
-                ).GetAwaiter().GetResult();
-            }
-        }
+        ) => app.SendMediatorCommand(
+            new LoadSystemClientEntitiesCommand()
+        );
     }
 }

@@ -6,7 +6,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 
     using MediatR;
 
-    public struct IsValidActorBehaviorTick : IRequest<ActorBehaviorTickValidationResponse>
+    public struct IsValidActorBehaviorTick
+        : IRequest<ActorBehaviorTickValidationResponse>
     {
         public ActorBehaviorTick ActorBehaviorTick { get; }
 
@@ -14,7 +15,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             ActorBehaviorTick actorBehaviorTick
         )
         {
-            this.ActorBehaviorTick = actorBehaviorTick;
+            ActorBehaviorTick = actorBehaviorTick;
         }
     }
 
@@ -25,7 +26,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
         public ActorBehaviorTreeShape Shape { get; }
 
         public ActorBehaviorTickValidationResponse(
-            IObjectEntity actor,
+            IObjectEntity? actor,
             ActorBehaviorTreeShape shape
         )
         {
@@ -33,7 +34,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                 && actor.IsFound()
                 && shape.IsValid
                 && shape.NodeList.Count > 0;
-            Actor = actor;
+            Actor = actor!;
             Shape = shape;
         }
     }

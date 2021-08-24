@@ -42,7 +42,7 @@ namespace EventHorizon.Zone.System.Agent.State
             string agentId
         )
         {
-            return (await this.All())
+            return (await All())
                 .FirstOrDefault(
                     a => a.AgentId == agentId
                 );

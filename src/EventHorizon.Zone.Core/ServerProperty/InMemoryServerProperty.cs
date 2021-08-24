@@ -1,6 +1,7 @@
 namespace EventHorizon.Zone.Core.ServerProperty
 {
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
 
     using EventHorizon.Zone.Core.Model.ServerProperty;
 
@@ -9,7 +10,7 @@ namespace EventHorizon.Zone.Core.ServerProperty
     {
         private readonly ConcurrentDictionary<string, object> _properties = new();
 
-        public T Get<T>(
+        public T? Get<T>(
             string key
         )
         {
@@ -17,7 +18,7 @@ namespace EventHorizon.Zone.Core.ServerProperty
                 key,
                 out var value
             );
-            return (T)value;
+            return (T?)value;
         }
 
         public void Set(
@@ -28,8 +29,18 @@ namespace EventHorizon.Zone.Core.ServerProperty
             _properties.AddOrUpdate(
                 key,
                 value,
-                (_, __) => value
+                (_, _) => value
             );
+        }
+
+        public void Remove(
+            string key
+        )
+        {
+            _properties.Remove(
+                key,
+                 out _
+             );
         }
     }
 }

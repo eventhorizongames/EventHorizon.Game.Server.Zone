@@ -14,29 +14,29 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
 
     public class LocalFileSystemDirectoryResolverTests
     {
-        string notExistingDirectoryName = "";
-        string notExistingDirectoryFullName = "";
-        string notExistingDirectoryParentFullName = "";
+        private readonly string _notExistingDirectoryName;
+        private readonly string _notExistingDirectoryFullName;
+        private readonly string _notExistingDirectoryParentFullName;
 
         public LocalFileSystemDirectoryResolverTests()
         {
             // Cleanup any existing directories that might of been created during testing.
-            notExistingDirectoryName = "DirectoryToBeCreated";
-            notExistingDirectoryParentFullName = Path.Combine(
+            _notExistingDirectoryName = "DirectoryToBeCreated";
+            _notExistingDirectoryParentFullName = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "LocalFileSystem"
             );
-            notExistingDirectoryFullName = Path.Combine(
-                notExistingDirectoryParentFullName,
-                notExistingDirectoryName
+            _notExistingDirectoryFullName = Path.Combine(
+                _notExistingDirectoryParentFullName,
+                _notExistingDirectoryName
             );
 
             if (Directory.Exists(
-                notExistingDirectoryFullName
+                _notExistingDirectoryFullName
             ))
             {
                 Directory.Delete(
-                    notExistingDirectoryFullName
+                    _notExistingDirectoryFullName
                 );
             }
         }
@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
         public void TestShouldCreateDirectoryAtPassedInFullNameWhenCreateDirectoryIsCalled()
         {
             // Given
-            var input = notExistingDirectoryFullName;
+            var input = _notExistingDirectoryFullName;
             var expected = true;
 
             // When
@@ -64,7 +64,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
         public void TestShouldDeleteDirectoryAtPassedInFullNameWhenDeleteDirectoryIsCalled()
         {
             // Given
-            var input = notExistingDirectoryFullName;
+            var input = _notExistingDirectoryFullName;
             var expected = false;
 
             // When
@@ -236,9 +236,9 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
         public void TestShouldReturnDirectoryInfoWhenDirectoryDoesNotExist()
         {
             // Given
-            var directoryName = notExistingDirectoryName;
-            var directoryFullName = notExistingDirectoryFullName;
-            var directoryParentFullname = notExistingDirectoryParentFullName;
+            var directoryName = _notExistingDirectoryName;
+            var directoryFullName = _notExistingDirectoryFullName;
+            var directoryParentFullname = _notExistingDirectoryParentFullName;
 
             var expected = new StandardDirectoryInfo(
                 directoryName,
@@ -386,7 +386,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
         {
             // Given
             var expected = true;
-            var input = notExistingDirectoryFullName;
+            var input = _notExistingDirectoryFullName;
 
             // When
             var resolver = new LocalFileSystemDirectoryResolver();
@@ -405,7 +405,7 @@ namespace EventHorizon.Zone.Core.Tests.DirectoryService
         {
             // Given
             var expected = true;
-            var input = notExistingDirectoryFullName;
+            var input = _notExistingDirectoryFullName;
             // Make sure the input directory exists, create is not
             if (!Directory.Exists(
                 input

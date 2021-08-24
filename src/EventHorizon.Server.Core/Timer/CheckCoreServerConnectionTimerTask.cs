@@ -9,7 +9,7 @@ namespace EventHorizon.Server.Core.Timer
     public class CheckCoreServerConnectionTimerTask
         : ITimerTask
     {
-        public int Period { get; } = 1000 * 60; // Every 60 Seconds
+        public int Period { get; } = 5000; // Every 5 Seconds
         public string Tag { get; } = "CheckCoreServerConnection";
         public IRequest<bool> OnValidationEvent { get; } = new IsServerStarted();
         public INotification OnRunEvent { get; } = new CheckCoreServerConnection();

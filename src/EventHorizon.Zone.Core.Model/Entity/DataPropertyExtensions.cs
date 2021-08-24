@@ -3,18 +3,19 @@ namespace EventHorizon.Zone.Core.Model.Entity
     using System;
     using System.Buffers;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.Text.Json;
 
     using Newtonsoft.Json.Linq;
 
     public static class DataPropertyExtensions
     {
-        private static JsonSerializerOptions JSON_OPTIONS = new JsonSerializerOptions
+        private static readonly JsonSerializerOptions JSON_OPTIONS = new()
         {
             PropertyNameCaseInsensitive = true
         };
 
-        public static T GetProperty<T>(
+        public static TProperty? GetProperty<TProperty>(
             this IObjectEntity entity,
             string prop
         )
@@ -24,17 +25,23 @@ namespace EventHorizon.Zone.Core.Model.Entity
                 out object value
             ))
             {
-                return (T)value;
+                return (TProperty)value;
             }
             return default;
         }
 
-        public static C SetProperty<T, C>(
-            this C entity,
+        public static TEntity SetProperty<TProperty, TEntity>(
+            this TEntity entity,
             string prop,
-            T value
-        ) where C : IObjectEntity
+            TProperty value
+        ) where TEntity : IObjectEntity
         {
+            if (value is null)
+            {
+                entity.Data.Remove(prop, out _);
+                return entity;
+            }
+
             entity.Data[prop] = value;
             return entity;
         }
@@ -52,22 +59,24 @@ namespace EventHorizon.Zone.Core.Model.Entity
         /// <param name="entity"></param>
         /// <param name="prop"></param>
         /// <param name="defaultValue"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
         /// <returns></returns>
-        public static T PopulateData<T>(
+        public static TProperty? PopulateData<TProperty>(
             this IObjectEntity entity,
             string prop,
-            T defaultValue = default(T),
+            TProperty? defaultValue = default,
             bool setDefaultValue = true
         )
         {
             var rawData = entity.RawData;
             var data = entity.Data;
+            TProperty? value;
+
             // Is Already Populated
             if (data.ContainsKey(prop))
             {
                 // Return already populated prop.
-                return entity.GetProperty<T>(prop);
+                return entity.GetProperty<TProperty>(prop);
             }
             else if (!rawData.ContainsKey(prop) && !setDefaultValue)
             {
@@ -75,45 +84,50 @@ namespace EventHorizon.Zone.Core.Model.Entity
             }
             else if (!rawData.ContainsKey(prop))
             {
-                data[prop] = defaultValue;
+                value = defaultValue;
             }
             // Newtonsoft Type
-            else if (rawData[prop] is JObject)
+            else if (rawData[prop] is JObject jObjectProp)
             {
-                var tempProp = (JObject)rawData[prop];
-                data[prop] = tempProp.ToObject<T>();
+                value = jObjectProp.ToObject<TProperty>();
             }
             // Newtonsoft Type
-            else if (rawData[prop] is JToken)
+            else if (rawData[prop] is JToken jTokenProp)
             {
-                var tempProp = (JToken)rawData[prop];
-                data[prop] = tempProp.ToObject<T>();
+                value = jTokenProp.ToObject<TProperty>();
             }
             // .NET JSON Type
-            else if (rawData[prop] is JsonElement)
+            else if (rawData[prop] is JsonElement jsonElementProp)
             {
-                var tempProp = (JsonElement)rawData[prop];
-                data[prop] = tempProp.ToObject<T>(
+                value = jsonElementProp.ToObject<TProperty>(
                     JSON_OPTIONS
                 );
             }
             // .NET JSON Type
-            else if (rawData[prop] is JsonDocument)
+            else if (rawData[prop] is JsonDocument jsonDocumentProp)
             {
-                var tempProp = (JsonDocument)rawData[prop];
-                data[prop] = tempProp.ToObject<T>(
+                value = jsonDocumentProp.ToObject<TProperty>(
                     JSON_OPTIONS
                 );
             }
-            else if (rawData[prop] is T)
+            else if (rawData[prop] is TProperty rawDataProp)
             {
-                data[prop] = rawData[prop];
+                value = rawDataProp;
             }
             else
             {
-                data[prop] = defaultValue;
+                value = defaultValue;
             }
-            return entity.GetProperty<T>(prop);
+
+            if (value is null)
+            {
+                data.Remove(prop, out _);
+
+                return default;
+            }
+
+            data[prop] = value;
+            return entity.GetProperty<TProperty>(prop);
         }
 
         public static ConcurrentDictionary<string, object> AllData(
@@ -135,9 +149,9 @@ namespace EventHorizon.Zone.Core.Model.Entity
 
     internal static partial class JsonExtensions
     {
-        internal static T ToObject<T>(
+        internal static T? ToObject<T>(
             this JsonElement element,
-            JsonSerializerOptions options = null
+            JsonSerializerOptions? options = null
         )
         {
             var bufferWriter = new ArrayBufferWriter<byte>();
@@ -147,15 +161,16 @@ namespace EventHorizon.Zone.Core.Model.Entity
             {
                 element.WriteTo(writer);
             }
+
             return JsonSerializer.Deserialize<T>(
                 bufferWriter.WrittenSpan,
                 options
             );
         }
 
-        internal static T ToObject<T>(
+        internal static T? ToObject<T>(
             this JsonDocument document,
-            JsonSerializerOptions options = null
+            JsonSerializerOptions? options = null
         )
         {
             if (document == null)
@@ -164,6 +179,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
                     nameof(document)
                 );
             }
+
             return document.RootElement.ToObject<T>(
                 options
             );

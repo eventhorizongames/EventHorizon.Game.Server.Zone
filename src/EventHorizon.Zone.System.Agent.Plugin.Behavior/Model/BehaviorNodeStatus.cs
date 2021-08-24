@@ -1,31 +1,24 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 {
-    using global::System.Collections.Generic;
-    using global::System.Linq;
-
     public struct BehaviorNodeStatus
     {
-        public static BehaviorNodeStatus READY = new BehaviorNodeStatus("READY", null);
-        public static BehaviorNodeStatus VISITING = new BehaviorNodeStatus("VISITING");
-        public static BehaviorNodeStatus FAILED = new BehaviorNodeStatus("FAILED");
-        public static BehaviorNodeStatus RUNNING = new BehaviorNodeStatus("RUNNING");
-        public static BehaviorNodeStatus SUCCESS = new BehaviorNodeStatus("SUCCESS");
-        public static BehaviorNodeStatus ERROR = new BehaviorNodeStatus("ERROR");
+        public static BehaviorNodeStatus READY = new("READY", null);
+        public static BehaviorNodeStatus VISITING = new("VISITING");
+        public static BehaviorNodeStatus FAILED = new("FAILED");
+        public static BehaviorNodeStatus RUNNING = new("RUNNING");
+        public static BehaviorNodeStatus SUCCESS = new("SUCCESS");
+        public static BehaviorNodeStatus ERROR = new("ERROR");
 
-        private IList<string> _supportedValues;
+        private readonly string _supportedValue;
+        private readonly string? _supportedValue2;
 
         private BehaviorNodeStatus(
             string supportedValue,
-            string supportedValue2
+            string? supportedValue2
         )
         {
-            this._supportedValues = new List<string>() { supportedValue };
-            if (supportedValue != supportedValue2)
-            {
-                this._supportedValues.Add(
-                    supportedValue2
-                );
-            }
+            _supportedValue = supportedValue;
+            _supportedValue2 = supportedValue2;
         }
 
         private BehaviorNodeStatus(
@@ -35,10 +28,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 
         public override string ToString()
         {
-            return this._supportedValues.First();
+            return _supportedValue;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(
+            object? obj
+        )
         {
             if (obj == null)
             {
@@ -46,43 +41,37 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
                     null
                 );
             }
-            if (obj.GetType() == typeof(string))
+            else if (obj is string objString)
             {
                 return EqualTo(
-                    (string)obj
+                    objString
                 );
-            }
-            if (GetType() != obj.GetType())
+            } 
+            else if (obj is BehaviorNodeStatus castedObj)
             {
-                return false;
+                return castedObj._supportedValue == _supportedValue
+                    || castedObj._supportedValue == _supportedValue2
+                    || castedObj._supportedValue2 == _supportedValue
+                    || castedObj._supportedValue2 == _supportedValue2;
             }
 
-            var castedObj = (BehaviorNodeStatus)obj;
-            if (castedObj._supportedValues == null || castedObj._supportedValues == null)
-            {
-                return false;
-            }
-
-            return this._supportedValues
-                .Where(
-                    value => castedObj._supportedValues.Contains(
-                        value
-                    )
-                ).Count() > 0;
+            return false;
         }
 
         public override int GetHashCode()
         {
-            return this._supportedValues.GetHashCode();
+            return global::System.HashCode.Combine(
+                _supportedValue,
+                _supportedValue2
+            );
         }
 
         private bool EqualTo(
-            string nameAsString
+            string? nameAsString
         )
         {
-            return this._supportedValues.Contains(
-                nameAsString
-            );
+            return _supportedValue == nameAsString
+                || _supportedValue2 == nameAsString;
         }
     }
 }

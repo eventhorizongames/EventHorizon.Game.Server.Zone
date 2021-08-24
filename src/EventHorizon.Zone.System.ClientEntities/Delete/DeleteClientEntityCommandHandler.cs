@@ -13,7 +13,8 @@
 
     using MediatR;
 
-    public class DeleteClientEntityCommandHandler : IRequestHandler<DeleteClientEntityCommand, DeleteClientEntityResponse>
+    public class DeleteClientEntityCommandHandler
+        : IRequestHandler<DeleteClientEntityCommand, DeleteClientEntityResponse>
     {
         private readonly IMediator _mediator;
         private readonly ClientEntityRepository _repository;
@@ -80,6 +81,13 @@
         )
         {
             var fileFullName = clientEntity.RawData[ClientEntityConstants.METADATA_FILE_FULL_NAME] as string;
+            if(string.IsNullOrWhiteSpace(
+                fileFullName
+            ))
+            {
+                return ClientEntityErrorCodes.FILE_NOT_FOUND;
+            }
+
             var fileInfo = await _mediator.Send(
                 new GetFileInfo(
                     fileFullName

@@ -32,7 +32,7 @@
 
     public class ClientScriptCompilerForCSharpTests
     {
-        private static readonly string nl = Environment.NewLine;
+        private static readonly string NL = Environment.NewLine;
 
         [Fact]
         public async Task ShouldReturnHashAndEncodedFileContentFromAssemblyEvaluator()
@@ -42,7 +42,7 @@
             var scriptClasses = "script-classes";
             var scriptContent = "script-assembly";
             var scriptAssembly = "script-assembly";
-            var consolidatedScripts = $"                        {nl}{nl}{nl}script-assembly{nl}";
+            var consolidatedScripts = $"                        {NL}{NL}{NL}script-assembly{NL}";
             var generatedFileFullName = "generated-file-full-name";
             var scriptAssemblyBytes = scriptAssembly.ToBytes();
 
@@ -205,7 +205,7 @@
                 fileSystemTempPath,
                 "ConsolidatedScripts.csx"
             );
-            var consolidatedScripts = $"                        {nl}{nl}{nl}{scriptClassesConsolidated}{nl}";
+            var consolidatedScripts = $"                        {NL}{NL}{NL}{scriptClassesConsolidated}{NL}";
             var fileContents = consolidatedScripts;
             var expected = new WriteAllTextToFile(
                 fileFullName,

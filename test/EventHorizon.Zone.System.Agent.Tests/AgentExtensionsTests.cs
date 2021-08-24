@@ -45,7 +45,6 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
             ).Returns(
                 config
             );
-            new AgentSettings();
 
             // When
             SystemAgentExtensions.AddSystemAgent(

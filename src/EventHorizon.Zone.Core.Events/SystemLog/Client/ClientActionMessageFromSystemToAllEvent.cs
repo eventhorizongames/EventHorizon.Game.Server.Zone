@@ -7,7 +7,7 @@
     {
         public static ClientActionGenericToAllEvent Create(
             MessageFromSystemData data
-        ) => new ClientActionGenericToAllEvent(
+        ) => new(
             "MessageFromSystem",
             data
         );

@@ -44,11 +44,11 @@ namespace EventHorizon.Server.Core
 
         public static IApplicationBuilder UseRegisterWithCoreServer(
             this IApplicationBuilder app
-        )
+        ) 
         {
             using var serviceScope = app.CreateServiceScope();
             serviceScope.ServiceProvider
-                .GetService<IMediator>()
+                .GetRequiredService<IMediator>()
                 .Publish(
                     // TODO: Make this a Command/Request
                     new RegisterWithCoreServer()

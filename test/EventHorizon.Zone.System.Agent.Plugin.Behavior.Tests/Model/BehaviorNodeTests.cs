@@ -5,6 +5,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
 
     using Xunit;
+    using FluentAssertions;
 
     public class BehaviorNodeTests
     {
@@ -16,24 +17,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
             var expectedMessage = $"BehaviorNode requires a valid SerializedBehaviorNode (Parameter 'serailzedNode')";
 
             // When
-            Action testAction = () => new BehaviorNode(null);
+            Func<BehaviorNode> testAction = () => new BehaviorNode(null);
 
-            var actual = Record.Exception(
-                testAction
-            ) as ArgumentException;
+            var actual = testAction.Should().Throw<ArgumentException>();
 
             // Then
-            Assert.IsType<ArgumentException>(
-                actual
-            );
-            Assert.Equal(
-                expectedParam,
-                actual.ParamName
-            );
-            Assert.Equal(
-                expectedMessage,
-                actual.Message
-            );
+            actual.WithMessage(expectedMessage)
+                .Which
+                .ParamName.Should().Be(expectedParam);
         }
 
         [Fact]
@@ -43,20 +34,19 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Model
             var type = BehaviorNodeType.ACTION;
 
             // When
-            var actual = new BehaviorNode(
+            var node = new BehaviorNode(
                 new SerializedBehaviorNode
                 {
                     Type = type.ToString()
                 }
             );
-            var token = actual.Token;
+            var token = node.Token;
             var expected = $"{token} : {type}";
 
+            var actual = node.ToString();
+
             // Then
-            Assert.Equal(
-                expected,
-                actual.ToString()
-            );
+            actual.Should().Be(expected);
         }
     }
 }

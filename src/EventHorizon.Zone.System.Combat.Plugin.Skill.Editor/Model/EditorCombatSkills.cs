@@ -12,7 +12,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model
             IList<SkillInstance> skillList
         )
         {
-            this.SkillList = skillList;
+            SkillList = skillList;
         }
     }
 }

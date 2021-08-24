@@ -13,10 +13,10 @@ namespace EventHorizon.Zone.Core.Model.Core
         public string CurrentZone { get; set; }
         public string ZoneTag { get; set; }
 
-        public static readonly LocationState NEW = new LocationState
+        public static readonly LocationState NEW = new()
         {
             CanMove = true,
-            NextMoveRequest = default(DateTime),
+            NextMoveRequest = default,
             MoveToPosition = Vector3.Zero,
             CurrentZone = string.Empty,
             ZoneTag = string.Empty,

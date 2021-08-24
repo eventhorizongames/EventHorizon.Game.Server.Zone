@@ -10,6 +10,7 @@ namespace EventHorizon.Zone.Core.Model.Map
         IList<MapEdge> EdgeList { get; }
 
         IList<MapNode> All();
+        // TODO: Make Nullable
         MapNode GetNode(
             int index
         );
@@ -24,6 +25,7 @@ namespace EventHorizon.Zone.Core.Model.Map
         MapNode GetClosestNode(
             Vector3 position
         );
+        // TODO: Make Nullable
         MapEdge GetEdge(
             int from,
             int to

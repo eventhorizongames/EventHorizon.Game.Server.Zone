@@ -74,8 +74,8 @@
 
         public class TestDataGenerator : IEnumerable<object[]>
         {
-            private static Report _report = default;
-            private readonly List<object[]> _data = new List<object[]>
+            private static Report REPORT = default;
+            private readonly List<object[]> _data = new()
             {
                 new object[]
                 {
@@ -83,7 +83,7 @@
                     {
                         IsElasticSearchEnabled = false,
                         IsWriteToFileEnabled = false,
-                        Report = _report,
+                        Report = REPORT,
                         Expected = new List<IRequest>(),
                     },
                 },
@@ -93,11 +93,11 @@
                     {
                         IsElasticSearchEnabled = true,
                         IsWriteToFileEnabled = false,
-                        Report = _report,
+                        Report = REPORT,
                         Expected = new List<IRequest>
                         {
                             new WriteReportToElasticsearch(
-                                _report
+                                REPORT
                             ),
                         }
                     },
@@ -108,11 +108,11 @@
                     {
                         IsElasticSearchEnabled = false,
                         IsWriteToFileEnabled = true,
-                        Report = _report,
+                        Report = REPORT,
                         Expected = new List<IRequest>
                         {
                             new WriteReportToFile(
-                                _report
+                                REPORT
                             ),
                         },
                     },
@@ -123,14 +123,14 @@
                     {
                         IsElasticSearchEnabled = true,
                         IsWriteToFileEnabled = true,
-                        Report = _report,
+                        Report = REPORT,
                         Expected = new List<IRequest>
                         {
                             new WriteReportToElasticsearch(
-                                _report
+                                REPORT
                             ),
                             new WriteReportToFile(
-                                _report
+                                REPORT
                             ),
                         },
                     },

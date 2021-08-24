@@ -6,7 +6,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             int token
         )
         {
-            this._activeNodeToken = token;
+            _activeNodeToken = token;
             return this;
         }
     }

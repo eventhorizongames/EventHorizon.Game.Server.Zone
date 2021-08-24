@@ -42,7 +42,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Model
 
         public bool IsFound()
         {
-            return !this.Equals(
+            return !Equals(
                 default(SkillInstance)
             );
         }
