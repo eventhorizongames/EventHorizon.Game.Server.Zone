@@ -1,7 +1,5 @@
 ﻿namespace EventHorizon
 {
-    using System;
-
     public static class ObjectExtensions
     {
         public static T ValidateForNull<T>(
@@ -9,15 +7,16 @@
         )
         {
 #if DEBUG
+            // We are disabling this check in release builds
             if (obj == null)
             {
-                throw new NullReferenceException(
+                throw new System.NullReferenceException(
                     "Found a Null"
                 );
             }
 #endif
 
-            return obj;
+            return obj!;
         }
     }
 }
