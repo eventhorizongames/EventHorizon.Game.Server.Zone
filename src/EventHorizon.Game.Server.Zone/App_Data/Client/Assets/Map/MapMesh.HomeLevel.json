@@ -1,17 +1,1 @@
-{
-    "id": "AE9EBC54-1E81-4DED-9D9D-EEBE8769A36A",
-    "type": "MESH:MAP",
-    "name": "HomeLevel Map Mesh",
-    "data": {
-        "HeightMapUrl": "/Assets/Game/Level/Home/Assets/HomeLevel.png",
-        "_Width": 512,
-        "_Height": 512,
-        "Width": 128,
-        "Height": 128,
-        "Subdivisions": 200,
-        "MinHeight": 0,
-        "MaxHeight": 4,
-        "Updatable": true,
-        "IsPickable": true
-    }
-}
+{"Id":"AE9EBC54-1E81-4DED-9D9D-EEBE8769A36A","Type":"MESH:MAP","Name":"HomeLevel Map Mesh","Data":{"HeightMapUrl":"/Assets/Game/Level/Home/Assets/HomeLevel.png","_Width":512,"_Height":512,"Width":128,"Height":128,"Subdivisions":200,"MinHeight":0,"MaxHeight":4,"Updatable":true,"IsPickable":true,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Map\\MapMesh.HomeLevel.json"}}

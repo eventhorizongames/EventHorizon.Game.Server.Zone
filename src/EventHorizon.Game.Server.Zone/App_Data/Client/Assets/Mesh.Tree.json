@@ -1,11 +1,1 @@
-{
-    "id": "f2f1d5f6-cc0d-4094-aecf-455c5c2f4906",
-    "type": "SCRIPT:JavaScript",
-    "name": "A Tree",
-    "data": {
-        "script": "Asset_Tree_Create.js",
-        "branchSize": 4,
-        "trunkSize": 4,
-        "radius": 1
-    }
-}
+{"Id":"f2f1d5f6-cc0d-4094-aecf-455c5c2f4906","Type":"SCRIPT:JavaScript","Name":"A Tree","Data":{"script":"Asset_Tree_Create.js","branchSize":4,"trunkSize":4,"radius":1,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Tree.json"}}

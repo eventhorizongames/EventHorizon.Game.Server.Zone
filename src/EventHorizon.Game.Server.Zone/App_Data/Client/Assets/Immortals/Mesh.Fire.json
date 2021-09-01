@@ -1,11 +1,1 @@
-{
-    "id": "7B002A90-64A0-400B-8EC9-7C10F83C5225",
-    "type": "MESH:GLTF",
-    "name": "Fire Type",
-    "data": {
-        "path": "/Assets/Meshes/Immortals/",
-        "file": "Fire_Immortal.gltf",
-        "_file": "Fire_Immortal.glb",
-        "heightOffset": -0.55
-    }
-}
+{"Id":"7B002A90-64A0-400B-8EC9-7C10F83C5225","Type":"MESH:GLTF","Name":"Fire Type","Data":{"path":"/Assets/Meshes/Immortals/","file":"Fire_Immortal.gltf","_file":"Fire_Immortal.glb","heightOffset":-0.55,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Immortals\\Mesh.Fire.json"}}

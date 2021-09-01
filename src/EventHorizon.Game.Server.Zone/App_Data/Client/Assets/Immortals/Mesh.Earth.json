@@ -1,10 +1,1 @@
-{
-    "id": "E2FD5A8E-0534-4769-BD3B-0645BE5CC9AB",
-    "type": "MESH:GLTF",
-    "name": "Earth Type",
-    "data": {
-        "path": "/Assets/Meshes/Immortals/",
-        "file": "Earth_Immortal.gltf",
-        "heightOffset": -0.5
-    }
-}
+{"Id":"E2FD5A8E-0534-4769-BD3B-0645BE5CC9AB","Type":"MESH:GLTF","Name":"Earth Type","Data":{"path":"/Assets/Meshes/Immortals/","file":"Earth_Immortal.gltf","heightOffset":-0.5,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Immortals\\Mesh.Earth.json"}}

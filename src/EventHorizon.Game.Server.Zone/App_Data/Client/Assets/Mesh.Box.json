@@ -1,8 +1,1 @@
-{
-    "id": "BOX",
-    "type": "MESH:BOX",
-    "name": "A Box",
-    "data": {
-        "size": 2
-    }
-}
+{"Id":"BOX","Type":"MESH:BOX","Name":"A Box","Data":{"size":2,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Box.json"}}

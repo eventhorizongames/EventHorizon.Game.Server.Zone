@@ -1,10 +1,1 @@
-{
-    "id": "11B335CD-8D63-4001-ADDC-A866EEE1E416",
-    "type": "MESH:GLTF",
-    "name": "House",
-    "data": {
-        "path": "/Assets/Meshes/",
-        "file": "House.gltf",
-        "heightOffset": -0.5
-    }
-}
+{"Id":"11B335CD-8D63-4001-ADDC-A866EEE1E416","Type":"MESH:GLTF","Name":"House","Data":{"path":"/Assets/Meshes/","file":"House.gltf","heightOffset":-0.5,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Home.json"}}

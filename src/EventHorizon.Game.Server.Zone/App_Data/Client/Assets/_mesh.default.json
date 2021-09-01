@@ -1,10 +1,1 @@
-{
-    "id": "DEFAULT_MESH",
-    "type": "MESH:GLTF",
-    "name": "Default Mesh",
-    "data": {
-        "path": "/Assets/Meshes/",
-        "file": "Default_Mesh.glb",
-        "heightOffset": -1.2
-    }
-}
+{"Id":"DEFAULT_MESH","Type":"MESH:GLTF","Name":"Default Mesh","Data":{"path":"/Assets/Meshes/","file":"Default_Mesh.glb","heightOffset":-1.2,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\_mesh.default.json"}}

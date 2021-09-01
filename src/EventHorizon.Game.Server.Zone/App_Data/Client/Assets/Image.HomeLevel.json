@@ -1,8 +1,1 @@
-{
-    "id": "7b43e838-ef95-4c55-b530-17f49c5feb16",
-    "type": "IMAGE:URL",
-    "name": "Home Level height-map",
-    "data": {
-        "url": "/Assets/Game/Level/Home/Assets/HomeLevel.png"
-    }
-}
+{"Id":"7b43e838-ef95-4c55-b530-17f49c5feb16","Type":"IMAGE:URL","Name":"Home Level height-map","Data":{"url":"/Assets/Game/Level/Home/Assets/HomeLevel.png","metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Image.HomeLevel.json"}}

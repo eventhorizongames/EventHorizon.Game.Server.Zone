@@ -1,10 +1,1 @@
-{
-    "id": "SPHERE_HUGE",
-    "type": "MESH:SPHERE",
-    "name": "A Sphere",
-    "data": {
-        "segments": 16,
-        "diameter": 10,
-        "heightOffset": -1.2
-    }
-}
+{"Id":"SPHERE_HUGE","Type":"MESH:SPHERE","Name":"A Sphere","Data":{"segments":16,"diameter":10,"heightOffset":-1.2,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Sphere.Huge.json"}}
