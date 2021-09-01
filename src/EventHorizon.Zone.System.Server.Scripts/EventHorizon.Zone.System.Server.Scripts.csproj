@@ -21,6 +21,8 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Model\EventHorizon.Zone.System.Server.Scripts.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Events\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.csproj" />
     </ItemGroup>
 

@@ -189,6 +189,7 @@
 
                 typeof(SystemServerScriptsExtensions).Assembly,
                 typeof(SystemServerScriptsPluginSharedExtensions).Assembly,
+                typeof(SystemServerScriptsPluginBackgroundTaskExtensions).Assembly,
                 typeof(SystemServerScriptsPluginEditorExtensions).Assembly,
 
                 typeof(SystemGuiExtensions).Assembly,
@@ -319,6 +320,7 @@
                         options
                     )
                 ).AddSystemServerScriptsPluginShared()
+                .AddSystemServerScriptsPluginBackgroundTask()
                 .AddSystemServerScriptsPluginEditor()
 
                 .AddSystemGui()
@@ -465,6 +467,7 @@
 
             app.UseSystemServerScripts();
             app.UseSystemServerScriptsPluginShared();
+            app.UseSystemServerScriptsPluginBackgroundTask();
             app.UseSystemServerScriptsPluginEditor();
 
             app.UseSystemGui();

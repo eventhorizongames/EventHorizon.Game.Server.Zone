@@ -1,56 +1,81 @@
-namespace EventHorizon.TimerService
+namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Wrapper
 {
-    using System;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
 
-    using MediatR;
+    using global::System;
+    using global::System.Text;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
 
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
     // TODO: On upgrade to .NET6 an async/await timer:
     // https://www.infoq.com/news/2021/08/net6-Threading/
-    public class TimerWrapper
+    public class ThreadedBackgroundTaskWrapper
+        : BackgroundTaskWrapper
     {
+        private readonly BackgroundTaskWrapperState _state;
         private Timer? _timer;
 
         private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
-        private readonly ITimerTask _timerTask;
+        private readonly ScriptedBackgroundTask _task;
 
-        public TimerWrapper(
+        public ThreadedBackgroundTaskWrapper(
             ILogger logger,
             IServiceScopeFactory serviceScopeFactory,
-            ITimerTask timerTask
+            ScriptedBackgroundTask task
         )
         {
             _logger = logger;
             _serviceScopeFactory = serviceScopeFactory;
-            _timerTask = timerTask;
+            _task = task;
+
+            _state = new BackgroundTaskWrapperState();
         }
 
         public void Start()
         {
             _timer = new Timer(
                 OnRunTask,
-                new TimerState(),
+                _state,
                 0,
-                _timerTask.Period
+                _task.TaskPeriod
             );
+        }
+
+        public void Resume()
+        {
+            _state.IsStopped = false;
         }
 
         public void Stop()
         {
+            _state.IsStopped = true;
+        }
+
+        public void Dispose()
+        {
             _timer?.Dispose();
         }
 
-
         public void OnRunTask(
-            object state
+            object? state
         )
         {
+            if (state.IsNull())
+            {
+                _logger.LogError(
+                    "Scripted Background Task had an invalid state: {ScriptedBackgroundTaskId}.",
+                    _task.Id
+                );
+                Dispose();
+                return;
+            }
+
             OnRunTaskAsync(
                 state
             ).GetAwaiter().GetResult();
@@ -60,59 +85,45 @@ namespace EventHorizon.TimerService
             object state
         )
         {
-            var timerState = (TimerState)state;
-            if (timerState.IsRunning)
+            var taskState = (BackgroundTaskWrapperState)state;
+            if (taskState.IsStopped)
             {
-                // Log that MoveRegister timer is still running
+                return;
+            }
+            else if (taskState.IsRunning)
+            {
                 LogMessage(
-                    "Timer found that it was already running.",
-                    timerState
+                    "Scripted Background Task found that it was already running.",
+                    taskState
                 );
                 return;
             }
 
-            if (!await timerState.LOCK.WaitAsync(0))
+            if (!await taskState.LOCK.WaitAsync(0))
             {
                 return;
             }
 
             try
             {
-                timerState.Guid = Guid.NewGuid();
-                timerState.IsRunning = true;
-                timerState.StartDate = DateTime.UtcNow;
-
-                if (_timerTask.LogDetails)
-                {
-                    LogMessage(
-                        "Starting timer run",
-                        timerState
-                    );
-                }
+                taskState.Guid = Guid.NewGuid();
+                taskState.IsRunning = true;
+                taskState.StartDate = DateTime.UtcNow;
 
                 using var serviceScope = _serviceScopeFactory.CreateScope();
-                var mediator = serviceScope.ServiceProvider.GetRequiredService<IMediator>();
+                var scriptServices = serviceScope.ServiceProvider
+                    .GetRequiredService<ServerScriptServices>();
 
-                if (_timerTask.OnValidationEvent != null
-                    && !await mediator.Send(
-                        _timerTask.OnValidationEvent
-                    )
-                )
-                {
-                    // The validation failed for the Task, do not Publish Event.
-                    return;
-                }
-
-                await mediator.Publish(
-                    _timerTask.OnRunEvent
+                await _task.TaskTrigger(
+                    scriptServices
                 );
             }
             catch (Exception ex)
             {
-                timerState.ErrorsCaught += 1;
+                taskState.ErrorsCaught += 1;
                 LogMessage(
-                    "Timer caught an Exception.",
-                    timerState,
+                    "Scripted Background Task caught an Exception.",
+                    taskState,
                     ex
                 );
             }
@@ -120,37 +131,29 @@ namespace EventHorizon.TimerService
             {
                 if (
                     DateTime.UtcNow.Add(
-                        DateTime.UtcNow - timerState.StartDate
+                        DateTime.UtcNow - taskState.StartDate
                     ).CompareTo(
                         DateTime.UtcNow.AddMilliseconds(
-                            _timerTask.Period
+                            _task.TaskPeriod
                         )
                     ) > 0
                 )
                 {
                     LogMessage(
-                        "Timer ran long.",
-                        timerState
+                        "Scripted Background Task ran long.",
+                        taskState
                     );
                 }
 
-                if (_timerTask.LogDetails)
-                {
-                    LogMessage(
-                        "Finished timer run",
-                        timerState
-                    );
-                }
-
-                timerState.IsRunning = false;
-                timerState.StartDate = DateTime.UtcNow;
-                timerState.LOCK.Release();
+                taskState.IsRunning = false;
+                taskState.StartDate = DateTime.UtcNow;
+                taskState.LOCK.Release();
             }
         }
 
         private void LogMessage(
             string message,
-            TimerState state,
+            BackgroundTaskWrapperState state,
             Exception? ex = null
         )
         {
@@ -160,23 +163,23 @@ namespace EventHorizon.TimerService
             {
                 state.Id,
                 state.Guid,
-                _timerTask.Tag,
+                _task.TaskTags,
                 state.StartDate,
                 DateTime.UtcNow,
                 timeRunning,
                 timeRunningTicks,
-                _timerTask
+                _task
             };
             message = new StringBuilder(
                 message
             ).Append(
-                "\n TimerState: "
+                "\n BackgroundTaskWrapperState: "
             ).Append(
                 "\n | Id: {Id}"
             ).Append(
                 "\n | Guid: {GUID}"
             ).Append(
-                "\n | Tag: {Tag}"
+                "\n | Tags: {Tags}"
             ).Append(
                 "\n | StartDate: {StartDate:MM-dd-yyy HH:mm:ss.fffffffzzz}"
             ).Append(
@@ -206,11 +209,12 @@ namespace EventHorizon.TimerService
         }
     }
 
-    public class TimerState
+    internal class BackgroundTaskWrapperState
     {
         public SemaphoreSlim LOCK { get; } = new SemaphoreSlim(1, 1);
         public string Id { get; } = Guid.NewGuid().ToString();
         public Guid Guid { get; internal set; }
+        public bool IsStopped { get; set; }
         public bool IsRunning { get; set; }
         public DateTime StartDate { get; set; }
         public int ErrorsCaught { get; set; }

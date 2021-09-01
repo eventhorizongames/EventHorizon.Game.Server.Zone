@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+        <PackageReference Include="MediatR" Version="8.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Events\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Events.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -8,6 +8,9 @@
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove;
     using EventHorizon.Zone.System.Server.Scripts.Run.Model;
     using EventHorizon.Zone.System.Server.Scripts.State;
 
@@ -28,6 +31,7 @@
         : IRequestHandler<LoadNewServerScriptAssemblyCommand, StandardCommandResult>
     {
         private readonly ILogger _logger;
+        private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
         private readonly ServerScriptDetailsRepository _detailsRepository;
         private readonly ServerScriptRepository _scriptRepository;
@@ -36,6 +40,7 @@
 
         public LoadNewServerScriptAssemblyCommandHandler(
             ILogger<LoadNewServerScriptAssemblyCommandHandler> logger,
+            IMediator mediator,
             ServerInfo serverInfo,
             ServerScriptDetailsRepository detailsRepository,
             ServerScriptRepository scriptRepository,
@@ -44,6 +49,7 @@
         )
         {
             _logger = logger;
+            _mediator = mediator;
             _serverInfo = serverInfo;
             _detailsRepository = detailsRepository;
             _scriptRepository = scriptRepository;
@@ -121,6 +127,20 @@
                             );
                         }
 
+                        if (script is ScriptedBackgroundTask backgroundTask)
+                        {
+                            _logger.LogWarning(
+                                "TODO: Send RemoveScriptedBackgroundTaskCommand for '{BackgroundTaskId}'",
+                                backgroundTask.TaskId
+                            );
+                            await _mediator.Send(
+                                new RemoveScriptedBackgroundTaskCommand(
+                                    backgroundTask.TaskId
+                                ),
+                                cancellationToken
+                            );
+                        }
+
                         if (script is IDisposable disposableScript)
                         {
                             disposableScript.Dispose();
@@ -143,12 +163,30 @@
                         serverScript
                     );
 
-                    // Check if Observer, and register if so
+                    // Check if Observer
                     if (serverScript is ObserverBase observerScript)
                     {
                         // Track Observer Scripts
                         _observerState.Register(
                             observerScript
+                        );
+                        await serverScript.Run(
+                            _serverScriptServices,
+                            new StandardServerScriptData(
+                                null
+                            )
+                        );
+                    }
+
+                    // Check if Background Task
+                    if (serverScript is ScriptedBackgroundTask backgroundTask)
+                    {
+                        // Register new Background Task
+                        await _mediator.Send(
+                            new RegisterNewScriptedBackgroundTaskCommand(
+                                backgroundTask
+                            ),
+                            cancellationToken
                         );
                         await serverScript.Run(
                             _serverScriptServices,

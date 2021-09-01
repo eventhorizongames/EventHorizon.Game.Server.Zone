@@ -6,36 +6,31 @@
 
     <ItemGroup>
         <Folder Include="App_Data\Reporting\" />
-        <Folder Include="App_Data\Server\Scripts\Observers\" />
-        <Folder Include="App_Data\Server\Scripts\Wizards\" />
-        <Folder Include="App_Data\Server\Wizards\" />
-        <Folder Include="wwwroot\" />
         <Content Include="App_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="Systems_Data\**\*.csx" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
         <Content Include="App_Data\**\*.js" CopyToOutputDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="App_Data\Server\Scripts\Wizards\SaveMapData.csx" />
-      <None Remove="Systems_Data\Wizard\Templates\Observer\Event.csx.template" />
-      <None Remove="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template" />
-      <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template" />
-      <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template" />
+        <None Remove="Systems_Data\Wizard\Templates\Observer\Event.csx.template" />
+        <None Remove="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template" />
+        <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template" />
+        <None Remove="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template" />
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Systems_Data\Wizard\Templates\Observer\Event.csx.template">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <Content Include="Systems_Data\Wizard\Templates\Observer\EventObserver.csx.template">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventObserverHandler.csx.template">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Systems_Data\Wizard\Templates\Observer\ExampleEventTrigger.csx.template">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Systems_Data\Wizard\Templates\Observer\Event.csx.template">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
@@ -61,8 +56,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="I18n\App_Data\Admin\Commands\ReloadI18n.json" />
-      <EmbeddedResource Include="I18n\App_Data\Server\Scripts\Admin\I18n\ReloadI18nSystem.csx" />
+        <EmbeddedResource Include="I18n\App_Data\Admin\Commands\ReloadI18n.json" />
+        <EmbeddedResource Include="I18n\App_Data\Server\Scripts\Admin\I18n\ReloadI18nSystem.csx" />
     </ItemGroup>
 
     <ItemGroup>
@@ -90,6 +85,8 @@
         <ProjectReference Include="..\EventHorizon.Server.Core\EventHorizon.Server.Core.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage\EventHorizon.Zone.System.DataStorage.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.csproj" />
 

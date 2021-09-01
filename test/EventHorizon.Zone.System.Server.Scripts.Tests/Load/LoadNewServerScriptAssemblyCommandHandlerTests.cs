@@ -1,12 +1,18 @@
 ﻿namespace EventHorizon.Zone.System.Server.Scripts.Tests.Load
 {
+    using AutoFixture.Xunit2;
+
     using EventHorizon.Observer.Model;
     using EventHorizon.Observer.State;
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove;
     using EventHorizon.Zone.System.Server.Scripts.State;
 
     using FluentAssertions;
@@ -17,7 +23,7 @@
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
-    using Microsoft.Extensions.Logging;
+    using MediatR;
 
     using Moq;
 
@@ -25,10 +31,17 @@
 
     public class LoadNewServerScriptAssemblyCommandHandlerTests
     {
-        [Fact]
-        public async Task ShouldAddScriptToDetailsAndRepositoryWhenTypesAreFound()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldAddScriptToDetailsAndRepositoryWhenTypesAreFound(
             // Given
+            ServerScriptDetails scriptDetails1,
+            ServerScriptDetails scriptDetails2,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            [Frozen] Mock<ServerScriptRepository> scriptRepositoryMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
             var generatedPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "App_Data",
@@ -36,25 +49,8 @@
             );
             // This is an complied script available in the generated Server_Scripts.dll
             var scriptId1 = "Admin_Map_ReloadCoreMap";
-            var scriptDetails1 = new ServerScriptDetails(
-                "script-1-file-name",
-                "script-1-file-path",
-                "script-1-string"
-            );
             // This is an complied script available in the generated Server_Scripts.dll
             var scriptId2 = "Admin_I18n_ReloadI18nSystem";
-            var scriptDetails2 = new ServerScriptDetails(
-                "script-2-file-name",
-                "script-2-file-path",
-                "script-2-string"
-            );
-
-            var loggerMock = new Mock<ILogger<LoadNewServerScriptAssemblyCommandHandler>>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
-            var observerStateMock = new Mock<ObserverState>();
-            var serverScriptServicesMock = new Mock<ServerScriptServices>();
 
             serverInfoMock.Setup(
                 mock => mock.GeneratedPath
@@ -77,21 +73,7 @@
                 scriptDetails2
             );
 
-            serverScriptServicesMock.Setup(
-                mock => mock.Logger<It.IsAnyType>()
-            ).Returns(
-                loggerMock.Object
-            );
-
             // When
-            var handler = new LoadNewServerScriptAssemblyCommandHandler(
-                loggerMock.Object,
-                serverInfoMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object,
-                observerStateMock.Object,
-                serverScriptServicesMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadNewServerScriptAssemblyCommand(
 
@@ -148,10 +130,16 @@
             );
         }
 
-        [Fact]
-        public async Task ShouldRegisterScriptWhenIsObserverBaseType()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldRegisterScriptWhenIsObserverBaseType(
             // Given
+            ServerScriptDetails scriptDetails1,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            [Frozen] Mock<ObserverState> observerStateMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
             var generatedPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "App_Data",
@@ -160,18 +148,6 @@
             // Interaction_TestInteractionObserver
             // This is an complied script available in the generated Server_Scripts.dll
             var scriptId1 = "Interaction_TestInteractionObserver";
-            var scriptDetails1 = new ServerScriptDetails(
-                "script-1-file-name",
-                "script-1-file-path",
-                "script-1-string"
-            );
-
-            var loggerMock = new Mock<ILogger<LoadNewServerScriptAssemblyCommandHandler>>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
-            var observerStateMock = new Mock<ObserverState>();
-            var serverScriptServicesMock = new Mock<ServerScriptServices>();
 
             serverInfoMock.Setup(
                 mock => mock.GeneratedPath
@@ -187,21 +163,7 @@
                 scriptDetails1
             );
 
-            serverScriptServicesMock.Setup(
-                mock => mock.Logger<It.IsAnyType>()
-            ).Returns(
-                loggerMock.Object
-            );
-
             // When
-            var handler = new LoadNewServerScriptAssemblyCommandHandler(
-                loggerMock.Object,
-                serverInfoMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object,
-                observerStateMock.Object,
-                serverScriptServicesMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadNewServerScriptAssemblyCommand(
 
@@ -233,8 +195,17 @@
             );
         }
 
-        [Fact]
-        public async Task ShouldRemoveScriptFromObserverStateWhenIsObserverBasedScript()
+        [Theory, AutoMoqData]
+        public async Task ShouldRemoveScriptFromObserverStateWhenIsObserverBasedScript(
+            // Given
+            ObserverBasedScript expected,
+            ServerScriptDetails scriptDetails1,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            [Frozen] Mock<ObserverState> observerStateMock,
+            [Frozen] Mock<ServerScriptRepository> scriptRepositoryMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
         {
             // Given
             var generatedPath = Path.Combine(
@@ -245,21 +216,6 @@
             // Interaction_TestInteractionObserver
             // This is an complied script available in the generated Server_Scripts.dll
             var scriptId1 = "Interaction_TestInteractionObserver";
-            var scriptDetails1 = new ServerScriptDetails(
-                "script-1-file-name",
-                "script-1-file-path",
-                "script-1-string"
-            );
-
-            var observerBasedScript = new ObserverBasedScript();
-            var expected = observerBasedScript;
-
-            var loggerMock = new Mock<ILogger<LoadNewServerScriptAssemblyCommandHandler>>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
-            var observerStateMock = new Mock<ObserverState>();
-            var serverScriptServicesMock = new Mock<ServerScriptServices>();
 
             serverInfoMock.Setup(
                 mock => mock.GeneratedPath
@@ -280,25 +236,11 @@
             ).Returns(
                 new List<ServerScript>
                 {
-                    observerBasedScript
+                    expected,
                 }
             );
 
-            serverScriptServicesMock.Setup(
-                mock => mock.Logger<It.IsAnyType>()
-            ).Returns(
-                loggerMock.Object
-            );
-
             // When
-            var handler = new LoadNewServerScriptAssemblyCommandHandler(
-                loggerMock.Object,
-                serverInfoMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object,
-                observerStateMock.Object,
-                serverScriptServicesMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadNewServerScriptAssemblyCommand(),
                 CancellationToken.None
@@ -312,10 +254,17 @@
             );
         }
 
-        [Fact]
-        public async Task ShouldCallDisposeOnScriptWhenImplementsIDisposable()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldCallDisposeOnScriptWhenImplementsIDisposable(
             // Given
+            ServerScriptDetails scriptDetails1,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            [Frozen] Mock<ServerScriptRepository> scriptRepositoryMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
+            DisposableBasedScript disposableBasedScript = new();
             var generatedPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory,
                 "App_Data",
@@ -324,20 +273,6 @@
             // Interaction_TestInteractionObserver
             // This is an complied script available in the generated Server_Scripts.dll
             var scriptId1 = "Interaction_TestInteractionObserver";
-            var scriptDetails1 = new ServerScriptDetails(
-                "script-1-file-name",
-                "script-1-file-path",
-                "script-1-string"
-            );
-
-            var disposableBasedScript = new DisposableBasedScript();
-
-            var loggerMock = new Mock<ILogger<LoadNewServerScriptAssemblyCommandHandler>>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
-            var observerStateMock = new Mock<ObserverState>();
-            var serverScriptServicesMock = new Mock<ServerScriptServices>();
 
             serverInfoMock.Setup(
                 mock => mock.GeneratedPath
@@ -362,21 +297,7 @@
                 }
             );
 
-            serverScriptServicesMock.Setup(
-                mock => mock.Logger<It.IsAnyType>()
-            ).Returns(
-                loggerMock.Object
-            );
-
             // When
-            var handler = new LoadNewServerScriptAssemblyCommandHandler(
-                loggerMock.Object,
-                serverInfoMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object,
-                observerStateMock.Object,
-                serverScriptServicesMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadNewServerScriptAssemblyCommand(),
                 CancellationToken.None
@@ -387,28 +308,15 @@
                 .Should().Be(1);
         }
 
-        [Fact]
-        public async Task ShouldReturnErrorCodeWhenAnyExceptionIsThrown()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnErrorCodeWhenAnyExceptionIsThrown(
             // Given
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
             var expected = "SERVER_SCRIPT_FAILED_LOADING_ASSEMBLY_ERROR_CODE";
 
-            var loggerMock = new Mock<ILogger<LoadNewServerScriptAssemblyCommandHandler>>();
-            var serverInfoMock = new Mock<ServerInfo>();
-            var detailsRepositoryMock = new Mock<ServerScriptDetailsRepository>();
-            var scriptRepositoryMock = new Mock<ServerScriptRepository>();
-            var observerStateMock = new Mock<ObserverState>();
-            var serverScriptServicesMock = new Mock<ServerScriptServices>();
-
             // When
-            var handler = new LoadNewServerScriptAssemblyCommandHandler(
-                loggerMock.Object,
-                serverInfoMock.Object,
-                detailsRepositoryMock.Object,
-                scriptRepositoryMock.Object,
-                observerStateMock.Object,
-                serverScriptServicesMock.Object
-            );
             var actual = await handler.Handle(
                 new LoadNewServerScriptAssemblyCommand(),
                 CancellationToken.None
@@ -420,6 +328,124 @@
 
             actual.ErrorCode
                 .Should().Be(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldRegisterBackgroundTaskWhenIsBackgroundTaskBaseType(
+            // Given
+            ServerScriptDetails scriptDetails1,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<IMediator> mediatorMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
+            var generatedPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "App_Data",
+                "Generated"
+            );
+            // Tasks_TestBackgroundTask
+            // This is an complied script available in the generated Server_Scripts.dll
+            var scriptId1 = "Tasks_TestBackgroundTask";
+            var expected = "Tasks_TestBackgroundTask";
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            detailsRepositoryMock.Setup(
+                mock => mock.Find(
+                    scriptId1
+                )
+            ).Returns(
+                scriptDetails1
+            );
+
+            // When
+            var actual = await handler.Handle(
+                new LoadNewServerScriptAssemblyCommand(
+
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeTrue();
+
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.Is<RegisterNewScriptedBackgroundTaskCommand>(
+                        a => a.BackgroundTask.Id == expected
+                    ),
+                    CancellationToken.None
+                )
+            );
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldRemoveBackgroundTaskWhenRegisteredBackgroundTaskIsInRepository(
+            // Given
+            TestScriptedBackgroundTask expected,
+            ServerScriptDetails scriptDetails,
+            [Frozen] Mock<IMediator> mediatorMock,
+            [Frozen] Mock<ServerInfo> serverInfoMock,
+            [Frozen] Mock<ServerScriptDetailsRepository> detailsRepositoryMock,
+            [Frozen] Mock<ServerScriptRepository> scriptRepositoryMock,
+            LoadNewServerScriptAssemblyCommandHandler handler
+        )
+        {
+            // Given
+            var generatedPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "App_Data",
+                "Generated"
+            );
+            // Tasks_TestBackgroundTask
+            // This is an complied script available in the generated Server_Scripts.dll
+            var scriptId = "Tasks_TestBackgroundTask";
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            detailsRepositoryMock.Setup(
+                mock => mock.Find(
+                    scriptId
+                )
+            ).Returns(
+                scriptDetails
+            );
+
+            scriptRepositoryMock.Setup(
+                mock => mock.All
+            ).Returns(
+                new List<ServerScript>
+                {
+                    expected,
+                }
+            );
+
+            // When
+            var actual = await handler.Handle(
+                new LoadNewServerScriptAssemblyCommand(),
+                CancellationToken.None
+            );
+
+            // Then
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    new RemoveScriptedBackgroundTaskCommand(
+                        expected.Id
+                    ),
+                    CancellationToken.None
+                )
+            );
         }
 
         public class ObserverBasedScriptArgs
@@ -447,6 +473,31 @@
             )
             {
                 return default;
+            }
+        }
+
+        public class TestScriptedBackgroundTask
+            : ScriptedBackgroundTask
+        {
+            public string Id { get; }
+            public IEnumerable<string> Tags { get; }
+            public string TaskId { get; }
+            public int TaskPeriod { get; }
+            public IEnumerable<string> TaskTags { get; }
+
+            public Task<ServerScriptResponse> Run(
+                ServerScriptServices services,
+                ServerScriptData data
+            )
+            {
+                return default;
+            }
+
+            public Task TaskTrigger(
+                ServerScriptServices services
+            )
+            {
+                return Task.CompletedTask;
             }
         }
 

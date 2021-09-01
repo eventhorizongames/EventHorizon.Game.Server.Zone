@@ -43,6 +43,7 @@
 
             typeof(SystemServerScriptsExtensions).Assembly,
             typeof(SystemServerScriptsPluginSharedExtensions).Assembly,
+            typeof(SystemServerScriptsPluginBackgroundTaskExtensions).Assembly,
             typeof(SystemServerScriptsPluginEditorExtensions).Assembly,
 
             typeof(SystemGuiExtensions).Assembly,

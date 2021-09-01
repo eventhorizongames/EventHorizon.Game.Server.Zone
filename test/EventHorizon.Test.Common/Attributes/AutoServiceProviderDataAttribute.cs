@@ -4,15 +4,18 @@
 
     using AutoFixture;
     using AutoFixture.AutoMoq;
-    using AutoFixture.Xunit2;
+
+    using EventHorizon.Test.Common.Utils;
+
+    using Microsoft.Extensions.DependencyInjection;
+
+    using Moq;
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class AutoMoqDataAttribute
-        : AutoDataAttribute
+    public class AutoServiceProviderDataAttribute
+        : AutoMoqDataAttribute
     {
-        public AutoMoqDataAttribute() : base(CreateFixture) { }
-
-        public AutoMoqDataAttribute(Func<IFixture> fixtureFactory) : base(fixtureFactory) { }
+        public AutoServiceProviderDataAttribute() : base(CreateFixture) { }
 
         private static IFixture CreateFixture()
         {
@@ -25,6 +28,10 @@
                     GenerateDelegates = true,
                 }
             );
+
+            fixture.Freeze<Mock<IServiceScope>>();
+            fixture.Freeze<Mock<IServiceProvider>>();
+            fixture.Freeze<ServiceScopeFactoryMock>();
 
             return fixture;
         }
