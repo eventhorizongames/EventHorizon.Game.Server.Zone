@@ -20,6 +20,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
             NodeList = new List<BehaviorNode>
             {
                 new BehaviorNode(
+                    0,
                     tree.Root
                 )
             };

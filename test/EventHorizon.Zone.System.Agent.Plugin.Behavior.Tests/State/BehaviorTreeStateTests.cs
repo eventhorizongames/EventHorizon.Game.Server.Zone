@@ -43,6 +43,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.State
             var expectedTraversalChild = new BehaviorNode();
             var expected = -1;
             var activeTraversalNode = new BehaviorNode(
+                0,
                 new SerializedBehaviorNode()
             );
             activeTraversalNode.NodeList.Add(

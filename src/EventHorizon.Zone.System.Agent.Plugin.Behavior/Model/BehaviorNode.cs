@@ -22,6 +22,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
         }
 
         public BehaviorNode(
+            int tokenRoot,
             SerializedBehaviorNode serailzedNode
         )
         {
@@ -33,7 +34,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
                 );
             }
 
-            Token = Guid.NewGuid().GetHashCode();
+            Token = serailzedNode.GetToken(
+                tokenRoot
+            );
             Type = BehaviorNodeType.Parse(
                 serailzedNode.Type
             );
@@ -48,12 +51,17 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
 
             if (serailzedNode.NodeList != null)
             {
-                NodeList = serailzedNode.NodeList
-                    .Select(
-                        node => new BehaviorNode(
-                            node
+                var childTokenRoot = tokenRoot;
+                foreach (var childNode in serailzedNode.NodeList)
+                {
+                    childTokenRoot++;
+                    NodeList.Add(
+                        new BehaviorNode(
+                            childTokenRoot,
+                            childNode
                         )
-                    ).ToList();
+                    );
+                }
             }
         }
 

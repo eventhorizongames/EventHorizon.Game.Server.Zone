@@ -52,7 +52,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             _reportId = string.Empty;
             _reportCorrelationId = Guid.NewGuid().ToString();
             _reportTracker = null;
-            
+
             ShapeQueue = new Queue<int>();
             ShapeOrder = new int[0];
 
@@ -65,9 +65,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 shape
             );
         }
-        public bool IsValid => _shape.IsValid;
-        private Queue<int> ShapeQueue { get; set; }
-        private int[] ShapeOrder { get; set; }
 
         public bool IsActiveNodeValidAndNotRunning()
         {
@@ -75,34 +72,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
                 && !BehaviorNodeStatus.RUNNING.Equals(
                     ActiveNode.Status
                 );
-        }
-
-        public BehaviorTreeState SetShape(
-            ActorBehaviorTreeShape shape
-        )
-        {
-            _shape = shape;
-            _checkTraversal = false;
-            SetupQueueFromShape(
-                shape
-            );
-            // This will keep only the running, not traversal, Nodes in state.
-            NodeMap = NodeMap.Where(
-                a => BehaviorNodeStatus.RUNNING.Equals(
-                    a.Value.Status
-                ) && !a.Value.IsTraversal
-            ).ToDictionary(
-                node => node.Key,
-                node => node.Value
-            );
-            // This set the last traversal State into the current for this state.
-            LastTraversalStack = NextTraversalStack.Reverse().ToList();
-            // Clear the next traversal state to be rebuilt next run.
-            NextTraversalStack = new List<int>();
-            // Clear the traversal stack
-            TraversalStack = new List<int>();
-
-            return this;
         }
 
         public BehaviorTreeState PopActiveNodeFromQueue()
@@ -126,6 +95,74 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             return this;
         }
 
+        #region Shape
+        public bool IsValid => _shape.IsValid;
+        private Queue<int> ShapeQueue { get; set; }
+        private int[] ShapeOrder { get; set; }
+
+        public BehaviorTreeState SetShape(
+            ActorBehaviorTreeShape shape
+        )
+        {
+            _shape = shape;
+            _checkTraversal = false;
+            SetupQueueFromShape(
+                shape
+            );
+
+            var activeNodeToken = _activeNodeToken;
+            if (!shape.NodeList.Any(a => a.Token == activeNodeToken))
+            {
+                _activeNodeToken = -1;
+            }
+            var activeTraversalToken = _activeTraversalToken;
+            if (!shape.NodeList.Any(a => a.Token == activeTraversalToken))
+            {
+                _activeTraversalToken = -1;
+            }
+
+            // This will keep only the running, not traversal, Nodes in state.
+            NodeMap = NodeMap.Where(
+                a => BehaviorNodeStatus.RUNNING.Equals(
+                    a.Value.Status
+                ) && !a.Value.IsTraversal
+            ).ToDictionary(
+                node => node.Key,
+                node => node.Value
+            );
+            // This set the last traversal State into the current for this state.
+            LastTraversalStack = NextTraversalStack.Reverse().ToList();
+            // Clear the next traversal state to be rebuilt next run.
+            NextTraversalStack = new List<int>();
+            // Clear the traversal stack
+            TraversalStack = new List<int>();
+
+            return this;
+        }
+
+        private void SetupQueueFromShape(
+            ActorBehaviorTreeShape shape
+        )
+        {
+            ShapeQueue.Clear();
+            if (!shape.IsValid)
+            {
+                return;
+            }
+            ShapeOrder = new int[shape.NodeList.Count];
+            var index = 0;
+            foreach (var node in shape.NodeList)
+            {
+                ShapeQueue.Enqueue(
+                    node.Token
+                );
+                ShapeOrder[index] = node.Token;
+                index++;
+            }
+        }
+        #endregion
+
+        #region Traversal
         public BehaviorTreeState SetCheckTraversal(
             bool checkTraversal
         )
@@ -172,26 +209,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
             );
             return this;
         }
-
-        private void SetupQueueFromShape(
-            ActorBehaviorTreeShape shape
-        )
-        {
-            ShapeQueue.Clear();
-            if (!shape.IsValid)
-            {
-                return;
-            }
-            ShapeOrder = new int[shape.NodeList.Count];
-            var index = 0;
-            foreach (var node in shape.NodeList)
-            {
-                ShapeQueue.Enqueue(
-                    node.Token
-                );
-                ShapeOrder[index] = node.Token;
-                index++;
-            }
-        }
+        #endregion
     }
 }
