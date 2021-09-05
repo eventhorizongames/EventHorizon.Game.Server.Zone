@@ -1,6 +1,6 @@
 {
     "Id": "E526860C-348A-4F2A-9F4D-BD8E4BC1BE11",
-    "Name": "[SYSTEM] CreateClientAsset",
+    "Name": "[SYSTEM] Create Client Asset",
     "Description": "Create a new Client Asset.",
     "FirstStep": "0FA8CD69-2B94-4BCF-A617-4753EC680EE8",
     "StepOrder": {

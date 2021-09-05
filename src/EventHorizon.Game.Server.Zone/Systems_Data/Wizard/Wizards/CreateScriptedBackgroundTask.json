@@ -1,0 +1,61 @@
+{
+    "Id": "3D79EDDD-3F91-4B50-9B78-FCFC7BD4D9E6",
+    "Name": "[SYSTEM] Scripted Background Task",
+    "Description": "Create a Background Task that will run game logic on a specified time period.",
+    "FirstStep": "7DAB8E42-9A67-43A9-BF47-BCC7666F277E",
+    "StepOrder": {
+        "7DAB8E42-9A67-43A9-BF47-BCC7666F277E": 0,
+        "F236A0B4-435B-4527-B7D9-AF51B1EB16BB": 1,
+        "2F5489C4-5852-402C-BA17-7C0C178DF08D": 2
+    },
+    "StepList": [
+        {
+            "Id": "7DAB8E42-9A67-43A9-BF47-BCC7666F277E",
+            "Type": "FormInput",
+            "Name": "Background Task Details",
+            "Description": "Provide the Name, Folder and the Interval Period.",
+            "Details": {
+                "@PropertyBoolean": "Boolean",
+                "@PropertyDecimal": "Decimal",
+                "@PropertyLong": "Long",
+                "@PropertyString": "String",
+                "@PropertyVector3": "Vector3",
+                "@PropertyComplex": "Complex",
+                "@PropertyAsset": "Asset",
+                "@AssetServerPath": "AssetServerPath",
+                "@AssetServerFile": "AssetServerFile",
+                "@AssetServerFileName": "AssetServerFileName",
+
+                "property:folderName": "String",
+                "property:folderName:label": "Folder Name",
+                "property:taskName": "String",
+                "property:taskName:label": "Background Task Name",
+                "property:taskPeriod": "Long",
+                "property:taskPeriod:label": "Task Period (in Milliseconds)"
+            },
+            "NextStep": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB"
+        },
+        {
+            "Id": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB",
+            "Type": "ServerProcess",
+            "Name": "Validation of Background Task Details",
+            "Description": "Validation of the Folder/Name/Period will be done here, will check for existing file and that the text is Alphanumeric.",
+            "Details": {
+                "Processor:ScriptId": "Wizard_Scripts_Validation_BackgroundTask_ValidateBackgroundTaskDetails"
+            },
+            "PreviousStep": "7DAB8E42-9A67-43A9-BF47-BCC7666F277E",
+            "NextStep": "2F5489C4-5852-402C-BA17-7C0C178DF08D"
+        },
+        {
+            "Id": "2F5489C4-5852-402C-BA17-7C0C178DF08D",
+            "Type": "ServerProcess",
+            "Name": "Create Background Task",
+            "Description": "Creation of the Background Task will happen now, after you should see your Task in the File Explorer.",
+            "Details": {
+                "Processor:ScriptId": "Wizard_Scripts_Processor_BackgroundTask_CreateBackgroundTask",
+                "DisablePrevious": "true"
+            },
+            "PreviousStep": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB"
+        }
+    ]
+}

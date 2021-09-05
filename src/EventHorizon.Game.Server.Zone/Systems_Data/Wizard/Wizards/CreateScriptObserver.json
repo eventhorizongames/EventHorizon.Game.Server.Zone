@@ -31,8 +31,7 @@
             "Name": "Validation of Script Details",
             "Description": "Validation of the Folder/Name will be done here, to check for already existing files and that the text is Alphanumeric.",
             "Details": {
-                "Processor:ScriptId": "Wizard_Scripts_Validation_ScriptObserver",
-                "disablePrevious": "true"
+                "Processor:ScriptId": "Wizard_Scripts_Validation_Observer_ScriptObserver"
             },
             "PreviousStep": "5C91226B-CDAB-4BC1-8DF8-662652B92942",
             "NextStep": "F550C884-B2A7-4C3F-B291-E05A8EF60707"
@@ -43,7 +42,7 @@
             "Name": "Creates Observer Scripts",
             "Description": "Creation of the Scripts will happen now, after you should see your scripts are available for selection.",
             "Details": {
-                "Processor:ScriptId": "Wizard_Scripts_Processor_CreateScriptObserver",
+                "Processor:ScriptId": "Wizard_Scripts_Processor_Observer_CreateScriptObserver",
                 "DisablePrevious": "true"
             },
             "PreviousStep": "3C5ABC0F-2D4A-4D68-AA7B-1D1D243AD792",

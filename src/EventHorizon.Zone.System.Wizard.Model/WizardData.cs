@@ -16,5 +16,51 @@
         )
         {
         }
+
+        public bool TryGetData(
+            string key,
+            out string value
+        )
+        {
+            if (TryGetValue(
+                key,
+                out value
+            ))
+            {
+                return true;
+            }
+            else if (TryGetValue(
+                key.LowercaseFirstChar(),
+                out value
+            ))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public new string this[string key]
+        {
+            get
+            {
+                if (TryGetValue(
+                    key,
+                    out var value
+                ))
+                {
+                    return value;
+                }
+                else if (TryGetValue(
+                    key.LowercaseFirstChar(),
+                    out value
+                ))
+                {
+                    return value;
+                }
+
+                return string.Empty;
+            }
+        }
     }
 }
