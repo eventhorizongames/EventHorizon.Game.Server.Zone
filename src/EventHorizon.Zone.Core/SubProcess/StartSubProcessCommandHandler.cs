@@ -54,7 +54,7 @@
             {
                 _logger.LogError(
                     ex,
-                    "Failed to Create SubProcess. {ApplicationFullName}",
+                    "Failed to Create SubProcess. {ApplicationFullName} | {@CommandRequest}",
                     request.ApplicationFullName,
                     request
                 );

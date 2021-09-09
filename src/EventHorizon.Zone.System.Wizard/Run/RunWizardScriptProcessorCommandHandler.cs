@@ -7,6 +7,7 @@
     using EventHorizon.Zone.System.Wizard.Model;
     using EventHorizon.Zone.System.Wizard.Model.Scripts;
 
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.Diagnostics.CodeAnalysis;
     using global::System.Linq;
@@ -15,17 +16,22 @@
 
     using MediatR;
 
+    using Microsoft.Extensions.Logging;
+
     public class RunWizardScriptProcessorCommandHandler
         : IRequestHandler<RunWizardScriptProcessorCommand, CommandResult<WizardData>>
     {
+        private readonly ILogger _logger;
         private readonly IMediator _mediator;
         private readonly WizardRepository _wizardRepository;
 
         public RunWizardScriptProcessorCommandHandler(
+            ILogger<RunWizardScriptProcessorCommandHandler> logger,
             IMediator mediator,
             WizardRepository wizardRepository
         )
         {
+            _logger = logger;
             _mediator = mediator;
             _wizardRepository = wizardRepository;
         }
@@ -41,7 +47,7 @@
             );
             if (!wizardOption.HasValue)
             {
-                return "wizard_not_found";
+                return WizardScriptProcessorErrorCodes.WIZARD_NOT_FOUND;
             }
 
             var wizardStep = wizardOption.Value.StepList.FirstOrDefault(
@@ -49,7 +55,7 @@
             );
             if (wizardStep.IsNull())
             {
-                return "wizard_step_not_found";
+                return WizardScriptProcessorErrorCodes.WIZARD_STEP_NOT_FOUND;
             }
 
             var processorScriptId = string.Empty;
@@ -59,7 +65,7 @@
                 out processorScriptId
             ))
             {
-                return "wizard_invalid_processor_script_id";
+                return WizardScriptProcessorErrorCodes.WIZARD_INVALID_PROCESSOR_SCRIPT_ID;
             }
 
             var scriptData = new Dictionary<string, object>
@@ -69,30 +75,44 @@
                 ["WizardData"] = wizardData,
             };
 
-            var result = await _mediator.Send(
-                new RunServerScriptCommand(
+            try
+            {
+                var result = await _mediator.Send(
+                    new RunServerScriptCommand(
+                        processorScriptId,
+                        scriptData
+                    ),
+                    cancellationToken
+                );
+
+                if (result.IsNull()
+                    || !result.Success
+                )
+                {
+                    return result?.Message
+                        ?? WizardScriptProcessorErrorCodes.WIZARD_FAILED_SCRIPT_RUN;
+                }
+
+                if (result is WizardServerScriptResponse wizardScriptResponse)
+                {
+                    return new WizardData(
+                        wizardScriptResponse.Data
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "Failed to Run Server Script Command: {ProcessorScriptId} | {@ScriptData}",
                     processorScriptId,
                     scriptData
-                ),
-                cancellationToken
-            );
-
-            if (result.IsNull()
-                || !result.Success
-            )
-            {
-                return result?.Message
-                    ?? "wizard_failed_script_run";
-            }
-
-            if (result is WizardServerScriptResponse wizardScriptResponse)
-            {
-                return new WizardData(
-                    wizardScriptResponse.Data
                 );
+
+                return WizardScriptProcessorErrorCodes.WIZARD_FAILED_SCRIPT_RUN;
             }
 
-            return "wizard_failed_script_run";
+            return WizardScriptProcessorErrorCodes.WIZARD_FAILED_SCRIPT_RUN;
         }
 
         private static bool IsInvalidProcessorId(

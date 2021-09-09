@@ -53,9 +53,24 @@
             "Description": "Creation of the Background Task will happen now, after you should see your Task in the File Explorer.",
             "Details": {
                 "Processor:ScriptId": "Wizard_Scripts_Processor_BackgroundTask_CreateBackgroundTask",
+                "IdPrefix": "Server_Scripts",
+                "LocationProperty": "editFilePath",
                 "DisablePrevious": "true"
             },
-            "PreviousStep": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB"
+            "PreviousStep": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB",
+            "NextStep": "AD84EFD8-8447-4572-AA1D-EA577BFFAD15"
+        },
+        {
+            "Id": "AD84EFD8-8447-4572-AA1D-EA577BFFAD15",
+            "Type": "LocationNavigate",
+            "@Type": "Navigate",
+            "Name": "Returning Start",
+            "Description": "Returning to last active location.",
+            "Details": {
+                "DisablePrevious": "true",
+                "LocationProperty": "editFilePath"
+            },
+            "PreviousStep": "2F5489C4-5852-402C-BA17-7C0C178DF08D"
         }
     ]
 }

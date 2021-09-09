@@ -28,7 +28,10 @@ public class __SCRIPT__
         logger.LogDebug("__SCRIPT__ - System Script");
 
         var serverInfo = services.ServerInfo;
+        var wizardStep = data.Get<WizardStep>("WizardStep");
         var wizardData = data.Get<WizardData>("WizardData");
+        var idPrefix = wizardStep.Details["IdPrefix"];
+        var locationProperty = wizardStep.Details["LocationProperty"];
         var folder = wizardData["folderName"];
         var taskName = wizardData["taskName"];
         var taskPeriod = wizardData["taskPeriod"];
@@ -83,9 +86,23 @@ public class __SCRIPT__
             )
         );
 
+        // Set Location Property
+        var scriptId = string.Join(
+            "_",
+            idPrefix, 
+            "Tasks",
+            folder,
+            fileToCreate
+        );
+        var scriptEditFilePath = $"/edit/file/{scriptId.Base64Encode()}"; 
+        var responseData = new Dictionary<string, string>();
+
+        responseData[locationProperty] = scriptEditFilePath;
+
         return new WizardServerScriptResponse(
             true,
-            string.Empty
+            string.Empty,
+            responseData
         );
     }
 

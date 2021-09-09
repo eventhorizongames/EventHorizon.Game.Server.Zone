@@ -1,5 +1,3 @@
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using EventHorizon.Observer.Model;
 
@@ -10,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
 using System;
 
+// Testing_Test004BackgroundTask.csx
 public class __SCRIPT__
     : ScriptedBackgroundTask
 {
@@ -20,8 +19,8 @@ public class __SCRIPT__
 
     #region BackgroundTask Properties
     public string TaskId => Id;
-    // in ms
-    public int TaskPeriod { get; } = 10000;
+    // Is in milliseconds
+    public int TaskPeriod { get; } = 100000;
     public IEnumerable<string> TaskTags => Tags;
     #endregion
 
@@ -35,7 +34,7 @@ public class __SCRIPT__
 
         return new StandardServerScriptResponse(
             true,
-            "background_task_Test_started"
+            "background_task_Testing_Test004_started"
         );
     }
 

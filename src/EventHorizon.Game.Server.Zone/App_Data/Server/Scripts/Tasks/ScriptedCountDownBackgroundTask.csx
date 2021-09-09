@@ -35,7 +35,7 @@ public class __SCRIPT__
 
         return new StandardServerScriptResponse(
             true,
-            "background_task_Test_started"
+            "background_task_ScriptedCountDown_started"
         );
     }
 
