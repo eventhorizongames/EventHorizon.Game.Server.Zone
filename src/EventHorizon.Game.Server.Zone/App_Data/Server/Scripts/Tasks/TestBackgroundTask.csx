@@ -21,7 +21,7 @@ public class __SCRIPT__
     #region BackgroundTask Properties
     public string TaskId => Id;
     // in ms
-    public int TaskPeriod { get; } = 10000;
+    public int TaskPeriod { get; } = 1000;
     public IEnumerable<string> TaskTags => Tags;
     #endregion
 
