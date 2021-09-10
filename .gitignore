@@ -262,3 +262,5 @@ __Backup__
 **/App_Data.back
 
 **\sub-processes
+NDependOut
+_scratch-code.csx

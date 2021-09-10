@@ -12,149 +12,173 @@ variables:
   IsMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 
 
-stages:
-  - stage: Restore
-    jobs:
-    - job: Restore_dotNET
-      steps:
-      - task: UseDotNet@2
-        displayName: Use .NET Core sdk
-        inputs:
-          packageType: sdk
-          version: 5.0.100
-          installationPath: $(Agent.ToolsDirectory)/dotnet
-      
-      - task: DotNetCoreCLI@2
-        displayName: Restore
-        inputs:
-          command: restore
-          projects: '$(Parameters.RestoreBuildProjects)'
-          vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
-      
-  - stage: Build
-    jobs:
-    - job: Build_dotNET
-      steps:
-      - checkout: none
-      - task: UseDotNet@2
-        displayName: Use .NET Core sdk
-        inputs:
-          packageType: sdk
-          version: 5.0.100
-          installationPath: $(Agent.ToolsDirectory)/dotnet
-      
-      - task: DotNetCoreCLI@2
-        displayName: Build
-        inputs:
-          projects: '$(Parameters.RestoreBuildProjects)'
-          arguments: '--configuration $(BuildConfiguration) /p:Version=$(Build.BuildNumber)'
-      
-  - stage: Test
-    jobs:
-    - job: Test_and_Report_Generation
-      steps:
-      - checkout: none
-      - task: UseDotNet@2
-        displayName: Use .NET Core sdk
-        inputs:
-          packageType: sdk
-          version: 5.0.100
-          installationPath: $(Agent.ToolsDirectory)/dotnet
-      
-      - task: DotNetCoreCLI@2
-        displayName: Test
-        inputs:
-          command: test
-          projects: '$(Parameters.TestProjects)'
-          arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\'
-      
-      - task: DotNetCoreCLI@2
-        displayName: Restore - Report Generator
-        inputs:
-          command: restore
-          projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
-          vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
-      
-      - task: DotNetCoreCLI@2
-        displayName: Report Generator
-        inputs:
-          command: custom
-          projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
-          custom: reportgenerator
-          arguments: '"-reports:$(Build.SourcesDirectory)/test/**/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"'
-          workingDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter
-      
-      - task: PublishCodeCoverageResults@1
-        displayName: Publish code coverage from test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml
-        inputs:
-          codeCoverageTool: Cobertura
-          summaryFileLocation: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml
-          reportDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports
+jobs:
+- job: Restore_dotNET
+  steps:
+  - task: UseDotNet@2
+    displayName: Use .NET Core SDK
+    inputs:
+      packageType: sdk
+      version: 5.0.100
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+  
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+      projects: '$(Parameters.RestoreBuildProjects)'
+      vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
+  
+- job: Build_dotNET
+  dependsOn:
+  - Restore_dotNET
+  steps:
+  - checkout: none
+  - task: UseDotNet@2
+    displayName: Use .NET Core SDK
+    inputs:
+      packageType: sdk
+      version: 5.0.100
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+  
+  - task: DotNetCoreCLI@2
+    displayName: Build
+    inputs:
+      projects: '$(Parameters.RestoreBuildProjects)'
+      arguments: '--configuration $(BuildConfiguration) /p:Version=$(Build.BuildNumber)'
+  
+- job: Test_and_Report_Generation
+  dependsOn:
+  - Build_dotNET
+  steps:
+  - checkout: none
+  - task: UseDotNet@2
+    displayName: Use .NET Core SDK
+    inputs:
+      packageType: sdk
+      version: 5.0.100
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+  
+  - task: DotNetCoreCLI@2
+    displayName: Test
+    inputs:
+      command: test
+      projects: '$(Parameters.TestProjects)'
+      arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=.\TestResults\Coverage\'
+  
+  - task: DotNetCoreCLI@2
+    displayName: Restore - Report Generator
+    inputs:
+      command: restore
+      projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
+      vstsFeed: 'c1d97993-4a38-416e-9483-9b30f6c07b97'
+  
+  - task: DotNetCoreCLI@2
+    displayName: Report Generator
+    inputs:
+      command: custom
+      projects: test/EventHorizon.Game.Server.Zone.Tests.Reporter/EventHorizon.Game.Server.Zone.Tests.Reporter.csproj
+      custom: reportgenerator
+      arguments: '"-reports:$(Build.SourcesDirectory)/test/**/TestResults/Coverage/coverage.cobertura.xml" "-targetdir:TestResults/Coverage/Reports" "-reporttypes:HtmlInline_AzurePipelines_Dark;Cobertura"'
+      workingDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter
+  
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish code coverage from test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports/Cobertura.xml
+      reportDirectory: test/EventHorizon.Game.Server.Zone.Tests.Reporter/TestResults/Coverage/Reports
 
-  - stage: Publish
-    condition: and(succeeded(), eq(variables.IsMain, true))
-    jobs:
-    - job: Pack_and_Publish
-      steps:
-      - checkout: none
-      - task: UseDotNet@2
-        displayName: Use .NET Core sdk
-        inputs:
-          packageType: sdk
-          version: 5.0.100
-          installationPath: $(Agent.ToolsDirectory)/dotnet
+- job: Test_and_NDepend_Analysis
+  condition: and(succeeded(), eq(variables.IsMain, true))
+  pool: 
+    vmImage: 'windows-2019'
+  steps:
+  - task: UseDotNet@2
+    displayName: Use .NET Core SDK
+    inputs:
+      packageType: sdk
+      version: 5.0.100
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+  
+  - task: DotNetCoreCLI@2
+    displayName: Test with OpenCover Coverage Report
+    inputs:
+      command: test
+      projects: '$(Parameters.TestProjects)'
+      arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & Category!=Integration & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\TestResults\Coverage\'
+  
+  - task: NDependTask@1
+    displayName: Run NDepened Analysis
+    env:
+      SYSTEM_ACCESSTOKEN: $(system.accesstoken)
+    inputs:
+      ndproj: EventHorizon.Game.Server.Zone.ndproj
 
-      - task: DotNetCoreCLI@2
-        enabled: 'false'
-        displayName: Pack
-        inputs:
-          command: pack
-      
-      - task: DotNetCoreCLI@2
-        enabled: 'false'
-        displayName: Push
-        inputs:
-          command: push
-      
-      - task: DotNetCoreCLI@2
-        displayName: Publish
-        inputs:
-          command: custom
-          custom: publish
-          zipAfterPublish: false
-          arguments: '--configuration $(BuildConfiguration) --output ./app'
+- job: Pack_and_Publish
+  condition: and(succeeded(), eq(variables.IsMain, true))
+  dependsOn:
+  - Test_and_Report_Generation
+  steps:
+  - checkout: none
+  - task: UseDotNet@2
+    displayName: Use .NET Core SDK
+    inputs:
+      packageType: sdk
+      version: 5.0.100
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
-  - stage: Image_Publish
-    condition: and(succeeded(), eq(variables.IsMain, true))
-    jobs:
-    - job: Docker_Image_buildAndPush
-      steps:
-      - checkout: none
-      - task: DockerInstaller@0
-        displayName: Docker Installer
-        inputs:
-          dockerVersion: 18.03.0-ce
-          releaseType: stable
+  - task: DotNetCoreCLI@2
+    enabled: 'false'
+    displayName: Pack
+    inputs:
+      command: pack
+  
+  - task: DotNetCoreCLI@2
+    enabled: 'false'
+    displayName: Push
+    inputs:
+      command: push
+  
+  - task: DotNetCoreCLI@2
+    displayName: Publish
+    inputs:
+      command: custom
+      custom: publish
+      zipAfterPublish: false
+      arguments: '--configuration $(BuildConfiguration) --output ./app'
 
-      - task: Docker@2
-        displayName: Build Image (docker-hub) - EventHorizon.Game.Server.Zone
-        inputs: 
-          command: build
-          containerRegistry: docker-hub
-          repository: canhorn/ehz-platform-server-zone
-          Dockerfile: Dockerfile.devops
-          arguments: --build-arg BUILD_VERSION=$(Build.BuildNumber)
-          tags: |
-            latest
-            $(Build.BuildNumber)
+- job: Docker_Image_buildAndPush
+  condition: and(succeeded(), eq(variables.IsMain, true))
+  dependsOn:
+  - Pack_and_Publish
+  steps:
+  - checkout: none
+  - task: DockerInstaller@0
+    displayName: Docker Installer
+    inputs:
+      dockerVersion: 18.03.0-ce
+      releaseType: stable
 
-      - task: Docker@2
-        displayName: Push Image (docker-hub) - EventHorizon.Game.Server.Zone 
-        inputs: 
-          command: push
-          containerRegistry: docker-hub
-          repository: canhorn/ehz-platform-server-zone
-          Dockerfile: Dockerfile.devops
-          tags: |
-            latest
-            $(Build.BuildNumber)
+  - task: Docker@2
+    displayName: Build Image (docker-hub) - EventHorizon.Game.Server.Zone
+    inputs: 
+      command: build
+      containerRegistry: docker-hub
+      repository: canhorn/ehz-platform-server-zone
+      Dockerfile: Dockerfile.devops
+      arguments: --build-arg BUILD_VERSION=$(Build.BuildNumber)
+      tags: |
+        latest
+        $(Build.BuildNumber)
+
+  - task: Docker@2
+    displayName: Push Image (docker-hub) - EventHorizon.Game.Server.Zone 
+    inputs: 
+      command: push
+      containerRegistry: docker-hub
+      repository: canhorn/ehz-platform-server-zone
+      Dockerfile: Dockerfile.devops
+      tags: |
+        latest
+        $(Build.BuildNumber)
