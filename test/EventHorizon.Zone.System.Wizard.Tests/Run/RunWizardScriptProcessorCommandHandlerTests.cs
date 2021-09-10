@@ -1,5 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Tests.Run
 {
+    using Castle.Core.Logging;
+
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Wizard.Api;
@@ -15,6 +17,7 @@
     using global::System.Threading.Tasks;
 
     using MediatR;
+using Microsoft.Extensions.Logging;
 
     using Moq;
 
@@ -93,6 +96,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -139,6 +143,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -188,6 +193,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -255,6 +261,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -329,6 +336,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -390,6 +398,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
@@ -469,6 +478,7 @@
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(
+                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
                 mediatorMock.Object,
                 wizardRepositoryMock.Object
             );
