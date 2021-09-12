@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +12,8 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Events\EventHorizon.Zone.System.Admin.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Model\EventHorizon.Zone.System.Backup.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Backup.Events\EventHorizon.Zone.System.Backup.Events.csproj" />
