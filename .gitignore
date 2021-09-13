@@ -244,6 +244,7 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+[Mm][Ss][Bb]uild_[Ll]ogs
 dist/
 publish
 app

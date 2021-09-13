@@ -34,6 +34,7 @@
         }
 
         [Theory, AutoServiceProviderData]
+        [Trait("Category", "Integration")]
         public async Task ShouldPublishEventWhenSetAmountOfTimePasses(
             // Given
             ServiceScopeFactoryMock serviceScopeFactoryMock,

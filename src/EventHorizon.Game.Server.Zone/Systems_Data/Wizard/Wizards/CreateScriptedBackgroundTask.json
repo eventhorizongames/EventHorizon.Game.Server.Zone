@@ -64,8 +64,8 @@
             "Id": "AD84EFD8-8447-4572-AA1D-EA577BFFAD15",
             "Type": "LocationNavigate",
             "@Type": "Navigate",
-            "Name": "Returning Start",
-            "Description": "Returning to last active location.",
+            "Name": "Navigation",
+            "Description": "Navigating to File Editor...",
             "Details": {
                 "DisablePrevious": "true",
                 "LocationProperty": "editFilePath"

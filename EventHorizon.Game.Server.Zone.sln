@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30011.22
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FE232CB9-E002-4898-9117-E3162928E341}"
 EndProject
@@ -353,6 +353,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask", "src\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.csproj", "{6A6B27F9-8FAD-4FF0-861E-F90BAEEB0EAA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests", "test\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests.csproj", "{8440C89B-0D44-4B41-9C1B-1ACD6234B364}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Zone.System.Admin.Events", "src\EventHorizon.Zone.System.Admin.Events\EventHorizon.Zone.System.Admin.Events.csproj", "{7286DF90-7398-4C4D-9C60-76C1BCE38B96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2356,6 +2358,18 @@ Global
 		{8440C89B-0D44-4B41-9C1B-1ACD6234B364}.Release|x64.Build.0 = Release|Any CPU
 		{8440C89B-0D44-4B41-9C1B-1ACD6234B364}.Release|x86.ActiveCfg = Release|Any CPU
 		{8440C89B-0D44-4B41-9C1B-1ACD6234B364}.Release|x86.Build.0 = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|x64.Build.0 = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Debug|x86.Build.0 = Debug|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|x64.ActiveCfg = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|x64.Build.0 = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|x86.ActiveCfg = Release|Any CPU
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2527,6 +2541,7 @@ Global
 		{3D1B57DE-E40E-41DC-BE40-EEC818E7365D} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{6A6B27F9-8FAD-4FF0-861E-F90BAEEB0EAA} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{8440C89B-0D44-4B41-9C1B-1ACD6234B364} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
+		{7286DF90-7398-4C4D-9C60-76C1BCE38B96} = {FE232CB9-E002-4898-9117-E3162928E341}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}
