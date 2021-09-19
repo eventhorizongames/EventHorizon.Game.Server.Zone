@@ -81,5 +81,30 @@
             // Then
             actual.Should().Be(expected);
         }
+
+        [Fact]
+        public void ShouldReturnJsonStringWhenPropertyIsInvalidType()
+        {
+            // Given
+            var propertyList = new List<JsonDataProperty>
+            {
+                new JsonDataProperty(
+                    "property-1",
+                    "invalid",
+                    "hello"
+                ),
+            };
+            var expected = "{\"property-1\":\"hello\"}";
+
+            // When
+            var document = new JsonDataDocument(
+                propertyList
+            );
+            var actual = document.ToJsonString();
+
+
+            // Then
+            actual.Should().Be(expected);
+        }
     }
 }

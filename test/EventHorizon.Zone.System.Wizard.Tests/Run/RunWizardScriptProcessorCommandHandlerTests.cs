@@ -1,7 +1,8 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Tests.Run
 {
-    using Castle.Core.Logging;
+    using AutoFixture.Xunit2;
 
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Wizard.Api;
@@ -12,12 +13,14 @@
 
     using FluentAssertions;
 
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
     using MediatR;
-using Microsoft.Extensions.Logging;
+
+    using Microsoft.Extensions.Logging;
 
     using Moq;
 
@@ -25,41 +28,33 @@ using Microsoft.Extensions.Logging;
 
     public class RunWizardScriptProcessorCommandHandlerTests
     {
-
-        [Fact]
-        public async Task ShouldReturnScucessWhenScriptRunCommandIsSuccessful()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnScucessWhenScriptRunCommandIsSuccessful(
             // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
-            var wizardStep = new WizardStep
+            [Frozen] Mock<IMediator> mediatorMock,
+            [Frozen] Mock<WizardRepository> wizardRepositoryMock,
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            [Frozen] WizardData wizardData,
+            [Frozen] WizardStep wizardStep,
+            [Frozen] WizardMetadata wizard,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
+            wizardStep.Id = wizardStepId;
+            wizardStep.Details = new WizardStepDetails
             {
-                Id = wizardStepId,
-                Name = "wziard-step-name",
-                Description = "wziard-step-description",
-                Details = new WizardStepDetails
-                {
-                    ["Processor:ScriptId"] = processorScriptId,
-                },
-                NextStep = "next-step-id",
-                PreviousStep = "previous-step-id",
+                ["Processor:ScriptId"] = processorScriptId,
             };
-            var wizard = new WizardMetadata
+
+            wizard.Id = wizardId;
+            wizard.StepList = new List<WizardStep>
             {
-                Id = wizardId,
-                StepList = new List<WizardStep>
-                {
-                    wizardStep,
-                },
+                wizardStep,
             };
 
             var actualScriptCommand = default(RunServerScriptCommand);
-
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
 
             var serverScriptResponse = new WizardServerScriptResponse(
                 true,
@@ -71,7 +66,7 @@ using Microsoft.Extensions.Logging;
                     It.Is<RunServerScriptCommand>(
                         a => a.Id == processorScriptId
                     ),
-                    CancellationToken.None
+                    It.IsAny<CancellationToken>()
                 )
             ).ReturnsAsync(
                 serverScriptResponse
@@ -88,18 +83,12 @@ using Microsoft.Extensions.Logging;
             wizardRepositoryMock.Setup(
                 mock => mock.Get(
                     wizardId
-
                 )
             ).Returns(
                 wizard.ToOption()
             );
 
             // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
-            );
             var actual = await handler.Handle(
                 new RunWizardScriptProcessorCommand(
                     wizardId,
@@ -127,26 +116,28 @@ using Microsoft.Extensions.Logging;
                 );
         }
 
-        [Fact]
-        public async Task ShouldReturnWizardNotFoundErrorCodeWhenWizardIsNotInRepository()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnWizardNotFoundErrorCodeWhenWizardIsNotInRepository(
             // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
+            [Frozen] Mock<WizardRepository> wizardRepositoryMock,
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            WizardData wizardData,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
             var expected = "wizard_not_found";
 
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
+            wizardRepositoryMock.Setup(
+                mock => mock.Get(
+                    It.IsAny<string>()
+                )
+            ).Returns(
+                default(WizardMetadata)
+            );
 
             // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
-            );
             var actual = await handler.Handle(
                 new RunWizardScriptProcessorCommand(
                     wizardId,
@@ -164,39 +155,208 @@ using Microsoft.Extensions.Logging;
                 .Should().Be(expected);
         }
 
-        [Fact]
-        public async Task ShouldReturnWizardStepNotFoundErrorCodeWhenWizardDoesNotContainStep()
-        {
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnWizardStepNotFoundErrorCodeWhenWizardDoesNotContainStep(
             // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-            };
-
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            WizardData wizardData,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
             var expected = "wizard_step_not_found";
 
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
+            // When
+            var actual = await handler.Handle(
+                new RunWizardScriptProcessorCommand(
+                    wizardId,
+                    wizardStepId,
+                    processorScriptId,
+                    wizardData
+                ),
+                CancellationToken.None
+            );
 
-            wizardRepositoryMock.Setup(
-                mock => mock.Get(
-                    wizardId
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandIsFailure(
+            // Given
+            [Frozen] Mock<IMediator> mediatorMock,
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            [Frozen] WizardStepDetails wizardStepDetails,
+            [Frozen] WizardStep wizardStep,
+            [Frozen] WizardData wizardData,
+            [Frozen] WizardMetadata wizard,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
+            // Given
+            wizard.Id = wizardId;
+            wizardStep.Id = wizardStepId;
+            wizardStepDetails["Processor:ScriptId"] = processorScriptId;
+
+            var serverScriptResponse = new WizardServerScriptResponse(
+                false,
+                "failed_script_message"
+            );
+
+            var expected = "failed_script_message";
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
                 )
-            ).Returns(
-                wizard.ToOption()
+            ).ReturnsAsync(
+                serverScriptResponse
             );
 
             // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
+            var actual = await handler.Handle(
+                new RunWizardScriptProcessorCommand(
+                    wizardId,
+                    wizardStepId,
+                    processorScriptId,
+                    wizardData
+                ),
+                CancellationToken.None
             );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandReturnNull(
+            // Given
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            [Frozen] WizardStepDetails wizardStepDetails,
+            [Frozen] WizardStep wizardStep,
+            [Frozen] WizardData wizardData,
+            [Frozen] WizardMetadata wizard,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
+            wizard.Id = wizardId;
+            wizardStep.Id = wizardStepId;
+            wizardStepDetails["Processor:ScriptId"] = processorScriptId;
+
+            var expected = "wizard_failed_script_run";
+
+            // When
+            var actual = await handler.Handle(
+                new RunWizardScriptProcessorCommand(
+                    wizardId,
+                    wizardStepId,
+                    processorScriptId,
+                    wizardData
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandReturnIsNotWizardServerScriptResponse(
+            // Given
+            [Frozen] Mock<IMediator> mediatorMock,
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            [Frozen] WizardStepDetails wizardStepDetails,
+            [Frozen] WizardStep wizardStep,
+            [Frozen] WizardData wizardData,
+            [Frozen] WizardMetadata wizard,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
+            wizard.Id = wizardId;
+            wizardStep.Id = wizardStepId;
+            wizardStepDetails["Processor:ScriptId"] = processorScriptId;
+
+            var expected = "wizard_failed_script_run";
+
+            var serverScriptResponseMock = new Mock<ServerScriptResponse>();
+            serverScriptResponseMock.Setup(
+                mock => mock.Success
+            ).Returns(true);
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                serverScriptResponseMock.Object
+            );
+
+            // When
+            var actual = await handler.Handle(
+                new RunWizardScriptProcessorCommand(
+                    wizardId,
+                    wizardStepId,
+                    processorScriptId,
+                    wizardData
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnFailedScriptRunWhenScriptRunCommandThrowsException(
+            // Given
+            [Frozen] Mock<IMediator> mediatorMock,
+            string wizardId,
+            string wizardStepId,
+            string processorScriptId,
+            [Frozen] WizardStepDetails wizardStepDetails,
+            [Frozen] WizardStep wizardStep,
+            [Frozen] WizardData wizardData,
+            [Frozen] WizardMetadata wizard,
+            RunWizardScriptProcessorCommandHandler handler
+        )
+        {
+            wizard.Id = wizardId;
+            wizardStep.Id = wizardStepId;
+            wizardStepDetails["Processor:ScriptId"] = processorScriptId;
+
+            var expected = "wizard_failed_script_run";
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<RunServerScriptCommand>(),
+                    CancellationToken.None
+                )
+            ).Throws(
+                new Exception()
+            );
+
+            // When
             var actual = await handler.Handle(
                 new RunWizardScriptProcessorCommand(
                     wizardId,
@@ -258,223 +418,6 @@ using Microsoft.Extensions.Logging;
                 ).Returns(
                     wizard.ToOption()
                 );
-
-            // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
-            );
-            var actual = await handler.Handle(
-                new RunWizardScriptProcessorCommand(
-                    wizardId,
-                    wizardStepId,
-                    processorScriptId,
-                    wizardData
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Success
-                .Should().BeFalse();
-            actual.ErrorCode
-                .Should().Be(expected);
-        }
-
-        [Fact]
-        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandIsFailure()
-        {
-            // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-                StepList = new List<WizardStep>
-                {
-                    new WizardStep
-                    {
-                        Id = wizardStepId,
-                        Details = new WizardStepDetails
-                        {
-                            ["Processor:ScriptId"] = processorScriptId,
-                        }
-                    }
-                }
-            };
-            var serverScriptResponse = new WizardServerScriptResponse(
-                false,
-                "failed_script_message"
-            );
-
-            var expected = "failed_script_message";
-
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    It.IsAny<RunServerScriptCommand>(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                serverScriptResponse
-            );
-
-            wizardRepositoryMock.Setup(
-                mock => mock.Get(
-                    wizardId
-
-                )
-            ).Returns(
-                wizard.ToOption()
-            );
-
-            // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
-            );
-            var actual = await handler.Handle(
-                new RunWizardScriptProcessorCommand(
-                    wizardId,
-                    wizardStepId,
-                    processorScriptId,
-                    wizardData
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Success
-                .Should().BeFalse();
-            actual.ErrorCode
-                .Should().Be(expected);
-        }
-
-        [Fact]
-        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandReturnNull()
-        {
-            // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-                StepList = new List<WizardStep>
-                {
-                    new WizardStep
-                    {
-                        Id = wizardStepId,
-                        Details = new WizardStepDetails
-                        {
-                            ["Processor:ScriptId"] = processorScriptId,
-                        }
-                    }
-                }
-            };
-
-            var expected = "wizard_failed_script_run";
-
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
-
-            wizardRepositoryMock.Setup(
-                mock => mock.Get(
-                    wizardId
-
-                )
-            ).Returns(
-                wizard.ToOption()
-            );
-
-            // When
-            var handler = new RunWizardScriptProcessorCommandHandler(
-                new Mock<ILogger<RunWizardScriptProcessorCommandHandler>>().Object,
-                mediatorMock.Object,
-                wizardRepositoryMock.Object
-            );
-            var actual = await handler.Handle(
-                new RunWizardScriptProcessorCommand(
-                    wizardId,
-                    wizardStepId,
-                    processorScriptId,
-                    wizardData
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Success
-                .Should().BeFalse();
-            actual.ErrorCode
-                .Should().Be(expected);
-        }
-
-        [Fact]
-        public async Task ShouldReturnFailedScriptResponseWhenScriptRunCommandReturnIsNotWizardServerScriptResponse()
-        {
-            // Given
-            var wizardId = "wizard-id";
-            var wizardStepId = "wizard-step-id";
-            var processorScriptId = "processor-script-id";
-            var wizardData = new WizardData();
-
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-                StepList = new List<WizardStep>
-                {
-                    new WizardStep
-                    {
-                        Id = wizardStepId,
-                        Details = new WizardStepDetails
-                        {
-                            ["Processor:ScriptId"] = processorScriptId,
-                        }
-                    }
-                }
-            };
-
-            var expected = "wizard_failed_script_run";
-
-            var mediatorMock = new Mock<IMediator>();
-            var wizardRepositoryMock = new Mock<WizardRepository>();
-
-            var serverScriptResponseMock = new Mock<ServerScriptResponse>();
-            serverScriptResponseMock.Setup(
-                mock => mock.Success
-            ).Returns(true);
-            var serverScriptResponse = serverScriptResponseMock.Object;
-
-            wizardRepositoryMock.Setup(
-                mock => mock.Get(
-                    wizardId
-
-                )
-            ).Returns(
-                wizard.ToOption()
-            );
-
-            mediatorMock.Setup(
-               mock => mock.Send(
-                   It.Is<RunServerScriptCommand>(
-                       a => a.Id == processorScriptId
-                   ),
-                   CancellationToken.None
-               )
-           ).ReturnsAsync(
-               serverScriptResponse
-           );
-
 
             // When
             var handler = new RunWizardScriptProcessorCommandHandler(

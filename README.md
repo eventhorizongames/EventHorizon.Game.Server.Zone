@@ -2,11 +2,16 @@
 # .NET
 
 ~~~ bash
-# Pusblih SubProcesses
+# Run Code Coverage Testing
+dotnet test --configuration Release --filter "Category!=Performance & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true
+~~~
+
+~~~ bash
+# Publish SubProcesses
 dotnet publish --configuration Release ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess
 dotnet publish --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
 
-# Create Output Direcotry SubProcesses
+# Create Output Directory SubProcesses
 dotnet publish --output ./sub-processes/server-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Server.Scripts.SubProcess
 dotnet publish --output ./sub-processes/client-scripts/ --configuration Release ./src/EventHorizon.Game.Server.Zone.Client.Scripts.SubProcess
 ~~~
