@@ -87,7 +87,7 @@ namespace EventHorizon.Zone.System.Editor.Create
             {
                 _logger.LogError(
                     ex,
-                    "Failed to Create Editor Directory.",
+                    "Failed to Create Editor Directory. {FilePath} | {FolderName}",
                     request.FilePath,
                     request.FolderName
                 );

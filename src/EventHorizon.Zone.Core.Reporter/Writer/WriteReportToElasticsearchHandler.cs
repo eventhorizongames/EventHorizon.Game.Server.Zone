@@ -35,7 +35,7 @@
             if (!_client.IsConnected)
             {
                 _logger.LogWarning(
-                    "Skipping Write of Report to Elasticsearch. {ErrorCode}",
+                    "Skipping Write of Report to Elasticsearch. {ErrorCode} \n | Report: {@Report}",
                     "elasticsearch_is_not_connected",
                     request.Report
                 );

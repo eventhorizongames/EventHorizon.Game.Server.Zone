@@ -45,7 +45,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             if (!result.IsValid)
             {
                 _logger.LogWarning(
-                    "Kernel returned InValid Result \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId}",
+                    "Kernel returned InValid Result \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Request: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     request
@@ -79,7 +79,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             else
             {
                 _logger.LogWarning(
-                    "Post Tick Not Matching Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId}",
+                    "Post Tick Not Matching Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Report: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     request

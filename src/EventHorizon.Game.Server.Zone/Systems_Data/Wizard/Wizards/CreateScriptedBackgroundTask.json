@@ -41,7 +41,8 @@
             "Name": "Validation of Background Task Details",
             "Description": "Validation of the Folder/Name/Period will be done here, will check for existing file and that the text is Alphanumeric.",
             "Details": {
-                "Processor:ScriptId": "Wizard_Scripts_Validation_BackgroundTask_ValidateBackgroundTaskDetails"
+                "Processor:ScriptId": "Wizard_Scripts_Validation_BackgroundTask_ValidateBackgroundTaskDetails",
+                "Processor:AutoNext": "true"
             },
             "PreviousStep": "7DAB8E42-9A67-43A9-BF47-BCC7666F277E",
             "NextStep": "2F5489C4-5852-402C-BA17-7C0C178DF08D"
@@ -49,15 +50,29 @@
         {
             "Id": "2F5489C4-5852-402C-BA17-7C0C178DF08D",
             "Type": "ServerProcess",
-            "Name": "Create Background Task",
-            "Description": "Creation of the Background Task will happen now, after you should see your Task in the File Explorer.",
+            "Name": "Creating Background Task",
+            "Description": "Processing the creation of your new Background Task ...",
             "Details": {
                 "Processor:ScriptId": "Wizard_Scripts_Processor_BackgroundTask_CreateBackgroundTask",
                 "IdPrefix": "Server_Scripts",
                 "LocationProperty": "editFilePath",
+                "Delay": "1500",
+                "AutoNext": "true",
                 "DisablePrevious": "true"
             },
             "PreviousStep": "F236A0B4-435B-4527-B7D9-AF51B1EB16BB",
+            "NextStep": "E89347D6-AC29-457C-9390-3B5CE2879C7C"
+        },
+        {
+            "Id": "E89347D6-AC29-457C-9390-3B5CE2879C7C",
+            "Type": "TriggerReloadingStateEvent",
+            "Name": "Reloading Editor State",
+            "Description": "Trigging an Editor State Reload Event ...",
+            "Details": {
+                "AutoNext": "true",
+                "DisablePrevious": "true"
+            },
+            "PreviousStep": "2F5489C4-5852-402C-BA17-7C0C178DF08D",
             "NextStep": "AD84EFD8-8447-4572-AA1D-EA577BFFAD15"
         },
         {
@@ -70,7 +85,7 @@
                 "DisablePrevious": "true",
                 "LocationProperty": "editFilePath"
             },
-            "PreviousStep": "2F5489C4-5852-402C-BA17-7C0C178DF08D"
+            "PreviousStep": "E89347D6-AC29-457C-9390-3B5CE2879C7C"
         }
     ]
 }

@@ -1,12 +1,14 @@
 using System.Text;
 
+#pragma warning disable CA1050 // Declare types in namespaces
 public static class StringExtensions
+#pragma warning restore CA1050 // Declare types in namespaces
 {
     public static byte[] ToBytes(this string text)
     {
         if (string.IsNullOrEmpty(text))
         {
-            return new byte[0];
+            return System.Array.Empty<byte>();
         }
         return Encoding.UTF8.GetBytes(
             text

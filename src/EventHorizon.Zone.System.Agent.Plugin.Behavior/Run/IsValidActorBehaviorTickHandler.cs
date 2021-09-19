@@ -52,7 +52,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             if (actor == null || !actor.IsFound())
             {
                 _logger.LogWarning(
-                    "Actor was not Found \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId}",
+                    "Actor was not Found \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Request: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     request
@@ -94,7 +94,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             if (!shape.IsValid || shape.NodeList.Count == 0)
             {
                 _logger.LogWarning(
-                    "Invalid or Empty Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId}",
+                    "Invalid or Empty Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Request: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     request
@@ -115,7 +115,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             if (actorTreeState.IsValid && actorTreeState.ShapeId != shape.Id)
             {
                 _logger.LogWarning(
-                    "Pre Tick Not Matching Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | ActorBehaviorTreeShapeId: {ActorBehaviorTreeShapeId}",
+                    "Pre Tick Not Matching Behavior Tree Shape \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | ActorBehaviorTreeShapeId: {ActorBehaviorTreeShapeId} \n | Request: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     actorTreeState.ShapeId,

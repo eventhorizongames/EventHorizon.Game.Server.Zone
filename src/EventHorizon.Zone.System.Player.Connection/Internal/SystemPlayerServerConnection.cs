@@ -104,7 +104,7 @@ namespace EventHorizon.Zone.System.Player.Connection.Internal
                     ex,
                     "Send Action failed"
                 );
-                throw ex;
+                throw;
             }
         }
     }

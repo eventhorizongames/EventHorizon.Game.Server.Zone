@@ -67,7 +67,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             {
                 _logger.LogError(
                     ex,
-                    "General Exception Running Kernel Tick \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId}",
+                    "General Exception Running Kernel Tick \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Report: {@BehaviorRequest}",
                     request.ActorBehaviorTick.ShapeId,
                     request.ActorBehaviorTick.ActorId,
                     request
