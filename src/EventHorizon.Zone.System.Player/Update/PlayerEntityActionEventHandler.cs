@@ -27,14 +27,17 @@ namespace EventHorizon.Zone.System.Player.Update
             CancellationToken cancellationToken
         )
         {
-            if (!IsPlayerEntity(notification))
+            if (!IsPlayerEntity(
+                notification
+            ))
             {
                 return;
             }
             await _mediator.Publish(
                 new PlayerGlobalUpdateEvent(
-                    (PlayerEntity)notification.Entity
-                )
+                    notification.Entity.To<PlayerEntity>()
+                ),
+                cancellationToken
             );
         }
 

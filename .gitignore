@@ -253,6 +253,7 @@ appsettings.*.json
 data/*.json
 
 lcov*.info
+coverage.json
 
 NuGet.Config
 global.json

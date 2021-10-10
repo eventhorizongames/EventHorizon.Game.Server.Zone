@@ -1,13 +1,13 @@
 ﻿namespace EventHorizon.Zone.Core.Model.Command
 {
-    public class CommandResult<T>
+    public class CommandResult<TResult>
     {
         public bool Success { get; }
-        public T Result { get; }
+        public TResult Result { get; }
         public string ErrorCode { get; }
 
         public CommandResult(
-            T result
+            TResult result
         )
         {
             Success = true;
@@ -17,7 +17,7 @@
 
         public CommandResult(
             bool success,
-            T result
+            TResult result
         )
         {
             Success = success;
@@ -34,20 +34,20 @@
             ErrorCode = errorCode;
         }
 
-        public static implicit operator CommandResult<T>(
-            T result
+        public static implicit operator CommandResult<TResult>(
+            TResult result
         ) => new(
             result
         );
 
-        public static implicit operator CommandResult<T>(
+        public static implicit operator CommandResult<TResult>(
             string errorCode
         ) => new(
             errorCode
         );
 
         public static implicit operator bool(
-            CommandResult<T> result
+            CommandResult<TResult> result
         ) => result?.Success ?? false;
     }
 }

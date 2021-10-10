@@ -94,6 +94,17 @@ namespace EventHorizon.Game.Server.Zone.Admin.FileSystem
                 cancellationToken
             );
 
+            // Add File System Watcher for Player Path
+            await _mediator.Send(
+                new StartWatchingFileSystemCommand(
+                    Path.Combine(
+                        _serverInfo.AppDataPath,
+                        "Player"
+                    )
+                ),
+                cancellationToken
+            );
+
             await _mediator.Send(
                 new StartWatchingFileSystemCommand(
                     _serverInfo.CoreMapPath

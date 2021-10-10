@@ -1,8 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="App_Data\Player\Player.config.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="App_Data\Player\Player.config.json" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="8.1.0" />
@@ -10,6 +18,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Admin.Plugin.Command.Events\EventHorizon.Zone.System.Admin.Plugin.Command.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Player.ExternalHub\EventHorizon.Zone.System.Player.ExternalHub.csproj" />

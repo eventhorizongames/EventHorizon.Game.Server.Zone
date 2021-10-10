@@ -26,6 +26,7 @@ namespace EventHorizon.TimerService.Tests.TimerService
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void ShouldPublishEventWhenSetAmountOfTimePasses()
         {
             // Given

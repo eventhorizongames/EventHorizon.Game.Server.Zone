@@ -9,6 +9,7 @@ namespace EventHorizon.Zone.Core.Tests
     using EventHorizon.Monitoring.Events.Track;
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Zone.Core.Api;
     using EventHorizon.Zone.Core.DateTimeService;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Id;
@@ -87,6 +88,11 @@ namespace EventHorizon.Zone.Core.Tests
                 {
                     Assert.Equal(typeof(SystemProvidedAssemblyList), service.ServiceType);
                     Assert.Equal(typeof(StandardSystemProvidedAssemblyList), service.ImplementationInstance.GetType());
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(SerializeToJsonService), service.ServiceType);
+                    Assert.Equal(typeof(NewtonsoftSerializeToJsonService), service.ImplementationType);
                 },
                 service =>
                 {

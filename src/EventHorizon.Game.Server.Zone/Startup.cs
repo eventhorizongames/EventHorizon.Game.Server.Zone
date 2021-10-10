@@ -232,6 +232,7 @@
 
                 typeof(SystemPlayerExtensions).Assembly,
                 typeof(SystemPlayerPluginActionExtensions).Assembly,
+                typeof(SystemPlayerPluginEditorExtensions).Assembly,
 
                 typeof(SystemInteractionExtensions).Assembly,
 
@@ -369,6 +370,7 @@
 
                 .AddSystemPlayer()
                 .AddSystemPlayerPluginAction()
+                .AddSystemPlayerPluginEditor()
 
                 .AddSystemInteraction()
 
@@ -510,6 +512,7 @@
 
             app.UseSystemPlayer();
             app.UseSystemPlayerPluginAction();
+            app.UseSystemPlayerPluginEditor();
 
             app.UseSystemInteraction();
 

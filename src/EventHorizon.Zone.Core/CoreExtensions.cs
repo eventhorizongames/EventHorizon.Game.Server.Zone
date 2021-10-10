@@ -5,6 +5,7 @@ namespace EventHorizon.Game.Server.Zone
     using System.Threading.Tasks;
 
     using EventHorizon.Monitoring.Events.Track;
+    using EventHorizon.Zone.Core.Api;
     using EventHorizon.Zone.Core.DateTimeService;
     using EventHorizon.Zone.Core.Events.Lifetime;
     using EventHorizon.Zone.Core.Id;
@@ -46,6 +47,7 @@ namespace EventHorizon.Game.Server.Zone
                     systemProvidedAssemblyList
                 )
             )
+            .AddSingleton<SerializeToJsonService, NewtonsoftSerializeToJsonService>()
             .AddTransient<IJsonFileLoader, NewtonsoftJsonFileLoader>()
             .AddTransient<IJsonFileSaver, NewtonsoftJsonFileSaver>()
             // .AddTransient<IJsonFileLoader, TextJsonFileLoader>()

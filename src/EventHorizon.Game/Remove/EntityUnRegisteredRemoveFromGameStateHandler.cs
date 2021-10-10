@@ -8,7 +8,8 @@ namespace EventHorizon.Game.Remove
 
     using MediatR;
 
-    public class EntityUnRegisteredRemoveFromGameStateHandler : INotificationHandler<EntityUnRegisteredEvent>
+    public class EntityUnRegisteredRemoveFromGameStateHandler
+        : INotificationHandler<EntityUnRegisteredEvent>
     {
         private readonly IMediator _mediator;
 

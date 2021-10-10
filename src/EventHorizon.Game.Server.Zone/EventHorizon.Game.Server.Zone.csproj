@@ -92,6 +92,8 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage\EventHorizon.Zone.System.DataStorage.csproj" />
 
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Plugin.Editor\EventHorizon.Zone.System.Player.Plugin.Editor.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.csproj" />

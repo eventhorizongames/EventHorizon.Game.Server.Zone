@@ -1,0 +1,54 @@
+﻿{
+    "playerInput": {
+        "movementDelay": 50,
+        "stopMovementOnTick": false,
+        "keyInputList": [
+            {
+                "key": "w",
+                "type": "PlayerMove",
+                "@Comment.pressed": "MoveDirection.Forward",
+                "pressed": 4,
+                "@Comment.released": "MoveDirection.Stop",
+                "released": 0
+            },
+            {
+                "key": "a",
+                "type": "PlayerMove",
+                "@Comment.pressed": "MoveDirection.Left",
+                "pressed": 1,
+                "@Comment.released": "MoveDirection.Stop",
+                "released": 0
+            },
+            {
+                "key": "s",
+                "type": "PlayerMove",
+                "@Comment.pressed": "MoveDirection.Backwards",
+                "pressed": 3,
+                "@Comment.released": "MoveDirection.Stop",
+                "released": 0
+            },
+            {
+                "key": "d",
+                "type": "PlayerMove",
+                "@Comment.pressed": "MoveDirection.Right",
+                "pressed": 2,
+                "@Comment.released": "MoveDirection.Stop",
+                "released": 0
+            },
+            {
+                "key": "1",
+                "type": "SetActiveCamera",
+                "camera": "player_universal_camera"
+            },
+            {
+                "key": "2",
+                "type": "SetActiveCamera",
+                "camera": "player_follow_camera"
+            },
+            {
+                "key": "f",
+                "type": "RunInteraction"
+            }
+        ]
+    }
+}
