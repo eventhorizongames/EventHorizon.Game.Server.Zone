@@ -27,13 +27,12 @@ namespace EventHorizon.Zone.System.Player.PopulateData
             CancellationToken cancellationToken
         )
         {
-            var entity = notification.Entity;
-            if (entity is not PlayerEntity playerEntity)
+            if (notification.Entity is not PlayerEntity player)
             {
                 return Task.CompletedTask;
             }
 
-            playerEntity.SetProperty(
+            player.SetProperty(
                 "playerConfiguration",
                 _cache.PlayerConfiguration
             );

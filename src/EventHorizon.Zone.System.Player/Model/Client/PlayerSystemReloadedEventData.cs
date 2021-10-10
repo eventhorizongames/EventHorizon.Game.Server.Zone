@@ -3,7 +3,7 @@
     using EventHorizon.Zone.Core.Model.Client;
     using EventHorizon.Zone.Core.Model.Entity;
 
-    public class PlayerSystemReloadedEventData
+    public struct PlayerSystemReloadedEventData
         : IClientActionData
     {
         public ObjectEntityConfiguration PlayerConfiguration { get; }
