@@ -12,15 +12,12 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
             string path,
             string fileName,
             string scriptString
-        )
-        {
-            return new ClientScript(
-                scriptType,
-                path,
-                fileName,
-                scriptString
-            );
-        }
+        ) => new(
+            scriptType,
+            path,
+            fileName,
+            scriptString
+        );
 
         public string Name { get; }
         public ClientScriptType ScriptType { get; }
@@ -47,7 +44,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Model
             );
         }
 
-        private string GenerateName(
+        private static string GenerateName(
             string path,
             string fileName
         )

@@ -29,7 +29,7 @@ namespace EventHorizon.Zone.Core.Entity.Update
         {
             if (notification.Action.Equals(
                 EntityAction.PROPERTY_CHANGED
-            ))
+            ) && notification.Entity is not null)
             {
                 // Send Action to All Clients that Property Changed on Entity
                 await _mediator.Publish(
@@ -37,7 +37,8 @@ namespace EventHorizon.Zone.Core.Entity.Update
                         new EntityChangedData(
                             notification.Entity
                         )
-                    )
+                    ),
+                    cancellationToken
                 );
             }
         }

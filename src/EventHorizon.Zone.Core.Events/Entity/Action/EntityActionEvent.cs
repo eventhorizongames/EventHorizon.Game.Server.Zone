@@ -4,14 +4,15 @@ namespace EventHorizon.Zone.Core.Events.Entity.Action
 
     using MediatR;
 
-    public struct EntityActionEvent : INotification
+    public struct EntityActionEvent
+        : INotification
     {
-        public EntityAction Action { get; set; }
-        public IObjectEntity Entity { get; set; }
+        public EntityAction Action { get; }
+        public IObjectEntity? Entity { get; }
 
         public EntityActionEvent(
             EntityAction action,
-            IObjectEntity entity
+            IObjectEntity? entity
         )
         {
             Action = action;

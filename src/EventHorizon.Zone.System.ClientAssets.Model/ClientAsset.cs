@@ -41,10 +41,10 @@
             if (Data.TryGetValue(
                 MetadataFileFullName,
                 out var fileFullNameData
-            ))
+            ) && fileFullNameData is string fileFullNameDataAsString)
             {
                 // Save at fileFullName
-                fileFullName = fileFullNameData.ToString();
+                fileFullName = fileFullNameDataAsString;
                 return true;
             }
             return false;

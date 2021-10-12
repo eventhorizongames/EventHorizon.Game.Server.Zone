@@ -1,6 +1,5 @@
 ﻿namespace EventHorizon.Zone.Core.Map.Lifetime
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
@@ -80,7 +79,7 @@
                     stateFile
                 );
                 await _fileSaver.SaveToFile(
-                    Path.GetDirectoryName(stateFile),
+                    Path.GetDirectoryName(stateFile) ?? string.Empty,
                     Path.GetFileName(stateFile),
                     DefaultMapSettings.DEFAULT_MAP
                 );

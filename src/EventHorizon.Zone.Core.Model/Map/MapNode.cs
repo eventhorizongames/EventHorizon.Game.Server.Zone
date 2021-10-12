@@ -5,7 +5,8 @@ namespace EventHorizon.Zone.Core.Model.Map
 
     using EventHorizon.Zone.Core.Model.Structure;
 
-    public struct MapNode : IOctreeEntity
+    public struct MapNode
+        : IOctreeEntity
     {
         public int Index { get; set; }
         public Vector3 Position { get; set; }
@@ -29,12 +30,18 @@ namespace EventHorizon.Zone.Core.Model.Map
             Info = new Dictionary<string, object>();
         }
 
+        public bool IsFound()
+        {
+            return Info != null;
+        }
+
+        #region Generated object Overrides
         /// <summary>
         /// Required to override to work with Octree usage.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
             {
@@ -54,9 +61,15 @@ namespace EventHorizon.Zone.Core.Model.Map
             return Index.GetHashCode();
         }
 
-        public bool IsFound()
+        public static bool operator ==(MapNode left, MapNode right)
         {
-            return Info != null;
+            return left.Equals(right);
         }
+
+        public static bool operator !=(MapNode left, MapNode right)
+        {
+            return !(left == right);
+        }
+        #endregion
     }
 }

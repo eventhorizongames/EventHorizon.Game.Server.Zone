@@ -228,15 +228,15 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
 
             // Then
             Assert.Equal(
-                expectedEntity, actualEntity
+                expectedEntity,
+                actualEntity
             );
             mediatorMock.Verify(
                 mock => mock.Publish(
-                    new EntityActionEvent
-                    {
-                        Action = expectedEntityAction,
-                        Entity = expectedEntity
-                    },
+                    new EntityActionEvent(
+                        expectedEntityAction,
+                        expectedEntity
+                    ),
                     CancellationToken.None
                 )
             );
@@ -333,11 +333,10 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish(
-                    new EntityActionEvent
-                    {
-                        Action = expectedEntityAction,
-                        Entity = expectedEntity
-                    },
+                    new EntityActionEvent(
+                        expectedEntityAction,
+                        expectedEntity
+                    ),
                     CancellationToken.None
                 )
             );

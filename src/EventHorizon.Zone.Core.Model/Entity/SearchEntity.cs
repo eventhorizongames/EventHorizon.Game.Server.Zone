@@ -5,7 +5,8 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
 
     using EventHorizon.Zone.Core.Model.Structure;
 
-    public struct SearchEntity : IOctreeEntity
+    public struct SearchEntity
+        : IOctreeEntity
     {
         public Vector3 Position { get; }
         public long EntityId { get; }
@@ -22,12 +23,13 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
             TagList = tagList ?? new List<string>();
         }
 
+        #region Generated object Overrides
         /// <summary>
         /// Required to override to work with Octree usage.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
             {
@@ -45,5 +47,16 @@ namespace EventHorizon.Game.Server.Zone.Entity.Model
         {
             return EntityId.GetHashCode();
         }
+
+        public static bool operator ==(SearchEntity left, SearchEntity right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(SearchEntity left, SearchEntity right)
+        {
+            return !(left == right);
+        }
+        #endregion
     }
 }

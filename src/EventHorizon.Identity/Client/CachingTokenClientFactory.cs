@@ -55,7 +55,7 @@ namespace EventHorizon.Identity.Client
             return client;
         }
 
-        private string CreateClientKey(
+        private static string CreateClientKey(
             string url,
             string clientId,
             string clientSecret

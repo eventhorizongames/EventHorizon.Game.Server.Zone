@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Model
 {
     using global::System.Collections.Generic;
+    using global::System.Diagnostics.CodeAnalysis;
 
     public class WizardData
         : Dictionary<string, string>
@@ -19,7 +20,7 @@
 
         public bool TryGetData(
             string key,
-            out string value
+            [NotNullWhen(true)] out string? value
         )
         {
             if (TryGetValue(

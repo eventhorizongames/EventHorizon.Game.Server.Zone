@@ -5,6 +5,7 @@ namespace EventHorizon.Zone.System.Player.Update
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Events.Update;
 
+    using global::System.Diagnostics.CodeAnalysis;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -28,11 +29,12 @@ namespace EventHorizon.Zone.System.Player.Update
         )
         {
             if (!IsPlayerEntity(
-                notification
+                notification.Entity
             ))
             {
                 return;
             }
+
             await _mediator.Publish(
                 new PlayerGlobalUpdateEvent(
                     notification.Entity.To<PlayerEntity>()
@@ -42,8 +44,9 @@ namespace EventHorizon.Zone.System.Player.Update
         }
 
         private static bool IsPlayerEntity(
-            EntityActionEvent notification
-        ) => notification.Entity.Type == EntityType.PLAYER
-            && notification.Entity is PlayerEntity;
+            [NotNullWhen(true)] IObjectEntity? entity
+        ) => entity is not null
+            && entity.Type == EntityType.PLAYER
+            && entity is PlayerEntity;
     }
 }

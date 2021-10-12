@@ -18,7 +18,8 @@ namespace EventHorizon.Zone.Core.Model.Map
             Cost = 0;
         }
 
-        public override bool Equals(object obj)
+        #region Generated object Overrides
+        public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
             {
@@ -39,5 +40,16 @@ namespace EventHorizon.Zone.Core.Model.Map
             hash = hash * 31 + ToIndex.GetHashCode();
             return hash;
         }
+
+        public static bool operator ==(MapEdge left, MapEdge right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(MapEdge left, MapEdge right)
+        {
+            return !(left == right);
+        }
+        #endregion
     }
 }

@@ -23,7 +23,6 @@
         public async Task ShouldAppendCreatedNodeToPassedInNotification_old()
         {
             // Given
-            var expected = "Player";
             var appDataPath = "app_data-path";
             var playerPath = Path.Combine(
                 appDataPath,

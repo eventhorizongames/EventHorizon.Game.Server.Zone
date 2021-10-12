@@ -67,11 +67,10 @@ namespace EventHorizon.Zone.Core.Entity.State
                 entity
             );
             _mediator.Publish(
-                new EntityActionEvent
-                {
-                    Action = EntityAction.ADD,
-                    Entity = entity
-                }
+                new EntityActionEvent(
+                    EntityAction.ADD,
+                    entity
+                )
             );
             return entity.FromResult();
         }
@@ -87,11 +86,10 @@ namespace EventHorizon.Zone.Core.Entity.State
                 (_, _) => entity
             );
             _mediator.Publish(
-                new EntityActionEvent
-                {
-                    Action = action,
-                    Entity = entity
-                }
+                new EntityActionEvent(
+                    action,
+                    entity
+                )
             );
             return Task.CompletedTask;
         }
@@ -105,11 +103,10 @@ namespace EventHorizon.Zone.Core.Entity.State
                 out var entity
             );
             _mediator.Publish(
-                new EntityActionEvent
-                {
-                    Action = EntityAction.REMOVE,
-                    Entity = entity
-                }
+                new EntityActionEvent(
+                    EntityAction.REMOVE,
+                    entity
+                )
             );
             return Task.CompletedTask;
         }

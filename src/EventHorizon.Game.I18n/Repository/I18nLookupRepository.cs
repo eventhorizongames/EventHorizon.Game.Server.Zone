@@ -19,7 +19,7 @@ namespace EventHorizon.Game.I18n.Lookup
         )
         {
             if (_i18nLookup.TryGetValue(
-                locale, 
+                locale,
                 out var repository
             ))
             {
@@ -35,7 +35,7 @@ namespace EventHorizon.Game.I18n.Lookup
         {
             if (_i18nLookup.TryGetValue(
                 locale,
-                out IDictionary<string, string> localeTranslationDictionary
+                out var localeTranslationDictionary
             ))
             {
                 if (key == null)
@@ -44,7 +44,7 @@ namespace EventHorizon.Game.I18n.Lookup
                 }
                 if (localeTranslationDictionary.TryGetValue(
                     key,
-                    out string translation
+                    out var translation
                 ))
                 {
                     return translation;

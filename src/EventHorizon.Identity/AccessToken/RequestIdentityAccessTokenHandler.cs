@@ -12,10 +12,11 @@ namespace EventHorizon.Identity.AccessToken
 
     using Microsoft.Extensions.Configuration;
 
-    public class RequestIdentityAccessTokenHandler : IRequestHandler<RequestIdentityAccessTokenEvent, string>
+    public class RequestIdentityAccessTokenHandler
+        : IRequestHandler<RequestIdentityAccessTokenEvent, string>
     {
-        readonly IConfiguration _configuration;
-        readonly ITokenClientFactory _tokenClientFactory;
+        private readonly IConfiguration _configuration;
+        private readonly ITokenClientFactory _tokenClientFactory;
 
         public RequestIdentityAccessTokenHandler(
             IConfiguration configuration,
@@ -42,7 +43,8 @@ namespace EventHorizon.Identity.AccessToken
                 clientSecret
             );
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync(
-                apiScope
+                apiScope,
+                cancellationToken: cancellationToken
             );
 
             if (tokenResponse.IsError)

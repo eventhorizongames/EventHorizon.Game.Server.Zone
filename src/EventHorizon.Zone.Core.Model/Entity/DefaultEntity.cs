@@ -68,12 +68,12 @@ namespace EventHorizon.Zone.Core.Model.Entity
             return !Equals(NULL);
         }
 
-        #region Equals/GetHashCode Generated
-        public override bool Equals(object obj)
+        #region Generated object Overrides
+        public override bool Equals(object? obj)
         {
             if (obj == null
                 || GetType() != obj.GetType()
-                || !(obj is IObjectEntity)
+                || obj is not IObjectEntity
             )
             {
                 return false;
@@ -84,6 +84,16 @@ namespace EventHorizon.Zone.Core.Model.Entity
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public static bool operator ==(DefaultEntity left, DefaultEntity right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(DefaultEntity left, DefaultEntity right)
+        {
+            return !(left == right);
         }
         #endregion
     }

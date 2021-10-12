@@ -39,7 +39,7 @@
             var filePath = _serverInfo.AppDataPath.MakePathRelative(
                 Path.GetDirectoryName(
                     request.FileFullName
-                )
+                ) ?? string.Empty
             ).Split(
                 Path.DirectorySeparatorChar
             );
@@ -56,7 +56,8 @@
                     filePath,
                     fileName,
                     fileContent
-                )
+                ),
+                cancellationToken
             );
         }
     }

@@ -46,9 +46,8 @@ namespace EventHorizon.TimerService
             _timer?.Dispose();
         }
 
-
         public void OnRunTask(
-            object state
+            object? state
         )
         {
             OnRunTaskAsync(
@@ -57,11 +56,14 @@ namespace EventHorizon.TimerService
         }
 
         private async Task OnRunTaskAsync(
-            object state
+            object? state
         )
         {
-            var timerState = (TimerState)state;
-            if (timerState.IsRunning)
+            if (state is not TimerState timerState)
+            {
+                return;
+            }
+            else if (timerState.IsRunning)
             {
                 // Log that MoveRegister timer is still running
                 LogMessage(

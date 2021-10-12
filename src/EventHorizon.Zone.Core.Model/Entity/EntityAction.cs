@@ -13,13 +13,14 @@ namespace EventHorizon.Zone.Core.Model.Entity
             Type = type;
         }
 
+        #region Generated object Overrides
         /// <summary>
         /// Validate that an Entity Action matches.
         /// Can also pass in String representation of Type.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || GetType() != obj.GetType())
             {
@@ -38,5 +39,6 @@ namespace EventHorizon.Zone.Core.Model.Entity
         {
             return Type.GetHashCode();
         }
+        #endregion
     }
 }

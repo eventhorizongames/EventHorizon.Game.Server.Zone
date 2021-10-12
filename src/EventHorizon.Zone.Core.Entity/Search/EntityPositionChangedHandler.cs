@@ -29,7 +29,7 @@ namespace EventHorizon.Zone.Core.Entity.Search
         {
             if (notification.Action.Equals(
                 EntityAction.POSITION
-            ))
+            ) && notification.Entity is not null)
             {
                 // Update the Entity Search Tree
                 SendSearchEntityUpdate(

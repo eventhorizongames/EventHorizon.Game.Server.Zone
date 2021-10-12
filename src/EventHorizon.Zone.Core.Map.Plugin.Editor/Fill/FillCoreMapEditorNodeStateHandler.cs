@@ -12,7 +12,8 @@ namespace EventHorizon.Zone.Core.Map.Plugin.Editor.Fill
 
     using MediatR;
 
-    public class FillCoreMapEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public class FillCoreMapEditorNodeStateHandler
+        : INotificationHandler<FillEditorNodeState>
     {
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
@@ -54,7 +55,7 @@ namespace EventHorizon.Zone.Core.Map.Plugin.Editor.Fill
                     Array.Empty<string>(),
                     Path.GetDirectoryName(
                         _serverInfo.CoreMapPath
-                    ),
+                    ) ?? string.Empty,
                     _serverInfo.CoreMapPath
                 )
             )).AddProperty(

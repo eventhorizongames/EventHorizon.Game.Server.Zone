@@ -44,11 +44,10 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
             );
 
             await entityPositionChangedHandler.Handle(
-                new EntityActionEvent
-                {
-                    Action = inputEntityAction,
-                    Entity = inputEntity
-                },
+                new EntityActionEvent(
+                    inputEntityAction,
+                    inputEntity
+                ),
                 CancellationToken.None
             );
 
@@ -78,11 +77,10 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Search
             );
 
             await entityPositionChangedHandler.Handle(
-                new EntityActionEvent
-                {
-                    Action = inputEntityAction,
-                    Entity = null
-                },
+                new EntityActionEvent(
+                    inputEntityAction,
+                    null
+                ),
                 CancellationToken.None
             );
 

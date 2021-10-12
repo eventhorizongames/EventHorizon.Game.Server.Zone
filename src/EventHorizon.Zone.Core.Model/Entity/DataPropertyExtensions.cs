@@ -22,7 +22,7 @@ namespace EventHorizon.Zone.Core.Model.Entity
         {
             if (entity.Data.TryGetValue(
                 prop,
-                out object value
+                out var value
             ))
             {
                 return (TProperty)value;

@@ -14,7 +14,6 @@
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
-    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
     using Moq;
@@ -26,9 +25,7 @@
     {
         ThreadedBackgroundTaskWrapper _taskWrapper;
 
-#pragma warning disable CA1816 // Dispose methods should call SuppressFinalize
         public void Dispose()
-#pragma warning restore CA1816 // Dispose methods should call SuppressFinalize
         {
             _taskWrapper?.Stop();
         }
