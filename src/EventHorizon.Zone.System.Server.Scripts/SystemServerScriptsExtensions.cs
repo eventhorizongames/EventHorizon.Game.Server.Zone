@@ -36,6 +36,8 @@ namespace EventHorizon.Game.Server.Zone
                 ).AddSingleton<ServerScriptsState, StandardServerScriptsState>()
                 .AddSingleton<ServerScriptRepository, ServerScriptInMemoryRepository>()
                 .AddSingleton<ServerScriptDetailsRepository, ServerScriptDetailsInMemoryRepository>()
+                .AddSingleton<ServerScriptMediator, SystemServerScriptMediator>()
+
                 .AddTransient<ServerScriptServices, SystemServerScriptServices>()
 
                 .AddSingleton<GenericObserverState>()

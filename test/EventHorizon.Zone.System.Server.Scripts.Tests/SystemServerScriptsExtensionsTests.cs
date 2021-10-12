@@ -81,6 +81,11 @@ namespace EventHorizon.Zone.System.Server.Scripts.Tests
                 },
                 service =>
                 {
+                    Assert.Equal(typeof(ServerScriptMediator), service.ServiceType);
+                    Assert.Equal(typeof(SystemServerScriptMediator), service.ImplementationType);
+                },
+                service =>
+                {
                     Assert.Equal(typeof(ServerScriptServices), service.ServiceType);
                     Assert.Equal(typeof(SystemServerScriptServices), service.ImplementationType);
                 },

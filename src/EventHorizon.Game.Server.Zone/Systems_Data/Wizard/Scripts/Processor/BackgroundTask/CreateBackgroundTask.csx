@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using MediatR;
 
 public class __SCRIPT__
     : ServerScript
@@ -89,12 +88,12 @@ public class __SCRIPT__
         // Set Location Property
         var scriptId = string.Join(
             "_",
-            idPrefix, 
+            idPrefix,
             "Tasks",
             folder,
             fileToCreate
         );
-        var scriptEditFilePath = $"/edit/file/{scriptId.Base64Encode()}"; 
+        var scriptEditFilePath = $"/edit/file/{scriptId.Base64Encode()}";
         var responseData = new Dictionary<string, string>();
 
         responseData[locationProperty] = scriptEditFilePath;
@@ -107,7 +106,7 @@ public class __SCRIPT__
     }
 
     private async Task<string> CreateFile(
-        IMediator mediator,
+        ServerScriptMediator mediator,
         string folder,
         string name,
         string contentFile,

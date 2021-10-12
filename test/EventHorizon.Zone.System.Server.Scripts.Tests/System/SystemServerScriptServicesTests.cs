@@ -6,11 +6,10 @@
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.RandomNumber;
     using EventHorizon.Zone.System.DataStorage.Model;
+    using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.System;
 
     using FluentAssertions;
-
-    using MediatR;
 
     using Microsoft.Extensions.Logging;
 
@@ -26,7 +25,7 @@
         {
             // Given
             var serverInfoMock = new Mock<ServerInfo>();
-            var mediatorMock = new Mock<IMediator>();
+            var mediatorMock = new Mock<ServerScriptMediator>();
             var randomMock = new Mock<IRandomNumberGenerator>();
             var dateTimeMock = new Mock<IDateTimeService>();
             var i18nMock = new Mock<I18nLookup>();

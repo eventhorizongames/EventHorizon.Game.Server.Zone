@@ -8,8 +8,6 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
     using EventHorizon.Zone.System.DataStorage.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model;
 
-    using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class SystemServerScriptServices
@@ -18,7 +16,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
         private readonly ILoggerFactory _loggerFactory;
 
         public ServerInfo ServerInfo { get; }
-        public IMediator Mediator { get; }
+        public ServerScriptMediator Mediator { get; }
         public IRandomNumberGenerator Random { get; }
         public IDateTimeService DateTime { get; }
         public I18nLookup I18n { get; }
@@ -27,7 +25,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.System
 
         public SystemServerScriptServices(
             ServerInfo serverInfo,
-            IMediator mediator,
+            ServerScriptMediator mediator,
             IRandomNumberGenerator random,
             IDateTimeService dateTime,
             I18nLookup i18n,

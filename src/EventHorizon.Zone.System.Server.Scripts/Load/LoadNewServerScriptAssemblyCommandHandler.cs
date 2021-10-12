@@ -81,15 +81,10 @@
                 );
 
                 var newScriptList = new List<(string id, ServerScriptDetails scriptDetails, ServerScript serverScript)>();
-                foreach (var item in scriptTypeList)
+                foreach (var scriptFullName in scriptTypeList)
                 {
-                    if (item.FullName.IsNull())
-                    {
-                        continue;
-                    }
-
                     var scriptInstance = assembly.CreateInstance(
-                        item.FullName
+                        scriptFullName
                     );
                     if (scriptInstance is ServerScript serverScript)
                     {
@@ -212,13 +207,14 @@
             }
         }
 
-        private static IEnumerable<Type> GetScriptTypesList(
+        private static IEnumerable<string> GetScriptTypesList(
             Assembly assembly
         ) => assembly
             .GetTypes()
             .Where(
                 a => (a.FullName?.StartsWith("css_root+") ?? false)
                     && a.IsAssignableTo(typeof(ServerScript))
-            );
+            ).Select(a => a.FullName ?? string.Empty)
+            .Where(a => !string.IsNullOrWhiteSpace(a));
     }
 }

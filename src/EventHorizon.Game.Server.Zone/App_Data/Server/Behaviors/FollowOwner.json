@@ -54,7 +54,7 @@
                                 "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner"
                             },
                             {
-                                "comments": "This will will return a differed state of Actor movement.",
+                                "comments": "This will return a differed state of Actor movement.",
                                 "type": "ACTION",
                                 "fire": "Behavior_Action_MoveToLocation"
                             }
@@ -76,7 +76,7 @@
                                 "fire": "Behavior_Owner_FindNewMoveLocationAroundOwner"
                             },
                             {
-                                "comments": "This will will return a differed state of Actor movement.",
+                                "comments": "This will return a differed state of Actor movement.",
                                 "type": "ACTION",
                                 "fire": "Behavior_Action_MoveToLocation"
                             }

@@ -7,14 +7,12 @@ namespace EventHorizon.Zone.System.Server.Scripts.Model
     using EventHorizon.Zone.Core.Model.RandomNumber;
     using EventHorizon.Zone.System.DataStorage.Model;
 
-    using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public interface ServerScriptServices
     {
         ServerInfo ServerInfo { get; }
-        IMediator Mediator { get; }
+        ServerScriptMediator Mediator { get; }
         IRandomNumberGenerator Random { get; }
         IDateTimeService DateTime { get; }
         I18nLookup I18n { get; }

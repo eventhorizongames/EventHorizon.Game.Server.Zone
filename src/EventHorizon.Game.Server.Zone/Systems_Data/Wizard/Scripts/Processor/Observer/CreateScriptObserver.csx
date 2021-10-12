@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using MediatR;
 
 public class __SCRIPT__
     : ServerScript
@@ -65,7 +64,7 @@ public class __SCRIPT__
                 absoluteDirectory,
                 fileToCreate
             );
-            if(await services.Mediator.Send(
+            if (await services.Mediator.Send(
                 new DoesFileExist(
                     fileToCreateFullName
                 )
@@ -94,7 +93,7 @@ public class __SCRIPT__
     }
 
     private async Task<string> CreateFile(
-        IMediator mediator,
+        ServerScriptMediator mediator,
         string folder,
         string name,
         string contentFile
