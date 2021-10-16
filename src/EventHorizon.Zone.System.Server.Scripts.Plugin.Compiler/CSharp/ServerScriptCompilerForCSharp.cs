@@ -154,7 +154,7 @@
             var result = new List<GeneratedServerScriptErrorDetailsModel>();
             // Parse Error Message
             var errorMessageList = errorMessage.Split(
-                "\r\n",
+                Environment.NewLine,
                 StringSplitOptions.RemoveEmptyEntries
             );
 

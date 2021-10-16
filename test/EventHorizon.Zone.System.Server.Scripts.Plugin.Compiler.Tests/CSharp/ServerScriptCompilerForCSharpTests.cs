@@ -320,7 +320,7 @@
             // Given
             var fileSystemTempPath = "file-system-temp-path";
             var consolidatedScripts = string.Join(
-                "\r\n",
+                Environment.NewLine,
                 new List<string>
                 {
                     "// === FILE_START ===",
@@ -345,7 +345,12 @@
                     "// === FILE_END ===",
                 }
             );
-            var errorMessage = "(4,47): error CS0103: The name 'listOfPlayer' does not exist in the current context\r\n(15, 56): error CS0103: The name 'arg' does not exist in the current context\r\n";
+            var errorMessage = string.Join(
+                Environment.NewLine,
+                "(4,47): error CS0103: The name 'listOfPlayer' does not exist in the current context",
+                "(15, 56): error CS0103: The name 'arg' does not exist in the current context",
+                string.Empty
+            );
 
             var expected = new List<GeneratedServerScriptErrorDetailsModel>
             {
