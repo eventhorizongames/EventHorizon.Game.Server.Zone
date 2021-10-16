@@ -2,6 +2,7 @@
 {
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+    using EventHorizon.Zone.System.Server.Scripts.Actions;
     using EventHorizon.Zone.System.Server.Scripts.Events.Reload;
 
     using global::System.Threading;
@@ -56,6 +57,11 @@
                         "server_scripts_system_reloaded"
                     )
                 ),
+                cancellationToken
+            );
+
+            await _mediator.Publish(
+                ServerScriptsSystemReloadedAdminClientActionToAllEvent.Create(),
                 cancellationToken
             );
         }

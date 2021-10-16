@@ -4,6 +4,7 @@
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
+    using EventHorizon.Zone.System.Server.Scripts.Actions;
     using EventHorizon.Zone.System.Server.Scripts.Api;
     using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
@@ -51,6 +52,7 @@
             CancellationToken cancellationToken
         )
         {
+            var compileWasDone = false;
             try
             {
                 if (!string.IsNullOrEmpty(
@@ -75,6 +77,12 @@
                         return new();
                     }
                 }
+
+                compileWasDone = true;
+                await _mediator.Publish(
+                    ServerScriptsSystemCompilingScriptsClientActionToAllEvent.Create(),
+                    cancellationToken
+                );
 
                 // Run Server Scripts Compile SubProcess
                 var processFullName = Path.Combine(
@@ -120,16 +128,29 @@
                         GeneratedServerScriptsResultModel.SCRIPTS_RESULT_FILE_NAME
                     )
                 );
-                if (compiledResult == null 
+                if (compiledResult == null
                     || !compiledResult.Success
                 )
                 {
+                    var errorCode = compiledResult?.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE;
                     _logger.LogError(
                         "Failed to Compile Server Scripts: {ErrorCode}",
-                        compiledResult?.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
+                        errorCode
                     );
+
+                    _state.SetErrorCode(
+                        errorCode
+                    );
+
+                    if (compiledResult?.ScriptErrorDetailsList != null)
+                    {
+                        _state.SetErrorState(
+                            compiledResult.ScriptErrorDetailsList
+                        );
+                    }
+
                     return new(
-                        compiledResult?.ErrorCode ?? ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
+                        errorCode
                     );
                 }
 
@@ -159,6 +180,16 @@
                 return new(
                     ServerScriptsErrorCodes.SERVER_SCRIPTS_FAILED_TO_COMPILE
                 );
+            }
+            finally
+            {
+                if (compileWasDone)
+                {
+                    await _mediator.Publish(
+                        ServerScriptsSystemFinishedScriptsCompileClientActionToAllEvent.Create(),
+                        cancellationToken
+                    );
+                }
             }
         }
     }

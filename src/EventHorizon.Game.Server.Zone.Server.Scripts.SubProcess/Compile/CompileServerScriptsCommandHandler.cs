@@ -119,6 +119,7 @@
                 Success = result.Success,
                 ErrorCode = result.ErrorCode,
                 Hash = result.Hash,
+                ScriptErrorDetailsList = result.ScriptErrorDetailsList,
             };
 
             await _jsonFileSaver.SaveToFile(

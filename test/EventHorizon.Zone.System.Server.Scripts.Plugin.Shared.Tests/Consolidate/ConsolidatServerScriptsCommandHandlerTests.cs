@@ -21,24 +21,40 @@
         {
             // Given
             var expectedScriptClasses = string.Join(
-                string.Empty,
+                NL,
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
                 "script-content-001",
-                NL,
-                NL,
+                string.Empty,
+                "// === FILE_END ===",
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
                 "script-content-002",
-                NL,
-                NL,
-                "script-content-003"
+                string.Empty,
+                "// === FILE_END ===",
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
+                "script-content-003",
+                string.Empty,
+                "// === FILE_END ==="
             );
             var expectedConsolidatedScripts = string.Join(
-                string.Empty,
+                NL,
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
                 "script-content-001",
-                NL,
-                NL,
+                string.Empty,
+                "// === FILE_END ===",
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
                 "script-content-002",
-                NL,
-                NL,
-                "script-content-003"
+                string.Empty,
+                "// === FILE_END ===",
+                "// === FILE_START ===",
+                "// Script Id: path_file-name",
+                "script-content-003",
+                string.Empty,
+                "// === FILE_END ==="
             );
 
             var scripts = new List<ServerScriptDetails>
@@ -90,7 +106,14 @@
             var scriptPath = "ScriptPath";
             var scriptName = "ScriptName";
             var scriptString = $"{scriptNameIdentifier}";
-            var expected = $"{scriptPath}_{scriptName}";
+            var expected = string.Join(
+                NL,
+                "// === FILE_START ===",
+                $"// Script Id: {scriptPath}_ScriptName",
+                $"{scriptPath}_ScriptName",
+                string.Empty,
+                "// === FILE_END ==="
+            );
 
             var scripts = new List<ServerScriptDetails>
             {
@@ -124,7 +147,14 @@
             var scriptPath = "ScriptPath";
             var scriptName = "ScriptName.csx";
             var scriptString = $"{scriptNameIdentifier}";
-            var expected = $"{scriptPath}_ScriptName";
+            var expected = string.Join(
+                NL,
+                "// === FILE_START ===",
+                $"// Script Id: {scriptPath}_ScriptName.csx",
+                $"{scriptPath}_ScriptName",
+                string.Empty,
+                "// === FILE_END ==="
+            );
 
             var scripts = new List<ServerScriptDetails>
             {

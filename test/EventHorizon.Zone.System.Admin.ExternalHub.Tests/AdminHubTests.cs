@@ -1,7 +1,13 @@
 namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
 {
+
     using EventHorizon.Game.Server.Zone.Info.Query;
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    using EventHorizon.Zone.System.Server.Scripts.Model.Query;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
+
+    using FluentAssertions;
 
     using global::System.Collections.Generic;
     using global::System.Security.Claims;
@@ -131,6 +137,46 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
             Assert.Equal(
                 expected,
                 actual
+            );
+        }
+
+        [Fact]
+        public async Task TestShouldReturnServerScriptsErrorDetailsWhenServerScripts_ErrorDetailsCalled()
+        {
+            // Given
+            var expected = new CommandResult<ServerScriptsErrorDetailsResponse>(
+                true,
+                new ServerScriptsErrorDetailsResponse(
+                    false,
+                    string.Empty,
+                    new List<GeneratedServerScriptErrorDetailsModel>()
+                )
+            );
+
+            var mediatorMock = new Mock<IMediator>();
+            var hubCallerContextMock = new Mock<HubCallerContext>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new QueryForServerScriptsErrorDetails(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                expected
+            );
+
+            // When
+            var adminHub = new AdminHub(
+                mediatorMock.Object
+            )
+            {
+                Context = hubCallerContextMock.Object
+            };
+            var actual = await adminHub.ServerScripts_ErrorDetails();
+
+            // Then
+            actual.Should().Be(
+                expected
             );
         }
     }

@@ -139,7 +139,8 @@
             var fileSystemTempPath = "file-system-temp-path";
             var expected = new CompiledScriptResult(
                 false,
-                "csharp_failed_to_compile_server_scripts"
+                "csharp_failed_to_compile_server_scripts",
+                new List<GeneratedServerScriptErrorDetailsModel>()
             );
 
             var loggerMock = new Mock<ILogger<ServerScriptCompilerForCSharp>>();
@@ -174,11 +175,13 @@
                 CancellationToken.None
             );
 
-
             // Then
-            actual.Should().Be(
-                expected
+            actual.Success.Should().BeFalse();
+            actual.Hash.Should().BeEmpty();
+            actual.ErrorCode.Should().BeSameAs(
+                expected.ErrorCode
             );
+            actual.ScriptErrorDetailsList.Should().BeEmpty();
         }
 
         [Fact]
@@ -307,6 +310,111 @@
 
             // Then
             actual.ErrorCode.Should().Be(
+                expected
+            );
+        }
+
+        [Fact]
+        public async Task ShouldReturnErrorDetailsWhenValidErrorCodeIsReturned()
+        {
+            // Given
+            var fileSystemTempPath = "file-system-temp-path";
+            var consolidatedScripts = string.Join(
+                "\r\n",
+                new List<string>
+                {
+                    "// === FILE_START ===",
+                    "// Script Id: First_File.csx",
+                    "First file content",
+                    "First file with error",
+                    "// === FILE_END ===",
+                    "",
+
+                    "// === FILE_START ===",
+                    "// Script Id: Second_File.csx",
+                    "Second file with content",
+                    "Second file with error",
+                    "// === FILE_END ===",
+                    "",
+
+                    "// === FILE_START ===",
+                    "// Script Id: Third_File.csx",
+                    "Third file content",
+                    "Third file with error",
+                    "Third file another",
+                    "// === FILE_END ===",
+                }
+            );
+            var errorMessage = "(4,47): error CS0103: The name 'listOfPlayer' does not exist in the current context\r\n(15, 56): error CS0103: The name 'arg' does not exist in the current context\r\n";
+
+            var expected = new List<GeneratedServerScriptErrorDetailsModel>
+            {
+                new GeneratedServerScriptErrorDetailsModel
+                {
+                    Column = 47,
+                    ErrorLineContent = "First file with error",
+                    Message = "CS0103: The name 'listOfPlayer' does not exist in the current context",
+                    ScriptId = "First_File.csx",
+                },
+                new GeneratedServerScriptErrorDetailsModel
+                {
+                    Column = 56,
+                    ErrorLineContent = "Third file content",
+                    Message = "CS0103: The name 'arg' does not exist in the current context",
+                    ScriptId = "Third_File.csx",
+                },
+            };
+
+            var loggerMock = new Mock<ILogger<ServerScriptCompilerForCSharp>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var assemblyBuilderMock = new Mock<AssemblyBuilder>();
+
+            serverInfoMock.Setup(
+                mock => mock.FileSystemTempPath
+            ).Returns(
+                fileSystemTempPath
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<ConsolidateServerScriptsCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<ConsolidateServerScriptsResult>(
+                    new ConsolidateServerScriptsResult(
+                        null,
+                        null,
+                        consolidatedScripts
+                    )
+                )
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<QueryForScriptAssemblyList>(),
+                    CancellationToken.None
+                )
+            ).ThrowsAsync(
+                new Exception(errorMessage)
+            );
+
+            // When
+            var compiler = new ServerScriptCompilerForCSharp(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                assemblyBuilderMock.Object
+            );
+            var actual = await compiler.Compile(
+                new List<ServerScriptDetails>(),
+                CancellationToken.None
+            );
+
+
+            // Then
+            actual.ScriptErrorDetailsList.Should().BeEquivalentTo(
                 expected
             );
         }

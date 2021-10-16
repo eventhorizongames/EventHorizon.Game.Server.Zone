@@ -52,10 +52,16 @@
                 }
 
                 stringBuilder.AppendLine(
+                    "// === FILE_START ==="
+                ).AppendLine(
+                    $"// Script Id: {script.Id}"
+                ).AppendLine(
                     scriptContent.Replace(
                         "__SCRIPT__",
                         id.Replace(".csx", string.Empty)
                     )
+                ).AppendLine(
+                    "// === FILE_END ==="
                 );
             }
 

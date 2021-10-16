@@ -8,10 +8,12 @@
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Model;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Consolidate;
     using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
 
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -57,8 +59,9 @@
                 if (!consolidationResult.Success)
                 {
                     return new(
-                        false,
-                        consolidationResult.ErrorCode
+                        success: false,
+                        consolidationResult.ErrorCode,
+                        scriptErrorDetailsList: new List<GeneratedServerScriptErrorDetailsModel>()
                     );
                 }
                 consolidatedScripts = consolidationResult.Result.ConsolidatedScripts;
@@ -134,9 +137,65 @@
 
                 return new(
                     false,
-                    "csharp_failed_to_compile_server_scripts"
+                    "csharp_failed_to_compile_server_scripts",
+                    GenerateErrorDetails(
+                        consolidatedScripts,
+                        ex.Message
+                    )
                 );
             }
+        }
+
+        private static List<GeneratedServerScriptErrorDetailsModel> GenerateErrorDetails(
+            string consolidatedScripts,
+            string errorMessage
+        )
+        {
+            var result = new List<GeneratedServerScriptErrorDetailsModel>();
+            // Parse Error Message
+            var errorMessageList = errorMessage.Split(
+                "\r\n",
+                StringSplitOptions.RemoveEmptyEntries
+            );
+
+            foreach (var message in errorMessageList)
+            {
+                var lineAndColumn = message.Split(":")
+                    .FirstOrDefault()
+                    ?.Replace("(", string.Empty)
+                    .Replace(")", string.Empty)
+                    .Split(",").ToList() ?? new List<string>();
+                if (lineAndColumn.Count != 2)
+                {
+                    continue;
+                }
+
+                var line = int.Parse(lineAndColumn[0]);
+                var column = int.Parse(lineAndColumn[1]);
+                var (ScriptId, ErrorLineContent) = GetScriptIdAndLineContent(
+                    consolidatedScripts,
+                    line
+                );
+                var errorMessageDetails = new GeneratedServerScriptErrorDetailsModel
+                {
+                    ScriptId = ScriptId,
+                    Message = message.Replace(
+                        $"({line},{column}): error",
+                        string.Empty
+                    ).Replace(
+                        $"({line}, {column}): error",
+                        string.Empty
+                    ).Trim(),
+                    ErrorLineContent = ErrorLineContent,
+                    Column = column,
+                };
+
+                result.Add(
+                    errorMessageDetails
+                );
+            }
+
+            return result;
         }
 
         private Task WriteAllTextToFile(
@@ -150,5 +209,71 @@
             ),
             cancellationToken
         );
+
+        public static (string ScriptId, string LineContent) GetScriptIdAndLineContent(
+            string consolidatedScripts,
+            int line
+        )
+        {
+            var lines = consolidatedScripts.Split(
+                Environment.NewLine
+            );
+            var lineContent = lines.Skip(line - 1).FirstOrDefault() ?? string.Empty;
+
+            var fileLines = new List<string>
+            {
+                lineContent,
+            };
+
+            while (!FindTopFileSection(
+                lines,
+                fileLines,
+                line - 1
+            ))
+            {
+            }
+            var scriptIdLine = fileLines
+                .FirstOrDefault() ?? string.Empty;
+
+            var scriptId = scriptIdLine.Replace(
+                "// Script Id: ",
+                string.Empty
+            );
+
+            return (
+                scriptId,
+                lineContent
+            );
+        }
+
+        public static bool FindTopFileSection(
+            string[] lines,
+            List<string> fileContent,
+            int lineToCheck
+        )
+        {
+            if (lineToCheck < 0)
+            {
+                // Line to Check is out of bounds"
+                return true;
+            }
+
+            var line = lines.Skip(lineToCheck - 1).FirstOrDefault() ?? string.Empty;
+            if (line.StartsWith("// === FILE_START ==="))
+            {
+                return true;
+            }
+
+            fileContent.Insert(
+                0,
+                line
+            );
+
+            return FindTopFileSection(
+                lines,
+                fileContent,
+                lineToCheck - 1
+            );
+        }
     }
 }

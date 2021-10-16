@@ -10,11 +10,13 @@
     using EventHorizon.Zone.System.Server.Scripts.Load;
     using EventHorizon.Zone.System.Server.Scripts.Model;
     using EventHorizon.Zone.System.Server.Scripts.Model.Generated;
+    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
     using EventHorizon.Zone.System.Server.Scripts.Validation;
 
     using FluentAssertions;
 
     using global::System;
+    using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -691,6 +693,122 @@
                 .Should().Be(expected);
         }
 
+        [Fact]
+        public async Task ShouldReturnErrorDetailsWhenGeneratedServerScriptResultIsNotSuccessful()
+        {
+            // Given
+            var errorCode = "error-code";
+
+            var notNullOrEmptyHash = "not-null-or-empty";
+            var generatedPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "App_Data",
+                "Generated"
+            );
+            var compilerSubProcessDirectory = "compiler-sub-process-directory";
+            var compilerSubProcess = "compiler-sub-process";
+            var processFullName = Path.Combine(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var subProcessErrorCode = 0;
+            var generatedScriptResultFullName = Path.Combine(
+                generatedPath,
+                GeneratedServerScriptsResultModel.SCRIPTS_RESULT_FILE_NAME
+            );
+            var scriptErrorDetailsList = new List<GeneratedServerScriptErrorDetailsModel>();
+            var compiledResult = new GeneratedServerScriptsResultModel
+            {
+                Success = false,
+                ErrorCode = errorCode,
+                ScriptErrorDetailsList = scriptErrorDetailsList,
+            };
+
+            var expected = scriptErrorDetailsList;
+
+            var loggerMock = new Mock<ILogger<CompileServerScriptsFromSubProcessCommandHandler>>();
+            var mediatorMock = new Mock<IMediator>();
+            var serverInfoMock = new Mock<ServerInfo>();
+            var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
+            var scriptSettings = new ServerScriptsSettings(
+                compilerSubProcessDirectory,
+                compilerSubProcess
+            );
+            var stateMock = new Mock<ServerScriptsState>();
+
+            var subProcessHandleMock = new Mock<SubProcessHandle>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new NeedToCompileServerScripts(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<bool>(true)
+            );
+
+            serverInfoMock.Setup(
+                mock => mock.GeneratedPath
+            ).Returns(
+                generatedPath
+            );
+
+            stateMock.Setup(
+                mock => mock.CurrentHash
+            ).Returns(
+                notNullOrEmptyHash
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    new StartSubProcessCommand(
+                        processFullName
+                    ),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<SubProcessHandle>(
+                    subProcessHandleMock.Object
+                )
+            );
+            subProcessHandleMock.Setup(
+                mock => mock.ExitCode
+            ).Returns(
+                subProcessErrorCode
+            );
+
+            jsonFileLoaderMock.Setup(
+                mock => mock.GetFile<GeneratedServerScriptsResultModel>(
+                    generatedScriptResultFullName
+                )
+            ).ReturnsAsync(
+                compiledResult
+            );
+
+
+            // When
+            var handler = new CompileServerScriptsFromSubProcessCommandHandler(
+                loggerMock.Object,
+                mediatorMock.Object,
+                serverInfoMock.Object,
+                jsonFileLoaderMock.Object,
+                scriptSettings,
+                stateMock.Object
+            );
+            var actual = await handler.Handle(
+                new CompileServerScriptsFromSubProcessCommand(
+
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            stateMock.Verify(
+                mock => mock.SetErrorState(
+                    expected
+                )
+            );
+        }
 
         [Fact]
         public async Task ShouldReturnErrorCodeWhenExceptionIsThrown()
