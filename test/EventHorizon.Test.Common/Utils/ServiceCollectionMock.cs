@@ -12,7 +12,21 @@ namespace EventHorizon.Test.Common.Utils
     {
         public Dictionary<int, ServiceDescriptor> Services = new();
 
-        public ServiceDescriptor this[int index] { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public ServiceDescriptor this[int index]
+        {
+            get
+            {
+                if (Services.TryGetValue(index, out var service))
+                {
+                    return service;
+                }
+                return null;
+            }
+            set
+            {
+                Services[index] = value;
+            }
+        }
 
         public int Count => Services.Count;
 

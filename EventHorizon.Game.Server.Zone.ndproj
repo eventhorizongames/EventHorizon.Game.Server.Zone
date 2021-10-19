@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.1.0.9500">
+<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.2.0.9569">
   <OutputDir KeepXmlFiles="False">.\NDependOut</OutputDir>
   <IDEFiles>
     <IDEFile FilePath=".\EventHorizon.Game.Server.Zone.sln" Filters="-test" Configuration="DEBUG|AnyCPU">
@@ -89,11 +89,12 @@
     <Name>System.Security.Cryptography.Primitives</Name>
     <Name>System.Memory</Name>
     <Name>System.ObjectModel</Name>
+    <Name>System.Console</Name>
   </FrameworkAssemblies>
   <Dirs>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.9</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.9</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.9</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.10</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.10</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.10</Dir>
     <Dir>C:\Program Files\dotnet\sdk\NuGetFallbackFolder</Dir>
     <Dir>C:\Users\Cody\.nuget\packages</Dir>
   </Dirs>
@@ -104,60 +105,59 @@
   <BaselineInUISetting ProjectMode="CurrentProject" BuildMode="NDaysAgoAnalysisResult" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="30" />
   <CoverageFiles CoverageDir=".\test" UncoverableAttribute="">
     <CoverageFile>.\test\EventHorizon.Extensions.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-    <CoverageFile>.\test\EventHorizon.Extensions.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Game.I18n.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Game.Server.Zone.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Game.Server.Zone.Tests.Reporter\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Game.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Identity.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Monitoring.ApplicationInsights.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Monitoring.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Performance.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Server.Core.Connection.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Server.Core.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Test.Common\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.TimerService.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Client.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Entity.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Map.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Reporter.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.ServerAction.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.Core.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Admin.ExternalHub.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Plugin.Command.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Move.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Backup.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.ClientAssets.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.ClientEntities.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Combat.Plugin.Skill.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.DataStorage.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.EntityModule.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Gui.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Interaction.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Particle.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Player.Connection.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Player.ExternalHub.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Player.Plugin.Action.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Player.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.ServerModule.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Watcher.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Wizard.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
-   <CoverageFile>.\test\EventHorizon.Zone.System.Wizard.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Game.I18n.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Game.Server.Zone.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Game.Server.Zone.Tests.Reporter\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Game.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Identity.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Monitoring.ApplicationInsights.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Monitoring.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Performance.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Server.Core.Connection.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Server.Core.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Test.Common\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.TimerService.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Client.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Entity.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Map.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Map.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Reporter.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.ServerAction.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.Core.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Admin.ExternalHub.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Plugin.Command.Model.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Plugin.Command.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Admin.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Move.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Backup.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.ClientAssets.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.ClientEntities.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Combat.Plugin.Skill.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.DataStorage.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.EntityModule.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Gui.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Interaction.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Particle.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Player.Connection.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Player.ExternalHub.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Player.Plugin.Action.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Player.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.ServerModule.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Watcher.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Wizard.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Wizard.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
   </CoverageFiles>
   <TrendMetrics UseCustomLog="False" LogRecurrence="3" LogLabel="2" UseCustomDir="False" CustomDir="">
     <Chart Name="Size" ShowInReport="True">

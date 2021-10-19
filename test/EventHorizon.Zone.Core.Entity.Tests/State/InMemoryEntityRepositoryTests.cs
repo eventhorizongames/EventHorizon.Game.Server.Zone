@@ -281,7 +281,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
                 entityId
             );
             currentEntity.Should().Be(existingEntity)
-                .And.Should().NotBe(newEntity);
+                .And.NotBeSameAs(newEntity);
             await entityRepository.Update(
                 EntityAction.PROPERTY_CHANGED,
                 existingEntity
@@ -293,8 +293,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.State
 
             // Then
             actual.Should().Be(newEntity)
-                .And
-                .Should().NotBe(existingEntity);
+                .And.NotBeSameAs(existingEntity);
         }
 
         [Fact]

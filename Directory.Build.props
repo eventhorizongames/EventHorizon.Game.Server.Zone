@@ -2,5 +2,7 @@
     <PropertyGroup>
         <LangVersion>9.0</LangVersion>
         <Nullable>enable</Nullable>
+        <!-- Uncomment this to work through Warnings -->
+        <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
     </PropertyGroup>
 </Project>

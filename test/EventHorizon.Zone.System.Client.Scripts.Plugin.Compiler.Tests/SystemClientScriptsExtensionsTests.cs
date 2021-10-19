@@ -11,7 +11,6 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
 
     using FluentAssertions;
 
-    using global::System;
     using global::System.Collections.Generic;
 
     using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +28,6 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
 
     public class SystemClientScriptsPluginComplierExtensionsTests
     {
-        [Fact]
         public void ShouldRegisterExpectedServices()
         {
             // Given

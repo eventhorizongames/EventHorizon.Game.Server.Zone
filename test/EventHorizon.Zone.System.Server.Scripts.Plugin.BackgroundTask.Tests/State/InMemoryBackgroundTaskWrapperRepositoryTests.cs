@@ -58,8 +58,7 @@
 
             // Then
             actual.Should().Be(wrapper)
-                .And
-                .Should().NotBe(otherWrapper);
+                .And.NotBe(otherWrapper);
         }
 
         [Theory, AutoMoqData]
@@ -91,8 +90,7 @@
 
             // Then
             actual.Should().Be(otherWrapper)
-                .And
-                .Should().NotBe(wrapper);
+                .And.NotBe(wrapper);
         }
 
         [Theory, AutoMoqData]

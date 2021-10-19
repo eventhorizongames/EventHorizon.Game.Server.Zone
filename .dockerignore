@@ -6,3 +6,4 @@
 _scripts/
 sub-processes/
 global.json
+src/EventHorizon.Game.Server.Zone/App_Data/
