@@ -6,6 +6,7 @@
     using EventHorizon.Zone.System.Editor.Model;
     using EventHorizon.Zone.System.Player.Plugin.Editor.Fill;
 
+    using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
@@ -32,6 +33,8 @@
             var nodeState = new FillEditorNodeState(
                 editorStateMock.Object
             );
+            var rootDirectoryFullName = appDataPath;
+            var directorToLoadFullName = playerPath;
 
             var mediatorMock = new Mock<IMediator>();
             var serverInfoMock = new Mock<ServerInfo>();
@@ -39,7 +42,11 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    It.IsAny<QueryForEditorNodeFromPath>(),
+                    new QueryForEditorNodeFromPath(
+                        Array.Empty<string>(),
+                        rootDirectoryFullName,
+                        directorToLoadFullName
+                    ),
                     CancellationToken.None
                 )
             ).ReturnsAsync(

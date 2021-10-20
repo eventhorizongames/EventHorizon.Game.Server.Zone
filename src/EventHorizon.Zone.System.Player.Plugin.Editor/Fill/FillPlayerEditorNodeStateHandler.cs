@@ -33,6 +33,10 @@ namespace EventHorizon.Zone.System.Player.Plugin.Editor.Fill
         )
         {
             var node = await CreateNode(
+                Path.Combine(
+                    _serverInfo.AppDataPath,
+                    "Player"
+                ),
                 cancellationToken
             );
 
@@ -50,15 +54,15 @@ namespace EventHorizon.Zone.System.Player.Plugin.Editor.Fill
         }
 
         private async Task<IEditorNode> CreateNode(
+            string playerFullPath,
             CancellationToken cancellationToken
         ) => (await _mediator.Send(
             new QueryForEditorNodeFromPath(
                 Array.Empty<string>(),
-                "Player",
-                Path.Combine(
-                    _serverInfo.AppDataPath,
-                    "Player"
-                )
+                Path.GetDirectoryName(
+                    playerFullPath
+                ) ?? string.Empty,
+                playerFullPath
             ),
             cancellationToken
         )).AddProperty(
