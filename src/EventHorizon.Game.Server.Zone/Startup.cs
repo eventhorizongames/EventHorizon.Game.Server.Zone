@@ -10,6 +10,7 @@
     using EventHorizon.Game.Server.Zone.Core;
     using EventHorizon.Game.Server.Zone.Core.JsonConverter;
     using EventHorizon.Game.Server.Zone.HealthChecks;
+    using EventHorizon.Game.Server.Zone.Platform;
     using EventHorizon.Game.Server.Zone.Player;
     using EventHorizon.Game.Server.Zone.Setup;
     using EventHorizon.Identity;
@@ -17,6 +18,7 @@
     using EventHorizon.Performance;
     using EventHorizon.Server.Core;
     using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Admin.ExternalHub;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor;
     using EventHorizon.Zone.System.Editor.ExternalHub;
@@ -417,6 +419,11 @@
             app.UseEndpoints(
                 routes =>
                 {
+                    routes.MapPlatformDetails(
+                        options => options.SetVersion(
+                            Configuration[ServerPropertyKeys.APPLICATION_VERSION]
+                        )
+                    );
                     routes.MapMetrics("/metrics");
 
                     routes.MapHub<AdminHub>("/admin");
