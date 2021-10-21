@@ -63,6 +63,7 @@
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+        <ProjectReference Include="..\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj" />
         <ProjectReference Include="..\EventHorizon.TimerService\EventHorizon.TimerService.csproj" />
         <ProjectReference Include="..\EventHorizon.Performance\EventHorizon.Performance.csproj" />
         <ProjectReference Include="..\EventHorizon.Identity\EventHorizon.Identity.csproj" />

@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Server.Zone.Platform.Model
+﻿namespace EventHorizon.Platform.Model
 {
     public record PlatformDetailsModel
     {

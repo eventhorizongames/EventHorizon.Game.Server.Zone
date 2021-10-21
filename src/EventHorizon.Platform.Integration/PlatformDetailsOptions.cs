@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Server.Zone.Platform
+﻿namespace EventHorizon.Platform
 {
     public class PlatformDetailsOptions
     {

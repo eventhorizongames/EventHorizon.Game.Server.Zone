@@ -1,8 +1,8 @@
-﻿namespace EventHorizon.Game.Server.Zone.Platform
+﻿namespace EventHorizon.Platform
 {
     using System;
 
-    using EventHorizon.Game.Server.Zone.Platform.Model;
+    using EventHorizon.Platform.Model;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
