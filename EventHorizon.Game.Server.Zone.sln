@@ -263,7 +263,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.dockerignore = .dockerignore
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		azure-pipelines.new.yml = azure-pipelines.new.yml
 		azure-pipelines.yml = azure-pipelines.yml
 		Directory.Build.props = Directory.Build.props
 		Dockerfile = Dockerfile
@@ -361,7 +360,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Pl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Player.Plugin.Editor.Tests", "test\EventHorizon.Zone.System.Player.Plugin.Editor.Tests\EventHorizon.Zone.System.Player.Plugin.Editor.Tests.csproj", "{803D897A-FC52-4D85-A768-7328D0578AEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHorizon.Platform.Integration", "src\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj", "{4EF04A1C-C9BE-4B63-AF7D-A7B9E5FF3629}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Platform.Integration", "src\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj", "{4EF04A1C-C9BE-4B63-AF7D-A7B9E5FF3629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

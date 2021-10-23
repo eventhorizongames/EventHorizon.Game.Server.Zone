@@ -77,7 +77,8 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
                 {
                     _logger.LogError(
                         ex,
-                        "Error connecting to Agent hub"
+                        "Error connecting to Agent hub: {AgentConnectionUrl}",
+                        url
                     );
                     _connection = null;
                     throw;
