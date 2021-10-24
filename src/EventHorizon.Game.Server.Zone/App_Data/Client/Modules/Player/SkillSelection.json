@@ -1,0 +1,6 @@
+{
+    "name": "SKILL_SELECTION_MODULE_NAME",
+    "initializeScript": "Module_SkillSelection_SkillSelectionModuleInitialize.js",
+    "disposeScript": "Module_SkillSelection_SkillSelectionModuleDispose.js",
+    "updateScript": "Module_SkillSelection_SkillSelectionModuleUpdate.js"
+}

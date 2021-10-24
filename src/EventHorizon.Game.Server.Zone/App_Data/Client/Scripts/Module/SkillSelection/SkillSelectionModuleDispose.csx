@@ -1,4 +1,5 @@
 /*
+ * id: SkillSelection_SkillSelectionModuleDispose
 data:
     active: bool
     observer: ObserverBase
@@ -6,12 +7,6 @@ data:
 */
 
 using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using EventHorizon.Game.Client.Engine.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Scripting.Data;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Observer.Model;
-using Microsoft.Extensions.Logging;
 
 public class __SCRIPT__
     : IClientScript
@@ -24,21 +19,21 @@ public class __SCRIPT__
     )
     {
         var logger = services.Logger<__SCRIPT__>();
-        logger.LogDebug("SkillSelection - Dispose Script");
+        logger.LogDebug("SkillSelection Module - Dispose Script");
 
         var layoutId = "GUI_Module_SkillSelection.json";
         var guiId = layoutId;
-
-        UnRegisterObserver(
-            services,
-            data,
-            "observer"
-        );
 
         await services.Mediator.Send(
             new DisposeOfGuiCommand(
                 guiId
             )
+        );
+
+        UnRegisterObserver(
+            services,
+            data,
+            "observer"
         );
     }
 
