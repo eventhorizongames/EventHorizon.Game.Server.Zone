@@ -4,8 +4,16 @@ namespace EventHorizon.Zone.Core.Events.Entity.Register
 
     using MediatR;
 
-    public struct RegisterEntityEvent : IRequest<IObjectEntity>
+    public struct RegisterEntityEvent
+        : IRequest<IObjectEntity>
     {
         public IObjectEntity Entity { get; set; }
+
+        public RegisterEntityEvent(
+            IObjectEntity entity
+        )
+        {
+            Entity = entity;
+        }
     }
 }

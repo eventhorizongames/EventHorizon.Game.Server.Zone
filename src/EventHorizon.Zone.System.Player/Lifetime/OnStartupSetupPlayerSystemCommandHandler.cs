@@ -69,6 +69,13 @@
                 cancellationToken
             );
 
+            await WriteResourceFile(
+                "App_Data.Player",
+                PlayerSystemConstants.PlayerDataFileName,
+                playerPath,
+                cancellationToken
+            );
+
             return new OnServerStartupResult(
                 true
             );

@@ -3,8 +3,9 @@
     using EventHorizon.Zone.Core.Model.Entity;
 
 
-    public interface PlayerConfigurationCache
+    public interface PlayerSettingsCache
     {
         ObjectEntityConfiguration PlayerConfiguration { get; }
+        ObjectEntityData PlayerData { get; }
     }
 }

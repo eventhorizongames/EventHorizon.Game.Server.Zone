@@ -2,8 +2,5 @@
     "name": "HEALTH_MODULE_NAME_FROM_SERVER",
     "initializeScript": "Module_HealthModule_Initialize.js",
     "disposeScript": "Module_HealthModule_Dispose.js",
-    "updateScript": "Module_HealthModule_Update.js",
-    "initializeScriptName": "Module_HealthModule_Initialize.js",
-    "disposeScriptName": "Module_HealthModule_Dispose.js",
-    "updateScriptName": "Module_HealthModule_Update.js"
+    "updateScript": "Module_HealthModule_Update.js"
 }

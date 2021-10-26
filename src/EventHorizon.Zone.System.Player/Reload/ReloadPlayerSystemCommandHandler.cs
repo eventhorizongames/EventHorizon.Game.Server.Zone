@@ -15,11 +15,11 @@
         : IRequestHandler<ReloadPlayerSystemCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
-        private readonly PlayerConfigurationCache _cache;
+        private readonly PlayerSettingsCache _cache;
 
         public ReloadPlayerSystemCommandHandler(
             IMediator mediator,
-            PlayerConfigurationCache cache
+            PlayerSettingsCache cache
         )
         {
             _mediator = mediator;

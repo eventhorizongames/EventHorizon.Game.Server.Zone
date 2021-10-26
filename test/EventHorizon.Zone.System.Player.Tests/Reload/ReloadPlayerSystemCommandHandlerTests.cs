@@ -26,7 +26,7 @@
         public async Task ShouldTriggerLoadSystemPlayerCommandWhenReloadIsHandled(
             // Given
             bool wasUpdated,
-            string reasonCode,
+            string[] reasonCode,
             [Frozen] Mock<IMediator> mediatorMock,
             ReloadPlayerSystemCommandHandler handler
         )
@@ -66,7 +66,7 @@
         [Theory, AutoMoqData]
         public async Task ShouldPublishPlayerConfigurationWhenLoadSystemPlayerWasUpdated(
             // Given
-            string reasonCode,
+            string[] reasonCode,
             [Frozen] Mock<ObjectEntityConfiguration> playerConfigurationMock,
             [Frozen] Mock<IMediator> mediatorMock,
             ReloadPlayerSystemCommandHandler handler

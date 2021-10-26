@@ -4,9 +4,10 @@
 
     using global::System.Collections.Generic;
 
-    public class ObjectEntityConfigurationTestModel
+    public class ObjectEntityDataTestModel
         : Dictionary<string, object>,
-        ObjectEntityConfiguration
+        ObjectEntityData
     {
+        public IEnumerable<string> ForceSet { get; set; } = new List<string>();
     }
 }

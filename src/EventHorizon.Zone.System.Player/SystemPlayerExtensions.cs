@@ -12,9 +12,9 @@ namespace EventHorizon.Game.Server.Zone
         public static IServiceCollection AddSystemPlayer(
             this IServiceCollection services
         ) => services
-            .AddSingleton<PlayerConfigurationState, InMemoryPlayerConfigurationState>()
-            .AddSingleton<PlayerConfigurationCache>(
-                services => services.GetRequiredService<PlayerConfigurationState>()
+            .AddSingleton<PlayerSettingsState, InMemoryPlayerSettingsState>()
+            .AddSingleton<PlayerSettingsCache>(
+                services => services.GetRequiredService<PlayerSettingsState>()
             )
         ;
 

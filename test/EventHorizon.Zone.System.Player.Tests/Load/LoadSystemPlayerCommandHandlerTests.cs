@@ -53,18 +53,101 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldReturnWasUpdatedResultWhenPlayerConfigurationStateSetReturnsUpdatedSetCall(
+        public async Task ShouldReturnDataNotFoundWhenFileLoaderReturnNullForData(
             // Given
             LoadSystemPlayerCommand request,
-            [Frozen] Mock<PlayerConfigurationState> state,
+            [Frozen] Mock<IJsonFileLoader> fileLoader,
             LoadSystemPlayerCommandHandler handler
         )
         {
-            var expected = "player_configuration_changed";
+            var expected = "player_data_not_found";
 
-            state.Setup(
-                mock => mock.Set(
+            fileLoader.Setup(
+                mock => mock.GetFile<PlayerObjectEntityDataModel>(
+                    It.IsAny<string>()
+                )
+            ).ReturnsAsync(
+                (PlayerObjectEntityDataModel)null
+            );
+
+            // When
+            var actual = await handler.Handle(
+                request,
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeFalse();
+            actual.ErrorCode
+                .Should().Be(
+                    expected
+                );
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnWasUpdatedResultWhenPlayerConfigurationStateSetReturnsUpdatedSetCall(
+            // Given
+            LoadSystemPlayerCommand request,
+            [Frozen] Mock<PlayerSettingsState> stateMock,
+            LoadSystemPlayerCommandHandler handler
+        )
+        {
+            var expected = new string[] { "player_configuration_changed" };
+
+            stateMock.Setup(
+                mock => mock.SetConfiguration(
                     It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                (true, null)
+            );
+            stateMock.Setup(
+                mock => mock.SetData(
+                    It.IsAny<PlayerObjectEntityDataModel>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                (false, null)
+            );
+
+            // When
+            var actual = await handler.Handle(
+                request,
+                CancellationToken.None
+            );
+
+            // Then
+            actual.Success
+                .Should().BeTrue();
+            actual.WasUpdated
+                .Should().BeTrue();
+            actual.ReasonCode
+                .Should().BeEquivalentTo(expected);
+        }
+
+        [Theory, AutoMoqData]
+        public async Task ShouldReturnWasUpdatedResultWhenPlayerDataStateSetReturnsUpdatedSetCall(
+            // Given
+            LoadSystemPlayerCommand request,
+            [Frozen] Mock<PlayerSettingsState> stateMock,
+            LoadSystemPlayerCommandHandler handler
+        )
+        {
+            var expected = new string[] { "player_data_changed" };
+
+            stateMock.Setup(
+                mock => mock.SetConfiguration(
+                    It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                (false, null)
+            );
+            stateMock.Setup(
+                mock => mock.SetData(
+                    It.IsAny<PlayerObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -83,20 +166,28 @@
             actual.WasUpdated
                 .Should().BeTrue();
             actual.ReasonCode
-                .Should().Be(expected);
+                .Should().BeEquivalentTo(expected);
         }
 
         [Theory, AutoMoqData]
         public async Task ShouldReturnWasNotUpdatedResultWhenPlayerConfigurationStateSetReturnsNotUpdatedSetCall(
             // Given
             LoadSystemPlayerCommand request,
-            [Frozen] Mock<PlayerConfigurationState> stateMock,
+            [Frozen] Mock<PlayerSettingsState> stateMock,
             LoadSystemPlayerCommandHandler handler
         )
         {
             stateMock.Setup(
-                mock => mock.Set(
+                mock => mock.SetConfiguration(
                     It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                (false, null)
+            );
+            stateMock.Setup(
+                mock => mock.SetData(
+                    It.IsAny<PlayerObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(

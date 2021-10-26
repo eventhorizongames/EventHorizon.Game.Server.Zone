@@ -4,5 +4,6 @@
     {
         public const string PlayerAppDataPath = "Player";
         public const string PlayerConfigurationFileName = "Player.config.json";
+        public const string PlayerDataFileName = "Player.data.json";
     }
 }

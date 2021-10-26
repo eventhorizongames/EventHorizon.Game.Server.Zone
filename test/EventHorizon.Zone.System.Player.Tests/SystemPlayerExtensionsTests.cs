@@ -26,11 +26,11 @@ namespace EventHorizon.Zone.System.Player.Tests
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();
             var serviceProviderMock = new Mock<IServiceProvider>();
-            var playerConfigurationStateMock = new Mock<PlayerConfigurationState>();
+            var playerConfigurationStateMock = new Mock<PlayerSettingsState>();
 
             serviceProviderMock.Setup(
                 mock => mock.GetService(
-                    typeof(PlayerConfigurationState)
+                    typeof(PlayerSettingsState)
                 )
             ).Returns(
                 playerConfigurationStateMock.Object
@@ -46,14 +46,14 @@ namespace EventHorizon.Zone.System.Player.Tests
                 actual,
                 service =>
                 {
-                    Assert.Equal(typeof(PlayerConfigurationState), service.ServiceType);
-                    Assert.Equal(typeof(InMemoryPlayerConfigurationState), service.ImplementationType);
+                    Assert.Equal(typeof(PlayerSettingsState), service.ServiceType);
+                    Assert.Equal(typeof(InMemoryPlayerSettingsState), service.ImplementationType);
                 },
                 service =>
                 {
                     service.ServiceType
                         .Should()
-                        .Be(typeof(PlayerConfigurationCache));
+                        .Be(typeof(PlayerSettingsCache));
                     service.ImplementationFactory(serviceProviderMock.Object)
                         .Should()
                         .Be(playerConfigurationStateMock.Object);

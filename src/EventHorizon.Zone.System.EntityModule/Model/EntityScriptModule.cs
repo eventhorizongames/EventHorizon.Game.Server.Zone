@@ -9,8 +9,5 @@ namespace EventHorizon.Zone.System.EntityModule.Model
         public string InitializeScript { get; set; }
         public string DisposeScript { get; set; }
         public string UpdateScript { get; set; }
-        public string InitializeScriptName { get; set; }
-        public string DisposeScriptName { get; set; }
-        public string UpdateScriptName { get; set; }
     }
 }

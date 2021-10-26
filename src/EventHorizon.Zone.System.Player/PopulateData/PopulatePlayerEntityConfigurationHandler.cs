@@ -13,10 +13,10 @@ namespace EventHorizon.Zone.System.Player.PopulateData
     public class PopulatePlayerEntityConfigurationHandler
         : INotificationHandler<PopulateEntityDataEvent>
     {
-        private readonly PlayerConfigurationCache _cache;
+        private readonly PlayerSettingsCache _cache;
 
         public PopulatePlayerEntityConfigurationHandler(
-            PlayerConfigurationCache cache
+            PlayerSettingsCache cache
         )
         {
             _cache = cache;

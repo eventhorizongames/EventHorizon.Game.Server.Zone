@@ -2,7 +2,9 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
 {
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Core;
+    using EventHorizon.Zone.Core.Model.Exceptions;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Player.Connected;
@@ -10,8 +12,10 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
     using EventHorizon.Zone.System.Player.Events.Details;
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+    using EventHorizon.Zone.System.Player.Set;
 
-    using global::System;
+    using FluentAssertions;
+
     using global::System.Collections.Concurrent;
     using global::System.Threading;
     using global::System.Threading.Tasks;
@@ -129,6 +133,17 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
                 globalPlayerDetails
             );
 
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<SetPlayerPropertyOverrideDataCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<PlayerEntity>(
+                    registeredPlayer
+                )
+            );
+
             serverPropertyMock.Setup(
                 mock => mock.Get<string>(
                     ServerPropertyKeys.SERVER_ID
@@ -178,7 +193,11 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             var playerId = "player-id";
             var connectionId = "connection-id";
             var currentZoneServerId = "current-zone";
-            var expected = "Player is not part of this server.";
+            var errorCode = "player_not_part_of_server";
+            var expected = new PlatformErrorCodeException(
+                errorCode,
+                "Player is not part of this server."
+            );
             var globalPlayerDetails = new PlayerDetails
             {
                 Location = new LocationState
@@ -232,13 +251,13 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             );
 
             // Then
-            var exceptionDetails = await Assert.ThrowsAsync<Exception>(
+            var exceptionDetails = await Assert.ThrowsAsync<PlatformErrorCodeException>(
                 action
             );
-            Assert.Equal(
-                expected,
-                exceptionDetails.Message
-            );
+            exceptionDetails.Message
+                .Should().Be(expected.Message);
+            exceptionDetails.ErrorCode
+                .Should().Be(errorCode);
             mediatorMock.Verify(
                 mock => mock.Send(
                     It.IsAny<UpdateEntityCommand>(),
@@ -255,7 +274,11 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             var playerId = "player-id";
             var connectionId = "connection-id";
             var currentZoneServerId = "current-zone";
-            var expected = "Player is not part of this server.";
+            var errorCode = "player_not_part_of_server";
+            var expected = new PlatformErrorCodeException(
+                errorCode,
+                "Player is not part of this server."
+            );
             var globalPlayerDetails = new PlayerDetails
             {
                 Location = new LocationState
@@ -309,13 +332,105 @@ namespace EventHorizon.Zone.System.Player.Tests.Connected
             );
 
             // Then
-            var exceptionDetails = await Assert.ThrowsAsync<Exception>(
+            var exceptionDetails = await Assert.ThrowsAsync<PlatformErrorCodeException>(
                 action
             );
-            Assert.Equal(
-                expected,
-                exceptionDetails.Message
+            exceptionDetails.Message
+                .Should().Be(expected.Message);
+            exceptionDetails.ErrorCode
+                .Should().Be(errorCode);
+            mediatorMock.Verify(
+                mock => mock.Send(
+                    It.IsAny<UpdateEntityCommand>(),
+                    It.IsAny<CancellationToken>()
+                ),
+                Times.Never()
             );
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenSetPlayerPropertyOverrideDataCommand()
+        {
+            // Given
+            var playerId = "player-id";
+            var connectionId = "connection-id";
+            var currentZoneServerId = "current-zone";
+            var errorCode = "override_error_code";
+            var expected = new PlatformErrorCodeException(
+                errorCode,
+                "Failed to Override Player Data."
+            );
+            var globalPlayerDetails = new PlayerDetails
+            {
+                Location = new LocationState
+                {
+                    CurrentZone = currentZoneServerId,
+                },
+                Data = new ConcurrentDictionary<string, object>()
+            };
+
+            var mediatorMock = new Mock<IMediator>();
+            var serverPropertyMock = new Mock<IServerProperty>();
+            var playerRepositoryMock = new Mock<IPlayerRepository>();
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<PlayerGetDetailsEvent>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                globalPlayerDetails
+            );
+
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<SetPlayerPropertyOverrideDataCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<PlayerEntity>(
+                    errorCode
+                )
+            );
+
+            serverPropertyMock.Setup(
+                mock => mock.Get<string>(
+                    ServerPropertyKeys.SERVER_ID
+                )
+            ).Returns(
+                currentZoneServerId
+            );
+
+            playerRepositoryMock.Setup(
+                mock => mock.FindById(
+                    playerId
+                )
+            ).ReturnsAsync(
+                default(PlayerEntity)
+            );
+
+            // When
+            var handler = new PlayerConnectedHandler(
+                mediatorMock.Object,
+                serverPropertyMock.Object,
+                playerRepositoryMock.Object
+            );
+            async Task action() => await handler.Handle(
+                new PlayerConnectedEvent(
+                    playerId,
+                    connectionId
+                ),
+                CancellationToken.None
+            );
+
+            // Then
+            var exceptionDetails = await Assert.ThrowsAsync<PlatformErrorCodeException>(
+                action
+            );
+            exceptionDetails.Message
+                .Should().Be(expected.Message);
+            exceptionDetails.ErrorCode
+                .Should().Be(errorCode);
             mediatorMock.Verify(
                 mock => mock.Send(
                     It.IsAny<UpdateEntityCommand>(),

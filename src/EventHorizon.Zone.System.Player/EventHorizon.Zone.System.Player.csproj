@@ -6,9 +6,11 @@
 
     <ItemGroup>
       <None Remove="App_Data\Player\Player.config.json" />
+      <None Remove="App_Data\Player\Player.data.json" />
     </ItemGroup>
 
     <ItemGroup>
+      <EmbeddedResource Include="App_Data\Player\Player.data.json" />
       <EmbeddedResource Include="App_Data\Player\Player.config.json" />
     </ItemGroup>
 

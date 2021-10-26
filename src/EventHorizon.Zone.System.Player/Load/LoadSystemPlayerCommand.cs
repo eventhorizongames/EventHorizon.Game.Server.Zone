@@ -2,6 +2,8 @@ namespace EventHorizon.Zone.System.Player.Load
 {
     using EventHorizon.Zone.Core.Model.Command;
 
+    using global::System;
+
     using MediatR;
 
     public record LoadSystemPlayerCommand
@@ -11,11 +13,11 @@ namespace EventHorizon.Zone.System.Player.Load
         : StandardCommandResult
     {
         public bool WasUpdated { get; }
-        public string ReasonCode { get; }
+        public string[] ReasonCode { get; }
 
         public LoadSystemPlayerResult(
             bool wasUpdated,
-            string reasonCode
+            string[] reasonCode
         )
         {
             WasUpdated = wasUpdated;
@@ -27,7 +29,7 @@ namespace EventHorizon.Zone.System.Player.Load
         ) : base(errorCode)
         {
             WasUpdated = false;
-            ReasonCode = string.Empty;
+            ReasonCode = Array.Empty<string>();
         }
 
         public static implicit operator LoadSystemPlayerResult(

@@ -1,0 +1,52 @@
+{
+    "forceSet": [
+        "modelState"
+    ],
+    "movementState": {
+        "Speed": 1.0
+    },
+    "lifeState": {
+        "Condition": {
+            "Name": "ALIVE"
+        },
+        "HealthPoints": 10000,
+        "MaxHealthPoints": 10000,
+        "ActionPoints": 10,
+        "MaxActionPoints": 10,
+        "Attack": 1
+    },
+    "levelState": {
+        "HealthPointsLevel": 1,
+        "ActionPointsLevel": 1,
+        "AttackLevel": 1,
+        "Experience": 0,
+        "AllTimeExperience": 3
+    },
+    "skillState": {
+        "skillMap": {
+            "list": [
+                {
+                    "id": "Skills_FireBall.json",
+                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                },
+                {
+                    "id": "Skills_MoveTo.json",
+                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                },
+                {
+                    "id": "Skills_CaptureTarget.json",
+                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+                }
+            ]
+        }
+    },
+    "modelState": {
+        "AnimationList": [],
+        "Mesh": {
+            "Type": "GLTF",
+            "Path": "/Assets/Meshes/",
+            "File": "Default_Mesh.glb",
+            "HeightOffset": -1.2
+        }
+    }
+}

@@ -2,6 +2,7 @@ namespace EventHorizon.Zone.System.Player.Connected
 {
     using EventHorizon.Zone.Core.Events.Entity.Register;
     using EventHorizon.Zone.Core.Events.Entity.Update;
+    using EventHorizon.Zone.Core.Model.Exceptions;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Player.Events.Connected;
@@ -10,8 +11,8 @@ namespace EventHorizon.Zone.System.Player.Connected
     using EventHorizon.Zone.System.Player.Mapper;
     using EventHorizon.Zone.System.Player.Model.Action;
     using EventHorizon.Zone.System.Player.Model.Details;
+    using EventHorizon.Zone.System.Player.Set;
 
-    using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -50,23 +51,44 @@ namespace EventHorizon.Zone.System.Player.Connected
                 var globalPlayer = await _mediator.Send(
                     new PlayerGetDetailsEvent(
                         notification.Id
-                    )
+                    ),
+                    cancellationToken
                 );
                 if (!IsPlayerOnThisServer(
                     globalPlayer
                 ))
                 {
-                    throw new Exception("Player is not part of this server.");
+                    throw new PlatformErrorCodeException(
+                        "player_not_part_of_server",
+                        "Player is not part of this server."
+                    );
                 }
                 // Create new Player
                 globalPlayer.Data["ConnectionId"] = notification.ConnectionId;
+                var playerEntity = PlayerFromDetailsToEntity.MapToNew(
+                    globalPlayer
+                );
+
+                var playerDataSetResult = await _mediator.Send(
+                    new SetPlayerPropertyOverrideDataCommand(
+                        playerEntity
+                    ),
+                    cancellationToken
+                );
+                if (!playerDataSetResult)
+                {
+                    throw new PlatformErrorCodeException(
+                        playerDataSetResult.ErrorCode,
+                        "Failed to Override Player Data."
+                    );
+                }
+                playerEntity = playerDataSetResult.Result;
+
                 player = (PlayerEntity)await _mediator.Send(
-                    new RegisterEntityEvent
-                    {
-                        Entity = PlayerFromDetailsToEntity.MapToNew(
-                            globalPlayer
-                        ),
-                    }
+                    new RegisterEntityEvent(
+                        playerEntity
+                    ),
+                    cancellationToken
                 );
                 playerAction = StandardPlayerAction.REGISTERED;
             }
@@ -77,13 +99,15 @@ namespace EventHorizon.Zone.System.Player.Connected
                 new UpdateEntityCommand(
                     playerAction,
                     player
-                )
+                ),
+                cancellationToken
             );
 
             await _mediator.Send(
                 new SendZoneInfoToPlayerEvent(
                     player
-                )
+                ),
+                cancellationToken
             );
         }
 
