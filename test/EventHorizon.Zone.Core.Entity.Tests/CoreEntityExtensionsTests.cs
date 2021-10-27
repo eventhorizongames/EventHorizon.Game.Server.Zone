@@ -1,11 +1,16 @@
 namespace EventHorizon.Zone.Core.Entity.Tests
 {
+using System;
+
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Utils;
+    using EventHorizon.Zone.Core.Entity.Api;
     using EventHorizon.Zone.Core.Entity.Load;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Model.Entity.State;
+
+    using FluentAssertions;
 
     using global::System.Threading;
 
@@ -18,10 +23,20 @@ namespace EventHorizon.Zone.Core.Entity.Tests
     public class CoreEntityExtensionsTests
     {
         [Fact]
-        public void TestAddEntity_ShouldConfigurationServiceCollection()
+        public void ShouldConfigurationServiceCollection()
         {
             // Given
             var serviceCollectionMock = new ServiceCollectionMock();
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            var entitySettingsStateMock = new Mock<EntitySettingsState>();
+
+            serviceProviderMock.Setup(
+                mock => mock.GetService(
+                    typeof(EntitySettingsState)
+                )
+            ).Returns(
+                entitySettingsStateMock.Object
+            );
 
             // When
             CoreEntityExtensions.AddCoreEntity(
@@ -40,6 +55,20 @@ namespace EventHorizon.Zone.Core.Entity.Tests
                 {
                     Assert.Equal(typeof(EntitySearchTree), service.ServiceType);
                     Assert.Equal(typeof(InMemoryEntitySearchTree), service.ImplementationType);
+                },
+                service =>
+                {
+                    Assert.Equal(typeof(EntitySettingsState), service.ServiceType);
+                    Assert.Equal(typeof(InMemoryEntitySettingsState), service.ImplementationType);
+                },
+                service =>
+                {
+                    service.ServiceType
+                        .Should()
+                        .Be(typeof(EntitySettingsCache));
+                    service.ImplementationFactory(serviceProviderMock.Object)
+                        .Should()
+                        .Be(entitySettingsStateMock.Object);
                 }
             );
         }

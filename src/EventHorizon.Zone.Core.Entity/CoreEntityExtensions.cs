@@ -1,5 +1,6 @@
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.Core.Entity.Api;
     using EventHorizon.Zone.Core.Entity.Load;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Model.Entity.State;
@@ -14,6 +15,10 @@ namespace EventHorizon.Game.Server.Zone
         ) => services
             .AddTransient<EntityRepository, InMemoryEntityRepository>()
             .AddTransient<EntitySearchTree, InMemoryEntitySearchTree>()
+            .AddSingleton<EntitySettingsState, InMemoryEntitySettingsState>()
+            .AddSingleton<EntitySettingsCache>(
+                services => services.GetRequiredService<EntitySettingsState>()
+            )
         ;
 
         public static IApplicationBuilder UseCoreEntity(
