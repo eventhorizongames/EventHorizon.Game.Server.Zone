@@ -32,7 +32,7 @@
         )
         {
             var result = await _mediator.Send(
-                new LoadSystemPlayerCommand(),
+                new LoadPlayerSystemCommand(),
                 cancellationToken
             );
 

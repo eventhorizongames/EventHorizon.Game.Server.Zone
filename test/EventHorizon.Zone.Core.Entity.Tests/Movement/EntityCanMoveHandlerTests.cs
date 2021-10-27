@@ -56,7 +56,7 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Movement
         {
             // Given
             var entityId = 100L;
-            var expected = new Model.Core.LocationState
+            var expected = new LocationState
             {
                 CanMove = true
             };

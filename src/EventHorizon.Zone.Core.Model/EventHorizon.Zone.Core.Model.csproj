@@ -12,4 +12,8 @@
         <PackageReference Include="System.Text.Json" Version="5.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
+    </ItemGroup>
+
 </Project>

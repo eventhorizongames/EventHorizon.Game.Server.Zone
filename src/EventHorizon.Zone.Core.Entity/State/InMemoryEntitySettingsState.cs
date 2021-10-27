@@ -1,36 +1,36 @@
-﻿namespace EventHorizon.Zone.System.Player.State
+﻿namespace EventHorizon.Zone.Core.Entity.State
 {
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Entity.Api;
+    using EventHorizon.Zone.Core.Entity.Model;
     using EventHorizon.Zone.Core.Events.Json;
     using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.System.Player.Api;
-    using EventHorizon.Zone.System.Player.Model;
-
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
 
     using MediatR;
 
-    public class InMemoryPlayerSettingsState
-        : PlayerSettingsState
+    public class InMemoryEntitySettingsState
+        : EntitySettingsState
     {
         private int _currentConfigHash = -1;
         private int _currentDataHash = -1;
         private readonly IMediator _mediator;
 
-        public ObjectEntityConfiguration PlayerConfiguration
+        public ObjectEntityConfiguration EntityConfiguration
         {
             get;
             private set;
-        } = new PlayerObjectEntityConfigurationModel();
+        } = new ObjectEntityConfigurationModel();
 
-        public ObjectEntityData PlayerData
+        public ObjectEntityData EntityData
         {
             get;
             private set;
-        } = new PlayerObjectEntityDataModel();
+        } = new ObjectEntityDataModel();
 
-        public InMemoryPlayerSettingsState(
+        public InMemoryEntitySettingsState(
             IMediator mediator
         )
         {
@@ -38,56 +38,56 @@
         }
 
         public async Task<(bool Updated, ObjectEntityConfiguration OldConfig)> SetConfiguration(
-            ObjectEntityConfiguration playerConfiguration,
+            ObjectEntityConfiguration entityConfiguration,
             CancellationToken cancellationToken
         )
         {
             var (Valid, Hash) = await ValidateHash(
                 _currentConfigHash,
-                playerConfiguration,
+                entityConfiguration,
                 cancellationToken
             );
             if (!Valid)
             {
-                return (false, PlayerConfiguration);
+                return (false, EntityConfiguration);
             }
 
             _currentConfigHash = Hash;
-            PlayerConfiguration = playerConfiguration;
+            EntityConfiguration = entityConfiguration;
 
-            return (true, PlayerConfiguration);
+            return (true, EntityConfiguration);
         }
 
         public async Task<(bool Updated, ObjectEntityData OldData)> SetData(
-            ObjectEntityData playerData,
+            ObjectEntityData entityData,
             CancellationToken cancellationToken
         )
         {
             var (Valid, Hash) = await ValidateHash(
                 _currentDataHash,
-                playerData,
+                entityData,
                 cancellationToken
             );
             if (!Valid)
             {
-                return (false, PlayerData);
+                return (false, EntityData);
             }
 
             _currentDataHash = Hash;
-            PlayerData = playerData;
+            EntityData = entityData;
 
-            return (true, PlayerData);
+            return (true, EntityData);
         }
 
         private async Task<(bool Valid, int Hash)> ValidateHash(
             int currentHash,
-            IDictionary<string, object> playerDictionary,
+            IDictionary<string, object> entityDictionary,
             CancellationToken cancellationToken
         )
         {
             var serailizeResult = await _mediator.Send(
                 new SerializeToJsonCommand(
-                    playerDictionary
+                    entityDictionary
                 ),
                 cancellationToken
             );

@@ -1,13 +1,13 @@
-﻿namespace EventHorizon.Zone.System.Player.Model
+﻿namespace EventHorizon.Zone.Core.Entity.Model
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    using System;
+    using System.Collections.Generic;
 
-    using global::System;
-    using global::System.Collections.Generic;
+    using EventHorizon.Zone.Core.Model.Entity;
 
     using Newtonsoft.Json.Linq;
 
-    public class PlayerObjectEntityDataModel
+    public class ObjectEntityDataModel
         : Dictionary<string, object>,
         ObjectEntityData
     {
@@ -16,7 +16,7 @@
         {
             get
             {
-                if (_forceSet.IsNotNull())
+                if (_forceSet != null)
                 {
                     return _forceSet;
                 }

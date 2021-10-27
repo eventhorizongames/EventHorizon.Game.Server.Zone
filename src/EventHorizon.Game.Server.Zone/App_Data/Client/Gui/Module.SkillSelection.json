@@ -1,7 +1,7 @@
 {
     "id": "GUI_Module_SkillSelection.json",
     "sort": 0,
-    "activateScript": "SkillSelection_Activated.js",
+    "activateScript": "Game_SkillSelection_SkillSelectionGuiActivated",
     "controlList": [
         {
             "id": "onscreen_skill_selection-grid",

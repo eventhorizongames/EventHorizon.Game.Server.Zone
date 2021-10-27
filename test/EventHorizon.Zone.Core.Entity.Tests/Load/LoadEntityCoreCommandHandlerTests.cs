@@ -1,40 +1,40 @@
-﻿namespace EventHorizon.Zone.System.Player.Tests.Load
+﻿namespace EventHorizon.Zone.Core.Entity.Tests.Load
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using AutoFixture.Xunit2;
 
     using EventHorizon.Test.Common.Attributes;
+    using EventHorizon.Zone.Core.Entity.Api;
+    using EventHorizon.Zone.Core.Entity.Load;
+    using EventHorizon.Zone.Core.Entity.Model;
     using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.Player.Api;
-    using EventHorizon.Zone.System.Player.Load;
-    using EventHorizon.Zone.System.Player.Model;
 
     using FluentAssertions;
-
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
 
     using Moq;
 
     using Xunit;
 
-    public class LoadSystemPlayerCommandHandlerTests
+    public class LoadEntityCoreCommandHandlerTests
     {
         [Theory, AutoMoqData]
         public async Task ShouldReturnConfigurationNotFoundWhenFileLoaderReturnNull(
             // Given
-            LoadPlayerSystemCommand request,
+            LoadEntityCoreCommand request,
             [Frozen] Mock<IJsonFileLoader> fileLoader,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommandHandler handler
         )
         {
-            var expected = "player_configuration_not_found";
+            var expected = "entity_configuration_not_found";
 
             fileLoader.Setup(
-                mock => mock.GetFile<PlayerObjectEntityConfigurationModel>(
+                mock => mock.GetFile<ObjectEntityConfigurationModel>(
                     It.IsAny<string>()
                 )
             ).ReturnsAsync(
-                (PlayerObjectEntityConfigurationModel)null
+                (ObjectEntityConfigurationModel)null
             );
 
             // When
@@ -55,19 +55,19 @@
         [Theory, AutoMoqData]
         public async Task ShouldReturnDataNotFoundWhenFileLoaderReturnNullForData(
             // Given
-            LoadPlayerSystemCommand request,
+            LoadEntityCoreCommand request,
             [Frozen] Mock<IJsonFileLoader> fileLoader,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommandHandler handler
         )
         {
-            var expected = "player_data_not_found";
+            var expected = "entity_data_not_found";
 
             fileLoader.Setup(
-                mock => mock.GetFile<PlayerObjectEntityDataModel>(
+                mock => mock.GetFile<ObjectEntityDataModel>(
                     It.IsAny<string>()
                 )
             ).ReturnsAsync(
-                (PlayerObjectEntityDataModel)null
+                (ObjectEntityDataModel)null
             );
 
             // When
@@ -86,18 +86,18 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldReturnWasUpdatedResultWhenPlayerConfigurationStateSetReturnsUpdatedSetCall(
+        public async Task ShouldReturnWasUpdatedResultWhenEntityConfigurationStateSetReturnsUpdatedSetCall(
             // Given
-            LoadPlayerSystemCommand request,
-            [Frozen] Mock<PlayerSettingsState> stateMock,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommand request,
+            [Frozen] Mock<EntitySettingsState> stateMock,
+            LoadEntityCoreCommandHandler handler
         )
         {
-            var expected = new string[] { "player_configuration_changed" };
+            var expected = new string[] { "entity_configuration_changed" };
 
             stateMock.Setup(
                 mock => mock.SetConfiguration(
-                    It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    It.IsAny<ObjectEntityConfigurationModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -105,7 +105,7 @@
             );
             stateMock.Setup(
                 mock => mock.SetData(
-                    It.IsAny<PlayerObjectEntityDataModel>(),
+                    It.IsAny<ObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -128,18 +128,18 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldReturnWasUpdatedResultWhenPlayerDataStateSetReturnsUpdatedSetCall(
+        public async Task ShouldReturnWasUpdatedResultWhenEntityDataStateSetReturnsUpdatedSetCall(
             // Given
-            LoadPlayerSystemCommand request,
-            [Frozen] Mock<PlayerSettingsState> stateMock,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommand request,
+            [Frozen] Mock<EntitySettingsState> stateMock,
+            LoadEntityCoreCommandHandler handler
         )
         {
-            var expected = new string[] { "player_data_changed" };
+            var expected = new string[] { "entity_data_changed" };
 
             stateMock.Setup(
                 mock => mock.SetConfiguration(
-                    It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    It.IsAny<ObjectEntityConfigurationModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -147,7 +147,7 @@
             );
             stateMock.Setup(
                 mock => mock.SetData(
-                    It.IsAny<PlayerObjectEntityDataModel>(),
+                    It.IsAny<ObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -170,18 +170,18 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldReturnWasUpdatedResultWhenPlayerConfigurationStateAndDataSetSetReturnsUpdatedSetCall(
+        public async Task ShouldReturnWasUpdatedResultWhenEntityConfigurationStateAndDataSetSetReturnsUpdatedSetCall(
             // Given
-            LoadPlayerSystemCommand request,
-            [Frozen] Mock<PlayerSettingsState> stateMock,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommand request,
+            [Frozen] Mock<EntitySettingsState> stateMock,
+            LoadEntityCoreCommandHandler handler
         )
         {
-            var expected = new string[] { "player_configuration_changed", "player_data_changed" };
+            var expected = new string[] { "entity_configuration_changed", "entity_data_changed" };
 
             stateMock.Setup(
                 mock => mock.SetConfiguration(
-                    It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    It.IsAny<ObjectEntityConfigurationModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -189,7 +189,7 @@
             );
             stateMock.Setup(
                 mock => mock.SetData(
-                    It.IsAny<PlayerObjectEntityDataModel>(),
+                    It.IsAny<ObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -212,16 +212,16 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldReturnWasNotUpdatedResultWhenPlayerConfigurationStateSetReturnsNotUpdatedSetCall(
+        public async Task ShouldReturnWasNotUpdatedResultWhenEntityConfigurationStateSetReturnsNotUpdatedSetCall(
             // Given
-            LoadPlayerSystemCommand request,
-            [Frozen] Mock<PlayerSettingsState> stateMock,
-            LoadPlayerSystemCommandHandler handler
+            LoadEntityCoreCommand request,
+            [Frozen] Mock<EntitySettingsState> stateMock,
+            LoadEntityCoreCommandHandler handler
         )
         {
             stateMock.Setup(
                 mock => mock.SetConfiguration(
-                    It.IsAny<PlayerObjectEntityConfigurationModel>(),
+                    It.IsAny<ObjectEntityConfigurationModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
@@ -229,7 +229,7 @@
             );
             stateMock.Setup(
                 mock => mock.SetData(
-                    It.IsAny<PlayerObjectEntityDataModel>(),
+                    It.IsAny<ObjectEntityDataModel>(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(

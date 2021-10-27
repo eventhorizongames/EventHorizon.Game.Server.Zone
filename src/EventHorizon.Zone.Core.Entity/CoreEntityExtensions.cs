@@ -1,8 +1,10 @@
 namespace EventHorizon.Game.Server.Zone
 {
+    using EventHorizon.Zone.Core.Entity.Load;
     using EventHorizon.Zone.Core.Entity.State;
     using EventHorizon.Zone.Core.Model.Entity.State;
 
+    using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class CoreEntityExtensions
@@ -14,14 +16,10 @@ namespace EventHorizon.Game.Server.Zone
             .AddTransient<EntitySearchTree, InMemoryEntitySearchTree>()
         ;
 
-        // public static IApplicationBuilder UseCoreEntity(
-        //     this IApplicationBuilder app
-        // )
-        // {
-        //     using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-        //     {
-        //         return app;
-        //     }
-        // }
+        public static IApplicationBuilder UseCoreEntity(
+            this IApplicationBuilder app
+        ) => app.SendMediatorCommand<LoadEntityCoreCommand, LoadEntityCoreResult>(
+            new LoadEntityCoreCommand()
+        );
     }
 }

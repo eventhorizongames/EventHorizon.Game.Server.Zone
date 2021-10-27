@@ -35,11 +35,11 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new LoadSystemPlayerCommand(),
+                    new LoadPlayerSystemCommand(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                new LoadSystemPlayerResult(
+                new LoadPlayerSystemResult(
                     wasUpdated,
                     reasonCode
                 )
@@ -57,7 +57,7 @@
 
             mediatorMock.Verify(
                 mock => mock.Send(
-                    new LoadSystemPlayerCommand(),
+                    new LoadPlayerSystemCommand(),
                     CancellationToken.None
                 )
             );
@@ -81,11 +81,11 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new LoadSystemPlayerCommand(),
+                    new LoadPlayerSystemCommand(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                new LoadSystemPlayerResult(
+                new LoadPlayerSystemResult(
                     wasUpdated,
                     reasonCode
                 )
@@ -128,11 +128,11 @@
 
             mediatorMock.Setup(
                 mock => mock.Send(
-                    new LoadSystemPlayerCommand(),
+                    new LoadPlayerSystemCommand(),
                     CancellationToken.None
                 )
             ).ReturnsAsync(
-                new LoadSystemPlayerResult(
+                new LoadPlayerSystemResult(
                     errorCode
                 )
             );

@@ -1,7 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Player.Set
 {
     using EventHorizon.Zone.Core.Model.Command;
-using EventHorizon.Zone.Core.Model.Entity;
+    using EventHorizon.Zone.Core.Model.Entity.Filters;
     using EventHorizon.Zone.Core.Model.Player;
     using EventHorizon.Zone.System.Player.Api;
 
@@ -29,11 +29,7 @@ using EventHorizon.Zone.Core.Model.Entity;
         )
         {
             var forceSetList = _cache.PlayerData.ForceSet;
-            foreach (var property in _cache.PlayerData.Where(
-                a => a.Key.StartsWith(
-                    nameof(ObjectEntityData.ForceSet).LowercaseFirstChar()
-                )
-            ))
+            foreach (var property in _cache.PlayerData.FilterOutForceSetKey())
             {
                 if (!request.PlayerEntity.RawData.ContainsKey(
                     property.Key

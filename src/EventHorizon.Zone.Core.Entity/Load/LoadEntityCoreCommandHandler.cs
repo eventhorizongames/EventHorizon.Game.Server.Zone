@@ -1,29 +1,29 @@
-namespace EventHorizon.Zone.System.Player.Load
+namespace EventHorizon.Zone.Core.Entity.Load
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using EventHorizon.Zone.Core.Entity.Api;
+    using EventHorizon.Zone.Core.Entity.Model;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.Player.Api;
-    using EventHorizon.Zone.System.Player.Model;
-
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Linq;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
 
     using MediatR;
 
-    public class LoadSystemPlayerCommandHandler
-        : IRequestHandler<LoadSystemPlayerCommand, LoadSystemPlayerResult>
+    public class LoadEntityCoreCommandHandler
+        : IRequestHandler<LoadEntityCoreCommand, LoadEntityCoreResult>
     {
         private readonly IJsonFileLoader _fileLoader;
         private readonly ServerInfo _serverInfo;
-        private readonly PlayerSettingsState _state;
+        private readonly EntitySettingsState _state;
 
-        public LoadSystemPlayerCommandHandler(
+        public LoadEntityCoreCommandHandler(
             IJsonFileLoader fileLoader,
             ServerInfo serverInfo,
-            PlayerSettingsState state
+            EntitySettingsState state
         )
         {
             _fileLoader = fileLoader;
@@ -31,17 +31,17 @@ namespace EventHorizon.Zone.System.Player.Load
             _state = state;
         }
 
-        public async Task<LoadSystemPlayerResult> Handle(
-            LoadSystemPlayerCommand request,
+        public async Task<LoadEntityCoreResult> Handle(
+            LoadEntityCoreCommand request,
             CancellationToken cancellationToken
         )
         {
-            var (ConfigIsError, ConfigUpdated, ConfigReason) = await LoadPlayerConfiguration(
+            var (ConfigIsError, ConfigUpdated, ConfigReason) = await LoadEntityConfiguration(
                 cancellationToken
             );
             if (ConfigIsError)
             {
-                return new LoadSystemPlayerResult(
+                return new LoadEntityCoreResult(
                     ConfigReason
                 );
             }
@@ -51,12 +51,12 @@ namespace EventHorizon.Zone.System.Player.Load
             );
             if (DataIsError)
             {
-                return new LoadSystemPlayerResult(
+                return new LoadEntityCoreResult(
                     DataReason
                 );
             }
 
-            return new LoadSystemPlayerResult(
+            return new LoadEntityCoreResult(
                 ConfigUpdated || DataUpdated,
                 new List<string>
                 {
@@ -68,23 +68,23 @@ namespace EventHorizon.Zone.System.Player.Load
             );
         }
 
-        private async Task<(bool IsError, bool Updated, string Reason)> LoadPlayerConfiguration(
+        private async Task<(bool IsError, bool Updated, string Reason)> LoadEntityConfiguration(
             CancellationToken cancellationToken
         )
         {
             var fileFullName = Path.Combine(
                 _serverInfo.AppDataPath,
-                PlayerSystemConstants.PlayerAppDataPath,
-                PlayerSystemConstants.PlayerConfigurationFileName
+                EntityCoreConstants.EntityAppDataPath,
+                EntityCoreConstants.EntityConfigurationFileName
             );
 
-            var config = await _fileLoader.GetFile<PlayerObjectEntityConfigurationModel>(
+            var config = await _fileLoader.GetFile<ObjectEntityConfigurationModel>(
                 fileFullName
             );
 
             if (config is null)
             {
-                return (true, false, "player_configuration_not_found");
+                return (true, false, "entity_configuration_not_found");
             }
 
             var (updated, _) = await _state.SetConfiguration(
@@ -96,7 +96,7 @@ namespace EventHorizon.Zone.System.Player.Load
                 false,
                 updated,
                 updated
-                    ? "player_configuration_changed"
+                    ? "entity_configuration_changed"
                     : string.Empty
             );
         }
@@ -106,17 +106,17 @@ namespace EventHorizon.Zone.System.Player.Load
         {
             var fileFullName = Path.Combine(
                 _serverInfo.AppDataPath,
-                PlayerSystemConstants.PlayerAppDataPath,
-                PlayerSystemConstants.PlayerDataFileName
+                EntityCoreConstants.EntityAppDataPath,
+                EntityCoreConstants.EntityDataFileName
             );
 
-            var config = await _fileLoader.GetFile<PlayerObjectEntityDataModel>(
+            var config = await _fileLoader.GetFile<ObjectEntityDataModel>(
                 fileFullName
             );
 
             if (config is null)
             {
-                return (true, false, "player_data_not_found");
+                return (true, false, "entity_data_not_found");
             }
 
             var (updated, _) = await _state.SetData(
@@ -128,7 +128,7 @@ namespace EventHorizon.Zone.System.Player.Load
                 false,
                 updated,
                 updated
-                    ? "player_data_changed"
+                    ? "entity_data_changed"
                     : string.Empty
             );
         }

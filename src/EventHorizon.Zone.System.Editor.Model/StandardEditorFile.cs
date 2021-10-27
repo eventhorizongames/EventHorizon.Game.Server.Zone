@@ -37,7 +37,7 @@ namespace EventHorizon.Zone.System.Editor.Model
                 idStringBuilder.Append(
                     pathPart
                 ).Append(
-                    "_"
+                    '_'
                 );
             }
             return idStringBuilder.Append(

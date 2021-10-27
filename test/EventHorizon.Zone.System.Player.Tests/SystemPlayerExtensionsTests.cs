@@ -66,7 +66,7 @@ namespace EventHorizon.Zone.System.Player.Tests
         {
             // Given
             var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
-            var expected = new LoadSystemPlayerCommand();
+            var expected = new LoadPlayerSystemCommand();
 
             var mediatorMock = new Mock<IMediator>();
 

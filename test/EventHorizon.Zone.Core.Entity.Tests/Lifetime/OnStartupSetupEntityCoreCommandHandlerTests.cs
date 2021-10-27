@@ -1,21 +1,21 @@
-﻿namespace EventHorizon.Zone.System.Player.Tests.Lifetime
+﻿namespace EventHorizon.Zone.Core.Entity.Tests.Lifetime
 {
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using AutoFixture.Xunit2;
 
     using EventHorizon.Test.Common.Attributes;
+    using EventHorizon.Zone.Core.Entity.Lifetime;
+    using EventHorizon.Zone.Core.Entity.Model;
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Lifetime;
-    using EventHorizon.Zone.System.Player.Lifetime;
-    using EventHorizon.Zone.System.Player.Model;
 
     using FluentAssertions;
-
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
 
     using MediatR;
 
@@ -23,21 +23,21 @@
 
     using Xunit;
 
-    public class OnStartupSetupPlayerSystemCommandHandlerTests
+    public class OnStartupSetupEntityCoreCommandHandlerTests
     {
         [Theory, AutoMoqData]
-        public async Task ShouldCreatePlayerDirectoryWhenDoesNotExist(
+        public async Task ShouldCreateEntityDirectoryWhenDoesNotExist(
             // Given
             string appDataPath,
             [Frozen] Mock<IMediator> mediatorMock,
             [Frozen] Mock<ServerInfo> serverInfoMock,
-            OnStartupSetupPlayerSystemCommandHandler handler
+            OnStartupSetupEntityCoreCommandHandler handler
         )
         {
             var expected = new CreateDirectory(
                 Path.Combine(
                     appDataPath,
-                    PlayerSystemConstants.PlayerAppDataPath
+                    EntityCoreConstants.EntityAppDataPath
                 )
             );
 
@@ -49,7 +49,7 @@
 
             // When
             var actual = await handler.Handle(
-                new OnStartupSetupPlayerSystemCommand(),
+                new OnStartupSetupEntityCoreCommand(),
                 CancellationToken.None
             );
 
@@ -75,7 +75,7 @@
             string appDataPath,
             [Frozen] Mock<IMediator> mediatorMock,
             [Frozen] Mock<ServerInfo> serverInfoMock,
-            OnStartupSetupPlayerSystemCommandHandler handler
+            OnStartupSetupEntityCoreCommandHandler handler
         )
         {
             serverInfoMock.Setup(
@@ -97,7 +97,7 @@
 
             // When
             var actual = await handler.Handle(
-                new OnStartupSetupPlayerSystemCommand(),
+                new OnStartupSetupEntityCoreCommand(),
                 CancellationToken.None
             );
 
@@ -110,17 +110,17 @@
         }
 
         [Theory, AutoMoqData]
-        public async Task ShouldNotCreatePlayerDirectoryWhenAlreadyExisting(
+        public async Task ShouldNotCreateGuiDirectoryWhenAlreadyExisting(
             // Given
             string appDataPath,
             [Frozen] Mock<IMediator> mediatorMock,
             [Frozen] Mock<ServerInfo> serverInfoMock,
-            OnStartupSetupPlayerSystemCommandHandler handler
+            OnStartupSetupEntityCoreCommandHandler handler
         )
         {
-            var playerPath = Path.Combine(
+            var entityPath = Path.Combine(
                 appDataPath,
-                PlayerSystemConstants.PlayerAppDataPath
+                EntityCoreConstants.EntityAppDataPath
             );
 
             serverInfoMock.Setup(
@@ -132,7 +132,7 @@
             mediatorMock.Setup(
                 mock => mock.Send(
                     new DoesDirectoryExist(
-                        playerPath
+                        entityPath
                     ),
                     CancellationToken.None
                 )
@@ -142,7 +142,7 @@
 
             // When
             var actual = await handler.Handle(
-                new OnStartupSetupPlayerSystemCommand(),
+                new OnStartupSetupEntityCoreCommand(),
                 CancellationToken.None
             );
 

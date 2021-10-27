@@ -1,5 +1,6 @@
 {
     "forceSet": [
+        "movementState",
         "modelState"
     ],
     "movementState": {

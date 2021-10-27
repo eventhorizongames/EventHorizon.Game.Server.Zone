@@ -6,16 +6,16 @@ namespace EventHorizon.Zone.System.Player.Load
 
     using MediatR;
 
-    public record LoadSystemPlayerCommand
-        : IRequest<LoadSystemPlayerResult>;
+    public record LoadPlayerSystemCommand
+        : IRequest<LoadPlayerSystemResult>;
 
-    public class LoadSystemPlayerResult
+    public class LoadPlayerSystemResult
         : StandardCommandResult
     {
         public bool WasUpdated { get; }
         public string[] ReasonCode { get; }
 
-        public LoadSystemPlayerResult(
+        public LoadPlayerSystemResult(
             bool wasUpdated,
             string[] reasonCode
         )
@@ -24,7 +24,7 @@ namespace EventHorizon.Zone.System.Player.Load
             ReasonCode = reasonCode;
         }
 
-        public LoadSystemPlayerResult(
+        public LoadPlayerSystemResult(
             string errorCode
         ) : base(errorCode)
         {
@@ -32,7 +32,7 @@ namespace EventHorizon.Zone.System.Player.Load
             ReasonCode = Array.Empty<string>();
         }
 
-        public static implicit operator LoadSystemPlayerResult(
+        public static implicit operator LoadPlayerSystemResult(
             string errorCode
         ) => new(
             errorCode

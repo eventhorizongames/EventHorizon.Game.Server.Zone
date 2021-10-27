@@ -20,8 +20,8 @@ namespace EventHorizon.Game.Server.Zone
 
         public static IApplicationBuilder UseSystemPlayer(
             this IApplicationBuilder app
-        ) => app.SendMediatorCommand<LoadSystemPlayerCommand, LoadSystemPlayerResult>(
-            new LoadSystemPlayerCommand()
+        ) => app.SendMediatorCommand<LoadPlayerSystemCommand, LoadPlayerSystemResult>(
+            new LoadPlayerSystemCommand()
         );
     }
 }

@@ -456,6 +456,7 @@
 
             // Core
             app.UseCore();
+            app.UseCoreEntity();
             app.UseCoreMap();
             app.UseCoreReporter();
 
