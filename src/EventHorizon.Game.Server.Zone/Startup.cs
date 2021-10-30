@@ -172,6 +172,7 @@
                 typeof(CoreMapExtensions).Assembly,
                 typeof(CoreMapPluginEditorExtensions).Assembly,
                 typeof(CoreEntityExtensions).Assembly,
+                typeof(CoreEntityPluginEditorExtensions).Assembly,
                 typeof(CoreEntityPluginReloadExtensions).Assembly,
                 typeof(CoreClientExtensions).Assembly,
                 typeof(CoreServerActionExtensions).Assembly,
@@ -290,6 +291,7 @@
                     systemProvidedAssemblyList
                 ).AddCoreClient()
                 .AddCoreEntity()
+                .AddCoreEntityPluginEditor()
                 .AddCoreEntityPluginReload()
                 .AddCoreMap()
                 .AddCoreMapPluginEditor()
@@ -458,11 +460,12 @@
             app.UseServerLoad();
 
             // Core
-            app.UseCore();
-            app.UseCoreEntity();
-            app.UseCoreEntityPluginReload();
-            app.UseCoreMap();
-            app.UseCoreReporter();
+            app.UseCore()
+                .UseCoreEntity()
+                .UseCoreEntityPluginEditor()
+                .UseCoreEntityPluginReload()
+                .UseCoreMap()
+                .UseCoreReporter();
 
             // Server 
             app.UseServerSetup();

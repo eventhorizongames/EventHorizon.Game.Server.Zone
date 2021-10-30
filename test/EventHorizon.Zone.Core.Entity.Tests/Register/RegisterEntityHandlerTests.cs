@@ -3,10 +3,16 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
     using System.Threading;
     using System.Threading.Tasks;
 
+    using AutoFixture.Xunit2;
+
+    using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Entity.Register;
+    using EventHorizon.Zone.Core.Events.Entity.Data;
     using EventHorizon.Zone.Core.Events.Entity.Register;
+    using EventHorizon.Zone.Core.Model.Command;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Model.Entity.State;
+    using EventHorizon.Zone.Core.Set;
 
     using MediatR;
 
@@ -16,33 +22,40 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
 
     public class RegisterEntityHandlerTests
     {
-        [Fact]
-        public async Task TestShouldAddEntityToRepositoryThenPublishEntityRegisteredEvent()
-        {
+        [Theory, AutoMoqData]
+        public async Task TestShouldAddEntityToRepositoryThenPublishEntityRegisteredEvent(
             // Given
-            var expectedEntity = new Mock<IObjectEntity>();
+            [Frozen] Mock<EntityRepository> entityRepositoryMock,
+            [Frozen] Mock<IMediator> mediatorMock,
+            RegisterEntityHandler handler
+        )
+        {
+            var expectedEntity = new DefaultEntity();
 
-            var mediatorMock = new Mock<IMediator>();
-            var entityRepositoryMock = new Mock<EntityRepository>();
+            mediatorMock.Setup(
+                mock => mock.Send(
+                    It.IsAny<SetEntityPropertyOverrideDataCommand>(),
+                    CancellationToken.None
+                )
+            ).ReturnsAsync(
+                new CommandResult<IObjectEntity>(
+                    expectedEntity
+                )
+            );
 
             entityRepositoryMock.Setup(
                 mock => mock.Add(
-                    expectedEntity.Object
+                    It.IsAny<IObjectEntity>()
                 )
             ).ReturnsAsync(
-                expectedEntity.Object
+                expectedEntity
             );
 
             // When
-            var registerEntityHandler = new RegisterEntityHandler(
-                mediatorMock.Object,
-                entityRepositoryMock.Object
-            );
-
-            await registerEntityHandler.Handle(
+            await handler.Handle(
                 new RegisterEntityEvent
                 {
-                    Entity = expectedEntity.Object
+                    Entity = expectedEntity
                 },
                 CancellationToken.None
             );
@@ -50,9 +63,25 @@ namespace EventHorizon.Zone.Core.Entity.Tests.Register
             // Then
             mediatorMock.Verify(
                 mock => mock.Publish(
+                    new PrePopulateEntityDataEvent(
+                        expectedEntity
+                    ),
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Publish(
+                    new PopulateEntityDataEvent(
+                        expectedEntity
+                    ),
+                    CancellationToken.None
+                )
+            );
+            mediatorMock.Verify(
+                mock => mock.Publish(
                     new EntityRegisteredEvent
                     {
-                        Entity = expectedEntity.Object
+                        Entity = expectedEntity
                     },
                     CancellationToken.None
                 )
