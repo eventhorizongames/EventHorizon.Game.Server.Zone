@@ -70,6 +70,7 @@
         <ProjectReference Include="..\EventHorizon.Monitoring\EventHorizon.Monitoring.csproj" />
         <ProjectReference Include="..\EventHorizon.Monitoring.Model\EventHorizon.Monitoring.Model.csproj" />
         <ProjectReference Include="..\EventHorizon.Monitoring.ApplicationInsights\EventHorizon.Monitoring.ApplicationInsights.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Entity.Plugin.Reload\EventHorizon.Zone.Core.Entity.Plugin.Reload.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.Core\EventHorizon.Zone.Core.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Client\EventHorizon.Zone.Core.Client.csproj" />

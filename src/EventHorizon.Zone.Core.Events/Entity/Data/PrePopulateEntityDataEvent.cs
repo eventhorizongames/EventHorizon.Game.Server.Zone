@@ -4,12 +4,12 @@ namespace EventHorizon.Zone.Core.Events.Entity.Data
 
     using MediatR;
 
-    public struct PopulateEntityDataEvent
+    public struct PrePopulateEntityDataEvent
         : INotification
     {
-        public IObjectEntity Entity { get; set; }
+        public IObjectEntity Entity { get; }
 
-        public PopulateEntityDataEvent(
+        public PrePopulateEntityDataEvent(
             IObjectEntity entity
         )
         {

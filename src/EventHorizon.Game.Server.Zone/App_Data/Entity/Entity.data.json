@@ -1,0 +1,23 @@
+{
+    "forceSet": [
+        "lifeState",
+        "levelState"
+    ],
+    "lifeState": {
+        "Condition": {
+            "Name": "ALIVE"
+        },
+        "HealthPoints": 50,
+        "MaxHealthPoints": 100,
+        "ActionPoints": 10,
+        "MaxActionPoints": 10,
+        "Attack": 1
+    },
+    "levelState": {
+        "HealthPointsLevel": 1,
+        "ActionPointsLevel": 1,
+        "AttackLevel": 1,
+        "Experience": 0,
+        "AllTimeExperience": 3
+    }
+}

@@ -69,21 +69,6 @@ namespace EventHorizon.Zone.System.Player.Connected
                     globalPlayer
                 );
 
-                var playerDataSetResult = await _mediator.Send(
-                    new SetPlayerPropertyOverrideDataCommand(
-                        playerEntity
-                    ),
-                    cancellationToken
-                );
-                if (!playerDataSetResult)
-                {
-                    throw new PlatformErrorCodeException(
-                        playerDataSetResult.ErrorCode,
-                        "Failed to Override Player Data."
-                    );
-                }
-                playerEntity = playerDataSetResult.Result;
-
                 player = (PlayerEntity)await _mediator.Send(
                     new RegisterEntityEvent(
                         playerEntity

@@ -18,6 +18,7 @@
     using EventHorizon.Platform;
     using EventHorizon.Server.Core;
     using EventHorizon.TimerService;
+    using EventHorizon.Zone.Core.Entity.Plugin.Reload;
     using EventHorizon.Zone.Core.Model.ServerProperty;
     using EventHorizon.Zone.System.Admin.ExternalHub;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Editor;
@@ -171,6 +172,7 @@
                 typeof(CoreMapExtensions).Assembly,
                 typeof(CoreMapPluginEditorExtensions).Assembly,
                 typeof(CoreEntityExtensions).Assembly,
+                typeof(CoreEntityPluginReloadExtensions).Assembly,
                 typeof(CoreClientExtensions).Assembly,
                 typeof(CoreServerActionExtensions).Assembly,
                 typeof(CoreReporterExtensions).Assembly,
@@ -288,6 +290,7 @@
                     systemProvidedAssemblyList
                 ).AddCoreClient()
                 .AddCoreEntity()
+                .AddCoreEntityPluginReload()
                 .AddCoreMap()
                 .AddCoreMapPluginEditor()
                 .AddCoreReporter()
@@ -457,6 +460,7 @@
             // Core
             app.UseCore();
             app.UseCoreEntity();
+            app.UseCoreEntityPluginReload();
             app.UseCoreMap();
             app.UseCoreReporter();
 
