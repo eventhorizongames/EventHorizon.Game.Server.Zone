@@ -4,7 +4,7 @@
 
     using MediatR;
 
-    public struct ReloadEntityCoreCommand
+    public struct ReloadCoreEntityCommand
         : IRequest<StandardCommandResult>
     {
     }

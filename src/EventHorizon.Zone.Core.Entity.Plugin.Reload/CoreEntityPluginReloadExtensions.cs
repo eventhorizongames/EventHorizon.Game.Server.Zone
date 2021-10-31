@@ -7,12 +7,10 @@
     {
         public static IServiceCollection AddCoreEntityPluginReload(
             this IServiceCollection services
-        ) => services
-        ;
+        ) => services;
 
         public static IApplicationBuilder UseCoreEntityPluginReload(
             this IApplicationBuilder app
         ) => app;
-
     }
 }
