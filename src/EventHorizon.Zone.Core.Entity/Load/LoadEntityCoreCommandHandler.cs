@@ -46,7 +46,7 @@ namespace EventHorizon.Zone.Core.Entity.Load
                 );
             }
 
-            var (DataIsError, DataUpdated, DataReason) = await LoadPlayerData(
+            var (DataIsError, DataUpdated, DataReason) = await LoadEntityData(
                 cancellationToken
             );
             if (DataIsError)
@@ -100,7 +100,7 @@ namespace EventHorizon.Zone.Core.Entity.Load
                     : string.Empty
             );
         }
-        private async Task<(bool IsError, bool Updated, string Reason)> LoadPlayerData(
+        private async Task<(bool IsError, bool Updated, string Reason)> LoadEntityData(
             CancellationToken cancellationToken
         )
         {

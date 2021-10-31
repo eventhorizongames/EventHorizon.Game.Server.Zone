@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="8.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.System.Selection.Model\EventHorizon.Zone.System.Selection.Model.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Selection.Events\EventHorizon.Zone.System.Selection.Events.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Events\EventHorizon.Zone.Core.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
+    </ItemGroup>
+</Project>

@@ -241,6 +241,8 @@
 
                 typeof(SystemInteractionExtensions).Assembly,
 
+                typeof(SystemSelectionExtensions).Assembly,
+
                 typeof(SystemWizardExtensions).Assembly,
                 typeof(SystemWizardPluginEditorExtensions).Assembly,
                 
@@ -380,6 +382,8 @@
                 .AddSystemPlayerPluginEditor()
 
                 .AddSystemInteraction()
+
+                .AddSystemSelection()
 
                 .AddSystemWizard()
                 .AddSystemWizardPluginEditor()
@@ -530,6 +534,8 @@
             app.UseSystemPlayerPluginEditor();
 
             app.UseSystemInteraction();
+
+            app.UseSystemSelection();
 
             app.UseSystemWizard()
                 .UseSystemWizardPluginEditor();
