@@ -1,2 +1,5 @@
 {
+    "interaction": {
+        "checkInterval": 200
+    }
 }
