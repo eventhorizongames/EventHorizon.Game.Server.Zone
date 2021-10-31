@@ -10,6 +10,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
     using EventHorizon.Zone.System.Interaction.Model;
 
     using Xunit;
+    using FluentAssertions;
 
     public class PopulateEntityDataHandlerTests
     {
@@ -40,10 +41,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
             );
 
             // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            actual.Should().BeEquivalentTo(expected);
         }
     }
 }

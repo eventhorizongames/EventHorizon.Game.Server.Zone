@@ -11,14 +11,14 @@
 
     using Microsoft.Extensions.Logging;
 
-    public class ReloadCoreEntityAdminCommandEventHandler
+    public class ReloadEntityiCoreAdminCommandEventHandler
         : INotificationHandler<AdminCommandEvent>
     {
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
 
-        public ReloadCoreEntityAdminCommandEventHandler(
-            ILogger<ReloadCoreEntityAdminCommandEventHandler> logger,
+        public ReloadEntityiCoreAdminCommandEventHandler(
+            ILogger<ReloadEntityiCoreAdminCommandEventHandler> logger,
             IMediator mediator
         )
         {
@@ -38,11 +38,11 @@
 
             _logger.LogInformation(
                 "reload-system : {CommandHandler}",
-                nameof(ReloadCoreEntityAdminCommandEventHandler)
+                nameof(ReloadEntityiCoreAdminCommandEventHandler)
             );
 
             await _mediator.Send(
-                new ReloadCoreEntityCommand(),
+                new ReloadEntityCoreCommand(),
                 cancellationToken
             );
 

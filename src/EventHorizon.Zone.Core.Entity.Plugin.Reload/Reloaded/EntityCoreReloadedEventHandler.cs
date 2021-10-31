@@ -8,12 +8,12 @@
 
     using MediatR;
 
-    public class CoreEntityReloadedEventHandler
-        : INotificationHandler<CoreEntityReloadedEvent>
+    public class EntityCoreReloadedEventHandler
+        : INotificationHandler<EntityCoreReloadedEvent>
     {
         private readonly IMediator _mediator;
 
-        public CoreEntityReloadedEventHandler
+        public EntityCoreReloadedEventHandler
             (IMediator mediator
         )
         {
@@ -21,12 +21,12 @@
         }
 
         public async Task Handle(
-            CoreEntityReloadedEvent notification, 
+            EntityCoreReloadedEvent notification, 
             CancellationToken cancellationToken
         )
         {
             await _mediator.Publish(
-                ClientActionCoreEntityReloadedToAllEvent.Create(
+                ClientActionEntityCoreReloadedToAllEvent.Create(
                     new (
                         notification.EntityConfiguration
                     )

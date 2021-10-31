@@ -3,12 +3,12 @@
     using EventHorizon.Zone.Core.Entity.Plugin.Reload.Model.Client;
     using EventHorizon.Zone.Core.Events.Client.Generic;
 
-    public static class ClientActionCoreEntityReloadedToAllEvent
+    public static class ClientActionEntityCoreReloadedToAllEvent
     {
         public static ClientActionGenericToAllEvent Create(
-            CoreEntityReloadedEventData data
+            EntityCoreReloadedEventData data
         ) => new(
-            "Entity.CORE_ENTITY_RELOADED",
+            "Entity.ENTITY_CORE_RELOADED",
             data
         );
     }

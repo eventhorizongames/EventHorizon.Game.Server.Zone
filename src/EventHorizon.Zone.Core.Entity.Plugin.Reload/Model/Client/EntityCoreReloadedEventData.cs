@@ -1,15 +1,14 @@
-﻿namespace EventHorizon.Zone.Core.Events.Entity.Reload
+﻿namespace EventHorizon.Zone.Core.Entity.Plugin.Reload.Model.Client
 {
+    using EventHorizon.Zone.Core.Model.Client;
     using EventHorizon.Zone.Core.Model.Entity;
 
-    using MediatR;
-
-    public struct CoreEntityReloadedEvent
-        : INotification
+    public class EntityCoreReloadedEventData
+        : IClientActionData
     {
         public ObjectEntityConfiguration EntityConfiguration { get; }
 
-        public CoreEntityReloadedEvent(
+        public EntityCoreReloadedEventData(
             ObjectEntityConfiguration entityConfiguration
         )
         {

@@ -10,13 +10,13 @@
 
     using MediatR;
 
-    public class ReloadCoreEntityCommandHandler
-        : IRequestHandler<ReloadCoreEntityCommand, StandardCommandResult>
+    public class ReloadEntityCoreCommandHandler
+        : IRequestHandler<ReloadEntityCoreCommand, StandardCommandResult>
     {
         private readonly IMediator _mediator;
         private readonly EntitySettingsCache _cache;
 
-        public ReloadCoreEntityCommandHandler(
+        public ReloadEntityCoreCommandHandler(
             IMediator mediator,
             EntitySettingsCache cache
         )
@@ -26,7 +26,7 @@
         }
 
         public async Task<StandardCommandResult> Handle(
-            ReloadCoreEntityCommand request,
+            ReloadEntityCoreCommand request,
             CancellationToken cancellationToken
         )
         {
@@ -40,7 +40,7 @@
             )
             {
                 await _mediator.Publish(
-                    new CoreEntityReloadedEvent(
+                    new EntityCoreReloadedEvent(
                         _cache.EntityConfiguration
                     ),
                     cancellationToken
