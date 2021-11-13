@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.System.Interaction.Tests.Agent.Behavior
 {
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
 
     using FluentAssertions;
 
@@ -13,7 +13,7 @@ namespace EventHorizon.Zone.System.Interaction.Tests.Agent.Behavior
     using Xunit.Abstractions;
 
     public class SystemInteractionExtensionsTests
-            : TestFixtureBase
+        : TestFixtureBase
     {
         public SystemInteractionExtensionsTests(
             ITestOutputHelper testOutputHelper

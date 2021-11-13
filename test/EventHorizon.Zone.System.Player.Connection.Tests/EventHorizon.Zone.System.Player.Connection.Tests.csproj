@@ -1,16 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Base.Project.props', '$(MSBuildProjectDirectory)../'))" />
 
-    <PropertyGroup>
+	<PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\EventHorizon.Zone.System.Player.Connection\EventHorizon.Zone.System.Player.Connection.csproj" />
+        <ProjectReference Include="..\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj" />
     </ItemGroup>
 
 </Project>

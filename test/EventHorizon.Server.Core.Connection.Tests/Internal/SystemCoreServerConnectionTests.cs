@@ -2,9 +2,12 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
 {
     using System;
     using System.Net;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using EventHorizon.Server.Core.Connection.Internal;
+
+    using FluentAssertions;
 
     using Microsoft.AspNetCore.Connections;
     using Microsoft.AspNetCore.SignalR.Client;
@@ -31,20 +34,30 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             var loggerMock = new Mock<ILogger>();
             var hubConnectionMock = new Mock<HubConnectionMock>();
 
+            hubConnectionMock.Setup(
+                // string methodName, Type[] parameterTypes, Func<object?[], object, Task> handler, object state
+                mock => mock.On(
+                    It.IsAny<string>(),
+                    It.IsAny<Type[]>(),
+                    It.IsAny<Func<object?[], object, Task>>(),
+                    It.IsAny<object>()
+                )
+            ).Throws(
+                new Exception("error")
+            );
+
             // When
             var connection = new SystemCoreServerConnection(
                 loggerMock.Object,
                 hubConnectionMock.Object
             );
-            void action() => connection.OnAction<TestResult>(
+            Action action = () => connection.OnAction<TestResult>(
                 actionName,
                 actionToRun
             );
 
             // Then
-            Assert.Throws<NullReferenceException>(
-                action
-            );
+            action.Should().Throw<Exception>();
         }
 
         [Fact]
@@ -57,6 +70,18 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             var loggerMock = new Mock<ILogger>();
             var hubConnectionMock = new Mock<HubConnectionMock>();
 
+            hubConnectionMock.Setup(
+                // string methodName, Type[] parameterTypes, Func<object?[], object, Task> handler, object state
+                mock => mock.On(
+                    It.IsAny<string>(),
+                    It.IsAny<Type[]>(),
+                    It.IsAny<Func<object?[], object, Task>>(),
+                    It.IsAny<object>()
+                )
+            ).Throws(
+                new Exception("error")
+            );
+
             // When
             var connection = new SystemCoreServerConnection(
                 loggerMock.Object,
@@ -68,7 +93,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             );
 
             // Then
-            Assert.Throws<NullReferenceException>(
+            Assert.Throws<Exception>(
                 action
             );
         }
@@ -109,6 +134,18 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             var loggerMock = new Mock<ILogger>();
             var hubConnectionMock = new Mock<HubConnectionMock>();
 
+            hubConnectionMock.Setup(
+                // string methodName, Type returnType, object?[] args, CancellationToken cancellationToken = default(CancellationToken)
+                mock => mock.InvokeCoreAsync(
+                    It.IsAny<string>(),
+                    It.IsAny<Type>(),
+                    It.IsAny<object?[]>(),
+                    It.IsAny<CancellationToken>()
+                )
+            ).Throws(
+                new Exception("error")
+            );
+
             // When
             var connection = new SystemCoreServerConnection(
                 loggerMock.Object,
@@ -120,7 +157,7 @@ namespace EventHorizon.Server.Core.Connection.Tests.Internal
             );
 
             // Then
-            await Assert.ThrowsAsync<NullReferenceException>(
+            await Assert.ThrowsAsync<Exception>(
                 action
             );
         }

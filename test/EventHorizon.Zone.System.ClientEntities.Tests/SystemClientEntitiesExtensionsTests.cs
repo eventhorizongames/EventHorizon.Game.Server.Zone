@@ -38,8 +38,8 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(ClientEntityRepository) == service.Value.ServiceType
-                        && typeof(ClientEntityInMemoryRepository) == service.Value.ImplementationType;
+                    return typeof(ClientEntityRepository) == service.ServiceType
+                        && typeof(ClientEntityInMemoryRepository) == service.ImplementationType;
                 }
             );
         }

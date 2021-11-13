@@ -1,7 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
-
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
@@ -32,7 +31,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
     using Xunit;
     using Xunit.Abstractions;
 
-    public class BehaviorTreeTests : TestFixtureBase
+    public class BehaviorTreeTests
+        : TestFixtureBase
     {
         public BehaviorTreeTests(
             ITestOutputHelper testOutputHelper

@@ -7,8 +7,9 @@ namespace EventHorizon.Zone.Core.Tests
 
     using EventHorizon.Game.Server.Zone;
     using EventHorizon.Monitoring.Events.Track;
+    using EventHorizon.Test.Common;
     using EventHorizon.Test.Common.Attributes;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.Core.Api;
     using EventHorizon.Zone.Core.DateTimeService;
     using EventHorizon.Zone.Core.Events.Lifetime;
@@ -54,7 +55,7 @@ namespace EventHorizon.Zone.Core.Tests
                 systemProvidedAssemblyList
             );
 
-            var actual = serviceCollectionMock.Services.Values;
+            var actual = serviceCollectionMock.Services;
 
             // Then
             Assert.Collection(

@@ -1,11 +1,12 @@
 namespace EventHorizon.Zone.System.Player.Tests
 {
-    using global::System.Threading;
-
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
     using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+    using global::System.Threading;
 
     using MediatR;
 

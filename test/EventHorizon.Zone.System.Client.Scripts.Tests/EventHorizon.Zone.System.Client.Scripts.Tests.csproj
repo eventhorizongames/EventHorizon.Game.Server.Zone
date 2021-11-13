@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Base.Project.props', '$(MSBuildProjectDirectory)../'))" />
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -8,4 +9,5 @@
         <ProjectReference Include="..\EventHorizon.Test.Common\EventHorizon.Test.Common.csproj" />
         <ProjectReference Include="..\..\src\EventHorizon.Zone.System.Client.Scripts\EventHorizon.Zone.System.Client.Scripts.csproj" />
     </ItemGroup>
+
 </Project>

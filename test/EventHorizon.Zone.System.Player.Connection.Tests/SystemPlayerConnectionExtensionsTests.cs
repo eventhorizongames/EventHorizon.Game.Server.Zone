@@ -4,7 +4,7 @@ namespace EventHorizon.Server.Core.Tests
     using System.Collections.Generic;
 
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Player.Connection;
     using EventHorizon.Zone.System.Player.Connection.Internal;
     using EventHorizon.Zone.System.Player.Connection.Model;
@@ -51,17 +51,17 @@ namespace EventHorizon.Server.Core.Tests
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
-                service => typeof(PlayerServerConnectionCache) == service.Value.ServiceType
-                        && typeof(SystemPlayerServerConnectionCache) == service.Value.ImplementationType
+                service => typeof(PlayerServerConnectionCache) == service.ServiceType
+                        && typeof(SystemPlayerServerConnectionCache) == service.ImplementationType
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
-                service => typeof(PlayerServerConnectionFactory) == service.Value.ServiceType
-                        && typeof(SystemPlayerServerConnectionFactory) == service.Value.ImplementationType
+                service => typeof(PlayerServerConnectionFactory) == service.ServiceType
+                        && typeof(SystemPlayerServerConnectionFactory) == service.ImplementationType
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
-                service => typeof(IConfigureOptions<PlayerServerConnectionSettings>) == service.Value.ServiceType
+                service => typeof(IConfigureOptions<PlayerServerConnectionSettings>) == service.ServiceType
             );
         }
     }

@@ -2,7 +2,7 @@ namespace EventHorizon.Zone.Core.ServerAction.Tests
 {
 
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.Core.ServerAction.State;
     using EventHorizon.Zone.Core.ServerAction.Timer;

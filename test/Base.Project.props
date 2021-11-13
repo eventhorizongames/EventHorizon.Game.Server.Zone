@@ -1,0 +1,12 @@
+<Project>
+
+    <ItemGroup>
+      <Compile Remove="TestResults\**" />
+      <Content Remove="TestResults\**" />
+      <EmbeddedResource Remove="TestResults\**" />
+      <None Remove="TestResults\**" />
+      <Content Remove="coverage.json" />
+      <None Remove="coverage.json" />
+    </ItemGroup>
+
+</Project>

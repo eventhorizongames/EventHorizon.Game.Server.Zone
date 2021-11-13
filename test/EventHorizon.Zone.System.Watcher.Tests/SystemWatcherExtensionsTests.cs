@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.System.Watcher.State;
     using EventHorizon.Zone.System.Watcher.Timer;

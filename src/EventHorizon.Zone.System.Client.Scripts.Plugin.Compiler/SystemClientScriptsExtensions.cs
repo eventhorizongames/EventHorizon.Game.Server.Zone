@@ -11,6 +11,7 @@ namespace EventHorizon.Game.Server.Zone
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
 
+    using Weikio.NugetDownloader;
     using Weikio.PluginFramework.Catalogs;
     using Weikio.PluginFramework.Catalogs.NuGet;
 

@@ -10,17 +10,13 @@ namespace EventHorizon.Test.Common.Utils
     [ExcludeFromCodeCoverage]
     public class ServiceCollectionMock : IServiceCollection
     {
-        public Dictionary<int, ServiceDescriptor> Services = new();
+        public ServiceDescriptor[] Services = System.Array.Empty<ServiceDescriptor>();
 
         public ServiceDescriptor this[int index]
         {
             get
             {
-                if (Services.TryGetValue(index, out var service))
-                {
-                    return service;
-                }
-                return null;
+                return Services[index];
             }
             set
             {
@@ -28,58 +24,69 @@ namespace EventHorizon.Test.Common.Utils
             }
         }
 
-        public int Count => Services.Count;
+        public int Count => Services.Length;
 
         public bool IsReadOnly => throw new System.NotImplementedException();
 
         public void Add(ServiceDescriptor item)
         {
-            Services.Add(Services.Count + 1, item);
+            Services = Services.InsertItem(Services.Length, item).ToArray();
         }
 
         public void Clear()
         {
-            Services.Clear();
+            Services = System.Array.Empty<ServiceDescriptor>();
         }
 
         public bool Contains(ServiceDescriptor item)
         {
-            return Services.Values.Contains(item);
+            return Services.Contains(item);
         }
 
         public void CopyTo(ServiceDescriptor[] array, int arrayIndex)
         {
-            Services.Values.CopyTo(array, arrayIndex);
+            Services.CopyTo(array, arrayIndex);
         }
 
         public IEnumerator<ServiceDescriptor> GetEnumerator()
         {
-            return Services.Values.GetEnumerator();
+            return Services.ToList().GetEnumerator();
         }
 
         public int IndexOf(ServiceDescriptor item)
         {
-            throw new System.NotImplementedException();
+            for (int i = 0; i < Services.Length; i++)
+            {
+                var service = Services[i];
+                if (service == item)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         public void Insert(int index, ServiceDescriptor item)
         {
-            throw new System.NotImplementedException();
+            Services = Services.InsertItem(index, item).ToArray();
         }
 
         public bool Remove(ServiceDescriptor item)
         {
-            throw new System.NotImplementedException();
+            var count = Services.Length;
+            Services = Services.RemoveItem(item).ToArray();
+            return Services.Length != count;
         }
 
         public void RemoveAt(int index)
         {
-            throw new System.NotImplementedException();
+            Services = Services.Where((_, itemIndex) => itemIndex != index).ToArray();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Services.Values.GetEnumerator();
+            return Services.GetEnumerator();
         }
     }
 }

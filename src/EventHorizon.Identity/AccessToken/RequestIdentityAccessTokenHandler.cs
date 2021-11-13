@@ -36,13 +36,14 @@ namespace EventHorizon.Identity.AccessToken
             var clientId = _configuration["Auth:ClientId"];
             var clientSecret = _configuration["Auth:ClientSecret"];
             var apiScope = _configuration["Auth:ApiName"];
+
             // request token
             var tokenClient = _tokenClientFactory.Create(
                 $"{tokenEndpoint}/connect/token",
                 clientId,
                 clientSecret
             );
-            var tokenResponse = await tokenClient.RequestClientCredentialsAsync(
+            var tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(
                 apiScope,
                 cancellationToken: cancellationToken
             );

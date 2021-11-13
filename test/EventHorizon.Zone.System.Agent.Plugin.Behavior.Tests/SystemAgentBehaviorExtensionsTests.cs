@@ -1,7 +1,7 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
 {
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
@@ -24,7 +24,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests
     using Xunit;
     using Xunit.Abstractions;
 
-    public class SystemAgentBehaviorExtensionsTests : TestFixtureBase
+    public class SystemAgentBehaviorExtensionsTests
+        : TestFixtureBase
     {
         public SystemAgentBehaviorExtensionsTests(ITestOutputHelper testOutputHelper)
             : base(testOutputHelper)

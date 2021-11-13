@@ -4,12 +4,11 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
     using System.Collections.Generic;
     using System.Threading;
 
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.TimerService;
     using EventHorizon.Zone.System.Agent.Connection;
     using EventHorizon.Zone.System.Agent.Connection.Factory;
     using EventHorizon.Zone.System.Agent.Events.Startup;
-    using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.State;
     using EventHorizon.Zone.System.Agent.Save;
     using EventHorizon.Zone.System.Agent.State;
@@ -60,32 +59,32 @@ namespace EventHorizon.Game.Server.Zone.Tests.Agent
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(IAgentRepository) == service.Value.ServiceType
-                        && typeof(AgentWrappedEntityRepository) == service.Value.ImplementationType;
+                    return typeof(IAgentRepository) == service.ServiceType
+                        && typeof(AgentWrappedEntityRepository) == service.ImplementationType;
                 }
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(ITimerTask) == service.Value.ServiceType
-                        && typeof(SaveAgentStateTimerTask) == service.Value.ImplementationType;
+                    return typeof(ITimerTask) == service.ServiceType
+                        && typeof(SaveAgentStateTimerTask) == service.ImplementationType;
                 }
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(IAgentConnectionCache) == service.Value.ServiceType
-                        && typeof(AgentConnectionCache) == service.Value.ImplementationType;
+                    return typeof(IAgentConnectionCache) == service.ServiceType
+                        && typeof(AgentConnectionCache) == service.ImplementationType;
                 }
             );
             Assert.Contains(
                 serviceCollectionMock.Services,
                 service =>
                 {
-                    return typeof(IAgentConnectionFactory) == service.Value.ServiceType
-                        && typeof(AgentConnectionFactory) == service.Value.ImplementationType;
+                    return typeof(IAgentConnectionFactory) == service.ServiceType
+                        && typeof(AgentConnectionFactory) == service.ImplementationType;
                 }
             );
         }

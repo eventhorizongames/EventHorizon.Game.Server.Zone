@@ -1,11 +1,12 @@
 namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 {
-    using global::System.Threading;
-
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
     using EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+    using global::System.Threading;
 
     using MediatR;
 

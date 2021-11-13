@@ -12,6 +12,7 @@
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
+    using global::System.Linq;
     using global::System.Threading;
     using global::System.Threading.Tasks;
 
@@ -87,6 +88,12 @@
                     );
                 }
 
+                // Log some information
+                _logger.LogInformation(
+                    "Client Script Assembly References Added: \n\r\t {ScriptAssemblyNames}",
+                    string.Join(Environment.NewLine, assemblyNames.Select(a => a.ToString()))
+                );
+
                 // Create Assembly, returns reference to generated File
                 var generatedFileFullName = await _builder.Compile(
                     consolidatedScripts
@@ -108,11 +115,6 @@
                     )
                 );
 
-                // Log some information
-                _logger.LogInformation(
-                    "Client Script Assembly References Added: \n\r\t {ScriptAssemblyNames}",
-                    assemblyNames
-                );
                 _logger.LogInformation(
                     "Client Script Source Hash: {ScriptHash}",
                     scriptHash

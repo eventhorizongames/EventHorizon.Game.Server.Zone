@@ -5,7 +5,7 @@ namespace EventHorizon.Game.I18n.Tests
 
     using EventHorizon.Game.I18n.Loader;
     using EventHorizon.Game.I18n.Lookup;
-    using EventHorizon.Game.I18n.Tests.TestUtils;
+    using EventHorizon.Test.Common.Utils;
 
     using MediatR;
 
@@ -30,9 +30,9 @@ namespace EventHorizon.Game.I18n.Tests
 
             //Then
             Assert.Collection(actual,
-                a => Assert.IsType<I18nLookupRepository>(a.Value.ImplementationInstance),
-                a => Assert.IsType<I18nLookupRepository>(a.Value.ImplementationInstance),
-                a => Assert.IsType<I18nLookupRepository>(a.Value.ImplementationInstance)
+                a => Assert.IsType<I18nLookupRepository>(a.ImplementationInstance),
+                a => Assert.IsType<I18nLookupRepository>(a.ImplementationInstance),
+                a => Assert.IsType<I18nLookupRepository>(a.ImplementationInstance)
             );
         }
 

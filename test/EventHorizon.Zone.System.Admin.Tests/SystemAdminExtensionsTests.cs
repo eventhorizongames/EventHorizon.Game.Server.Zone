@@ -1,7 +1,8 @@
 namespace EventHorizon.Zone.System.Admin.Tests
 {
     using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
 
     using Xunit;
 

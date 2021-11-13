@@ -2,6 +2,7 @@ namespace EventHorizon.Identity.Client
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Net.Http;
 
     using IdentityModel.Client;
 
@@ -19,6 +20,17 @@ namespace EventHorizon.Identity.Client
         IDisposable
     {
         private readonly ConcurrentDictionary<string, TokenClient> _clientMap = new();
+
+        private readonly HttpClient _httpClient;
+
+        public CachingTokenClientFactory(
+            IHttpClientFactory httpClientFactory
+        )
+        {
+            _httpClient = httpClientFactory.CreateClient(
+                nameof(CachingTokenClientFactory)
+            );
+        }
 
         public TokenClient Create(
             string url,
@@ -38,19 +50,21 @@ namespace EventHorizon.Identity.Client
             {
                 return client;
             }
+
             client = new TokenClient(
-                url,
-                clientId,
-                clientSecret
+                _httpClient,
+                new TokenClientOptions
+                {
+                    Address = url,
+                    ClientId = clientId,
+                    ClientSecret = clientSecret,
+                }
             );
+
             _clientMap.AddOrUpdate(
                 clientKey,
                 client,
-                (_, oldClient) =>
-                {
-                    oldClient?.Dispose();
-                    return client;
-                }
+                (_, _) => client
             );
             return client;
         }
@@ -78,10 +92,7 @@ namespace EventHorizon.Identity.Client
                     // Dispose managed state (managed objects).
                 }
 
-                foreach (var client in _clientMap)
-                {
-                    client.Value.Dispose();
-                }
+                _httpClient.Dispose();
 
                 _clientMap.Clear();
 

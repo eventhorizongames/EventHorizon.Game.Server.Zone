@@ -5,9 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EventHorizon.Observer" Version="0.1.72" />
-        <PackageReference Include="Mediatr" Version="8.1.0" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+        <PackageReference Include="EventHorizon.Observer" Version="0.1.132" />
+        <PackageReference Include="Mediatr" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -4,7 +4,8 @@ namespace EventHorizon.Identity.Tests
 
     using EventHorizon.Identity.Client;
     using EventHorizon.Identity.Model;
-    using EventHorizon.Tests.TestUtils;
+    using EventHorizon.Test.Common;
+    using EventHorizon.Test.Common.Utils;
 
     using Microsoft.Extensions.Options;
 

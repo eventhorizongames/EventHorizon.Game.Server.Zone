@@ -1,6 +1,14 @@
 namespace EventHorizon.Identity.Tests.Client
 {
+    using System.Net.Http;
+
     using EventHorizon.Identity.Client;
+
+    using FluentAssertions;
+
+    using IdentityModel.Client;
+
+    using Moq;
 
     using Xunit;
 
@@ -14,8 +22,12 @@ namespace EventHorizon.Identity.Tests.Client
             var expectedClientId = "client-id";
             var expectedClientSecret = "client-secret";
 
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
             // When
-            var tokenClientFactory = new CachingTokenClientFactory();
+            var tokenClientFactory = new CachingTokenClientFactory(
+                httpClientFactoryMock.Object
+            );
             var actual = tokenClientFactory.Create(
                 expectedUrl,
                 expectedClientId,
@@ -26,18 +38,7 @@ namespace EventHorizon.Identity.Tests.Client
             Assert.NotNull(
                 actual
             );
-            Assert.Equal(
-                expectedUrl,
-                actual.Address
-            );
-            Assert.Equal(
-                expectedClientId,
-                actual.ClientId
-            );
-            Assert.Equal(
-                expectedClientSecret,
-                actual.ClientSecret
-            );
+            actual.Should().BeOfType<TokenClient>();
         }
         [Fact]
         public void TestShouldReturnExistingClientWhenCalledMultipleTimesWithSameArguments()
@@ -47,8 +48,12 @@ namespace EventHorizon.Identity.Tests.Client
             var clientId = "client-id";
             var clientSecret = "client-secret";
 
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+
             // When
-            var tokenClientFactory = new CachingTokenClientFactory();
+            var tokenClientFactory = new CachingTokenClientFactory(
+                httpClientFactoryMock.Object
+            );
             var expected = tokenClientFactory.Create(
                 url,
                 clientId,
@@ -72,6 +77,7 @@ namespace EventHorizon.Identity.Tests.Client
                 actual
             );
         }
+
         [Fact]
         public void TestShouldDisposeOfAnyExistingClientsWhenDisposed()
         {
@@ -80,8 +86,21 @@ namespace EventHorizon.Identity.Tests.Client
             var clientId = "client-id";
             var clientSecret = "client-secret";
 
+            var httpClientFactoryMock = new Mock<IHttpClientFactory>();
+            var httpClientMock = new Mock<HttpClient>();
+
+            httpClientFactoryMock.Setup(
+                mock => mock.CreateClient(
+                    nameof(CachingTokenClientFactory)
+                )
+            ).Returns(
+                httpClientMock.Object
+            );
+
             // When
-            var tokenClientFactory = new CachingTokenClientFactory();
+            var tokenClientFactory = new CachingTokenClientFactory(
+                httpClientFactoryMock.Object
+            );
             var expected = tokenClientFactory.Create(
                 url,
                 clientId,
@@ -95,16 +114,7 @@ namespace EventHorizon.Identity.Tests.Client
             );
 
             // Then
-            Assert.NotNull(
-                expected
-            );
-            Assert.NotNull(
-                actual
-            );
-            Assert.NotEqual(
-                expected,
-                actual
-            );
+            expected.Should().NotBe(actual);
         }
     }
 }
