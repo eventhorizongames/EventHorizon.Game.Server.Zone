@@ -26,6 +26,22 @@ RUN dotnet build --no-restore --configuration $BUILD_CONFIGURATION
 
 
 #########################
+# Stage - test-report-generation
+## Test and Report Generation 
+## Runs the test and reporting script, making it easier to run tests from inside a Container.
+#########################
+FROM base-build AS test-report-generation
+ARG BUILD_CONFIGURATION=Release
+ENV BUILD_CONFIGURATION=${BUILD_CONFIGURATION}
+
+COPY _build-scripts/run-test-and-reporting.sh .
+
+RUN chmod +x run-test-and-reporting.sh
+
+ENTRYPOINT ["/source/run-test-and-reporting.sh"]
+
+
+#########################
 # Stage - publish-main
 ## Publish the Main Server
 ## Runs dotnet publish for the Main Server.
@@ -36,24 +52,6 @@ ARG BUILD_CONFIGURATION=Release
 
 RUN dotnet publish --configuration $BUILD_CONFIGURATION /p:Version=$BUILD_VERSION \
     --no-restore --no-build --output /app ./src/EventHorizon.Game.Server.Zone
-
-
-#########################
-# Stage - test-report-generation
-## Test and Report Generation 
-## Runs the test and reporting script, making it easier to run tests from inside a Container.
-#########################
-FROM base-build AS test-report-generation
-ARG BUILD_VERSION=0.0.0
-ARG BUILD_CONFIGURATION=Release
-ENV BUILD_VERSION=${BUILD_VERSION}
-ENV BUILD_CONFIGURATION=${BUILD_CONFIGURATION}
-
-COPY _build-scripts/run-test-and-reporting.sh .
-
-RUN chmod +x run-test-and-reporting.sh
-
-ENTRYPOINT ["/source/run-test-and-reporting.sh"]
 
 
 #########################

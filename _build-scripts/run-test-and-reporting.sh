@@ -2,7 +2,7 @@
 # Setting -e will cause any error code to stop execution
 set -e
 
-dotnet test --configuration $BUILD_CONFIGURATION /p:Version=$BUILD_VERSION \
+dotnet test --configuration $BUILD_CONFIGURATION \
     --no-restore --no-build --filter "Category!=Performance & WindowsOnly!=True & Category!=DebugOnly" \
     /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./TestResults/Coverage/ \
     --logger:"trx;LogFilePrefix=TestResult" --results-directory /TestResults/Reports /nodeReuse:false /maxCpuCount:6
