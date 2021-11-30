@@ -1,8 +1,14 @@
 <Project>
+
     <PropertyGroup>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
         <!-- Uncomment this to work through Warnings -->
         <!-- <EnableNETAnalyzers>true</EnableNETAnalyzers> -->
     </PropertyGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="9.0.0" />
+	</ItemGroup>
+
 </Project>
