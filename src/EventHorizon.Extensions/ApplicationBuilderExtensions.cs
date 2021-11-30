@@ -33,16 +33,11 @@ namespace Microsoft.AspNetCore.Builder
         {
             using var scope = applicationBuilder.CreateServiceScope();
             var mediator = scope.ServiceProvider.GetService<IMediator>();
+            ArgumentNullException.ThrowIfNull(command);
             if (mediator == null)
             {
                 throw new InvalidOperationException(
                     $"{typeof(IMediator)} was not found"
-                );
-            }
-            else if (command == null)
-            {
-                throw new InvalidOperationException(
-                    $"command was null"
                 );
             }
 
@@ -69,8 +64,9 @@ namespace Microsoft.AspNetCore.Builder
             }
             else if (command == null)
             {
-                throw new InvalidOperationException(
-                    $"{typeof(T)} was null command"
+                throw new ArgumentNullException(
+                    nameof(command),
+                    $"Parameter '{nameof(command)}' of '{typeof(T)}' Type cannot be null."
                 );
             }
 
