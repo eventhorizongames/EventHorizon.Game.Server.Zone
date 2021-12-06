@@ -1,6 +1,7 @@
 ﻿namespace EventHorizon.BackgroundTasks.HostedService;
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,6 +39,13 @@ public class BackgroundTasksHostedService
         {
             var task = await _backgroundJobs.DequeueAsync(
                 cancellationToken
+            );
+            using var _ = _logger.BeginScope(
+                new Dictionary<string, object>
+                {
+                    ["CorrelationId"] = Guid.NewGuid(),
+                    ["BackgroundTask"] = task,
+                }
             );
             try
             {

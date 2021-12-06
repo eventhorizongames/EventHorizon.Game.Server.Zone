@@ -1,152 +1,106 @@
-namespace EventHorizon.Game.Server.Zone.Tests.Agent
+namespace EventHorizon.Zone.System.Agent.Tests;
+
+using AutoFixture.Xunit2;
+
+using EventHorizon.Game.Server.Zone;
+using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Test.Common.Utils;
+using EventHorizon.TimerService;
+using EventHorizon.Zone.System.Agent.Connection;
+using EventHorizon.Zone.System.Agent.Connection.Factory;
+using EventHorizon.Zone.System.Agent.Model.State;
+using EventHorizon.Zone.System.Agent.Save;
+using EventHorizon.Zone.System.Agent.State;
+
+using FluentAssertions;
+
+using global::System.Collections.Generic;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+
+using Moq;
+
+using Xunit;
+
+public class AgentExtensionsTests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading;
-
-    using EventHorizon.Test.Common.Utils;
-    using EventHorizon.TimerService;
-    using EventHorizon.Zone.System.Agent.Connection;
-    using EventHorizon.Zone.System.Agent.Connection.Factory;
-    using EventHorizon.Zone.System.Agent.Events.Startup;
-    using EventHorizon.Zone.System.Agent.Model.State;
-    using EventHorizon.Zone.System.Agent.Save;
-    using EventHorizon.Zone.System.Agent.State;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-
-    using Moq;
-
-    using Xunit;
-
-    public class AgentExtensionsTests
+    [Fact]
+    public void TestAddAgent_ShouldConfigureServiceCollection()
     {
-        [Fact]
-        public void TestAddAgent_ShouldConfigureServiceCollection()
-        {
-            // Given
-            var serviceCollectionMock = new ServiceCollectionMock();
-            var configurationMock = new Mock<IConfiguration>();
-            var config = new ConfigurationSection(
-                new ConfigurationRoot(
-                    new List<IConfigurationProvider>()
-                ),
+        // Given
+        var serviceCollectionMock = new ServiceCollectionMock();
+        var configurationMock = new Mock<IConfiguration>();
+        var config = new ConfigurationSection(
+            new ConfigurationRoot(
+                new List<IConfigurationProvider>()
+            ),
+            "Agent"
+        );
+        configurationMock.Setup(
+            mock => mock.GetSection(
                 "Agent"
-            );
-            configurationMock.Setup(
-                mock => mock.GetSection(
-                    "Agent"
-                )
-            ).Returns(
-                config
-            );
+            )
+        ).Returns(
+            config
+        );
 
-            // When
-            SystemAgentExtensions.AddSystemAgent(
-                serviceCollectionMock,
-                configurationMock.Object
-            );
+        // When
+        serviceCollectionMock.AddSystemAgent(
+            configurationMock.Object
+        );
 
-            // Then
-            Assert.NotEmpty(
-                serviceCollectionMock
-            );
-            Assert.Contains(
-                serviceCollectionMock.Services,
-                service =>
-                {
-                    return typeof(IAgentRepository) == service.ServiceType
-                        && typeof(AgentWrappedEntityRepository) == service.ImplementationType;
-                }
-            );
-            Assert.Contains(
-                serviceCollectionMock.Services,
-                service =>
-                {
-                    return typeof(ITimerTask) == service.ServiceType
-                        && typeof(SaveAgentStateTimerTask) == service.ImplementationType;
-                }
-            );
-            Assert.Contains(
-                serviceCollectionMock.Services,
-                service =>
-                {
-                    return typeof(IAgentConnectionCache) == service.ServiceType
-                        && typeof(AgentConnectionCache) == service.ImplementationType;
-                }
-            );
-            Assert.Contains(
-                serviceCollectionMock.Services,
-                service =>
-                {
-                    return typeof(IAgentConnectionFactory) == service.ServiceType
-                        && typeof(AgentConnectionFactory) == service.ImplementationType;
-                }
-            );
-        }
-        [Fact]
-        public void TestUseAgent_ShouldSendAndPublishExpectedEvent()
-        {
-            // Given
-            var expectedLoadZoneAgentStateEvent = new LoadZoneAgentStateEvent();
+        // Then
+        Assert.NotEmpty(
+            serviceCollectionMock
+        );
+        Assert.Contains(
+            serviceCollectionMock.Services,
+            service =>
+            {
+                return typeof(IAgentRepository) == service.ServiceType
+                    && typeof(AgentWrappedEntityRepository) == service.ImplementationType;
+            }
+        );
+        Assert.Contains(
+            serviceCollectionMock.Services,
+            service =>
+            {
+                return typeof(ITimerTask) == service.ServiceType
+                    && typeof(SaveAgentStateTimerTask) == service.ImplementationType;
+            }
+        );
+        Assert.Contains(
+            serviceCollectionMock.Services,
+            service =>
+            {
+                return typeof(IAgentConnectionCache) == service.ServiceType
+                    && typeof(AgentConnectionCache) == service.ImplementationType;
+            }
+        );
+        Assert.Contains(
+            serviceCollectionMock.Services,
+            service =>
+            {
+                return typeof(IAgentConnectionFactory) == service.ServiceType
+                    && typeof(AgentConnectionFactory) == service.ImplementationType;
+            }
+        );
+    }
 
-            var mediatorMock = new Mock<IMediator>();
+    [Theory, AutoMoqData]
+    public void TestUseAgent_ShouldSendAndPublishExpectedEvent(
+        // Given
+        [Frozen] Mock<IApplicationBuilder> applicationBuilderMock
+    )
+    {
+        // When
+        var actual = applicationBuilderMock.Object
+            .UseSystemAgent();
 
-            var serviceProviderMock = new Mock<IServiceProvider>();
-            serviceProviderMock.Setup(
-                serviceProvider => serviceProvider.GetService(
-                    typeof(IMediator)
-                )
-            ).Returns(
-                mediatorMock.Object
-            );
-
-            var serviceScopeMock = new Mock<IServiceScope>();
-            serviceScopeMock.SetupGet(
-                serviceScope => serviceScope.ServiceProvider
-            ).Returns(
-                serviceProviderMock.Object
-            );
-
-            var serviceScopeFactoryMock = new Mock<IServiceScopeFactory>();
-            serviceScopeFactoryMock.Setup(
-                mock => mock.CreateScope()
-            ).Returns(
-                serviceScopeMock.Object
-            );
-
-            var applicationServicesMock = new Mock<IServiceProvider>();
-            applicationServicesMock.Setup(
-                mock => mock.GetService(
-                    typeof(IServiceScopeFactory)
-                )
-            ).Returns(
-                serviceScopeFactoryMock.Object
-            );
-
-            var applicationBuilderMock = new Mock<IApplicationBuilder>();
-            applicationBuilderMock.Setup(
-                mock => mock.ApplicationServices
-            ).Returns(
-                applicationServicesMock.Object
-            );
-
-            // When
-            SystemAgentExtensions.UseSystemAgent(
-                applicationBuilderMock.Object
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expectedLoadZoneAgentStateEvent,
-                    CancellationToken.None
-                )
-            );
-        }
+        // Then
+        actual.Should().Be(
+            applicationBuilderMock.Object
+        );
     }
 }

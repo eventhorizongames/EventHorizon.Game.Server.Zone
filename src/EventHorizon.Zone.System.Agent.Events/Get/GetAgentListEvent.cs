@@ -1,21 +1,12 @@
-namespace EventHorizon.Zone.System.Agent.Events.Get
-{
-    using EventHorizon.Zone.System.Agent.Model;
+namespace EventHorizon.Zone.System.Agent.Events.Get;
 
-    using global::System;
-    using global::System.Collections.Generic;
+using EventHorizon.Zone.System.Agent.Model;
 
-    using MediatR;
+using global::System;
+using global::System.Collections.Generic;
 
-    public struct GetAgentListEvent : IRequest<IEnumerable<AgentEntity>>
-    {
-        public Func<AgentEntity, bool> Query { get; set; }
+using MediatR;
 
-        public GetAgentListEvent(
-            Func<AgentEntity, bool> query
-        )
-        {
-            Query = query;
-        }
-    }
-}
+public record GetAgentListEvent(
+    Func<AgentEntity, bool>? Query = null
+) : IRequest<IEnumerable<AgentEntity>>;

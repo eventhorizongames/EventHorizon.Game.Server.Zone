@@ -1,1 +1,11 @@
-{"Id":"f2f1d5f6-cc0d-4094-aecf-455b5c2f4906","Type":"MESH:GLTF","Name":"Default Mesh","Data":{"path":"/Assets/Meshes/","file":"Default_Mesh.glb","heightOffset":0,"metadata:fileFullName":"C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Default.json"}}
+{
+  "Id": "f2f1d5f6-cc0d-4094-aecf-455b5c2f4906",
+  "Type": "MESH:GLTF",
+  "Name": "Default Mesh",
+  "Data": {
+    "path": "/Assets/Meshes/",
+    "file": "Default_Mesh.glb",
+    "heightOffset": 0,
+    "metadata:fileFullName": "C:\\Source\\GDP\\EventHorizon.Game.Server.Zone\\src\\EventHorizon.Game.Server.Zone\\App_Data\\Client\\Assets\\Mesh.Default.json"
+  }
+}
