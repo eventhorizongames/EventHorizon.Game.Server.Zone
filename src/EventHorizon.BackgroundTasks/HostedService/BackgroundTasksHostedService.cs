@@ -58,12 +58,17 @@ public class BackgroundTasksHostedService
                     .GetRequiredService<IServiceScopeFactory>()
                     .CreateScope();
 
-                await scope.ServiceProvider
+                var result = await scope.ServiceProvider
                     .GetRequiredService<ISender>()
                     .Send(
                         task,
                         cancellationToken
                     );
+
+                if (!result.Success)
+                {
+                    // TODO: Add Error Code Support/Logging to BackgroundTask Processing
+                }
 
                 _logger.LogInformation(
                     "Finished Running Task: {@BackgroundTask}",

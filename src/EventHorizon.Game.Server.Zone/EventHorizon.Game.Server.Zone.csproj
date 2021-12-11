@@ -62,6 +62,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.BackgroundTasks\EventHorizon.BackgroundTasks.csproj" />
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />
         <ProjectReference Include="..\EventHorizon.Extensions\EventHorizon.Extensions.csproj" />
         <ProjectReference Include="..\EventHorizon.Platform.Integration\EventHorizon.Platform.Integration.csproj" />
@@ -83,6 +84,10 @@
         <ProjectReference Include="..\EventHorizon.Zone.Core.ServerAction\EventHorizon.Zone.Core.ServerAction.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Server.Core\EventHorizon.Server.Core.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.ArtifactManagement\EventHorizon.Zone.System.ArtifactManagement.csproj" />
+
+        <ProjectReference Include="..\EventHorizon.Zone.System.AssetServer\EventHorizon.Zone.System.AssetServer.csproj" />
 
         <ProjectReference Include="..\EventHorizon.Zone.System.DataStorage\EventHorizon.Zone.System.DataStorage.csproj" />
 

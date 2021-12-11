@@ -6,6 +6,6 @@ using EventHorizon.Zone.Core.Model.FileService;
 
 using MediatR;
 
-public record GetFileStreamForFileInfo(
+public record GetStreamForFileInfo(
     StandardFileInfo FileInfo
-) : IRequest<FileStream>;
+) : IRequest<Stream>;

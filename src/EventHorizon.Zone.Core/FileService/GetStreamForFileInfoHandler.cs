@@ -9,25 +9,25 @@ using EventHorizon.Zone.Core.Model.FileService;
 
 using MediatR;
 
-public class GetFileStreamForFileInfoHandler
-    : IRequestHandler<GetFileStreamForFileInfo, FileStream>
+public class GetStreamForFileInfoHandler
+    : IRequestHandler<GetStreamForFileInfo, Stream>
 {
     private readonly FileResolver _resolver;
 
-    public GetFileStreamForFileInfoHandler(
+    public GetStreamForFileInfoHandler(
         FileResolver resolver
     )
     {
         _resolver = resolver;
     }
 
-    public Task<FileStream> Handle(
-        GetFileStreamForFileInfo request,
+    public Task<Stream> Handle(
+        GetStreamForFileInfo request,
         CancellationToken cancellationToken
     )
     {
         return _resolver.GetFileAsStream(
             request.FileInfo.FullName
-        ).FromResult();
+        ).FromResult<Stream>();
     }
 }
