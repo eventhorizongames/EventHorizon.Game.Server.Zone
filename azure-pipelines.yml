@@ -133,7 +133,7 @@ jobs:
   steps:
   - task: UseDotNet@2
     displayName: Use .NET Core SDK
-    enabled: eq(variables.AnalysisEnabled, 'true')
+    enabled: eq(AnalysisEnabled, 'true')
     inputs:
       packageType: sdk
       version: 6.0.x
@@ -142,7 +142,7 @@ jobs:
   
   - task: DotNetCoreCLI@2
     displayName: Test with OpenCover Coverage Report
-    enabled: eq(variables.AnalysisEnabled, 'true')
+    enabled: eq(AnalysisEnabled, 'true')
     inputs:
       command: test
       projects: '$(Parameters.TestProjects)'
@@ -150,7 +150,7 @@ jobs:
   
   - task: NDependTask@1
     displayName: Run NDepened Analysis
-    enabled: eq(variables.AnalysisEnabled, 'true')
+    enabled: eq(AnalysisEnabled, 'true')
     env:
       SYSTEM_ACCESSTOKEN: $(system.accesstoken)
     inputs:
