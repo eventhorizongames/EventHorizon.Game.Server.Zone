@@ -9,16 +9,15 @@ using EventHorizon.Zone.Core.Events.Lifetime;
 using EventHorizon.Zone.Core.Model.Command;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.System.Admin.Restart;
 using EventHorizon.Zone.System.ArtifactManagement.Backup;
 using EventHorizon.Zone.System.ArtifactManagement.Import;
-using EventHorizon.Zone.System.ArtifactManagement.Model;
 using EventHorizon.Zone.System.ArtifactManagement.Query;
 using EventHorizon.Zone.System.ArtifactManagement.Trigger;
 
 using FluentAssertions;
 
 using global::System;
-using global::System.Collections.Generic;
 using global::System.Threading;
 using global::System.Threading.Tasks;
 
@@ -292,6 +291,46 @@ public class ImportZoneDataCommandHandlerTests
             )
         ).ReturnsAsync(
             new CommandResult<StandardDirectoryInfo>(
+                "Failed"
+            )
+        );
+
+        // When
+        var actual = await handler.Handle(
+            new ImportZoneDataCommand(
+                referenceId,
+                importArtifactUri.ToString()
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeFalse();
+        actual.ErrorCode.Should().Be(expected);
+    }
+    
+
+    [Theory, AutoMoqData]
+    public async Task ReturnErrorWhenRestartServerFails(
+        // Given
+        string referenceId,
+        Uri importArtifactUri,
+        [Frozen] Mock<ISender> senderMock,
+        ImportZoneDataCommandHandler handler
+    )
+    {
+        var expected = "ARTIFACT_MANAGEMENT_IMPORT_STEP_RESTART_SERVER_FAILED";
+
+        senderMock.GivenValidSetup();
+        senderMock.GivenDefaultRevertImportCommand();
+
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<RestartServerCommand>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            new StandardCommandResult(
                 "Failed"
             )
         );

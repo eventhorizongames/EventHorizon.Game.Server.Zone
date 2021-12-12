@@ -3,22 +3,26 @@
 using AutoFixture.Xunit2;
 
 using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Command;
 using EventHorizon.Zone.Core.Model.DirectoryService;
 using EventHorizon.Zone.Core.Model.FileService;
-using EventHorizon.Zone.System;
-
-using global::System.Threading.Tasks;
-using global::System.Threading;
-using global::System;
-using MediatR;
-using Moq;
-using Xunit;
+using EventHorizon.Zone.System.Admin.Restart;
 using EventHorizon.Zone.System.ArtifactManagement.Query;
-using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.System.ArtifactManagement.Revert;
+
 using FluentAssertions;
+
+using global::System;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
 
 public class RevertToBackupZoneDataCommandHandlerTests
 {
@@ -181,6 +185,44 @@ public class RevertToBackupZoneDataCommandHandlerTests
             )
         ).ReturnsAsync(
             new CommandResult<StandardDirectoryInfo>(
+                "Failed"
+            )
+        );
+
+        // When
+        var actual = await handler.Handle(
+            new RevertToBackupZoneDataCommand(
+                referenceId,
+                backupArtifactUri.ToString()
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeFalse();
+        actual.ErrorCode.Should().Be(expected);
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ReturnErrorWhenRestartServerFails(
+        // Given
+        string referenceId,
+        Uri backupArtifactUri,
+        [Frozen] Mock<ISender> senderMock,
+        RevertToBackupZoneDataCommandHandler handler
+    )
+    {
+        var expected = "ARTIFACT_MANAGEMENT_REVERT_TO_BACKUP_STEP_RESTART_SERVER_FAILED";
+
+        senderMock.GivenValidSetup();
+
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<RestartServerCommand>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            new StandardCommandResult(
                 "Failed"
             )
         );

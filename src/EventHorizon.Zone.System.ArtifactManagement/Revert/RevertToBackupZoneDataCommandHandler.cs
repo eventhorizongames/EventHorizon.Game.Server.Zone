@@ -2,12 +2,10 @@
 
 using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.FileService;
-using EventHorizon.Zone.Core.Events.Lifetime;
 using EventHorizon.Zone.Core.Model.Command;
 using EventHorizon.Zone.Core.Model.Exceptions;
 using EventHorizon.Zone.Core.Model.Info;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Builder;
+using EventHorizon.Zone.System.Admin.Restart;
 using EventHorizon.Zone.System.ArtifactManagement.Query;
 
 using global::System;
@@ -120,23 +118,18 @@ public class RevertToBackupZoneDataCommandHandler
                 );
             }
 
-            await _sender.Send(
-                new RunServerStartupCommand(),
+            var restartResult = await _sender.Send(
+                new RestartServerCommand(),
                 cancellationToken
             );
-            await _publisher.Publish(
-                new AdminCommandEvent(
-                    BuildAdminCommand.FromString(
-                        "reload-system"
-                    ),
-                    "reload-system"
-                ),
-                cancellationToken
-            );
-            await _sender.Send(
-                new FinishServerStartCommand(),
-                cancellationToken
-            );
+            if(!restartResult)
+            {
+                throw LogAndCreateException(
+                    restartResult,
+                    ARTIFACT_MANAGEMENT_REVERT_TO_BACKUP_STEP_RESTART_SERVER_FAILED,
+                    $"Failed to Restart Server."
+                );
+            }
         }
         catch (PlatformErrorCodeException ex)
         {
