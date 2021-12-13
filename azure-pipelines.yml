@@ -124,35 +124,3 @@ jobs:
       tags: |
         latest
         $(Build.BuildNumber)
-
-
-- job: Test_and_NDepend_Analysis
-  condition: and(succeeded(), eq(variables.IsMain, true))
-  pool: 
-    vmImage: 'windows-2019'
-  steps:
-  - task: UseDotNet@2
-    displayName: Use .NET Core SDK
-    condition: eq(variables.AnalysisEnabled, 'true')
-    inputs:
-      packageType: sdk
-      version: 6.0.x
-      installationPath: $(Agent.ToolsDirectory)/dotnet
-      includePreviewVersions: true
-  
-  - task: DotNetCoreCLI@2
-    displayName: Test with OpenCover Coverage Report
-    condition: eq(variables.AnalysisEnabled, 'true')
-    inputs:
-      command: test
-      projects: '$(Parameters.TestProjects)'
-      publishTestResults: false
-      arguments: '--configuration $(BuildConfiguration) --filter "Category!=Performance & Category!=Integration & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\TestResults\Coverage\'
-  
-  - task: NDependTask@1
-    displayName: Run NDepened Analysis
-    condition: eq(variables.AnalysisEnabled, 'true')
-    env:
-      SYSTEM_ACCESSTOKEN: $(system.accesstoken)
-    inputs:
-      ndproj: EventHorizon.Game.Server.Zone.ndproj
