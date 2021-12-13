@@ -3,7 +3,7 @@
   <OutputDir KeepXmlFiles="False">.\NDependOut</OutputDir>
   <IDEFiles>
     <IDEFile FilePath=".\EventHorizon.Game.Server.Zone.sln" Filters="-test" Configuration="DEBUG|AnyCPU">
-      <RootDirResolvingInfo Enabled="False" Hints="Debug|bin|.bin|AnyCPU|x64|x86|v*.*|net*" TimeOut="10">
+      <RootDirResolvingInfo Enabled="True" Hints="Debug|bin|.bin|AnyCPU|x64|x86|v*.*|net*" TimeOut="10">
         <RootDir>.</RootDir>
       </RootDirResolvingInfo>
     </IDEFile>
@@ -15,11 +15,9 @@
     <Name>Microsoft.Extensions.Hosting.Abstractions</Name>
     <Name>Microsoft.AspNetCore.Hosting.Abstractions</Name>
     <Name>Serilog</Name>
-    <Name>Serilog.Sinks.Elasticsearch</Name>
     <Name>Elasticsearch.Net</Name>
     <Name>Microsoft.Extensions.Configuration.Abstractions</Name>
     <Name>Microsoft.Extensions.DependencyInjection.Abstractions</Name>
-    <Name>Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions</Name>
     <Name>Microsoft.AspNetCore.Http.Abstractions</Name>
     <Name>IdentityServer4.AccessTokenValidation</Name>
     <Name>Microsoft.AspNetCore.Authorization</Name>
@@ -45,12 +43,10 @@
     <Name>Microsoft.AspNetCore.Mvc</Name>
     <Name>Microsoft.AspNetCore.Mvc.Core</Name>
     <Name>Microsoft.AspNetCore.SignalR</Name>
-    <Name>Microsoft.Extensions.Diagnostics.HealthChecks</Name>
     <Name>System.Linq</Name>
     <Name>MediatR.Extensions.Microsoft.DependencyInjection</Name>
     <Name>Microsoft.AspNetCore.Diagnostics</Name>
     <Name>Microsoft.AspNetCore.StaticFiles</Name>
-    <Name>Microsoft.AspNetCore.Diagnostics.HealthChecks</Name>
     <Name>IdentityModel.AspNetCore.OAuth2Introspection</Name>
     <Name>Microsoft.CSharp</Name>
     <Name>Microsoft.AspNetCore.Hosting</Name>
@@ -64,7 +60,6 @@
     <Name>System.Collections.Concurrent</Name>
     <Name>Microsoft.Extensions.Primitives</Name>
     <Name>EventHorizon.Observer</Name>
-    <Name>System.Runtime.Loader</Name>
     <Name>Microsoft.AspNetCore.SignalR.Client.Core</Name>
     <Name>Microsoft.AspNetCore.Http.Connections.Client</Name>
     <Name>Microsoft.Extensions.Options</Name>
@@ -88,14 +83,14 @@
     <Name>System.Memory</Name>
     <Name>System.ObjectModel</Name>
     <Name>System.Net.Http</Name>
-    <Name>System.IO.FileSystem.Watcher</Name>
-    <Name>System.ComponentModel.Primitives</Name>
-    <Name>System.IO.Compression.ZipFile</Name>
-    <Name>Weikio.NugetDownloader</Name>
     <Name>Microsoft.AspNetCore.Http.Extensions</Name>
     <Name>System.Threading.Channels</Name>
     <Name>System.Net.Primitives</Name>
     <Name>System.Net.Http.Json</Name>
+    <Name>netstandard</Name>
+    <Name>Microsoft.CodeAnalysis.Scripting</Name>
+    <Name>Microsoft.CodeAnalysis.CSharp.Scripting</Name>
+    <Name>System.IO.FileSystem</Name>
   </FrameworkAssemblies>
   <Dirs>
     <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.12</Dir>
