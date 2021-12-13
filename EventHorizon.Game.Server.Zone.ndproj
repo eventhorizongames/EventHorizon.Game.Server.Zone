@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.2.0.9569">
+<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.2.1.9610">
   <OutputDir KeepXmlFiles="False">.\NDependOut</OutputDir>
   <IDEFiles>
     <IDEFile FilePath=".\EventHorizon.Game.Server.Zone.sln" Filters="-test" Configuration="DEBUG|AnyCPU">
@@ -61,11 +61,9 @@
     <Name>Prometheus.NetStandard</Name>
     <Name>EventHorizon.Common</Name>
     <Name>System.Security.Claims</Name>
-    <Name>netstandard</Name>
     <Name>System.Collections.Concurrent</Name>
     <Name>Microsoft.Extensions.Primitives</Name>
     <Name>EventHorizon.Observer</Name>
-    <Name>System.IO.FileSystem</Name>
     <Name>System.Runtime.Loader</Name>
     <Name>Microsoft.AspNetCore.SignalR.Client.Core</Name>
     <Name>Microsoft.AspNetCore.Http.Connections.Client</Name>
@@ -89,12 +87,20 @@
     <Name>System.Security.Cryptography.Primitives</Name>
     <Name>System.Memory</Name>
     <Name>System.ObjectModel</Name>
-    <Name>System.Console</Name>
+    <Name>System.Net.Http</Name>
+    <Name>System.IO.FileSystem.Watcher</Name>
+    <Name>System.ComponentModel.Primitives</Name>
+    <Name>System.IO.Compression.ZipFile</Name>
+    <Name>Weikio.NugetDownloader</Name>
+    <Name>Microsoft.AspNetCore.Http.Extensions</Name>
+    <Name>System.Threading.Channels</Name>
+    <Name>System.Net.Primitives</Name>
+    <Name>System.Net.Http.Json</Name>
   </FrameworkAssemblies>
   <Dirs>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.10</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.10</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.10</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.12</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.12</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.12</Dir>
     <Dir>C:\Program Files\dotnet\sdk\NuGetFallbackFolder</Dir>
     <Dir>C:\Users\Cody\.nuget\packages</Dir>
   </Dirs>
