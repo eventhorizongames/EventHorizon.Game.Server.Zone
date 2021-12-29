@@ -92,8 +92,9 @@ public class Startup
                 options.TokenRetriever = WebSocketTokenRetriever.FromHeaderAndQueryString;
             });
         services.AddAuthorization(
-            options => options.AddUserIdOrAdminPolicy(
-                Configuration["OwnerDetails:UserId"]
+            options => options.AddUserIdOrClientIdOrAdminPolicy(
+                Configuration["OwnerDetails:UserId"],
+                Configuration["OwnerDetails:PlatformId"]
             )
         );
         services.AddRazorPages();
