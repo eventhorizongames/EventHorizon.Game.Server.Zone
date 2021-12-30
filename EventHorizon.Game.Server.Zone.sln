@@ -388,6 +388,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.Ar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventHorizon.Zone.System.AssetServer.Tests", "test\EventHorizon.Zone.System.AssetServer.Tests\EventHorizon.Zone.System.AssetServer.Tests.csproj", "{A9F1308D-CA8A-44ED-9DE1-2B7BAC31B988}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_build-scripts", "_build-scripts", "{F7EFDB35-DECD-49A6-A49F-17AA869DEE60}"
+	ProjectSection(SolutionItems) = preProject
+		_build-scripts\run-test-and-reporting.sh = _build-scripts\run-test-and-reporting.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2782,6 +2787,7 @@ Global
 		{EC4F42DE-1A9E-4339-90B4-2E6EAAA16099} = {FE232CB9-E002-4898-9117-E3162928E341}
 		{AA906479-F141-4772-A31B-F889CA90F4C5} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
 		{A9F1308D-CA8A-44ED-9DE1-2B7BAC31B988} = {E21217AB-FD81-4F4D-8391-04C5DED1D324}
+		{F7EFDB35-DECD-49A6-A49F-17AA869DEE60} = {999DFCA2-5B67-43DA-B651-179348F36AA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7219A80B-6B5C-4B6D-85E4-0B416CA45819}

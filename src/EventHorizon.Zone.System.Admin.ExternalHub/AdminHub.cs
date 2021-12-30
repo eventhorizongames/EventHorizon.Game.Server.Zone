@@ -5,7 +5,7 @@ namespace EventHorizon.Zone.System.Admin.ExternalHub
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    [Authorize("UserIdOrAdmin")]
+    [Authorize("UserIdOrClientIdOrAdmin")]
     public partial class AdminHub : Hub
     {
         readonly IMediator _mediator;

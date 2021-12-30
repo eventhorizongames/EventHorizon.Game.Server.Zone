@@ -15,7 +15,7 @@ namespace EventHorizon.Zone.System.Editor.ExternalHub
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    [Authorize("UserIdOrAdmin")]
+    [Authorize("UserIdOrClientIdOrAdmin")]
     public class SystemEditorHub : Hub
     {
         readonly IMediator _mediator;

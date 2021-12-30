@@ -14,7 +14,7 @@ namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.SignalR;
 
-    [Authorize("UserIdOrAdmin")]
+    [Authorize("UserIdOrClientIdOrAdmin")]
     public class SkillsEditorHub : Hub
     {
         readonly IMediator _mediator;
