@@ -1,4 +1,4 @@
-﻿namespace EventHorizon.Game.Server.Zone.Admin.Policies;
+﻿namespace EventHorizon.Identity.Policies;
 
 using System.Linq;
 

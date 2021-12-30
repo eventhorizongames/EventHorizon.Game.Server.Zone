@@ -6,7 +6,6 @@ using System.Reflection;
 
 using EventHorizon.BackgroundTasks;
 using EventHorizon.Game.I18n;
-using EventHorizon.Game.Server.Zone.Admin.Policies;
 using EventHorizon.Game.Server.Zone.Controllers;
 using EventHorizon.Game.Server.Zone.Core;
 using EventHorizon.Game.Server.Zone.Core.JsonConverter;
@@ -14,6 +13,7 @@ using EventHorizon.Game.Server.Zone.HealthChecks;
 using EventHorizon.Game.Server.Zone.Player;
 using EventHorizon.Game.Server.Zone.Setup;
 using EventHorizon.Identity;
+using EventHorizon.Identity.Policies;
 using EventHorizon.Monitoring;
 using EventHorizon.Performance;
 using EventHorizon.Platform;
