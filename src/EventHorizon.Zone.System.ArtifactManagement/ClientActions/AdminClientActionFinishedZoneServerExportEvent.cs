@@ -6,12 +6,12 @@ public static class AdminClientActionFinishedZoneServerExportEvent
 {
     public static AdminClientActionGenericToAllEvent Create(
         string referenceId,
-        string exportPath
+        string exportUrl
     ) => new(
         "ZONE_SERVER_EXPORT_FINISHED_ADMIN_CLIENT_ACTION",
         new AdminClientActionFinishedZoneServerExportEventData(
             referenceId,
-            exportPath
+            exportUrl
         )
     );
 
@@ -19,15 +19,15 @@ public static class AdminClientActionFinishedZoneServerExportEvent
         : IAdminClientActionData
     {
         public string ReferenceId { get; }
-        public string ExportPath { get; }
+        public string ExportUrl { get; }
 
         public AdminClientActionFinishedZoneServerExportEventData(
             string referenceId,
-            string exportPath
+            string exportUrl
         )
         {
             ReferenceId = referenceId;
-            ExportPath = exportPath;
+            ExportUrl = exportUrl;
         }
     }
 }

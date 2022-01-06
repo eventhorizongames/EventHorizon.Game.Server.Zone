@@ -3,14 +3,14 @@
 public record UploadAssetServerBackupArtifactResult
 {
     public string Service { get; } 
-    public string Path { get; }
+    public string Url { get; }
 
     public UploadAssetServerBackupArtifactResult(
         string service,
-        string path
+        string url
     )
     {
         Service = service;
-        Path = path;
+        Url = url;
     }
 }

@@ -117,7 +117,7 @@ public class BackupZoneDataCommandHandler
 
         return new BackupZoneDataResult(
             result.Result.Service,
-            result.Result.Path
+            result.Result.Url
         );
     }
 

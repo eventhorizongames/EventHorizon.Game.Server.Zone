@@ -9,5 +9,5 @@ public record ExportZoneDataCommand(
 
 public record ExportZoneDataResult(
     string Service,
-    string Path
+    string Url
 );

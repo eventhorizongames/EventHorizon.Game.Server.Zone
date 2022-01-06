@@ -56,7 +56,7 @@ public class ExportZoneDataTaskHandler
         await _publisher.Publish(
             AdminClientActionFinishedZoneServerExportEvent.Create(
                 request.ReferenceId,
-                result.Result.Path
+                result.Result.Url
             ),
             cancellationToken
         );

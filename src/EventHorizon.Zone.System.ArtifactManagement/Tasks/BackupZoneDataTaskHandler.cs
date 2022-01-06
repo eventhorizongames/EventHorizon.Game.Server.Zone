@@ -56,7 +56,7 @@ public class BackupZoneDataTaskHandler
         await _publisher.Publish(
             AdminClientActionFinishedZoneServerBackupEvent.Create(
                 request.ReferenceId,
-                result.Result.Path
+                result.Result.Url
             ),
             cancellationToken
         );

@@ -66,7 +66,7 @@ public class ImportZoneDataCommandHandler
                     "Failed to Backup the currently existing Data."
                 );
             }
-            backupUrl = backupResult.Result.Path;
+            backupUrl = backupResult.Result.Url;
 
             var pauseServerResult = await _sender.Send(
                 new PauseServerCommand(),

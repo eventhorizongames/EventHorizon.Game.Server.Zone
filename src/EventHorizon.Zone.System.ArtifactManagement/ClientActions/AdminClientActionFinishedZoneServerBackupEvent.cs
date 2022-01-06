@@ -7,12 +7,12 @@ public static class AdminClientActionFinishedZoneServerBackupEvent
 {
     public static AdminClientActionGenericToAllEvent Create(
         string referenceId,
-        string backupPath
+        string backupUrl
     ) => new(
         "ZONE_SERVER_BACKUP_FINISHED_ADMIN_CLIENT_ACTION",
         new AdminClientActionFinishedZoneServerBackupEventData(
             referenceId,
-            backupPath
+            backupUrl
         )
     );
 
@@ -20,15 +20,15 @@ public static class AdminClientActionFinishedZoneServerBackupEvent
         : IAdminClientActionData
     {
         public string ReferenceId { get; }
-        public string BackupPath { get; }
+        public string BackupUrl { get; }
 
         public AdminClientActionFinishedZoneServerBackupEventData(
             string referenceId,
-            string backupPath
+            string backupUrl
         )
         {
             ReferenceId = referenceId;
-            BackupPath = backupPath;
+            BackupUrl = backupUrl;
         }
     }
 }

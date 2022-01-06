@@ -10,5 +10,5 @@ public record BackupZoneDataCommand(
 
 public record BackupZoneDataResult(
     string Service,
-    string Path
+    string Url
 );

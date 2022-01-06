@@ -119,7 +119,7 @@ public class ExportZoneDataCommandHandler
 
         return new ExportZoneDataResult(
             result.Result.Service,
-            result.Result.Path
+            result.Result.Url
         );
     }
 
