@@ -88,20 +88,31 @@ public class RevertToBackupZoneDataCommandHandler
             }
             var artifactFileInfo = artifactDownloadedResult.Result.FileInfo;
 
-            var deleteResult = await _sender.Send(
-                new DeleteDirectoryRecursivelyCommand(
+            // Get Directories to Delete
+            var directoriesToDelete = await _sender.Send(
+                new GetListOfDirectoriesFromDirectory(
                     _serverInfo.AppDataPath
                 ),
                 cancellationToken
             );
-            if (!deleteResult)
+            foreach (var directoryToDelete in directoriesToDelete)
             {
-                throw LogAndCreateException(
-                    deleteResult,
-                    ARTIFACT_MANAGEMENT_REVERT_TO_BACKUP_STEP_DELETE_DATA_FAILED,
-                    $"Failed to delete {_serverInfo.AppDataPath}."
+                var deleteResult = await _sender.Send(
+                    new DeleteDirectoryRecursivelyCommand(
+                        directoryToDelete.FullName
+                    ),
+                    cancellationToken
                 );
+                if (!deleteResult)
+                {
+                    throw LogAndCreateException(
+                        deleteResult,
+                        ARTIFACT_MANAGEMENT_IMPORT_STEP_DELETE_DATA_FAILED,
+                        $"Failed to delete {_serverInfo.AppDataPath}."
+                    );
+                }
             }
+
             var extractDirectoryResult = await _sender.Send(
                 new ExtractArtifactIntoDirectoryCommand(
                     artifactFileInfo,

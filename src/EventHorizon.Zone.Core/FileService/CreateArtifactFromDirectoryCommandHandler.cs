@@ -1,6 +1,8 @@
 ﻿namespace EventHorizon.Zone.Core.FileService;
 
+using System.Collections.Generic;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,10 +33,43 @@ public class CreateArtifactFromDirectoryCommandHandler
             request.ArtifactSource.FullName,
             request.ArtifactFileFullName
         );
+        RemoveExcludedEntries(
+            request
+        );
 
         return _resolver.GetFileInfo(
             request.ArtifactFileFullName
         ).ToCommandResult()
         .FromResult();
+    }
+
+    private static void RemoveExcludedEntries(
+        CreateArtifactFromDirectoryCommand request
+    )
+    {
+        if (!request.Exclude.Any())
+        {
+            return;
+        }
+
+        using var archive = ZipFile.Open(
+            request.ArtifactFileFullName,
+            ZipArchiveMode.Update
+        );
+        var toRemoveEntries = new List<ZipArchiveEntry>();
+        foreach (var entry in archive.Entries)
+        {
+            if (request.Exclude.Contains(
+                entry.FullName
+            ))
+            {
+                toRemoveEntries.Add(entry);
+            }
+        }
+
+        foreach (var entry in toRemoveEntries)
+        {
+            entry.Delete();
+        }
     }
 }

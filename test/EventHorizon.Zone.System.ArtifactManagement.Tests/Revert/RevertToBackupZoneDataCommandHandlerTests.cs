@@ -15,6 +15,7 @@ using EventHorizon.Zone.System.ArtifactManagement.Revert;
 using FluentAssertions;
 
 using global::System;
+using global::System.Collections.Generic;
 using global::System.Threading;
 using global::System.Threading.Tasks;
 
@@ -128,18 +129,27 @@ public class RevertToBackupZoneDataCommandHandlerTests
     }
 
     [Theory, AutoMoqData]
-    public async Task ReturnErrorWhenDeleteAppDataPathFails(
+    public async Task ReturnErrorWhenDeleteDeleteDirectoryFails(
         // Given
         string referenceId,
         Uri importArtifactUri,
+        List<StandardDirectoryInfo> directoriesToDelete,
         [Frozen] Mock<ISender> senderMock,
         RevertToBackupZoneDataCommandHandler handler
     )
     {
-        var expected = "ARTIFACT_MANAGEMENT_REVERT_TO_BACKUP_STEP_DELETE_DATA_FAILED";
+        var expected = "ARTIFACT_MANAGEMENT_IMPORT_STEP_DELETE_DATA_FAILED";
 
         senderMock.GivenValidSetup();
 
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<GetListOfDirectoriesFromDirectory>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            directoriesToDelete
+        );
         senderMock.Setup(
             mock => mock.Send(
                 It.IsAny<DeleteDirectoryRecursivelyCommand>(),
@@ -163,6 +173,48 @@ public class RevertToBackupZoneDataCommandHandlerTests
         // Then
         actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ReturnSuccessWhenDirectoriesToDeleteContainsDirectoryInfo(
+        // Given
+        string referenceId,
+        Uri importArtifactUri,
+        List<StandardDirectoryInfo> directoriesToDelete,
+        [Frozen] Mock<ISender> senderMock,
+        RevertToBackupZoneDataCommandHandler handler
+    )
+    {
+        senderMock.GivenValidSetup();
+
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<GetListOfDirectoriesFromDirectory>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            directoriesToDelete
+        );
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<DeleteDirectoryRecursivelyCommand>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            new StandardCommandResult()
+        );
+
+        // When
+        var actual = await handler.Handle(
+            new RevertToBackupZoneDataCommand(
+                referenceId,
+                importArtifactUri.ToString()
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeTrue();
     }
 
     [Theory, AutoMoqData]

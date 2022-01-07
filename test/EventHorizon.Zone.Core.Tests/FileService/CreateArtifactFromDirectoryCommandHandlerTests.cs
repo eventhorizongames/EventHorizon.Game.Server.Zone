@@ -1,7 +1,9 @@
 ﻿namespace EventHorizon.Zone.Core.Tests.FileService;
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,13 +40,54 @@ public class CreateArtifactFromDirectoryCommandHandlerTests
                     directoryFullName,
                     ""
                 ),
-                fileFullName
+                fileFullName,
+                new List<string>()
             ),
             CancellationToken.None
         );
 
         // Then
         result.Success.Should().BeTrue();
+    }
+
+    [Theory, AutoMoqData]
+    public async Task CreatesZipFileWithoutEntryWhenExcludeContainsEntryFullName(
+        // Given
+        CreateArtifactFromDirectoryCommandHandler handler
+    )
+    {
+        GiveDirectoryToBeZipIsSetup(
+            nameof(CreatesZipFileWithoutEntryWhenExcludeContainsEntryFullName),
+            out var directoryFullName
+        );
+        GivenFileZipDoesNotExist(
+            nameof(CreatesZipFileWithoutEntryWhenExcludeContainsEntryFullName),
+            out var fileFullName
+        );
+
+        // When
+        var result = await handler.Handle(
+            new CreateArtifactFromDirectoryCommand(
+                new Model.DirectoryService.StandardDirectoryInfo(
+                    "",
+                    directoryFullName,
+                    ""
+                ),
+                fileFullName,
+                new List<string>
+                {
+                    "file.txt",
+                }
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        result.Success.Should().BeTrue();
+        VerifyFileMissingFromArtifact(
+            fileFullName,
+            "file.txt"
+        );
     }
 
     private static void GiveDirectoryToBeZipIsSetup(
@@ -114,6 +157,26 @@ public class CreateArtifactFromDirectoryCommandHandlerTests
             File.Delete(
                 zipFileFullName
             );
+        }
+    }
+
+    private static void VerifyFileMissingFromArtifact(
+        string artifactFileFullName,
+        string excludedEntryFullName
+    )
+    {
+
+        using var archive = ZipFile.OpenRead(
+            artifactFileFullName
+        );
+        foreach (var entry in archive.Entries)
+        {
+            if (excludedEntryFullName == entry.FullName)
+            {
+                throw new Exception(
+                    $"'{excludedEntryFullName}' was found in Zip Artifact."
+                );
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Command;
 using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.System.ArtifactManagement.Query;
 using EventHorizon.Zone.System.AssetServer.Backup;
 
 using global::System;
@@ -77,15 +78,22 @@ public class BackupZoneDataCommandHandler
             return cleanupBackupsResult.ErrorCode;
         }
 
+        var artifactSourceInfo = await _sender.Send(
+            new GetDirectoryInfo(
+                artifactSourcePath
+            ),
+            cancellationToken
+        );
         var createResult = await _sender.Send(
             new CreateArtifactFromDirectoryCommand(
+                artifactSourceInfo,
+                artifactFileFullName,
                 await _sender.Send(
-                    new GetDirectoryInfo(
-                        artifactSourcePath
+                    new QueryForExcludedArtifactEntries(
+                        artifactSourceInfo.FullName
                     ),
                     cancellationToken
-                ),
-                artifactFileFullName
+                )
             ),
             cancellationToken
         );

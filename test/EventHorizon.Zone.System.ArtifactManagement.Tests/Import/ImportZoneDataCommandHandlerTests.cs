@@ -18,6 +18,7 @@ using EventHorizon.Zone.System.ArtifactManagement.Trigger;
 using FluentAssertions;
 
 using global::System;
+using global::System.Collections.Generic;
 using global::System.Threading;
 using global::System.Threading.Tasks;
 
@@ -87,8 +88,8 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -146,10 +147,10 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(
             expected
         );
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -186,10 +187,10 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(
             expected
         );
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -227,8 +228,8 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -236,6 +237,7 @@ public class ImportZoneDataCommandHandlerTests
         // Given
         string referenceId,
         Uri importArtifactUri,
+        List<StandardDirectoryInfo> directoriesToDelete,
         [Frozen] Mock<ISender> senderMock,
         ImportZoneDataCommandHandler handler
     )
@@ -244,6 +246,15 @@ public class ImportZoneDataCommandHandlerTests
 
         senderMock.GivenValidSetup();
         senderMock.GivenDefaultRevertImportCommand();
+
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<GetListOfDirectoriesFromDirectory>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            directoriesToDelete
+        );
 
         senderMock.Setup(
             mock => mock.Send(
@@ -266,8 +277,8 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -305,8 +316,8 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
     }
     
 
@@ -345,8 +356,8 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
     }
 
     [Theory, AutoMoqData]
@@ -354,6 +365,7 @@ public class ImportZoneDataCommandHandlerTests
         // Given
         string referenceId,
         Uri importArtifactUri,
+        List<StandardDirectoryInfo> directoriesToDelete,
         [Frozen] Mock<ISender> senderMock,
         ImportZoneDataCommandHandler handler
     )
@@ -381,8 +393,43 @@ public class ImportZoneDataCommandHandlerTests
         );
 
         // Then
-        actual.Success.Should().BeFalse();
         actual.ErrorCode.Should().Be(expected);
+        actual.Success.Should().BeFalse();
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ReturnSuccessWhenAppDataPathDirectoryFilled(
+        // Given
+        string referenceId,
+        Uri importArtifactUri,
+        List<StandardDirectoryInfo> directoriesToDelete,
+        [Frozen] Mock<ISender> senderMock,
+        ImportZoneDataCommandHandler handler
+    )
+    {
+        senderMock.GivenValidSetup();
+        senderMock.GivenDefaultRevertImportCommand();
+
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<GetListOfDirectoriesFromDirectory>(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            directoriesToDelete
+        );
+
+        // When
+        var actual = await handler.Handle(
+            new ImportZoneDataCommand(
+                referenceId,
+                importArtifactUri.ToString()
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeTrue();
     }
 }
 

@@ -26,4 +26,8 @@
         <ProjectReference Include="..\EventHorizon.Zone.System.AssetServer.Api\EventHorizon.Zone.System.AssetServer.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Excluded\" />
+    </ItemGroup>
+
 </Project>
