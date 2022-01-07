@@ -48,7 +48,7 @@ public class UploadAssetServerExportArtifactCommandHandler
 
         return new UploadAssetServerExportArtifactResult(
             uploadResponse.Service,
-            $"{_settings.Server}{uploadResponse.Path}"
+            $"{_settings.PublicServer}{uploadResponse.Path}"
         );
     }
 }

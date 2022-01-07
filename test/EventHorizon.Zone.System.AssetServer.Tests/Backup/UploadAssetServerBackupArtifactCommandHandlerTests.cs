@@ -3,24 +3,22 @@
 using AutoFixture.Xunit2;
 
 using EventHorizon.Test.Common.Attributes;
-using EventHorizon.Zone.System;
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.AssetServer.Backup;
+using EventHorizon.Zone.System.AssetServer.Base;
+using EventHorizon.Zone.System.AssetServer.Model;
+
+using FluentAssertions;
 
 using global::System.IO;
-using global::System.Net.Http;
-using global::System.Net;
-using global::System.Threading.Tasks;
 using global::System.Threading;
-using global::System;
+using global::System.Threading.Tasks;
+
 using MediatR;
-using Microsoft.Extensions.Logging;
-using Moq.Protected;
+
 using Moq;
+
 using Xunit;
-using EventHorizon.Zone.System.AssetServer.Model;
-using EventHorizon.Zone.System.AssetServer.Backup;
-using FluentAssertions;
-using EventHorizon.Zone.System.AssetServer.Base;
-using EventHorizon.Zone.Core.Model.Command;
 
 public class UploadAssetServerBackupArtifactCommandHandlerTests
 {
@@ -36,7 +34,7 @@ public class UploadAssetServerBackupArtifactCommandHandlerTests
     )
     {
         using var content = new MemoryStream();
-        var expected = $"{assetServerSystemSettings.Server}{backupPath}";
+        var expected = $"{assetServerSystemSettings.PublicServer}{backupPath}";
         var url = $"{assetServerSystemSettings.Server}/api/Backup/{service}/Upload";
         var result = new UploadAssetServerArtifactResult
         {

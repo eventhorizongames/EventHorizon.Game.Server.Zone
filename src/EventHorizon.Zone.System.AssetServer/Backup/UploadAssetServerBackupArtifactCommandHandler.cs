@@ -48,7 +48,7 @@ public class UploadAssetServerBackupArtifactCommandHandler
 
         return new UploadAssetServerBackupArtifactResult(
             uploadResponse.Service,
-            $"{_settings.Server}{uploadResponse.Path}"
+            $"{_settings.PublicServer}{uploadResponse.Path}"
         );
     }
 }

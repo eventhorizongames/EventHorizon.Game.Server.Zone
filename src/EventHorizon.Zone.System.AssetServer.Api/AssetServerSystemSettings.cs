@@ -3,4 +3,5 @@
 public interface AssetServerSystemSettings
 {
     string Server { get; }
+    string PublicServer { get; }
 }
