@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Gui.Lifetime
+﻿namespace EventHorizon.Zone.System.Gui.Lifetime;
+
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupGuiSystemCommand
+    : OnServerStartupCommand
 {
-    using System;
-
-    using EventHorizon.Zone.Core.Events.Lifetime;
-
-    public struct OnStartupSetupGuiSystemCommand
-        : OnServerStartupCommand
-    {
-    }
 }

@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.Gui.Model
+namespace EventHorizon.Zone.System.Gui.Model;
+
+public class GuiGridLocation
 {
-    public class GuiGridLocation
-    {
-        public int Column { get; set; }
-        public int Row { get; set; }
-    }
+    public int Column { get; set; }
+    public int Row { get; set; }
 }

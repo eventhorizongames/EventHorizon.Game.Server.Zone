@@ -1,34 +1,33 @@
-namespace EventHorizon.Zone.System.Gui.Get
+namespace EventHorizon.Zone.System.Gui.Get;
+
+using EventHorizon.Zone.System.Gui.Api;
+using EventHorizon.Zone.System.Gui.Events.Layout;
+using EventHorizon.Zone.System.Gui.Model;
+
+using global::System.Collections.Generic;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class GetGuiLayoutListForPlayerCommandHandler
+    : IRequestHandler<GetGuiLayoutListForPlayerCommand, IEnumerable<GuiLayout>>
 {
-    using EventHorizon.Zone.System.Gui.Api;
-    using EventHorizon.Zone.System.Gui.Events.Layout;
-    using EventHorizon.Zone.System.Gui.Model;
+    private readonly GuiState _guiState;
 
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class GetGuiLayoutListForPlayerCommandHandler : IRequestHandler<GetGuiLayoutListForPlayerCommand, IEnumerable<GuiLayout>>
+    public GetGuiLayoutListForPlayerCommandHandler(
+        GuiState guiState
+    )
     {
-        private readonly GuiState _guiState;
+        _guiState = guiState;
+    }
 
-        public GetGuiLayoutListForPlayerCommandHandler(
-            GuiState guiState
-        )
-        {
-            _guiState = guiState;
-        }
-
-        public Task<IEnumerable<GuiLayout>> Handle(
-            GetGuiLayoutListForPlayerCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _guiState.All()
-            );
-        }
+    public Task<IEnumerable<GuiLayout>> Handle(
+        GetGuiLayoutListForPlayerCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _guiState.All()
+            .FromResult();
     }
 }

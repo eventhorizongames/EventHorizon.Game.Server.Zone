@@ -1,80 +1,89 @@
-namespace EventHorizon.Zone.System.Gui.Load
+namespace EventHorizon.Zone.System.Gui.Load;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.Gui.Model;
+using EventHorizon.Zone.System.Gui.Register;
+
+using global::System.Collections.Generic;
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+/// <summary>
+/// TODO: Make this recursive loading
+/// </summary>
+public class LoadSystemGuiCommandHandler
+    : IRequestHandler<LoadSystemGuiCommand>
 {
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    private readonly IMediator _mediator;
+    private readonly IJsonFileLoader _fileLoader;
+    private readonly ServerInfo _serverInfo;
 
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Events.Gui;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.Gui.Model;
-
-    using MediatR;
-
-    /// <summary>
-    /// TODO: Make this recursive loading
-    /// </summary>
-    public class LoadSystemGuiCommandHandler : IRequestHandler<LoadSystemGuiCommand>
+    public LoadSystemGuiCommandHandler(
+        IMediator mediator,
+        IJsonFileLoader fileLoader,
+        ServerInfo serverInfo
+    )
     {
-        readonly IMediator _mediator;
-        readonly IJsonFileLoader _fileLoader;
-        readonly ServerInfo _serverInfo;
+        _mediator = mediator;
+        _fileLoader = fileLoader;
+        _serverInfo = serverInfo;
+    }
 
-        public LoadSystemGuiCommandHandler(
-            IMediator mediator,
-            IJsonFileLoader fileLoader,
-            ServerInfo serverInfo
-        )
+    public async Task<Unit> Handle(
+        LoadSystemGuiCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        // Register Gui Layout and Templates from Files
+        foreach (var guiLayout in await GetGuiLayoutFileList(
+            Path.Combine(
+                _serverInfo.ClientPath,
+                "Gui"
+            ),
+            cancellationToken
+        ))
         {
-            _mediator = mediator;
-            _fileLoader = fileLoader;
-            _serverInfo = serverInfo;
+            // Register Layout from Gui File
+            await _mediator.Send(
+                new RegisterGuiLayoutCommand(
+                    guiLayout
+                ),
+                cancellationToken
+            );
         }
+        return Unit.Value;
+    }
 
-        public async Task<Unit> Handle(
-            LoadSystemGuiCommand request,
-            CancellationToken cancellationToken
-        )
+    private async Task<IList<GuiLayout>> GetGuiLayoutFileList(
+        string guiPath,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = new List<GuiLayout>();
+        foreach (var fileInfo in await _mediator.Send(
+            new GetListOfFilesFromDirectory(
+                guiPath
+            ),
+            cancellationToken
+        ))
         {
-            // Register Gui Layout and Templates from Files
-            foreach (var guiLayout in await GetGuiLayoutFileList(
-                Path.Combine(
-                    _serverInfo.ClientPath,
-                    "Gui"
-                )
-            ))
+            var layout = await _fileLoader.GetFile<GuiLayout>(
+                fileInfo.FullName
+            );
+            if (layout.IsNull())
             {
-                // Register Layout from Gui File
-                await _mediator.Send(
-                    new RegisterGuiLayoutCommand
-                    {
-                        Layout = guiLayout
-                    }
-                );
+                continue;
             }
-            return Unit.Value;
-        }
 
-        private async Task<IList<GuiLayout>> GetGuiLayoutFileList(
-            string guiPath
-        )
-        {
-            var result = new List<GuiLayout>();
-            foreach (var fileInfo in await _mediator.Send(
-                new GetListOfFilesFromDirectory(
-                    guiPath
-                )
-            ))
-            {
-                result.Add(
-                    await _fileLoader.GetFile<GuiLayout>(
-                        fileInfo.FullName
-                    )
-                );
-            }
-            return result;
+            result.Add(
+                layout
+            );
         }
+        return result;
     }
 }
