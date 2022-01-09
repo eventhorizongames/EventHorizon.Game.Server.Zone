@@ -1,158 +1,143 @@
-﻿namespace EventHorizon.Zone.System.EntityModule.Tests.Command
+﻿namespace EventHorizon.Zone.System.EntityModule.Tests.Command;
+
+using AutoFixture.Xunit2;
+
+using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.EntityModule.Command;
+using EventHorizon.Zone.System.EntityModule.Reload;
+
+using global::System.Collections.Generic;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
+
+public class ReloadEntityModuleSystemAdminCommandEventHandlerTests
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-    using EventHorizon.Zone.System.EntityModule.Command;
-    using EventHorizon.Zone.System.EntityModule.Load;
-
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class ReloadEntityModuleSystemAdminCommandEventHandlerTests
+    [Theory, AutoMoqData]
+    public async Task ShouldNotRunReloadWhenCommandIsNotReloadSystem(
+        // Given
+        string connectionId, 
+        string rawCommand,
+        string command,
+        List<string> commandParts,
+        object data,
+        [Frozen] Mock<IMediator> mediatorMock,
+        ReloadEntityModuleSystemAdminCommandEventHandler handler
+    )
     {
-        [Fact]
-        public async Task ShouldNotRunReloadWhenCommandIsNotReloadSystem()
-        {
-            // Given
-            var connectionId = "command-id";
-            var rawCommand = "raw-command";
-            var command = "not-reload-system";
-            var commandParts = new List<string>();
-            var data = new { };
-
-            var expected = new LoadEntityModuleSystemCommand();
-
-            var loggerMock = new Mock<ILogger<ReloadEntityModuleSystemAdminCommandEventHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-
-            // When
-            var handler = new ReloadEntityModuleSystemAdminCommandEventHandler(
-                loggerMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new AdminCommandEvent(
-                    connectionId,
-                    new StandardAdminCommand(
-                        rawCommand,
-                        command,
-                        commandParts
-                    ),
-                    data
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                ),
-                Times.Never()
-            );
-        }
-
-        [Fact]
-        public async Task ShouldRunReloadCommandWhenCommandIsReloadSystem()
-        {
-            // Given
-            var connectionId = "command-id";
-            var rawCommand = "raw-command";
-            var command = "reload-system";
-            var commandParts = new List<string>();
-            var data = new { };
-
-            var expected = new LoadEntityModuleSystemCommand();
-
-            var loggerMock = new Mock<ILogger<ReloadEntityModuleSystemAdminCommandEventHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-
-            // When
-            var handler = new ReloadEntityModuleSystemAdminCommandEventHandler(
-                loggerMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new AdminCommandEvent(
-                    connectionId,
-                    new StandardAdminCommand(
-                        rawCommand,
-                        command,
-                        commandParts
-                    ),
-                    data
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
-
-        [Fact]
-        public async Task ShouldSendResponseCommandWhenCommandIsReloadSystem()
-        {
-            // Given
-            var connectionId = "command-id";
-            var rawCommand = "raw-command";
-            var command = "reload-system";
-            var commandParts = new List<string>();
-            var data = new { };
-            var responseMessage = "entity_module_system_reloaded";
-
-            var expected = new RespondToAdminCommand(
+        // When
+        await handler.Handle(
+            new AdminCommandEvent(
                 connectionId,
-                new StandardAdminCommandResponse(
-                    command,
+                new StandardAdminCommand(
                     rawCommand,
-                    true,
-                    responseMessage
-                )
-            );
-
-            var loggerMock = new Mock<ILogger<ReloadEntityModuleSystemAdminCommandEventHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-
-            // When
-            var handler = new ReloadEntityModuleSystemAdminCommandEventHandler(
-                loggerMock.Object,
-                mediatorMock.Object
-            );
-            await handler.Handle(
-                new AdminCommandEvent(
-                    connectionId,
-                    new StandardAdminCommand(
-                        rawCommand,
-                        command,
-                        commandParts
-                    ),
-                    data
+                    command,
+                    commandParts
                 ),
-                CancellationToken.None
-            );
+                data
+            ),
+            CancellationToken.None
+        );
 
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                It.IsAny<INotification>(),
+                CancellationToken.None
+            ),
+            Times.Never()
+        );
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ShouldRunReloadCommandWhenCommandIsReloadSystem(
+        // Given
+        string connectionId,
+        string rawCommand,
+        List<string> commandParts,
+        object data,
+        [Frozen] Mock<IMediator> mediatorMock,
+        ReloadEntityModuleSystemAdminCommandEventHandler handler
+    )
+    {
+        var command = "reload-system";
+
+        var expected = new ReloadEntityModuleSystemCommand();
+
+        // When
+        await handler.Handle(
+            new AdminCommandEvent(
+                connectionId,
+                new StandardAdminCommand(
+                    rawCommand,
+                    command,
+                    commandParts
+                ),
+                data
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Send(
+                expected,
+                CancellationToken.None
+            )
+        );
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ShouldSendResponseCommandWhenCommandIsReloadSystem(
+        // Given
+        string connectionId,
+        string rawCommand,
+        List<string> commandParts,
+        object data,
+        [Frozen] Mock<IMediator> mediatorMock,
+        ReloadEntityModuleSystemAdminCommandEventHandler handler
+    )
+    {
+        var command = "reload-system";
+        var responseMessage = "entity_module_system_reloaded";
+
+        var expected = new RespondToAdminCommand(
+            connectionId,
+            new StandardAdminCommandResponse(
+                command,
+                rawCommand,
+                true,
+                responseMessage
+            )
+        );
+
+        // When
+        await handler.Handle(
+            new AdminCommandEvent(
+                connectionId,
+                new StandardAdminCommand(
+                    rawCommand,
+                    command,
+                    commandParts
+                ),
+                data
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Send(
+                expected,
+                CancellationToken.None
+            )
+        );
     }
 }

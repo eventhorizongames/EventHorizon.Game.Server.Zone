@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.EntityModule.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.EntityModule.Lifetime;
 
-    public struct OnStartupSetupEntityModuleSystemCommand
-        : OnServerStartupCommand
-    {
-    }
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupEntityModuleSystemCommand
+    : OnServerStartupCommand
+{
 }

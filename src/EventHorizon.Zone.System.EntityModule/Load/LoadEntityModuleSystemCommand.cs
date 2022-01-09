@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.EntityModule.Load
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.EntityModule.Load;
 
-    public struct LoadEntityModuleSystemCommand : INotification
-    {
+using EventHorizon.Zone.Core.Model.Command;
 
-    }
-}
+using MediatR;
+
+public record LoadEntityModuleSystemCommand
+    : IRequest<StandardCommandResult>;

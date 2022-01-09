@@ -1,48 +1,52 @@
-namespace EventHorizon.Zone.System.EntityModule.State
+namespace EventHorizon.Zone.System.EntityModule.State;
+
+using EventHorizon.Zone.System.EntityModule.Api;
+using EventHorizon.Zone.System.EntityModule.Model;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+
+public class EntityModuleInMemoryRepository
+    : EntityModuleRepository
 {
-    using EventHorizon.Zone.System.EntityModule.Api;
-    using EventHorizon.Zone.System.EntityModule.Model;
+    private readonly ConcurrentDictionary<string, EntityScriptModule> _baseModuleMap = new();
+    private readonly ConcurrentDictionary<string, EntityScriptModule> _playerModuleMap = new();
 
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-
-    public class EntityModuleInMemoryRepository
-        : EntityModuleRepository
+    public void Clear()
     {
-        // TODO: Remove static and test
-        private static readonly ConcurrentDictionary<string, EntityScriptModule> BASE_MODULE_MAP = new();
-        private static readonly ConcurrentDictionary<string, EntityScriptModule> PLAYER_MODULE_MAP = new();
+        _baseModuleMap.Clear();
+        _playerModuleMap.Clear();
+    }
 
-        public void AddBaseModule(
-            EntityScriptModule module
-        )
-        {
-            BASE_MODULE_MAP.AddOrUpdate(
-                module.Name,
-                module,
-                (_, _) => module
-            );
-        }
+    public void AddBaseModule(
+        EntityScriptModule module
+    )
+    {
+        _baseModuleMap.AddOrUpdate(
+            module.Name,
+            module,
+            (_, _) => module
+        );
+    }
 
-        public void AddPlayerModule(
-            EntityScriptModule module
-        )
-        {
-            PLAYER_MODULE_MAP.AddOrUpdate(
-                module.Name,
-                module,
-                (_, _) => module
-            );
-        }
+    public void AddPlayerModule(
+        EntityScriptModule module
+    )
+    {
+        _playerModuleMap.AddOrUpdate(
+            module.Name,
+            module,
+            (_, _) => module
+        );
+    }
 
-        public IEnumerable<EntityScriptModule> ListOfAllBaseModules()
-        {
-            return BASE_MODULE_MAP.Values;
-        }
+    public IEnumerable<EntityScriptModule> ListOfAllBaseModules()
+    {
+        return _baseModuleMap.Values;
+    }
 
-        public IEnumerable<EntityScriptModule> ListOfAllPlayerModules()
-        {
-            return PLAYER_MODULE_MAP.Values;
-        }
+    public IEnumerable<EntityScriptModule> ListOfAllPlayerModules()
+    {
+        return _playerModuleMap.Values;
     }
 }
