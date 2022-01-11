@@ -35,7 +35,7 @@ public class __SCRIPT__
         logger.LogDebug("__SCRIPT__ - Server Script");
 
         var command = data.Get<IAdminCommand>("Command");
-        await services.Mediator.Publish(
+        await services.Mediator.Send(
             new LoadEntityModuleSystemCommand()
         );
 

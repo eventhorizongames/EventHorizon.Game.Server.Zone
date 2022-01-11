@@ -36,7 +36,7 @@ public class __SCRIPT__
 
         var command = data.Get<IAdminCommand>("Command");
         await services.Mediator.Send(
-            new ReloadGuiSystem()
+            new ReloadGuiSystemCommand()
         );
 
         return new AdminCommandScriptResponse(
