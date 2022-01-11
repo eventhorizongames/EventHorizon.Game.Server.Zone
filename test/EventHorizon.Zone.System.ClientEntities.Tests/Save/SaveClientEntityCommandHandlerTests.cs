@@ -1,266 +1,282 @@
-namespace EventHorizon.Zone.System.ClientEntities.Tests.Save
+namespace EventHorizon.Zone.System.ClientEntities.Tests.Save;
+
+using AutoFixture.Xunit2;
+
+using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.System.Backup.Events;
+using EventHorizon.Zone.System.ClientEntities.Model;
+using EventHorizon.Zone.System.ClientEntities.Save;
+using EventHorizon.Zone.System.ClientEntities.State;
+
+using FluentAssertions;
+
+using global::System;
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
+
+public class SaveClientEntityCommandHandlerTests
 {
-    using AutoFixture.Xunit2;
-
-    using Castle.Core.Logging;
-
-    using EventHorizon.Test.Common.Attributes;
-    using EventHorizon.Zone.Core.Events.Client.Generic;
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.Backup.Events;
-    using EventHorizon.Zone.System.ClientEntities.Model;
-    using EventHorizon.Zone.System.ClientEntities.Model.Client;
-    using EventHorizon.Zone.System.ClientEntities.Save;
-    using EventHorizon.Zone.System.ClientEntities.State;
-
-    using FluentAssertions;
-
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class SaveClientEntityCommandHandlerTests
+    [Theory, AutoMoqData]
+    public async Task ShouldReturnNewlyRegisteredEntityWhenSuccessfulySaved(
+        // Given
+        string clientEntityId,
+        string fileName,
+        string fileDirectoryName,
+        string fileFullName,
+        string fileExtension,
+        string fileContent,
+        [Frozen] Mock<ISender> senderMock,
+        [Frozen] Mock<ClientEntityRepository> repositoryMock,
+        SaveClientEntityCommandHandler handler
+    )
     {
-        [Theory, AutoMoqData]
-        public async Task ShouldReturnNewlyRegisteredEntityWhenSuccessfulySaved(
-            // Given
-            string clientEntityId,
-            string fullName,
-            [Frozen] Mock<ClientEntityRepository> repositoryMock,
-            SaveClientEntityCommandHandler handler
-        )
-        {
-            var clientEntity = new ClientEntity(
-                clientEntityId,
-                new ConcurrentDictionary<string, object>(
-                    new Dictionary<string, object>
-                    {
-                        { "editor:Metadata:FullName", fullName }
-                    }
-                )
-            );
-            var expected = clientEntity;
+        var (clientEntity, _) = WhenSetupForSuccessfulSave(
+            clientEntityId,
+            fileName,
+            fileDirectoryName,
+            fileFullName,
+            fileExtension,
+            fileContent,
+            senderMock,
+            repositoryMock
+        );
+        var expected = clientEntity;
 
-            repositoryMock.Setup(
-                mock => mock.Find(
-                    clientEntityId
-                )
-            ).Returns(
+        // When
+        var actual = await handler.Handle(
+            new SaveClientEntityCommand(
                 clientEntity
-            );
+            ),
+            CancellationToken.None
+        );
 
-            // When
-            var actual = await handler.Handle(
-                new SaveClientEntityCommand(
-                    clientEntity
+        // Then
+        actual.Success.Should().BeTrue();
+        actual.ClientEntity
+            .Should().Be(expected);
+    }
+
+    [Theory, AutoMoqData]
+    public async Task ShouldCreateBackupWhenFileInfoExistsForFullName(
+        // Given
+        string clientEntityId,
+        string fileName,
+        string fileDirectoryName,
+        string fileFullName,
+        string fileExtension,
+        string fileContent,
+        [Frozen] Mock<ISender> senderMock,
+        [Frozen] Mock<ClientEntityRepository> repositoryMock,
+        SaveClientEntityCommandHandler handler
+    )
+    {
+        var (clientEntity, fileInfo) = WhenSetupForSuccessfulSave(
+            clientEntityId,
+            fileName,
+            fileDirectoryName,
+            fileFullName,
+            fileExtension,
+            fileContent,
+            senderMock,
+            repositoryMock
+        );
+
+        var expectedPath = new string[] { "Client", "Entity" };
+        var expectedFileName = fileName;
+        var expectedFileContent = fileContent;
+
+        // When
+        await handler.Handle(
+            new SaveClientEntityCommand(
+                clientEntity
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        senderMock.Verify(
+            mock => mock.Send(
+                It.Is<CreateBackupOfFileContentCommand>(
+                    actual => actual.FilePath.Contains(expectedPath[0])
+                        && actual.FilePath.Contains(expectedPath[1])
+                        && actual.FileName == expectedFileName
+                        && actual.FileContent == expectedFileContent
                 ),
                 CancellationToken.None
-            );
+            )
+        );
+    }
 
-            // Then
-            actual.ClientEntity.Should()
-                .Be(
-                    expected
-                );
-        }
+    [Theory, AutoMoqData]
+    public async Task ReturnExceptionErrorCodeResponseWhenExceptionOnBackup(
+        // Given
+        string clientEntityId,
+        string fileName,
+        string fileDirectoryName,
+        string fileFullName,
+        string fileExtension,
+        string fileContent,
+        [Frozen] Mock<ISender> senderMock,
+        [Frozen] Mock<ClientEntityRepository> repositoryMock,
+        SaveClientEntityCommandHandler handler
+    )
+    {
+        var expected = "exception";
+        var (clientEntity, _) = WhenSetupForSuccessfulSave(
+            clientEntityId,
+            fileName,
+            fileDirectoryName,
+            fileFullName,
+            fileExtension,
+            fileContent,
+            senderMock,
+            repositoryMock
+        );
 
-        //[Fact]
-        //public async Task ShouldSendChangeClientActionToAllEventWhenSuccessfulySavedClientEntity()
-        //{
-        //    // Given
-        //    var clientEntityId = "client-entity";
-        //    var fullName = "full-name";
-        //    var clientEntity = new ClientEntity(
-        //        clientEntityId,
-        //        new ConcurrentDictionary<string, object>(
-        //            new Dictionary<string, object>
-        //            {
-        //                { "editor:Metadata:FullName", fullName }
-        //            }
-        //        )
-        //    );
-        //    var expected = new ClientEntityChangedClientActionData(
-        //        clientEntity
-        //    );
+        senderMock.Setup(
+            mock => mock.Send(
+                It.IsAny<CreateBackupOfFileContentCommand>(),
+                CancellationToken.None
+            )
+        ).Throws(
+            new Exception("Failed to Backup File.")
+        );
 
-        //    var mediatorMock = new Mock<IMediator>();
-        //    var fileSaverMock = new Mock<IJsonFileSaver>();
-        //    var repositoryMock = new Mock<ClientEntityRepository>();
+        // When
+        var actual = await handler.Handle(
+            new SaveClientEntityCommand(
+                clientEntity
+            ),
+            CancellationToken.None
+        );
 
-        //    repositoryMock.Setup(
-        //        mock => mock.Find(
-        //            clientEntityId
-        //        )
-        //    ).Returns(
-        //        clientEntity
-        //    );
+        // Then
+        actual.Success
+            .Should().BeFalse();
+        actual.ErrorCode.Should().Be(expected);
+    }
 
-        //    // When
-        //    var handler = new SaveClientEntityCommandHandler(
-        //        mediatorMock.Object,
-        //        fileSaverMock.Object,
-        //        repositoryMock.Object
-        //    );
-        //    await handler.Handle(
-        //        new SaveClientEntityCommand(
-        //            clientEntity
-        //        ),
-        //        CancellationToken.None
-        //    );
+    [Theory, AutoMoqData]
+    public async Task DoesNotCauseFailureWhenFileFullNameIsMissingFromRawData(
+        // Given
+        string clientEntityId,
+        string fileName,
+        string fileDirectoryName,
+        string fileFullName,
+        string fileExtension,
+        string fileContent,
+        [Frozen] Mock<ISender> senderMock,
+        [Frozen] Mock<ClientEntityRepository> repositoryMock,
+        SaveClientEntityCommandHandler handler
+    )
+    {
+        var (clientEntity, _) = WhenSetupForSuccessfulSave(
+            clientEntityId,
+            fileName,
+            fileDirectoryName,
+            fileFullName,
+            fileExtension,
+            fileContent,
+            senderMock,
+            repositoryMock
+        );
+        clientEntity.RawData.Remove(
+            ClientEntityConstants.METADATA_FILE_FULL_NAME,
+            out _
+        );
 
-        //    // Then
-        //    mediatorMock.Verify(
-        //        mock => mock.Publish(
-        //            It.Is<ClientActionGenericToAllEvent>(
-        //                evt => evt.Data.Equals(
-        //                    expected
-        //                )
-        //            ),
-        //            CancellationToken.None
-        //        )
-        //    );
-        //}
+        // When
+        var actual = await handler.Handle(
+            new SaveClientEntityCommand(
+                clientEntity
+            ),
+            CancellationToken.None
+        );
 
-        //[Fact]
-        //public async Task ShouldCreateBackupWhenFileInfoExistsForFullName()
-        //{
-        //    // Given
-        //    var clientEntityId = "client-entity";
-        //    var fileName = "file-name";
-        //    var fullName = "full-name";
-        //    var clientEntity = new ClientEntity(
-        //        clientEntityId,
-        //        new ConcurrentDictionary<string, object>(
-        //            new Dictionary<string, object>
-        //            {
-        //                { "editor:Metadata:FullName", fullName }
-        //            }
-        //        )
-        //    );
-        //    var expectedPath = new string[] { "Client", "Entity" };
-        //    var expectedFileName = fileName;
-        //    var expectedFileText = "file-text";
+        // Then
+        actual.Success
+            .Should().BeTrue();
+    }
 
-        //    var mediatorMock = new Mock<IMediator>();
-        //    var fileSaverMock = new Mock<IJsonFileSaver>();
-        //    var repositoryMock = new Mock<ClientEntityRepository>();
+    private static (ClientEntity, StandardFileInfo) WhenSetupForSuccessfulSave(
+        string clientEntityId,
+        string fileName,
+        string fileDirectoryName,
+        string fileFullName,
+        string fileExtension,
+        string fileContent,
+        Mock<ISender> senderMock,
+        Mock<ClientEntityRepository> repositoryMock
+    )
+    {
+        var clientEntity = new ClientEntity(
+            clientEntityId,
+            new ConcurrentDictionary<string, object>(
+                new Dictionary<string, object>
+                {
+                    [ClientEntityConstants.METADATA_FILE_FULL_NAME] = fileFullName,
+                }
+            )
+        );
 
-        //    mediatorMock.Setup(
-        //        mock => mock.Send(
-        //            new GetFileInfo(
-        //                fullName
-        //            ),
-        //            CancellationToken.None
-        //        )
-        //    ).ReturnsAsync(
-        //        new StandardFileInfo(
-        //            fileName,
-        //            "file-director",
-        //            fullName,
-        //            "json"
-        //        )
-        //    );
-        //    mediatorMock.Setup(
-        //        mock => mock.Send(
-        //            new DoesFileExist(
-        //                fullName
-        //            ),
-        //            CancellationToken.None
-        //        )
-        //    ).ReturnsAsync(
-        //        true
-        //    );
-        //    mediatorMock.Setup(
-        //        mock => mock.Send(
-        //            new ReadAllTextFromFile(
-        //                fullName
-        //            ),
-        //            CancellationToken.None
-        //        )
-        //    ).ReturnsAsync(
-        //        expectedFileText
-        //    );
+        var fileInfo = new StandardFileInfo(
+            fileName,
+            fileDirectoryName,
+            fileFullName,
+            fileExtension
+        );
 
-        //    repositoryMock.Setup(
-        //        mock => mock.Find(
-        //            clientEntityId
-        //        )
-        //    ).Returns(
-        //        clientEntity
-        //    );
+        senderMock.Setup(
+            mock => mock.Send(
+                new GetFileInfo(
+                    fileFullName
+                ),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            fileInfo
+        );
 
-        //    // When
-        //    var handler = new SaveClientEntityCommandHandler(
-        //        mediatorMock.Object,
-        //        fileSaverMock.Object,
-        //        repositoryMock.Object
-        //    );
-        //    await handler.Handle(
-        //        new SaveClientEntityCommand(
-        //            clientEntity
-        //        ),
-        //        CancellationToken.None
-        //    );
+        senderMock.Setup(
+            mock => mock.Send(
+                new DoesFileExist(
+                    fileFullName
+                ),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            true
+        );
 
-        //    // Then
-        //    mediatorMock.Verify(
-        //        mock => mock.Send(
-        //            It.Is<CreateBackupOfFileContentCommand>(
-        //                actual => actual.FilePath.Contains(expectedPath[0])
-        //                    && actual.FilePath.Contains(expectedPath[1])
-        //                    && actual.FileName == expectedFileName
-        //                    && actual.FileContent == expectedFileText
-        //            ),
-        //            CancellationToken.None
-        //        )
-        //    );
-        //}
+        senderMock.Setup(
+            mock => mock.Send(
+                new ReadAllTextFromFile(
+                    fileFullName
+                ),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            fileContent
+        );
 
-        //[Fact]
-        //public async Task ShouldReturnFailedResponseWithErrorCodeWhenExceptionIsThrown()
-        //{
-        //    // Given
-        //    var expected = "exception";
-        //    var clientEntity = new ClientEntity(
-        //        "client-id",
-        //        null
-        //    );
+        repositoryMock.Setup(
+            mock => mock.Find(
+                clientEntityId
+            )
+        ).Returns(
+            clientEntity
+        );
 
-        //    var mediatorMock = new Mock<IMediator>();
-        //    var fileSaverMock = new Mock<IJsonFileSaver>();
-        //    var repositoryMock = new Mock<ClientEntityRepository>();
-
-        //    // When
-        //    var handler = new SaveClientEntityCommandHandler(
-        //        mediatorMock.Object,
-        //        fileSaverMock.Object,
-        //        repositoryMock.Object
-        //    );
-        //    var actual = await handler.Handle(
-        //        new SaveClientEntityCommand(
-        //            clientEntity
-        //        ),
-        //        CancellationToken.None
-        //    );
-
-        //    // Then
-        //    Assert.False(
-        //        actual.Success
-        //    );
-        //    Assert.Equal(
-        //        expected,
-        //        actual.ErrorCode
-        //    );
-        //}
+        return (clientEntity, fileInfo);
     }
 }

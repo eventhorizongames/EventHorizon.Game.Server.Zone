@@ -3,9 +3,11 @@ namespace EventHorizon.Zone.System.ClientEntities.Tests.Unregister;
 using AutoFixture.Xunit2;
 
 using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.Core.Events.Client.Generic;
 using EventHorizon.Zone.Core.Events.Map.Cost;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.ClientEntities.Model;
+using EventHorizon.Zone.System.ClientEntities.Model.Client;
 using EventHorizon.Zone.System.ClientEntities.State;
 using EventHorizon.Zone.System.ClientEntities.Unregister;
 
@@ -90,6 +92,50 @@ public class UnregisterClientEntityHandlerTests
         repositoryMock.Verify(
             mock => mock.Remove(
                 globalId
+            )
+        );
+    }
+
+    [Theory, AutoMoqData]
+    public async Task PublishClientActionOnSuccessfulRemove(
+        // Given
+        string globalId,
+        [Frozen] Mock<IPublisher> publisherMock,
+        [Frozen] Mock<ClientEntityRepository> repositoryMock,
+        UnregisterClientEntityHandler handler
+    )
+    {
+        var clientEntity = new ClientEntity(
+            globalId,
+            new ConcurrentDictionary<string, object>()
+        );
+
+        repositoryMock.Setup(
+            mock => mock.Find(
+                globalId
+            )
+        ).Returns(
+            clientEntity
+        );
+
+        // When
+        var actual = await handler.Handle(
+            new(
+                globalId
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        publisherMock.Verify(
+            mock => mock.Publish(
+                new ClientActionGenericToAllEvent(
+                    "SERVER_CLIENT_ENTITY_DELETED_CLIENT_ACTION_EVENT",
+                    new ClientEntityDeletedClientActionData(
+                        globalId
+                    )
+                ),
+                CancellationToken.None
             )
         );
     }

@@ -2,7 +2,9 @@ namespace EventHorizon.Zone.System.ClientEntities.Unregister;
 
 using EventHorizon.Zone.Core.Events.Map.Cost;
 using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.ClientEntities.Client.Delete;
 using EventHorizon.Zone.System.ClientEntities.Model;
+using EventHorizon.Zone.System.ClientEntities.Model.Client;
 using EventHorizon.Zone.System.ClientEntities.State;
 
 using global::System.Numerics;
@@ -15,14 +17,17 @@ public class UnregisterClientEntityHandler
     : IRequestHandler<UnregisterClientEntity, bool>
 {
     private readonly ISender _sender;
+    private readonly IPublisher _publisher;
     private readonly ClientEntityRepository _repository;
 
     public UnregisterClientEntityHandler(
         ISender sender,
+        IPublisher publisher,
         ClientEntityRepository repository
     )
     {
         _sender = sender;
+        _publisher = publisher;
         _repository = repository;
     }
 
@@ -75,6 +80,16 @@ public class UnregisterClientEntityHandler
         _repository.Remove(
             request.GlobalId
         );
+
+        await _publisher.Publish(
+            SendClientEntityDeletedClientActionToAllEvent.Create(
+                new ClientEntityDeletedClientActionData(
+                    request.GlobalId
+                )
+            ),
+            cancellationToken
+        );
+
         return true;
     }
 }
