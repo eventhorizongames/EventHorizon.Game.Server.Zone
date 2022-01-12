@@ -1,9 +1,6 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.ClientAssets.Lifetime;
 
-    public struct OnStartupSetupClientAssetsSystemCommand
-        : OnServerStartupCommand
-    {
-    }
-}
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupClientAssetsSystemCommand
+    : OnServerStartupCommand { }

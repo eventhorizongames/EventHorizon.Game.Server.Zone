@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Save
-{
-    using EventHorizon.Zone.Core.Model.Command;
+﻿namespace EventHorizon.Zone.System.ClientAssets.Save;
 
-    using MediatR;
+using EventHorizon.Zone.Core.Model.Command;
 
-    public struct SaveClientAssetsCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
-}
+using MediatR;
+
+public struct SaveClientAssetsCommand
+    : IRequest<StandardCommandResult> { }

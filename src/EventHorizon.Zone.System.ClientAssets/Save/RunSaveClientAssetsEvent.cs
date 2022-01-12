@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Save
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.System.ClientAssets.Save;
 
-    public struct RunSaveClientAssetsEvent
-        : INotification
-    {
-    }
-}
+using MediatR;
+
+public struct RunSaveClientAssetsEvent : INotification { }

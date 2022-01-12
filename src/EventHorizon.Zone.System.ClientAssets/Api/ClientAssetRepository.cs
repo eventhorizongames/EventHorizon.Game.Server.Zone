@@ -1,27 +1,20 @@
-namespace EventHorizon.Zone.System.ClientAssets.State.Api
+namespace EventHorizon.Zone.System.ClientAssets.Api;
+
+using EventHorizon.Zone.System.ClientAssets.Model;
+
+using global::System.Collections.Generic;
+
+public interface ClientAssetRepository
 {
-    using EventHorizon.Zone.System.ClientAssets.Model;
+    IEnumerable<ClientAsset> All();
 
-    using global::System.Collections.Generic;
+    Option<ClientAsset> Get(string id);
 
-    public interface ClientAssetRepository
-    {
-        IEnumerable<ClientAsset> All();
+    void Add(ClientAsset clientAsset);
 
-        Option<ClientAsset> Get(
-            string id
-        );
+    void Set(ClientAsset clientAsset);
 
-        void Add(
-            ClientAsset clientAsset
-        );
+    void Delete(string id);
 
-        void Set(
-            ClientAsset clientAsset
-        );
-
-        void Delete(
-            string id
-        );
-    }
+    void Clear();
 }

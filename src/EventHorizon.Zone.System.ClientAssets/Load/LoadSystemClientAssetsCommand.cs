@@ -1,11 +1,8 @@
-namespace EventHorizon.Zone.System.ClientAssets.Load
-{
-    using EventHorizon.Zone.Core.Model.Command;
+namespace EventHorizon.Zone.System.ClientAssets.Load;
 
-    using MediatR;
+using EventHorizon.Zone.Core.Model.Command;
 
-    public struct LoadSystemClientAssetsCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
-}
+using MediatR;
+
+public struct LoadSystemClientAssetsCommand
+    : IRequest<StandardCommandResult> { }

@@ -1,68 +1,68 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Save
+﻿namespace EventHorizon.Zone.System.ClientAssets.Save;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.ClientAssets.Api;
+
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class SaveClientAssetsCommandHandler
+    : IRequestHandler<
+          SaveClientAssetsCommand,
+          StandardCommandResult
+      >
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.ClientAssets.State.Api;
+    private readonly ServerInfo _serverInfo;
+    private readonly IJsonFileSaver _fileSaver;
+    private readonly ClientAssetRepository _repository;
 
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class SaveClientAssetsCommandHandler
-        : IRequestHandler<SaveClientAssetsCommand, StandardCommandResult>
+    public SaveClientAssetsCommandHandler(
+        ServerInfo serverInfo,
+        IJsonFileSaver fileSaver,
+        ClientAssetRepository repository
+    )
     {
-        private readonly ServerInfo _serverInfo;
-        private readonly IJsonFileSaver _fileSaver;
-        private readonly ClientAssetRepository _repository;
+        _serverInfo = serverInfo;
+        _fileSaver = fileSaver;
+        _repository = repository;
+    }
 
-        public SaveClientAssetsCommandHandler(
-            ServerInfo serverInfo,
-            IJsonFileSaver fileSaver,
-            ClientAssetRepository repository
-        )
+    public async Task<StandardCommandResult> Handle(
+        SaveClientAssetsCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        foreach (var clientAsset in _repository.All())
         {
-            _serverInfo = serverInfo;
-            _fileSaver = fileSaver;
-            _repository = repository;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            SaveClientAssetsCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var clientAsset in _repository.All())
-            {
-                if (!clientAsset.TryGetFileFullName(
+            if (
+                !clientAsset.TryGetFileFullName(
                     out var fileFullName
-                ))
-                {
-                    fileFullName = clientAsset.GetFileFullName(
-                        _serverInfo.ClientPath
-                    );
-                    clientAsset.SetFileFullName(
-                        fileFullName
-                    );
-                }
-
-                var directory = Path.GetDirectoryName(
-                    fileFullName
+                )
+            )
+            {
+                fileFullName = clientAsset.GetFileFullName(
+                    _serverInfo.ClientPath
                 );
-                var fileName = Path.GetFileName(
-                    fileFullName
-                );
-
-                await _fileSaver.SaveToFile(
-                    directory.ValidateForNull(),
-                    fileName.ValidateForNull(),
-                    clientAsset
-                );
+                clientAsset.SetFileFullName(fileFullName);
             }
 
-            return new();
+            var directory = Path.GetDirectoryName(
+                fileFullName
+            );
+            var fileName = Path.GetFileName(fileFullName);
+
+            await _fileSaver.SaveToFile(
+                directory.ValidateForNull(),
+                fileName.ValidateForNull(),
+                clientAsset
+            );
         }
+
+        return new();
     }
 }

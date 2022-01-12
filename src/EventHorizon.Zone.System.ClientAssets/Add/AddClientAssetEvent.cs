@@ -1,19 +1,15 @@
-namespace EventHorizon.Zone.System.ClientAssets.Add
+namespace EventHorizon.Zone.System.ClientAssets.Add;
+
+using EventHorizon.Zone.System.ClientAssets.Model;
+
+using MediatR;
+
+public struct AddClientAssetEvent : INotification
 {
-    using EventHorizon.Zone.System.ClientAssets.Model;
+    public ClientAsset ClientAsset { get; }
 
-    using MediatR;
-
-    public struct AddClientAssetEvent
-        : INotification
+    public AddClientAssetEvent(ClientAsset clientAsset)
     {
-        public ClientAsset ClientAsset { get; }
-
-        public AddClientAssetEvent(
-            ClientAsset clientAsset
-        )
-        {
-            ClientAsset = clientAsset;
-        }
+        ClientAsset = clientAsset;
     }
 }

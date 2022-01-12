@@ -1,45 +1,45 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Update
+﻿namespace EventHorizon.Zone.System.ClientAssets.Update;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.ClientAssets.Api;
+using EventHorizon.Zone.System.ClientAssets.Events.Update;
+using EventHorizon.Zone.System.ClientAssets.Save;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class UpdateClientAssetCommandHandler
+    : IRequestHandler<
+          UpdateClientAssetCommand,
+          StandardCommandResult
+      >
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.ClientAssets.Events.Update;
-    using EventHorizon.Zone.System.ClientAssets.Save;
-    using EventHorizon.Zone.System.ClientAssets.State.Api;
+    private readonly IMediator _mediator;
+    private readonly ClientAssetRepository _repository;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class UpdateClientAssetCommandHandler
-        : IRequestHandler<UpdateClientAssetCommand, StandardCommandResult>
+    public UpdateClientAssetCommandHandler(
+        IMediator mediator,
+        ClientAssetRepository repository
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ClientAssetRepository _repository;
+        _mediator = mediator;
+        _repository = repository;
+    }
 
-        public UpdateClientAssetCommandHandler(
-            IMediator mediator,
-            ClientAssetRepository repository
-        )
-        {
-            _mediator = mediator;
-            _repository = repository;
-        }
+    public async Task<StandardCommandResult> Handle(
+        UpdateClientAssetCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        _repository.Set(request.ClientAsset);
 
-        public async Task<StandardCommandResult> Handle(
-            UpdateClientAssetCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            _repository.Set(
-                request.ClientAsset
-            );
+        await _mediator.Publish(
+            new RunSaveClientAssetsEvent(),
+            cancellationToken
+        );
 
-            await _mediator.Publish(
-                new RunSaveClientAssetsEvent(),
-                cancellationToken
-            );
-
-            return new();
-        }
+        return new();
     }
 }

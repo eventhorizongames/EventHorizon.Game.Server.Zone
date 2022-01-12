@@ -4,7 +4,6 @@ using AutoFixture.Xunit2;
 
 using EventHorizon.Test.Common.Attributes;
 using EventHorizon.Zone.System.ClientAssets.Api;
-using EventHorizon.Zone.System.ClientAssets.Events.Query;
 using EventHorizon.Zone.System.ClientAssets.Model;
 using EventHorizon.Zone.System.ClientAssets.Query;
 
@@ -18,7 +17,7 @@ using Moq;
 
 using Xunit;
 
-public class QueryForAllClientAssetsHandlerTests
+public class QueryForClientAssetListHandlerTests
 {
     [Theory, AutoMoqData]
     public async Task ShouldReutrnAllFromAssetRepositoryWhenQueryIsHandled(
@@ -26,7 +25,7 @@ public class QueryForAllClientAssetsHandlerTests
         List<ClientAsset> expected,
         [Frozen]
             Mock<ClientAssetRepository> clientAssetRepositoryMock,
-        QueryForAllClientAssetsHandler handler
+        QueryForClientAssetListHandler handler
     )
     {
         clientAssetRepositoryMock
@@ -35,11 +34,11 @@ public class QueryForAllClientAssetsHandlerTests
 
         // When
         var actual = await handler.Handle(
-            new QueryForAllClientAssets(),
+            new QueryForClientAssetList(),
             CancellationToken.None
         );
 
         // Then
-        actual.Result.Should().BeEquivalentTo(expected);
+        actual.Should().BeEquivalentTo(expected);
     }
 }

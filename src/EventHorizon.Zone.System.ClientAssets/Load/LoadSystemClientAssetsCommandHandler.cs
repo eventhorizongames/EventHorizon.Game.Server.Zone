@@ -1,89 +1,88 @@
-namespace EventHorizon.Zone.System.ClientAssets.Load
+namespace EventHorizon.Zone.System.ClientAssets.Load;
+
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.ClientAssets.Add;
+using EventHorizon.Zone.System.ClientAssets.Model;
+
+using global::System.Collections.Generic;
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class LoadSystemClientAssetsCommandHandler
+    : IRequestHandler<
+          LoadSystemClientAssetsCommand,
+          StandardCommandResult
+      >
 {
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.ClientAssets.Add;
-    using EventHorizon.Zone.System.ClientAssets.Model;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly IJsonFileLoader _fileLoader;
+    private readonly ServerInfo _serverInfo;
 
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class LoadSystemClientAssetsCommandHandler
-        : IRequestHandler<LoadSystemClientAssetsCommand, StandardCommandResult>
+    public LoadSystemClientAssetsCommandHandler(
+        ILogger<LoadSystemClientAssetsCommandHandler> logger,
+        IMediator mediator,
+        IJsonFileLoader fileLoader,
+        ServerInfo serverInfo
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly IJsonFileLoader _fileLoader;
-        private readonly ServerInfo _serverInfo;
+        _logger = logger;
+        _mediator = mediator;
+        _fileLoader = fileLoader;
+        _serverInfo = serverInfo;
+    }
 
-        public LoadSystemClientAssetsCommandHandler(
-            ILogger<LoadSystemClientAssetsCommandHandler> logger,
-            IMediator mediator,
-            IJsonFileLoader fileLoader,
-            ServerInfo serverInfo
-        )
-        {
-            _logger = logger;
-            _mediator = mediator;
-            _fileLoader = fileLoader;
-            _serverInfo = serverInfo;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            LoadSystemClientAssetsCommand notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new ProcessFilesRecursivelyFromDirectory(
-                     Path.Combine(
-                        _serverInfo.ClientPath,
-                        "Assets"
-                    ),
-                    OnProcessFile,
-                    new Dictionary<string, object>()
+    public async Task<StandardCommandResult> Handle(
+        LoadSystemClientAssetsCommand notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new ProcessFilesRecursivelyFromDirectory(
+                Path.Combine(
+                    _serverInfo.ClientPath,
+                    "Assets"
                 ),
-                cancellationToken
+                OnProcessFile,
+                new Dictionary<string, object>()
+            ),
+            cancellationToken
+        );
+
+        return new();
+    }
+
+    private async Task OnProcessFile(
+        StandardFileInfo fileInfo,
+        IDictionary<string, object> _
+    )
+    {
+        var clientAsset =
+            await _fileLoader.GetFile<ClientAsset>(
+                fileInfo.FullName
             );
-
-            return new();
-        }
-
-        private async Task OnProcessFile(
-            StandardFileInfo fileInfo,
-            IDictionary<string, object> _
-        )
+        if (clientAsset.IsNull())
         {
-            var clientAsset = await _fileLoader.GetFile<ClientAsset>(
+            _logger.LogError(
+                "Client Asset file was invalid. FileFull={FileFullName}",
                 fileInfo.FullName
             );
-            if (clientAsset.IsNull())
-            {
-                _logger.LogError(
-                    "Client Asset file was invalid. FileFull={FileFullName}",
-                    fileInfo.FullName
-                );
-                return;
-            }
-
-            clientAsset.SetFileFullName(
-                fileInfo.FullName
-            );
-
-            await _mediator.Publish(
-                new AddClientAssetEvent(
-                    clientAsset
-                )
-            );
+            return;
         }
+
+        clientAsset.SetFileFullName(fileInfo.FullName);
+
+        await _mediator.Publish(
+            new AddClientAssetEvent(clientAsset)
+        );
     }
 }
