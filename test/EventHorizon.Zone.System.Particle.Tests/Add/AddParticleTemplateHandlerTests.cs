@@ -1,48 +1,45 @@
-namespace EventHorizon.Zone.System.Particle.Tests.Add
+namespace EventHorizon.Zone.System.Particle.Tests.Add;
+
+using AutoFixture.Xunit2;
+
+using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.System.Particle.Add;
+using EventHorizon.Zone.System.Particle.Events.Add;
+using EventHorizon.Zone.System.Particle.Model.Template;
+using EventHorizon.Zone.System.Particle.State;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using Moq;
+
+using Xunit;
+
+public class AddParticleTemplateHandlerTests
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using EventHorizon.Zone.System.Particle.Add;
-    using EventHorizon.Zone.System.Particle.Events.Add;
-    using EventHorizon.Zone.System.Particle.Model.Template;
-    using EventHorizon.Zone.System.Particle.State;
-
-    using Moq;
-
-    using Xunit;
-
-    public class AddParticleTemplateHandlerTests
+    [Theory, AutoMoqData]
+    public async Task TestShouldAddTemplateToRepositoryWhenHandleIsCalled(
+        // Given
+        string templateId,
+        [Frozen]
+            Mock<ParticleTemplateRepository> templateRepositoryMock,
+        AddParticleTemplateHandler handler
+    )
     {
-        [Fact]
-        public async Task TestShouldAddTemplateToRepositoryWhenHandleIsCalled()
-        {
-            // Given
-            var expectedId = "expected-id";
-            var expectedTemplate = new ParticleTemplate();
+        var particleTemplate = new ParticleTemplate();
 
+        // When
+        await handler.Handle(
+            new AddParticleTemplateEvent(
+                templateId,
+                particleTemplate
+            ),
+            CancellationToken.None
+        );
 
-            var particleTemplateRepositoryMock = new Mock<ParticleTemplateRepository>();
-
-            // When
-            var handler = new AddParticleTemplateHandler(
-                particleTemplateRepositoryMock.Object
-            );
-            await handler.Handle(
-                new AddParticleTemplateEvent(
-                    expectedId,
-                    expectedTemplate
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            particleTemplateRepositoryMock.Verify(
-                mock => mock.Add(
-                    expectedId,
-                    expectedTemplate
-                )
-            );
-        }
+        // Then
+        templateRepositoryMock.Verify(
+            mock => mock.Add(templateId, particleTemplate)
+        );
     }
 }

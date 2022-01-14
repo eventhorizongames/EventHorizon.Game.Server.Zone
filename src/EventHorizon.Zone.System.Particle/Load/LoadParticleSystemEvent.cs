@@ -1,9 +1,5 @@
-﻿namespace EventHorizon.Zone.System.Particle.Load
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.System.Particle.Load;
 
-    public struct LoadParticleSystemEvent
-        : INotification
-    {
-    }
-}
+using MediatR;
+
+public struct LoadParticleSystemEvent : INotification { }

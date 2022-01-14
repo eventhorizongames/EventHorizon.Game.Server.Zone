@@ -15,7 +15,7 @@ using EventHorizon.Zone.System.ClientAssets.Query;
 using EventHorizon.Zone.System.ClientEntities.Query;
 using EventHorizon.Zone.System.EntityModule.Fetch;
 using EventHorizon.Zone.System.Gui.Events.Layout;
-using EventHorizon.Zone.System.Particle.Fetch;
+using EventHorizon.Zone.System.Particle.Query;
 using EventHorizon.Zone.System.Player.Events.Info;
 using EventHorizon.Zone.System.ServerModule.Fetch;
 
@@ -27,7 +27,10 @@ using MediatR;
 ///  during a Zone's Player Info Request.
 /// </summary>
 public class QueryForPlayerZoneInfoHandler
-    : IRequestHandler<QueryForPlayerZoneInfo, IDictionary<string, object>>
+    : IRequestHandler<
+          QueryForPlayerZoneInfo,
+          IDictionary<string, object>
+      >
 {
     private readonly IMediator _mediator;
     private readonly IMapMesh _mapMesh;
@@ -44,7 +47,8 @@ public class QueryForPlayerZoneInfoHandler
         _mediator = mediator;
         _mapMesh = mapMesh;
         _entityRepository = entityRepository;
-        _performanceTrackerFactory = performanceTrackerFactory;
+        _performanceTrackerFactory =
+            performanceTrackerFactory;
     }
 
     public async Task<IDictionary<string, object>> Handle(
@@ -52,7 +56,11 @@ public class QueryForPlayerZoneInfoHandler
         CancellationToken cancellationToken
     )
     {
-        using (_performanceTrackerFactory.Build("Zone Info For Player Created"))
+        using (
+            _performanceTrackerFactory.Build(
+                "Zone Info For Player Created"
+            )
+        )
         {
             var zoneInfo = new Dictionary<string, object>
             {
@@ -60,7 +68,9 @@ public class QueryForPlayerZoneInfoHandler
                 {
                     "I18nMap",
                     await _mediator.Send(
-                        new FetchI18nMapForLocaleQuery(request.Player.Locale),
+                        new FetchI18nMapForLocaleQuery(
+                            request.Player.Locale
+                        ),
                         cancellationToken
                     )
                 },
@@ -69,25 +79,39 @@ public class QueryForPlayerZoneInfoHandler
                 //    _map
                 //);
                 { "MapMesh", _mapMesh },
-                { "EntityList", await _entityRepository.All() },
+                {
+                    "EntityList",
+                    await _entityRepository.All()
+                },
                 {
                     "GuiLayoutList",
                     await _mediator.Send(
-                        new GetGuiLayoutListForPlayerCommand(request.Player),
+                        new GetGuiLayoutListForPlayerCommand(
+                            request.Player
+                        ),
                         cancellationToken
                     )
                 },
                 {
                     "ParticleTemplateList",
-                    await _mediator.Send(new FetchAllParticleTemplateListEvent(), cancellationToken)
+                    await _mediator.Send(
+                        new QueryForAllParticleTemplates(),
+                        cancellationToken
+                    )
                 },
                 {
                     "ServerModuleScriptList",
-                    await _mediator.Send(new FetchServerModuleScriptList(), cancellationToken)
+                    await _mediator.Send(
+                        new FetchServerModuleScriptList(),
+                        cancellationToken
+                    )
                 },
                 {
                     "ClientAssetList",
-                    await _mediator.Send(new QueryForClientAssetList(), cancellationToken)
+                    await _mediator.Send(
+                        new QueryForClientAssetList(),
+                        cancellationToken
+                    )
                 },
                 {
                     "ClientEntityList",
@@ -98,15 +122,24 @@ public class QueryForPlayerZoneInfoHandler
                 },
                 {
                     "BaseEntityScriptModuleList",
-                    await _mediator.Send(new FetchBaseModuleListQuery(), cancellationToken)
+                    await _mediator.Send(
+                        new FetchBaseModuleListQuery(),
+                        cancellationToken
+                    )
                 },
                 {
                     "PlayerEntityScriptModuleList",
-                    await _mediator.Send(new FetchPlayerModuleListQuery(), cancellationToken)
+                    await _mediator.Send(
+                        new FetchPlayerModuleListQuery(),
+                        cancellationToken
+                    )
                 },
                 {
                     "ClientScriptList",
-                    await _mediator.Send(new FetchClientScriptListQuery(), cancellationToken)
+                    await _mediator.Send(
+                        new FetchClientScriptListQuery(),
+                        cancellationToken
+                    )
                 },
                 {
                     "ClientScriptsAssemblyDetails",
@@ -118,7 +151,10 @@ public class QueryForPlayerZoneInfoHandler
                 // Game Specific State
                 {
                     "GameState",
-                    await _mediator.Send(new QueryForCurrentGameState(), cancellationToken)
+                    await _mediator.Send(
+                        new QueryForCurrentGameState(),
+                        cancellationToken
+                    )
                 }
             };
 

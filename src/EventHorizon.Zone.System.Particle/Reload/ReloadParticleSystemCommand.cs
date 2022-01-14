@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Particle.Reload
-{
-    using EventHorizon.Zone.Core.Model.Command;
+﻿namespace EventHorizon.Zone.System.Particle.Reload;
 
-    using MediatR;
+using EventHorizon.Zone.Core.Model.Command;
 
-    public struct ReloadParticleSystemCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
-}
+using MediatR;
+
+public struct ReloadParticleSystemCommand
+    : IRequest<StandardCommandResult> { }

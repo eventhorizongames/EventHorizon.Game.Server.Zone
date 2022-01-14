@@ -1,11 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Particle.Lifetime
-{
-    using System;
+﻿namespace EventHorizon.Zone.System.Particle.Lifetime;
 
-    using EventHorizon.Zone.Core.Events.Lifetime;
+using System;
 
-    public class OnStartupSetupParticleSystemCommand
-        : OnServerStartupCommand
-    {
-    }
-}
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public class OnStartupSetupParticleSystemCommand
+    : OnServerStartupCommand { }

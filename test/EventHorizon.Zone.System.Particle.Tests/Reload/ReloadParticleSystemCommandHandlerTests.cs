@@ -1,56 +1,55 @@
-﻿namespace EventHorizon.Zone.System.Particle.Tests.Reload
+﻿namespace EventHorizon.Zone.System.Particle.Tests.Reload;
+
+using AutoFixture.Xunit2;
+
+using EventHorizon.Test.Common.Attributes;
+using EventHorizon.Zone.System.Particle.Load;
+using EventHorizon.Zone.System.Particle.Reload;
+using EventHorizon.Zone.System.Particle.State;
+
+using FluentAssertions;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
+
+public class ReloadParticleSystemCommandHandlerTests
 {
-    using EventHorizon.Zone.System.Particle.Load;
-    using EventHorizon.Zone.System.Particle.Reload;
-    using EventHorizon.Zone.System.Particle.State;
-
-    using FluentAssertions;
-
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Moq;
-
-    using Xunit;
-
-
-    public class ReloadParticleSystemCommandHandlerTests
+    [Theory, AutoMoqData]
+    public async Task ShouldClearAndLoadParticleSystemWhenCommandIsHandled(
+        // Given
+        [Frozen]
+            Mock<IPublisher> publisherMock,
+        [Frozen]
+            Mock<ParticleTemplateRepository> particleTemplateRepositoryMock,
+        ReloadParticleSystemCommandHandler handler
+    )
     {
-        [Fact]
-        public async Task ShouldClearAndLoadParticleSystemWhenCommandIsHandled()
-        {
-            // Given
-            var expected = new LoadParticleSystemEvent();
+        var expected = new LoadParticleSystemEvent();
 
-            var mediatorMock = new Mock<IMediator>();
-            var repositoryMock = new Mock<ParticleTemplateRepository>();
+        // When
+        var actual = await handler.Handle(
+            new ReloadParticleSystemCommand(),
+            CancellationToken.None
+        );
 
-            // When
-            var handler = new ReloadParticleSystemCommandHandler(
-                mediatorMock.Object,
-                repositoryMock.Object
-            );
-            var actual = await handler.Handle(
-                new ReloadParticleSystemCommand(
+        // Then
+        actual.Success.Should().BeTrue();
 
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Success.Should().BeTrue();
-
-            repositoryMock.Verify(
-                mock => mock.Clear()
-            );
-            mediatorMock.Verify(
-                mock => mock.Publish(
+        particleTemplateRepositoryMock.Verify(
+            mock => mock.Clear()
+        );
+        publisherMock.Verify(
+            mock =>
+                mock.Publish(
                     expected,
                     CancellationToken.None
                 )
-            );
-        }
+        );
     }
 }
