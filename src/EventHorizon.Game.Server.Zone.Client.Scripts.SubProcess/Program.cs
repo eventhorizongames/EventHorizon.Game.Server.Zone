@@ -17,41 +17,80 @@
 
     class Program
     {
-        public static string Identifier = "client_script_subprocess";
+        public static string Identifier =
+            "client_script_subprocess";
+
         static Task Main(string[] args) =>
             CreateHostBuilder(args).Build().RunAsync();
 
-        static IHostBuilder CreateHostBuilder(string[] args) =>
+        static IHostBuilder CreateHostBuilder(
+            string[] args
+        ) =>
             Host.CreateDefaultBuilder(args)
-                .UseSerilog((ctx, cfg) => cfg
-                        .Enrich.WithProperty("EnvironmentName", ctx.HostingEnvironment.EnvironmentName)
-                        .Enrich.WithProperty("ProcessIdentifier", Identifier)
-                        .Enrich.WithProperty("PlatformId", ctx.Configuration["OwnerDetails:PlatformId"])
-                        .Enrich.WithProperty("Host", ctx.Configuration["HOST"])
-                        .Enrich.WithProperty("ServiceName", "Zone")
-                        .Enrich.WithProperty("ApplicationVersion", ctx.Configuration[ServerPropertyKeys.APPLICATION_VERSION])
-                        .ReadFrom.Configuration(ctx.Configuration)
-                        .ConfigureElasticsearchLogging(ctx)
-                ).ConfigureServices(
-                    (host, services) => services
-                        .AddMediatR(
-                            new Type[]
-                            {
-                                typeof(Program),
-                                typeof(CoreExtensions),
-                                typeof(SystemClientScriptsPluginSharedExtensions),
-                                typeof(SystemClientScriptsPluginCompilerExtensions),
-                            }
-                        ).AddCore(
-                            Array.Empty<Assembly>()
-                        ).AddSystemClientScriptsPluginCompiler(
-                            options => host.Configuration.GetSection(
-                                "Plugins:ClientScriptsPluginCompiler"
-                            ).Bind(
-                                options
+                .UseSerilog(
+                    (ctx, cfg) =>
+                        cfg.Enrich
+                            .WithProperty(
+                                "EnvironmentName",
+                                ctx.HostingEnvironment.EnvironmentName
                             )
-                        ).AddSystemClientScriptsPluginShared()
-                        .AddHostedService<Worker>()
+                            .Enrich.WithProperty(
+                                "ProcessIdentifier",
+                                Identifier
+                            )
+                            .Enrich.WithProperty(
+                                "PlatformId",
+                                ctx.Configuration[
+                                    "OwnerDetails:PlatformId"
+                                ]
+                            )
+                            .Enrich.WithProperty(
+                                "Host",
+                                ctx.Configuration["HOST"]
+                            )
+                            .Enrich.WithProperty(
+                                "ServiceName",
+                                "Zone"
+                            )
+                            .Enrich.WithProperty(
+                                "ApplicationVersion",
+                                ctx.Configuration[
+                                    ServerPropertyKeys.APPLICATION_VERSION
+                                ]
+                            )
+                            .ReadFrom.Configuration(
+                                ctx.Configuration
+                            )
+                            .ConfigureElasticsearchLogging(
+                                ctx
+                            )
+                )
+                .ConfigureServices(
+                    (host, services) =>
+                        services
+                            .AddHttpClient()
+                            .AddMediatR(
+                                new Type[]
+                                {
+                                    typeof(Program),
+                                    typeof(CoreExtensions),
+                                    typeof(SystemClientScriptsPluginSharedExtensions),
+                                    typeof(SystemClientScriptsPluginCompilerExtensions),
+                                }
+                            )
+                            .AddCore(
+                                Array.Empty<Assembly>()
+                            )
+                            .AddSystemClientScriptsPluginCompiler(
+                                options =>
+                                    host.Configuration
+                                        .GetSection(
+                                            "Plugins:ClientScriptsPluginCompiler"
+                                        )
+                                        .Bind(options)
+                            )
+                            .AddSystemClientScriptsPluginShared()
+                            .AddHostedService<Worker>()
                 );
     }
 
@@ -62,29 +101,37 @@
             HostBuilderContext context
         )
         {
-            if (context.Configuration.GetValue<bool>("Serilog:Elasticsearch:Enabled"))
-            {
-                var sinkOptions = new ElasticsearchSinkOptions(
-                    new Uri(
-                        context.Configuration["Elasticsearch:Uri"]
-                    )
+            if (
+                context.Configuration.GetValue<bool>(
+                    "Serilog:Elasticsearch:Enabled"
                 )
-                {
-                    ModifyConnectionSettings = conn =>
+            )
+            {
+                var sinkOptions =
+                    new ElasticsearchSinkOptions(
+                        new Uri(
+                            context.Configuration[
+                                "Elasticsearch:Uri"
+                            ]
+                        )
+                    )
                     {
-                        conn.BasicAuthentication(
-                            context.Configuration["Elasticsearch:Username"],
-                            context.Configuration["Elasticsearch:Password"]
-                        );
-                        return conn;
-                    }
-
-                };
-                context.Configuration.GetSection(
-                    "Serilog:Elasticsearch"
-                ).Bind(
-                    sinkOptions
-                );
+                        ModifyConnectionSettings = conn =>
+                        {
+                            conn.BasicAuthentication(
+                                context.Configuration[
+                                    "Elasticsearch:Username"
+                                ],
+                                context.Configuration[
+                                    "Elasticsearch:Password"
+                                ]
+                            );
+                            return conn;
+                        }
+                    };
+                context.Configuration
+                    .GetSection("Serilog:Elasticsearch")
+                    .Bind(sinkOptions);
                 return loggerConfig.WriteTo.Elasticsearch(
                     sinkOptions
                 );
