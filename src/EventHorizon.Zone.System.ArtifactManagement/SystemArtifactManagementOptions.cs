@@ -6,8 +6,11 @@ using EventHorizon.Zone.System.ArtifactManagement.Model;
 
 public struct SystemArtifactManagementOptions
 {
-    public List<string> AllowedDomainList { get; set; } = new List<string>
+    public List<string> AllowedDomainList { get; set; } =
+        new List<string> { ArtifactManagementSystemContants.ALL_DOMAINS, };
+
+    public SystemArtifactManagementOptions(List<string> allowedDomainList)
     {
-        ArtifactManagementSystemContants.ALL_DOMAINS,
-    };
+        AllowedDomainList = allowedDomainList;
+    }
 }

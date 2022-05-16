@@ -54,11 +54,6 @@
 
     <ItemGroup>
         <EmbeddedResource Include="I18n\App_Data\Admin\Commands\ReloadI18n.json" />
-        <EmbeddedResource Include="I18n\App_Data\Server\Scripts\Admin\I18n\ReloadI18nSystem.csx" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Game\EventHorizon.Game.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,10 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+		<PackageReference Include="EventHorizon.Observer" Version="0.1.132" />
         <PackageReference Include="MediatR" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\EventHorizon.Zone.Core.Api\EventHorizon.Zone.Core.Api.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.Core.Model\EventHorizon.Zone.Core.Model.csproj" />
     </ItemGroup>
     

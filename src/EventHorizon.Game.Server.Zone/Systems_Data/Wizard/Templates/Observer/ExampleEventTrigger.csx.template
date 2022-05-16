@@ -22,7 +22,7 @@ public class __SCRIPT__
         var logger = services.Logger<__SCRIPT__>();
         logger.LogDebug("__SCRIPT__ - Server Script");
 
-        services.ObserverState.Trigger<[[NAME]]EventObserver, [[NAME]]Event>(
+        services.ObserverBroker.Trigger(
             new [[NAME]]Event
             {
                 EventMessage = $"[Triggered] :: Observer [[NAME]]Event "

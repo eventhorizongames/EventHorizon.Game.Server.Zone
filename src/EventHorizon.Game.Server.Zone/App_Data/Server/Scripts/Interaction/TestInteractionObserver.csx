@@ -21,58 +21,60 @@
 ///     Data: IDictionary<string, object>
 /// }
 /// </summary>
+///
 
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using EventHorizon.Observer.Model;
-
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+using Collections = System.Collections.Generic;
+using EntityRegister = EventHorizon.Zone.Core.Events.Entity.Register;
+using Logging = Microsoft.Extensions.Logging;
+using ObserverModel = EventHorizon.Observer.Model;
+using ServerScriptsModel = EventHorizon.Zone.System.Server.Scripts.Model;
 
 public class TestInteractionObserverEvent
+    : ServerScriptsModel.ObserverableMessageBase<
+          TestInteractionObserverEvent,
+          TestInteractionObserverEventObserver
+      >
 {
     public string EventMessage { get; set; }
 }
 
 public interface TestInteractionObserverEventObserver
-    : ArgumentObserver<TestInteractionObserverEvent>
-{
-}
+    : ObserverModel.ArgumentObserver<TestInteractionObserverEvent> { }
 
 public class __SCRIPT__
-    : ServerScript,
-    TestInteractionObserverEventObserver
+    : ServerScriptsModel.ServerScript,
+      TestInteractionObserverEventObserver,
+      EntityRegister.EntityUnRegisterEventObserver
 {
     public string Id => "__SCRIPT__";
-    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+    public Collections.IEnumerable<string> Tags => new Collections.List<string> { "testing-tag" };
 
-    private ServerScriptServices _services;
-    private ILogger _logger;
+    private ServerScriptsModel.ServerScriptServices _services;
+    private Logging.ILogger _logger;
 
     public async Task<ServerScriptResponse> Run(
-        ServerScriptServices services,
-        ServerScriptData data
+        ServerScriptsModel.ServerScriptServices services,
+        ServerScriptsModel.ServerScriptData data
     )
     {
         _services = services;
         _logger = services.Logger<__SCRIPT__>();
         _logger.LogDebug("__SCRIPT__ - Server Script");
 
-        _logger.LogInformation(
-            $"I am here: Player: "
-        );
+        _logger.LogInformation($"I am here: Player: ");
 
-        return new StandardServerScriptResponse(
-            true,
-            "observer_setup"
-        );
+        return new StandardServerScriptResponse(true, "observer_setup");
     }
 
-    public Task Handle(
-        TestInteractionObserverEvent args
-    )
+    public Task Handle(EntityRegister.EntityUnRegisteredEvent args)
+    {
+        _logger.LogDebug("Testing");
+        InMemoryGameState.Instance.RemovePlayer(_services, args.EntityId);
+        return Task.CompletedTask;
+    }
+
+    public Task Handle(TestInteractionObserverEvent args)
     {
         var message = args.EventMessage;
 

@@ -4,9 +4,6 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\EventHorizon.Game\EventHorizon.Game.csproj" />
-    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\EventHorizon.Game.I18n\EventHorizon.Game.I18n.csproj" />

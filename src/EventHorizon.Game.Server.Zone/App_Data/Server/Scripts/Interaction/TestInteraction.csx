@@ -22,48 +22,42 @@
 /// }
 /// </summary>
 
-using EventHorizon.Zone.Core.Model.Entity;
-using EventHorizon.Zone.Core.Model.Player;
-using EventHorizon.Zone.System.Interaction.Model;
-
-
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventHorizon.Zone.System.Server.Scripts.Model;
-using Microsoft.Extensions.Logging;
+using CoreModels = EventHorizon.Zone.Core.Model.Entity;
+using InteractionModels = EventHorizon.Zone.System.Interaction.Model;
+using PlayerModels = EventHorizon.Zone.Core.Model.Player;
+using ServerScriptsModel = EventHorizon.Zone.System.Server.Scripts.Model;
 
-public class __SCRIPT__
-    : ServerScript
+public class __SCRIPT__ : ServerScriptsModel.ServerScript
 {
     public string Id => "__SCRIPT__";
-    public IEnumerable<string> Tags => new List<string> { "testing-tag" };
+    public System.Collections.Generic.IEnumerable<string> Tags =>
+        new System.Collections.Generic.List<string> { "testing-tag" };
 
-    public async Task<ServerScriptResponse> Run(
-        ServerScriptServices services,
-        ServerScriptData data
+    public async Task<ServerScriptsModel.ServerScriptResponse> Run(
+        ServerScriptsModel.ServerScriptServices services,
+        ServerScriptsModel.ServerScriptData data
     )
     {
         var logger = services.Logger<__SCRIPT__>();
         logger.LogDebug("__SCRIPT__ - Server Script");
 
-        var player = data.Get<PlayerEntity>("Player");
-        var interaction = data.Get<InteractionItem>("Interaction");
-        var target = data.Get<IObjectEntity>("Target");
+        var player = data.Get<PlayerModels.PlayerEntity>("Player");
+        var interaction = data.Get<InteractionModels.InteractionItem>("Interaction");
+        var target = data.Get<CoreModels.IObjectEntity>("Target");
 
-        logger.LogInformation(
-            $"I am here: Player: {player.Id}  |  Target: {target.Id}"
-        );
+        InMemoryGameState.Instance.IncrementPlayer(services, player.Id);
 
-        services.ObserverState.Trigger<TestInteractionObserverEventObserver, TestInteractionObserverEvent>(
+        logger.LogInformation($"I am here: Player: {player.Id}  |  Target: {target.Id}");
+
+        services.ObserverBroker.Trigger(
             new TestInteractionObserverEvent
             {
-                EventMessage = $"[Triggered] :: I am here: Player: {player.Id}  |  Target: {target.Id}"
+                EventMessage =
+                    $"[Triggered] :: I am here: Player: {player.Id}  |  Target: {target.Id}"
             }
         );
 
-        return new StandardServerScriptResponse(
-            true,
-            "tested_interation"
-        );
+        return new ServerScriptsModel.StandardServerScriptResponse(true, "tested_interation");
     }
 }

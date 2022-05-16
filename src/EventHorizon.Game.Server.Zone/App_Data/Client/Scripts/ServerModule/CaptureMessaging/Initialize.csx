@@ -1,96 +1,66 @@
-/*
-data:
-    active: bool
-    observer: ObserverBase
-    messageObserver: ObserverBase
-    timer: ITimerService
-*/
-
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EventHorizon.Game.Client.Core.Factory.Api;
-using EventHorizon.Game.Client.Core.Timer.Api;
-using EventHorizon.Game.Client.Engine.Gui.Api;
-using EventHorizon.Game.Client.Engine.Gui.Hide;
-using EventHorizon.Game.Client.Engine.Gui.Model;
-using EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
-using EventHorizon.Game.Client.Engine.Gui.Show;
-using EventHorizon.Game.Client.Engine.Gui.Update;
-using EventHorizon.Game.Client.Engine.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Scripting.Data;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Server.Game.CaptureMessaging.ClientAction.Show;
-using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
-using Microsoft.Extensions.Logging;
+using FactoryApi = EventHorizon.Game.Client.Core.Factory.Api;
+using GuiApi = EventHorizon.Game.Client.Engine.Gui.Api;
+using GuiHide = EventHorizon.Game.Client.Engine.Gui.Hide;
+using GuiModel = EventHorizon.Game.Client.Engine.Gui.Model;
+using GuiScripting = EventHorizon.Game.Client.Engine.Gui.Scripting.Observers;
+using GuiShow = EventHorizon.Game.Client.Engine.Gui.Show;
+using GuiUpdate = EventHorizon.Game.Client.Engine.Gui.Update;
+using ScriptingApi = EventHorizon.Game.Client.Engine.Scripting.Api;
+using ScriptingData = EventHorizon.Game.Client.Engine.Scripting.Data;
+using ScriptingServices = EventHorizon.Game.Client.Engine.Scripting.Services;
+using SystemLogMessage = EventHorizon.Game.Server.ServerModule.SystemLog.Message;
+using TimerApi = EventHorizon.Game.Client.Core.Timer.Api;
 
-public class __SCRIPT__
-    : IClientScript
+public class __SCRIPT__ : ScriptingApi.IClientScript
 {
     public string Id => "__SCRIPT__";
 
-    public async Task Run(
-        ScriptServices services,
-        ScriptData data
-    )
+    public async Task Run(ScriptingServices.ScriptServices services, ScriptingData.ScriptData data)
     {
         var logger = services.Logger<__SCRIPT__>();
+        logger.LogDebug("Capture Messaging - Initialize Script");
         logger.LogDebug("Capture Messaging - Initialize Script");
 
         var layoutId = "GUI_CaptureMessaging.json";
         var guiId = layoutId;
 
-        var observer = new ScriptGuiLayoutDataChangedObserver(
+        var observer = new GuiScripting.ScriptGuiLayoutDataChangedObserver(
             services,
             data,
             layoutId,
             guiId,
-            () => new List<IGuiControlData>()
+            () => new List<GuiApi.IGuiControlData>()
         );
 
         data.Set(
-            ScriptGuiLayoutDataChangedObserver.DataKey(
-                layoutId,
-                guiId,
-                "observer"
-            ),
+            GuiScripting.ScriptGuiLayoutDataChangedObserver.DataKey(layoutId, guiId, "observer"),
             observer
         );
 
-        services.RegisterObserver(
-            observer
-        );
+        services.RegisterObserver(observer);
 
         await observer.OnChange();
 
-        var messageObserver = new __SCRIPT__Observer(
-            services,
-            data,
-            layoutId,
-            guiId
-        );
-        data.Set(
-            "messageObserver",
-            messageObserver
-        );
-        services.RegisterObserver(
-            messageObserver
-        );
+        var messageObserver = new __SCRIPT__Observer(services, data, layoutId, guiId);
+        data.Set("messageObserver", messageObserver);
+        services.RegisterObserver(messageObserver);
     }
 }
 
 public class __SCRIPT__Observer
-    : ClientActionShowFiveSecondCaptureMessageEventObserver,
-    ClientActionShowTenSecondCaptureMessageEventObserver
+    : Game_ClientActions_ClientActionShowFiveSecondCaptureMessageEventObserver,
+      Game_ClientActions_ClientActionShowTenSecondCaptureMessageEventObserver
 {
-    private readonly ScriptServices _scriptServices;
-    private readonly ScriptData _scriptData;
+    private readonly ScriptingServices.ScriptServices _scriptServices;
+    private readonly ScriptingData.ScriptData _scriptData;
     private readonly string _layoutId;
     private readonly string _guiId;
 
     public __SCRIPT__Observer(
-        ScriptServices services,
-        ScriptData data,
+        ScriptingServices.ScriptServices services,
+        ScriptingData.ScriptData data,
         string layoutId,
         string guiId
     )
@@ -102,84 +72,63 @@ public class __SCRIPT__Observer
     }
 
     public Task Handle(
-        ClientActionShowFiveSecondCaptureMessageEvent notification
+        Game_ClientActions_ClientActionShowFiveSecondCaptureMessageEvent notification
     )
     {
-        return ShowMessage(
-            _scriptServices.Localizer["game:dontHaveTime"]
-        );
+        return ShowMessage(_scriptServices.Localizer["game:dontHaveTime"]);
     }
 
-    public Task Handle(
-        ClientActionShowTenSecondCaptureMessageEvent notification
-    )
+    public Task Handle(Game_ClientActions_ClientActionShowTenSecondCaptureMessageEvent notification)
     {
-        return ShowMessage(
-            _scriptServices.Localizer["game:stillHaveTime"]
-        );
+        return ShowMessage(_scriptServices.Localizer["game:stillHaveTime"]);
     }
 
-    private async Task ShowMessage(
-        string message
-    )
+    private async Task ShowMessage(string message)
     {
         await _scriptServices.Mediator.Publish(
-            new ClientActionMessageFromSystemEvent(
+            new SystemLogMessage.ClientActionMessageFromSystemEvent(
                 message,
-                new GuiControlOptionsModel
-                {
-                    { "color", "green" }
-                },
-                new GuiControlOptionsModel()
+                new GuiModel.GuiControlOptionsModel { { "color", "green" } },
+                new GuiModel.GuiControlOptionsModel()
             )
         );
 
         await _scriptServices.Mediator.Send(
-            new UpdateGuiControlCommand(
+            new GuiUpdate.UpdateGuiControlCommand(
                 _guiId,
-                new GuiControlDataModel
+                new GuiModel.GuiControlDataModel
                 {
                     ControlId = "capture_messaging-text",
-                    Options = new GuiControlOptionsModel
-                    {
-                        { "text", message }
-                    }
+                    Options = new GuiModel.GuiControlOptionsModel { { "text", message } }
                 }
             )
         );
 
-        await _scriptServices.Mediator.Send(
-            new ShowGuiCommand(
-                _layoutId
-            )
-        );
+        await _scriptServices.Mediator.Send(new GuiShow.ShowGuiCommand(_layoutId));
 
-        var timer = _scriptData.Get<ITimerService>(
-            "timer"
-        );
+        var timer = _scriptData.Get<TimerApi.ITimerService>("timer");
         if (timer != null)
         {
             timer.Clear();
         }
         else
         {
-            timer = _scriptServices.GetService<IFactory<ITimerService>>().Create();
+            timer = _scriptServices
+                .GetService<FactoryApi.IFactory<TimerApi.ITimerService>>()
+                .Create();
         }
 
         timer.SetTimer(
             3000,
             () =>
             {
-                _scriptServices.Mediator.Send(
-                    new HideGuiCommand(
-                        _layoutId
-                    )
-                ).ConfigureAwait(false).GetAwaiter().GetResult();
+                _scriptServices.Mediator
+                    .Send(new GuiHide.HideGuiCommand(_layoutId))
+                    .ConfigureAwait(false)
+                    .GetAwaiter()
+                    .GetResult();
             }
         );
-        _scriptData.Set(
-            "timer",
-            timer
-        );
+        _scriptData.Set("timer", timer);
     }
 }

@@ -1,44 +1,18 @@
-/*
-data:
-    active: bool
-    observer: ObserverBase
-    inputHandle: string
-*/
-
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EventHorizon.Game.Client.Engine.Entity.Tag;
-using EventHorizon.Game.Client.Engine.Entity.Tracking.Query;
-using EventHorizon.Game.Client.Engine.Gui.Activate;
-using EventHorizon.Game.Client.Engine.Gui.Api;
-using EventHorizon.Game.Client.Engine.Gui.Changed;
-using EventHorizon.Game.Client.Engine.Gui.Create;
-using EventHorizon.Game.Client.Engine.Gui.Dispose;
-using EventHorizon.Game.Client.Engine.Gui.Generate;
-using EventHorizon.Game.Client.Engine.Gui.Hide;
-using EventHorizon.Game.Client.Engine.Gui.Model;
-using EventHorizon.Game.Client.Engine.Gui.Show;
-using EventHorizon.Game.Client.Engine.Input.Api;
-using EventHorizon.Game.Client.Engine.Input.Register;
-using EventHorizon.Game.Client.Engine.Scripting.Api;
-using EventHorizon.Game.Client.Engine.Scripting.Data;
-using EventHorizon.Game.Client.Engine.Scripting.Services;
-using EventHorizon.Game.Client.Engine.Systems.Entity.Api;
-using EventHorizon.Game.Server.Game.Query;
-using EventHorizon.Game.Server.Game.Updated;
-using Microsoft.Extensions.Logging;
+using GuiDispose = EventHorizon.Game.Client.Engine.Gui.Dispose;
+using InputApi = EventHorizon.Game.Client.Engine.Input.Api;
+using InputRegister = EventHorizon.Game.Client.Engine.Input.Register;
+using ScriptingApi = EventHorizon.Game.Client.Engine.Scripting.Api;
+using ScriptingData = EventHorizon.Game.Client.Engine.Scripting.Data;
+using ScriptingServices = EventHorizon.Game.Client.Engine.Scripting.Services;
 
-public class __SCRIPT__
-    : IClientScript
+public class __SCRIPT__ : ScriptingApi.IClientScript
 {
     public string Id => "__SCRIPT__";
 
-    public async Task Run(
-        ScriptServices services,
-        ScriptData data
-    )
+    public async Task Run(ScriptingServices.ScriptServices services, ScriptingData.ScriptData data)
     {
         var logger = services.Logger<__SCRIPT__>();
         logger.LogDebug("Leader Board - Initialize Script");
@@ -46,21 +20,11 @@ public class __SCRIPT__
         var layoutId = "GUI_LeaderBoard.json";
         var guiId = layoutId;
 
-        var observer = new __SCRIPT__Observer(
-            services,
-            data,
-            layoutId,
-            guiId
-        );
+        var observer = new __SCRIPT__Observer(services, data, layoutId, guiId);
 
-        data.Set(
-            "observer",
-            observer
-        );
+        data.Set("observer", observer);
 
-        services.RegisterObserver(
-            observer
-        );
+        services.RegisterObserver(observer);
 
         await observer.OnChange();
 
@@ -69,11 +33,11 @@ public class __SCRIPT__
 }
 
 public class __SCRIPT__Observer
-    : GameStateUpdatedEventObserver,
-    GuiLayoutDataChangedEventObserver
+    : Game_ClientActions_ClientActionGameStateUpdatedEventObserver,
+      GuiLayoutDataChangedEventObserver
 {
-    private readonly ScriptServices _services;
-    private readonly ScriptData _scriptData;
+    private readonly ScriptingServices.ScriptServices _services;
+    private readonly ScriptingData.ScriptData _scriptData;
     private readonly string _layoutId;
     private readonly string _guiId;
 
@@ -82,8 +46,8 @@ public class __SCRIPT__Observer
     private bool _isOpen = false;
 
     public __SCRIPT__Observer(
-        ScriptServices services,
-        ScriptData data,
+        ScriptingServices.ScriptServices services,
+        ScriptingData.ScriptData data,
         string layoutId,
         string guiId
     )
@@ -97,58 +61,37 @@ public class __SCRIPT__Observer
     public async Task SetupKeyboardShortcut()
     {
         var result = await _services.Mediator.Send(
-            new RegisterInputCommand(
-                new InputOptions(
-                    "t",
-                    HandleOpenOfLeaderBoard,
-                    HandleOfCloseLeaderBoard
-                )
+            new InputRegister.RegisterInputCommand(
+                new InputApi.InputOptions("t", HandleOpenOfLeaderBoard, HandleOfCloseLeaderBoard)
             )
         );
         if (result.Success)
         {
-            _scriptData.Set(
-                "inputHandle",
-                result.Result
-            );
+            _scriptData.Set("inputHandle", result.Result);
         }
     }
 
-    private async Task HandleOpenOfLeaderBoard(
-        InputKeyEvent inputEvent
-    )
+    private async Task HandleOpenOfLeaderBoard(InputApi.InputKeyEvent inputEvent)
     {
         if (_isOpen)
         {
             return;
         }
         _isOpen = true;
-        await _services.Mediator.Send(
-            new ShowGuiCommand(
-                _guiId
-            )
-        );
+        await _services.Mediator.Send(new ShowGuiCommand(_guiId));
     }
 
-    private async Task HandleOfCloseLeaderBoard(
-        InputKeyEvent inputEvent
-    )
+    private async Task HandleOfCloseLeaderBoard(InputApi.InputKeyEvent inputEvent)
     {
         if (!_isOpen)
         {
             return;
         }
         _isOpen = false;
-        await _services.Mediator.Send(
-            new HideGuiCommand(
-                _guiId
-            )
-        );
+        await _services.Mediator.Send(new HideGuiCommand(_guiId));
     }
 
-    public async Task Handle(
-        GuiLayoutDataChangedEvent args
-    )
+    public async Task Handle(GuiLayoutDataChangedEvent args)
     {
         if (args.Id == _layoutId)
         {
@@ -160,9 +103,7 @@ public class __SCRIPT__Observer
         }
     }
 
-    public Task Handle(
-        GameStateUpdatedEvent _
-    )
+    public Task Handle(Game_ClientActions_ClientActionGameStateUpdatedEvent _)
     {
         return OnEntryChange();
     }
@@ -171,35 +112,17 @@ public class __SCRIPT__Observer
     {
         if (_scriptData.Get<bool>("active"))
         {
-            await _services.Mediator.Send(
-                new DisposeOfGuiCommand(
-                    _guiId
-                )
-            );
-            _scriptData.Set(
-                "active",
-                false
-            );
+            await _services.Mediator.Send(new GuiDispose.DisposeOfGuiCommand(_guiId));
+            _scriptData.Set("active", false);
         }
         var result = await _services.Mediator.Send(
-            new CreateGuiCommand(
-                _guiId,
-                _layoutId,
-                new List<IGuiControlData>()
-            )
+            new CreateGuiCommand(_guiId, _layoutId, new List<IGuiControlData>())
         );
 
         if (result.Success)
         {
-            await _services.Mediator.Send(
-                new ActivateGuiCommand(
-                    _guiId
-                )
-            );
-            _scriptData.Set(
-                "active",
-                true
-            );
+            await _services.Mediator.Send(new ActivateGuiCommand(_guiId));
+            _scriptData.Set("active", true);
             await BuildEntriesLayout();
         }
     }
@@ -212,40 +135,25 @@ public class __SCRIPT__Observer
 
     private async Task BuildEntriesLayout()
     {
-        var gameState = await _services.Mediator.Send(
-            new QueryForCurrentGameState()
-        );
+        //var gameState = await _services.Mediator.Send(new QueryForCurrentGameState());
+        var gameState = ServerGameState.GameState;
 
-        if (!gameState.Success)
-        {
-            return;
-        }
-
-        var playerList = gameState.Result.Scores;
+        var playerList = gameState.Scores;
 
         foreach (var playerScore in playerList)
         {
             var guiLeaderboardId = $"GUI_LeaderBoard-Entry_{playerScore.PlayerEntityId}";
-            var player = await GetPlayer(
-                playerScore.PlayerEntityId.ToString()
-            );
+            var player = await GetPlayer(playerScore.PlayerEntityId.ToString());
             var score = playerScore.Score;
             // Remove Currently existing GUI
-            await _services.Mediator.Send(
-                new DisposeOfGuiCommand(
-                    guiLeaderboardId
-                )
-            );
+            await _services.Mediator.Send(new DisposeOfGuiCommand(guiLeaderboardId));
 
             var result = await _services.Mediator.Send(
                 new CreateGuiCommand(
                     guiLeaderboardId,
                     _entryLayoutId,
                     parentControlId: await _services.Mediator.Send(
-                        new GetGeneratedGuiControlId(
-                            _guiId,
-                            "leaderboard-panel"
-                        )
+                        new GetGeneratedGuiControlId(_guiId, "leaderboard-panel")
                     ),
                     controlDataList: new List<IGuiControlData>
                     {
@@ -266,24 +174,16 @@ public class __SCRIPT__Observer
                 return;
             }
 
-            await _services.Mediator.Send(
-                new ActivateGuiCommand(
-                    guiLeaderboardId
-                )
-            );
+            await _services.Mediator.Send(new ActivateGuiCommand(guiLeaderboardId));
         }
     }
 
-    private async Task<IObjectEntity> GetPlayer(
-        string playerEntityId
-    )
+    private async Task<IObjectEntity> GetPlayer(string playerEntityId)
     {
-        return (await _services.Mediator.Send(
-            new QueryForEntity(
-                TagBuilder.CreateIdTag(
-                    playerEntityId
-                )
+        return (
+            await _services.Mediator.Send(
+                new QueryForEntity(TagBuilder.CreateIdTag(playerEntityId))
             )
-        )).Result.FirstOrDefault();
+        ).Result.FirstOrDefault();
     }
 }

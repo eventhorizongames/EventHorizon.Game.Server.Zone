@@ -1,0 +1,62 @@
+{
+    "name": "Fire Particle",
+    "type": "POSITION",
+    "defaultSettings": {
+        "capacity": 2000,
+        "particleTexture": "/Assets/Textures/flare.png",
+        "minEmitBox": {
+            "x": -0.5,
+            "y": 1,
+            "z": -0.5
+        },
+        "maxEmitBox": {
+            "x": 0.5,
+            "y": 1,
+            "z": 0.5
+        },
+        "color1": {
+            "r": 1,
+            "g": 0.5,
+            "b": 0,
+            "a": 0.7
+        },
+        "color2": {
+            "r": 1,
+            "g": 0.5,
+            "b": 0,
+            "a": 0.7
+        },
+        "colorDead": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "minSize": 0.3,
+        "maxSize": 1,
+        "minLifeTime": 0.2,
+        "maxLifeTime": 1,
+        "emitRate": 2000,
+        "gravity": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "direction1": {
+            "x": 0,
+            "y": 2.7,
+            "z": 0
+        },
+        "direction2": {
+            "x": 0,
+            "y": 2.7,
+            "z": 0
+        },
+        "minAngularSpeed": 0,
+        "maxAngularSpeed": 3.14,
+        "minEmitPower": 1,
+        "maxEmitPower": 2,
+        "updateSpeed": 0.007,
+        "blendMode": 0
+    }
+}

@@ -1,14 +1,24 @@
 {
-  "profiles": {
-    "EventHorizon.Game.Server.Zone": {
-      "commandName": "Project",
-      "launchBrowser": false,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_URLS": "http://localhost:5082",
-        "HOST": "http://localhost:5082"
-      },
-      "applicationUrl": "http://localhost:5082"
+    "profiles": {
+        "EventHorizon.Game.Server.Zone": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5082",
+                "HOST": "http://localhost:5082"
+            },
+            "applicationUrl": "http://localhost:5082"
+        },
+        "EventHorizon.Game.Server.Zone - mem": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "@DOTNET_GCHeapHardLimit": "512mb - 1E848000 | 256mb - F424000 | 128mb - 7A12000",
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5082",
+                "DOTNET_GCHeapHardLimit": "7A12000",
+                "HOST": "http://localhost:5082"
+            },
+            "applicationUrl": "http://localhost:5082"
+        }
     }
-  }
 }

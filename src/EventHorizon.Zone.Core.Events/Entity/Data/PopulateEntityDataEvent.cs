@@ -1,19 +1,24 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Data
+namespace EventHorizon.Zone.Core.Events.Entity.Data;
+
+using EventHorizon.Observer.Model;
+
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Observable;
+
+using MediatR;
+
+/// <summary>
+/// The event sent after an Entity is created to fill Entity Data.
+/// </summary>
+[ObservableEvent]
+public struct PopulateEntityDataEvent : INotification
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public IObjectEntity Entity { get; set; }
 
-    using MediatR;
-
-    public struct PopulateEntityDataEvent
-        : INotification
+    public PopulateEntityDataEvent(IObjectEntity entity)
     {
-        public IObjectEntity Entity { get; set; }
-
-        public PopulateEntityDataEvent(
-            IObjectEntity entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }
+
+public interface PopulateEntityDataEventObserver : ArgumentObserver<PopulateEntityDataEvent> { }

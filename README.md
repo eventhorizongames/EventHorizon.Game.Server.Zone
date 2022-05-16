@@ -8,6 +8,7 @@ dotnet test --configuration Release --filter "Category!=Performance & WindowsOnl
 # Run OpenCover Code Coverage Testing
 ## Use this in conjunction with NDepend to generate reports.
 dotnet test --configuration Release  --filter "Category!=Performance & Category!=Integration & WindowsOnly!=True & Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\TestResults\Coverage\
+dotnet test --configuration Release  --filter "Category!=DebugOnly" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\TestResults\Coverage\
 ~~~
 
 ~~~ bash

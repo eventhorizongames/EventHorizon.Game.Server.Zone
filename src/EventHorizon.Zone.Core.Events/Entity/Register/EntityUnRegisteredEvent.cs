@@ -1,16 +1,22 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Register
+namespace EventHorizon.Zone.Core.Events.Entity.Register;
+
+using EventHorizon.Observer.Model;
+using EventHorizon.Zone.Core.Observable;
+
+using MediatR;
+
+/// <summary>
+/// UnRegister an entity with the system.
+/// </summary>
+[ObservableEvent]
+public struct EntityUnRegisteredEvent : INotification
 {
-    using MediatR;
+    public long EntityId { get; set; }
 
-    public struct EntityUnRegisteredEvent : INotification
+    public EntityUnRegisteredEvent(long entityId)
     {
-        public long EntityId { get; set; }
-
-        public EntityUnRegisteredEvent(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }
+
+public interface EntityUnRegisterEventObserver : ArgumentObserver<EntityUnRegisteredEvent> { }

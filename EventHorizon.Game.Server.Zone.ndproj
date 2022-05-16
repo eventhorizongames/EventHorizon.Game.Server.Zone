@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.2.1.9610">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDepend AppName="EventHorizon.Game.Server.Zone" Platform="DotNet" FileWrittenByProductVersion="2021.2.4.9620">
   <OutputDir KeepXmlFiles="False">.\NDependOut</OutputDir>
   <IDEFiles>
     <IDEFile FilePath=".\EventHorizon.Game.Server.Zone.sln" Filters="-test" Configuration="DEBUG|AnyCPU">
@@ -87,15 +87,19 @@
     <Name>System.Threading.Channels</Name>
     <Name>System.Net.Primitives</Name>
     <Name>System.Net.Http.Json</Name>
-    <Name>netstandard</Name>
-    <Name>Microsoft.CodeAnalysis.Scripting</Name>
-    <Name>Microsoft.CodeAnalysis.CSharp.Scripting</Name>
     <Name>System.IO.FileSystem</Name>
+    <Name>Serilog.Sinks.Elasticsearch</Name>
+    <Name>Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions</Name>
+    <Name>Microsoft.Extensions.Diagnostics.HealthChecks</Name>
+    <Name>Microsoft.AspNetCore.Diagnostics.HealthChecks</Name>
+    <Name>System.Runtime.Loader</Name>
+    <Name>System.IO.FileSystem.Watcher</Name>
+    <Name>System.ComponentModel.Primitives</Name>
   </FrameworkAssemblies>
   <Dirs>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.12</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.12</Dir>
-    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.12</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.13</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\5.0.13</Dir>
+    <Dir>C:\Program Files\dotnet\shared\Microsoft.WindowsDesktop.App\5.0.13</Dir>
     <Dir>C:\Program Files\dotnet\sdk\NuGetFallbackFolder</Dir>
     <Dir>C:\Users\Cody\.nuget\packages</Dir>
   </Dirs>
@@ -105,6 +109,7 @@
   <BuildComparisonSetting ProjectMode="CurrentProject" BuildMode="NDaysAgoAnalysisResult" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="30" />
   <BaselineInUISetting ProjectMode="CurrentProject" BuildMode="NDaysAgoAnalysisResult" ProjectFileToCompareWith="" BuildFileToCompareWith="" NDaysAgo="30" />
   <CoverageFiles CoverageDir=".\test" UncoverableAttribute="">
+    <CoverageFile>.\test\EventHorizon.BackgroundTasks.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Extensions.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Game.I18n.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Game.Server.Zone.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
@@ -133,6 +138,8 @@
     <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Plugin.Move.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Agent.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.ArtifactManagement.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.AssetServer.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Backup.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Client.Scripts.Plugin.Shared.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
@@ -149,6 +156,7 @@
     <CoverageFile>.\test\EventHorizon.Zone.System.Player.Connection.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Player.ExternalHub.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Player.Plugin.Action.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
+    <CoverageFile>.\test\EventHorizon.Zone.System.Player.Plugin.Editor.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Player.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
     <CoverageFile>.\test\EventHorizon.Zone.System.Server.Scripts.Plugin.Compiler.Tests\TestResults\Coverage\coverage.opencover.xml</CoverageFile>
@@ -220,7 +228,8 @@
       <High2Critical_SeverityThreshold>72000000000</High2Critical_SeverityThreshold>
       <Critical2Blocker_SeverityThreshold>360000000000</Critical2Blocker_SeverityThreshold>
     </DebtSettings>
-  </ProjectDebtSettings><Queries>
+  </ProjectDebtSettings>
+  <Queries>
     <Group Name="Quality Gates" Active="True" ShownInReport="False">
       <Query Active="True" DisplayList="True" DisplayStat="True" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Quality Gates Evolution</Name>
 from qg in QualityGates
@@ -4262,7 +4271,7 @@ select new {
 // here, second because even a long cycle can be broken by removing
 // a few dependency.
 //</HowToFix>]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid partitioning the code base through many small library Assemblies</Name>
+      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Avoid partitioning the code base through many small library Assemblies</Name>
 // <Id>ND1402:AvoidPartitioningTheCodeBaseThroughManySmallLibraryAssemblies</Id>
 
 warnif count > 10
@@ -8178,7 +8187,7 @@ select new {
 // Once the rule has been adapted to your own naming convention
 // make sure to name all matched static fields adequately.
 //</HowToFix>]]></Query>
-      <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="True"><![CDATA[// <Name>Interface name should begin with a 'I'</Name>
+      <Query Active="False" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="True"><![CDATA[// <Name>Interface name should begin with a 'I'</Name>
 // <Id>ND2002:InterfaceNameShouldBeginWithAI</Id>
 
 // Don't query all Application.Types because some interface generated might not start with an 'I' 
@@ -13165,4 +13174,5 @@ select new {
 //</HowToFix>]]></Query>
       </Group>
     </Group>
-  </Queries></NDepend>
+  </Queries>
+</NDepend>
