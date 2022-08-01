@@ -30,7 +30,6 @@ using EventHorizon.Game.Client.Engine.Systems.Entity.Model;
 using EventHorizon.Game.Client.Systems.Entity.Changed;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Api;
 using EventHorizon.Game.Client.Systems.Local.Modules.MeshManagement.Set;
-using EventHorizon.Game.Server.Game.CaptureMessaging.ClientAction.Show;
 using EventHorizon.Game.Server.ServerModule.SystemLog.Message;
 using EventHorizon.Zone.Core.Events.Map.Cost;
 using Microsoft.Extensions.Logging;
