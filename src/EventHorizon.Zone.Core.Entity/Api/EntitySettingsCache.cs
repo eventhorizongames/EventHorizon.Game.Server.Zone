@@ -1,10 +1,9 @@
-﻿namespace EventHorizon.Zone.Core.Entity.Api
-{
-    using EventHorizon.Zone.Core.Model.Entity;
+﻿namespace EventHorizon.Zone.Core.Entity.Api;
 
-    public interface EntitySettingsCache
-    {
-        ObjectEntityConfiguration EntityConfiguration { get; }
-        ObjectEntityData EntityData { get; }
-    }
+using EventHorizon.Zone.Core.Model.Entity;
+
+public interface EntitySettingsCache
+{
+    ObjectEntityConfiguration EntityConfiguration { get; }
+    ObjectEntityData EntityData { get; }
 }

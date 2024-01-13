@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Interaction.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.Interaction.Lifetime;
 
-    public struct OnStartupSetupInteractionSystemCommand
-        : OnServerStartupCommand
-    {
-    }
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupInteractionSystemCommand
+    : OnServerStartupCommand
+{
 }

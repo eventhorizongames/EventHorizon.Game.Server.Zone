@@ -1,25 +1,24 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+using MediatR;
+
+public class LoadAgentBehaviorSystemHandler : IRequestHandler<LoadAgentBehaviorSystem>
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using MediatR;
+    private readonly IMediator _mediator;
 
-    public class LoadAgentBehaviorSystemHandler : IRequestHandler<LoadAgentBehaviorSystem>
+    public LoadAgentBehaviorSystemHandler(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public LoadAgentBehaviorSystemHandler(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            LoadAgentBehaviorSystem request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(new LoadActorBehaviorTreeShapes(), cancellationToken);
-            await _mediator.Send(new LoadDefaultActorBehaviorTree(), cancellationToken);
-        }
+    public async Task Handle(
+        LoadAgentBehaviorSystem request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(new LoadActorBehaviorTreeShapes(), cancellationToken);
+        await _mediator.Send(new LoadDefaultActorBehaviorTree(), cancellationToken);
     }
 }

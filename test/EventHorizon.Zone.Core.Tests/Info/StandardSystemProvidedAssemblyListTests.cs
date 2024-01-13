@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.Core.Tests.Info
+namespace EventHorizon.Zone.Core.Tests.Info;
+
+using System.Reflection;
+
+using EventHorizon.Zone.Core.Info;
+
+using Xunit;
+
+public class StandardSystemProvidedAssemblyListTests
 {
-    using System.Reflection;
-
-    using EventHorizon.Zone.Core.Info;
-
-    using Xunit;
-
-    public class StandardSystemProvidedAssemblyListTests
+    [Fact]
+    public void TestShouldReturnReadonlyListWhenAccessingListUsedDuringConstruction()
     {
-        [Fact]
-        public void TestShouldReturnReadonlyListWhenAccessingListUsedDuringConstruction()
-        {
-            // Given
-            var expected = typeof(StandardSystemProvidedAssemblyListTests).Assembly;
+        // Given
+        var expected = typeof(StandardSystemProvidedAssemblyListTests).Assembly;
 
-            // When
-            var systemProvidedAssemblyList = new StandardSystemProvidedAssemblyList(
-                new Assembly[]
-                {
-                    expected
-                }
-            );
-            var actual = systemProvidedAssemblyList.List;
+        // When
+        var systemProvidedAssemblyList = new StandardSystemProvidedAssemblyList(
+            new Assembly[]
+            {
+                expected
+            }
+        );
+        var actual = systemProvidedAssemblyList.List;
 
-            // Then
-            Assert.True(
-                actual.IsReadOnly
-            );
-            Assert.Collection(
-                actual,
-                assembly => Assert.Equal(expected, assembly)
-            );
-        }
+        // Then
+        Assert.True(
+            actual.IsReadOnly
+        );
+        Assert.Collection(
+            actual,
+            assembly => Assert.Equal(expected, assembly)
+        );
     }
 }

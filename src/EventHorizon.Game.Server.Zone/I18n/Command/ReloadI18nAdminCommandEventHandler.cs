@@ -1,63 +1,62 @@
-﻿namespace EventHorizon.Game.Server.Zone.I18n.Command
+﻿namespace EventHorizon.Game.Server.Zone.I18n.Command;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.I18n.Loader;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadI18nAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Game.I18n.Loader;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadI18nAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadI18nAdminCommandEventHandler(
+        ILogger<ReloadI18nAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadI18nAdminCommandEventHandler(
-            ILogger<ReloadI18nAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadI18nAdminCommandEventHandler)
+        );
 
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadI18nAdminCommandEventHandler)
-            );
+        await _mediator.Publish(
+            new I18nLoadEvent(),
+            cancellationToken
+        );
 
-            await _mediator.Publish(
-                new I18nLoadEvent(),
-                cancellationToken
-            );
-
-            await _mediator.Send(
-                new RespondToAdminCommand(
-                    notification.ConnectionId,
-                    new StandardAdminCommandResponse(
-                        notification.Command.Command,
-                        notification.Command.RawCommand,
-                        true,
-                        "i18n_system_reloaded"
-                    )
-                ),
-                cancellationToken
-            );
-        }
+        await _mediator.Send(
+            new RespondToAdminCommand(
+                notification.ConnectionId,
+                new StandardAdminCommandResponse(
+                    notification.Command.Command,
+                    notification.Command.RawCommand,
+                    true,
+                    "i18n_system_reloaded"
+                )
+            ),
+            cancellationToken
+        );
     }
 }

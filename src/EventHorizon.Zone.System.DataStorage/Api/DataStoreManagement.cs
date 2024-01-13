@@ -1,31 +1,30 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Api
+﻿namespace EventHorizon.Zone.System.DataStorage.Api;
+
+using global::System.Collections.Generic;
+
+public interface DataStoreManagement
 {
-    using global::System.Collections.Generic;
+    IDictionary<string, object> Data();
 
-    public interface DataStoreManagement
-    {
-        IDictionary<string, object> Data();
+    void Set(
+        IDictionary<string, object> data
+    );
 
-        void Set(
-            IDictionary<string, object> data
-        );
+    void Set(
+        string key,
+        object value
+    );
 
-        void Set(
-            string key,
-            object value
-        );
+    void Delete(
+        string key
+    );
 
-        void Delete(
-            string key
-        );
+    void UpdateSchema(
+        string key,
+        string type
+    );
 
-        void UpdateSchema(
-            string key,
-            string type
-        );
-
-        void DeleteFromSchema(
-            string key
-        );
-    }
+    void DeleteFromSchema(
+        string key
+    );
 }

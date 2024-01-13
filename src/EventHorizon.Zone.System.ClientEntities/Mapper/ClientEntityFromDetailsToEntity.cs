@@ -1,23 +1,22 @@
-namespace EventHorizon.Zone.System.Agent.Save.Mapper
-{
-    using EventHorizon.Zone.System.ClientEntities.Model;
+namespace EventHorizon.Zone.System.Agent.Save.Mapper;
 
-    public static class ClientEntityFromDetailsToEntity
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+public static class ClientEntityFromDetailsToEntity
+{
+    public static ClientEntity Map(
+        ClientEntityDetails details
+    )
     {
-        public static ClientEntity Map(
-            ClientEntityDetails details
+        return new ClientEntity(
+            details.Id,
+            details.Data
         )
         {
-            return new ClientEntity(
-                details.Id,
-                details.Data
-            )
-            {
-                Id = -1,
-                Name = details.Name,
-                Transform = details.Transform,
-                TagList = details.TagList,
-            };
-        }
+            Id = -1,
+            Name = details.Name,
+            Transform = details.Transform,
+            TagList = details.TagList,
+        };
     }
 }

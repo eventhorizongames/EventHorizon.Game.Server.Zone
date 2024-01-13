@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+
+using MediatR;
+
+public struct RegisterActorWithBehaviorTreeForNextTickCycle : IRequest
 {
-    using MediatR;
+    public string ShapeId { get; }
+    public long ActorId { get; }
 
-    public struct RegisterActorWithBehaviorTreeForNextTickCycle : IRequest
+    public RegisterActorWithBehaviorTreeForNextTickCycle(
+        string shapeId,
+        long actorId
+    )
     {
-        public string ShapeId { get; }
-        public long ActorId { get; }
-
-        public RegisterActorWithBehaviorTreeForNextTickCycle(
-            string shapeId,
-            long actorId
-        )
-        {
-            ShapeId = shapeId;
-            ActorId = actorId;
-        }
+        ShapeId = shapeId;
+        ActorId = actorId;
     }
 }

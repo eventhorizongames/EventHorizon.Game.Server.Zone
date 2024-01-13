@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
+public interface IAdminCommandResponse
 {
-    public interface IAdminCommandResponse
-    {
-        string CommandFunction { get; }
-        string RawCommand { get; }
-        bool Success { get; }
-        string Message { get; }
-    }
+    string CommandFunction { get; }
+    string RawCommand { get; }
+    bool Success { get; }
+    string Message { get; }
 }

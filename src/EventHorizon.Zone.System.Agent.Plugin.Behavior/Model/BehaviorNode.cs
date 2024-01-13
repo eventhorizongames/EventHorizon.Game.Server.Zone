@@ -1,82 +1,81 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+using global::System;
+using global::System.Collections.Generic;
+using global::System.Linq;
+
+public struct BehaviorNode
 {
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Linq;
+    public int Token { get; }
+    public BehaviorNodeType Type { get; }
+    public string? Status { get; private set; }
+    public IList<BehaviorNode>? NodeList { get; private set; }
+    public bool IsTraversal { get; }
+    public string Fire { get; }
+    public int FailGate { get; }
+    public bool Reset { get; }
 
-    public struct BehaviorNode
+    public BehaviorNode ClearNodeList()
     {
-        public int Token { get; }
-        public BehaviorNodeType Type { get; }
-        public string? Status { get; private set; }
-        public IList<BehaviorNode>? NodeList { get; private set; }
-        public bool IsTraversal { get; }
-        public string Fire { get; }
-        public int FailGate { get; }
-        public bool Reset { get; }
+        NodeList = null;
+        return this;
+    }
 
-        public BehaviorNode ClearNodeList()
+    public BehaviorNode(
+        int tokenRoot,
+        SerializedBehaviorNode serailzedNode
+    )
+    {
+        if (serailzedNode == null)
         {
-            NodeList = null;
-            return this;
+            throw new ArgumentException(
+                "BehaviorNode requires a valid SerializedBehaviorNode",
+                "serailzedNode"
+            );
         }
 
-        public BehaviorNode(
-            int tokenRoot,
-            SerializedBehaviorNode serailzedNode
-        )
+        Token = serailzedNode.GetToken(
+            tokenRoot
+        );
+        Type = BehaviorNodeType.Parse(
+            serailzedNode.Type
+        );
+        Status = serailzedNode.Status;
+
+        NodeList = new List<BehaviorNode>();
+        IsTraversal = Type.IsTraversal;
+
+        Fire = serailzedNode.Fire;
+        FailGate = serailzedNode.FailGate;
+        Reset = serailzedNode.Reset;
+
+        if (serailzedNode.NodeList != null)
         {
-            if (serailzedNode == null)
+            var childTokenRoot = tokenRoot;
+            foreach (var childNode in serailzedNode.NodeList)
             {
-                throw new ArgumentException(
-                    "BehaviorNode requires a valid SerializedBehaviorNode",
-                    "serailzedNode"
+                childTokenRoot++;
+                NodeList.Add(
+                    new BehaviorNode(
+                        childTokenRoot,
+                        childNode
+                    )
                 );
             }
-
-            Token = serailzedNode.GetToken(
-                tokenRoot
-            );
-            Type = BehaviorNodeType.Parse(
-                serailzedNode.Type
-            );
-            Status = serailzedNode.Status;
-
-            NodeList = new List<BehaviorNode>();
-            IsTraversal = Type.IsTraversal;
-
-            Fire = serailzedNode.Fire;
-            FailGate = serailzedNode.FailGate;
-            Reset = serailzedNode.Reset;
-
-            if (serailzedNode.NodeList != null)
-            {
-                var childTokenRoot = tokenRoot;
-                foreach (var childNode in serailzedNode.NodeList)
-                {
-                    childTokenRoot++;
-                    NodeList.Add(
-                        new BehaviorNode(
-                            childTokenRoot,
-                            childNode
-                        )
-                    );
-                }
-            }
         }
+    }
 
-        public BehaviorNode UpdateStatus(
-            string status
-        )
-        {
-            Status = status;
-            return this;
-        }
+    public BehaviorNode UpdateStatus(
+        string status
+    )
+    {
+        Status = status;
+        return this;
+    }
 
 
-        public override string ToString()
-        {
-            return $"{Token} : {Type}";
-        }
+    public override string ToString()
+    {
+        return $"{Token} : {Type}";
     }
 }

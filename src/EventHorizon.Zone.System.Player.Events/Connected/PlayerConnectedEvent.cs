@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Player.Events.Connected
+namespace EventHorizon.Zone.System.Player.Events.Connected;
+
+using MediatR;
+
+public struct PlayerConnectedEvent : INotification
 {
-    using MediatR;
+    public string Id { get; }
+    public string ConnectionId { get; }
 
-    public struct PlayerConnectedEvent : INotification
+    public PlayerConnectedEvent(
+        string id,
+        string connectionId
+    )
     {
-        public string Id { get; }
-        public string ConnectionId { get; }
-
-        public PlayerConnectedEvent(
-            string id,
-            string connectionId
-        )
-        {
-            Id = id;
-            ConnectionId = connectionId;
-        }
+        Id = id;
+        ConnectionId = connectionId;
     }
 }

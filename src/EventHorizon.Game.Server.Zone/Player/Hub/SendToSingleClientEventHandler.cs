@@ -1,49 +1,48 @@
-namespace EventHorizon.Game.Server.Zone.Player.Bus
+namespace EventHorizon.Game.Server.Zone.Player.Bus;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Client;
+using EventHorizon.Zone.System.Player.ExternalHub;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+
+public class SendToSingleClientEventHandler
+    : INotificationHandler<SendToSingleClientEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IHubContext<PlayerHub> _hubContext;
 
-    using EventHorizon.Zone.Core.Events.Client;
-    using EventHorizon.Zone.System.Player.ExternalHub;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-
-    public class SendToSingleClientEventHandler
-        : INotificationHandler<SendToSingleClientEvent>
+    public SendToSingleClientEventHandler(
+        IHubContext<PlayerHub> hubContext
+    )
     {
-        private readonly IHubContext<PlayerHub> _hubContext;
+        _hubContext = hubContext;
+    }
 
-        public SendToSingleClientEventHandler(
-            IHubContext<PlayerHub> hubContext
-        )
+    public async Task Handle(
+        SendToSingleClientEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrEmpty(
+            notification.ConnectionId
+        ))
         {
-            _hubContext = hubContext;
+            return;
         }
 
-        public async Task Handle(
-            SendToSingleClientEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (string.IsNullOrEmpty(
+        await _hubContext
+            .Clients
+            .Client(
                 notification.ConnectionId
-            ))
-            {
-                return;
-            }
-
-            await _hubContext
-                .Clients
-                .Client(
-                    notification.ConnectionId
-                ).SendAsync(
-                    notification.Method,
-                    notification.Arg1,
-                    notification.Arg2,
-                    cancellationToken: cancellationToken
-                );
-        }
+            ).SendAsync(
+                notification.Method,
+                notification.Arg1,
+                notification.Arg2,
+                cancellationToken: cancellationToken
+            );
     }
 }

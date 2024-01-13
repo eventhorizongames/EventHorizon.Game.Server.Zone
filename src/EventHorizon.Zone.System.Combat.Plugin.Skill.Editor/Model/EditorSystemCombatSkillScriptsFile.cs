@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
+
+using global::System.Collections.Generic;
+
+using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
+public struct EditorSystemCombatSkillScriptsFile
 {
-    using global::System.Collections.Generic;
+    public IEnumerable<ServerScriptDetails> EffectList { get; }
+    public IEnumerable<ServerScriptDetails> ValidatorList { get; }
 
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
-
-    public struct EditorSystemCombatSkillScriptsFile
+    public EditorSystemCombatSkillScriptsFile(
+        IEnumerable<ServerScriptDetails> effectList,
+        IEnumerable<ServerScriptDetails> validatorList
+    )
     {
-        public IEnumerable<ServerScriptDetails> EffectList { get; }
-        public IEnumerable<ServerScriptDetails> ValidatorList { get; }
-
-        public EditorSystemCombatSkillScriptsFile(
-            IEnumerable<ServerScriptDetails> effectList,
-            IEnumerable<ServerScriptDetails> validatorList
-        )
-        {
-            EffectList = effectList;
-            ValidatorList = validatorList;
-        }
+        EffectList = effectList;
+        ValidatorList = validatorList;
     }
 }

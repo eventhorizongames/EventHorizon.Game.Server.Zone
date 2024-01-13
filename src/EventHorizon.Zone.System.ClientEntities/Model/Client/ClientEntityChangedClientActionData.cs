@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.System.ClientEntities.Model.Client
+namespace EventHorizon.Zone.System.ClientEntities.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+public struct ClientEntityChangedClientActionData : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public ClientEntity Details { get; }
 
-    public struct ClientEntityChangedClientActionData : IClientActionData
+    public ClientEntityChangedClientActionData(
+        ClientEntity details
+    )
     {
-        public ClientEntity Details { get; }
-
-        public ClientEntityChangedClientActionData(
-            ClientEntity details
-        )
-        {
-            Details = details;
-        }
+        Details = details;
     }
 }

@@ -1,44 +1,43 @@
-namespace EventHorizon.Zone.Core.Json
+namespace EventHorizon.Zone.Core.Json;
+
+using System.Text.Json;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.Core.Model.Json;
+
+public class TextJsonFileLoader
+    : IJsonFileLoader
 {
-    using System.Text.Json;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
-
-    public class TextJsonFileLoader
-        : IJsonFileLoader
+    private static readonly JsonSerializerOptions JSON_OPTIONS = new()
     {
-        private static readonly JsonSerializerOptions JSON_OPTIONS = new()
-        {
-            PropertyNameCaseInsensitive = true
-        };
+        PropertyNameCaseInsensitive = true
+    };
 
-        private readonly FileResolver _fileResolver;
+    private readonly FileResolver _fileResolver;
 
-        public TextJsonFileLoader(
-            FileResolver fileResolver
-        )
+    public TextJsonFileLoader(
+        FileResolver fileResolver
+    )
+    {
+        _fileResolver = fileResolver;
+    }
+
+    public Task<T?> GetFile<T>(
+        string fileFullName
+    )
+    {
+        if (!_fileResolver.DoesFileExist(
+            fileFullName
+        ))
         {
-            _fileResolver = fileResolver;
+            return default(T).FromResult();
         }
-
-        public Task<T?> GetFile<T>(
-            string fileFullName
-        )
-        {
-            if (!_fileResolver.DoesFileExist(
+        return JsonSerializer.Deserialize<T>(
+            _fileResolver.GetFileText(
                 fileFullName
-            ))
-            {
-                return default(T).FromResult();
-            }
-            return JsonSerializer.Deserialize<T>(
-                _fileResolver.GetFileText(
-                    fileFullName
-                ),
-                JSON_OPTIONS
-            ).FromResult();
-        }
+            ),
+            JSON_OPTIONS
+        ).FromResult();
     }
 }

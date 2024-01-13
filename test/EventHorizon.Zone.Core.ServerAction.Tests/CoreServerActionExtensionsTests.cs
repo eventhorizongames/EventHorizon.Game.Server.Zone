@@ -1,41 +1,40 @@
-namespace EventHorizon.Zone.Core.ServerAction.Tests
+namespace EventHorizon.Zone.Core.ServerAction.Tests;
+
+
+using EventHorizon.Game.Server.Zone;
+using EventHorizon.Test.Common.Utils;
+using EventHorizon.TimerService;
+using EventHorizon.Zone.Core.ServerAction.State;
+using EventHorizon.Zone.Core.ServerAction.Timer;
+
+using Xunit;
+
+public class CoreServerActionExtensionsTests
 {
-
-    using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Test.Common.Utils;
-    using EventHorizon.TimerService;
-    using EventHorizon.Zone.Core.ServerAction.State;
-    using EventHorizon.Zone.Core.ServerAction.Timer;
-
-    using Xunit;
-
-    public class CoreServerActionExtensionsTests
+    [Fact]
+    public void TestAddServerAction_ShouldConfigureServiceCollection()
     {
-        [Fact]
-        public void TestAddServerAction_ShouldConfigureServiceCollection()
-        {
-            // Given
-            var serviceCollectionMock = new ServiceCollectionMock();
+        // Given
+        var serviceCollectionMock = new ServiceCollectionMock();
 
-            // When
-            CoreServerActionExtensions.AddCoreServerAction(
-                serviceCollectionMock
-            );
+        // When
+        CoreServerActionExtensions.AddCoreServerAction(
+            serviceCollectionMock
+        );
 
-            // Then
-            Assert.Collection(
-                serviceCollectionMock,
-                service =>
-                {
-                    Assert.Equal(typeof(IServerActionQueue), service.ServiceType);
-                    Assert.Equal(typeof(ServerActionQueue), service.ImplementationType);
-                },
-                service =>
-                {
-                    Assert.Equal(typeof(ITimerTask), service.ServiceType);
-                    Assert.Equal(typeof(RunServerActionsTimerTask), service.ImplementationType);
-                }
-            );
-        }
+        // Then
+        Assert.Collection(
+            serviceCollectionMock,
+            service =>
+            {
+                Assert.Equal(typeof(IServerActionQueue), service.ServiceType);
+                Assert.Equal(typeof(ServerActionQueue), service.ImplementationType);
+            },
+            service =>
+            {
+                Assert.Equal(typeof(ITimerTask), service.ServiceType);
+                Assert.Equal(typeof(RunServerActionsTimerTask), service.ImplementationType);
+            }
+        );
     }
 }

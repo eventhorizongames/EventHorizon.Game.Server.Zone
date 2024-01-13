@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.System.Server.Scripts.System
+namespace EventHorizon.Zone.System.Server.Scripts.System;
+
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+public struct SystemServerScriptResponse
+    : ServerScriptResponse
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model;
+    public bool Success { get; }
+    public string Message { get; }
 
-    public struct SystemServerScriptResponse
-        : ServerScriptResponse
+    public SystemServerScriptResponse(
+        bool success,
+        string message
+    )
     {
-        public bool Success { get; }
-        public string Message { get; }
-
-        public SystemServerScriptResponse(
-            bool success,
-            string message
-        )
-        {
-            Success = success;
-            Message = message;
-        }
+        Success = success;
+        Message = message;
     }
 }

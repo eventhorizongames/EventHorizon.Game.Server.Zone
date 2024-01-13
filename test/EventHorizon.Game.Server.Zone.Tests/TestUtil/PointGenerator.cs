@@ -1,15 +1,14 @@
-namespace EventHorizon.Game.Server.Zone.Tests.TestUtil
+namespace EventHorizon.Game.Server.Zone.Tests.TestUtil;
+
+using System;
+using System.Numerics;
+
+public static class PointGenerator
 {
-    using System;
-    using System.Numerics;
+    private static readonly Random RANDOM = new();
 
-    public static class PointGenerator
+    public static Vector3 GetRandomPoint(int high, int low = 0)
     {
-        private static readonly Random RANDOM = new();
-
-        public static Vector3 GetRandomPoint(int high, int low = 0)
-        {
-            return new Vector3(RANDOM.Next(low, high), RANDOM.Next(low, high), RANDOM.Next(low, high));
-        }
+        return new Vector3(RANDOM.Next(low, high), RANDOM.Next(low, high), RANDOM.Next(low, high));
     }
 }

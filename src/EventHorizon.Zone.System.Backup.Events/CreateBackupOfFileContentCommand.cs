@@ -1,27 +1,26 @@
-namespace EventHorizon.Zone.System.Backup.Events
+namespace EventHorizon.Zone.System.Backup.Events;
+
+using EventHorizon.Zone.System.Backup.Model;
+
+using global::System.Collections.Generic;
+
+using MediatR;
+
+public struct CreateBackupOfFileContentCommand
+    : IRequest<BackupFileResponse>
 {
-    using EventHorizon.Zone.System.Backup.Model;
+    public string FileName { get; }
+    public IList<string> FilePath { get; }
+    public string FileContent { get; }
 
-    using global::System.Collections.Generic;
-
-    using MediatR;
-
-    public struct CreateBackupOfFileContentCommand
-        : IRequest<BackupFileResponse>
+    public CreateBackupOfFileContentCommand(
+        IList<string> filePath,
+        string fileName,
+        string fileContent
+    )
     {
-        public string FileName { get; }
-        public IList<string> FilePath { get; }
-        public string FileContent { get; }
-
-        public CreateBackupOfFileContentCommand(
-            IList<string> filePath,
-            string fileName,
-            string fileContent
-        )
-        {
-            FilePath = filePath;
-            FileName = fileName;
-            FileContent = fileContent;
-        }
+        FilePath = filePath;
+        FileName = fileName;
+        FileContent = fileContent;
     }
 }

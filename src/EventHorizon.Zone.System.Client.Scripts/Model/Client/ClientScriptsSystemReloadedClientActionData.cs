@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Client.Scripts.Model.Client
+namespace EventHorizon.Zone.System.Client.Scripts.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+using global::System.Collections.Generic;
+
+public struct ClientScriptsSystemReloadedClientActionData
+    : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public IEnumerable<ClientScript> ClientScriptList { get; }
 
-    using global::System.Collections.Generic;
-
-    public struct ClientScriptsSystemReloadedClientActionData
-        : IClientActionData
+    public ClientScriptsSystemReloadedClientActionData(
+        IEnumerable<ClientScript> clientScriptList
+    )
     {
-        public IEnumerable<ClientScript> ClientScriptList { get; }
-
-        public ClientScriptsSystemReloadedClientActionData(
-            IEnumerable<ClientScript> clientScriptList
-        )
-        {
-            ClientScriptList = clientScriptList;
-        }
+        ClientScriptList = clientScriptList;
     }
 }

@@ -1,21 +1,20 @@
-namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory
+namespace EventHorizon.Game.Server.Zone.Load.Settings.Factory;
+
+using EventHorizon.Game.Server.Zone.Settings.Load;
+using EventHorizon.Zone.Core.Model.Settings;
+
+public class ZoneSettingsFactory
+    : IZoneSettingsFactory,
+    IZoneSettingsSetter
 {
-    using EventHorizon.Game.Server.Zone.Settings.Load;
-    using EventHorizon.Zone.Core.Model.Settings;
+    private static readonly ZoneSettings EMPTY_ZONE_SETTINGS = new() { Tag = "home", BaseMovementTimeOffset = 100, };
 
-    public class ZoneSettingsFactory
-        : IZoneSettingsFactory,
-        IZoneSettingsSetter
+    public ZoneSettings Settings { get; private set; } = EMPTY_ZONE_SETTINGS;
+
+    public void Set(
+        ZoneSettings settings
+    )
     {
-        private static readonly ZoneSettings EMPTY_ZONE_SETTINGS = new() { Tag = "home", BaseMovementTimeOffset = 100, };
-
-        public ZoneSettings Settings { get; private set; } = EMPTY_ZONE_SETTINGS;
-
-        public void Set(
-            ZoneSettings settings
-        )
-        {
-            Settings = settings;
-        }
+        Settings = settings;
     }
 }

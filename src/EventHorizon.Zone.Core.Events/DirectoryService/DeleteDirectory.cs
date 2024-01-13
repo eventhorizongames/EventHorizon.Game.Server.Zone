@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.DirectoryService
+namespace EventHorizon.Zone.Core.Events.DirectoryService;
+
+using MediatR;
+
+public struct DeleteDirectory : IRequest<bool>
 {
-    using MediatR;
+    public string DirectoryFullName { get; }
 
-    public struct DeleteDirectory : IRequest<bool>
+    public DeleteDirectory(
+        string directoryFullName
+    )
     {
-        public string DirectoryFullName { get; }
-
-        public DeleteDirectory(
-            string directoryFullName
-        )
-        {
-            DirectoryFullName = directoryFullName;
-        }
+        DirectoryFullName = directoryFullName;
     }
 }

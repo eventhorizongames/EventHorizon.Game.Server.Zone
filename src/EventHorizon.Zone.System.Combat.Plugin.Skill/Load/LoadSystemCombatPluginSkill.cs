@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
 
-    public struct LoadSystemCombatPluginSkill : IRequest
-    {
-    }
+using MediatR;
+
+public struct LoadSystemCombatPluginSkill : IRequest
+{
 }

@@ -1,24 +1,23 @@
-﻿namespace EventHorizon.Zone.System.Admin.AdminClientAction.Generic
+﻿namespace EventHorizon.Zone.System.Admin.AdminClientAction.Generic;
+
+using EventHorizon.Zone.System.Admin.AdminClientAction.Client;
+using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+
+using MediatR;
+
+public class AdminClientActionGenericToAllEvent
+    : AdminClientActionToAllEvent<IAdminClientActionData>,
+    INotification
 {
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Client;
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+    public override string Action { get; }
+    public override IAdminClientActionData Data { get; }
 
-    using MediatR;
-
-    public class AdminClientActionGenericToAllEvent
-        : AdminClientActionToAllEvent<IAdminClientActionData>,
-        INotification
+    public AdminClientActionGenericToAllEvent(
+        string action,
+        IAdminClientActionData data
+    )
     {
-        public override string Action { get; }
-        public override IAdminClientActionData Data { get; }
-
-        public AdminClientActionGenericToAllEvent(
-            string action,
-            IAdminClientActionData data
-        )
-        {
-            Action = action;
-            Data = data;
-        }
+        Action = action;
+        Data = data;
     }
 }

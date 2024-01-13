@@ -1,202 +1,201 @@
-﻿namespace EventHorizon.Zone.System.Editor.Tests.Create
+﻿namespace EventHorizon.Zone.System.Editor.Tests.Create;
+
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.System.Editor.Create;
+using EventHorizon.Zone.System.Editor.Events.Create;
+
+using FluentAssertions;
+
+using global::System;
+using global::System.Collections.Generic;
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
+
+public class CreateEditorFileHandlerTests
 {
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Editor.Create;
-    using EventHorizon.Zone.System.Editor.Events.Create;
-
-    using FluentAssertions;
-
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class CreateEditorFileHandlerTests
+    [Fact]
+    public async Task ShouldReturnTrueWhenFileDoesNotExist()
     {
-        [Fact]
-        public async Task ShouldReturnTrueWhenFileDoesNotExist()
-        {
-            // Given
-            var fileName = "file-name";
-            var filePath = new List<string> { "path" };
-            var appDataPath = "app-data-path";
-            var fileFullName = Path.Combine(
-                appDataPath,
-                Path.Combine(
-                    filePath.ToArray()
-                ),
-                fileName
-            );
+        // Given
+        var fileName = "file-name";
+        var filePath = new List<string> { "path" };
+        var appDataPath = "app-data-path";
+        var fileFullName = Path.Combine(
+            appDataPath,
+            Path.Combine(
+                filePath.ToArray()
+            ),
+            fileName
+        );
 
-            var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
+        var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverInfoMock = new Mock<ServerInfo>();
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesFileExist(
-                        fileFullName
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                false
-            );
-
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
-
-            // When
-            var handler = new CreateEditorFileHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverInfoMock.Object
-            );
-            var actual = await handler.Handle(
-                new CreateEditorFile(
-                    filePath,
-                    fileName
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new DoesFileExist(
+                    fileFullName
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            false
+        );
 
-            // Then
-            actual.Successful
-                .Should()
-                .BeTrue();
-        }
+        serverInfoMock.Setup(
+            mock => mock.AppDataPath
+        ).Returns(
+            appDataPath
+        );
 
-        [Fact]
-        public async Task ShouldErrorCodeOfFileAlreadyExistsWhenDoesFileExistReturnsTrue()
-        {
-            // Given
-            var expected = "file_already_exists";
-            var fileName = "file-name";
-            var filePath = new List<string> { "path" };
-            var appDataPath = "app-data-path";
-            var fileFullName = Path.Combine(
-                appDataPath,
-                Path.Combine(
-                    filePath.ToArray()
-                ),
+        // When
+        var handler = new CreateEditorFileHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverInfoMock.Object
+        );
+        var actual = await handler.Handle(
+            new CreateEditorFile(
+                filePath,
                 fileName
-            );
+            ),
+            CancellationToken.None
+        );
 
-            var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
+        // Then
+        actual.Successful
+            .Should()
+            .BeTrue();
+    }
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesFileExist(
-                        fileFullName
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
+    [Fact]
+    public async Task ShouldErrorCodeOfFileAlreadyExistsWhenDoesFileExistReturnsTrue()
+    {
+        // Given
+        var expected = "file_already_exists";
+        var fileName = "file-name";
+        var filePath = new List<string> { "path" };
+        var appDataPath = "app-data-path";
+        var fileFullName = Path.Combine(
+            appDataPath,
+            Path.Combine(
+                filePath.ToArray()
+            ),
+            fileName
+        );
 
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
+        var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverInfoMock = new Mock<ServerInfo>();
 
-            // When
-            var handler = new CreateEditorFileHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverInfoMock.Object
-            );
-            var actual = await handler.Handle(
-                new CreateEditorFile(
-                    filePath,
-                    fileName
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new DoesFileExist(
+                    fileFullName
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            true
+        );
 
-            // Then
-            actual.Successful
-                .Should()
-                .BeFalse();
-            actual.ErrorCode
-                .Should()
-                .Be(expected);
-        }
+        serverInfoMock.Setup(
+            mock => mock.AppDataPath
+        ).Returns(
+            appDataPath
+        );
 
-        [Fact]
-        public async Task ShouldErrorCodeOfServerExceptionWhenAnyExceptionIsThrown()
-        {
-            // Given
-            var expected = "server_exception";
-            var fileName = "file-name";
-            var filePath = new List<string> { "path" };
-            var appDataPath = "app-data-path";
-            var fileFullName = Path.Combine(
-                appDataPath,
-                Path.Combine(
-                    filePath.ToArray()
-                ),
+        // When
+        var handler = new CreateEditorFileHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverInfoMock.Object
+        );
+        var actual = await handler.Handle(
+            new CreateEditorFile(
+                filePath,
                 fileName
-            );
+            ),
+            CancellationToken.None
+        );
 
-            var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverInfoMock = new Mock<ServerInfo>();
+        // Then
+        actual.Successful
+            .Should()
+            .BeFalse();
+        actual.ErrorCode
+            .Should()
+            .Be(expected);
+    }
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new DoesFileExist(
-                        fileFullName
-                    ),
-                    CancellationToken.None
-                )
-            ).Throws(
-                new Exception("error")
-            );
+    [Fact]
+    public async Task ShouldErrorCodeOfServerExceptionWhenAnyExceptionIsThrown()
+    {
+        // Given
+        var expected = "server_exception";
+        var fileName = "file-name";
+        var filePath = new List<string> { "path" };
+        var appDataPath = "app-data-path";
+        var fileFullName = Path.Combine(
+            appDataPath,
+            Path.Combine(
+                filePath.ToArray()
+            ),
+            fileName
+        );
 
-            serverInfoMock.Setup(
-                mock => mock.AppDataPath
-            ).Returns(
-                appDataPath
-            );
+        var loggerMock = new Mock<ILogger<CreateEditorFileHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverInfoMock = new Mock<ServerInfo>();
 
-            // When
-            var handler = new CreateEditorFileHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverInfoMock.Object
-            );
-            var actual = await handler.Handle(
-                new CreateEditorFile(
-                    filePath,
-                    fileName
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new DoesFileExist(
+                    fileFullName
                 ),
                 CancellationToken.None
-            );
+            )
+        ).Throws(
+            new Exception("error")
+        );
 
-            // Then
-            actual.Successful
-                .Should()
-                .BeFalse();
-            actual.ErrorCode
-                .Should()
-                .Be(expected);
-        }
+        serverInfoMock.Setup(
+            mock => mock.AppDataPath
+        ).Returns(
+            appDataPath
+        );
+
+        // When
+        var handler = new CreateEditorFileHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverInfoMock.Object
+        );
+        var actual = await handler.Handle(
+            new CreateEditorFile(
+                filePath,
+                fileName
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Successful
+            .Should()
+            .BeFalse();
+        actual.ErrorCode
+            .Should()
+            .Be(expected);
     }
 }

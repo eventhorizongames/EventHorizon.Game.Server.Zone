@@ -1,33 +1,32 @@
-namespace EventHorizon.Game.Server.Zone.Controllers
+namespace EventHorizon.Game.Server.Zone.Controllers;
+
+using System;
+
+using IdentityModel.AspNetCore.OAuth2Introspection;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
+
+public class WebSocketTokenRetriever
 {
-    using System;
+    static Func<HttpRequest, string> AuthHeaderTokenRetriever { get; set; }
+    static Func<HttpRequest, string> QueryStringTokenRetriever { get; set; }
 
-    using IdentityModel.AspNetCore.OAuth2Introspection;
-
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Primitives;
-
-    public class WebSocketTokenRetriever
+    static WebSocketTokenRetriever()
     {
-        static Func<HttpRequest, string> AuthHeaderTokenRetriever { get; set; }
-        static Func<HttpRequest, string> QueryStringTokenRetriever { get; set; }
+        AuthHeaderTokenRetriever = TokenRetrieval.FromAuthorizationHeader();
+        QueryStringTokenRetriever = TokenRetrieval.FromQueryString();
+    }
 
-        static WebSocketTokenRetriever()
+    public static string FromHeaderAndQueryString(HttpRequest request)
+    {
+        var token = AuthHeaderTokenRetriever(request);
+
+        if (string.IsNullOrEmpty(token))
         {
-            AuthHeaderTokenRetriever = TokenRetrieval.FromAuthorizationHeader();
-            QueryStringTokenRetriever = TokenRetrieval.FromQueryString();
+            token = QueryStringTokenRetriever(request);
         }
 
-        public static string FromHeaderAndQueryString(HttpRequest request)
-        {
-            var token = AuthHeaderTokenRetriever(request);
-
-            if (string.IsNullOrEmpty(token))
-            {
-                token = QueryStringTokenRetriever(request);
-            }
-
-            return token;
-        }
+        return token;
     }
 }

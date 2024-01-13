@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Set
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Set;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
+using MediatR;
+
+public struct SetServerScriptDetailsCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    public ServerScriptDetails ScriptDetails { get; }
 
-    using MediatR;
-
-    public struct SetServerScriptDetailsCommand
-        : IRequest<StandardCommandResult>
+    public SetServerScriptDetailsCommand(
+        ServerScriptDetails scriptDetails
+    )
     {
-        public ServerScriptDetails ScriptDetails { get; }
-
-        public SetServerScriptDetailsCommand(
-            ServerScriptDetails scriptDetails
-        )
-        {
-            ScriptDetails = scriptDetails;
-        }
+        ScriptDetails = scriptDetails;
     }
 }

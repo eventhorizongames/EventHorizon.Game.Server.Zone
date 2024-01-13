@@ -1,13 +1,12 @@
-namespace EventHorizon.TimerService
-{
-    using MediatR;
+namespace EventHorizon.TimerService;
 
-    public interface ITimerTask
-    {
-        int Period { get; }
-        string Tag { get; }
-        IRequest<bool> OnValidationEvent { get; }
-        INotification OnRunEvent { get; }
-        bool LogDetails { get; }
-    }
+using MediatR;
+
+public interface ITimerTask
+{
+    int Period { get; }
+    string Tag { get; }
+    IRequest<bool> OnValidationEvent { get; }
+    INotification OnRunEvent { get; }
+    bool LogDetails { get; }
 }

@@ -1,42 +1,41 @@
-namespace EventHorizon.Zone.Core.Json
+namespace EventHorizon.Zone.Core.Json;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.Core.Model.Json;
+
+using Newtonsoft.Json;
+
+public class NewtonsoftJsonFileLoader
+    : IJsonFileLoader
 {
-    using System.Threading.Tasks;
+    private readonly FileResolver _fileResolver;
 
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
-
-    using Newtonsoft.Json;
-
-    public class NewtonsoftJsonFileLoader
-        : IJsonFileLoader
+    public NewtonsoftJsonFileLoader(
+        FileResolver fileResolver
+    )
     {
-        private readonly FileResolver _fileResolver;
+        _fileResolver = fileResolver;
+    }
 
-        public NewtonsoftJsonFileLoader(
-            FileResolver fileResolver
-        )
+    public Task<T?> GetFile<T>(
+        string fileFullName
+    )
+    {
+        if (!_fileResolver.DoesFileExist(
+            fileFullName
+        ))
         {
-            _fileResolver = fileResolver;
+            // TODO: Update this to support new() or struct
+            return default(T)
+                .FromResult();
         }
 
-        public Task<T?> GetFile<T>(
-            string fileFullName
-        )
-        {
-            if (!_fileResolver.DoesFileExist(
+        return JsonConvert.DeserializeObject<T?>(
+            _fileResolver.GetFileText(
                 fileFullName
-            ))
-            {
-                // TODO: Update this to support new() or struct
-                return default(T)
-                    .FromResult();
-            }
-
-            return JsonConvert.DeserializeObject<T?>(
-                _fileResolver.GetFileText(
-                    fileFullName
-                )
-            ).FromResult();
-        }
+            )
+        ).FromResult();
     }
 }

@@ -1,61 +1,60 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Command
+﻿namespace EventHorizon.Zone.System.ClientEntities.Command;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.ClientEntities.Load;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadClientEntitiesSystemAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-    using EventHorizon.Zone.System.ClientEntities.Load;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadClientEntitiesSystemAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadClientEntitiesSystemAdminCommandEventHandler(
+        ILogger<ReloadClientEntitiesSystemAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadClientEntitiesSystemAdminCommandEventHandler(
-            ILogger<ReloadClientEntitiesSystemAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadClientEntitiesSystemAdminCommandEventHandler)
+        );
 
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadClientEntitiesSystemAdminCommandEventHandler)
-            );
+        await _mediator.Send(
+            new LoadSystemClientEntitiesCommand()
+        );
 
-            await _mediator.Send(
-                new LoadSystemClientEntitiesCommand()
-            );
-
-            await _mediator.Send(
-                new RespondToAdminCommand(
-                    notification.ConnectionId,
-                    new StandardAdminCommandResponse(
-                        notification.Command.Command,
-                        notification.Command.RawCommand,
-                        true,
-                        "client_entities_system_reloaded"
-                    )
+        await _mediator.Send(
+            new RespondToAdminCommand(
+                notification.ConnectionId,
+                new StandardAdminCommandResponse(
+                    notification.Command.Command,
+                    notification.Command.RawCommand,
+                    true,
+                    "client_entities_system_reloaded"
                 )
-            );
-        }
+            )
+        );
     }
 }

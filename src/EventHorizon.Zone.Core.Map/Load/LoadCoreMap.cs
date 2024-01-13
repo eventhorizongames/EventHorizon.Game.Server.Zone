@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Zone.Core.Map.Load
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.Core.Map.Load;
 
-    public struct LoadCoreMap : IRequest
-    {
-    }
+using MediatR;
+
+public struct LoadCoreMap : IRequest
+{
 }

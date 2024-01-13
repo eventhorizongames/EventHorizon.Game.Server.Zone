@@ -1,13 +1,12 @@
-namespace EventHorizon.Zone.System.Admin.AdminClientAction.Client
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Admin.AdminClientAction.Client;
 
-    public struct SendToSingleAdminClientEvent
-        : INotification
-    {
-        public string ConnectionId { get; set; }
-        public string Method { get; set; }
-        public object Arg1 { get; set; }
-        public object Arg2 { get; set; }
-    }
+using MediatR;
+
+public struct SendToSingleAdminClientEvent
+    : INotification
+{
+    public string ConnectionId { get; set; }
+    public string Method { get; set; }
+    public object Arg1 { get; set; }
+    public object Arg2 { get; set; }
 }

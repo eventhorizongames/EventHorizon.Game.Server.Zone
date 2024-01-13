@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
+
+using MediatR;
+
+public struct RegisterNewScriptedBackgroundTaskCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Model;
+    public ScriptedBackgroundTask BackgroundTask { get; }
 
-    using MediatR;
-
-    public struct RegisterNewScriptedBackgroundTaskCommand
-        : IRequest<StandardCommandResult>
+    public RegisterNewScriptedBackgroundTaskCommand(
+        ScriptedBackgroundTask backgroundTask
+    )
     {
-        public ScriptedBackgroundTask BackgroundTask { get; }
-
-        public RegisterNewScriptedBackgroundTaskCommand(
-            ScriptedBackgroundTask backgroundTask
-        )
-        {
-            BackgroundTask = backgroundTask;
-        }
+        BackgroundTask = backgroundTask;
     }
 }

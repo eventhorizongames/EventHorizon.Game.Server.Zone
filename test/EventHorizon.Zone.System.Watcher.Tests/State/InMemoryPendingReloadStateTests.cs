@@ -1,62 +1,61 @@
-namespace EventHorizon.Zone.System.Watcher.Tests.State
+namespace EventHorizon.Zone.System.Watcher.Tests.State;
+
+using EventHorizon.Zone.System.Watcher.State;
+
+using Xunit;
+
+public class InMemoryPendingReloadStateTests
 {
-    using EventHorizon.Zone.System.Watcher.State;
-
-    using Xunit;
-
-    public class InMemoryPendingReloadStateTests
+    [Fact]
+    public void TestShouldDefaultIsPendingIsTruenWhenFirstCreated()
     {
-        [Fact]
-        public void TestShouldDefaultIsPendingIsTruenWhenFirstCreated()
-        {
-            // Given
+        // Given
 
-            // When
-            var pendingReloadState = new InMemoryPendingReloadState();
+        // When
+        var pendingReloadState = new InMemoryPendingReloadState();
 
-            // Then
-            Assert.False(
-                pendingReloadState.IsPending
-            );
-        }
+        // Then
+        Assert.False(
+            pendingReloadState.IsPending
+        );
+    }
 
-        [Fact]
-        public void TestShouldSetIsPendingToTrueWhenSetToPendingIsCalled()
-        {
-            // Given
+    [Fact]
+    public void TestShouldSetIsPendingToTrueWhenSetToPendingIsCalled()
+    {
+        // Given
 
-            // When
-            var pendingReloadState = new InMemoryPendingReloadState();
+        // When
+        var pendingReloadState = new InMemoryPendingReloadState();
 
-            pendingReloadState.SetToPending();
+        pendingReloadState.SetToPending();
 
-            // Then
-            Assert.True(
-                pendingReloadState.IsPending
-            );
-        }
+        // Then
+        Assert.True(
+            pendingReloadState.IsPending
+        );
+    }
 
-        [Fact]
-        public void TestShouldSetIsPendingToFalseWhenSetToRemovePendingIsCalled()
-        {
-            // Given
+    [Fact]
+    public void TestShouldSetIsPendingToFalseWhenSetToRemovePendingIsCalled()
+    {
+        // Given
 
-            // When
-            var pendingReloadState = new InMemoryPendingReloadState();
+        // When
+        var pendingReloadState = new InMemoryPendingReloadState();
 
-            pendingReloadState.SetToPending();
+        pendingReloadState.SetToPending();
 
-            // Make Sure IsPending is True
-            Assert.True(
-                pendingReloadState.IsPending
-            );
+        // Make Sure IsPending is True
+        Assert.True(
+            pendingReloadState.IsPending
+        );
 
-            pendingReloadState.RemovePending();
+        pendingReloadState.RemovePending();
 
-            // Then
-            Assert.False(
-                pendingReloadState.IsPending
-            );
-        }
+        // Then
+        Assert.False(
+            pendingReloadState.IsPending
+        );
     }
 }

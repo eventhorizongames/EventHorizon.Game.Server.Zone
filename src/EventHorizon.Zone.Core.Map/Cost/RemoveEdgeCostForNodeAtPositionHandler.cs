@@ -1,44 +1,43 @@
-namespace EventHorizon.Zone.Core.Map.Cost
+namespace EventHorizon.Zone.Core.Map.Cost;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Events.Map.Cost;
+
+using MediatR;
+
+public class RemoveEdgeCostForNodeAtPositionHandler
+    : IRequestHandler<RemoveEdgeCostForNodeAtPosition, bool>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Events.Map.Cost;
-
-    using MediatR;
-
-    public class RemoveEdgeCostForNodeAtPositionHandler
-        : IRequestHandler<RemoveEdgeCostForNodeAtPosition, bool>
+    public RemoveEdgeCostForNodeAtPositionHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public RemoveEdgeCostForNodeAtPositionHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
+    public async Task<bool> Handle(
+        RemoveEdgeCostForNodeAtPosition request,
+        CancellationToken cancellationToken
+    )
+    {
+        var node = await _mediator.Send(
+            new GetMapNodeAtPositionEvent(
+                request.Position
+            )
+        );
+        await _mediator.Send(
+            new UpdateDensityAndCostDetailsForNode(
+                node,
+                -1,
+                -request.Cost
+            )
+        );
 
-        public async Task<bool> Handle(
-            RemoveEdgeCostForNodeAtPosition request,
-            CancellationToken cancellationToken
-        )
-        {
-            var node = await _mediator.Send(
-                new GetMapNodeAtPositionEvent(
-                    request.Position
-                )
-            );
-            await _mediator.Send(
-                new UpdateDensityAndCostDetailsForNode(
-                    node,
-                    -1,
-                    -request.Cost
-                )
-            );
-
-            return true;
-        }
+        return true;
     }
 }

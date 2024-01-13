@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+public struct SerializedAgentBehaviorTree
 {
-    public struct SerializedAgentBehaviorTree
-    {
-        public SerializedBehaviorNode Root { get; set; }
-    }
+    public SerializedBehaviorNode Root { get; set; }
 }

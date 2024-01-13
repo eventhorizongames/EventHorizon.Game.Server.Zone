@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Server.Scripts.Api
+namespace EventHorizon.Zone.System.Server.Scripts.Api;
+
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+using global::System.Collections.Generic;
+
+public interface ServerScriptRepository
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model;
+    IEnumerable<ServerScript> All { get; }
 
-    using global::System.Collections.Generic;
+    void Clear();
 
-    public interface ServerScriptRepository
-    {
-        IEnumerable<ServerScript> All { get; }
+    void Add(
+        ServerScript serverScript
+    );
 
-        void Clear();
-
-        void Add(
-            ServerScript serverScript
-        );
-
-        ServerScript Find(
-            string name
-        );
-    }
+    ServerScript Find(
+        string name
+    );
 }

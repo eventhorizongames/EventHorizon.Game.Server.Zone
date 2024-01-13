@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.Core.Events.Lifetime
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.Core.Events.Lifetime;
 
-    public struct RunServerStartupCommand
-        : IRequest
-    {
-    }
+using MediatR;
+
+public struct RunServerStartupCommand
+    : IRequest
+{
 }

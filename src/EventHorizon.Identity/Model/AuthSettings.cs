@@ -1,7 +1,6 @@
-namespace EventHorizon.Identity.Model
-{
-    public class AuthSettings
-    {
+namespace EventHorizon.Identity.Model;
 
-    }
+public class AuthSettings
+{
+
 }

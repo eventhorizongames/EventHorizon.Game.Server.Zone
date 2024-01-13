@@ -1,26 +1,25 @@
-namespace EventHorizon.Zone.System.Editor.Events.Save
+namespace EventHorizon.Zone.System.Editor.Events.Save;
+
+using global::System.Collections.Generic;
+
+using EventHorizon.Zone.System.Editor.Model;
+
+using MediatR;
+
+public struct SaveEditorFileContent : IRequest<EditorResponse>
 {
-    using global::System.Collections.Generic;
+    public IList<string> FilePath { get; }
+    public string FileName { get; }
+    public string Content { get; }
 
-    using EventHorizon.Zone.System.Editor.Model;
-
-    using MediatR;
-
-    public struct SaveEditorFileContent : IRequest<EditorResponse>
+    public SaveEditorFileContent(
+        IList<string> path,
+        string fileName,
+        string content
+    )
     {
-        public IList<string> FilePath { get; }
-        public string FileName { get; }
-        public string Content { get; }
-
-        public SaveEditorFileContent(
-            IList<string> path,
-            string fileName,
-            string content
-        )
-        {
-            FilePath = path;
-            FileName = fileName;
-            Content = content;
-        }
+        FilePath = path;
+        FileName = fileName;
+        Content = content;
     }
 }

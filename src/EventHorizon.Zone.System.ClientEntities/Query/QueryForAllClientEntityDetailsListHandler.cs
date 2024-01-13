@@ -1,35 +1,34 @@
-namespace EventHorizon.Zone.System.ClientEntities.Query
+namespace EventHorizon.Zone.System.ClientEntities.Query;
+
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.ClientEntities.State;
+
+using global::System.Collections.Generic;
+using global::System.Linq;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class QueryForAllClientEntityDetailsListHandler : IRequestHandler<QueryForAllClientEntityDetailsList, IEnumerable<IObjectEntity>>
 {
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.System.ClientEntities.State;
+    private readonly ClientEntityRepository _clientEntityRepository;
 
-    using global::System.Collections.Generic;
-    using global::System.Linq;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class QueryForAllClientEntityDetailsListHandler : IRequestHandler<QueryForAllClientEntityDetailsList, IEnumerable<IObjectEntity>>
+    public QueryForAllClientEntityDetailsListHandler(
+        ClientEntityRepository clientEntityRepository
+    )
     {
-        private readonly ClientEntityRepository _clientEntityRepository;
+        _clientEntityRepository = clientEntityRepository;
+    }
 
-        public QueryForAllClientEntityDetailsListHandler(
-            ClientEntityRepository clientEntityRepository
-        )
-        {
-            _clientEntityRepository = clientEntityRepository;
-        }
-
-        public Task<IEnumerable<IObjectEntity>> Handle(
-            QueryForAllClientEntityDetailsList request,
-            CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _clientEntityRepository.All()
-                    .Cast<IObjectEntity>()
-            );
-        }
+    public Task<IEnumerable<IObjectEntity>> Handle(
+        QueryForAllClientEntityDetailsList request,
+        CancellationToken cancellationToken
+    )
+    {
+        return Task.FromResult(
+            _clientEntityRepository.All()
+                .Cast<IObjectEntity>()
+        );
     }
 }

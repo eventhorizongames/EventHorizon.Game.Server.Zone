@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
 
-    public struct LoadDefaultActorBehaviorTree : IRequest
-    {
-    }
+using MediatR;
+
+public struct LoadDefaultActorBehaviorTree : IRequest
+{
 }

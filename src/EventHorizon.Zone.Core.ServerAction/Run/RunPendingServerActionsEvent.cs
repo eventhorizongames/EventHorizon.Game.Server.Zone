@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.ServerAction.Run
+namespace EventHorizon.Zone.Core.ServerAction.Run;
+
+using MediatR;
+
+public struct RunPendingServerActionsEvent : INotification
 {
-    using MediatR;
 
-    public struct RunPendingServerActionsEvent : INotification
-    {
-
-    }
 }

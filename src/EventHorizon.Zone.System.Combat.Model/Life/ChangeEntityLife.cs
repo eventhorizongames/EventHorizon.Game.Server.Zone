@@ -1,11 +1,10 @@
-namespace EventHorizon.Zone.System.Combat.Model.Life
-{
-    public struct ChangeEntityLife
-    {
-        public static ChangeEntityLife NULL = default;
+namespace EventHorizon.Zone.System.Combat.Model.Life;
 
-        public long EntityId { get; set; }
-        public string Property { get; set; }
-        public long Points { get; set; }
-    }
+public struct ChangeEntityLife
+{
+    public static ChangeEntityLife NULL = default;
+
+    public long EntityId { get; set; }
+    public string Property { get; set; }
+    public long Points { get; set; }
 }

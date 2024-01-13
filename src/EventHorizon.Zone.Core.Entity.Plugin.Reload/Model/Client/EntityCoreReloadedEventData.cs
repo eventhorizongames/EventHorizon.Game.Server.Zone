@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.Core.Entity.Plugin.Reload.Model.Client
+﻿namespace EventHorizon.Zone.Core.Entity.Plugin.Reload.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+using EventHorizon.Zone.Core.Model.Entity;
+
+public class EntityCoreReloadedEventData
+    : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
-    using EventHorizon.Zone.Core.Model.Entity;
+    public ObjectEntityConfiguration EntityConfiguration { get; }
 
-    public class EntityCoreReloadedEventData
-        : IClientActionData
+    public EntityCoreReloadedEventData(
+        ObjectEntityConfiguration entityConfiguration
+    )
     {
-        public ObjectEntityConfiguration EntityConfiguration { get; }
-
-        public EntityCoreReloadedEventData(
-            ObjectEntityConfiguration entityConfiguration
-        )
-        {
-            EntityConfiguration = entityConfiguration;
-        }
+        EntityConfiguration = entityConfiguration;
     }
 }

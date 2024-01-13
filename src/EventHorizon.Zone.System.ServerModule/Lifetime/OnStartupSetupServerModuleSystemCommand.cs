@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Zone.System.ServerModule.Lifetime
+﻿namespace EventHorizon.Zone.System.ServerModule.Lifetime;
+
+using System;
+
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupServerModuleSystemCommand
+    : OnServerStartupCommand
 {
-    using System;
-
-    using EventHorizon.Zone.Core.Events.Lifetime;
-
-    public struct OnStartupSetupServerModuleSystemCommand
-        : OnServerStartupCommand
-    {
-    }
 }

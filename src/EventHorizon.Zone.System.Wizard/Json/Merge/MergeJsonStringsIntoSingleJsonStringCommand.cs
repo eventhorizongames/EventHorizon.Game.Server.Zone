@@ -1,22 +1,21 @@
-﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge
+﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge;
+
+using EventHorizon.Zone.Core.Model.Command;
+
+using MediatR;
+
+public struct MergeJsonStringsIntoSingleJsonStringCommand
+    : IRequest<CommandResult<string>>
 {
-    using EventHorizon.Zone.Core.Model.Command;
+    public string SourceJson { get; }
+    public string UpdatedJson { get; }
 
-    using MediatR;
-
-    public struct MergeJsonStringsIntoSingleJsonStringCommand
-        : IRequest<CommandResult<string>>
+    public MergeJsonStringsIntoSingleJsonStringCommand(
+        string sourceJson,
+        string updatedJson
+    )
     {
-        public string SourceJson { get; }
-        public string UpdatedJson { get; }
-
-        public MergeJsonStringsIntoSingleJsonStringCommand(
-            string sourceJson,
-            string updatedJson
-        )
-        {
-            SourceJson = sourceJson;
-            UpdatedJson = updatedJson;
-        }
+        SourceJson = sourceJson;
+        UpdatedJson = updatedJson;
     }
 }

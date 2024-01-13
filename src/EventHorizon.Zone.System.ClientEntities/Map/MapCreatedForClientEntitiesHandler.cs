@@ -1,41 +1,40 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Map
+﻿namespace EventHorizon.Zone.System.ClientEntities.Map;
+
+using EventHorizon.Zone.Core.Events.Map.Create;
+using EventHorizon.Zone.System.ClientEntities.State;
+using EventHorizon.Zone.System.ClientEntities.Update;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class MapCreatedForClientEntitiesHandler : INotificationHandler<MapCreatedEvent>
 {
-    using EventHorizon.Zone.Core.Events.Map.Create;
-    using EventHorizon.Zone.System.ClientEntities.State;
-    using EventHorizon.Zone.System.ClientEntities.Update;
+    private readonly IMediator _mediator;
+    private readonly ClientEntityRepository _repository;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class MapCreatedForClientEntitiesHandler : INotificationHandler<MapCreatedEvent>
+    public MapCreatedForClientEntitiesHandler(
+        IMediator mediator,
+        ClientEntityRepository repository
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ClientEntityRepository _repository;
+        _mediator = mediator;
+        _repository = repository;
+    }
 
-        public MapCreatedForClientEntitiesHandler(
-            IMediator mediator,
-            ClientEntityRepository repository
-        )
+    public async Task Handle(
+        MapCreatedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        foreach (var entity in _repository.All())
         {
-            _mediator = mediator;
-            _repository = repository;
-        }
-
-        public async Task Handle(
-            MapCreatedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            foreach (var entity in _repository.All())
-            {
-                await _mediator.Send(
-                    new SetClientEntityNodeDensity(
-                        entity
-                    )
-                );
-            }
+            await _mediator.Send(
+                new SetClientEntityNodeDensity(
+                    entity
+                )
+            );
         }
     }
 }

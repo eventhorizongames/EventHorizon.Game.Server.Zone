@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct WriteAllTextToFile : IRequest
 {
-    using MediatR;
+    public string FileFullName { get; }
+    public string Text { get; }
 
-    public struct WriteAllTextToFile : IRequest
+    public WriteAllTextToFile(
+        string fileFullName,
+        string fileContent
+    )
     {
-        public string FileFullName { get; }
-        public string Text { get; }
-
-        public WriteAllTextToFile(
-            string fileFullName,
-            string fileContent
-        )
-        {
-            FileFullName = fileFullName;
-            Text = fileContent;
-        }
+        FileFullName = fileFullName;
+        Text = fileContent;
     }
 }

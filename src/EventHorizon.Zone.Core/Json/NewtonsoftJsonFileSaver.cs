@@ -1,52 +1,51 @@
-namespace EventHorizon.Zone.Core.Json
+namespace EventHorizon.Zone.Core.Json;
+
+using System.IO;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
+using EventHorizon.Zone.Core.Model.Json;
+
+using Newtonsoft.Json;
+
+public class NewtonsoftJsonFileSaver : IJsonFileSaver
 {
-    using System.IO;
-    using System.Threading.Tasks;
+    readonly DirectoryResolver _directoryResolver;
+    readonly FileResolver _fileResolver;
 
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using EventHorizon.Zone.Core.Model.Json;
-
-    using Newtonsoft.Json;
-
-    public class NewtonsoftJsonFileSaver : IJsonFileSaver
+    public NewtonsoftJsonFileSaver(
+        DirectoryResolver directoryResolver,
+        FileResolver fileResolver
+    )
     {
-        readonly DirectoryResolver _directoryResolver;
-        readonly FileResolver _fileResolver;
+        _directoryResolver = directoryResolver;
+        _fileResolver = fileResolver;
+    }
 
-        public NewtonsoftJsonFileSaver(
-            DirectoryResolver directoryResolver,
-            FileResolver fileResolver
-        )
+    public Task SaveToFile(
+        string directoryFullName,
+        string fileFullName,
+        object value
+    )
+    {
+        if (!_directoryResolver.DoesDirectoryExist(
+            directoryFullName
+        ))
         {
-            _directoryResolver = directoryResolver;
-            _fileResolver = fileResolver;
-        }
-
-        public Task SaveToFile(
-            string directoryFullName,
-            string fileFullName,
-            object value
-        )
-        {
-            if (!_directoryResolver.DoesDirectoryExist(
+            _directoryResolver.CreateDirectory(
                 directoryFullName
-            ))
-            {
-                _directoryResolver.CreateDirectory(
-                    directoryFullName
-                );
-            }
-            _fileResolver.WriteAllText(
-                Path.Combine(
-                    directoryFullName,
-                    fileFullName
-                ),
-                JsonConvert.SerializeObject(
-                    value
-                )
             );
-            return Task.CompletedTask;
         }
+        _fileResolver.WriteAllText(
+            Path.Combine(
+                directoryFullName,
+                fileFullName
+            ),
+            JsonConvert.SerializeObject(
+                value
+            )
+        );
+        return Task.CompletedTask;
     }
 }

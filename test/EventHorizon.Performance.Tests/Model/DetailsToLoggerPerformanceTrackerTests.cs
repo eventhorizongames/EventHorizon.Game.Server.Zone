@@ -1,32 +1,31 @@
-﻿namespace EventHorizon.Performance.Tests.Model
+﻿namespace EventHorizon.Performance.Tests.Model;
+
+using EventHorizon.Performance.Model;
+
+using FluentAssertions;
+
+using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
+
+public class DetailsToLoggerPerformanceTrackerTests
 {
-    using EventHorizon.Performance.Model;
-
-    using FluentAssertions;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class DetailsToLoggerPerformanceTrackerTests
+    [Fact]
+    public void ShouldCauseExceptionWhenCreatedAndDisposed()
     {
-        [Fact]
-        public void ShouldCauseExceptionWhenCreatedAndDisposed()
-        {
-            // Given
-            var loggerMock = new Mock<ILogger>();
+        // Given
+        var loggerMock = new Mock<ILogger>();
 
 
-            // When
-            var actual = new DetailsToLoggerPerformanceTracker(
-                loggerMock.Object
-            );
-            actual.Dispose();
+        // When
+        var actual = new DetailsToLoggerPerformanceTracker(
+            loggerMock.Object
+        );
+        actual.Dispose();
 
-            // Then
-            actual.Should().NotBeNull();
-        }
+        // Then
+        actual.Should().NotBeNull();
     }
 }

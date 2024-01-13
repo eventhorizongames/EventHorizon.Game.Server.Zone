@@ -1,47 +1,46 @@
-namespace EventHorizon.Zone.Core.Map.Cost
+namespace EventHorizon.Zone.Core.Map.Cost;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Events.Map.Cost;
+
+using MediatR;
+
+public class ChangeEdgeCostForNodesAtPositionCommandHandler
+    : IRequestHandler<ChangeEdgeCostForNodesAtPositionCommand, bool>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Events.Map.Cost;
-
-    using MediatR;
-
-    public class ChangeEdgeCostForNodesAtPositionCommandHandler
-        : IRequestHandler<ChangeEdgeCostForNodesAtPositionCommand, bool>
+    public ChangeEdgeCostForNodesAtPositionCommandHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ChangeEdgeCostForNodesAtPositionCommandHandler(
-            IMediator mediator
-        )
+    public async Task<bool> Handle(
+        ChangeEdgeCostForNodesAtPositionCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var nodeList = await _mediator.Send(
+            new GetMapNodesInDimensionsCommand(
+                request.Position,
+                request.BoundingBox
+            )
+        );
+        foreach (var node in nodeList)
         {
-            _mediator = mediator;
-        }
-
-        public async Task<bool> Handle(
-            ChangeEdgeCostForNodesAtPositionCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var nodeList = await _mediator.Send(
-                new GetMapNodesInDimensionsCommand(
-                    request.Position,
-                    request.BoundingBox
+            await _mediator.Send(
+                new ChangeEdgeCostForNode(
+                    node,
+                    request.Cost
                 )
             );
-            foreach (var node in nodeList)
-            {
-                await _mediator.Send(
-                    new ChangeEdgeCostForNode(
-                        node,
-                        request.Cost
-                    )
-                );
-            }
-
-            return true;
         }
+
+        return true;
     }
 }

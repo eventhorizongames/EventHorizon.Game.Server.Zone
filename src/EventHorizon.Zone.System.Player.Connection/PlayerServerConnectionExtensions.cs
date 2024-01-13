@@ -1,6 +1,5 @@
-namespace EventHorizon.Zone.System.Player.Connection
+namespace EventHorizon.Zone.System.Player.Connection;
+
+public static class PlayerServerConnectionExtensions
 {
-    public static class PlayerServerConnectionExtensions
-    {
-    }
 }

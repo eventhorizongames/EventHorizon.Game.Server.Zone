@@ -1,38 +1,37 @@
-﻿namespace EventHorizon.Zone.Core.Entity.Plugin.Reload.Reloaded
+﻿namespace EventHorizon.Zone.Core.Entity.Plugin.Reload.Reloaded;
+
+using EventHorizon.Zone.Core.Entity.Plugin.Reload.ClientActions;
+using EventHorizon.Zone.Core.Events.Entity.Reload;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class EntityCoreReloadedEventHandler
+    : INotificationHandler<EntityCoreReloadedEvent>
 {
-    using EventHorizon.Zone.Core.Entity.Plugin.Reload.ClientActions;
-    using EventHorizon.Zone.Core.Events.Entity.Reload;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class EntityCoreReloadedEventHandler
-        : INotificationHandler<EntityCoreReloadedEvent>
+    public EntityCoreReloadedEventHandler
+        (IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public EntityCoreReloadedEventHandler
-            (IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            EntityCoreReloadedEvent notification, 
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Publish(
-                ClientActionEntityCoreReloadedToAllEvent.Create(
-                    new (
-                        notification.EntityConfiguration
-                    )
-                ),
-                cancellationToken
-            );
-        }
+    public async Task Handle(
+        EntityCoreReloadedEvent notification, 
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Publish(
+            ClientActionEntityCoreReloadedToAllEvent.Create(
+                new (
+                    notification.EntityConfiguration
+                )
+            ),
+            cancellationToken
+        );
     }
 }

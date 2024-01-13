@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Zone.System.Player.Api
+﻿namespace EventHorizon.Zone.System.Player.Api;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+
+public interface PlayerSettingsCache
 {
-    using EventHorizon.Zone.Core.Model.Entity;
-
-
-    public interface PlayerSettingsCache
-    {
-        ObjectEntityConfiguration PlayerConfiguration { get; }
-        ObjectEntityData PlayerData { get; }
-    }
+    ObjectEntityConfiguration PlayerConfiguration { get; }
+    ObjectEntityData PlayerData { get; }
 }

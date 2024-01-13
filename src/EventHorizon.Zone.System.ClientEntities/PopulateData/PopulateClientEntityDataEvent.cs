@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.ClientEntities.PopulateData
+namespace EventHorizon.Zone.System.ClientEntities.PopulateData;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+using MediatR;
+
+public struct PopulateClientEntityDataEvent : INotification
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
+    public ClientEntity ClientEntity { get; }
 
-    using MediatR;
-
-    public struct PopulateClientEntityDataEvent : INotification
+    public PopulateClientEntityDataEvent(
+        ClientEntity clientEntity
+    )
     {
-        public ClientEntity ClientEntity { get; }
-
-        public PopulateClientEntityDataEvent(
-            ClientEntity clientEntity
-        )
-        {
-            ClientEntity = clientEntity;
-        }
+        ClientEntity = clientEntity;
     }
 }

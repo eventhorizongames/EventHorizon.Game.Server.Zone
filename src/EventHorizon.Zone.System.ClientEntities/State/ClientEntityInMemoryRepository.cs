@@ -1,52 +1,51 @@
-namespace EventHorizon.Zone.System.ClientEntities.State
+namespace EventHorizon.Zone.System.ClientEntities.State;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+
+public class ClientEntityInMemoryRepository : ClientEntityRepository
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
+    private readonly ConcurrentDictionary<string, ClientEntity> _map = new();
 
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-
-    public class ClientEntityInMemoryRepository : ClientEntityRepository
+    public ClientEntity Find(
+        string id
+    )
     {
-        private readonly ConcurrentDictionary<string, ClientEntity> _map = new();
-
-        public ClientEntity Find(
-            string id
-        )
+        if (_map.TryGetValue(
+            id,
+            out var entity
+        ))
         {
-            if (_map.TryGetValue(
-                id,
-                out var entity
-            ))
-            {
-                return entity;
-            }
-            return default;
+            return entity;
         }
+        return default;
+    }
 
-        public void Add(
-            ClientEntity entity
-        )
-        {
-            _map.AddOrUpdate(
-                entity.ClientEntityId,
-                entity,
-                (_, _) => entity
-            );
-        }
+    public void Add(
+        ClientEntity entity
+    )
+    {
+        _map.AddOrUpdate(
+            entity.ClientEntityId,
+            entity,
+            (_, _) => entity
+        );
+    }
 
-        public IEnumerable<ClientEntity> All()
-        {
-            return _map.Values;
-        }
+    public IEnumerable<ClientEntity> All()
+    {
+        return _map.Values;
+    }
 
-        public void Remove(
-            string id
-        )
-        {
-            _map.TryRemove(
-                id,
-                out _
-            );
-        }
+    public void Remove(
+        string id
+    )
+    {
+        _map.TryRemove(
+            id,
+            out _
+        );
     }
 }

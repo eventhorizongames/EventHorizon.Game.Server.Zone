@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.Core.Events.Entity.Reload
+﻿namespace EventHorizon.Zone.Core.Events.Entity.Reload;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct EntityCoreReloadedEvent
+    : INotification
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public ObjectEntityConfiguration EntityConfiguration { get; }
 
-    using MediatR;
-
-    public struct EntityCoreReloadedEvent
-        : INotification
+    public EntityCoreReloadedEvent(
+        ObjectEntityConfiguration entityConfiguration
+    )
     {
-        public ObjectEntityConfiguration EntityConfiguration { get; }
-
-        public EntityCoreReloadedEvent(
-            ObjectEntityConfiguration entityConfiguration
-        )
-        {
-            EntityConfiguration = entityConfiguration;
-        }
+        EntityConfiguration = entityConfiguration;
     }
 }

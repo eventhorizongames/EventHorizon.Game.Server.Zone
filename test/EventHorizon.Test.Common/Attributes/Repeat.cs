@@ -1,33 +1,32 @@
-﻿namespace EventHorizon.Test.Common.Attributes
+﻿namespace EventHorizon.Test.Common.Attributes;
+
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+
+using Xunit.Sdk;
+
+[ExcludeFromCodeCoverage]
+public class RepeatAttribute : DataAttribute
 {
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
+    private readonly int _count;
 
-    using Xunit.Sdk;
-
-    [ExcludeFromCodeCoverage]
-    public class RepeatAttribute : DataAttribute
+    public RepeatAttribute(int count)
     {
-        private readonly int _count;
-
-        public RepeatAttribute(int count)
+        if (count < 1)
         {
-            if (count < 1)
-            {
-                throw new System.ArgumentOutOfRangeException(
-                    paramName: nameof(count),
-                    message: "Repeat count must be greater than 0."
-                    );
-            }
-            _count = count;
+            throw new System.ArgumentOutOfRangeException(
+                paramName: nameof(count),
+                message: "Repeat count must be greater than 0."
+                );
         }
+        _count = count;
+    }
 
-        public override System.Collections.Generic.IEnumerable<object[]> GetData(System.Reflection.MethodInfo testMethod)
+    public override System.Collections.Generic.IEnumerable<object[]> GetData(System.Reflection.MethodInfo testMethod)
+    {
+        foreach (var iterationNumber in Enumerable.Range(start: 1, count: _count))
         {
-            foreach (var iterationNumber in Enumerable.Range(start: 1, count: _count))
-            {
-                yield return new object[] { iterationNumber };
-            }
+            yield return new object[] { iterationNumber };
         }
     }
 }

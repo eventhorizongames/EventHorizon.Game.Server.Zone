@@ -1,105 +1,104 @@
-namespace EventHorizon.Zone.Core.Entity.Tests.Search
+namespace EventHorizon.Zone.Core.Entity.Tests.Search;
+
+using System.Collections.Generic;
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Zone.Core.Entity.Search;
+using EventHorizon.Zone.Core.Entity.State;
+using EventHorizon.Zone.Core.Events.Entity.Search;
+
+using Moq;
+
+using Xunit;
+
+public class SearchInAreaHandlerTests
 {
-    using System.Collections.Generic;
-    using System.Numerics;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Game.Server.Zone.Entity.Model;
-    using EventHorizon.Zone.Core.Entity.Search;
-    using EventHorizon.Zone.Core.Entity.State;
-    using EventHorizon.Zone.Core.Events.Entity.Search;
-
-    using Moq;
-
-    using Xunit;
-
-    public class SearchInAreaHandlerTests
+    [Fact]
+    public async Task TestShouldCallIntoEntitySearchTreeWithEventParameters()
     {
-        [Fact]
-        public async Task TestShouldCallIntoEntitySearchTreeWithEventParameters()
-        {
-            // Given
-            var expectedSearchPositionCenter = new Vector3(2);
-            var expectedSearchRadius = 32;
+        // Given
+        var expectedSearchPositionCenter = new Vector3(2);
+        var expectedSearchRadius = 32;
 
-            var entitySearchTreeMock = new Mock<EntitySearchTree>();
+        var entitySearchTreeMock = new Mock<EntitySearchTree>();
 
-            // When
-            var searchInAreaHandler = new SearchInAreaHandler(
-                entitySearchTreeMock.Object
-            );
+        // When
+        var searchInAreaHandler = new SearchInAreaHandler(
+            entitySearchTreeMock.Object
+        );
 
-            var expectedEntityList = await searchInAreaHandler.Handle(
-                new SearchInAreaEvent
-                {
-                    SearchPositionCenter = expectedSearchPositionCenter,
-                    SearchRadius = expectedSearchRadius
-                },
-                CancellationToken.None
-            );
-
-            // Then
-            entitySearchTreeMock.Verify(
-                mock => mock.SearchInArea(
-                    expectedSearchPositionCenter,
-                    expectedSearchRadius
-                )
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldReturnEntityIdListFromEntitySearchTree()
-        {
-            // Given
-            var expectedSearchPositionCenter = new Vector3(2);
-            var expectedSearchRadius = 32;
-            var expectedEntityId1 = 1;
-            var expectedEntityId2 = 2;
-            var expectedSearchEntityList = new List<SearchEntity>()
+        var expectedEntityList = await searchInAreaHandler.Handle(
+            new SearchInAreaEvent
             {
-                new SearchEntity(
-                    expectedEntityId1,
-                    Vector3.Zero,
-                    null
-                ),
-                new SearchEntity(
-                    expectedEntityId2,
-                    Vector3.Zero,
-                    null
-                ),
-            };
+                SearchPositionCenter = expectedSearchPositionCenter,
+                SearchRadius = expectedSearchRadius
+            },
+            CancellationToken.None
+        );
 
-            var entitySearchTreeMock = new Mock<EntitySearchTree>();
-            entitySearchTreeMock.Setup(
-                mock => mock.SearchInArea(
-                    expectedSearchPositionCenter,
-                    expectedSearchRadius
-                )
-            ).ReturnsAsync(
-                expectedSearchEntityList
-            );
+        // Then
+        entitySearchTreeMock.Verify(
+            mock => mock.SearchInArea(
+                expectedSearchPositionCenter,
+                expectedSearchRadius
+            )
+        );
+    }
 
-            // When
-            var SearchInAreaHandler = new SearchInAreaHandler(
-                entitySearchTreeMock.Object
-            );
+    [Fact]
+    public async Task TestShouldReturnEntityIdListFromEntitySearchTree()
+    {
+        // Given
+        var expectedSearchPositionCenter = new Vector3(2);
+        var expectedSearchRadius = 32;
+        var expectedEntityId1 = 1;
+        var expectedEntityId2 = 2;
+        var expectedSearchEntityList = new List<SearchEntity>()
+        {
+            new SearchEntity(
+                expectedEntityId1,
+                Vector3.Zero,
+                null
+            ),
+            new SearchEntity(
+                expectedEntityId2,
+                Vector3.Zero,
+                null
+            ),
+        };
 
-            var expectedEntityList = await SearchInAreaHandler.Handle(
-                new SearchInAreaEvent
-                {
-                    SearchPositionCenter = expectedSearchPositionCenter,
-                    SearchRadius = expectedSearchRadius
-                },
-                CancellationToken.None
-            );
+        var entitySearchTreeMock = new Mock<EntitySearchTree>();
+        entitySearchTreeMock.Setup(
+            mock => mock.SearchInArea(
+                expectedSearchPositionCenter,
+                expectedSearchRadius
+            )
+        ).ReturnsAsync(
+            expectedSearchEntityList
+        );
 
-            // Then
-            Assert.Collection(
-                expectedEntityList,
-                entity => Assert.Equal(expectedEntityId1, entity),
-                entity => Assert.Equal(expectedEntityId2, entity)
-            );
-        }
+        // When
+        var SearchInAreaHandler = new SearchInAreaHandler(
+            entitySearchTreeMock.Object
+        );
+
+        var expectedEntityList = await SearchInAreaHandler.Handle(
+            new SearchInAreaEvent
+            {
+                SearchPositionCenter = expectedSearchPositionCenter,
+                SearchRadius = expectedSearchRadius
+            },
+            CancellationToken.None
+        );
+
+        // Then
+        Assert.Collection(
+            expectedEntityList,
+            entity => Assert.Equal(expectedEntityId1, entity),
+            entity => Assert.Equal(expectedEntityId2, entity)
+        );
     }
 }

@@ -1,11 +1,10 @@
-namespace EventHorizon.Game.Server.Zone
-{
-    using Microsoft.Extensions.DependencyInjection;
+namespace EventHorizon.Game.Server.Zone;
 
-    public static class CoreMapPluginEditorExtensions
-    {
-        public static IServiceCollection AddCoreMapPluginEditor(
-            this IServiceCollection services
-        ) => services;
-    }
+using Microsoft.Extensions.DependencyInjection;
+
+public static class CoreMapPluginEditorExtensions
+{
+    public static IServiceCollection AddCoreMapPluginEditor(
+        this IServiceCollection services
+    ) => services;
 }

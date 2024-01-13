@@ -1,37 +1,36 @@
-namespace EventHorizon.Zone.System.Admin.AdminClientAction.Client
+namespace EventHorizon.Zone.System.Admin.AdminClientAction.Client;
+
+using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+
+public abstract class AdminClientActionToSingleEvent<T>
+    where T : IAdminClientActionData
 {
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+    public abstract string ConnectionId { get; }
+    public abstract string Action { get; }
+    public abstract T Data { get; }
 
-    public abstract class AdminClientActionToSingleEvent<T>
-        where T : IAdminClientActionData
+    #region Equals/GetHashCode Generated
+    public override bool Equals(object? obj)
     {
-        public abstract string ConnectionId { get; }
-        public abstract string Action { get; }
-        public abstract T Data { get; }
-
-        #region Equals/GetHashCode Generated
-        public override bool Equals(object? obj)
+        if (obj == null || GetType() != obj.GetType())
         {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-
-            if (obj is not AdminClientActionToSingleEvent<T> castObj)
-            {
-                return false;
-            }
-
-            return (ConnectionId?.Equals(castObj.ConnectionId) ?? false)
-                && (Action?.Equals(castObj.Action) ?? false)
-                && (Data?.Equals(castObj.Data) ?? false);
+            return false;
         }
 
-        public override int GetHashCode()
+
+        if (obj is not AdminClientActionToSingleEvent<T> castObj)
         {
-            return global::System.HashCode.Combine(ConnectionId, Action, Data);
+            return false;
         }
-        #endregion
+
+        return (ConnectionId?.Equals(castObj.ConnectionId) ?? false)
+            && (Action?.Equals(castObj.Action) ?? false)
+            && (Data?.Equals(castObj.Data) ?? false);
     }
+
+    public override int GetHashCode()
+    {
+        return global::System.HashCode.Combine(ConnectionId, Action, Data);
+    }
+    #endregion
 }

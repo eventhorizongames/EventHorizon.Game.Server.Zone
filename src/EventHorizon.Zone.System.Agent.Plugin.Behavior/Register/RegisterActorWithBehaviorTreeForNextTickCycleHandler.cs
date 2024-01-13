@@ -1,28 +1,27 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Register;
+
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+using MediatR;
+
+public class RegisterActorWithBehaviorTreeForNextTickCycleHandler
+    : IRequestHandler<RegisterActorWithBehaviorTreeForNextTickCycle>
 {
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using MediatR;
+    private readonly ActorBehaviorTickQueue _queue;
 
-    public class RegisterActorWithBehaviorTreeForNextTickCycleHandler
-        : IRequestHandler<RegisterActorWithBehaviorTreeForNextTickCycle>
+    public RegisterActorWithBehaviorTreeForNextTickCycleHandler(ActorBehaviorTickQueue queue)
     {
-        private readonly ActorBehaviorTickQueue _queue;
+        _queue = queue;
+    }
 
-        public RegisterActorWithBehaviorTreeForNextTickCycleHandler(ActorBehaviorTickQueue queue)
-        {
-            _queue = queue;
-        }
+    public Task Handle(
+        RegisterActorWithBehaviorTreeForNextTickCycle request,
+        CancellationToken cancellationToken
+    )
+    {
+        _queue.Register(request.ShapeId, request.ActorId);
 
-        public Task Handle(
-            RegisterActorWithBehaviorTreeForNextTickCycle request,
-            CancellationToken cancellationToken
-        )
-        {
-            _queue.Register(request.ShapeId, request.ActorId);
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

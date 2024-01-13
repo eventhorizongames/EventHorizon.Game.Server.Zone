@@ -1,33 +1,32 @@
-namespace EventHorizon.Identity.Tests.TestUtils
+namespace EventHorizon.Identity.Tests.TestUtils;
+
+using System.Collections.Generic;
+
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
+
+public class ConfigurationMock : IConfiguration
 {
-    using System.Collections.Generic;
+    private readonly IDictionary<string, string> _data = new Dictionary<string, string>();
 
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Primitives;
-
-    public class ConfigurationMock : IConfiguration
+    public string this[string key]
     {
-        private readonly IDictionary<string, string> _data = new Dictionary<string, string>();
+        get => _data[key];
+        set => _data[key] = value;
+    }
 
-        public string this[string key]
-        {
-            get => _data[key];
-            set => _data[key] = value;
-        }
+    public IEnumerable<IConfigurationSection> GetChildren()
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public IEnumerable<IConfigurationSection> GetChildren()
-        {
-            throw new System.NotImplementedException();
-        }
+    public IChangeToken GetReloadToken()
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public IChangeToken GetReloadToken()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IConfigurationSection GetSection(string key)
-        {
-            throw new System.NotImplementedException();
-        }
+    public IConfigurationSection GetSection(string key)
+    {
+        throw new System.NotImplementedException();
     }
 }

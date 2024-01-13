@@ -1,56 +1,55 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Register;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class RegisterNewScriptedBackgroundTaskCommandHandler
+    : IRequestHandler<RegisterNewScriptedBackgroundTaskCommand, StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+    private readonly BackgroundTaskWrapperRepository _repository;
+    private readonly BackgroundTaskWrapperBuilder _builder;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class RegisterNewScriptedBackgroundTaskCommandHandler
-        : IRequestHandler<RegisterNewScriptedBackgroundTaskCommand, StandardCommandResult>
+    public RegisterNewScriptedBackgroundTaskCommandHandler(
+        BackgroundTaskWrapperRepository repository,
+        BackgroundTaskWrapperBuilder builder
+    )
     {
-        private readonly BackgroundTaskWrapperRepository _repository;
-        private readonly BackgroundTaskWrapperBuilder _builder;
+        _repository = repository;
+        _builder = builder;
+    }
 
-        public RegisterNewScriptedBackgroundTaskCommandHandler(
-            BackgroundTaskWrapperRepository repository,
-            BackgroundTaskWrapperBuilder builder
-        )
+    public Task<StandardCommandResult> Handle(
+        RegisterNewScriptedBackgroundTaskCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_repository.TryRemove(
+            request.BackgroundTask.Id,
+            out var backgroundTaskWrapper
+        ))
         {
-            _repository = repository;
-            _builder = builder;
+            backgroundTaskWrapper.Dispose();
         }
 
-        public Task<StandardCommandResult> Handle(
-            RegisterNewScriptedBackgroundTaskCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            if (_repository.TryRemove(
-                request.BackgroundTask.Id,
-                out var backgroundTaskWrapper
-            ))
-            {
-                backgroundTaskWrapper.Dispose();
-            }
+        var newBackgroundTaskWrapper = _builder.Build(
+            request.BackgroundTask
+        );
 
-            var newBackgroundTaskWrapper = _builder.Build(
-                request.BackgroundTask
-            );
+        // Add Wrapper to State
+        _repository.Add(
+            request.BackgroundTask.Id,
+            newBackgroundTaskWrapper
+        );
 
-            // Add Wrapper to State
-            _repository.Add(
-                request.BackgroundTask.Id,
-                newBackgroundTaskWrapper
-            );
+        // Start new Task
+        newBackgroundTaskWrapper.Start();
 
-            // Start new Task
-            newBackgroundTaskWrapper.Start();
-
-            return new StandardCommandResult()
-                .FromResult();
-        }
+        return new StandardCommandResult()
+            .FromResult();
     }
 }

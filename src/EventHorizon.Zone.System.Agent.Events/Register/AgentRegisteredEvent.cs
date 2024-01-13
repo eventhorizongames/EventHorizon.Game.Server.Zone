@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.System.Agent.Events.Register
+namespace EventHorizon.Zone.System.Agent.Events.Register;
+
+using MediatR;
+
+public struct AgentRegisteredEvent : INotification
 {
-    using MediatR;
+    public string AgentId { get; }
 
-    public struct AgentRegisteredEvent : INotification
+    public AgentRegisteredEvent(
+        string agentId
+    )
     {
-        public string AgentId { get; }
-
-        public AgentRegisteredEvent(
-            string agentId
-        )
-        {
-            AgentId = agentId;
-        }
+        AgentId = agentId;
     }
 }

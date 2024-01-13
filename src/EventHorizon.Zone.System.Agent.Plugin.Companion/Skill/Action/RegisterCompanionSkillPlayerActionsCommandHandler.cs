@@ -1,40 +1,39 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Action
+namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Skill.Action;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.Id;
+using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
+using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
+
+using MediatR;
+
+public class RegisterCompanionSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    readonly IMediator _mediator;
+    readonly IdPool _idPool;
 
-    using EventHorizon.Zone.Core.Model.Id;
-    using EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
-    using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
-
-    using MediatR;
-
-    public class RegisterCompanionSkillPlayerActionsCommandHandler : INotificationHandler<ReadyForPlayerActionRegistration>
+    public RegisterCompanionSkillPlayerActionsCommandHandler(
+        IMediator mediator,
+        IdPool idPool
+    )
     {
-        readonly IMediator _mediator;
-        readonly IdPool _idPool;
+        _mediator = mediator;
+        _idPool = idPool;
+    }
 
-        public RegisterCompanionSkillPlayerActionsCommandHandler(
-            IMediator mediator,
-            IdPool idPool
-        )
-        {
-            _mediator = mediator;
-            _idPool = idPool;
-        }
-
-        public async Task Handle(
-            ReadyForPlayerActionRegistration notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new RegisterPlayerAction(
-                    _idPool.NextId(),
-                    PlayerCompanionSkillActions.RUN_SKILL_ON_COMPANION,
-                    new RunPlayerCompanionSkillEvent()
-                )
-            );
-        }
+    public async Task Handle(
+        ReadyForPlayerActionRegistration notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new RegisterPlayerAction(
+                _idPool.NextId(),
+                PlayerCompanionSkillActions.RUN_SKILL_ON_COMPANION,
+                new RunPlayerCompanionSkillEvent()
+            )
+        );
     }
 }

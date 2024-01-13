@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Admin.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.Admin.Lifetime;
 
-    public struct OnStartupSetupAdminSystemCommand
-        : OnServerStartupCommand
-    {
-    }
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupAdminSystemCommand
+    : OnServerStartupCommand
+{
 }

@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.Core.Model.Lifetime
+﻿namespace EventHorizon.Zone.Core.Model.Lifetime;
+
+using System;
+
+public struct OnServerStartupResult
 {
-    using System;
+    public bool Success { get; }
+    public string ErrorCode { get; }
 
-    public struct OnServerStartupResult
+    public OnServerStartupResult(
+        bool success,
+        string errorCode = ""
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-
-        public OnServerStartupResult(
-            bool success,
-            string errorCode = ""
-        )
-        {
-            Success = success;
-            ErrorCode = errorCode;
-        }
+        Success = success;
+        ErrorCode = errorCode;
     }
 }

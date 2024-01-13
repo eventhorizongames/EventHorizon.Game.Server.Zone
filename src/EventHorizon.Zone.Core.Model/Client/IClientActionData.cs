@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.Core.Model.Client
-{
-    public interface IClientActionData
-    {
+namespace EventHorizon.Zone.Core.Model.Client;
 
-    }
+public interface IClientActionData
+{
+
 }

@@ -1,35 +1,34 @@
-namespace EventHorizon.Zone.Core.Reporter.Writer
+namespace EventHorizon.Zone.Core.Reporter.Writer;
+
+using System.Threading;
+using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Reporter.Model;
+using MediatR;
+
+public class WriteReportHandler : IRequestHandler<WriteReport>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Reporter.Model;
-    using MediatR;
+    private readonly IMediator _mediator;
+    private readonly ReporterSettings _settings;
 
-    public class WriteReportHandler : IRequestHandler<WriteReport>
+    public WriteReportHandler(IMediator mediator, ReporterSettings settings)
     {
-        private readonly IMediator _mediator;
-        private readonly ReporterSettings _settings;
+        _mediator = mediator;
+        _settings = settings;
+    }
 
-        public WriteReportHandler(IMediator mediator, ReporterSettings settings)
+    public async Task Handle(WriteReport request, CancellationToken cancellationToken)
+    {
+        if (_settings.Elasticsearch.IsEnabled)
         {
-            _mediator = mediator;
-            _settings = settings;
+            await _mediator.Send(
+                new WriteReportToElasticsearch(request.Report),
+                cancellationToken
+            );
+        }
+        if (_settings.IsWriteToFileEnabled)
+        {
+            await _mediator.Send(new WriteReportToFile(request.Report), cancellationToken);
         }
 
-        public async Task Handle(WriteReport request, CancellationToken cancellationToken)
-        {
-            if (_settings.Elasticsearch.IsEnabled)
-            {
-                await _mediator.Send(
-                    new WriteReportToElasticsearch(request.Report),
-                    cancellationToken
-                );
-            }
-            if (_settings.IsWriteToFileEnabled)
-            {
-                await _mediator.Send(new WriteReportToFile(request.Report), cancellationToken);
-            }
-
-        }
     }
 }

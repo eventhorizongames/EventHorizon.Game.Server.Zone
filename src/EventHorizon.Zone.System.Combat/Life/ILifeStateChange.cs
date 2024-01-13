@@ -1,22 +1,21 @@
-namespace EventHorizon.Zone.System.Combat.Life
-{
-    using EventHorizon.Zone.Core.Model.Entity;
+namespace EventHorizon.Zone.System.Combat.Life;
 
-    public interface ILifeStateChange
+using EventHorizon.Zone.Core.Model.Entity;
+
+public interface ILifeStateChange
+{
+    LifeStateChangeResponse Change(IObjectEntity entity, string property, long points);
+}
+public struct LifeStateChangeResponse
+{
+    public bool Success { get; }
+    public IObjectEntity ChangedEntity { get; }
+    public LifeStateChangeResponse(
+        bool success,
+        IObjectEntity changedEntity
+    )
     {
-        LifeStateChangeResponse Change(IObjectEntity entity, string property, long points);
-    }
-    public struct LifeStateChangeResponse
-    {
-        public bool Success { get; }
-        public IObjectEntity ChangedEntity { get; }
-        public LifeStateChangeResponse(
-            bool success,
-            IObjectEntity changedEntity
-        )
-        {
-            Success = success;
-            ChangedEntity = changedEntity;
-        }
+        Success = success;
+        ChangedEntity = changedEntity;
     }
 }

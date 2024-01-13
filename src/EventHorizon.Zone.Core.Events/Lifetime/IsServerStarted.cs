@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Events.Lifetime
+namespace EventHorizon.Zone.Core.Events.Lifetime;
+
+using MediatR;
+
+public struct IsServerStarted : IRequest<bool>
 {
-    using MediatR;
 
-    public struct IsServerStarted : IRequest<bool>
-    {
-
-    }
 }

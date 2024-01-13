@@ -1,36 +1,35 @@
-namespace EventHorizon.Performance.Model
+namespace EventHorizon.Performance.Model;
+
+using Microsoft.Extensions.Logging;
+
+public class ToLoggerPerformanceTrackerFactory : PerformanceTrackerFactory
 {
-    using Microsoft.Extensions.Logging;
+    private static readonly PerformanceTracker EMPTY_TRACKER = new EmptyPerformanceTracker();
 
-    public class ToLoggerPerformanceTrackerFactory : PerformanceTrackerFactory
+    private readonly ILoggerFactory _loggerFactory;
+    private readonly PerformanceSettings _settings;
+
+    public ToLoggerPerformanceTrackerFactory(
+        ILoggerFactory loggerfactory,
+        PerformanceSettings settings
+    )
     {
-        private static readonly PerformanceTracker EMPTY_TRACKER = new EmptyPerformanceTracker();
+        _loggerFactory = loggerfactory;
+        _settings = settings;
+    }
 
-        private readonly ILoggerFactory _loggerFactory;
-        private readonly PerformanceSettings _settings;
-
-        public ToLoggerPerformanceTrackerFactory(
-            ILoggerFactory loggerfactory,
-            PerformanceSettings settings
-        )
+    public PerformanceTracker Build(
+        string trackerName
+    )
+    {
+        if (!_settings.IsEnabled)
         {
-            _loggerFactory = loggerfactory;
-            _settings = settings;
+            return EMPTY_TRACKER;
         }
-
-        public PerformanceTracker Build(
-            string trackerName
-        )
-        {
-            if (!_settings.IsEnabled)
-            {
-                return EMPTY_TRACKER;
-            }
-            return new DetailsToLoggerPerformanceTracker(
-                _loggerFactory.CreateLogger(
-                    trackerName
-                )
-            );
-        }
+        return new DetailsToLoggerPerformanceTracker(
+            _loggerFactory.CreateLogger(
+                trackerName
+            )
+        );
     }
 }

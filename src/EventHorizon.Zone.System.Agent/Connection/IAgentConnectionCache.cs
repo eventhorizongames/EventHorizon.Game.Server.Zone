@@ -1,13 +1,12 @@
-namespace EventHorizon.Zone.System.Agent.Connection
+namespace EventHorizon.Zone.System.Agent.Connection;
+
+using global::System;
+using global::System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Http.Connections.Client;
+using Microsoft.AspNetCore.SignalR.Client;
+
+public interface IAgentConnectionCache
 {
-    using global::System;
-    using global::System.Threading.Tasks;
-
-    using Microsoft.AspNetCore.Http.Connections.Client;
-    using Microsoft.AspNetCore.SignalR.Client;
-
-    public interface IAgentConnectionCache
-    {
-        Task<HubConnection> GetConnection(string url, Action<HttpConnectionOptions> configureHttpConnection);
-    }
+    Task<HubConnection> GetConnection(string url, Action<HttpConnectionOptions> configureHttpConnection);
 }

@@ -1,43 +1,42 @@
-namespace EventHorizon.Zone.System.ClientEntities.Save
+namespace EventHorizon.Zone.System.ClientEntities.Save;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+using MediatR;
+
+public class SaveClientEntityCommand : IRequest<SaveClientEntityResponse>
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
+    public ClientEntity ClientEntity { get; }
 
-    using MediatR;
-
-    public class SaveClientEntityCommand : IRequest<SaveClientEntityResponse>
+    public SaveClientEntityCommand(
+        ClientEntity clientEntity
+    )
     {
-        public ClientEntity ClientEntity { get; }
+        ClientEntity = clientEntity;
+    }
+}
 
-        public SaveClientEntityCommand(
-            ClientEntity clientEntity
-        )
-        {
-            ClientEntity = clientEntity;
-        }
+public struct SaveClientEntityResponse
+{
+    public bool Success { get; }
+    public string ErrorCode { get; }
+    public ClientEntity ClientEntity { get; }
+
+    public SaveClientEntityResponse(
+        bool success,
+        ClientEntity clientEntity
+    ) : this(string.Empty)
+    {
+        Success = success;
+        ClientEntity = clientEntity;
     }
 
-    public struct SaveClientEntityResponse
+    public SaveClientEntityResponse(
+        string errorCode
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-        public ClientEntity ClientEntity { get; }
-
-        public SaveClientEntityResponse(
-            bool success,
-            ClientEntity clientEntity
-        ) : this(string.Empty)
-        {
-            Success = success;
-            ClientEntity = clientEntity;
-        }
-
-        public SaveClientEntityResponse(
-            string errorCode
-        )
-        {
-            Success = false;
-            ErrorCode = errorCode;
-            ClientEntity = default;
-        }
+        Success = false;
+        ErrorCode = errorCode;
+        ClientEntity = default;
     }
 }

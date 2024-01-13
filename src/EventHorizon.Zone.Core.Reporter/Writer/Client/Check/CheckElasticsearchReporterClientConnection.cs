@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Check
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Check;
 
-    public struct CheckElasticsearchReporterClientConnection : INotification
-    {
-    }
+using MediatR;
+
+public struct CheckElasticsearchReporterClientConnection : INotification
+{
 }

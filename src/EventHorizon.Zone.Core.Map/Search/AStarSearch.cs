@@ -1,151 +1,150 @@
-namespace EventHorizon.Zone.Core.Map.Search
+namespace EventHorizon.Zone.Core.Map.Search;
+
+using System.Collections.Generic;
+using System.Numerics;
+
+using EventHorizon.Zone.Core.Map.Find.Search.Collections;
+using EventHorizon.Zone.Core.Map.Model;
+using EventHorizon.Zone.Core.Model.Map;
+
+public class AStarSearch
+    : PathFindingAlgorithm
 {
-    using System.Collections.Generic;
-    using System.Numerics;
-
-    using EventHorizon.Zone.Core.Map.Find.Search.Collections;
-    using EventHorizon.Zone.Core.Map.Model;
-    using EventHorizon.Zone.Core.Model.Map;
-
-    public class AStarSearch
-        : PathFindingAlgorithm
+    public Queue<Vector3> Search(
+        IMapGraph mapGraph,
+        MapNode fromMapNode,
+        MapNode toMapNode
+    )
     {
-        public Queue<Vector3> Search(
-            IMapGraph mapGraph,
-            MapNode fromMapNode,
-            MapNode toMapNode
-        )
+        return CreatePath(
+            mapGraph,
+            fromMapNode,
+            toMapNode
+        );
+    }
+
+    public static Queue<Vector3> CreatePath(
+        IMapGraph mapGraph,
+        MapNode fromMapNode,
+        MapNode toMapNode
+    )
+    {
+        if (toMapNode.Index < 0 || fromMapNode.Index < 0)
         {
-            return CreatePath(
-                mapGraph,
-                fromMapNode,
-                toMapNode
-            );
+            return new Queue<Vector3>();
         }
 
-        public static Queue<Vector3> CreatePath(
-            IMapGraph mapGraph,
-            MapNode fromMapNode,
-            MapNode toMapNode
-        )
+        var nodeLength = mapGraph.All().Count;
+        var g_score = new float[nodeLength];
+        var f_score = new float[nodeLength];
+
+        var path = new Dictionary<int, int>();
+        var closedSet = new List<MapNode>();
+
+        var _source = fromMapNode.Index;
+        var _target = toMapNode.Index;
+
+        for (int i = 0; i < nodeLength; i++)
         {
-            if (toMapNode.Index < 0 || fromMapNode.Index < 0)
+            g_score[i] = float.PositiveInfinity;
+            f_score[i] = float.PositiveInfinity;
+        }
+
+        // AStar Search
+        var openSet = new BinaryHeap<int>(new MyComparer(f_score));
+
+        openSet.Enqueue(_source);
+        g_score[_source] = 0;
+        f_score[_source] = HeuristicEuclidCalculate(
+            mapGraph,
+            _source,
+            _target
+        );
+
+
+        while (openSet.Count > 0)
+        {
+            var current = openSet.Dequeue();
+
+            if (current == _target)
             {
-                return new Queue<Vector3>();
+                break;
             }
 
-            var nodeLength = mapGraph.All().Count;
-            var g_score = new float[nodeLength];
-            var f_score = new float[nodeLength];
+            closedSet.Add(mapGraph.GetNode(current));
 
-            var path = new Dictionary<int, int>();
-            var closedSet = new List<MapNode>();
-
-            var _source = fromMapNode.Index;
-            var _target = toMapNode.Index;
-
-            for (int i = 0; i < nodeLength; i++)
-            {
-                g_score[i] = float.PositiveInfinity;
-                f_score[i] = float.PositiveInfinity;
-            }
-
-            // AStar Search
-            var openSet = new BinaryHeap<int>(new MyComparer(f_score));
-
-            openSet.Enqueue(_source);
-            g_score[_source] = 0;
-            f_score[_source] = HeuristicEuclidCalculate(
-                mapGraph,
-                _source,
-                _target
+            // Get/Check all edges attached to the node
+            var edgeList = mapGraph.GetEdgesOfNode(
+                current
             );
 
-
-            while (openSet.Count > 0)
+            foreach (var neighborEdge in edgeList)
             {
-                var current = openSet.Dequeue();
-
-                if (current == _target)
+                var neighbor = mapGraph.GetNode(neighborEdge.ToIndex);
+                if (float.IsInfinity(neighborEdge.Cost))
                 {
-                    break;
+                    continue;
+                }
+                if (closedSet.Contains(neighbor))
+                {
+                    continue;
                 }
 
-                closedSet.Add(mapGraph.GetNode(current));
-
-                // Get/Check all edges attached to the node
-                var edgeList = mapGraph.GetEdgesOfNode(
-                    current
-                );
-
-                foreach (var neighborEdge in edgeList)
+                // Calculate the 'real' cost to this node from the source
+                var tentative_g_score = g_score[current] + neighborEdge.Cost;
+                if (openSet.Contains(neighbor.Index) && tentative_g_score >= g_score[neighbor.Index])
                 {
-                    var neighbor = mapGraph.GetNode(neighborEdge.ToIndex);
-                    if (float.IsInfinity(neighborEdge.Cost))
-                    {
-                        continue;
-                    }
-                    if (closedSet.Contains(neighbor))
-                    {
-                        continue;
-                    }
+                    continue;
+                }
+                if (!path.ContainsKey(neighbor.Index))
+                {
+                    path.Add(neighbor.Index, current);
+                }
+                // Calculate the heuristic cost from this node to the target (H)
+                g_score[neighbor.Index] = tentative_g_score;
+                f_score[neighbor.Index] = g_score[neighbor.Index] + HeuristicEuclidCalculate(mapGraph, neighbor.Index, _target);
 
-                    // Calculate the 'real' cost to this node from the source
-                    var tentative_g_score = g_score[current] + neighborEdge.Cost;
-                    if (openSet.Contains(neighbor.Index) && tentative_g_score >= g_score[neighbor.Index])
-                    {
-                        continue;
-                    }
-                    if (!path.ContainsKey(neighbor.Index))
-                    {
-                        path.Add(neighbor.Index, current);
-                    }
-                    // Calculate the heuristic cost from this node to the target (H)
-                    g_score[neighbor.Index] = tentative_g_score;
-                    f_score[neighbor.Index] = g_score[neighbor.Index] + HeuristicEuclidCalculate(mapGraph, neighbor.Index, _target);
-
-                    if (!openSet.Contains(neighbor.Index))
-                    {
-                        openSet.Enqueue(neighbor.Index);
-                    }
+                if (!openSet.Contains(neighbor.Index))
+                {
+                    openSet.Enqueue(neighbor.Index);
                 }
             }
-
-            var reversedPath = new List<Vector3>();
-            var nodeIndex = _target;
-            reversedPath.Add(mapGraph.GetNode(_target).Position);
-            while (path.ContainsKey(nodeIndex))
-            {
-                nodeIndex = path[nodeIndex];
-                reversedPath.Add(mapGraph.GetNode(nodeIndex).Position);
-            }
-            reversedPath.Reverse();
-            return new Queue<Vector3>(reversedPath);
         }
 
-        // HeuristicEuclid
-        private static float HeuristicEuclidCalculate(
-            IMapGraph mapGraph,
-            int node1Index,
-            int node2Index
-        )
+        var reversedPath = new List<Vector3>();
+        var nodeIndex = _target;
+        reversedPath.Add(mapGraph.GetNode(_target).Position);
+        while (path.ContainsKey(nodeIndex))
         {
-            var node1 = mapGraph.GetNode(node1Index);
-            var node2 = mapGraph.GetNode(node2Index);
-            return Vector3.Distance(node1.Position, node2.Position);
+            nodeIndex = path[nodeIndex];
+            reversedPath.Add(mapGraph.GetNode(nodeIndex).Position);
         }
+        reversedPath.Reverse();
+        return new Queue<Vector3>(reversedPath);
+    }
 
-        private class MyComparer : IComparer<int>
+    // HeuristicEuclid
+    private static float HeuristicEuclidCalculate(
+        IMapGraph mapGraph,
+        int node1Index,
+        int node2Index
+    )
+    {
+        var node1 = mapGraph.GetNode(node1Index);
+        var node2 = mapGraph.GetNode(node2Index);
+        return Vector3.Distance(node1.Position, node2.Position);
+    }
+
+    private class MyComparer : IComparer<int>
+    {
+        private readonly float[] _costs;
+        public MyComparer(float[] costs)
         {
-            private readonly float[] _costs;
-            public MyComparer(float[] costs)
-            {
-                _costs = costs;
-            }
-            public int Compare(int x, int y)
-            {
-                return (int)(_costs[x] - _costs[y]);
-            }
+            _costs = costs;
+        }
+        public int Compare(int x, int y)
+        {
+            return (int)(_costs[x] - _costs[y]);
         }
     }
 }

@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct ReadAllTextFromFile : IRequest<string>
 {
-    using MediatR;
+    public string FileFullName { get; }
 
-    public struct ReadAllTextFromFile : IRequest<string>
+    public ReadAllTextFromFile(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public ReadAllTextFromFile(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

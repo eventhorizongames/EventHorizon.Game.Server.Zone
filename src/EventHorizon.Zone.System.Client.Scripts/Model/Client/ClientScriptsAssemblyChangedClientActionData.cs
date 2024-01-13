@@ -1,17 +1,16 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Model.Client
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+public struct ClientScriptsAssemblyChangedClientActionData
+    : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public string Hash { get; }
 
-    public struct ClientScriptsAssemblyChangedClientActionData
-        : IClientActionData
+    public ClientScriptsAssemblyChangedClientActionData(
+        string hash
+    )
     {
-        public string Hash { get; }
-
-        public ClientScriptsAssemblyChangedClientActionData(
-            string hash
-        )
-        {
-            Hash = hash;
-        }
+        Hash = hash;
     }
 }

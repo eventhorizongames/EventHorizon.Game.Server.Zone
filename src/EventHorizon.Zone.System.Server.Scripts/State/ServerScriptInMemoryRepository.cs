@@ -1,52 +1,51 @@
-namespace EventHorizon.Zone.System.Server.Scripts.State
+namespace EventHorizon.Zone.System.Server.Scripts.State;
+
+using EventHorizon.Zone.System.Server.Scripts.Api;
+using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+
+public class ServerScriptInMemoryRepository
+    : ServerScriptRepository
 {
-    using EventHorizon.Zone.System.Server.Scripts.Api;
-    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-    using EventHorizon.Zone.System.Server.Scripts.Model;
+    private readonly ConcurrentDictionary<string, ServerScript> _map = new();
 
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
+    public IEnumerable<ServerScript> All
+        => _map.Values;
 
-    public class ServerScriptInMemoryRepository
-        : ServerScriptRepository
+    public void Clear()
     {
-        private readonly ConcurrentDictionary<string, ServerScript> _map = new();
+        _map.Clear();
+    }
 
-        public IEnumerable<ServerScript> All
-            => _map.Values;
+    public void Add(
+        ServerScript script
+    )
+    {
+        _map.AddOrUpdate(
+            script.Id,
+            script,
+            (_, _) => script
+        );
+    }
 
-        public void Clear()
+    public ServerScript Find(
+        string id
+    )
+    {
+        if (_map.TryGetValue(
+            id,
+            out var script
+        ))
         {
-            _map.Clear();
+            return script;
         }
 
-        public void Add(
-            ServerScript script
-        )
-        {
-            _map.AddOrUpdate(
-                script.Id,
-                script,
-                (_, _) => script
-            );
-        }
-
-        public ServerScript Find(
-            string id
-        )
-        {
-            if (_map.TryGetValue(
-                id,
-                out var script
-            ))
-            {
-                return script;
-            }
-
-            throw new ServerScriptNotFound(
-                id,
-                "ServerScriptInMemoryRepository did not find the script."
-            );
-        }
+        throw new ServerScriptNotFound(
+            id,
+            "ServerScriptInMemoryRepository did not find the script."
+        );
     }
 }

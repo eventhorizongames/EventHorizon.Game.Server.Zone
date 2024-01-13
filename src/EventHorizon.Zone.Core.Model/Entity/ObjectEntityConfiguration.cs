@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.Core.Model.Entity
-{
-    using System.Collections.Generic;
+﻿namespace EventHorizon.Zone.Core.Model.Entity;
 
-    public interface ObjectEntityConfiguration
-        : IDictionary<string, object>
-    {
-    }
+using System.Collections.Generic;
+
+public interface ObjectEntityConfiguration
+    : IDictionary<string, object>
+{
 }

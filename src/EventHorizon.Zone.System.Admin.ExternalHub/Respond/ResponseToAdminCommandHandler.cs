@@ -1,45 +1,44 @@
-namespace EventHorizon.Zone.System.Admin.ExternalHub.Respond
+namespace EventHorizon.Zone.System.Admin.ExternalHub.Respond;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+
+public class RespondToAdminCommandHandler
+    : IRequestHandler<RespondToAdminCommand, bool>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    private readonly IHubContext<AdminHub> _hubContext;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-
-    public class RespondToAdminCommandHandler
-        : IRequestHandler<RespondToAdminCommand, bool>
+    public RespondToAdminCommandHandler(
+        IHubContext<AdminHub> hubContext
+    )
     {
-        private readonly IHubContext<AdminHub> _hubContext;
+        _hubContext = hubContext;
+    }
 
-        public RespondToAdminCommandHandler(
-            IHubContext<AdminHub> hubContext
-        )
+    public async Task<bool> Handle(
+        RespondToAdminCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrEmpty(
+            request.ConnectionId
+        ))
         {
-            _hubContext = hubContext;
+            return false;
         }
-
-        public async Task<bool> Handle(
-            RespondToAdminCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            if (string.IsNullOrEmpty(
-                request.ConnectionId
-            ))
-            {
-                return false;
-            }
-            await _hubContext.Clients.Client(
-                request.ConnectionId
-            ).SendAsync(
-                "AdminCommandResponse",
-                request.Response,
-                cancellationToken
-            );
-            return true;
-        }
+        await _hubContext.Clients.Client(
+            request.ConnectionId
+        ).SendAsync(
+            "AdminCommandResponse",
+            request.Response,
+            cancellationToken
+        );
+        return true;
     }
 }

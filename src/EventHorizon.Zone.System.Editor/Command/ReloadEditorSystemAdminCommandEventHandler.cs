@@ -1,48 +1,47 @@
-﻿namespace EventHorizon.Zone.System.Editor.Command
+﻿namespace EventHorizon.Zone.System.Editor.Command;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Editor.Actions;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadEditorSystemAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Editor.Actions;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadEditorSystemAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadEditorSystemAdminCommandEventHandler(
+        ILogger<ReloadEditorSystemAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadEditorSystemAdminCommandEventHandler(
-            ILogger<ReloadEditorSystemAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadEditorSystemAdminCommandEventHandler)
+        );
 
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadEditorSystemAdminCommandEventHandler)
-            );
-
-            await _mediator.Publish(
-                EditorSystemReloadedAdminClientActionToAllEvent.Create()
-            );
-        }
+        await _mediator.Publish(
+            EditorSystemReloadedAdminClientActionToAllEvent.Create()
+        );
     }
 }

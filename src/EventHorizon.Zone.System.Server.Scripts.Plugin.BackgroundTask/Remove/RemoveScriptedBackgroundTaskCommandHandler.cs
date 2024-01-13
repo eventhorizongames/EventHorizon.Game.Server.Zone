@@ -1,40 +1,39 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class RemoveScriptedBackgroundTaskCommandHandler
+    : IRequestHandler<RemoveScriptedBackgroundTaskCommand, StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+    private readonly BackgroundTaskWrapperRepository _repository;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class RemoveScriptedBackgroundTaskCommandHandler
-        : IRequestHandler<RemoveScriptedBackgroundTaskCommand, StandardCommandResult>
+    public RemoveScriptedBackgroundTaskCommandHandler(
+        BackgroundTaskWrapperRepository repository
+    )
     {
-        private readonly BackgroundTaskWrapperRepository _repository;
+        _repository = repository;
+    }
 
-        public RemoveScriptedBackgroundTaskCommandHandler(
-            BackgroundTaskWrapperRepository repository
-        )
+    public Task<StandardCommandResult> Handle(
+        RemoveScriptedBackgroundTaskCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        if(_repository.TryRemove(
+            request.TaskId,
+            out var backgroundTaskWrapper
+        ))
         {
-            _repository = repository;
+            backgroundTaskWrapper.Dispose();
         }
 
-        public Task<StandardCommandResult> Handle(
-            RemoveScriptedBackgroundTaskCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            if(_repository.TryRemove(
-                request.TaskId,
-                out var backgroundTaskWrapper
-            ))
-            {
-                backgroundTaskWrapper.Dispose();
-            }
-
-            return new StandardCommandResult()
-                .FromResult();
-        }
+        return new StandardCommandResult()
+            .FromResult();
     }
 }

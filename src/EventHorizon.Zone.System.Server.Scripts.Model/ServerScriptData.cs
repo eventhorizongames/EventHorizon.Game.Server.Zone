@@ -1,7 +1,6 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Model
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Model;
+
+public interface ServerScriptData
 {
-    public interface ServerScriptData
-    {
-        T? Get<T>(string key);
-    }
+    T? Get<T>(string key);
 }

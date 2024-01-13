@@ -1,53 +1,52 @@
-﻿namespace EventHorizon.Zone.System.Wizard.Json.Model
+﻿namespace EventHorizon.Zone.System.Wizard.Json.Model;
+
+using global::System.Collections.Generic;
+using global::System.Text.Json;
+
+public struct JsonDataProperty
 {
-    using global::System.Collections.Generic;
-    using global::System.Text.Json;
+    public string Name { get; }
+    public List<JsonDataProperty> Data { get; set; }
+    public string Type { get; }
+    public string Value { get; }
 
-    public struct JsonDataProperty
+    public JsonDataProperty(string name, string type, string value)
     {
-        public string Name { get; }
-        public List<JsonDataProperty> Data { get; set; }
-        public string Type { get; }
-        public string Value { get; }
+        Name = name;
+        Type = type;
+        Value = value;
+        Data = new List<JsonDataProperty>();
+    }
 
-        public JsonDataProperty(string name, string type, string value)
+    public void WriteTo(
+        Utf8JsonWriter writer
+    )
+    {
+        writer.WritePropertyName(Name);
+        switch (Type)
         {
-            Name = name;
-            Type = type;
-            Value = value;
-            Data = new List<JsonDataProperty>();
-        }
-
-        public void WriteTo(
-            Utf8JsonWriter writer
-        )
-        {
-            writer.WritePropertyName(Name);
-            switch (Type)
-            {
-                case "String":
-                    writer.WriteStringValue(Value);
-                    break;
-                case "Long":
-                    writer.WriteNumberValue(long.Parse(Value));
-                    break;
-                case "Boolean":
-                    writer.WriteBooleanValue(bool.Parse(Value));
-                    break;
-                case "Object":
+            case "String":
+                writer.WriteStringValue(Value);
+                break;
+            case "Long":
+                writer.WriteNumberValue(long.Parse(Value));
+                break;
+            case "Boolean":
+                writer.WriteBooleanValue(bool.Parse(Value));
+                break;
+            case "Object":
+                {
+                    writer.WriteStartObject();
+                    foreach (var childProperty in Data)
                     {
-                        writer.WriteStartObject();
-                        foreach (var childProperty in Data)
-                        {
-                            childProperty.WriteTo(writer);
-                        }
-                        writer.WriteEndObject();
-                        break;
+                        childProperty.WriteTo(writer);
                     }
-                default:
-                    writer.WriteStringValue(Value);
+                    writer.WriteEndObject();
                     break;
-            }
+                }
+            default:
+                writer.WriteStringValue(Value);
+                break;
         }
     }
 }

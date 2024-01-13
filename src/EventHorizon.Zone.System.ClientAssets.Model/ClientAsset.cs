@@ -1,53 +1,52 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Model
+﻿namespace EventHorizon.Zone.System.ClientAssets.Model;
+
+using global::System.Collections.Generic;
+using global::System.IO;
+
+public class ClientAsset
 {
-    using global::System.Collections.Generic;
-    using global::System.IO;
+    private const string MetadataFileFullName = "metadata:fileFullName";
 
-    public class ClientAsset
+    public string Id { get; set; } = string.Empty;
+
+    public string Type { get; set; } = string.Empty;
+
+    public string Name { get; set; } = string.Empty;
+
+    public Dictionary<string, object> Data { get; set; } = new();
+
+    public string GetFileFullName(
+        string rootPath
+    )
     {
-        private const string MetadataFileFullName = "metadata:fileFullName";
+        return Path.Combine(
+            rootPath,
+            "Assets",
+            $"{Name}.{Id}.json"
+        );
+    }
 
-        public string Id { get; set; } = string.Empty;
+    public void SetFileFullName(
+        string fileFullName
+    )
+    {
+        Data[MetadataFileFullName] = fileFullName;
+    }
 
-        public string Type { get; set; } = string.Empty;
-
-        public string Name { get; set; } = string.Empty;
-
-        public Dictionary<string, object> Data { get; set; } = new();
-
-        public string GetFileFullName(
-            string rootPath
-        )
+    public bool TryGetFileFullName(
+        out string fileFullName
+    )
+    {
+        fileFullName = string.Empty;
+        if (Data.TryGetValue(
+            MetadataFileFullName,
+            out var fileFullNameData
+        ) && fileFullNameData is string fileFullNameDataAsString)
         {
-            return Path.Combine(
-                rootPath,
-                "Assets",
-                $"{Name}.{Id}.json"
-            );
+            // Save at fileFullName
+            fileFullName = fileFullNameDataAsString;
+            return true;
         }
-
-        public void SetFileFullName(
-            string fileFullName
-        )
-        {
-            Data[MetadataFileFullName] = fileFullName;
-        }
-
-        public bool TryGetFileFullName(
-            out string fileFullName
-        )
-        {
-            fileFullName = string.Empty;
-            if (Data.TryGetValue(
-                MetadataFileFullName,
-                out var fileFullNameData
-            ) && fileFullNameData is string fileFullNameDataAsString)
-            {
-                // Save at fileFullName
-                fileFullName = fileFullNameDataAsString;
-                return true;
-            }
-            return false;
-        }
+        return false;
     }
 }

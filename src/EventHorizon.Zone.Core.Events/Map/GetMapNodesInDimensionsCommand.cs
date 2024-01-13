@@ -1,24 +1,23 @@
-namespace EventHorizon.Zone.Core.Events.Map
+namespace EventHorizon.Zone.Core.Events.Map;
+
+using System.Collections.Generic;
+using System.Numerics;
+
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public struct GetMapNodesInDimensionsCommand : IRequest<IList<MapNode>>
 {
-    using System.Collections.Generic;
-    using System.Numerics;
+    public Vector3 Position { get; }
+    public Vector3 Dimensions { get; }
 
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public struct GetMapNodesInDimensionsCommand : IRequest<IList<MapNode>>
+    public GetMapNodesInDimensionsCommand(
+        Vector3 position,
+        Vector3 dimensions
+    )
     {
-        public Vector3 Position { get; }
-        public Vector3 Dimensions { get; }
-
-        public GetMapNodesInDimensionsCommand(
-            Vector3 position,
-            Vector3 dimensions
-        )
-        {
-            Position = position;
-            Dimensions = dimensions;
-        }
+        Position = position;
+        Dimensions = dimensions;
     }
 }

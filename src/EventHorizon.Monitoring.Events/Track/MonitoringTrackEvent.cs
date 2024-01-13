@@ -1,17 +1,16 @@
-namespace EventHorizon.Monitoring.Events.Track
+namespace EventHorizon.Monitoring.Events.Track;
+
+using MediatR;
+
+public struct MonitoringTrackEvent
+    : INotification
 {
-    using MediatR;
+    public string Name { get; }
 
-    public struct MonitoringTrackEvent
-        : INotification
+    public MonitoringTrackEvent(
+        string name
+    )
     {
-        public string Name { get; }
-
-        public MonitoringTrackEvent(
-            string name
-        )
-        {
-            Name = name;
-        }
+        Name = name;
     }
 }

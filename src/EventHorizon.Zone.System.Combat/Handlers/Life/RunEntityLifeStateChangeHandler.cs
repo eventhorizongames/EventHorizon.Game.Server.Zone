@@ -1,58 +1,57 @@
-namespace EventHorizon.Zone.System.Combat.Handlers.Life
+namespace EventHorizon.Zone.System.Combat.Handlers.Life;
+
+using EventHorizon.Zone.Core.Events.Entity.Find;
+using EventHorizon.Zone.System.Combat.Events.Life;
+using EventHorizon.Zone.System.Combat.Life;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class RunEntityLifeStateChangeHandler
+    : INotificationHandler<RunEntityLifeStateChangeEvent>
 {
-    using EventHorizon.Zone.Core.Events.Entity.Find;
-    using EventHorizon.Zone.System.Combat.Events.Life;
-    using EventHorizon.Zone.System.Combat.Life;
-
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class RunEntityLifeStateChangeHandler
-        : INotificationHandler<RunEntityLifeStateChangeEvent>
+    readonly IMediator _mediator;
+    readonly ILifeStateChange _lifeStateChange;
+    public RunEntityLifeStateChangeHandler(
+        IMediator mediator,
+        ILifeStateChange lifeStateChange
+    )
     {
-        readonly IMediator _mediator;
-        readonly ILifeStateChange _lifeStateChange;
-        public RunEntityLifeStateChangeHandler(
-            IMediator mediator,
-            ILifeStateChange lifeStateChange
-        )
+        _mediator = mediator;
+        _lifeStateChange = lifeStateChange;
+    }
+
+    public async Task Handle(RunEntityLifeStateChangeEvent notification, CancellationToken cancellationToken)
+    {
+        // Get Entity
+        var entity = await _mediator.Send(
+            new GetEntityByIdEvent
+            {
+                EntityId = notification.EntityId
+            }
+        );
+        if (!entity.IsFound())
         {
-            _mediator = mediator;
-            _lifeStateChange = lifeStateChange;
+            // Ignore request
+            return;
         }
 
-        public async Task Handle(RunEntityLifeStateChangeEvent notification, CancellationToken cancellationToken)
+        var response = _lifeStateChange.Change(
+            entity,
+            notification.Property,
+            notification.Points
+        );
+        if (response.Success)
         {
-            // Get Entity
-            var entity = await _mediator.Send(
-                new GetEntityByIdEvent
+            // Publish event Entity Life State Changed
+            await _mediator.Publish(
+                new LifeStateChangedEvent
                 {
-                    EntityId = notification.EntityId
+                    EntityId = response.ChangedEntity.Id
                 }
             );
-            if (!entity.IsFound())
-            {
-                // Ignore request
-                return;
-            }
-
-            var response = _lifeStateChange.Change(
-                entity,
-                notification.Property,
-                notification.Points
-            );
-            if (response.Success)
-            {
-                // Publish event Entity Life State Changed
-                await _mediator.Publish(
-                    new LifeStateChangedEvent
-                    {
-                        EntityId = response.ChangedEntity.Id
-                    }
-                );
-            }
         }
     }
 }

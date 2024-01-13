@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.Core.Events.Map.Generate
+﻿namespace EventHorizon.Zone.Core.Events.Map.Generate;
+
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public struct GenerateMapFromDetails : IRequest<IMapGraph>
 {
-    using EventHorizon.Zone.Core.Model.Map;
+    public IMapDetails MapDetails { get; }
 
-    using MediatR;
-
-    public struct GenerateMapFromDetails : IRequest<IMapGraph>
+    public GenerateMapFromDetails(
+        IMapDetails mapDetails
+    )
     {
-        public IMapDetails MapDetails { get; }
-
-        public GenerateMapFromDetails(
-            IMapDetails mapDetails
-        )
-        {
-            MapDetails = mapDetails;
-        }
+        MapDetails = mapDetails;
     }
 }

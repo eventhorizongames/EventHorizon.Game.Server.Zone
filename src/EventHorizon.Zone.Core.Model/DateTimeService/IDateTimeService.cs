@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Model.DateTimeService
-{
-    using System;
+namespace EventHorizon.Zone.Core.Model.DateTimeService;
 
-    public interface IDateTimeService
-    {
-        DateTime Now { get; }
-    }
+using System;
+
+public interface IDateTimeService
+{
+    DateTime Now { get; }
 }

@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Move.Events
+namespace EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
+using global::System.Numerics;
+
+using MediatR;
+
+public struct MoveAgentToPositionEvent : IRequest
 {
-    using global::System.Numerics;
+    public long AgentId { get; }
+    public Vector3 ToPosition { get; }
 
-    using MediatR;
-
-    public struct MoveAgentToPositionEvent : IRequest
+    public MoveAgentToPositionEvent(
+        long agentId,
+        Vector3 toPosition
+    )
     {
-        public long AgentId { get; }
-        public Vector3 ToPosition { get; }
-
-        public MoveAgentToPositionEvent(
-            long agentId,
-            Vector3 toPosition
-        )
-        {
-            AgentId = agentId;
-            ToPosition = toPosition;
-        }
+        AgentId = agentId;
+        ToPosition = toPosition;
     }
 }

@@ -1,13 +1,12 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+
+public interface BackgroundTaskWrapper
 {
-    public interface BackgroundTaskWrapper
-    {
-        void Start();
+    void Start();
 
-        void Resume();
+    void Resume();
 
-        void Stop();
+    void Stop();
 
-        void Dispose();
-    }
+    void Dispose();
 }

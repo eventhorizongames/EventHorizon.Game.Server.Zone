@@ -1,34 +1,33 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Lifetime
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Lifetime;
+
+using EventHorizon.Zone.Core.Events.Lifetime;
+using EventHorizon.Zone.System.Client.Scripts.Compile;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class ClientScriptComplieOnServerFinishedStartingEventHandler
+    : INotificationHandler<ServerFinishedStartingEvent>
 {
-    using EventHorizon.Zone.Core.Events.Lifetime;
-    using EventHorizon.Zone.System.Client.Scripts.Compile;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class ClientScriptComplieOnServerFinishedStartingEventHandler
-        : INotificationHandler<ServerFinishedStartingEvent>
+    public ClientScriptComplieOnServerFinishedStartingEventHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ClientScriptComplieOnServerFinishedStartingEventHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            ServerFinishedStartingEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new CompileClientScriptCommand(),
-                cancellationToken
-            );
-        }
+    public async Task Handle(
+        ServerFinishedStartingEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new CompileClientScriptCommand(),
+            cancellationToken
+        );
     }
 }

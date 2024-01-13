@@ -1,14 +1,13 @@
-﻿namespace EventHorizon.Zone.Core.Events.Json
-{
-    using EventHorizon.Zone.Core.Model.Command;
+﻿namespace EventHorizon.Zone.Core.Events.Json;
 
-    using MediatR;
+using EventHorizon.Zone.Core.Model.Command;
 
-    public record SerializeToJsonCommand(
-        object ObjectToSerialize
-    ) : IRequest<CommandResult<SerializeToJsonResult>>;
+using MediatR;
 
-    public record SerializeToJsonResult(
-        string Json
-    );
-}
+public record SerializeToJsonCommand(
+    object ObjectToSerialize
+) : IRequest<CommandResult<SerializeToJsonResult>>;
+
+public record SerializeToJsonResult(
+    string Json
+);

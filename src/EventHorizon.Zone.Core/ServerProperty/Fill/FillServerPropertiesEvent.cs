@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.ServerProperty.Fill
+namespace EventHorizon.Zone.Core.ServerProperty.Fill;
+
+using MediatR;
+
+public struct FillServerPropertiesEvent : INotification
 {
-    using MediatR;
 
-    public struct FillServerPropertiesEvent : INotification
-    {
-
-    }
 }

@@ -1,7 +1,6 @@
-namespace EventHorizon.Server.Core.Connection.Model
+namespace EventHorizon.Server.Core.Connection.Model;
+
+public struct RegisteredZoneDetails
 {
-    public struct RegisteredZoneDetails
-    {
-        public string Id { get; set; }
-    }
+    public string Id { get; set; }
 }

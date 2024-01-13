@@ -1,39 +1,38 @@
-namespace EventHorizon.Zone.Core.Entity.PopulateData
+namespace EventHorizon.Zone.Core.Entity.PopulateData;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Entity.Api;
+using EventHorizon.Zone.Core.Events.Entity.Data;
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public class PopulateEntityConfigurationHandler
+    : INotificationHandler<PopulateEntityDataEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly EntitySettingsCache _cache;
 
-    using EventHorizon.Zone.Core.Entity.Api;
-    using EventHorizon.Zone.Core.Events.Entity.Data;
-    using EventHorizon.Zone.Core.Model.Entity;
-
-    using MediatR;
-
-    public class PopulateEntityConfigurationHandler
-        : INotificationHandler<PopulateEntityDataEvent>
+    public PopulateEntityConfigurationHandler(
+        EntitySettingsCache cache
+    )
     {
-        private readonly EntitySettingsCache _cache;
+        _cache = cache;
+    }
 
-        public PopulateEntityConfigurationHandler(
-            EntitySettingsCache cache
-        )
-        {
-            _cache = cache;
-        }
+    public Task Handle(
+        PopulateEntityDataEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        var entity = notification.Entity;
 
-        public Task Handle(
-            PopulateEntityDataEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            var entity = notification.Entity;
+        entity.SetProperty(
+            "entityConfiguration",
+            _cache.EntityConfiguration
+        );
 
-            entity.SetProperty(
-                "entityConfiguration",
-                _cache.EntityConfiguration
-            );
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.Core.Events.DirectoryService
+namespace EventHorizon.Zone.Core.Events.DirectoryService;
+
+using System.Collections.Generic;
+
+using EventHorizon.Zone.Core.Model.FileService;
+
+using MediatR;
+
+public struct GetListOfFilesFromDirectory : IRequest<IEnumerable<StandardFileInfo>>
 {
-    using System.Collections.Generic;
+    public string DirectoryFullName { get; }
 
-    using EventHorizon.Zone.Core.Model.FileService;
-
-    using MediatR;
-
-    public struct GetListOfFilesFromDirectory : IRequest<IEnumerable<StandardFileInfo>>
+    public GetListOfFilesFromDirectory(
+        string directoryFullName
+    )
     {
-        public string DirectoryFullName { get; }
-
-        public GetListOfFilesFromDirectory(
-            string directoryFullName
-        )
-        {
-            DirectoryFullName = directoryFullName;
-        }
+        DirectoryFullName = directoryFullName;
     }
 }

@@ -1,116 +1,115 @@
-namespace EventHorizon.Server.Core.Connection.Internal
+namespace EventHorizon.Server.Core.Connection.Internal;
+
+using System;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
+
+public class SystemCoreServerConnection : CoreServerConnection
 {
-    using System;
-    using System.Threading.Tasks;
+    private readonly ILogger _logger;
+    private readonly HubConnection _connection;
 
-    using Microsoft.AspNetCore.SignalR.Client;
-    using Microsoft.Extensions.Logging;
+    public CoreServerConnectionApi Api { get; }
 
-    public class SystemCoreServerConnection : CoreServerConnection
+    public SystemCoreServerConnection(
+        ILogger logger,
+        HubConnection connection
+    )
     {
-        private readonly ILogger _logger;
-        private readonly HubConnection _connection;
+        _logger = logger;
+        _connection = connection;
+        Api = new SystemCoreServerConnectionApi(
+            this
+        );
+    }
 
-        public CoreServerConnectionApi Api { get; }
 
-        public SystemCoreServerConnection(
-            ILogger logger,
-            HubConnection connection
-        )
+    public void OnAction<T>(
+        string actionName,
+        Action<T> action
+    )
+    {
+        try
         {
-            _logger = logger;
-            _connection = connection;
-            Api = new SystemCoreServerConnectionApi(
-                this
+            _connection.On<T>(
+                actionName,
+                action
             );
         }
-
-
-        public void OnAction<T>(
-            string actionName,
-            Action<T> action
-        )
+        catch (Exception ex)
         {
-            try
-            {
-                _connection.On<T>(
-                    actionName,
-                    action
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "Generic On Action failed"
-                );
-                throw;
-            }
+            _logger.LogError(
+                ex,
+                "Generic On Action failed"
+            );
+            throw;
         }
-        public void OnAction(
-            string actionName,
-            Action action
-        )
+    }
+    public void OnAction(
+        string actionName,
+        Action action
+    )
+    {
+        try
         {
-            try
-            {
-                _connection.On(
-                    actionName,
-                    action
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "On Action failed"
-                );
-                throw;
-            }
+            _connection.On(
+                actionName,
+                action
+            );
         }
-
-        public async Task<T> SendAction<T>(
-            string actionName,
-            object[] args
-        )
+        catch (Exception ex)
         {
-            try
-            {
-                return await _connection.InvokeCoreAsync<T>(
-                    actionName,
-                    args
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "Generic Send Action failed"
-                );
-                throw;
-            }
+            _logger.LogError(
+                ex,
+                "On Action failed"
+            );
+            throw;
         }
+    }
 
-        public async Task SendAction(
-            string actionName,
-            object[] args
-        )
+    public async Task<T> SendAction<T>(
+        string actionName,
+        object[] args
+    )
+    {
+        try
         {
-            try
-            {
-                await _connection.InvokeCoreAsync(
-                    actionName,
-                    args
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "Send Action failed"
-                );
-                throw;
-            }
+            return await _connection.InvokeCoreAsync<T>(
+                actionName,
+                args
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Generic Send Action failed"
+            );
+            throw;
+        }
+    }
+
+    public async Task SendAction(
+        string actionName,
+        object[] args
+    )
+    {
+        try
+        {
+            await _connection.InvokeCoreAsync(
+                actionName,
+                args
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                ex,
+                "Send Action failed"
+            );
+            throw;
         }
     }
 }

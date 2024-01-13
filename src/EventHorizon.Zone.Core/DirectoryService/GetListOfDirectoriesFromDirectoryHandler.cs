@@ -1,30 +1,29 @@
-namespace EventHorizon.Zone.Core.DirectoryService
+namespace EventHorizon.Zone.Core.DirectoryService;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+
+using MediatR;
+
+public class GetListOfDirectoriesFromDirectoryHandler : IRequestHandler<GetListOfDirectoriesFromDirectory, IEnumerable<StandardDirectoryInfo>>
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly DirectoryResolver _directoryResolver;
 
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-
-    using MediatR;
-
-    public class GetListOfDirectoriesFromDirectoryHandler : IRequestHandler<GetListOfDirectoriesFromDirectory, IEnumerable<StandardDirectoryInfo>>
+    public GetListOfDirectoriesFromDirectoryHandler(
+        DirectoryResolver directoryResolver
+    )
     {
-        private readonly DirectoryResolver _directoryResolver;
-
-        public GetListOfDirectoriesFromDirectoryHandler(
-            DirectoryResolver directoryResolver
-        )
-        {
-            _directoryResolver = directoryResolver;
-        }
-
-        public Task<IEnumerable<StandardDirectoryInfo>> Handle(
-            GetListOfDirectoriesFromDirectory request,
-            CancellationToken cancellationToken
-        ) => _directoryResolver.GetDirectories(
-            request.DirectoryFullName
-        ).FromResult();
+        _directoryResolver = directoryResolver;
     }
+
+    public Task<IEnumerable<StandardDirectoryInfo>> Handle(
+        GetListOfDirectoriesFromDirectory request,
+        CancellationToken cancellationToken
+    ) => _directoryResolver.GetDirectories(
+        request.DirectoryFullName
+    ).FromResult();
 }

@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.Core.Reporter.Model
+namespace EventHorizon.Zone.Core.Reporter.Model;
+
+using System;
+using System.Collections.Generic;
+
+public struct Report
 {
-    using System;
-    using System.Collections.Generic;
+    public string Id { get; }
+    public DateTime Timestamp { get; }
+    public IList<ReportItem> ItemList { get; private set; }
 
-    public struct Report
+    public Report(
+        string id,
+        DateTime timestamp
+    )
     {
-        public string Id { get; }
-        public DateTime Timestamp { get; }
-        public IList<ReportItem> ItemList { get; private set; }
+        Id = id;
+        Timestamp = timestamp;
+        ItemList = new List<ReportItem>().AsReadOnly();
+    }
 
-        public Report(
-            string id,
-            DateTime timestamp
+    public Report AddItem(
+        ReportItem item
+    )
+    {
+        ItemList = new List<ReportItem>(
+            ItemList
         )
         {
-            Id = id;
-            Timestamp = timestamp;
-            ItemList = new List<ReportItem>().AsReadOnly();
-        }
+            item
+        }.AsReadOnly();
 
-        public Report AddItem(
-            ReportItem item
-        )
-        {
-            ItemList = new List<ReportItem>(
-                ItemList
-            )
-            {
-                item
-            }.AsReadOnly();
-
-            return this;
-        }
+        return this;
     }
 }

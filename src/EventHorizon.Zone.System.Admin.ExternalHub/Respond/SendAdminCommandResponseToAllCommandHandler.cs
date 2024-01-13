@@ -1,37 +1,36 @@
-﻿namespace EventHorizon.Zone.System.Admin.ExternalHub.Respond
+﻿namespace EventHorizon.Zone.System.Admin.ExternalHub.Respond;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+
+public class SendAdminCommandResponseToAllCommandHandler
+    : IRequestHandler<SendAdminCommandResponseToAllCommand, bool>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+    private readonly IHubContext<AdminHub> _hubContext;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-
-    public class SendAdminCommandResponseToAllCommandHandler
-        : IRequestHandler<SendAdminCommandResponseToAllCommand, bool>
+    public SendAdminCommandResponseToAllCommandHandler(
+        IHubContext<AdminHub> hubContext
+    )
     {
-        private readonly IHubContext<AdminHub> _hubContext;
+        _hubContext = hubContext;
+    }
 
-        public SendAdminCommandResponseToAllCommandHandler(
-            IHubContext<AdminHub> hubContext
-        )
-        {
-            _hubContext = hubContext;
-        }
-
-        public async Task<bool> Handle(
-            SendAdminCommandResponseToAllCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _hubContext.Clients.All.SendAsync(
-                "AdminCommandResponse",
-                request.Response,
-                cancellationToken
-            );
-            return true;
-        }
+    public async Task<bool> Handle(
+        SendAdminCommandResponseToAllCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _hubContext.Clients.All.SendAsync(
+            "AdminCommandResponse",
+            request.Response,
+            cancellationToken
+        );
+        return true;
     }
 }

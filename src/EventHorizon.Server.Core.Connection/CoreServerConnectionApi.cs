@@ -1,15 +1,14 @@
-namespace EventHorizon.Server.Core.Connection
+namespace EventHorizon.Server.Core.Connection;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Server.Core.Connection.Model;
+
+public interface CoreServerConnectionApi
 {
-    using System.Threading.Tasks;
+    Task<RegisteredZoneDetails> RegisterZone(
+        ZoneRegistrationDetails request
+    );
 
-    using EventHorizon.Server.Core.Connection.Model;
-
-    public interface CoreServerConnectionApi
-    {
-        Task<RegisteredZoneDetails> RegisterZone(
-            ZoneRegistrationDetails request
-        );
-
-        Task Ping();
-    }
+    Task Ping();
 }

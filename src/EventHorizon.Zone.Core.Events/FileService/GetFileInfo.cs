@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using EventHorizon.Zone.Core.Model.FileService;
+
+using MediatR;
+
+public struct GetFileInfo : IRequest<StandardFileInfo>
 {
-    using EventHorizon.Zone.Core.Model.FileService;
+    public string FileFullName { get; }
 
-    using MediatR;
-
-    public struct GetFileInfo : IRequest<StandardFileInfo>
+    public GetFileInfo(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public GetFileInfo(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

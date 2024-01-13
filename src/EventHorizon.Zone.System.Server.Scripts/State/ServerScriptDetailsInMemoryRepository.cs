@@ -1,63 +1,62 @@
-namespace EventHorizon.Zone.System.Server.Scripts.State
+namespace EventHorizon.Zone.System.Server.Scripts.State;
+
+using EventHorizon.Zone.System.Server.Scripts.Exceptions;
+using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
+using global::System;
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+using global::System.Linq;
+
+public class ServerScriptDetailsInMemoryRepository
+    : ServerScriptDetailsRepository
 {
-    using EventHorizon.Zone.System.Server.Scripts.Exceptions;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    private readonly ConcurrentDictionary<string, ServerScriptDetails> _map = new();
 
-    using global::System;
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-    using global::System.Linq;
+    public IEnumerable<ServerScriptDetails> All
+        => _map.Values;
 
-    public class ServerScriptDetailsInMemoryRepository
-        : ServerScriptDetailsRepository
+    public void Add(
+        string id,
+        ServerScriptDetails script
+    )
     {
-        private readonly ConcurrentDictionary<string, ServerScriptDetails> _map = new();
+        _map.AddOrUpdate(
+            id,
+            script,
+            (key, old) => script
+        );
+    }
 
-        public IEnumerable<ServerScriptDetails> All
-            => _map.Values;
+    public void Clear()
+    {
+        _map.Clear();
+    }
 
-        public void Add(
-            string id,
-            ServerScriptDetails script
-        )
+    public ServerScriptDetails Find(
+        string id
+    )
+    {
+        if (_map.TryGetValue(
+            id,
+            out var value
+        ))
         {
-            _map.AddOrUpdate(
-                id,
-                script,
-                (key, old) => script
-            );
+            return value;
         }
 
-        public void Clear()
-        {
-            _map.Clear();
-        }
+        throw new ServerScriptDetailsNotFound(
+            id,
+            "Failed to find Server Script Details"
+        );
+    }
 
-        public ServerScriptDetails Find(
-            string id
-        )
-        {
-            if (_map.TryGetValue(
-                id,
-                out var value
-            ))
-            {
-                return value;
-            }
-
-            throw new ServerScriptDetailsNotFound(
-                id,
-                "Failed to find Server Script Details"
-            );
-        }
-
-        public IEnumerable<ServerScriptDetails> Where(
-            Func<ServerScriptDetails, bool> query
-        )
-        {
-            return _map.Values.Where(
-                query
-            );
-        }
+    public IEnumerable<ServerScriptDetails> Where(
+        Func<ServerScriptDetails, bool> query
+    )
+    {
+        return _map.Values.Where(
+            query
+        );
     }
 }

@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Agent.Events.Get
+namespace EventHorizon.Zone.System.Agent.Events.Get;
+
+using EventHorizon.Zone.System.Agent.Model;
+
+using MediatR;
+
+public struct FindAgentByIdEvent : IRequest<AgentEntity>
 {
-    using EventHorizon.Zone.System.Agent.Model;
+    public string AgentId { get; set; }
 
-    using MediatR;
-
-    public struct FindAgentByIdEvent : IRequest<AgentEntity>
+    public FindAgentByIdEvent(
+        string agentId
+    )
     {
-        public string AgentId { get; set; }
-
-        public FindAgentByIdEvent(
-            string agentId
-        )
-        {
-            AgentId = agentId;
-        }
+        AgentId = agentId;
     }
 }

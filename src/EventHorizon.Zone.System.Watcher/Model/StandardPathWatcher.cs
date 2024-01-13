@@ -1,25 +1,24 @@
-namespace EventHorizon.Zone.System.Watcher.Model
+namespace EventHorizon.Zone.System.Watcher.Model;
+
+using global::System.IO;
+
+public struct StandardPathWatcher : PathWatcher
 {
-    using global::System.IO;
+    private readonly FileSystemWatcher _fileWatcher;
 
-    public struct StandardPathWatcher : PathWatcher
+    public string Path { get; }
+
+    public StandardPathWatcher(
+        string path,
+        FileSystemWatcher fileWatcher
+    )
     {
-        private readonly FileSystemWatcher _fileWatcher;
+        Path = path;
+        _fileWatcher = fileWatcher;
+    }
 
-        public string Path { get; }
-
-        public StandardPathWatcher(
-            string path,
-            FileSystemWatcher fileWatcher
-        )
-        {
-            Path = path;
-            _fileWatcher = fileWatcher;
-        }
-
-        public void Dispose()
-        {
-            _fileWatcher?.Dispose();
-        }
+    public void Dispose()
+    {
+        _fileWatcher?.Dispose();
     }
 }

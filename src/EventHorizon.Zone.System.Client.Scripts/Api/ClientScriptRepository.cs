@@ -1,14 +1,13 @@
-namespace EventHorizon.Zone.System.Client.Scripts.Api
+namespace EventHorizon.Zone.System.Client.Scripts.Api;
+
+using EventHorizon.Zone.System.Client.Scripts.Model;
+
+using global::System.Collections.Generic;
+
+public interface ClientScriptRepository
 {
-    using EventHorizon.Zone.System.Client.Scripts.Model;
-
-    using global::System.Collections.Generic;
-
-    public interface ClientScriptRepository
-    {
-        void Add(
-            ClientScript clientScript
-        );
-        IEnumerable<ClientScript> All();
-    }
+    void Add(
+        ClientScript clientScript
+    );
+    IEnumerable<ClientScript> All();
 }

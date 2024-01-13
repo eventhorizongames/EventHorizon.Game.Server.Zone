@@ -1,55 +1,54 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Load
+﻿namespace EventHorizon.Zone.System.DataStorage.Load;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.System.DataStorage.Api;
+using EventHorizon.Zone.System.DataStorage.Model;
+
+using global::System.Collections.Generic;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class LoadDataStoreCommandHandler
+    : IRequestHandler<LoadDataStoreCommand, StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.System.DataStorage.Api;
-    using EventHorizon.Zone.System.DataStorage.Model;
+    private readonly ServerInfo _serverInfo;
+    private readonly IJsonFileLoader _fileLoader;
+    private readonly DataStoreManagement _dataStoreManagement;
 
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class LoadDataStoreCommandHandler
-        : IRequestHandler<LoadDataStoreCommand, StandardCommandResult>
+    public LoadDataStoreCommandHandler(
+        ServerInfo serverInfo,
+        IJsonFileLoader fileLoader,
+        DataStoreManagement dataStoreManagement
+    )
     {
-        private readonly ServerInfo _serverInfo;
-        private readonly IJsonFileLoader _fileLoader;
-        private readonly DataStoreManagement _dataStoreManagement;
+        _serverInfo = serverInfo;
+        _fileLoader = fileLoader;
+        _dataStoreManagement = dataStoreManagement;
+    }
 
-        public LoadDataStoreCommandHandler(
-            ServerInfo serverInfo,
-            IJsonFileLoader fileLoader,
-            DataStoreManagement dataStoreManagement
-        )
+    public async Task<StandardCommandResult> Handle(
+        LoadDataStoreCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var (_, fileFullName) = DataStorageLocation.GenerateDataStorageLocation(
+            _serverInfo.AppDataPath
+        );
+        var dataStore = await _fileLoader.GetFile<Dictionary<string, object>>(
+            fileFullName
+        );
+
+        if (dataStore.IsNotNull())
         {
-            _serverInfo = serverInfo;
-            _fileLoader = fileLoader;
-            _dataStoreManagement = dataStoreManagement;
+            _dataStoreManagement.Set(
+                dataStore
+            );
         }
 
-        public async Task<StandardCommandResult> Handle(
-            LoadDataStoreCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var (_, fileFullName) = DataStorageLocation.GenerateDataStorageLocation(
-                _serverInfo.AppDataPath
-            );
-            var dataStore = await _fileLoader.GetFile<Dictionary<string, object>>(
-                fileFullName
-            );
-
-            if (dataStore.IsNotNull())
-            {
-                _dataStoreManagement.Set(
-                    dataStore
-                );
-            }
-
-            return new();
-        }
+        return new();
     }
 }

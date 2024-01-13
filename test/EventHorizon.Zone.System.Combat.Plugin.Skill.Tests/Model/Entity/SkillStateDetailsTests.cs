@@ -1,31 +1,30 @@
-﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model.Entity
+﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model.Entity;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+
+using FluentAssertions;
+
+using global::System;
+
+using Xunit;
+
+public class SkillStateDetailsTests
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
-
-    using FluentAssertions;
-
-    using global::System;
-
-    using Xunit;
-
-    public class SkillStateDetailsTests
+    [Fact]
+    public void ShouldKeepTrackOfCooldownFinsihesWhenCreated()
     {
-        [Fact]
-        public void ShouldKeepTrackOfCooldownFinsihesWhenCreated()
+        // Given
+        var expected = DateTime.UtcNow;
+
+        // When
+        var actual = new SkillStateDetails
         {
-            // Given
-            var expected = DateTime.UtcNow;
+            Id = "id",
+            CooldownFinishes = expected,
+        };
 
-            // When
-            var actual = new SkillStateDetails
-            {
-                Id = "id",
-                CooldownFinishes = expected,
-            };
-
-            // Then
-            actual.CooldownFinishes
-                .Should().Be(expected);
-        }
+        // Then
+        actual.CooldownFinishes
+            .Should().Be(expected);
     }
 }

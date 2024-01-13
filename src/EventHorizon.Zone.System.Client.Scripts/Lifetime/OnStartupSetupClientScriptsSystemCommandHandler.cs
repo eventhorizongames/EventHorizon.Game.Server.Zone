@@ -1,71 +1,70 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Lifetime
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Lifetime;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Lifetime;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class OnStartupSetupClientScriptsSystemCommandHandler
+    : IRequestHandler<OnStartupSetupClientScriptsSystemCommand, OnServerStartupResult>
 {
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Lifetime;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly ServerInfo _serverInfo;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class OnStartupSetupClientScriptsSystemCommandHandler
-        : IRequestHandler<OnStartupSetupClientScriptsSystemCommand, OnServerStartupResult>
+    public OnStartupSetupClientScriptsSystemCommandHandler(
+        ILogger<OnStartupSetupClientScriptsSystemCommandHandler> logger,
+        IMediator mediator,
+        ServerInfo serverInfo
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly ServerInfo _serverInfo;
+        _logger = logger;
+        _mediator = mediator;
+        _serverInfo = serverInfo;
+    }
 
-        public OnStartupSetupClientScriptsSystemCommandHandler(
-            ILogger<OnStartupSetupClientScriptsSystemCommandHandler> logger,
-            IMediator mediator,
-            ServerInfo serverInfo
-        )
-        {
-            _logger = logger;
-            _mediator = mediator;
-            _serverInfo = serverInfo;
-        }
+    public async Task<OnServerStartupResult> Handle(
+        OnStartupSetupClientScriptsSystemCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await ValidateClientScriptsDirectory(
+            cancellationToken
+        );
 
-        public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupClientScriptsSystemCommand request,
-            CancellationToken cancellationToken
-        )
+        return new OnServerStartupResult(
+            true
+        );
+    }
+
+    private async Task ValidateClientScriptsDirectory(
+        CancellationToken cancellationToken
+    )
+    {
+        // Validate Directory Exists
+        if (!await _mediator.Send(
+            new DoesDirectoryExist(
+                _serverInfo.ClientScriptsPath
+            ),
+            cancellationToken
+        ))
         {
-            await ValidateClientScriptsDirectory(
-                cancellationToken
+            _logger.LogWarning(
+                "Directory '{DirectoryFullName}' was not found, creating...",
+                _serverInfo.ClientScriptsPath
             );
-
-            return new OnServerStartupResult(
-                true
-            );
-        }
-
-        private async Task ValidateClientScriptsDirectory(
-            CancellationToken cancellationToken
-        )
-        {
-            // Validate Directory Exists
-            if (!await _mediator.Send(
-                new DoesDirectoryExist(
+            await _mediator.Send(
+                new CreateDirectory(
                     _serverInfo.ClientScriptsPath
                 ),
                 cancellationToken
-            ))
-            {
-                _logger.LogWarning(
-                    "Directory '{DirectoryFullName}' was not found, creating...",
-                    _serverInfo.ClientScriptsPath
-                );
-                await _mediator.Send(
-                    new CreateDirectory(
-                        _serverInfo.ClientScriptsPath
-                    ),
-                    cancellationToken
-                );
-            }
+            );
         }
     }
 }

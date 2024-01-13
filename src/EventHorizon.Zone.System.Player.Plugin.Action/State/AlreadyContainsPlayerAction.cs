@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Player.Plugin.Action.State
+namespace EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+using global::System;
+
+[Serializable]
+public class AlreadyContainsPlayerAction : Exception
 {
-    using global::System;
+    public long ActionId { get; } = -1;
 
-    [Serializable]
-    public class AlreadyContainsPlayerAction : Exception
+    public AlreadyContainsPlayerAction(
+        long actionId
+    ) : base(
+        "Please remove Player Action before adding another of the same Player Action Id."
+    )
     {
-        public long ActionId { get; } = -1;
-
-        public AlreadyContainsPlayerAction(
-            long actionId
-        ) : base(
-            "Please remove Player Action before adding another of the same Player Action Id."
-        )
-        {
-            ActionId = actionId;
-        }
+        ActionId = actionId;
     }
 }

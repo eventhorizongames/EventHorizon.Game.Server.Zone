@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Player.Events.Zone
+namespace EventHorizon.Zone.System.Player.Events.Zone;
+
+using EventHorizon.Zone.Core.Model.Player;
+
+using MediatR;
+
+public class SendZoneInfoToPlayerEvent
+    : IRequest<PlayerEntity>
 {
-    using EventHorizon.Zone.Core.Model.Player;
+    public PlayerEntity Player { get; }
 
-    using MediatR;
-
-    public class SendZoneInfoToPlayerEvent
-        : IRequest<PlayerEntity>
+    public SendZoneInfoToPlayerEvent(
+        PlayerEntity player
+    )
     {
-        public PlayerEntity Player { get; }
-
-        public SendZoneInfoToPlayerEvent(
-            PlayerEntity player
-        )
-        {
-            Player = player;
-        }
+        Player = player;
     }
 }

@@ -1,31 +1,30 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Save
+﻿namespace EventHorizon.Zone.System.DataStorage.Save;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class RunSaveDataStoreEventHandler
+    : INotificationHandler<RunSaveDataStoreEvent>
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using MediatR;
-
-    public class RunSaveDataStoreEventHandler
-        : INotificationHandler<RunSaveDataStoreEvent>
+    public RunSaveDataStoreEventHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public RunSaveDataStoreEventHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            RunSaveDataStoreEvent request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new SaveDataStoreCommand(),
-                cancellationToken
-            );
-        }
+    public async Task Handle(
+        RunSaveDataStoreEvent request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new SaveDataStoreCommand(),
+            cancellationToken
+        );
     }
 }

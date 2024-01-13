@@ -1,17 +1,16 @@
-namespace EventHorizon.Zone.System.Player.Model.Action
+namespace EventHorizon.Zone.System.Player.Model.Action;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+public class StandardPlayerAction
+    : EntityAction
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public static readonly StandardPlayerAction CONNECTION_ID = new("Player.ConnectionId");
+    public static readonly StandardPlayerAction REGISTERED = new("Player.Registered");
 
-    public class StandardPlayerAction
-        : EntityAction
+    protected StandardPlayerAction(
+        string type
+    ) : base(type)
     {
-        public static readonly StandardPlayerAction CONNECTION_ID = new("Player.ConnectionId");
-        public static readonly StandardPlayerAction REGISTERED = new("Player.Registered");
-
-        protected StandardPlayerAction(
-            string type
-        ) : base(type)
-        {
-        }
     }
 }

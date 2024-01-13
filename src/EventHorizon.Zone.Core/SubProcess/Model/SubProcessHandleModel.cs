@@ -1,29 +1,28 @@
-﻿namespace EventHorizon.Zone.Core.SubProcess.Model
+﻿namespace EventHorizon.Zone.Core.SubProcess.Model;
+
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.SubProcess;
+
+public class SubProcessHandleModel
+    : SubProcessHandle
 {
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly Process _process;
 
-    using EventHorizon.Zone.Core.Model.SubProcess;
-
-    public class SubProcessHandleModel
-        : SubProcessHandle
+    public SubProcessHandleModel(
+        Process process
+    )
     {
-        private readonly Process _process;
-
-        public SubProcessHandleModel(
-            Process process
-        )
-        {
-            _process = process;
-        }
-
-        public int ExitCode => _process.ExitCode;
-
-        public Task WaitForExitAsync(
-            CancellationToken cancellationToken
-        ) => _process.WaitForExitAsync(
-            cancellationToken
-        );
+        _process = process;
     }
+
+    public int ExitCode => _process.ExitCode;
+
+    public Task WaitForExitAsync(
+        CancellationToken cancellationToken
+    ) => _process.WaitForExitAsync(
+        cancellationToken
+    );
 }

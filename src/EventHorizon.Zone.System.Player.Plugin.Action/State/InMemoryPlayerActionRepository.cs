@@ -1,43 +1,42 @@
-namespace EventHorizon.Zone.System.Player.Plugin.Action.State
+namespace EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+using global::System.Linq;
+
+public class InMemoryPlayerActionRepository
+    : PlayerActionRepository
 {
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    private readonly ConcurrentDictionary<long, PlayerActionEntity> _map = new();
 
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-    using global::System.Linq;
-
-    public class InMemoryPlayerActionRepository
-        : PlayerActionRepository
+    public void On(
+        PlayerActionEntity action
+    )
     {
-        private readonly ConcurrentDictionary<long, PlayerActionEntity> _map = new();
-
-        public void On(
-            PlayerActionEntity action
-        )
+        if (_map.ContainsKey(
+            action.Id
+        ))
         {
-            if (_map.ContainsKey(
+            throw new AlreadyContainsPlayerAction(
                 action.Id
-            ))
-            {
-                throw new AlreadyContainsPlayerAction(
-                    action.Id
-                );
-            }
-            _map.TryAdd(
-                action.Id,
-                action
             );
         }
+        _map.TryAdd(
+            action.Id,
+            action
+        );
+    }
 
-        public IEnumerable<PlayerActionEntity> Where(
-            string actionName
-        )
-        {
-            return _map.Where(
-                a => a.Value.ActionName == actionName
-            ).Select(
-                pair => pair.Value
-            );
-        }
+    public IEnumerable<PlayerActionEntity> Where(
+        string actionName
+    )
+    {
+        return _map.Where(
+            a => a.Value.ActionName == actionName
+        ).Select(
+            pair => pair.Value
+        );
     }
 }

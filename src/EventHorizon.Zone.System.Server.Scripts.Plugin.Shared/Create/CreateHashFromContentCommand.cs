@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Create;
+
+using EventHorizon.Zone.Core.Model.Command;
+
+using MediatR;
+
+public struct CreateHashFromContentCommand
+    : IRequest<CommandResult<string>>
 {
-    using EventHorizon.Zone.Core.Model.Command;
+    public string Content { get; }
 
-    using MediatR;
-
-    public struct CreateHashFromContentCommand
-        : IRequest<CommandResult<string>>
+    public CreateHashFromContentCommand(
+        string content
+    )
     {
-        public string Content { get; }
-
-        public CreateHashFromContentCommand(
-            string content
-        )
-        {
-            Content = content;
-        }
+        Content = content;
     }
 }

@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.Core.Events.Map
+namespace EventHorizon.Zone.Core.Events.Map;
+
+using System.Collections.Generic;
+
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public struct GetMapEdgesOfNodeEvent : IRequest<IEnumerable<MapEdge>>
 {
-    using System.Collections.Generic;
+    public int NodeIndex { get; }
 
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public struct GetMapEdgesOfNodeEvent : IRequest<IEnumerable<MapEdge>>
+    public GetMapEdgesOfNodeEvent(
+        int nodeIndex
+    )
     {
-        public int NodeIndex { get; }
-
-        public GetMapEdgesOfNodeEvent(
-            int nodeIndex
-        )
-        {
-            NodeIndex = nodeIndex;
-        }
+        NodeIndex = nodeIndex;
     }
 }

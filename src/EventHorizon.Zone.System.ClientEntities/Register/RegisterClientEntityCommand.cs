@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.ClientEntities.Register
+namespace EventHorizon.Zone.System.ClientEntities.Register;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+using MediatR;
+
+public struct RegisterClientEntityCommand : IRequest
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
+    public ClientEntity ClientEntity { get; }
 
-    using MediatR;
-
-    public struct RegisterClientEntityCommand : IRequest
+    public RegisterClientEntityCommand(
+        ClientEntity clientEntity
+    )
     {
-        public ClientEntity ClientEntity { get; }
-
-        public RegisterClientEntityCommand(
-            ClientEntity clientEntity
-        )
-        {
-            ClientEntity = clientEntity;
-        }
+        ClientEntity = clientEntity;
     }
 }

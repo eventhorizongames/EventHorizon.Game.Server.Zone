@@ -1,40 +1,39 @@
-namespace EventHorizon.Zone.Core.Entity.Search
+namespace EventHorizon.Zone.Core.Entity.Search;
+
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Zone.Core.Entity.State;
+using EventHorizon.Zone.Core.Events.Entity.Register;
+
+using MediatR;
+
+public class RemoveSearchEntityOnUnregisteredHandler
+    : INotificationHandler<EntityUnRegisteredEvent>
 {
-    using System.Numerics;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly EntitySearchTree _entitySearchTree;
 
-    using EventHorizon.Game.Server.Zone.Entity.Model;
-    using EventHorizon.Zone.Core.Entity.State;
-    using EventHorizon.Zone.Core.Events.Entity.Register;
-
-    using MediatR;
-
-    public class RemoveSearchEntityOnUnregisteredHandler
-        : INotificationHandler<EntityUnRegisteredEvent>
+    public RemoveSearchEntityOnUnregisteredHandler(
+        EntitySearchTree entitySearchTree
+    )
     {
-        private readonly EntitySearchTree _entitySearchTree;
+        _entitySearchTree = entitySearchTree;
+    }
 
-        public RemoveSearchEntityOnUnregisteredHandler(
-            EntitySearchTree entitySearchTree
-        )
-        {
-            _entitySearchTree = entitySearchTree;
-        }
-
-        public Task Handle(
-            EntityUnRegisteredEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            _entitySearchTree.Remove(
-                new SearchEntity(
-                    notification.EntityId,
-                    Vector3.Zero,
-                    null
-                )
-            );
-            return Task.CompletedTask;
-        }
+    public Task Handle(
+        EntityUnRegisteredEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _entitySearchTree.Remove(
+            new SearchEntity(
+                notification.EntityId,
+                Vector3.Zero,
+                null
+            )
+        );
+        return Task.CompletedTask;
     }
 }

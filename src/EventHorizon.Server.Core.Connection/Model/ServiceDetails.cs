@@ -1,14 +1,13 @@
-﻿namespace EventHorizon.Server.Core.Connection.Model
-{
-    public struct ServiceDetails
-    {
-        public string ApplicationVersion { get; }
+﻿namespace EventHorizon.Server.Core.Connection.Model;
 
-        public ServiceDetails(
-            string applicationVersion
-        )
-        {
-            ApplicationVersion = applicationVersion;
-        }
+public struct ServiceDetails
+{
+    public string ApplicationVersion { get; }
+
+    public ServiceDetails(
+        string applicationVersion
+    )
+    {
+        ApplicationVersion = applicationVersion;
     }
 }

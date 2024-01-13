@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.Agent.Model.State
+namespace EventHorizon.Zone.System.Agent.Model.State;
+
+public interface IMoveAgentRepository
 {
-    public interface IMoveAgentRepository
-    {
-        void Register(long entityId);
-        bool Dequeue(out long entityId);
-        void MergeRegisteredIntoQueue();
-    }
+    void Register(long entityId);
+    bool Dequeue(out long entityId);
+    void MergeRegisteredIntoQueue();
 }

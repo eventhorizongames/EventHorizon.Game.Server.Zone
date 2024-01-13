@@ -1,33 +1,32 @@
-namespace EventHorizon.Zone.System.Editor.Model
+namespace EventHorizon.Zone.System.Editor.Model;
+
+using global::System.Collections.Generic;
+using global::System.Linq;
+
+public class EditorState : IEditorNodeList
 {
-    using global::System.Collections.Generic;
-    using global::System.Linq;
+    public IList<IEditorNode> Root { get; } = new List<IEditorNode>();
 
-    public class EditorState : IEditorNodeList
+    public void AddNode(
+        IEditorNode node
+    )
     {
-        public IList<IEditorNode> Root { get; } = new List<IEditorNode>();
-
-        public void AddNode(
-            IEditorNode node
-        )
+        var foundNode = Root.FirstOrDefault(
+            a => a.Name == node.Name
+        );
+        if (foundNode != null)
         {
-            var foundNode = Root.FirstOrDefault(
-                a => a.Name == node.Name
-            );
-            if (foundNode != null)
+            foreach (var child in node.Children)
             {
-                foreach (var child in node.Children)
-                {
-                    foundNode.Children.Add(
-                        child
-                    );
-                }
-                return;
+                foundNode.Children.Add(
+                    child
+                );
             }
-
-            Root.Add(
-                node
-            );
+            return;
         }
+
+        Root.Add(
+            node
+        );
     }
 }

@@ -1,113 +1,112 @@
-namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill
+namespace EventHorizon.Zone.System.EntityModule.Plugin.Editor.Fill;
+
+using global::System.Collections.Generic;
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.System.Editor.Events;
+using EventHorizon.Zone.System.Editor.Events.Node;
+using EventHorizon.Zone.System.Editor.Model;
+
+using MediatR;
+
+public class FillEntityModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
 {
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
+    readonly IMediator _mediator;
+    readonly ServerInfo _serverInfo;
 
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.System.Editor.Events;
-    using EventHorizon.Zone.System.Editor.Events.Node;
-    using EventHorizon.Zone.System.Editor.Model;
-
-    using MediatR;
-
-    public class FillEntityModuleEditorNodeStateHandler : INotificationHandler<FillEditorNodeState>
+    public FillEntityModuleEditorNodeStateHandler(
+        IMediator mediator,
+        ServerInfo serverInfo
+    )
     {
-        readonly IMediator _mediator;
-        readonly ServerInfo _serverInfo;
+        _mediator = mediator;
+        _serverInfo = serverInfo;
+    }
 
-        public FillEntityModuleEditorNodeStateHandler(
-            IMediator mediator,
-            ServerInfo serverInfo
-        )
-        {
-            _mediator = mediator;
-            _serverInfo = serverInfo;
-        }
+    public async Task Handle(
+        FillEditorNodeState notification,
+        CancellationToken cancellationToken
+    )
+    {
+        // Node Root Folder Details
+        var rootFolder = "Client";
+        var modulesFolder = "Modules";
 
-        public async Task Handle(
-            FillEditorNodeState notification,
-            CancellationToken cancellationToken
-        )
-        {
-            // Node Root Folder Details
-            var rootFolder = "Client";
-            var modulesFolder = "Modules";
-
-            notification.AddNode(
-                // Create the root node.
+        notification.AddNode(
+            // Create the root node.
+            new StandardEditorNode(
+                rootFolder
+            ).AddProperty(
+                // Disable context menu support on the root node.
+                EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
+                false
+            ).AddChild(
                 new StandardEditorNode(
-                    rootFolder
+                    modulesFolder,
+                    true,
+                    new string[] { rootFolder },
+                    "FOLDER" // TODO: Move this into a constants class
                 ).AddProperty(
                     // Disable context menu support on the root node.
                     EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
                     false
                 ).AddChild(
-                    new StandardEditorNode(
-                        modulesFolder,
-                        true,
-                        new string[] { rootFolder },
-                        "FOLDER" // TODO: Move this into a constants class
-                    ).AddProperty(
-                        // Disable context menu support on the root node.
-                        EditorNodePropertySupportKeys.SUPPORT_CONTEXT_MENU_KEY,
-                        false
-                    ).AddChild(
-                        await CreateBaseNode(
-                            rootFolder,
-                            modulesFolder
-                        )
-                    ).AddChild(
-                        await CreatePlayerNode(
-                            rootFolder,
-                            modulesFolder
-                        )
+                    await CreateBaseNode(
+                        rootFolder,
+                        modulesFolder
+                    )
+                ).AddChild(
+                    await CreatePlayerNode(
+                        rootFolder,
+                        modulesFolder
                     )
                 )
-            );
-        }
+            )
+        );
+    }
 
-        private async Task<IEditorNode> CreateBaseNode(
-            string rootFolder,
-            string modulesFolder
-        )
-        {
-            return (await _mediator.Send(
-                new QueryForEditorNodeFromPath(
-                    new List<string> { rootFolder },
+    private async Task<IEditorNode> CreateBaseNode(
+        string rootFolder,
+        string modulesFolder
+    )
+    {
+        return (await _mediator.Send(
+            new QueryForEditorNodeFromPath(
+                new List<string> { rootFolder },
+                _serverInfo.ClientPath,
+                Path.Combine(
                     _serverInfo.ClientPath,
-                    Path.Combine(
-                        _serverInfo.ClientPath,
-                        modulesFolder,
-                        "Base"
-                    )
+                    modulesFolder,
+                    "Base"
                 )
-            )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
-                false
-            );
-        }
+            )
+        )).AddProperty(
+            EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
+            false
+        );
+    }
 
-        private async Task<IEditorNode> CreatePlayerNode(
-            string rootFolder,
-            string modulesFolder
-        )
-        {
-            return (await _mediator.Send(
-                new QueryForEditorNodeFromPath(
-                    new List<string> { rootFolder },
+    private async Task<IEditorNode> CreatePlayerNode(
+        string rootFolder,
+        string modulesFolder
+    )
+    {
+        return (await _mediator.Send(
+            new QueryForEditorNodeFromPath(
+                new List<string> { rootFolder },
+                _serverInfo.ClientPath,
+                Path.Combine(
                     _serverInfo.ClientPath,
-                    Path.Combine(
-                        _serverInfo.ClientPath,
-                        modulesFolder,
-                        "Player"
-                    )
+                    modulesFolder,
+                    "Player"
                 )
-            )).AddProperty(
-                EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
-                false
-            );
-        }
+            )
+        )).AddProperty(
+            EditorNodePropertySupportKeys.SUPPORT_DELETE_KEY,
+            false
+        );
     }
 }

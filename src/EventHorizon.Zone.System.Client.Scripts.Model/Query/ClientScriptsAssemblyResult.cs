@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Model.Query
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Model.Query;
+
+using System;
+
+public struct ClientScriptsAssemblyResult
 {
-    using System;
+    public string Hash { get; }
+    public string ScriptAssembly { get; }
 
-    public struct ClientScriptsAssemblyResult
+    public ClientScriptsAssemblyResult(
+        string hash,
+        string scriptAssembly
+    )
     {
-        public string Hash { get; }
-        public string ScriptAssembly { get; }
-
-        public ClientScriptsAssemblyResult(
-            string hash,
-            string scriptAssembly
-        )
-        {
-            Hash = hash;
-            ScriptAssembly = scriptAssembly;
-        }
+        Hash = hash;
+        ScriptAssembly = scriptAssembly;
     }
 }

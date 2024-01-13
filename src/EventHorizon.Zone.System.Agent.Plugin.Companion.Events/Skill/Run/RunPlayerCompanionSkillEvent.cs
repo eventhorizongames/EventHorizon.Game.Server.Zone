@@ -1,56 +1,55 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run
+namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Events.Skill.Run;
+
+using global::System.Collections.Generic;
+using global::System.Numerics;
+
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+public struct RunPlayerCompanionSkillEvent : PlayerActionEvent
 {
-    using global::System.Collections.Generic;
-    using global::System.Numerics;
+    public string ConnectionId { get; private set; }
+    public long PlayerId { get; private set; }
+    public long CasterId { get; private set; }
+    public string SkillId { get; private set; }
+    public long TargetId { get; private set; }
+    public Vector3 TargetPosition { get; private set; }
 
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    public IDictionary<string, object> Data { get; private set; }
 
-    public struct RunPlayerCompanionSkillEvent : PlayerActionEvent
+    public PlayerEntity Player { get; private set; }
+
+    public PlayerActionEvent SetPlayer(
+        PlayerEntity player
+    )
     {
-        public string ConnectionId { get; private set; }
-        public long PlayerId { get; private set; }
-        public long CasterId { get; private set; }
-        public string SkillId { get; private set; }
-        public long TargetId { get; private set; }
-        public Vector3 TargetPosition { get; private set; }
+        ConnectionId = player.ConnectionId;
+        Player = player;
+        PlayerId = player.Id;
+        return this;
+    }
 
-        public IDictionary<string, object> Data { get; private set; }
-
-        public PlayerEntity Player { get; private set; }
-
-        public PlayerActionEvent SetPlayer(
-            PlayerEntity player
-        )
-        {
-            ConnectionId = player.ConnectionId;
-            Player = player;
-            PlayerId = player.Id;
-            return this;
-        }
-
-        public PlayerActionEvent SetData(
-            IDictionary<string, object> data
-        )
-        {
-            CasterId = data.GetValueOrDefault(
-                "casterId",
-                -1L
-            );
-            SkillId = data.GetValueOrDefault(
-                "skillId",
-                ""
-            );
-            TargetId = data.GetValueOrDefault(
-                "targetId",
-                -1L
-            );
-            TargetPosition = data.GetValueOrDefault(
-                "targetPosition",
-                new Vector3(9_999_999, 9_999_999, 9_999_999)
-            );
-            Data = data;
-            return this;
-        }
+    public PlayerActionEvent SetData(
+        IDictionary<string, object> data
+    )
+    {
+        CasterId = data.GetValueOrDefault(
+            "casterId",
+            -1L
+        );
+        SkillId = data.GetValueOrDefault(
+            "skillId",
+            ""
+        );
+        TargetId = data.GetValueOrDefault(
+            "targetId",
+            -1L
+        );
+        TargetPosition = data.GetValueOrDefault(
+            "targetPosition",
+            new Vector3(9_999_999, 9_999_999, 9_999_999)
+        );
+        Data = data;
+        return this;
     }
 }

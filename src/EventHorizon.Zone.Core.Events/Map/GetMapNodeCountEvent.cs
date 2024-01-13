@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Events.Map
+namespace EventHorizon.Zone.Core.Events.Map;
+
+using MediatR;
+
+public class GetMapNodeCountEvent : IRequest<int>
 {
-    using MediatR;
 
-    public class GetMapNodeCountEvent : IRequest<int>
-    {
-
-    }
 }

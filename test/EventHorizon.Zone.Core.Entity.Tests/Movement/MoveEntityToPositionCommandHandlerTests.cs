@@ -1,367 +1,366 @@
-﻿namespace EventHorizon.Zone.Core.Entity.Tests.Movement
+﻿namespace EventHorizon.Zone.Core.Entity.Tests.Movement;
+
+using System;
+using System.Collections.Concurrent;
+using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Entity.Movement;
+using EventHorizon.Zone.Core.Events.Entity.Movement;
+using EventHorizon.Zone.Core.Events.Entity.Update;
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Core;
+using EventHorizon.Zone.Core.Model.DateTimeService;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Model.Entity.Movement;
+using EventHorizon.Zone.Core.Model.Map;
+using EventHorizon.Zone.Core.Model.Settings;
+
+using FluentAssertions;
+
+using MediatR;
+
+using Moq;
+
+using Xunit;
+
+public class MoveEntityToPositionCommandHandlerTests
 {
-    using System;
-    using System.Collections.Concurrent;
-    using System.Numerics;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Zone.Core.Entity.Movement;
-    using EventHorizon.Zone.Core.Events.Entity.Movement;
-    using EventHorizon.Zone.Core.Events.Entity.Update;
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.Core.Model.Entity.Movement;
-    using EventHorizon.Zone.Core.Model.Map;
-    using EventHorizon.Zone.Core.Model.Settings;
-
-    using FluentAssertions;
-
-    using MediatR;
-
-    using Moq;
-
-    using Xunit;
-
-    public class MoveEntityToPositionCommandHandlerTests
+    [Fact]
+    public async Task ShouldReturnFailureAndErrorMessageWhenMoveToMapNodeIsDenseAndDoDensityCheckIsTrue()
     {
-        [Fact]
-        public async Task ShouldReturnFailureAndErrorMessageWhenMoveToMapNodeIsDenseAndDoDensityCheckIsTrue()
-        {
-            // Given
-            var expected = new MoveEntityToPositionCommandResponse(
-                false,
-                "move_to_node_is_dense"
-            );
+        // Given
+        var expected = new MoveEntityToPositionCommandResponse(
+            false,
+            "move_to_node_is_dense"
+        );
 
-            var entity = new DefaultEntity(
-                new ConcurrentDictionary<string, object>()
-            );
-            var moveTo = Vector3.One;
-            var doDensityCheck = true;
+        var entity = new DefaultEntity(
+            new ConcurrentDictionary<string, object>()
+        );
+        var moveTo = Vector3.One;
+        var doDensityCheck = true;
 
-            var moveToMapNode = new MapNode(
-                moveTo
-            );
-            moveToMapNode.Info["dense"] = 1;
+        var moveToMapNode = new MapNode(
+            moveTo
+        );
+        moveToMapNode.Info["dense"] = 1;
 
-            var zoneSettings = new ZoneSettings();
+        var zoneSettings = new ZoneSettings();
 
-            var mediatorMock = new Mock<IMediator>();
-            var dateTimeMock = new Mock<IDateTimeService>();
+        var mediatorMock = new Mock<IMediator>();
+        var dateTimeMock = new Mock<IDateTimeService>();
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new GetMapNodeAtPositionEvent(
-                        moveTo
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                moveToMapNode
-            );
-
-            // When
-            var handler = new MoveEntityToPositionCommandHandler(
-                mediatorMock.Object,
-                dateTimeMock.Object,
-                zoneSettings
-            );
-            var actual = await handler.Handle(
-                new MoveEntityToPositionCommand(
-                    entity,
-                    moveTo,
-                    doDensityCheck
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new GetMapNodeAtPositionEvent(
+                    moveTo
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            moveToMapNode
+        );
 
-            // Then
-            actual.Should().Be(expected);
-        }
+        // When
+        var handler = new MoveEntityToPositionCommandHandler(
+            mediatorMock.Object,
+            dateTimeMock.Object,
+            zoneSettings
+        );
+        var actual = await handler.Handle(
+            new MoveEntityToPositionCommand(
+                entity,
+                moveTo,
+                doDensityCheck
+            ),
+            CancellationToken.None
+        );
 
-        [Fact]
-        public async Task ShouldReturnFailureAndErrorMessageWhenMoveToMapNodeIsNotFound()
-        {
-            // Given
-            var expected = new MoveEntityToPositionCommandResponse(
-                false,
-                "move_to_node_is_dense"
-            );
+        // Then
+        actual.Should().Be(expected);
+    }
 
-            var entity = new DefaultEntity(
-                new ConcurrentDictionary<string, object>()
-            );
-            var moveTo = Vector3.One;
-            var doDensityCheck = true;
+    [Fact]
+    public async Task ShouldReturnFailureAndErrorMessageWhenMoveToMapNodeIsNotFound()
+    {
+        // Given
+        var expected = new MoveEntityToPositionCommandResponse(
+            false,
+            "move_to_node_is_dense"
+        );
 
-            var zoneSettings = new ZoneSettings();
+        var entity = new DefaultEntity(
+            new ConcurrentDictionary<string, object>()
+        );
+        var moveTo = Vector3.One;
+        var doDensityCheck = true;
 
-            var mediatorMock = new Mock<IMediator>();
-            var dateTimeMock = new Mock<IDateTimeService>();
+        var zoneSettings = new ZoneSettings();
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new GetMapNodeAtPositionEvent(
-                        moveTo
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                default(MapNode)
-            );
+        var mediatorMock = new Mock<IMediator>();
+        var dateTimeMock = new Mock<IDateTimeService>();
 
-            // When
-            var handler = new MoveEntityToPositionCommandHandler(
-                mediatorMock.Object,
-                dateTimeMock.Object,
-                zoneSettings
-            );
-            var actual = await handler.Handle(
-                new MoveEntityToPositionCommand(
-                    entity,
-                    moveTo,
-                    doDensityCheck
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new GetMapNodeAtPositionEvent(
+                    moveTo
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            default(MapNode)
+        );
 
-            // Then
-            actual.Should().Be(expected);
-        }
+        // When
+        var handler = new MoveEntityToPositionCommandHandler(
+            mediatorMock.Object,
+            dateTimeMock.Object,
+            zoneSettings
+        );
+        var actual = await handler.Handle(
+            new MoveEntityToPositionCommand(
+                entity,
+                moveTo,
+                doDensityCheck
+            ),
+            CancellationToken.None
+        );
 
-        [Fact]
-        public async Task ShouldReturnSuccesssWhenMoveToMapNodeIsNotDenseAndDoDensityCheckIsTrue()
-        {
-            // Given
-            var now = DateTime.UtcNow;
-            var moveTo = Vector3.One;
-            var doDensityCheck = true;
-            var baseMovementTimeOffset = 10;
-            var speed = 1;
-            var entity = new DefaultEntity(
-                new ConcurrentDictionary<string, object>()
-            );
-            entity.PopulateData(
-                LocationState.PROPERTY_NAME,
-                new LocationState()
-            );
-            entity.PopulateData(
-                MovementState.PROPERTY_NAME,
-                new MovementState
-                {
-                    Speed = speed,
-                }
-            );
+        // Then
+        actual.Should().Be(expected);
+    }
 
-            var zoneSettings = new ZoneSettings
+    [Fact]
+    public async Task ShouldReturnSuccesssWhenMoveToMapNodeIsNotDenseAndDoDensityCheckIsTrue()
+    {
+        // Given
+        var now = DateTime.UtcNow;
+        var moveTo = Vector3.One;
+        var doDensityCheck = true;
+        var baseMovementTimeOffset = 10;
+        var speed = 1;
+        var entity = new DefaultEntity(
+            new ConcurrentDictionary<string, object>()
+        );
+        entity.PopulateData(
+            LocationState.PROPERTY_NAME,
+            new LocationState()
+        );
+        entity.PopulateData(
+            MovementState.PROPERTY_NAME,
+            new MovementState
             {
-                BaseMovementTimeOffset = baseMovementTimeOffset,
-            };
+                Speed = speed,
+            }
+        );
 
-            var moveToMapNode = new MapNode(
-                moveTo
-            );
-            moveToMapNode.Info["dense"] = 0;
-
-            var mediatorMock = new Mock<IMediator>();
-            var dateTimeMock = new Mock<IDateTimeService>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new GetMapNodeAtPositionEvent(
-                        moveTo
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                moveToMapNode
-            );
-
-            dateTimeMock.Setup(
-                mock => mock.Now
-            ).Returns(
-                now
-            );
-
-            // When
-            var handler = new MoveEntityToPositionCommandHandler(
-                mediatorMock.Object,
-                dateTimeMock.Object,
-                zoneSettings
-            );
-            var actual = await handler.Handle(
-                new MoveEntityToPositionCommand(
-                    entity,
-                    moveTo,
-                    doDensityCheck
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            actual.Success.Should().BeTrue();
-        }
-
-        [Fact]
-        public async Task ShouldReturnSuccesssWhenMoveToMapNodeDoesNotContainDenseInfo()
+        var zoneSettings = new ZoneSettings
         {
-            // Given
-            var now = DateTime.UtcNow;
-            var moveTo = Vector3.One;
-            var doDensityCheck = true;
-            var baseMovementTimeOffset = 10;
-            var speed = 1;
-            var entity = new DefaultEntity(
-                new ConcurrentDictionary<string, object>()
-            );
-            entity.PopulateData(
-                LocationState.PROPERTY_NAME,
-                new LocationState()
-            );
-            entity.PopulateData(
-                MovementState.PROPERTY_NAME,
-                new MovementState
-                {
-                    Speed = speed,
-                }
-            );
+            BaseMovementTimeOffset = baseMovementTimeOffset,
+        };
 
-            var zoneSettings = new ZoneSettings
-            {
-                BaseMovementTimeOffset = baseMovementTimeOffset,
-            };
+        var moveToMapNode = new MapNode(
+            moveTo
+        );
+        moveToMapNode.Info["dense"] = 0;
 
-            var moveToMapNode = new MapNode(
-                moveTo
-            );
+        var mediatorMock = new Mock<IMediator>();
+        var dateTimeMock = new Mock<IDateTimeService>();
 
-            var mediatorMock = new Mock<IMediator>();
-            var dateTimeMock = new Mock<IDateTimeService>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new GetMapNodeAtPositionEvent(
-                        moveTo
-                    ),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                moveToMapNode
-            );
-
-            dateTimeMock.Setup(
-                mock => mock.Now
-            ).Returns(
-                now
-            );
-
-            // When
-            var handler = new MoveEntityToPositionCommandHandler(
-                mediatorMock.Object,
-                dateTimeMock.Object,
-                zoneSettings
-            );
-            var actual = await handler.Handle(
-                new MoveEntityToPositionCommand(
-                    entity,
-                    moveTo,
-                    doDensityCheck
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new GetMapNodeAtPositionEvent(
+                    moveTo
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            moveToMapNode
+        );
 
-            // Then
-            actual.Success.Should().BeTrue();
-        }
+        dateTimeMock.Setup(
+            mock => mock.Now
+        ).Returns(
+            now
+        );
 
-        [Fact]
-        public async Task ShouldUpdateTheEntitysLocationStateWhenPassingDensityCheck()
+        // When
+        var handler = new MoveEntityToPositionCommandHandler(
+            mediatorMock.Object,
+            dateTimeMock.Object,
+            zoneSettings
+        );
+        var actual = await handler.Handle(
+            new MoveEntityToPositionCommand(
+                entity,
+                moveTo,
+                doDensityCheck
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldReturnSuccesssWhenMoveToMapNodeDoesNotContainDenseInfo()
+    {
+        // Given
+        var now = DateTime.UtcNow;
+        var moveTo = Vector3.One;
+        var doDensityCheck = true;
+        var baseMovementTimeOffset = 10;
+        var speed = 1;
+        var entity = new DefaultEntity(
+            new ConcurrentDictionary<string, object>()
+        );
+        entity.PopulateData(
+            LocationState.PROPERTY_NAME,
+            new LocationState()
+        );
+        entity.PopulateData(
+            MovementState.PROPERTY_NAME,
+            new MovementState
+            {
+                Speed = speed,
+            }
+        );
+
+        var zoneSettings = new ZoneSettings
         {
-            // Given
-            IObjectEntity actual = null;
+            BaseMovementTimeOffset = baseMovementTimeOffset,
+        };
 
-            var now = DateTime.UtcNow;
-            var moveTo = Vector3.One;
-            var doDensityCheck = false;
-            var baseMovementTimeOffset = 10;
-            var speed = 1;
-            var entity = new DefaultEntity(
-                new ConcurrentDictionary<string, object>()
-            );
-            entity.PopulateData(
-                LocationState.PROPERTY_NAME,
-                new LocationState()
-            );
-            entity.PopulateData(
-                MovementState.PROPERTY_NAME,
-                new MovementState
-                {
-                    Speed = speed,
-                }
-            );
-            var expectedPosition = moveTo;
-            var expectedMoveToPosition = moveTo;
-            // 10 * 1 / 1
-            var expectedNextMoveRequest = now.AddMilliseconds(
-                10
-            );
+        var moveToMapNode = new MapNode(
+            moveTo
+        );
 
-            var zoneSettings = new ZoneSettings
-            {
-                BaseMovementTimeOffset = baseMovementTimeOffset,
-            };
+        var mediatorMock = new Mock<IMediator>();
+        var dateTimeMock = new Mock<IDateTimeService>();
 
-            var mediatorMock = new Mock<IMediator>();
-            var dateTimeMock = new Mock<IDateTimeService>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    It.IsAny<UpdateEntityCommand>(),
-                    CancellationToken.None
-                )
-            ).Callback<IRequest, CancellationToken>(
-                (request, _) =>
-                {
-                    actual = ((UpdateEntityCommand)request).Entity;
-                }
-            );
-
-            dateTimeMock.Setup(
-                mock => mock.Now
-            ).Returns(
-                now
-            );
-
-            // When
-            var handler = new MoveEntityToPositionCommandHandler(
-                mediatorMock.Object,
-                dateTimeMock.Object,
-                zoneSettings
-            );
-            await handler.Handle(
-                new MoveEntityToPositionCommand(
-                    entity,
-                    moveTo,
-                    doDensityCheck
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new GetMapNodeAtPositionEvent(
+                    moveTo
                 ),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            moveToMapNode
+        );
 
-            // Then
-            actual
-                .Should().NotBeNull();
-            actual.Transform.Position
-                .Should().Be(expectedPosition);
-            var actualLocationState = actual.GetProperty<LocationState>(
-                LocationState.PROPERTY_NAME
-            );
-            actualLocationState.MoveToPosition
-                .Should().Be(expectedMoveToPosition);
-            actualLocationState.NextMoveRequest
-                .Should().Be(expectedNextMoveRequest);
-        }
+        dateTimeMock.Setup(
+            mock => mock.Now
+        ).Returns(
+            now
+        );
+
+        // When
+        var handler = new MoveEntityToPositionCommandHandler(
+            mediatorMock.Object,
+            dateTimeMock.Object,
+            zoneSettings
+        );
+        var actual = await handler.Handle(
+            new MoveEntityToPositionCommand(
+                entity,
+                moveTo,
+                doDensityCheck
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual.Success.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task ShouldUpdateTheEntitysLocationStateWhenPassingDensityCheck()
+    {
+        // Given
+        IObjectEntity actual = null;
+
+        var now = DateTime.UtcNow;
+        var moveTo = Vector3.One;
+        var doDensityCheck = false;
+        var baseMovementTimeOffset = 10;
+        var speed = 1;
+        var entity = new DefaultEntity(
+            new ConcurrentDictionary<string, object>()
+        );
+        entity.PopulateData(
+            LocationState.PROPERTY_NAME,
+            new LocationState()
+        );
+        entity.PopulateData(
+            MovementState.PROPERTY_NAME,
+            new MovementState
+            {
+                Speed = speed,
+            }
+        );
+        var expectedPosition = moveTo;
+        var expectedMoveToPosition = moveTo;
+        // 10 * 1 / 1
+        var expectedNextMoveRequest = now.AddMilliseconds(
+            10
+        );
+
+        var zoneSettings = new ZoneSettings
+        {
+            BaseMovementTimeOffset = baseMovementTimeOffset,
+        };
+
+        var mediatorMock = new Mock<IMediator>();
+        var dateTimeMock = new Mock<IDateTimeService>();
+
+        mediatorMock.Setup(
+            mock => mock.Send(
+                It.IsAny<UpdateEntityCommand>(),
+                CancellationToken.None
+            )
+        ).Callback<IRequest, CancellationToken>(
+            (request, _) =>
+            {
+                actual = ((UpdateEntityCommand)request).Entity;
+            }
+        );
+
+        dateTimeMock.Setup(
+            mock => mock.Now
+        ).Returns(
+            now
+        );
+
+        // When
+        var handler = new MoveEntityToPositionCommandHandler(
+            mediatorMock.Object,
+            dateTimeMock.Object,
+            zoneSettings
+        );
+        await handler.Handle(
+            new MoveEntityToPositionCommand(
+                entity,
+                moveTo,
+                doDensityCheck
+            ),
+            CancellationToken.None
+        );
+
+        // Then
+        actual
+            .Should().NotBeNull();
+        actual.Transform.Position
+            .Should().Be(expectedPosition);
+        var actualLocationState = actual.GetProperty<LocationState>(
+            LocationState.PROPERTY_NAME
+        );
+        actualLocationState.MoveToPosition
+            .Should().Be(expectedMoveToPosition);
+        actualLocationState.NextMoveRequest
+            .Should().Be(expectedNextMoveRequest);
     }
 }

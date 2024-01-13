@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Model
-{
-    using System;
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Model;
 
-    public enum ClientScriptType
-    {
-        Unknown = 0,
-        CSharp = 1,
-        JavaScript = 2,
-    }
+using System;
+
+public enum ClientScriptType
+{
+    Unknown = 0,
+    CSharp = 1,
+    JavaScript = 2,
 }

@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.DirectoryService
+namespace EventHorizon.Zone.Core.Events.DirectoryService;
+
+using MediatR;
+
+public struct DoesDirectoryExist : IRequest<bool>
 {
-    using MediatR;
+    public string DirectoryFullName { get; }
 
-    public struct DoesDirectoryExist : IRequest<bool>
+    public DoesDirectoryExist(
+        string directoryFullName
+    )
     {
-        public string DirectoryFullName { get; }
-
-        public DoesDirectoryExist(
-            string directoryFullName
-        )
-        {
-            DirectoryFullName = directoryFullName;
-        }
+        DirectoryFullName = directoryFullName;
     }
 }

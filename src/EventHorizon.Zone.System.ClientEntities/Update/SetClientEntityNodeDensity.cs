@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Update
+﻿namespace EventHorizon.Zone.System.ClientEntities.Update;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct SetClientEntityNodeDensity : IRequest
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public IObjectEntity ClientEntity { get; }
 
-    using MediatR;
-
-    public struct SetClientEntityNodeDensity : IRequest
+    public SetClientEntityNodeDensity(
+        IObjectEntity clientEntity
+    )
     {
-        public IObjectEntity ClientEntity { get; }
-
-        public SetClientEntityNodeDensity(
-            IObjectEntity clientEntity
-        )
-        {
-            ClientEntity = clientEntity;
-        }
+        ClientEntity = clientEntity;
     }
 }

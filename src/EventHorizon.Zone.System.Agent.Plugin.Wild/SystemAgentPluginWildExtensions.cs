@@ -1,16 +1,15 @@
-namespace EventHorizon.Game.Server.Zone
+namespace EventHorizon.Game.Server.Zone;
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+public static class SystemAgentPluginWildExtensions
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.DependencyInjection;
+    public static IServiceCollection AddSystemAgentPluginWild(
+        this IServiceCollection services
+    ) => services;
 
-    public static class SystemAgentPluginWildExtensions
-    {
-        public static IServiceCollection AddSystemAgentPluginWild(
-            this IServiceCollection services
-        ) => services;
-
-        public static IApplicationBuilder UseSystemAgentPluginWild(
-            this IApplicationBuilder app
-        ) => app;
-    }
+    public static IApplicationBuilder UseSystemAgentPluginWild(
+        this IApplicationBuilder app
+    ) => app;
 }

@@ -1,43 +1,42 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Create
+﻿namespace EventHorizon.Zone.System.ClientEntities.Create;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+
+using MediatR;
+
+public class CreateClientEntityCommand : IRequest<CreateClientEntityResponse>
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
+    public ClientEntity ClientEntity { get; }
 
-    using MediatR;
-
-    public class CreateClientEntityCommand : IRequest<CreateClientEntityResponse>
+    public CreateClientEntityCommand(
+        ClientEntity clientEntity
+    )
     {
-        public ClientEntity ClientEntity { get; }
+        ClientEntity = clientEntity;
+    }
+}
 
-        public CreateClientEntityCommand(
-            ClientEntity clientEntity
-        )
-        {
-            ClientEntity = clientEntity;
-        }
+public struct CreateClientEntityResponse
+{
+    public bool Success { get; }
+    public string ErrorCode { get; }
+    public ClientEntity ClientEntity { get; }
+
+    public CreateClientEntityResponse(
+        bool success,
+        ClientEntity clientEntity
+    ) : this(string.Empty)
+    {
+        Success = success;
+        ClientEntity = clientEntity;
     }
 
-    public struct CreateClientEntityResponse
+    public CreateClientEntityResponse(
+        string errorCode
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-        public ClientEntity ClientEntity { get; }
-
-        public CreateClientEntityResponse(
-            bool success,
-            ClientEntity clientEntity
-        ) : this(string.Empty)
-        {
-            Success = success;
-            ClientEntity = clientEntity;
-        }
-
-        public CreateClientEntityResponse(
-            string errorCode
-        )
-        {
-            Success = false;
-            ErrorCode = errorCode;
-            ClientEntity = default;
-        }
+        Success = false;
+        ErrorCode = errorCode;
+        ClientEntity = default;
     }
 }

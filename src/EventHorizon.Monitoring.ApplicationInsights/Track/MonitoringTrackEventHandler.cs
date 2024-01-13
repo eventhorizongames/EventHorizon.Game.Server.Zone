@@ -1,34 +1,33 @@
-namespace EventHorizon.Monitoring.ApplicationInsights.Track
+namespace EventHorizon.Monitoring.ApplicationInsights.Track;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Monitoring.Events.Track;
+
+using MediatR;
+
+using Microsoft.ApplicationInsights;
+
+public class MonitoringTrackEventHandler : INotificationHandler<MonitoringTrackEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly TelemetryClient _telemetry;
 
-    using EventHorizon.Monitoring.Events.Track;
-
-    using MediatR;
-
-    using Microsoft.ApplicationInsights;
-
-    public class MonitoringTrackEventHandler : INotificationHandler<MonitoringTrackEvent>
+    public MonitoringTrackEventHandler(
+        TelemetryClient telemetry
+    )
     {
-        private readonly TelemetryClient _telemetry;
+        _telemetry = telemetry;
+    }
 
-        public MonitoringTrackEventHandler(
-            TelemetryClient telemetry
-        )
-        {
-            _telemetry = telemetry;
-        }
-
-        public Task Handle(
-            MonitoringTrackEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            _telemetry.TrackEvent(
-                notification.Name
-            );
-            return Task.CompletedTask;
-        }
+    public Task Handle(
+        MonitoringTrackEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _telemetry.TrackEvent(
+            notification.Name
+        );
+        return Task.CompletedTask;
     }
 }

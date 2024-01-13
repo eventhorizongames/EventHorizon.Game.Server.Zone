@@ -1,43 +1,42 @@
-namespace EventHorizon.Server.Core.Disconnected
+namespace EventHorizon.Server.Core.Disconnected;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Server.Core.Connection.Disconnected;
+using EventHorizon.Zone.Core.Model.ServerProperty;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class CoreServerConnectionDisconnectedHandler
+    : INotificationHandler<ServerCoreConnectionDisconnected>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ILogger _logger;
+    private readonly IServerProperty _serverProperty;
 
-    using EventHorizon.Server.Core.Connection.Disconnected;
-    using EventHorizon.Zone.Core.Model.ServerProperty;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class CoreServerConnectionDisconnectedHandler
-        : INotificationHandler<ServerCoreConnectionDisconnected>
+    public CoreServerConnectionDisconnectedHandler(
+        ILogger<CoreServerConnectionDisconnectedHandler> logger,
+        IServerProperty serverProperty
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IServerProperty _serverProperty;
+        _logger = logger;
+        _serverProperty = serverProperty;
+    }
 
-        public CoreServerConnectionDisconnectedHandler(
-            ILogger<CoreServerConnectionDisconnectedHandler> logger,
-            IServerProperty serverProperty
-        )
-        {
-            _logger = logger;
-            _serverProperty = serverProperty;
-        }
+    public Task Handle(
+        ServerCoreConnectionDisconnected notification,
+        CancellationToken cancellationToken
+    )
+    {
+        _logger.LogWarning(
+            "Disconnected from Core Server."
+        );
+        _serverProperty.Remove(
+            ServerPropertyKeys.SERVER_ID
+        );
 
-        public Task Handle(
-            ServerCoreConnectionDisconnected notification,
-            CancellationToken cancellationToken
-        )
-        {
-            _logger.LogWarning(
-                "Disconnected from Core Server."
-            );
-            _serverProperty.Remove(
-                ServerPropertyKeys.SERVER_ID
-            );
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

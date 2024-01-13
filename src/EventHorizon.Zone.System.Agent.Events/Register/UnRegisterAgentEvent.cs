@@ -1,15 +1,14 @@
-namespace EventHorizon.Zone.System.Agent.Events.Register
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Agent.Events.Register;
 
-    public struct UnRegisterAgent : IRequest
+using MediatR;
+
+public struct UnRegisterAgent : IRequest
+{
+    public string AgentId { get; }
+    public UnRegisterAgent(
+        string agentId
+    )
     {
-        public string AgentId { get; }
-        public UnRegisterAgent(
-            string agentId
-        )
-        {
-            AgentId = agentId;
-        }
+        AgentId = agentId;
     }
 }

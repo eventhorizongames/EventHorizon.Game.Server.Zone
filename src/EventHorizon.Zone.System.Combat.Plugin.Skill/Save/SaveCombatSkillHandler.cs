@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Save
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class SaveCombatSkillHandler
+    : IRequestHandler<SaveCombatSkillEvent, SkillInstance>
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+    private readonly SkillRepository _skillRepository;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class SaveCombatSkillHandler
-        : IRequestHandler<SaveCombatSkillEvent, SkillInstance>
+    public SaveCombatSkillHandler(
+        SkillRepository skillRepository
+    )
     {
-        private readonly SkillRepository _skillRepository;
+        _skillRepository = skillRepository;
+    }
 
-        public SaveCombatSkillHandler(
-            SkillRepository skillRepository
-        )
-        {
-            _skillRepository = skillRepository;
-        }
-
-        public Task<SkillInstance> Handle(
-            SaveCombatSkillEvent request,
-            CancellationToken cancellationToken
-        )
-        {
-            _skillRepository.Set(
-                request.Skill
-            );
-            return Task.FromResult(
-                request.Skill
-            );
-        }
+    public Task<SkillInstance> Handle(
+        SaveCombatSkillEvent request,
+        CancellationToken cancellationToken
+    )
+    {
+        _skillRepository.Set(
+            request.Skill
+        );
+        return Task.FromResult(
+            request.Skill
+        );
     }
 }

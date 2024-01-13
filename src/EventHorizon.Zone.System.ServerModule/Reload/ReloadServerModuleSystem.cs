@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.ServerModule.Reload
+namespace EventHorizon.Zone.System.ServerModule.Reload;
+
+using MediatR;
+
+public struct ReloadServerModuleSystem : IRequest
 {
-    using MediatR;
 
-    public struct ReloadServerModuleSystem : IRequest
-    {
-
-    }
 }

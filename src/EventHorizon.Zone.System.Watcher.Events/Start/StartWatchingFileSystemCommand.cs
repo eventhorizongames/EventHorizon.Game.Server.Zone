@@ -1,14 +1,13 @@
-namespace EventHorizon.Zone.System.Watcher.Events.Start
+namespace EventHorizon.Zone.System.Watcher.Events.Start;
+
+using MediatR;
+
+public struct StartWatchingFileSystemCommand : IRequest
 {
-    using MediatR;
+    public string Path { get; }
 
-    public struct StartWatchingFileSystemCommand : IRequest
+    public StartWatchingFileSystemCommand(string path)
     {
-        public string Path { get; }
-
-        public StartWatchingFileSystemCommand(string path)
-        {
-            Path = path;
-        }
+        Path = path;
     }
 }

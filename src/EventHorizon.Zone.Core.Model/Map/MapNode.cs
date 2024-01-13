@@ -1,75 +1,74 @@
-namespace EventHorizon.Zone.Core.Model.Map
+namespace EventHorizon.Zone.Core.Model.Map;
+
+using System.Collections.Generic;
+using System.Numerics;
+
+using EventHorizon.Zone.Core.Model.Structure;
+
+public struct MapNode
+    : IOctreeEntity
 {
-    using System.Collections.Generic;
-    using System.Numerics;
+    public int Index { get; set; }
+    public Vector3 Position { get; set; }
+    public IDictionary<string, object> Info { get; set; }
 
-    using EventHorizon.Zone.Core.Model.Structure;
-
-    public struct MapNode
-        : IOctreeEntity
+    public MapNode(
+        Vector3 position
+    )
     {
-        public int Index { get; set; }
-        public Vector3 Position { get; set; }
-        public IDictionary<string, object> Info { get; set; }
-
-        public MapNode(
-            Vector3 position
-        )
-        {
-            Index = -1;
-            Position = position;
-            Info = new Dictionary<string, object>();
-        }
-
-        public MapNode(
-            int index
-        )
-        {
-            Index = index;
-            Position = new Vector3();
-            Info = new Dictionary<string, object>();
-        }
-
-        public bool IsFound()
-        {
-            return Info != null;
-        }
-
-        #region Generated object Overrides
-        /// <summary>
-        /// Required to override to work with Octree usage.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object? obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-            var castObj = (MapNode)obj;
-
-            return Index.Equals(castObj.Index);
-        }
-
-        /// <summary>
-        /// Required to override to work with Octree usage.
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Index.GetHashCode();
-        }
-
-        public static bool operator ==(MapNode left, MapNode right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(MapNode left, MapNode right)
-        {
-            return !(left == right);
-        }
-        #endregion
+        Index = -1;
+        Position = position;
+        Info = new Dictionary<string, object>();
     }
+
+    public MapNode(
+        int index
+    )
+    {
+        Index = index;
+        Position = new Vector3();
+        Info = new Dictionary<string, object>();
+    }
+
+    public bool IsFound()
+    {
+        return Info != null;
+    }
+
+    #region Generated object Overrides
+    /// <summary>
+    /// Required to override to work with Octree usage.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+        var castObj = (MapNode)obj;
+
+        return Index.Equals(castObj.Index);
+    }
+
+    /// <summary>
+    /// Required to override to work with Octree usage.
+    /// </summary>
+    /// <returns></returns>
+    public override int GetHashCode()
+    {
+        return Index.GetHashCode();
+    }
+
+    public static bool operator ==(MapNode left, MapNode right)
+    {
+        return left.Equals(right);
+    }
+
+    public static bool operator !=(MapNode left, MapNode right)
+    {
+        return !(left == right);
+    }
+    #endregion
 }

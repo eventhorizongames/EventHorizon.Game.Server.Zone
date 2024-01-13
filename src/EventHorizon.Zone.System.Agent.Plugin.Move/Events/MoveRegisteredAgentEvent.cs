@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Move.Events
+namespace EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
+using MediatR;
+
+public struct MoveRegisteredAgentEvent : INotification
 {
-    using MediatR;
+    public long EntityId { get; }
 
-    public struct MoveRegisteredAgentEvent : INotification
+    public MoveRegisteredAgentEvent(
+        long entityId
+    )
     {
-        public long EntityId { get; }
-
-        public MoveRegisteredAgentEvent(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }

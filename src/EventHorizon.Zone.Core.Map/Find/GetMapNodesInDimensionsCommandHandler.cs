@@ -1,35 +1,34 @@
-namespace EventHorizon.Zone.Core.Map.Find
+namespace EventHorizon.Zone.Core.Map.Find;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public class GetMapNodesInDimensionsCommandHandler
+    : IRequestHandler<GetMapNodesInDimensionsCommand, IList<MapNode>>
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMapGraph _map;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public class GetMapNodesInDimensionsCommandHandler
-        : IRequestHandler<GetMapNodesInDimensionsCommand, IList<MapNode>>
+    public GetMapNodesInDimensionsCommandHandler(
+        IMapGraph map
+    )
     {
-        private readonly IMapGraph _map;
+        _map = map;
+    }
 
-        public GetMapNodesInDimensionsCommandHandler(
-            IMapGraph map
-        )
-        {
-            _map = map;
-        }
-
-        public Task<IList<MapNode>> Handle(
-            GetMapNodesInDimensionsCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            return _map.GetClosestNodesInDimension(
-                request.Position,
-                request.Dimensions
-            ).FromResult();
-        }
+    public Task<IList<MapNode>> Handle(
+        GetMapNodesInDimensionsCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _map.GetClosestNodesInDimension(
+            request.Position,
+            request.Dimensions
+        ).FromResult();
     }
 }

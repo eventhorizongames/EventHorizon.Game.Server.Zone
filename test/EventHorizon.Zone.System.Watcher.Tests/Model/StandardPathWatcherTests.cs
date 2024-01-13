@@ -1,35 +1,34 @@
-namespace EventHorizon.Zone.System.Watcher.Tests.Model
+namespace EventHorizon.Zone.System.Watcher.Tests.Model;
+
+using global::System.IO;
+
+using EventHorizon.Zone.System.Watcher.Model;
+
+using Moq;
+
+using Xunit;
+
+public class StandardPathWatcherTests
 {
-    using global::System.IO;
-
-    using EventHorizon.Zone.System.Watcher.Model;
-
-    using Moq;
-
-    using Xunit;
-
-    public class StandardPathWatcherTests
+    [Fact]
+    public void TestShouldAbstractThePathAndFileSystemWatcherWhenCreatedWithStandardPathWatcher()
     {
-        [Fact]
-        public void TestShouldAbstractThePathAndFileSystemWatcherWhenCreatedWithStandardPathWatcher()
-        {
-            // Given
-            var expected = "path-to-a-file-or-directory";
-            var fileSystemWatcherMock = new Mock<FileSystemWatcher>();
+        // Given
+        var expected = "path-to-a-file-or-directory";
+        var fileSystemWatcherMock = new Mock<FileSystemWatcher>();
 
-            // When
-            var standardPatchWatcher = new StandardPathWatcher(
-                expected,
-                fileSystemWatcherMock.Object
-            );
+        // When
+        var standardPatchWatcher = new StandardPathWatcher(
+            expected,
+            fileSystemWatcherMock.Object
+        );
 
-            standardPatchWatcher.Dispose();
+        standardPatchWatcher.Dispose();
 
-            // Then
-            Assert.Equal(
-                expected,
-                standardPatchWatcher.Path
-            );
-        }
+        // Then
+        Assert.Equal(
+            expected,
+            standardPatchWatcher.Path
+        );
     }
 }

@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.Load
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.Load;
 
-    public struct LoadAdminCommands : IRequest
-    {
-    }
+using MediatR;
+
+public struct LoadAdminCommands : IRequest
+{
 }

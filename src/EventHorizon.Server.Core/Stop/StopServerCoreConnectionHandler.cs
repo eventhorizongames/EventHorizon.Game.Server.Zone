@@ -1,30 +1,29 @@
-namespace EventHorizon.Server.Core.Stop
+namespace EventHorizon.Server.Core.Stop;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Server.Core.Connection;
+using EventHorizon.Server.Core.Events.Stop;
+
+using MediatR;
+
+public class StopCoreServerConnectionHandler : INotificationHandler<StopCoreServerConnection>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly CoreServerConnectionCache _connectionCache;
 
-    using EventHorizon.Server.Core.Connection;
-    using EventHorizon.Server.Core.Events.Stop;
-
-    using MediatR;
-
-    public class StopCoreServerConnectionHandler : INotificationHandler<StopCoreServerConnection>
+    public StopCoreServerConnectionHandler(
+        CoreServerConnectionCache connectionCache
+    )
     {
-        private readonly CoreServerConnectionCache _connectionCache;
+        _connectionCache = connectionCache;
+    }
 
-        public StopCoreServerConnectionHandler(
-            CoreServerConnectionCache connectionCache
-        )
-        {
-            _connectionCache = connectionCache;
-        }
-
-        public async Task Handle(
-            StopCoreServerConnection notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _connectionCache.Stop();
-        }
+    public async Task Handle(
+        StopCoreServerConnection notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _connectionCache.Stop();
     }
 }

@@ -1,15 +1,14 @@
-namespace EventHorizon.Zone.System.Agent.Model
+namespace EventHorizon.Zone.System.Agent.Model;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+public class AgentAction : EntityAction
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public static readonly AgentAction PATH = new("Agent.Path");
+    public static readonly AgentAction SCRIPT = new("Agent.Script");
 
-    public class AgentAction : EntityAction
+    protected AgentAction(string type)
+        : base(type)
     {
-        public static readonly AgentAction PATH = new("Agent.Path");
-        public static readonly AgentAction SCRIPT = new("Agent.Script");
-
-        protected AgentAction(string type)
-            : base(type)
-        {
-        }
     }
 }

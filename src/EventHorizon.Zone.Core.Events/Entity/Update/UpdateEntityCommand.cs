@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Update
+namespace EventHorizon.Zone.Core.Events.Entity.Update;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct UpdateEntityCommand : IRequest
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public EntityAction Action { get; }
+    public IObjectEntity Entity { get; }
 
-    using MediatR;
-
-    public struct UpdateEntityCommand : IRequest
+    public UpdateEntityCommand(
+        EntityAction action,
+        IObjectEntity entity
+    )
     {
-        public EntityAction Action { get; }
-        public IObjectEntity Entity { get; }
-
-        public UpdateEntityCommand(
-            EntityAction action,
-            IObjectEntity entity
-        )
-        {
-            Action = action;
-            Entity = entity;
-        }
+        Action = action;
+        Entity = entity;
     }
 }

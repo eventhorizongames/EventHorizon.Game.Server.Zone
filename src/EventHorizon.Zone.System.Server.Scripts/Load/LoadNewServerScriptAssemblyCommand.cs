@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Load
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Load;
+
+using EventHorizon.Zone.Core.Model.Command;
+
+using MediatR;
+
+public struct LoadNewServerScriptAssemblyCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-
-    using MediatR;
-
-    public struct LoadNewServerScriptAssemblyCommand
-        : IRequest<StandardCommandResult>
-    {
-    }
 }

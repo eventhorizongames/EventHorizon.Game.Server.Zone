@@ -1,22 +1,21 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Action
+namespace EventHorizon.Zone.Core.Events.Entity.Action;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct EntityActionEvent
+    : INotification
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public EntityAction Action { get; }
+    public IObjectEntity? Entity { get; }
 
-    using MediatR;
-
-    public struct EntityActionEvent
-        : INotification
+    public EntityActionEvent(
+        EntityAction action,
+        IObjectEntity? entity
+    )
     {
-        public EntityAction Action { get; }
-        public IObjectEntity? Entity { get; }
-
-        public EntityActionEvent(
-            EntityAction action,
-            IObjectEntity? entity
-        )
-        {
-            Action = action;
-            Entity = entity;
-        }
+        Action = action;
+        Entity = entity;
     }
 }

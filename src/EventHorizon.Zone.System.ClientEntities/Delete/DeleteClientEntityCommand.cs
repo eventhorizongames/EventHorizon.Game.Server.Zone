@@ -1,37 +1,36 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Delete
+﻿namespace EventHorizon.Zone.System.ClientEntities.Delete;
+
+using MediatR;
+
+public struct DeleteClientEntityCommand : IRequest<DeleteClientEntityResponse>
 {
-    using MediatR;
+    public string ClientEntityId { get; }
 
-    public struct DeleteClientEntityCommand : IRequest<DeleteClientEntityResponse>
+    public DeleteClientEntityCommand(
+        string clientEntityId
+    )
     {
-        public string ClientEntityId { get; }
+        ClientEntityId = clientEntityId;
+    }
+}
 
-        public DeleteClientEntityCommand(
-            string clientEntityId
-        )
-        {
-            ClientEntityId = clientEntityId;
-        }
+public struct DeleteClientEntityResponse
+{
+    public bool Success { get; }
+    public string ErrorCode { get; }
+
+    public DeleteClientEntityResponse(
+        bool success
+    ) : this(string.Empty)
+    {
+        Success = success;
     }
 
-    public struct DeleteClientEntityResponse
+    public DeleteClientEntityResponse(
+        string errorCode
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-
-        public DeleteClientEntityResponse(
-            bool success
-        ) : this(string.Empty)
-        {
-            Success = success;
-        }
-
-        public DeleteClientEntityResponse(
-            string errorCode
-        )
-        {
-            Success = false;
-            ErrorCode = errorCode;
-        }
+        Success = false;
+        ErrorCode = errorCode;
     }
 }

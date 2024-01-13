@@ -1,11 +1,10 @@
-﻿namespace EventHorizon.Zone.Core.Map.Lifetime
+﻿namespace EventHorizon.Zone.Core.Map.Lifetime;
+
+using System;
+
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnServerStartupSetupMapCommand
+    : OnServerStartupCommand
 {
-    using System;
-
-    using EventHorizon.Zone.Core.Events.Lifetime;
-
-    public struct OnServerStartupSetupMapCommand
-        : OnServerStartupCommand
-    {
-    }
 }

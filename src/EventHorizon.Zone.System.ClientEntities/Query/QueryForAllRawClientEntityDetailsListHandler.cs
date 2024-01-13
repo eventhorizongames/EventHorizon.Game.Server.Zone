@@ -1,33 +1,32 @@
-namespace EventHorizon.Zone.System.ClientEntities.Query
+namespace EventHorizon.Zone.System.ClientEntities.Query;
+
+using EventHorizon.Zone.System.ClientEntities.Model;
+using EventHorizon.Zone.System.ClientEntities.State;
+
+using global::System.Collections.Generic;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class QueryForAllRawClientEntityDetailsListHandler : IRequestHandler<QueryForAllRawClientEntityDetailsList, IEnumerable<ClientEntity>>
 {
-    using EventHorizon.Zone.System.ClientEntities.Model;
-    using EventHorizon.Zone.System.ClientEntities.State;
+    private readonly ClientEntityRepository _clientEntityRepository;
 
-    using global::System.Collections.Generic;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class QueryForAllRawClientEntityDetailsListHandler : IRequestHandler<QueryForAllRawClientEntityDetailsList, IEnumerable<ClientEntity>>
+    public QueryForAllRawClientEntityDetailsListHandler(
+        ClientEntityRepository clientEntityRepository
+    )
     {
-        private readonly ClientEntityRepository _clientEntityRepository;
+        _clientEntityRepository = clientEntityRepository;
+    }
 
-        public QueryForAllRawClientEntityDetailsListHandler(
-            ClientEntityRepository clientEntityRepository
-        )
-        {
-            _clientEntityRepository = clientEntityRepository;
-        }
-
-        public Task<IEnumerable<ClientEntity>> Handle(
-            QueryForAllRawClientEntityDetailsList request,
-            CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _clientEntityRepository.All()
-            );
-        }
+    public Task<IEnumerable<ClientEntity>> Handle(
+        QueryForAllRawClientEntityDetailsList request,
+        CancellationToken cancellationToken
+    )
+    {
+        return Task.FromResult(
+            _clientEntityRepository.All()
+        );
     }
 }

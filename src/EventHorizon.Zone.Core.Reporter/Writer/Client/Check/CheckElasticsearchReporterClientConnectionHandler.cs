@@ -1,35 +1,34 @@
-﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Check
+﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Check;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using MediatR;
+
+public class CheckElasticsearchReporterClientConnectionHandler
+    : INotificationHandler<CheckElasticsearchReporterClientConnection>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly ElasticsearchReporterClient _client;
+    private readonly ElasticsearchReporterClientStartup _startup;
 
-    using MediatR;
-
-    public class CheckElasticsearchReporterClientConnectionHandler
-        : INotificationHandler<CheckElasticsearchReporterClientConnection>
+    public CheckElasticsearchReporterClientConnectionHandler(
+        ElasticsearchReporterClient client,
+        ElasticsearchReporterClientStartup startup
+    )
     {
-        private readonly ElasticsearchReporterClient _client;
-        private readonly ElasticsearchReporterClientStartup _startup;
+        _client = client;
+        _startup = startup;
+    }
 
-        public CheckElasticsearchReporterClientConnectionHandler(
-            ElasticsearchReporterClient client,
-            ElasticsearchReporterClientStartup startup
-        )
+    public Task Handle(
+        CheckElasticsearchReporterClientConnection notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (!_client.IsConnected)
         {
-            _client = client;
-            _startup = startup;
+            _startup.StartUp();
         }
-
-        public Task Handle(
-            CheckElasticsearchReporterClientConnection notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (!_client.IsConnected)
-            {
-                _startup.StartUp();
-            }
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

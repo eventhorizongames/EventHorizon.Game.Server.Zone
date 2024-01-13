@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Model
-{
-    using global::System.Collections.Generic;
+﻿namespace EventHorizon.Zone.System.DataStorage.Model;
 
-    public class DataStoreSchema
-        : Dictionary<string, string>
-    {
-    }
+using global::System.Collections.Generic;
+
+public class DataStoreSchema
+    : Dictionary<string, string>
+{
 }

@@ -1,16 +1,15 @@
-﻿namespace EventHorizon.Zone.System.ClientEntities.Model.Client
+﻿namespace EventHorizon.Zone.System.ClientEntities.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+public struct ClientEntityDeletedClientActionData : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public string GlobalId { get; }
 
-    public struct ClientEntityDeletedClientActionData : IClientActionData
+    public ClientEntityDeletedClientActionData(
+        string globalId
+    )
     {
-        public string GlobalId { get; }
-
-        public ClientEntityDeletedClientActionData(
-            string globalId
-        )
-        {
-            GlobalId = globalId;
-        }
+        GlobalId = globalId;
     }
 }

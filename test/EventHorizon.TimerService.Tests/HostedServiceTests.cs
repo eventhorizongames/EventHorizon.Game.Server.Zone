@@ -1,94 +1,93 @@
-namespace EventHorizon.TimerService.Tests
+namespace EventHorizon.TimerService.Tests;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using Xunit;
+
+public class HostedServiceTests
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using Xunit;
-
-    public class HostedServiceTests
+    [Fact]
+    public void TestShouldExecuteAsyncWhenStartAsync()
     {
-        [Fact]
-        public void TestShouldExecuteAsyncWhenStartAsync()
+        // Given
+        var expected = Task.CompletedTask;
+
+        // When
+        var hostedService = new TestHostedService(
+            expected
+        );
+
+        var actual = hostedService.StartAsync(
+            CancellationToken.None
+        );
+
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
+
+    [Fact]
+    public void TestShouldReturnCompletedTaskWhenExecutingTaskIsNotCompleted()
+    {
+        // Given
+        var expected = Task.CompletedTask;
+
+        var executingTask = new Task(() => Task.Delay(1000));
+
+        // When
+        var hostedService = new TestHostedService(
+            executingTask
+        );
+
+        var actual = hostedService.StartAsync(
+            CancellationToken.None
+        );
+
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
+
+    [Fact]
+    public async Task TestShouldReturnWithoutErrorWhenExecutingTaskIsNull()
+    {
+        // Given
+        Task responseOnExecute = null;
+
+        // When
+        var hostedService = new TestHostedService(
+            responseOnExecute
+        );
+
+        await hostedService.StopAsync(
+            CancellationToken.None
+        );
+
+        // Then
+        Assert.True(true);
+    }
+
+    public class TestHostedService : HostedService
+    {
+        readonly Task _responseOnExecute;
+
+        public TestHostedService(
+            Task responseOnExecute
+        )
         {
-            // Given
-            var expected = Task.CompletedTask;
-
-            // When
-            var hostedService = new TestHostedService(
-                expected
-            );
-
-            var actual = hostedService.StartAsync(
-                CancellationToken.None
-            );
-
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
+            _responseOnExecute = responseOnExecute;
         }
 
-        [Fact]
-        public void TestShouldReturnCompletedTaskWhenExecutingTaskIsNotCompleted()
+        protected override Task ExecuteAsync(
+            CancellationToken cancellationToken
+        )
         {
-            // Given
-            var expected = Task.CompletedTask;
-
-            var executingTask = new Task(() => Task.Delay(1000));
-
-            // When
-            var hostedService = new TestHostedService(
-                executingTask
-            );
-
-            var actual = hostedService.StartAsync(
-                CancellationToken.None
-            );
-
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldReturnWithoutErrorWhenExecutingTaskIsNull()
-        {
-            // Given
-            Task responseOnExecute = null;
-
-            // When
-            var hostedService = new TestHostedService(
-                responseOnExecute
-            );
-
-            await hostedService.StopAsync(
-                CancellationToken.None
-            );
-
-            // Then
-            Assert.True(true);
-        }
-
-        public class TestHostedService : HostedService
-        {
-            readonly Task _responseOnExecute;
-
-            public TestHostedService(
-                Task responseOnExecute
-            )
-            {
-                _responseOnExecute = responseOnExecute;
-            }
-
-            protected override Task ExecuteAsync(
-                CancellationToken cancellationToken
-            )
-            {
-                return _responseOnExecute;
-            }
+            return _responseOnExecute;
         }
     }
 }

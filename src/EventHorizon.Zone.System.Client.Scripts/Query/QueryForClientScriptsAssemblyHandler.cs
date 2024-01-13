@@ -1,37 +1,36 @@
-﻿namespace EventHorizon.Zone.System.Client.Scripts.Query
+﻿namespace EventHorizon.Zone.System.Client.Scripts.Query;
+
+using System;
+
+using EventHorizon.Zone.System.Client.Scripts.Api;
+using EventHorizon.Zone.System.Client.Scripts.Events.Query;
+using EventHorizon.Zone.System.Client.Scripts.Model.Query;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class QueryForClientScriptsAssemblyHandler
+    : IRequestHandler<QueryForClientScriptsAssembly, ClientScriptsAssemblyResult>
 {
-    using System;
+    private readonly ClientScriptsState _state;
 
-    using EventHorizon.Zone.System.Client.Scripts.Api;
-    using EventHorizon.Zone.System.Client.Scripts.Events.Query;
-    using EventHorizon.Zone.System.Client.Scripts.Model.Query;
-
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class QueryForClientScriptsAssemblyHandler
-        : IRequestHandler<QueryForClientScriptsAssembly, ClientScriptsAssemblyResult>
+    public QueryForClientScriptsAssemblyHandler(
+        ClientScriptsState state
+    )
     {
-        private readonly ClientScriptsState _state;
+        _state = state;
+    }
 
-        public QueryForClientScriptsAssemblyHandler(
-            ClientScriptsState state
-        )
-        {
-            _state = state;
-        }
-
-        public Task<ClientScriptsAssemblyResult> Handle(
-            QueryForClientScriptsAssembly request,
-            CancellationToken cancellationToken
-        )
-        {
-            return new ClientScriptsAssemblyResult(
-                _state.Hash,
-                _state.ScriptAssembly
-            ).FromResult();
-        }
+    public Task<ClientScriptsAssemblyResult> Handle(
+        QueryForClientScriptsAssembly request,
+        CancellationToken cancellationToken
+    )
+    {
+        return new ClientScriptsAssemblyResult(
+            _state.Hash,
+            _state.ScriptAssembly
+        ).FromResult();
     }
 }

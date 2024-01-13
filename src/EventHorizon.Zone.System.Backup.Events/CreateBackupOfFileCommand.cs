@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.Backup.Events
+﻿namespace EventHorizon.Zone.System.Backup.Events;
+
+using EventHorizon.Zone.System.Backup.Model;
+
+using MediatR;
+
+public struct CreateBackupOfFileCommand
+    : IRequest<BackupFileResponse>
 {
-    using EventHorizon.Zone.System.Backup.Model;
+    public string FileFullName { get; }
 
-    using MediatR;
-
-    public struct CreateBackupOfFileCommand
-        : IRequest<BackupFileResponse>
+    public CreateBackupOfFileCommand(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public CreateBackupOfFileCommand(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

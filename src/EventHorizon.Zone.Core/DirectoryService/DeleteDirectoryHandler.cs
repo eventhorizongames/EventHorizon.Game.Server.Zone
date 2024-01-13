@@ -1,39 +1,38 @@
-namespace EventHorizon.Zone.Core.DirectoryService
+namespace EventHorizon.Zone.Core.DirectoryService;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+
+using MediatR;
+
+public class DeleteDirectoryHandler : IRequestHandler<DeleteDirectory, bool>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly DirectoryResolver _directoryResolver;
 
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-
-    using MediatR;
-
-    public class DeleteDirectoryHandler : IRequestHandler<DeleteDirectory, bool>
+    public DeleteDirectoryHandler(
+        DirectoryResolver directoryResolver
+    )
     {
-        private readonly DirectoryResolver _directoryResolver;
+        _directoryResolver = directoryResolver;
+    }
 
-        public DeleteDirectoryHandler(
-            DirectoryResolver directoryResolver
-        )
+    public Task<bool> Handle(
+        DeleteDirectory request,
+        CancellationToken cancellationToken
+    )
+    {
+        if (_directoryResolver.IsEmpty(
+            request.DirectoryFullName
+        ))
         {
-            _directoryResolver = directoryResolver;
-        }
-
-        public Task<bool> Handle(
-            DeleteDirectory request,
-            CancellationToken cancellationToken
-        )
-        {
-            if (_directoryResolver.IsEmpty(
+            _directoryResolver.DeleteDirectory(
                 request.DirectoryFullName
-            ))
-            {
-                _directoryResolver.DeleteDirectory(
-                    request.DirectoryFullName
-                );
-                return true.FromResult();
-            }
-            return false.FromResult();
+            );
+            return true.FromResult();
         }
+        return false.FromResult();
     }
 }

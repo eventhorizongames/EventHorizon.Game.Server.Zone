@@ -1,11 +1,10 @@
-namespace EventHorizon.Zone.Core.DateTimeService
+namespace EventHorizon.Zone.Core.DateTimeService;
+
+using System;
+
+using EventHorizon.Zone.Core.Model.DateTimeService;
+
+public class StandardDateTimeService : IDateTimeService
 {
-    using System;
-
-    using EventHorizon.Zone.Core.Model.DateTimeService;
-
-    public class StandardDateTimeService : IDateTimeService
-    {
-        public DateTime Now => DateTime.UtcNow;
-    }
+    public DateTime Now => DateTime.UtcNow;
 }

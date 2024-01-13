@@ -1,183 +1,182 @@
-namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests
+namespace EventHorizon.Zone.System.Admin.ExternalHub.Tests;
+
+
+using EventHorizon.Game.Server.Zone.Info.Query;
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Server.Scripts.Model.Query;
+using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
+
+using FluentAssertions;
+
+using global::System.Collections.Generic;
+using global::System.Security.Claims;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+
+using Moq;
+
+using Xunit;
+
+public class AdminHubTests
 {
-
-    using EventHorizon.Game.Server.Zone.Info.Query;
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Server.Scripts.Model.Query;
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.Shared.Model;
-
-    using FluentAssertions;
-
-    using global::System.Collections.Generic;
-    using global::System.Security.Claims;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-
-    using Moq;
-
-    using Xunit;
-
-    public class AdminHubTests
+    [Fact]
+    public async Task TestShouldSuccessfullyConnectWhenRoleIsAdmin()
     {
-        [Fact]
-        public async Task TestShouldSuccessfullyConnectWhenRoleIsAdmin()
-        {
-            //Given
-            var role = "Admin";
+        //Given
+        var role = "Admin";
 
-            var mediatorMock = new Mock<IMediator>();
-            var contextMock = new Mock<HubCallerContext>();
-            var userMock = new Mock<ClaimsPrincipal>();
+        var mediatorMock = new Mock<IMediator>();
+        var contextMock = new Mock<HubCallerContext>();
+        var userMock = new Mock<ClaimsPrincipal>();
 
-            contextMock.Setup(
-                mock => mock.User
-            ).Returns(
-                userMock.Object
-            );
+        contextMock.Setup(
+            mock => mock.User
+        ).Returns(
+            userMock.Object
+        );
 
-            userMock.Setup(
-                mock => mock.IsInRole(
-                    role
-                )
-            ).Returns(
-                true
-            );
-
-            //When
-            var adminHub = new AdminHub(
-                mediatorMock.Object
+        userMock.Setup(
+            mock => mock.IsInRole(
+                role
             )
-            {
-                Context = contextMock.Object
-            };
-            await adminHub.OnConnectedAsync();
+        ).Returns(
+            true
+        );
 
-            //Then
-            Assert.True(
-                true
-            );
-        }
-
-        [Fact]
-        public async Task TestShouldPublishAdminCommandEventWhenCommandCalled()
+        //When
+        var adminHub = new AdminHub(
+            mediatorMock.Object
+        )
         {
-            // Given
-            var expectedConnectionId = "connection-id";
-            var expectedData = new { };
+            Context = contextMock.Object
+        };
+        await adminHub.OnConnectedAsync();
 
-            var command = "random-command";
+        //Then
+        Assert.True(
+            true
+        );
+    }
 
-            var mediatorMock = new Mock<IMediator>();
-            var contextMock = new Mock<HubCallerContext>();
+    [Fact]
+    public async Task TestShouldPublishAdminCommandEventWhenCommandCalled()
+    {
+        // Given
+        var expectedConnectionId = "connection-id";
+        var expectedData = new { };
 
-            contextMock.Setup(
-                mock => mock.ConnectionId
-            ).Returns(
-                expectedConnectionId
-            );
+        var command = "random-command";
 
-            // When
-            var adminHub = new AdminHub(
-                mediatorMock.Object
-            )
-            {
-                Context = contextMock.Object
-            };
-            await adminHub.Command(
-                command,
-                expectedData
-            );
+        var mediatorMock = new Mock<IMediator>();
+        var contextMock = new Mock<HubCallerContext>();
 
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    It.Is<AdminCommandEvent>(
-                        commandEvent =>
-                            commandEvent.ConnectionId == expectedConnectionId
-                            && commandEvent.Data == expectedData
-                    ),
-                    CancellationToken.None
-                )
-            );
-        }
+        contextMock.Setup(
+            mock => mock.ConnectionId
+        ).Returns(
+            expectedConnectionId
+        );
 
-        [Fact]
-        public async Task TestShouldReturnZoneInfoWhenZoneInfoCalled()
+        // When
+        var adminHub = new AdminHub(
+            mediatorMock.Object
+        )
         {
-            // Given
-            var expected = new Dictionary<string, object>();
+            Context = contextMock.Object
+        };
+        await adminHub.Command(
+            command,
+            expectedData
+        );
 
-            var mediatorMock = new Mock<IMediator>();
-            var hubCallerContextMock = new Mock<HubCallerContext>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForFullZoneInfo(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                expected
-            );
-
-            // When
-            var adminHub = new AdminHub(
-                mediatorMock.Object
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                It.Is<AdminCommandEvent>(
+                    commandEvent =>
+                        commandEvent.ConnectionId == expectedConnectionId
+                        && commandEvent.Data == expectedData
+                ),
+                CancellationToken.None
             )
-            {
-                Context = hubCallerContextMock.Object
-            };
-            var actual = await adminHub.ZoneInfo();
+        );
+    }
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
+    [Fact]
+    public async Task TestShouldReturnZoneInfoWhenZoneInfoCalled()
+    {
+        // Given
+        var expected = new Dictionary<string, object>();
 
-        [Fact]
-        public async Task TestShouldReturnServerScriptsErrorDetailsWhenServerScripts_ErrorDetailsCalled()
+        var mediatorMock = new Mock<IMediator>();
+        var hubCallerContextMock = new Mock<HubCallerContext>();
+
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForFullZoneInfo(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            expected
+        );
+
+        // When
+        var adminHub = new AdminHub(
+            mediatorMock.Object
+        )
         {
-            // Given
-            var expected = new CommandResult<ServerScriptsErrorDetailsResponse>(
-                true,
-                new ServerScriptsErrorDetailsResponse(
-                    false,
-                    string.Empty,
-                    new List<GeneratedServerScriptErrorDetailsModel>()
-                )
-            );
+            Context = hubCallerContextMock.Object
+        };
+        var actual = await adminHub.ZoneInfo();
 
-            var mediatorMock = new Mock<IMediator>();
-            var hubCallerContextMock = new Mock<HubCallerContext>();
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForServerScriptsErrorDetails(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                expected
-            );
-
-            // When
-            var adminHub = new AdminHub(
-                mediatorMock.Object
+    [Fact]
+    public async Task TestShouldReturnServerScriptsErrorDetailsWhenServerScripts_ErrorDetailsCalled()
+    {
+        // Given
+        var expected = new CommandResult<ServerScriptsErrorDetailsResponse>(
+            true,
+            new ServerScriptsErrorDetailsResponse(
+                false,
+                string.Empty,
+                new List<GeneratedServerScriptErrorDetailsModel>()
             )
-            {
-                Context = hubCallerContextMock.Object
-            };
-            var actual = await adminHub.ServerScripts_ErrorDetails();
+        );
 
-            // Then
-            actual.Should().Be(
-                expected
-            );
-        }
+        var mediatorMock = new Mock<IMediator>();
+        var hubCallerContextMock = new Mock<HubCallerContext>();
+
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForServerScriptsErrorDetails(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            expected
+        );
+
+        // When
+        var adminHub = new AdminHub(
+            mediatorMock.Object
+        )
+        {
+            Context = hubCallerContextMock.Object
+        };
+        var actual = await adminHub.ServerScripts_ErrorDetails();
+
+        // Then
+        actual.Should().Be(
+            expected
+        );
     }
 }

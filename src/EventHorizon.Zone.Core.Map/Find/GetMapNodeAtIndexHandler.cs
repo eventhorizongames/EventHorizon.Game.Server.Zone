@@ -1,35 +1,34 @@
-namespace EventHorizon.Zone.Core.Map.Find
+namespace EventHorizon.Zone.Core.Map.Find;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public class GetMapNodeAtIndexHandler
+    : IRequestHandler<GetMapNodeAtIndexEvent, MapNode>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMapGraph _map;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public class GetMapNodeAtIndexHandler
-        : IRequestHandler<GetMapNodeAtIndexEvent, MapNode>
+    public GetMapNodeAtIndexHandler(
+        IMapGraph map
+    )
     {
-        private readonly IMapGraph _map;
+        _map = map;
+    }
 
-        public GetMapNodeAtIndexHandler(
-            IMapGraph map
-        )
-        {
-            _map = map;
-        }
-
-        public Task<MapNode> Handle(
-            GetMapNodeAtIndexEvent request,
-            CancellationToken cancellationToken
-        )
-        {
-            return Task.FromResult(
-                _map.GetNode(
-                    request.NodeIndex
-                )
-            );
-        }
+    public Task<MapNode> Handle(
+        GetMapNodeAtIndexEvent request,
+        CancellationToken cancellationToken
+    )
+    {
+        return Task.FromResult(
+            _map.GetNode(
+                request.NodeIndex
+            )
+        );
     }
 }

@@ -1,32 +1,31 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model
+namespace EventHorizon.Zone.System.Agent.Plugin.Companion.Model;
+
+public struct CompanionState
 {
-    public struct CompanionState
+    public static readonly string PROPERTY_NAME = "companionState";
+
+    public string DefaultBehaviorTreeId { get; set; }
+
+    public object? this[string index]
     {
-        public static readonly string PROPERTY_NAME = "companionState";
-
-        public string DefaultBehaviorTreeId { get; set; }
-
-        public object? this[string index]
+        get
         {
-            get
+            return index switch
             {
-                return index switch
-                {
-                    "defaultBehaviorTreeId" => DefaultBehaviorTreeId,
-                    _ => null,
-                };
-            }
-            set
+                "defaultBehaviorTreeId" => DefaultBehaviorTreeId,
+                _ => null,
+            };
+        }
+        set
+        {
+            switch (index)
             {
-                switch (index)
-                {
-                    case "defaultBehaviorTreeId":
-                        DefaultBehaviorTreeId = (string?)value ?? "DEFAULT";
-                        break;
+                case "defaultBehaviorTreeId":
+                    DefaultBehaviorTreeId = (string?)value ?? "DEFAULT";
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
         }
     }

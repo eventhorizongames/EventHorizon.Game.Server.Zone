@@ -1,9 +1,8 @@
-namespace EventHorizon.Server.Core.Connection
-{
-    using System.Threading.Tasks;
+namespace EventHorizon.Server.Core.Connection;
 
-    public interface CoreServerConnectionFactory
-    {
-        Task<CoreServerConnection> GetConnection();
-    }
+using System.Threading.Tasks;
+
+public interface CoreServerConnectionFactory
+{
+    Task<CoreServerConnection> GetConnection();
 }

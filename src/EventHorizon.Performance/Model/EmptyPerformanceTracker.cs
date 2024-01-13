@@ -1,10 +1,9 @@
-namespace EventHorizon.Performance.Model
+namespace EventHorizon.Performance.Model;
+
+public sealed class EmptyPerformanceTracker
+    : PerformanceTracker
 {
-    public sealed class EmptyPerformanceTracker
-        : PerformanceTracker
+    public void Dispose()
     {
-        public void Dispose()
-        {
-        }
     }
 }

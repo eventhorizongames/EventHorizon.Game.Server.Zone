@@ -1,48 +1,47 @@
-﻿namespace EventHorizon.Zone.System.Wizard.Json.Model
+﻿namespace EventHorizon.Zone.System.Wizard.Json.Model;
+
+using global::System;
+using global::System.Buffers;
+using global::System.Collections.Generic;
+using global::System.Linq;
+using global::System.Text;
+using global::System.Text.Json;
+
+public struct JsonDataDocument
 {
-    using global::System;
-    using global::System.Buffers;
-    using global::System.Collections.Generic;
-    using global::System.Linq;
-    using global::System.Text;
-    using global::System.Text.Json;
+    private static readonly IEnumerable<JsonDataProperty> EMPTY_PROPERTY_LIST = Array.Empty<JsonDataProperty>().ToList();
 
-    public struct JsonDataDocument
+    public IList<JsonDataProperty> Properties { get; }
+
+    public JsonDataDocument(
+        IList<JsonDataProperty> properties
+    )
     {
-        private static readonly IEnumerable<JsonDataProperty> EMPTY_PROPERTY_LIST = Array.Empty<JsonDataProperty>().ToList();
+        Properties = properties;
+    }
 
-        public IList<JsonDataProperty> Properties { get; }
-
-        public JsonDataDocument(
-            IList<JsonDataProperty> properties
-        )
+    public string ToJsonString()
+    {
+        var outputBuffer = new ArrayBufferWriter<byte>();
+        using (var jsonWriter = new Utf8JsonWriter(
+            outputBuffer
+        ))
         {
-            Properties = properties;
-        }
 
-        public string ToJsonString()
-        {
-            var outputBuffer = new ArrayBufferWriter<byte>();
-            using (var jsonWriter = new Utf8JsonWriter(
-                outputBuffer
-            ))
+            jsonWriter.WriteStartObject();
+
+            foreach (var jsonProperty in Properties ?? EMPTY_PROPERTY_LIST)
             {
-
-                jsonWriter.WriteStartObject();
-
-                foreach (var jsonProperty in Properties ?? EMPTY_PROPERTY_LIST)
-                {
-                    jsonProperty.WriteTo(jsonWriter);
-                }
-
-                jsonWriter.WriteEndObject();
+                jsonProperty.WriteTo(jsonWriter);
             }
 
-            return Encoding.UTF8.GetString(
-                outputBuffer.WrittenSpan
-            );
+            jsonWriter.WriteEndObject();
         }
 
+        return Encoding.UTF8.GetString(
+            outputBuffer.WrittenSpan
+        );
     }
+
 }
 

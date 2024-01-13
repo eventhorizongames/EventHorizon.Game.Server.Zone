@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+
+using global::System.Collections.Generic;
+
+public interface ActorBehaviorTreeRepository
 {
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
-    using global::System.Collections.Generic;
-
-    public interface ActorBehaviorTreeRepository
-    {
-        void RegisterTree(
-            string treeId,
-            ActorBehaviorTreeShape behaviorTreeShape
-        );
-        ActorBehaviorTreeShape FindTreeShape(
-            string treeId
-        );
-        IEnumerable<string> TreeIdList();
-    }
+    void RegisterTree(
+        string treeId,
+        ActorBehaviorTreeShape behaviorTreeShape
+    );
+    ActorBehaviorTreeShape FindTreeShape(
+        string treeId
+    );
+    IEnumerable<string> TreeIdList();
 }

@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Player.Events.Details
+namespace EventHorizon.Zone.System.Player.Events.Details;
+
+using EventHorizon.Zone.System.Player.Model.Details;
+
+using MediatR;
+
+public class PlayerGetDetailsEvent : IRequest<PlayerDetails>
 {
-    using EventHorizon.Zone.System.Player.Model.Details;
+    public string Id { get; }
 
-    using MediatR;
-
-    public class PlayerGetDetailsEvent : IRequest<PlayerDetails>
+    public PlayerGetDetailsEvent(
+        string id
+    )
     {
-        public string Id { get; }
-
-        public PlayerGetDetailsEvent(
-            string id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

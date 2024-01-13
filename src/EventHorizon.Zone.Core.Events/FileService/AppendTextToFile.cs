@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct AppendTextToFile : IRequest<bool>
 {
-    using MediatR;
+    public string FileFullName { get; }
+    public string Text { get; }
 
-    public struct AppendTextToFile : IRequest<bool>
+    public AppendTextToFile(
+        string fileFullName,
+        string text
+    )
     {
-        public string FileFullName { get; }
-        public string Text { get; }
-
-        public AppendTextToFile(
-            string fileFullName,
-            string text
-        )
-        {
-            FileFullName = fileFullName;
-            Text = text;
-        }
+        FileFullName = fileFullName;
+        Text = text;
     }
 }

@@ -1,42 +1,41 @@
-namespace EventHorizon.Zone.System.Editor.Events.Node
+namespace EventHorizon.Zone.System.Editor.Events.Node;
+
+using EventHorizon.Zone.System.Editor.Model;
+
+using global::System.Collections.Generic;
+
+using MediatR;
+
+public struct QueryForEditorNodeFromPath
+    : IRequest<IEditorNode>
 {
-    using EventHorizon.Zone.System.Editor.Model;
+    public IList<string> NodePath { get; }
+    public string RootDirectoryFullName { get; }
+    public string DirectoryToLoadFullName { get; }
+    public string NodeType { get; }
 
-    using global::System.Collections.Generic;
-
-    using MediatR;
-
-    public struct QueryForEditorNodeFromPath
-        : IRequest<IEditorNode>
+    public QueryForEditorNodeFromPath(
+        IList<string> nodePath,
+        string rootDirectoryFullName,
+        string diretoryToLoadFullName
+    )
     {
-        public IList<string> NodePath { get; }
-        public string RootDirectoryFullName { get; }
-        public string DirectoryToLoadFullName { get; }
-        public string NodeType { get; }
+        NodePath = nodePath;
+        RootDirectoryFullName = rootDirectoryFullName;
+        DirectoryToLoadFullName = diretoryToLoadFullName;
+        NodeType = string.Empty;
+    }
 
-        public QueryForEditorNodeFromPath(
-            IList<string> nodePath,
-            string rootDirectoryFullName,
-            string diretoryToLoadFullName
-        )
-        {
-            NodePath = nodePath;
-            RootDirectoryFullName = rootDirectoryFullName;
-            DirectoryToLoadFullName = diretoryToLoadFullName;
-            NodeType = string.Empty;
-        }
-
-        public QueryForEditorNodeFromPath(
-            IList<string> nodePath,
-            string rootDirectoryFullName,
-            string diretoryToLoadFullName,
-            string nodeType
-        )
-        {
-            NodePath = nodePath;
-            RootDirectoryFullName = rootDirectoryFullName;
-            DirectoryToLoadFullName = diretoryToLoadFullName;
-            NodeType = nodeType;
-        }
+    public QueryForEditorNodeFromPath(
+        IList<string> nodePath,
+        string rootDirectoryFullName,
+        string diretoryToLoadFullName,
+        string nodeType
+    )
+    {
+        NodePath = nodePath;
+        RootDirectoryFullName = rootDirectoryFullName;
+        DirectoryToLoadFullName = diretoryToLoadFullName;
+        NodeType = nodeType;
     }
 }

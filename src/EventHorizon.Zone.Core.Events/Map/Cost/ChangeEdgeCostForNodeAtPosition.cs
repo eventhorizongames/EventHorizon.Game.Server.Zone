@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.Core.Events.Map.Cost
+namespace EventHorizon.Zone.Core.Events.Map.Cost;
+
+using System.Numerics;
+
+using MediatR;
+
+public struct ChangeEdgeCostForNodeAtPosition : IRequest<bool>
 {
-    using System.Numerics;
+    public Vector3 Position { get; }
+    public int Cost { get; }
 
-    using MediatR;
-
-    public struct ChangeEdgeCostForNodeAtPosition : IRequest<bool>
+    public ChangeEdgeCostForNodeAtPosition(
+        Vector3 position,
+        int cost
+    )
     {
-        public Vector3 Position { get; }
-        public int Cost { get; }
-
-        public ChangeEdgeCostForNodeAtPosition(
-            Vector3 position,
-            int cost
-        )
-        {
-            Position = position;
-            Cost = cost;
-        }
+        Position = position;
+        Cost = cost;
     }
 }

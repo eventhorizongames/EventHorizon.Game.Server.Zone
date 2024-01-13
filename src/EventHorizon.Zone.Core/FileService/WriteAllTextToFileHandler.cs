@@ -1,25 +1,24 @@
-namespace EventHorizon.Zone.Core.FileService
+namespace EventHorizon.Zone.Core.FileService;
+
+using System.Threading;
+using System.Threading.Tasks;
+using EventHorizon.Zone.Core.Events.FileService;
+using EventHorizon.Zone.Core.Model.FileService;
+using MediatR;
+
+public class WriteAllTextToFileHandler : IRequestHandler<WriteAllTextToFile>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventHorizon.Zone.Core.Events.FileService;
-    using EventHorizon.Zone.Core.Model.FileService;
-    using MediatR;
+    readonly FileResolver _fileResolver;
 
-    public class WriteAllTextToFileHandler : IRequestHandler<WriteAllTextToFile>
+    public WriteAllTextToFileHandler(FileResolver fileResolver)
     {
-        readonly FileResolver _fileResolver;
+        _fileResolver = fileResolver;
+    }
 
-        public WriteAllTextToFileHandler(FileResolver fileResolver)
-        {
-            _fileResolver = fileResolver;
-        }
+    public Task Handle(WriteAllTextToFile request, CancellationToken cancellationToken)
+    {
+        _fileResolver.WriteAllText(request.FileFullName, request.Text);
 
-        public Task Handle(WriteAllTextToFile request, CancellationToken cancellationToken)
-        {
-            _fileResolver.WriteAllText(request.FileFullName, request.Text);
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

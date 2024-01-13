@@ -1,105 +1,104 @@
-﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model.Entity
+﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Tests.Model.Entity;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
+
+using FluentAssertions;
+
+using global::System;
+using global::System.Collections.Generic;
+using global::System.Text;
+
+using Xunit;
+
+public class SkillStateTests
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model.Entity;
-
-    using FluentAssertions;
-
-    using global::System;
-    using global::System.Collections.Generic;
-    using global::System.Text;
-
-    using Xunit;
-
-    public class SkillStateTests
+    [Fact]
+    public void ShouldReturnSkillWithDefaultDateTimeWhenSkillIsNotInState()
     {
-        [Fact]
-        public void ShouldReturnSkillWithDefaultDateTimeWhenSkillIsNotInState()
+        // Given
+        var skillId = "skill-id";
+
+        var expected = new SkillStateDetails
         {
-            // Given
-            var skillId = "skill-id";
+            Id = skillId,
+        };
 
-            var expected = new SkillStateDetails
-            {
-                Id = skillId,
-            };
+        // When
+        var map = new SkillState();
+        var actual = map.GetSkill(
+            skillId
+        );
 
-            // When
-            var map = new SkillState();
-            var actual = map.GetSkill(
-                skillId
-            );
+        // Then
+        actual.Should().Be(expected);
+    }
 
-            // Then
-            actual.Should().Be(expected);
-        }
+    [Fact]
+    public void ShouldReturnExpectedSkillWhenSkillDetailsIsInList()
+    {
+        // Given
+        var skillId = "skill-id";
 
-        [Fact]
-        public void ShouldReturnExpectedSkillWhenSkillDetailsIsInList()
+        var expected = new SkillStateDetails
         {
-            // Given
-            var skillId = "skill-id";
+            Id = skillId,
+            CooldownFinishes = DateTime.Now.AddDays(1),
+        };
 
-            var expected = new SkillStateDetails
+        // When
+        var state = new SkillState
+        {
+            SkillMap = new SkillStateMap
             {
-                Id = skillId,
-                CooldownFinishes = DateTime.Now.AddDays(1),
-            };
-
-            // When
-            var state = new SkillState
-            {
-                SkillMap = new SkillStateMap
+                List = new List<SkillStateDetails>
                 {
-                    List = new List<SkillStateDetails>
-                    {
-                        expected,
-                    }
+                    expected,
                 }
-            };
-            var actual = state.GetSkill(
-                skillId
-            );
+            }
+        };
+        var actual = state.GetSkill(
+            skillId
+        );
 
-            // Then
-            actual.Should().Be(expected);
-        }
+        // Then
+        actual.Should().Be(expected);
+    }
 
-        [Fact]
-        public void ShouldReplaceSkillDetailsWhenAlreadyExistingInList()
+    [Fact]
+    public void ShouldReplaceSkillDetailsWhenAlreadyExistingInList()
+    {
+        // Given
+        var skillId = "skill-id";
+
+        var expected = new SkillStateDetails
         {
-            // Given
-            var skillId = "skill-id";
+            Id = skillId,
+            CooldownFinishes = DateTime.Now.AddDays(1),
+        };
 
-            var expected = new SkillStateDetails
+        // When
+        var state = new SkillState
+        {
+            SkillMap = new SkillStateMap
             {
-                Id = skillId,
-                CooldownFinishes = DateTime.Now.AddDays(1),
-            };
-
-            // When
-            var state = new SkillState
-            {
-                SkillMap = new SkillStateMap
+                List = new List<SkillStateDetails>
                 {
-                    List = new List<SkillStateDetails>
+                    new SkillStateDetails
                     {
-                        new SkillStateDetails
-                        {
-                            Id = skillId,
-                            CooldownFinishes = DateTime.Now.AddDays(100),
-                        },
-                    }
+                        Id = skillId,
+                        CooldownFinishes = DateTime.Now.AddDays(100),
+                    },
                 }
-            };
-            state = state.SetSkill(
-                expected
-            );
-            var actual = state.GetSkill(
-                skillId
-            );
+            }
+        };
+        state = state.SetSkill(
+            expected
+        );
+        var actual = state.GetSkill(
+            skillId
+        );
 
-            // Then
-            actual.Should().Be(expected);
-        }
+        // Then
+        actual.Should().Be(expected);
     }
 }

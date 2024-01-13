@@ -1,7 +1,6 @@
 
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+
+public interface ActionBehaviorInterpreter : BehaviorInterpreter
 {
-    public interface ActionBehaviorInterpreter : BehaviorInterpreter
-    {
-    }
 }

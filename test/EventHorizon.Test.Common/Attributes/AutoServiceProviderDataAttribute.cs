@@ -1,39 +1,38 @@
-﻿namespace EventHorizon.Test.Common.Attributes
+﻿namespace EventHorizon.Test.Common.Attributes;
+
+using System;
+
+using AutoFixture;
+using AutoFixture.AutoMoq;
+
+using EventHorizon.Test.Common.Utils;
+
+using Microsoft.Extensions.DependencyInjection;
+
+using Moq;
+
+[AttributeUsage(AttributeTargets.Method)]
+public class AutoServiceProviderDataAttribute
+    : AutoMoqDataAttribute
 {
-    using System;
+    public AutoServiceProviderDataAttribute() : base(CreateFixture) { }
 
-    using AutoFixture;
-    using AutoFixture.AutoMoq;
-
-    using EventHorizon.Test.Common.Utils;
-
-    using Microsoft.Extensions.DependencyInjection;
-
-    using Moq;
-
-    [AttributeUsage(AttributeTargets.Method)]
-    public class AutoServiceProviderDataAttribute
-        : AutoMoqDataAttribute
+    private static IFixture CreateFixture()
     {
-        public AutoServiceProviderDataAttribute() : base(CreateFixture) { }
+        var fixture = new Fixture();
 
-        private static IFixture CreateFixture()
-        {
-            var fixture = new Fixture();
+        fixture.Customize(
+            new AutoMoqCustomization
+            {
+                ConfigureMembers = true,
+                GenerateDelegates = true,
+            }
+        );
 
-            fixture.Customize(
-                new AutoMoqCustomization
-                {
-                    ConfigureMembers = true,
-                    GenerateDelegates = true,
-                }
-            );
+        fixture.Freeze<Mock<IServiceScope>>();
+        fixture.Freeze<Mock<IServiceProvider>>();
+        fixture.Freeze<ServiceScopeFactoryMock>();
 
-            fixture.Freeze<Mock<IServiceScope>>();
-            fixture.Freeze<Mock<IServiceProvider>>();
-            fixture.Freeze<ServiceScopeFactoryMock>();
-
-            return fixture;
-        }
+        return fixture;
     }
 }

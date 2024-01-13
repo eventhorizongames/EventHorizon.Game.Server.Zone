@@ -1,35 +1,34 @@
-namespace EventHorizon.Server.Core.Connection.Internal
+namespace EventHorizon.Server.Core.Connection.Internal;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Server.Core.Connection.Model;
+
+public class SystemCoreServerConnectionApi : CoreServerConnectionApi
 {
-    using System.Threading.Tasks;
+    private readonly CoreServerConnection _connection;
 
-    using EventHorizon.Server.Core.Connection.Model;
-
-    public class SystemCoreServerConnectionApi : CoreServerConnectionApi
+    public SystemCoreServerConnectionApi(
+        CoreServerConnection connection
+    )
     {
-        private readonly CoreServerConnection _connection;
+        _connection = connection;
+    }
 
-        public SystemCoreServerConnectionApi(
-            CoreServerConnection connection
-        )
-        {
-            _connection = connection;
-        }
+    public async Task<RegisteredZoneDetails> RegisterZone(
+        ZoneRegistrationDetails request
+    )
+    {
+        return await _connection.SendAction<RegisteredZoneDetails>(
+            "RegisterZone",
+            request
+        );
+    }
 
-        public async Task<RegisteredZoneDetails> RegisterZone(
-            ZoneRegistrationDetails request
-        )
-        {
-            return await _connection.SendAction<RegisteredZoneDetails>(
-                "RegisterZone",
-                request
-            );
-        }
-
-        public async Task Ping()
-        {
-            await _connection.SendAction(
-                "Ping"
-            );
-        }
+    public async Task Ping()
+    {
+        await _connection.SendAction(
+            "Ping"
+        );
     }
 }

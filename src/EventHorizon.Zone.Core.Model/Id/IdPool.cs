@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.Core.Model.Id
+namespace EventHorizon.Zone.Core.Model.Id;
+
+public interface IdPool
 {
-    public interface IdPool
-    {
-        long NextId();
-    }
+    long NextId();
 }

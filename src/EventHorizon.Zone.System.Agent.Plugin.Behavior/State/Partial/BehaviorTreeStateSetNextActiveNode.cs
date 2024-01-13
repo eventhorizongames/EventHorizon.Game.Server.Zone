@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+public partial struct BehaviorTreeState
 {
-    public partial struct BehaviorTreeState
+    public BehaviorTreeState SetNextActiveNode()
     {
-        public BehaviorTreeState SetNextActiveNode()
-        {
-            return PopActiveNodeFromQueue();
-        }
+        return PopActiveNodeFromQueue();
     }
 }

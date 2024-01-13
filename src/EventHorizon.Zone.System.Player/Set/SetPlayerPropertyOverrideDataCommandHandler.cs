@@ -1,49 +1,48 @@
-﻿namespace EventHorizon.Zone.System.Player.Set
+﻿namespace EventHorizon.Zone.System.Player.Set;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.Entity.Filters;
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Api;
+
+using global::System.Linq;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class SetPlayerPropertyOverrideDataCommandHandler
+    : IRequestHandler<SetPlayerPropertyOverrideDataCommand, CommandResult<PlayerEntity>>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.Entity.Filters;
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.System.Player.Api;
+    private readonly PlayerSettingsCache _cache;
 
-    using global::System.Linq;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class SetPlayerPropertyOverrideDataCommandHandler
-        : IRequestHandler<SetPlayerPropertyOverrideDataCommand, CommandResult<PlayerEntity>>
+    public SetPlayerPropertyOverrideDataCommandHandler(
+        PlayerSettingsCache cache
+    )
     {
-        private readonly PlayerSettingsCache _cache;
+        _cache = cache;
+    }
 
-        public SetPlayerPropertyOverrideDataCommandHandler(
-            PlayerSettingsCache cache
-        )
+    public Task<CommandResult<PlayerEntity>> Handle(
+        SetPlayerPropertyOverrideDataCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var forceSetList = _cache.PlayerData.ForceSet;
+        foreach (var property in _cache.PlayerData.FilterOutForceSetKey())
         {
-            _cache = cache;
-        }
-
-        public Task<CommandResult<PlayerEntity>> Handle(
-            SetPlayerPropertyOverrideDataCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var forceSetList = _cache.PlayerData.ForceSet;
-            foreach (var property in _cache.PlayerData.FilterOutForceSetKey())
+            if (!request.PlayerEntity.RawData.ContainsKey(
+                property.Key
+            ) || forceSetList.Contains(
+                property.Key
+            ))
             {
-                if (!request.PlayerEntity.RawData.ContainsKey(
-                    property.Key
-                ) || forceSetList.Contains(
-                    property.Key
-                ))
-                {
-                    request.PlayerEntity.RawData[property.Key] = property.Value;
-                }
+                request.PlayerEntity.RawData[property.Key] = property.Value;
             }
-
-            return new CommandResult<PlayerEntity>(
-                request.PlayerEntity
-            ).FromResult();
         }
+
+        return new CommandResult<PlayerEntity>(
+            request.PlayerEntity
+        ).FromResult();
     }
 }

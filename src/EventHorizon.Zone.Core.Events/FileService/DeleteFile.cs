@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct DeleteFile : IRequest
 {
-    using MediatR;
+    public string FileFullName { get; }
 
-    public struct DeleteFile : IRequest
+    public DeleteFile(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public DeleteFile(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

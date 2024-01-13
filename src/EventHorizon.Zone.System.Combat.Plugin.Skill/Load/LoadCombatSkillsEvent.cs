@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
 
-    public struct LoadCombatSkillsEvent : INotification
-    {
-    }
+using MediatR;
+
+public struct LoadCombatSkillsEvent : INotification
+{
 }

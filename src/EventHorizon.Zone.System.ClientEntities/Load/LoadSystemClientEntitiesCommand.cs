@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.ClientEntities.Load
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.ClientEntities.Load;
 
-    public struct LoadSystemClientEntitiesCommand : IRequest
-    {
-    }
+using MediatR;
+
+public struct LoadSystemClientEntitiesCommand : IRequest
+{
 }

@@ -1,70 +1,69 @@
-﻿namespace EventHorizon.Zone.System.ServerModule.Lifetime
+﻿namespace EventHorizon.Zone.System.ServerModule.Lifetime;
+
+using System;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Lifetime;
+
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class OnStartupSetupServerModuleSystemCommandHandler
+    : IRequestHandler<OnStartupSetupServerModuleSystemCommand, OnServerStartupResult>
 {
-    using System;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly ServerInfo _serverInfo;
 
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.Info;
-    using EventHorizon.Zone.Core.Model.Lifetime;
-
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class OnStartupSetupServerModuleSystemCommandHandler
-        : IRequestHandler<OnStartupSetupServerModuleSystemCommand, OnServerStartupResult>
+    public OnStartupSetupServerModuleSystemCommandHandler(
+        ILogger<OnStartupSetupServerModuleSystemCommandHandler> logger,
+        IMediator mediator,
+        ServerInfo serverInfo
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly ServerInfo _serverInfo;
+        _logger = logger;
+        _mediator = mediator;
+        _serverInfo = serverInfo;
+    }
 
-        public OnStartupSetupServerModuleSystemCommandHandler(
-            ILogger<OnStartupSetupServerModuleSystemCommandHandler> logger,
-            IMediator mediator,
-            ServerInfo serverInfo
-        )
+
+    public async Task<OnServerStartupResult> Handle(
+        OnStartupSetupServerModuleSystemCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var serverModulePath = Path.Combine(
+            _serverInfo.ClientPath,
+            "ServerModule"
+        );
+        // Validate Directory Exists
+        if (!await _mediator.Send(
+            new DoesDirectoryExist(
+                serverModulePath
+            ),
+            cancellationToken
+        ))
         {
-            _logger = logger;
-            _mediator = mediator;
-            _serverInfo = serverInfo;
-        }
-
-
-        public async Task<OnServerStartupResult> Handle(
-            OnStartupSetupServerModuleSystemCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var serverModulePath = Path.Combine(
-                _serverInfo.ClientPath,
-                "ServerModule"
+            _logger.LogWarning(
+                "Directory '{DirectoryFullName}' was not found, creating...",
+                serverModulePath
             );
-            // Validate Directory Exists
-            if (!await _mediator.Send(
-                new DoesDirectoryExist(
+            await _mediator.Send(
+                new CreateDirectory(
                     serverModulePath
                 ),
                 cancellationToken
-            ))
-            {
-                _logger.LogWarning(
-                    "Directory '{DirectoryFullName}' was not found, creating...",
-                    serverModulePath
-                );
-                await _mediator.Send(
-                    new CreateDirectory(
-                        serverModulePath
-                    ),
-                    cancellationToken
-                );
-            }
-
-            return new OnServerStartupResult(
-                true
             );
         }
+
+        return new OnServerStartupResult(
+            true
+        );
     }
 }

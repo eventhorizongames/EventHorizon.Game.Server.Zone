@@ -1,27 +1,26 @@
-﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Startup
+﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
+
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+
+public class StartupElasticsearchReporterClientHandler
+    : IRequestHandler<StartupElasticsearchReporterClient>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-    using MediatR;
+    private readonly ElasticsearchReporterClientStartup _client;
 
-    public class StartupElasticsearchReporterClientHandler
-        : IRequestHandler<StartupElasticsearchReporterClient>
+    public StartupElasticsearchReporterClientHandler(ElasticsearchReporterClientStartup client)
     {
-        private readonly ElasticsearchReporterClientStartup _client;
+        _client = client;
+    }
 
-        public StartupElasticsearchReporterClientHandler(ElasticsearchReporterClientStartup client)
-        {
-            _client = client;
-        }
+    public Task Handle(
+        StartupElasticsearchReporterClient request,
+        CancellationToken cancellationToken
+    )
+    {
+        _client.StartUp();
 
-        public Task Handle(
-            StartupElasticsearchReporterClient request,
-            CancellationToken cancellationToken
-        )
-        {
-            _client.StartUp();
-
-            return Task.CompletedTask;
-        }
+        return Task.CompletedTask;
     }
 }

@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Update
+﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Update;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.ClientAssets.Model;
+
+using MediatR;
+
+public struct UpdateClientAssetCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.ClientAssets.Model;
+    public ClientAsset ClientAsset { get; }
 
-    using MediatR;
-
-    public struct UpdateClientAssetCommand
-        : IRequest<StandardCommandResult>
+    public UpdateClientAssetCommand(
+        ClientAsset clientAsset
+    )
     {
-        public ClientAsset ClientAsset { get; }
-
-        public UpdateClientAssetCommand(
-            ClientAsset clientAsset
-        )
-        {
-            ClientAsset = clientAsset;
-        }
+        ClientAsset = clientAsset;
     }
 }

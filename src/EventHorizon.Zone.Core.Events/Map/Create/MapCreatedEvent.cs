@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Events.Map.Create
+namespace EventHorizon.Zone.Core.Events.Map.Create;
+
+using MediatR;
+
+public struct MapCreatedEvent : INotification
 {
-    using MediatR;
 
-    public struct MapCreatedEvent : INotification
-    {
-
-    }
 }

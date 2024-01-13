@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.Core.Entity.Model
+﻿namespace EventHorizon.Zone.Core.Entity.Model;
+
+public static class EntityCoreConstants
 {
-    public static class EntityCoreConstants
-    {
-        public const string EntityAppDataPath = "Entity";
-        public const string EntityConfigurationFileName = "Entity.config.json";
-        public const string EntityDataFileName = "Entity.data.json";
-    }
+    public const string EntityAppDataPath = "Entity";
+    public const string EntityConfigurationFileName = "Entity.config.json";
+    public const string EntityDataFileName = "Entity.data.json";
 }

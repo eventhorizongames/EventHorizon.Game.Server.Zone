@@ -1,9 +1,8 @@
-namespace EventHorizon.Server.Core.Connection.Disconnected
+namespace EventHorizon.Server.Core.Connection.Disconnected;
+
+using MediatR;
+
+public struct ServerCoreConnectionDisconnected : INotification
 {
-    using MediatR;
 
-    public struct ServerCoreConnectionDisconnected : INotification
-    {
-
-    }
 }

@@ -1,132 +1,131 @@
-namespace EventHorizon.Zone.Core.Tests.Json
+namespace EventHorizon.Zone.Core.Tests.Json;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Json;
+using EventHorizon.Zone.Core.Model.FileService;
+
+using FluentAssertions;
+
+using Moq;
+
+using Xunit;
+
+public class TextJsonFileLoaderTests
 {
-    using System.Threading.Tasks;
-
-    using EventHorizon.Zone.Core.Json;
-    using EventHorizon.Zone.Core.Model.FileService;
-
-    using FluentAssertions;
-
-    using Moq;
-
-    using Xunit;
-
-    public class TextJsonFileLoaderTests
+    [Fact]
+    public async Task TestShouldReturnDefaultTypeWhenFileDoesNotExist()
     {
-        [Fact]
-        public async Task TestShouldReturnDefaultTypeWhenFileDoesNotExist()
-        {
-            // Given
-            var fileFullName = "file-full-name";
-            var expected = default(TestDataFile);
+        // Given
+        var fileFullName = "file-full-name";
+        var expected = default(TestDataFile);
 
-            var fileResolverMock = new Mock<FileResolver>();
+        var fileResolverMock = new Mock<FileResolver>();
 
-            fileResolverMock.Setup(
-                mock => mock.DoesFileExist(
-                    fileFullName
-                )
-            ).Returns(
-                false
-            );
-
-            // When
-            var jsonFileLoader = new TextJsonFileLoader(
-                fileResolverMock.Object
-            );
-            var actual = await jsonFileLoader.GetFile<TestDataFile>(
+        fileResolverMock.Setup(
+            mock => mock.DoesFileExist(
                 fileFullName
-            );
+            )
+        ).Returns(
+            false
+        );
 
-            // Then
-            actual.Should().Be(
-                expected
-            );
-        }
+        // When
+        var jsonFileLoader = new TextJsonFileLoader(
+            fileResolverMock.Object
+        );
+        var actual = await jsonFileLoader.GetFile<TestDataFile>(
+            fileFullName
+        );
 
-        [Fact]
-        public async Task TestShouldReturnDeserializeObjectWhenFileDoesExist()
-        {
-            // Given
-            var fileFullName = "file-full-name";
-            var fileText = @"{""TestProperty"":""test-property-value""}";
-            var expected = "test-property-value";
+        // Then
+        actual.Should().Be(
+            expected
+        );
+    }
 
-            var fileResolverMock = new Mock<FileResolver>();
+    [Fact]
+    public async Task TestShouldReturnDeserializeObjectWhenFileDoesExist()
+    {
+        // Given
+        var fileFullName = "file-full-name";
+        var fileText = @"{""TestProperty"":""test-property-value""}";
+        var expected = "test-property-value";
 
-            fileResolverMock.Setup(
-                mock => mock.DoesFileExist(
-                    fileFullName
-                )
-            ).Returns(
-                true
-            );
+        var fileResolverMock = new Mock<FileResolver>();
 
-            fileResolverMock.Setup(
-                mock => mock.GetFileText(
-                    fileFullName
-                )
-            ).Returns(
-                fileText
-            );
-
-            // When
-            var jsonFileLoader = new TextJsonFileLoader(
-                fileResolverMock.Object
-            );
-            var actual = await jsonFileLoader.GetFile<TestDataFile>(
+        fileResolverMock.Setup(
+            mock => mock.DoesFileExist(
                 fileFullName
-            );
+            )
+        ).Returns(
+            true
+        );
 
-            // Then
-            actual.TestProperty.Should().Be(
-                expected
-            );
-        }
-
-        [Fact]
-        public async Task ShouldDeserializeObjectPropertiesWithCaseInsensitivity()
-        {
-            // Given
-            var fileFullName = "file-full-name";
-            var fileText = @"{""testProperty"":""test-property-value""}";
-            var expected = "test-property-value";
-
-            var fileResolverMock = new Mock<FileResolver>();
-
-            fileResolverMock.Setup(
-                mock => mock.DoesFileExist(
-                    fileFullName
-                )
-            ).Returns(
-                true
-            );
-
-            fileResolverMock.Setup(
-                mock => mock.GetFileText(
-                    fileFullName
-                )
-            ).Returns(
-                fileText
-            );
-
-            // When
-            var jsonFileLoader = new TextJsonFileLoader(
-                fileResolverMock.Object
-            );
-            var actual = await jsonFileLoader.GetFile<TestDataFile>(
+        fileResolverMock.Setup(
+            mock => mock.GetFileText(
                 fileFullName
-            );
+            )
+        ).Returns(
+            fileText
+        );
 
-            // Then
-            actual.TestProperty.Should().Be(
-                expected
-            );
-        }
+        // When
+        var jsonFileLoader = new TextJsonFileLoader(
+            fileResolverMock.Object
+        );
+        var actual = await jsonFileLoader.GetFile<TestDataFile>(
+            fileFullName
+        );
 
-        public class TestDataFile
-        {
-            public string TestProperty { get; set; }
-        }
+        // Then
+        actual.TestProperty.Should().Be(
+            expected
+        );
+    }
+
+    [Fact]
+    public async Task ShouldDeserializeObjectPropertiesWithCaseInsensitivity()
+    {
+        // Given
+        var fileFullName = "file-full-name";
+        var fileText = @"{""testProperty"":""test-property-value""}";
+        var expected = "test-property-value";
+
+        var fileResolverMock = new Mock<FileResolver>();
+
+        fileResolverMock.Setup(
+            mock => mock.DoesFileExist(
+                fileFullName
+            )
+        ).Returns(
+            true
+        );
+
+        fileResolverMock.Setup(
+            mock => mock.GetFileText(
+                fileFullName
+            )
+        ).Returns(
+            fileText
+        );
+
+        // When
+        var jsonFileLoader = new TextJsonFileLoader(
+            fileResolverMock.Object
+        );
+        var actual = await jsonFileLoader.GetFile<TestDataFile>(
+            fileFullName
+        );
+
+        // Then
+        actual.TestProperty.Should().Be(
+            expected
+        );
+    }
+
+    public class TestDataFile
+    {
+        public string TestProperty { get; set; }
     }
 }

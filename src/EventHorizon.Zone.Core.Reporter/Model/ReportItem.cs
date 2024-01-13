@@ -1,25 +1,24 @@
-namespace EventHorizon.Zone.Core.Reporter.Model
+namespace EventHorizon.Zone.Core.Reporter.Model;
+
+using System;
+
+public struct ReportItem
 {
-    using System;
+    public string CorrelationId { get; }
+    public string Message { get; }
+    public DateTime Timestamp { get; set; }
+    public object? Data { get; }
 
-    public struct ReportItem
+    public ReportItem(
+        string correlationId,
+        string message,
+        DateTime timestamp,
+        object? data
+    )
     {
-        public string CorrelationId { get; }
-        public string Message { get; }
-        public DateTime Timestamp { get; set; }
-        public object? Data { get; }
-
-        public ReportItem(
-            string correlationId,
-            string message,
-            DateTime timestamp,
-            object? data
-        )
-        {
-            CorrelationId = correlationId;
-            Message = message;
-            Timestamp = timestamp;
-            Data = data;
-        }
+        CorrelationId = correlationId;
+        Message = message;
+        Timestamp = timestamp;
+        Data = data;
     }
 }

@@ -1,19 +1,18 @@
-namespace EventHorizon.Test.Common.Utils
+namespace EventHorizon.Test.Common.Utils;
+
+using System.Diagnostics.CodeAnalysis;
+
+using Xunit.Abstractions;
+
+[ExcludeFromCodeCoverage]
+public class TestFixtureBase
 {
-    using System.Diagnostics.CodeAnalysis;
+    protected readonly ITestOutputHelper _testOutputHelper;
 
-    using Xunit.Abstractions;
-
-    [ExcludeFromCodeCoverage]
-    public class TestFixtureBase
+    public TestFixtureBase(
+        ITestOutputHelper testOutputHelper
+    )
     {
-        protected readonly ITestOutputHelper _testOutputHelper;
-
-        public TestFixtureBase(
-            ITestOutputHelper testOutputHelper
-        )
-        {
-            _testOutputHelper = testOutputHelper;
-        }
+        _testOutputHelper = testOutputHelper;
     }
 }

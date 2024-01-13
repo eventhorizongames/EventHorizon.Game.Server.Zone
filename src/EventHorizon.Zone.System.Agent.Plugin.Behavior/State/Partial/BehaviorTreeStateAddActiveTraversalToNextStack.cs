@@ -1,13 +1,12 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+public partial struct BehaviorTreeState
 {
-    public partial struct BehaviorTreeState
+    public BehaviorTreeState AddActiveTraversalToNextStack()
     {
-        public BehaviorTreeState AddActiveTraversalToNextStack()
-        {
-            NextTraversalStack.Add(
-                _activeTraversalToken
-            );
-            return this;
-        }
+        NextTraversalStack.Add(
+            _activeTraversalToken
+        );
+        return this;
     }
 }

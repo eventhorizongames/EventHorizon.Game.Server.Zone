@@ -1,39 +1,38 @@
-namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
+namespace EventHorizon.Game.Server.Zone.Player.Move.Stop;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Entity.Client;
+using EventHorizon.Zone.Core.Model.Entity.Client;
+
+using MediatR;
+
+public class StopPlayerEventHandler
+    : INotificationHandler<StopPlayerEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Entity.Client;
-    using EventHorizon.Zone.Core.Model.Entity.Client;
-
-    using MediatR;
-
-    public class StopPlayerEventHandler
-        : INotificationHandler<StopPlayerEvent>
+    public StopPlayerEventHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public StopPlayerEventHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public Task Handle(
-            StopPlayerEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            return _mediator.Publish(
-                ClientActionClientEntityStoppingToAllEvent.Create(
-                    new EntityClientStoppingData
-                    {
-                        EntityId = notification.Player.Id
-                    }
-                ),
-                cancellationToken
-            );
-        }
+    public Task Handle(
+        StopPlayerEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        return _mediator.Publish(
+            ClientActionClientEntityStoppingToAllEvent.Create(
+                new EntityClientStoppingData
+                {
+                    EntityId = notification.Player.Id
+                }
+            ),
+            cancellationToken
+        );
     }
 }

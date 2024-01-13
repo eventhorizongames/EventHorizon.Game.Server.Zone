@@ -1,30 +1,29 @@
-namespace EventHorizon.Zone.System.Combat.State
+namespace EventHorizon.Zone.System.Combat.State;
+
+using global::System.Collections.Generic;
+using global::System.Threading.Tasks;
+
+public class EntityQueue<T>
+    : IEntityQueue<T>
 {
-    using global::System.Collections.Generic;
-    using global::System.Threading.Tasks;
+    private readonly Queue<T> _queue = new();
 
-    public class EntityQueue<T>
-        : IEntityQueue<T>
+    public Task Enqueue(T entity)
     {
-        private readonly Queue<T> _queue = new();
+        _queue.Enqueue(entity);
+        return Task.CompletedTask;
+    }
 
-        public Task Enqueue(T entity)
+    public Task<T?> Dequeue()
+    {
+        if (_queue.Count == 0)
         {
-            _queue.Enqueue(entity);
-            return Task.CompletedTask;
-        }
-
-        public Task<T?> Dequeue()
-        {
-            if (_queue.Count == 0)
-            {
-                return Task.FromResult(
-                    default(T)
-                );
-            }
             return Task.FromResult(
-                _queue.Dequeue()
-            )!;
+                default(T)
+            );
         }
+        return Task.FromResult(
+            _queue.Dequeue()
+        )!;
     }
 }

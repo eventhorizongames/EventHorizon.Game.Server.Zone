@@ -1,15 +1,14 @@
-﻿namespace EventHorizon.Identity.Tests.TestUtil
+﻿namespace EventHorizon.Identity.Tests.TestUtil;
+
+using System;
+
+using IdentityModel.Client;
+
+public class TokenResponseMock 
+    : TokenResponse
 {
-    using System;
-
-    using IdentityModel.Client;
-
-    public class TokenResponseMock 
-        : TokenResponse
+    public new string TryGet(string name)
     {
-        public new string TryGet(string name)
-        {
-            return String.Empty;
-        }
+        return String.Empty;
     }
 }

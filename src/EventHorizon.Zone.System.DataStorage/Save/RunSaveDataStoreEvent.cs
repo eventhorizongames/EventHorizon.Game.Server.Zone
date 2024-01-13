@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Save
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.System.DataStorage.Save;
 
-    public struct RunSaveDataStoreEvent
-        : INotification
-    {
-    }
+using MediatR;
+
+public struct RunSaveDataStoreEvent
+    : INotification
+{
 }

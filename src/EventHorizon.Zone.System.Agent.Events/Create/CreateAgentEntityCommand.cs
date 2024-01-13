@@ -1,44 +1,43 @@
-﻿namespace EventHorizon.Zone.System.Agent.Events.Create
+﻿namespace EventHorizon.Zone.System.Agent.Events.Create;
+
+using EventHorizon.Zone.System.Agent.Model;
+
+using MediatR;
+
+public struct CreateAgentEntityCommand
+    : IRequest<CreateAgentEntityResponse>
 {
-    using EventHorizon.Zone.System.Agent.Model;
+    public AgentEntity AgentEntity { get; }
 
-    using MediatR;
-
-    public struct CreateAgentEntityCommand
-        : IRequest<CreateAgentEntityResponse>
+    public CreateAgentEntityCommand(
+        AgentEntity agentEntity
+    )
     {
-        public AgentEntity AgentEntity { get; }
+        AgentEntity = agentEntity;
+    }
+}
 
-        public CreateAgentEntityCommand(
-            AgentEntity agentEntity
-        )
-        {
-            AgentEntity = agentEntity;
-        }
+public struct CreateAgentEntityResponse
+{
+    public bool Success { get; }
+    public string ErrorCode { get; }
+    public AgentEntity AgentEntity { get; }
+
+    public CreateAgentEntityResponse(
+        bool success,
+        AgentEntity clientEntity
+    ) : this(string.Empty)
+    {
+        Success = success;
+        AgentEntity = clientEntity;
     }
 
-    public struct CreateAgentEntityResponse
+    public CreateAgentEntityResponse(
+        string errorCode
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-        public AgentEntity AgentEntity { get; }
-
-        public CreateAgentEntityResponse(
-            bool success,
-            AgentEntity clientEntity
-        ) : this(string.Empty)
-        {
-            Success = success;
-            AgentEntity = clientEntity;
-        }
-
-        public CreateAgentEntityResponse(
-            string errorCode
-        )
-        {
-            Success = false;
-            ErrorCode = errorCode;
-            AgentEntity = default;
-        }
+        Success = false;
+        ErrorCode = errorCode;
+        AgentEntity = default;
     }
 }

@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.Core.Model.Exceptions
+﻿namespace EventHorizon.Zone.Core.Model.Exceptions;
+
+using System;
+
+[Serializable]
+public class PlatformErrorCodeException
+    : Exception
 {
-    using System;
+    public string ErrorCode { get; }
 
-    [Serializable]
-    public class PlatformErrorCodeException
-        : Exception
-    {
-        public string ErrorCode { get; }
-
-        public PlatformErrorCodeException(
-            string errorCode,
-            string message
-        ) : base($"[{errorCode}] - {message}") {
-            ErrorCode = errorCode;
-        }
+    public PlatformErrorCodeException(
+        string errorCode,
+        string message
+    ) : base($"[{errorCode}] - {message}") {
+        ErrorCode = errorCode;
     }
 }

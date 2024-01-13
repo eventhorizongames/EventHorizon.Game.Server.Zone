@@ -1,14 +1,13 @@
-﻿namespace EventHorizon.Platform.Model
-{
-    public record PlatformDetailsModel
-    {
-        public string Version { get; init; } = "0.0.0";
+﻿namespace EventHorizon.Platform.Model;
 
-        public PlatformDetailsModel(
-            PlatformDetailsOptions options
-        )
-        {
-            Version = options.Version;
-        }
+public record PlatformDetailsModel
+{
+    public string Version { get; init; } = "0.0.0";
+
+    public PlatformDetailsModel(
+        PlatformDetailsOptions options
+    )
+    {
+        Version = options.Version;
     }
 }

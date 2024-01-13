@@ -1,14 +1,13 @@
-namespace EventHorizon.Zone.Core.Id
+namespace EventHorizon.Zone.Core.Id;
+
+using EventHorizon.Zone.Core.Model.Id;
+
+public class InMemoryStaticIdPool : IdPool
 {
-    using EventHorizon.Zone.Core.Model.Id;
+    private static long CURRENT_INDEX = 0;
 
-    public class InMemoryStaticIdPool : IdPool
+    public long NextId()
     {
-        private static long CURRENT_INDEX = 0;
-
-        public long NextId()
-        {
-            return CURRENT_INDEX++;
-        }
+        return CURRENT_INDEX++;
     }
 }

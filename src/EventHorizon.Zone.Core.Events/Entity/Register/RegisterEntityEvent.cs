@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Register
+namespace EventHorizon.Zone.Core.Events.Entity.Register;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct RegisterEntityEvent
+    : IRequest<IObjectEntity>
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public IObjectEntity Entity { get; set; }
 
-    using MediatR;
-
-    public struct RegisterEntityEvent
-        : IRequest<IObjectEntity>
+    public RegisterEntityEvent(
+        IObjectEntity entity
+    )
     {
-        public IObjectEntity Entity { get; set; }
-
-        public RegisterEntityEvent(
-            IObjectEntity entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

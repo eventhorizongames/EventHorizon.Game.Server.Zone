@@ -1,9 +1,8 @@
-namespace EventHorizon.Server.Core.Events.Check
+namespace EventHorizon.Server.Core.Events.Check;
+
+using MediatR;
+
+public struct CheckCoreServerConnection : INotification
 {
-    using MediatR;
 
-    public struct CheckCoreServerConnection : INotification
-    {
-
-    }
 }

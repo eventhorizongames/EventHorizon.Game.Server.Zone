@@ -1,17 +1,16 @@
-namespace EventHorizon.Zone.System.Agent.Connection.Model
+namespace EventHorizon.Zone.System.Agent.Connection.Model;
+
+using EventHorizon.Zone.Core.Model.Core;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+
+public class AgentDetails
 {
-    using EventHorizon.Zone.Core.Model.Core;
-
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-
-    public class AgentDetails
-    {
-        public string Id { get; set; } = string.Empty;
-        public string Name { get; set; } = string.Empty;
-        public TransformState Transform { get; set; }
-        public LocationState Location { get; set; }
-        public IList<string>? TagList { get; set; }
-        public ConcurrentDictionary<string, object>? Data { get; set; }
-    }
+    public string Id { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public TransformState Transform { get; set; }
+    public LocationState Location { get; set; }
+    public IList<string>? TagList { get; set; }
+    public ConcurrentDictionary<string, object>? Data { get; set; }
 }

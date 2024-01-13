@@ -1,31 +1,30 @@
-﻿namespace EventHorizon.Zone.Core.Tests.Json
+﻿namespace EventHorizon.Zone.Core.Tests.Json;
+
+using EventHorizon.Zone.Core.Json;
+
+using FluentAssertions;
+
+using Xunit;
+
+public class NewtonsoftSerializeToJsonServiceTests
 {
-    using EventHorizon.Zone.Core.Json;
-
-    using FluentAssertions;
-
-    using Xunit;
-
-    public class NewtonsoftSerializeToJsonServiceTests
+    [Fact]
+    public void ShouldReturnNotEmptyStringWhenObjectSerialized()
     {
-        [Fact]
-        public void ShouldReturnNotEmptyStringWhenObjectSerialized()
+        // Given
+        var objectToSerialize = new
         {
-            // Given
-            var objectToSerialize = new
-            {
-                Id = 1,
-            };
+            Id = 1,
+        };
 
 
-            // When
-            var service = new NewtonsoftSerializeToJsonService();
-            var actual = service.Serialize(
-                objectToSerialize
-            );
+        // When
+        var service = new NewtonsoftSerializeToJsonService();
+        var actual = service.Serialize(
+            objectToSerialize
+        );
 
-            // Then
-            actual.Should().NotBeNullOrEmpty();
-        }
+        // Then
+        actual.Should().NotBeNullOrEmpty();
     }
 }

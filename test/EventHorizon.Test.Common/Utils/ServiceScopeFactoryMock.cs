@@ -1,50 +1,49 @@
-﻿namespace EventHorizon.Test.Common.Utils
+﻿namespace EventHorizon.Test.Common.Utils;
+
+using System;
+
+using Microsoft.Extensions.DependencyInjection;
+
+using Moq;
+
+public class ServiceScopeFactoryMock
+    : Mock<IServiceScopeFactory>
 {
-    using System;
+    public Mock<IServiceScope> ServiceScopeMock { get; }
+    public Mock<IServiceProvider> ServiceProviderMock { get; }
 
-    using Microsoft.Extensions.DependencyInjection;
-
-    using Moq;
-
-    public class ServiceScopeFactoryMock
-        : Mock<IServiceScopeFactory>
+    public ServiceScopeFactoryMock(
+        Mock<IServiceScope> serviceScopeMock,
+        Mock<IServiceProvider> serviceProviderMock
+    )
     {
-        public Mock<IServiceScope> ServiceScopeMock { get; }
-        public Mock<IServiceProvider> ServiceProviderMock { get; }
+        ServiceScopeMock = serviceScopeMock;
+        ServiceProviderMock = serviceProviderMock;
 
-        public ServiceScopeFactoryMock(
-            Mock<IServiceScope> serviceScopeMock,
-            Mock<IServiceProvider> serviceProviderMock
-        )
-        {
-            ServiceScopeMock = serviceScopeMock;
-            ServiceProviderMock = serviceProviderMock;
+        Setup(
+            scopeFactory => scopeFactory.CreateScope()
+        ).Returns(
+            ServiceScopeMock.Object
+        );
+        ServiceScopeMock.SetupGet(
+            serviceScope => serviceScope.ServiceProvider
+        ).Returns(
+            ServiceProviderMock.Object
+        );
+    }
 
-            Setup(
-                scopeFactory => scopeFactory.CreateScope()
-            ).Returns(
-                ServiceScopeMock.Object
-            );
-            ServiceScopeMock.SetupGet(
-                serviceScope => serviceScope.ServiceProvider
-            ).Returns(
-                ServiceProviderMock.Object
-            );
-        }
+    public ServiceScopeFactoryMock WithMock<T>(
+        Mock<T> mock
+    ) where T : class
+    {
+        ServiceProviderMock.Setup(
+            serviceProvider => serviceProvider.GetService(
+                typeof(T)
+            )
+        ).Returns(
+            mock.Object
+        );
 
-        public ServiceScopeFactoryMock WithMock<T>(
-            Mock<T> mock
-        ) where T : class
-        {
-            ServiceProviderMock.Setup(
-                serviceProvider => serviceProvider.GetService(
-                    typeof(T)
-                )
-            ).Returns(
-                mock.Object
-            );
-
-            return this;
-        }
+        return this;
     }
 }

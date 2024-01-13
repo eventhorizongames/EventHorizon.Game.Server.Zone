@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Reporter.Model
-{
-    public interface ReportTracker
-    {
-        void Clear(
-            string id
-        );
+namespace EventHorizon.Zone.Core.Reporter.Model;
 
-        void Track(
-            string id,
-            string correlationId,
-            string message,
-            object? data
-        );
-    }
+public interface ReportTracker
+{
+    void Clear(
+        string id
+    );
+
+    void Track(
+        string id,
+        string correlationId,
+        string message,
+        object? data
+    );
 }

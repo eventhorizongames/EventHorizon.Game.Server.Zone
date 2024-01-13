@@ -1,9 +1,8 @@
-namespace EventHorizon.Server.Core.Events.Stop
+namespace EventHorizon.Server.Core.Events.Stop;
+
+using MediatR;
+
+public struct StopCoreServerConnection : INotification
 {
-    using MediatR;
 
-    public struct StopCoreServerConnection : INotification
-    {
-
-    }
 }

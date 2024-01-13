@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Interaction.Events
+namespace EventHorizon.Zone.System.Interaction.Events;
+
+using EventHorizon.Zone.Core.Model.Player;
+
+using MediatR;
+
+public struct RunInteractionCommand : IRequest
 {
-    using EventHorizon.Zone.Core.Model.Player;
+    public long InteractionEntityId { get; }
+    public PlayerEntity Player { get; }
 
-    using MediatR;
-
-    public struct RunInteractionCommand : IRequest
+    public RunInteractionCommand(
+        long interactionEntityId,
+        PlayerEntity player
+    )
     {
-        public long InteractionEntityId { get; }
-        public PlayerEntity Player { get; }
-
-        public RunInteractionCommand(
-            long interactionEntityId,
-            PlayerEntity player
-        )
-        {
-            InteractionEntityId = interactionEntityId;
-            Player = player;
-        }
+        InteractionEntityId = interactionEntityId;
+        Player = player;
     }
 }

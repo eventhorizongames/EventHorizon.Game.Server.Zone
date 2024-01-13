@@ -1,46 +1,45 @@
-namespace EventHorizon.Zone.System.Client.Scripts.Tests
+namespace EventHorizon.Zone.System.Client.Scripts.Tests;
+
+using EventHorizon.Game.Server.Zone;
+using EventHorizon.Test.Common;
+using EventHorizon.Test.Common.Utils;
+
+using FluentAssertions;
+
+using Xunit;
+
+public class SystemClientScriptsPluginSharedExtensionsTests
 {
-    using EventHorizon.Game.Server.Zone;
-    using EventHorizon.Test.Common;
-    using EventHorizon.Test.Common.Utils;
-
-    using FluentAssertions;
-
-    using Xunit;
-
-    public class SystemClientScriptsPluginSharedExtensionsTests
+    [Fact]
+    public void ShouldRegisterExpectedServices()
     {
-        [Fact]
-        public void ShouldRegisterExpectedServices()
-        {
-            // Given
-            var serviceCollectionMock = new ServiceCollectionMock();
+        // Given
+        var serviceCollectionMock = new ServiceCollectionMock();
 
-            // When
-            SystemClientScriptsPluginSharedExtensions.AddSystemClientScriptsPluginShared(
-                serviceCollectionMock
-            );
-
-            // Then
+        // When
+        SystemClientScriptsPluginSharedExtensions.AddSystemClientScriptsPluginShared(
             serviceCollectionMock
-                .Should().BeEmpty();
-        }
+        );
 
-        [Fact]
-        public void ShouldReturnPassedInApplicationBuilderWhenFinishedRunning()
-        {
-            // Given
-            var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
-            var expected = applicationBuilderMocks.ApplicationBuilderMock.Object;
+        // Then
+        serviceCollectionMock
+            .Should().BeEmpty();
+    }
 
-            // When
-            var actual = SystemClientScriptsPluginSharedExtensions.UseSystemClientScriptsPluginShared(
-                applicationBuilderMocks.ApplicationBuilderMock.Object
-            );
+    [Fact]
+    public void ShouldReturnPassedInApplicationBuilderWhenFinishedRunning()
+    {
+        // Given
+        var applicationBuilderMocks = ApplicationBuilderFactory.CreateApplicationBuilder();
+        var expected = applicationBuilderMocks.ApplicationBuilderMock.Object;
 
-            // Then
-            actual
-                .Should().Be(expected);
-        }
+        // When
+        var actual = SystemClientScriptsPluginSharedExtensions.UseSystemClientScriptsPluginShared(
+            applicationBuilderMocks.ApplicationBuilderMock.Object
+        );
+
+        // Then
+        actual
+            .Should().Be(expected);
     }
 }

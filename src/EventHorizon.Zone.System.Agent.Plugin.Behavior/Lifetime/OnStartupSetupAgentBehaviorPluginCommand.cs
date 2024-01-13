@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Lifetime;
 
-    public struct OnStartupSetupAgentBehaviorPluginCommand
-        : OnServerStartupCommand
-    {
-    }
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupAgentBehaviorPluginCommand
+    : OnServerStartupCommand
+{
 }

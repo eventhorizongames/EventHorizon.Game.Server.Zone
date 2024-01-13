@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Events.Lifetime
+namespace EventHorizon.Zone.Core.Events.Lifetime;
+
+using MediatR;
+
+public struct ServerFinishedStartingEvent : INotification
 {
-    using MediatR;
 
-    public struct ServerFinishedStartingEvent : INotification
-    {
-
-    }
 }

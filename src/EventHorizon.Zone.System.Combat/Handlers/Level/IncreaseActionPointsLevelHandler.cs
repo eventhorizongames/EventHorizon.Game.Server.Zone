@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.System.Combat.Handlers.Level
+namespace EventHorizon.Zone.System.Combat.Handlers.Level;
+
+using EventHorizon.Zone.System.Combat.Events.Level;
+using EventHorizon.Zone.System.Combat.Model.Level;
+using EventHorizon.Zone.System.Combat.State;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class IncreaseActionPointsLevelHandler
+    : INotificationHandler<IncreaseActionPointsLevelEvent>
 {
-    using EventHorizon.Zone.System.Combat.Events.Level;
-    using EventHorizon.Zone.System.Combat.Model.Level;
-    using EventHorizon.Zone.System.Combat.State;
+    private readonly IEntityQueue<EntityLevelUp> _entityQueue;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class IncreaseActionPointsLevelHandler
-        : INotificationHandler<IncreaseActionPointsLevelEvent>
+    public IncreaseActionPointsLevelHandler(
+        IEntityQueue<EntityLevelUp> entityQueue
+    )
     {
-        private readonly IEntityQueue<EntityLevelUp> _entityQueue;
+        _entityQueue = entityQueue;
+    }
 
-        public IncreaseActionPointsLevelHandler(
-            IEntityQueue<EntityLevelUp> entityQueue
-        )
+    public async Task Handle(
+        IncreaseActionPointsLevelEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _entityQueue.Enqueue(new EntityLevelUp
         {
-            _entityQueue = entityQueue;
-        }
-
-        public async Task Handle(
-            IncreaseActionPointsLevelEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _entityQueue.Enqueue(new EntityLevelUp
-            {
-                EntityId = notification.EntityId,
-                Property = LevelProperty.AP,
-            });
-        }
+            EntityId = notification.EntityId,
+            Property = LevelProperty.AP,
+        });
     }
 }

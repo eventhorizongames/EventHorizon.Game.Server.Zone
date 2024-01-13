@@ -1,8 +1,7 @@
-namespace EventHorizon.Game.Server.Zone.Player.Move.Action
+namespace EventHorizon.Game.Server.Zone.Player.Move.Action;
+
+public class PlayerMoveActions
 {
-    public class PlayerMoveActions
-    {
-        public const string MOVE = "Move";
-        public const string STOP = "STOP";
-    }
+    public const string MOVE = "Move";
+    public const string STOP = "STOP";
 }

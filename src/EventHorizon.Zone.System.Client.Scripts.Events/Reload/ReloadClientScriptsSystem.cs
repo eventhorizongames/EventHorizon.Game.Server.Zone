@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.System.Client.Scripts.Events.Reload
+namespace EventHorizon.Zone.System.Client.Scripts.Events.Reload;
+
+using MediatR;
+
+public struct ReloadClientScriptsSystem
+    : IRequest
 {
-    using MediatR;
 
-    public struct ReloadClientScriptsSystem
-        : IRequest
-    {
-
-    }
 }

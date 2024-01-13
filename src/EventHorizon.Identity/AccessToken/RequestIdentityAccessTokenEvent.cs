@@ -1,9 +1,8 @@
-namespace EventHorizon.Identity.AccessToken
+namespace EventHorizon.Identity.AccessToken;
+
+using MediatR;
+
+public class RequestIdentityAccessTokenEvent : IRequest<string>
 {
-    using MediatR;
 
-    public class RequestIdentityAccessTokenEvent : IRequest<string>
-    {
-
-    }
 }

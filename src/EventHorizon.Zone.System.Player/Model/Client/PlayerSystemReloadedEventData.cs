@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.System.Player.Model.Client
+﻿namespace EventHorizon.Zone.System.Player.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+using EventHorizon.Zone.Core.Model.Entity;
+
+public struct PlayerSystemReloadedEventData
+    : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
-    using EventHorizon.Zone.Core.Model.Entity;
+    public ObjectEntityConfiguration PlayerConfiguration { get; }
 
-    public struct PlayerSystemReloadedEventData
-        : IClientActionData
+    public PlayerSystemReloadedEventData(
+        ObjectEntityConfiguration playerConfiguration
+    )
     {
-        public ObjectEntityConfiguration PlayerConfiguration { get; }
-
-        public PlayerSystemReloadedEventData(
-            ObjectEntityConfiguration playerConfiguration
-        )
-        {
-            PlayerConfiguration = playerConfiguration;
-        }
+        PlayerConfiguration = playerConfiguration;
     }
 }

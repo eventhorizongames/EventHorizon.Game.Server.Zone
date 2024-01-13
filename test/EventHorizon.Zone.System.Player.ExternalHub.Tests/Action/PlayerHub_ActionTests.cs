@@ -1,130 +1,129 @@
-namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests
+namespace EventHorizon.Zone.System.Player.ExternalHub.Action.Tests;
+
+using global::System.Collections.Generic;
+using global::System.Security.Claims;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using EventHorizon.Zone.System.Player.Events.Connected;
+using EventHorizon.Zone.System.Player.Plugin.Action.Events;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
+
+public class PlayerHub_ActionTests
 {
-    using global::System.Collections.Generic;
-    using global::System.Security.Claims;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using EventHorizon.Zone.System.Player.Events.Connected;
-    using EventHorizon.Zone.System.Player.Plugin.Action.Events;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class PlayerHub_ActionTests
+    [Fact]
+    public async Task TestShouldPublisUserConnectedEventWhenOnConnectedAsyncIsCalled()
     {
-        [Fact]
-        public async Task TestShouldPublisUserConnectedEventWhenOnConnectedAsyncIsCalled()
-        {
-            // Given
-            var playerId = "player-id";
-            var actionName = "action-name";
-            var actionData = new Dictionary<string, object>();
-            var expected = new RunPlayerServerAction(
-                playerId,
-                actionName,
-                actionData
-            );
+        // Given
+        var playerId = "player-id";
+        var actionName = "action-name";
+        var actionData = new Dictionary<string, object>();
+        var expected = new RunPlayerServerAction(
+            playerId,
+            actionName,
+            actionData
+        );
 
-            var loggerMock = new Mock<ILogger<PlayerHub>>();
-            var mediatorMock = new Mock<IMediator>();
-            var contextMock = new Mock<HubCallerContext>();
-            var userMock = new Mock<ClaimsPrincipal>();
+        var loggerMock = new Mock<ILogger<PlayerHub>>();
+        var mediatorMock = new Mock<IMediator>();
+        var contextMock = new Mock<HubCallerContext>();
+        var userMock = new Mock<ClaimsPrincipal>();
 
-            contextMock.Setup(
-                mock => mock.User
-            ).Returns(
-                userMock.Object
-            );
+        contextMock.Setup(
+            mock => mock.User
+        ).Returns(
+            userMock.Object
+        );
 
-            userMock.Setup(
-                mock => mock.Claims
-            ).Returns(
-                new List<Claim>
-                {
-                    new Claim(
-                        "sub",
-                        playerId
-                    )
-                }
-            );
-
-            // When
-            var playerHub = new PlayerHub(
-                loggerMock.Object,
-                mediatorMock.Object
-            )
+        userMock.Setup(
+            mock => mock.Claims
+        ).Returns(
+            new List<Claim>
             {
-                Context = contextMock.Object
-            };
-
-            await playerHub.PlayerAction(
-                actionName,
-                actionData
-            );
-
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    expected,
-                    CancellationToken.None
+                new Claim(
+                    "sub",
+                    playerId
                 )
-            );
-        }
+            }
+        );
 
-        [Fact]
-        public async Task TestShouldNotPublishUserConnectedEventWhenOnConnectedAsyncIsCalledWithBadUserClaim()
+        // When
+        var playerHub = new PlayerHub(
+            loggerMock.Object,
+            mediatorMock.Object
+        )
         {
-            // Given
-            var connectionId = "connection-id";
+            Context = contextMock.Object
+        };
 
-            var loggerMock = new Mock<ILogger<PlayerHub>>();
-            var mediatorMock = new Mock<IMediator>();
-            var contextMock = new Mock<HubCallerContext>();
-            var userMock = new Mock<ClaimsPrincipal>();
+        await playerHub.PlayerAction(
+            actionName,
+            actionData
+        );
 
-            contextMock.Setup(
-                mock => mock.User
-            ).Returns(
-                userMock.Object
-            );
-
-            userMock.Setup(
-                mock => mock.Claims
-            ).Returns(
-                new List<Claim>()
-            );
-            contextMock.Setup(
-                mock => mock.ConnectionId
-            ).Returns(
-                connectionId
-            );
-
-            // When
-            var playerHub = new PlayerHub(
-                loggerMock.Object,
-                mediatorMock.Object
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                expected,
+                CancellationToken.None
             )
-            {
-                Context = contextMock.Object
-            };
+        );
+    }
 
-            await playerHub.OnConnectedAsync();
+    [Fact]
+    public async Task TestShouldNotPublishUserConnectedEventWhenOnConnectedAsyncIsCalledWithBadUserClaim()
+    {
+        // Given
+        var connectionId = "connection-id";
 
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    It.IsAny<PlayerConnectedEvent>(),
-                    CancellationToken.None
-                ),
-                Times.Never()
-            );
-        }
+        var loggerMock = new Mock<ILogger<PlayerHub>>();
+        var mediatorMock = new Mock<IMediator>();
+        var contextMock = new Mock<HubCallerContext>();
+        var userMock = new Mock<ClaimsPrincipal>();
+
+        contextMock.Setup(
+            mock => mock.User
+        ).Returns(
+            userMock.Object
+        );
+
+        userMock.Setup(
+            mock => mock.Claims
+        ).Returns(
+            new List<Claim>()
+        );
+        contextMock.Setup(
+            mock => mock.ConnectionId
+        ).Returns(
+            connectionId
+        );
+
+        // When
+        var playerHub = new PlayerHub(
+            loggerMock.Object,
+            mediatorMock.Object
+        )
+        {
+            Context = contextMock.Object
+        };
+
+        await playerHub.OnConnectedAsync();
+
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                It.IsAny<PlayerConnectedEvent>(),
+                CancellationToken.None
+            ),
+            Times.Never()
+        );
     }
 }

@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.Core.Events.Map
+namespace EventHorizon.Zone.Core.Events.Map;
+
+using System.Numerics;
+
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public struct GetMapNodeAtPositionEvent : IRequest<MapNode>
 {
-    using System.Numerics;
+    public Vector3 Position { get; }
 
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public struct GetMapNodeAtPositionEvent : IRequest<MapNode>
+    public GetMapNodeAtPositionEvent(
+        Vector3 position
+    )
     {
-        public Vector3 Position { get; }
-
-        public GetMapNodeAtPositionEvent(
-            Vector3 position
-        )
-        {
-            Position = position;
-        }
+        Position = position;
     }
 }

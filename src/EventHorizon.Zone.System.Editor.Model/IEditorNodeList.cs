@@ -1,13 +1,12 @@
-namespace EventHorizon.Zone.System.Editor.Model
+namespace EventHorizon.Zone.System.Editor.Model;
+
+using global::System.Collections.Generic;
+
+public interface IEditorNodeList
 {
-    using global::System.Collections.Generic;
+    IList<IEditorNode> Root { get; }
 
-    public interface IEditorNodeList
-    {
-        IList<IEditorNode> Root { get; }
-
-        void AddNode(
-            IEditorNode node
-        );
-    }
+    void AddNode(
+        IEditorNode node
+    );
 }

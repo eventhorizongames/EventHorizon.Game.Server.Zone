@@ -1,17 +1,16 @@
-namespace EventHorizon.TimerService
-{
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+namespace EventHorizon.TimerService;
 
-    public static class TimerExtensions
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+public static class TimerExtensions
+{
+    public static IServiceCollection AddTimer(
+        this IServiceCollection services
+    )
     {
-        public static IServiceCollection AddTimer(
-            this IServiceCollection services
-        )
-        {
-            return services
-                .AddSingleton<IHostedService, TimerHostedService>()
-            ;
-        }
+        return services
+            .AddSingleton<IHostedService, TimerHostedService>()
+        ;
     }
 }

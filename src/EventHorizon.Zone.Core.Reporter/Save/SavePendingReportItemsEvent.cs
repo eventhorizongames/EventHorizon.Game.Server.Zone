@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Reporter.Save
+namespace EventHorizon.Zone.Core.Reporter.Save;
+
+using MediatR;
+
+public struct SavePendingReportItemsEvent : INotification
 {
-    using MediatR;
 
-    public struct SavePendingReportItemsEvent : INotification
-    {
-
-    }
 }

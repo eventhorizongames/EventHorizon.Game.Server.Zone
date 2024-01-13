@@ -1,31 +1,30 @@
-namespace EventHorizon.Zone.Core.DirectoryService
+namespace EventHorizon.Zone.Core.DirectoryService;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.DirectoryService;
+using EventHorizon.Zone.Core.Model.DirectoryService;
+using EventHorizon.Zone.Core.Model.FileService;
+
+using MediatR;
+
+public class GetListOfFilesFromDirectoryHandler : IRequestHandler<GetListOfFilesFromDirectory, IEnumerable<StandardFileInfo>>
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    readonly DirectoryResolver _directoryResolver;
 
-    using EventHorizon.Zone.Core.Events.DirectoryService;
-    using EventHorizon.Zone.Core.Model.DirectoryService;
-    using EventHorizon.Zone.Core.Model.FileService;
-
-    using MediatR;
-
-    public class GetListOfFilesFromDirectoryHandler : IRequestHandler<GetListOfFilesFromDirectory, IEnumerable<StandardFileInfo>>
+    public GetListOfFilesFromDirectoryHandler(
+        DirectoryResolver directoryResolver
+    )
     {
-        readonly DirectoryResolver _directoryResolver;
-
-        public GetListOfFilesFromDirectoryHandler(
-            DirectoryResolver directoryResolver
-        )
-        {
-            _directoryResolver = directoryResolver;
-        }
-
-        public Task<IEnumerable<StandardFileInfo>> Handle(
-            GetListOfFilesFromDirectory request,
-            CancellationToken cancellationToken
-        ) => _directoryResolver.GetFiles(
-            request.DirectoryFullName
-        ).FromResult();
+        _directoryResolver = directoryResolver;
     }
+
+    public Task<IEnumerable<StandardFileInfo>> Handle(
+        GetListOfFilesFromDirectory request,
+        CancellationToken cancellationToken
+    ) => _directoryResolver.GetFiles(
+        request.DirectoryFullName
+    ).FromResult();
 }

@@ -1,81 +1,80 @@
-namespace EventHorizon.Zone.System.Watcher.Tests.State
+namespace EventHorizon.Zone.System.Watcher.Tests.State;
+
+using EventHorizon.Zone.System.Watcher.Model;
+using EventHorizon.Zone.System.Watcher.State;
+
+using Moq;
+
+using Xunit;
+
+public class InMemoryFileSystemWatcherStateTests
 {
-    using EventHorizon.Zone.System.Watcher.Model;
-    using EventHorizon.Zone.System.Watcher.State;
-
-    using Moq;
-
-    using Xunit;
-
-    public class InMemoryFileSystemWatcherStateTests
+    [Fact]
+    public void TestShouldAddPathWatcherByPath()
     {
-        [Fact]
-        public void TestShouldAddPathWatcherByPath()
-        {
-            // Given
-            var path = "path-to-watched";
-            var pathWatcherMock = new Mock<PathWatcher>();
-            var expected = pathWatcherMock.Object;
+        // Given
+        var path = "path-to-watched";
+        var pathWatcherMock = new Mock<PathWatcher>();
+        var expected = pathWatcherMock.Object;
 
-            // When
-            var fileSystemWatcher = new InMemoryFileSystemWatcherState();
+        // When
+        var fileSystemWatcher = new InMemoryFileSystemWatcherState();
 
-            fileSystemWatcher.Add(
-                path,
-                pathWatcherMock.Object
-            );
+        fileSystemWatcher.Add(
+            path,
+            pathWatcherMock.Object
+        );
 
-            var actual = fileSystemWatcher.Get(
-                path
-            );
+        var actual = fileSystemWatcher.Get(
+            path
+        );
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
 
-        [Fact]
-        public void TestShouldRemoveFromStateByPathWhenRemoveBySamePath()
-        {
-            // Given
-            var path = "path-to-watched";
-            var pathWatcherMock = new StandardPathWatcher(
-                path,
-                null
-            );
-            var expected = pathWatcherMock;
+    [Fact]
+    public void TestShouldRemoveFromStateByPathWhenRemoveBySamePath()
+    {
+        // Given
+        var path = "path-to-watched";
+        var pathWatcherMock = new StandardPathWatcher(
+            path,
+            null
+        );
+        var expected = pathWatcherMock;
 
-            // When
-            var fileSystemWatcher = new InMemoryFileSystemWatcherState();
+        // When
+        var fileSystemWatcher = new InMemoryFileSystemWatcherState();
 
-            fileSystemWatcher.Add(
-                path,
-                pathWatcherMock
-            );
+        fileSystemWatcher.Add(
+            path,
+            pathWatcherMock
+        );
 
-            var existing = fileSystemWatcher.Get(
-                path
-            );
-            // Verify it is in State
-            Assert.Equal(
-                expected,
-                existing
-            );
+        var existing = fileSystemWatcher.Get(
+            path
+        );
+        // Verify it is in State
+        Assert.Equal(
+            expected,
+            existing
+        );
 
-            fileSystemWatcher.Remove(
-                path
-            );
-            var actual = fileSystemWatcher.Get(
-                path
-            );
+        fileSystemWatcher.Remove(
+            path
+        );
+        var actual = fileSystemWatcher.Get(
+            path
+        );
 
-            // Then
-            Assert.NotEqual(
-                expected,
-                actual
-            );
-        }
+        // Then
+        Assert.NotEqual(
+            expected,
+            actual
+        );
     }
 }

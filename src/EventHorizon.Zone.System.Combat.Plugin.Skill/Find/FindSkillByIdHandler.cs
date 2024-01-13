@@ -1,30 +1,29 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class FindSkillByIdHandler
+    : IRequestHandler<FindSkillByIdEvent, SkillInstance>
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
+    private readonly SkillRepository _skillRepository;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class FindSkillByIdHandler
-        : IRequestHandler<FindSkillByIdEvent, SkillInstance>
+    public FindSkillByIdHandler(
+        SkillRepository skillRepository
+    )
     {
-        private readonly SkillRepository _skillRepository;
-
-        public FindSkillByIdHandler(
-            SkillRepository skillRepository
-        )
-        {
-            _skillRepository = skillRepository;
-        }
-
-        public Task<SkillInstance> Handle(
-            FindSkillByIdEvent request,
-            CancellationToken cancellationToken
-        ) => _skillRepository.Find(
-            request.SkillId
-        ).FromResult();
+        _skillRepository = skillRepository;
     }
+
+    public Task<SkillInstance> Handle(
+        FindSkillByIdEvent request,
+        CancellationToken cancellationToken
+    ) => _skillRepository.Find(
+        request.SkillId
+    ).FromResult();
 }

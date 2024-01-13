@@ -1,22 +1,21 @@
-﻿namespace EventHorizon.Zone.Core.Json
+﻿namespace EventHorizon.Zone.Core.Json;
+
+using EventHorizon.Zone.Core.Api;
+
+using Newtonsoft.Json;
+
+public class NewtonsoftSerializeToJsonService
+    : SerializeToJsonService
 {
-    using EventHorizon.Zone.Core.Api;
-
-    using Newtonsoft.Json;
-
-    public class NewtonsoftSerializeToJsonService
-        : SerializeToJsonService
+    private static readonly JsonSerializerSettings SETTINGS = new()
     {
-        private static readonly JsonSerializerSettings SETTINGS = new()
-        {
-            Formatting = Formatting.Indented,
-        };
+        Formatting = Formatting.Indented,
+    };
 
-        public string Serialize(
-            object objectToSerialize
-        ) => JsonConvert.SerializeObject(
-            objectToSerialize,
-            SETTINGS
-        );
-    }
+    public string Serialize(
+        object objectToSerialize
+    ) => JsonConvert.SerializeObject(
+        objectToSerialize,
+        SETTINGS
+    );
 }

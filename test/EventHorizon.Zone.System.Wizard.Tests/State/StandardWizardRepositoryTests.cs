@@ -1,151 +1,150 @@
-﻿namespace EventHorizon.Zone.System.Wizard.Tests.State
+﻿namespace EventHorizon.Zone.System.Wizard.Tests.State;
+
+using EventHorizon.Zone.System.Wizard.Model;
+using EventHorizon.Zone.System.Wizard.State;
+
+using FluentAssertions;
+
+using global::System.Collections.Generic;
+
+using Xunit;
+
+public class StandardWizardRepositoryTests
 {
-    using EventHorizon.Zone.System.Wizard.Model;
-    using EventHorizon.Zone.System.Wizard.State;
-
-    using FluentAssertions;
-
-    using global::System.Collections.Generic;
-
-    using Xunit;
-
-    public class StandardWizardRepositoryTests
+    [Fact]
+    public void ShouldReturnAllWizardsWhenSetInRepository()
     {
-        [Fact]
-        public void ShouldReturnAllWizardsWhenSetInRepository()
+        // Given
+        var wizardId = "wizard-1";
+        var wizard = new WizardMetadata
         {
-            // Given
-            var wizardId = "wizard-1";
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-            };
+            Id = wizardId,
+        };
 
-            var expected = new List<WizardMetadata>
-            {
-                wizard,
-            };
-
-            // When
-            var repository = new StandardWizardRepository();
-            repository.Set(
-                wizardId,
-                wizard
-            );
-            var actual = repository.All;
-
-            // Then
-            actual.Should().BeEquivalentTo(expected);
-        }
-
-        [Fact]
-        public void ShouldReturnZeroWizardsWhenSetInRepositoryAndThenCleared()
+        var expected = new List<WizardMetadata>
         {
-            // Given
-            var wizardId = "wizard-1";
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-            };
+            wizard,
+        };
 
-            // When
-            var repository = new StandardWizardRepository();
-            repository.Set(
-                wizardId,
-                wizard
-            );
+        // When
+        var repository = new StandardWizardRepository();
+        repository.Set(
+            wizardId,
+            wizard
+        );
+        var actual = repository.All;
 
-            repository.All.Should().NotBeEmpty();
-            repository.Clear();
+        // Then
+        actual.Should().BeEquivalentTo(expected);
+    }
 
-            var actual = repository.All;
-
-            // Then
-            actual.Should().BeEmpty();
-        }
-
-        [Fact]
-        public void ShouldOverrideExistingWizardWhenSetIsCalledWithSameWizardIdAndDifferentWizard()
+    [Fact]
+    public void ShouldReturnZeroWizardsWhenSetInRepositoryAndThenCleared()
+    {
+        // Given
+        var wizardId = "wizard-1";
+        var wizard = new WizardMetadata
         {
-            // Given
-            var wizardId = "wizard-1";
-            var wizard1 = new WizardMetadata
-            {
-                Id = wizardId,
-                Name = "Fist Set Wizard",
-            };
-            var wizard2 = new WizardMetadata
-            {
-                Id = wizardId,
-                Name = "Second Set Wizard",
-            };
+            Id = wizardId,
+        };
 
-            // When
-            var repository = new StandardWizardRepository();
-            repository.Set(
-                wizardId,
-                wizard1
-            );
+        // When
+        var repository = new StandardWizardRepository();
+        repository.Set(
+            wizardId,
+            wizard
+        );
 
-            repository.All.Should().Contain(wizard1)
-                .And
-                .Subject.Should().NotContain(wizard2);
+        repository.All.Should().NotBeEmpty();
+        repository.Clear();
 
-            repository.Set(
-                wizardId,
-                wizard2
-            );
+        var actual = repository.All;
 
-            // Then
-            repository.All.Should().Contain(wizard2)
-                .And
-                .Subject.Should().NotContain(wizard1);
-        }
+        // Then
+        actual.Should().BeEmpty();
+    }
 
-        [Fact]
-        public void ShouldReturnEmptyOptionWhenWizardIsNotInRepository()
+    [Fact]
+    public void ShouldOverrideExistingWizardWhenSetIsCalledWithSameWizardIdAndDifferentWizard()
+    {
+        // Given
+        var wizardId = "wizard-1";
+        var wizard1 = new WizardMetadata
         {
-            // Given
-            var wizardId = "wizard-1";
-
-            // When
-            var repository = new StandardWizardRepository();
-            var actual = repository.Get(
-                wizardId
-            );
-
-            // Then
-            actual.HasValue
-                .Should().BeFalse();
-        }
-
-        [Fact]
-        public void ShouldReturnWizardInOptionWhenRepositoryContainsWizard()
+            Id = wizardId,
+            Name = "Fist Set Wizard",
+        };
+        var wizard2 = new WizardMetadata
         {
-            // Given
-            var wizardId = "wizard-1";
-            var wizard = new WizardMetadata
-            {
-                Id = wizardId,
-                Name = "Fist Set Wizard",
-            };
+            Id = wizardId,
+            Name = "Second Set Wizard",
+        };
 
-            // When
-            var repository = new StandardWizardRepository();
-            repository.Set(
-                wizardId,
-                wizard
-            );
+        // When
+        var repository = new StandardWizardRepository();
+        repository.Set(
+            wizardId,
+            wizard1
+        );
 
-            var actual = repository.Get(
-                wizardId
-            );
+        repository.All.Should().Contain(wizard1)
+            .And
+            .Subject.Should().NotContain(wizard2);
 
-            // Then
-            actual.HasValue
-                .Should().BeTrue();
-            actual.Value
-                .Should().Be(wizard);
-        }
+        repository.Set(
+            wizardId,
+            wizard2
+        );
+
+        // Then
+        repository.All.Should().Contain(wizard2)
+            .And
+            .Subject.Should().NotContain(wizard1);
+    }
+
+    [Fact]
+    public void ShouldReturnEmptyOptionWhenWizardIsNotInRepository()
+    {
+        // Given
+        var wizardId = "wizard-1";
+
+        // When
+        var repository = new StandardWizardRepository();
+        var actual = repository.Get(
+            wizardId
+        );
+
+        // Then
+        actual.HasValue
+            .Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldReturnWizardInOptionWhenRepositoryContainsWizard()
+    {
+        // Given
+        var wizardId = "wizard-1";
+        var wizard = new WizardMetadata
+        {
+            Id = wizardId,
+            Name = "Fist Set Wizard",
+        };
+
+        // When
+        var repository = new StandardWizardRepository();
+        repository.Set(
+            wizardId,
+            wizard
+        );
+
+        var actual = repository.Get(
+            wizardId
+        );
+
+        // Then
+        actual.HasValue
+            .Should().BeTrue();
+        actual.Value
+            .Should().Be(wizard);
     }
 }

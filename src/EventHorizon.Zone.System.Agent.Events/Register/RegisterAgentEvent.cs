@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Agent.Events.Register
+namespace EventHorizon.Zone.System.Agent.Events.Register;
+
+using EventHorizon.Zone.System.Agent.Model;
+
+using MediatR;
+
+public struct RegisterAgentEvent : IRequest<AgentEntity>
 {
-    using EventHorizon.Zone.System.Agent.Model;
+    public AgentEntity Agent { get; }
 
-    using MediatR;
-
-    public struct RegisterAgentEvent : IRequest<AgentEntity>
+    public RegisterAgentEvent(
+        AgentEntity agent
+    )
     {
-        public AgentEntity Agent { get; }
-
-        public RegisterAgentEvent(
-            AgentEntity agent
-        )
-        {
-            Agent = agent;
-        }
+        Agent = agent;
     }
 }

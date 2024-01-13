@@ -1,6 +1,5 @@
-namespace EventHorizon.Game.Server.Zone
+namespace EventHorizon.Game.Server.Zone;
+
+internal class MoveAgentRepository
 {
-    internal class MoveAgentRepository
-    {
-    }
 }

@@ -1,23 +1,22 @@
-namespace EventHorizon.Server.Core.State
+namespace EventHorizon.Server.Core.State;
+
+public class SystemServerCoreCheckState
+    : ServerCoreCheckState
 {
-    public class SystemServerCoreCheckState
-        : ServerCoreCheckState
+    private int _timesChecked = 0;
+
+    public void Check()
     {
-        private int _timesChecked = 0;
+        _timesChecked += 1;
+    }
 
-        public void Check()
-        {
-            _timesChecked += 1;
-        }
+    public void Reset()
+    {
+        _timesChecked = 0;
+    }
 
-        public void Reset()
-        {
-            _timesChecked = 0;
-        }
-
-        public int TimesChecked()
-        {
-            return _timesChecked;
-        }
+    public int TimesChecked()
+    {
+        return _timesChecked;
     }
 }

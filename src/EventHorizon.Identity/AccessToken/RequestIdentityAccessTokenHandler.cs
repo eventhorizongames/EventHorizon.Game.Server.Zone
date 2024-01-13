@@ -1,62 +1,61 @@
-namespace EventHorizon.Identity.AccessToken
+namespace EventHorizon.Identity.AccessToken;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Identity.Client;
+using EventHorizon.Identity.Exceptions;
+
+using IdentityModel.Client;
+
+using MediatR;
+
+using Microsoft.Extensions.Configuration;
+
+public class RequestIdentityAccessTokenHandler
+    : IRequestHandler<RequestIdentityAccessTokenEvent, string>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IConfiguration _configuration;
+    private readonly ITokenClientFactory _tokenClientFactory;
 
-    using EventHorizon.Identity.Client;
-    using EventHorizon.Identity.Exceptions;
-
-    using IdentityModel.Client;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Configuration;
-
-    public class RequestIdentityAccessTokenHandler
-        : IRequestHandler<RequestIdentityAccessTokenEvent, string>
+    public RequestIdentityAccessTokenHandler(
+        IConfiguration configuration,
+        ITokenClientFactory tokenClientFactory
+    )
     {
-        private readonly IConfiguration _configuration;
-        private readonly ITokenClientFactory _tokenClientFactory;
+        _configuration = configuration;
+        _tokenClientFactory = tokenClientFactory;
+    }
 
-        public RequestIdentityAccessTokenHandler(
-            IConfiguration configuration,
-            ITokenClientFactory tokenClientFactory
-        )
+    public async Task<string> Handle(
+        RequestIdentityAccessTokenEvent message,
+        CancellationToken cancellationToken
+    )
+    {
+        var tokenEndpoint = _configuration["Auth:Authority"];
+        var clientId = _configuration["Auth:ClientId"];
+        var clientSecret = _configuration["Auth:ClientSecret"];
+        var apiScope = _configuration["Auth:ApiName"];
+
+        // request token
+        var tokenClient = _tokenClientFactory.Create(
+            $"{tokenEndpoint}/connect/token",
+            clientId,
+            clientSecret
+        );
+        var tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(
+            apiScope,
+            cancellationToken: cancellationToken
+        );
+
+        if (tokenResponse.IsError)
         {
-            _configuration = configuration;
-            _tokenClientFactory = tokenClientFactory;
+            throw new IdentityServerRequestException(
+                "Error requesting token.",
+                tokenResponse.Exception
+            );
         }
 
-        public async Task<string> Handle(
-            RequestIdentityAccessTokenEvent message,
-            CancellationToken cancellationToken
-        )
-        {
-            var tokenEndpoint = _configuration["Auth:Authority"];
-            var clientId = _configuration["Auth:ClientId"];
-            var clientSecret = _configuration["Auth:ClientSecret"];
-            var apiScope = _configuration["Auth:ApiName"];
-
-            // request token
-            var tokenClient = _tokenClientFactory.Create(
-                $"{tokenEndpoint}/connect/token",
-                clientId,
-                clientSecret
-            );
-            var tokenResponse = await tokenClient.RequestClientCredentialsTokenAsync(
-                apiScope,
-                cancellationToken: cancellationToken
-            );
-
-            if (tokenResponse.IsError)
-            {
-                throw new IdentityServerRequestException(
-                    "Error requesting token.",
-                    tokenResponse.Exception
-                );
-            }
-
-            return tokenResponse.AccessToken;
-        }
+        return tokenResponse.AccessToken;
     }
 }

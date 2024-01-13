@@ -1,26 +1,25 @@
-namespace EventHorizon.Zone.System.Editor.Events
+namespace EventHorizon.Zone.System.Editor.Events;
+
+using EventHorizon.Zone.System.Editor.Model;
+
+using MediatR;
+
+public struct FillEditorNodeState : INotification
 {
-    using EventHorizon.Zone.System.Editor.Model;
-
-    using MediatR;
-
-    public struct FillEditorNodeState : INotification
+    public IEditorNodeList EditorState { get; }
+    public void AddNode(
+        IEditorNode node
+    )
     {
-        public IEditorNodeList EditorState { get; }
-        public void AddNode(
-            IEditorNode node
-        )
-        {
-            EditorState.AddNode(
-                node
-            );
-        }
+        EditorState.AddNode(
+            node
+        );
+    }
 
-        public FillEditorNodeState(
-            IEditorNodeList editorState
-        )
-        {
-            EditorState = editorState;
-        }
+    public FillEditorNodeState(
+        IEditorNodeList editorState
+    )
+    {
+        EditorState = editorState;
     }
 }

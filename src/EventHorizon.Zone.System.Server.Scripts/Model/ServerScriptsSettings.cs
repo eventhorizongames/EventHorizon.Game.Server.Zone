@@ -1,17 +1,16 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Model
-{
-    public class ServerScriptsSettings
-    {
-        public string CompilerSubProcessDirectory { get; }
-        public string CompilerSubProcess { get; }
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Model;
 
-        public ServerScriptsSettings(
-            string compilerSubProcessDirectory,
-            string compilerSubProcess
-        )
-        {
-            CompilerSubProcessDirectory = compilerSubProcessDirectory;
-            CompilerSubProcess = compilerSubProcess;
-        }
+public class ServerScriptsSettings
+{
+    public string CompilerSubProcessDirectory { get; }
+    public string CompilerSubProcess { get; }
+
+    public ServerScriptsSettings(
+        string compilerSubProcessDirectory,
+        string compilerSubProcess
+    )
+    {
+        CompilerSubProcessDirectory = compilerSubProcessDirectory;
+        CompilerSubProcess = compilerSubProcess;
     }
 }

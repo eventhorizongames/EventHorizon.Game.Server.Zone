@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Lifetime
-{
-    using EventHorizon.Zone.Core.Events.Lifetime;
+﻿namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Lifetime;
 
-    public struct OnStartupSetupCombatSkillPluginCommand
-        : OnServerStartupCommand
-    {
-    }
+using EventHorizon.Zone.Core.Events.Lifetime;
+
+public struct OnStartupSetupCombatSkillPluginCommand
+    : OnServerStartupCommand
+{
 }

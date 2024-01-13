@@ -1,29 +1,28 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Run.Model
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Run.Model;
+
+using EventHorizon.Zone.System.Server.Scripts.Model;
+
+using global::System.Collections.Generic;
+
+public class StandardServerScriptData
+    : ServerScriptData
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model;
+    private readonly IDictionary<string, object> _data;
 
-    using global::System.Collections.Generic;
-
-    public class StandardServerScriptData
-        : ServerScriptData
+    public StandardServerScriptData(
+        IDictionary<string, object>? data
+    )
     {
-        private readonly IDictionary<string, object> _data;
+        _data = data ?? new Dictionary<string, object>();
+    }
 
-        public StandardServerScriptData(
-            IDictionary<string, object>? data
-        )
-        {
-            _data = data ?? new Dictionary<string, object>();
-        }
-
-        public T? Get<T>(
-            string key
-        )
-        {
-            return _data.GetValueOrDefault(
-                key,
-                default(T)
-            );
-        }
+    public T? Get<T>(
+        string key
+    )
+    {
+        return _data.GetValueOrDefault(
+            key,
+            default(T)
+        );
     }
 }

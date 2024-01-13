@@ -1,22 +1,21 @@
-namespace EventHorizon.Zone.Core.Info
+namespace EventHorizon.Zone.Core.Info;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Reflection;
+
+using EventHorizon.Zone.Core.Model.Info;
+
+public class StandardSystemProvidedAssemblyList : SystemProvidedAssemblyList
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Reflection;
+    public IList<Assembly> List { get; }
 
-    using EventHorizon.Zone.Core.Model.Info;
-
-    public class StandardSystemProvidedAssemblyList : SystemProvidedAssemblyList
+    public StandardSystemProvidedAssemblyList(
+        Assembly[] list
+    )
     {
-        public IList<Assembly> List { get; }
-
-        public StandardSystemProvidedAssemblyList(
-            Assembly[] list
-        )
-        {
-            List = new ReadOnlyCollection<Assembly>(
-                list
-            );
-        }
+        List = new ReadOnlyCollection<Assembly>(
+            list
+        );
     }
 }

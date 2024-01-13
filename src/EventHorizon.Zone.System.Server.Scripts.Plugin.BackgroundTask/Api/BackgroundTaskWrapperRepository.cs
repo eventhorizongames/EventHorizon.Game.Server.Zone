@@ -1,24 +1,23 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+
+using global::System.Diagnostics.CodeAnalysis;
+
+public interface BackgroundTaskWrapperRepository
 {
-    using global::System.Diagnostics.CodeAnalysis;
+    bool TryGet(
+        string taskId,
+        [NotNullWhen(true)]
+        out BackgroundTaskWrapper? backgroundTaskWrapper
+    );
 
-    public interface BackgroundTaskWrapperRepository
-    {
-        bool TryGet(
-            string taskId,
-            [NotNullWhen(true)]
-            out BackgroundTaskWrapper? backgroundTaskWrapper
-        );
+    bool Add(
+        string taskId,
+        BackgroundTaskWrapper backgroundTaskWrapper
+    );
 
-        bool Add(
-            string taskId,
-            BackgroundTaskWrapper backgroundTaskWrapper
-        );
-
-        bool TryRemove(
-            string taskId,
-            [NotNullWhen(true)]
-            out BackgroundTaskWrapper? removedBackgroundTaskWrapper
-        );
-    }
+    bool TryRemove(
+        string taskId,
+        [NotNullWhen(true)]
+        out BackgroundTaskWrapper? removedBackgroundTaskWrapper
+    );
 }

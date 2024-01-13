@@ -1,26 +1,25 @@
-namespace EventHorizon.Zone.System.Agent.Update
+namespace EventHorizon.Zone.System.Agent.Update;
+
+using EventHorizon.Zone.System.Agent.Events.Update;
+using EventHorizon.Zone.System.Agent.Model.State;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+using MediatR;
+
+public class AgentUpdateEntityCommandHandler : IRequestHandler<AgentUpdateEntityCommand>
 {
-    using EventHorizon.Zone.System.Agent.Events.Update;
-    using EventHorizon.Zone.System.Agent.Model.State;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using MediatR;
+    private readonly IAgentRepository _agentRepository;
 
-    public class AgentUpdateEntityCommandHandler : IRequestHandler<AgentUpdateEntityCommand>
+    public AgentUpdateEntityCommandHandler(IAgentRepository agentRepository)
     {
-        private readonly IAgentRepository _agentRepository;
+        _agentRepository = agentRepository;
+    }
 
-        public AgentUpdateEntityCommandHandler(IAgentRepository agentRepository)
-        {
-            _agentRepository = agentRepository;
-        }
-
-        public async Task Handle(
-            AgentUpdateEntityCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _agentRepository.Update(request.UpdateAction, request.Agent);
-        }
+    public async Task Handle(
+        AgentUpdateEntityCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _agentRepository.Update(request.UpdateAction, request.Agent);
     }
 }

@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.System.Gui.Model.Client
+﻿namespace EventHorizon.Zone.System.Gui.Model.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+using global::System.Collections.Generic;
+
+public class GuiSystemReloadedClientActionData : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public IEnumerable<GuiLayout> GuiLayoutList { get; }
 
-    using global::System.Collections.Generic;
-
-    public class GuiSystemReloadedClientActionData : IClientActionData
+    public GuiSystemReloadedClientActionData(
+        IEnumerable<GuiLayout> guiLayoutList
+    )
     {
-        public IEnumerable<GuiLayout> GuiLayoutList { get; }
-
-        public GuiSystemReloadedClientActionData(
-            IEnumerable<GuiLayout> guiLayoutList
-        )
-        {
-            GuiLayoutList = guiLayoutList;
-        }
+        GuiLayoutList = guiLayoutList;
     }
 }

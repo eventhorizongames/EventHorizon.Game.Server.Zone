@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Find;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+using MediatR;
+
+public struct FindSkillByIdEvent : IRequest<SkillInstance>
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    public string SkillId { get; set; }
 
-    using MediatR;
-
-    public struct FindSkillByIdEvent : IRequest<SkillInstance>
+    public FindSkillByIdEvent(
+        string skillId
+    )
     {
-        public string SkillId { get; set; }
-
-        public FindSkillByIdEvent(
-            string skillId
-        )
-        {
-            SkillId = skillId;
-        }
+        SkillId = skillId;
     }
 }

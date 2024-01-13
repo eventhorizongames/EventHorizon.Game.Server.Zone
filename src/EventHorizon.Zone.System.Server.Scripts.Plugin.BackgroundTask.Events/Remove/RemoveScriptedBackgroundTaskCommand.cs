@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Remove;
+
+using EventHorizon.Zone.Core.Model.Command;
+
+using MediatR;
+
+public struct RemoveScriptedBackgroundTaskCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
+    public string TaskId { get; }
 
-    using MediatR;
-
-    public struct RemoveScriptedBackgroundTaskCommand
-        : IRequest<StandardCommandResult>
+    public RemoveScriptedBackgroundTaskCommand(
+        string taskId
+    )
     {
-        public string TaskId { get; }
-
-        public RemoveScriptedBackgroundTaskCommand(
-            string taskId
-        )
-        {
-            TaskId = taskId;
-        }
+        TaskId = taskId;
     }
 }

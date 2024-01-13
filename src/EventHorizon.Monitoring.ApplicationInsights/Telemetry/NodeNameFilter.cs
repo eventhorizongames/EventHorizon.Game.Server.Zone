@@ -1,43 +1,42 @@
-namespace EventHorizon.Monitoring.ApplicationInsights.Telemetry
+namespace EventHorizon.Monitoring.ApplicationInsights.Telemetry;
+
+using EventHorizon.Monitoring.Model;
+
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Microsoft.Extensions.Options;
+
+public class NodeNameFilter : ITelemetryInitializer
 {
-    using EventHorizon.Monitoring.Model;
+    private readonly MonitoringServerConfiguration _serverConfig;
 
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.Extensions.Options;
-
-    public class NodeNameFilter : ITelemetryInitializer
+    public NodeNameFilter(
+        IOptions<MonitoringServerConfiguration> serverConfig
+    )
     {
-        private readonly MonitoringServerConfiguration _serverConfig;
+        _serverConfig = serverConfig.Value;
+    }
 
-        public NodeNameFilter(
-            IOptions<MonitoringServerConfiguration> serverConfig
-        )
+    public void Initialize(
+        ITelemetry telemetry
+    )
+    {
+        var name = $"{_serverConfig.ServerName} ({_serverConfig.Host})";
+        telemetry.Context.Cloud.RoleName = name;
+        telemetry.Context.Cloud.RoleInstance = name;
+
+        var internalContext = telemetry.Context.GetInternalContext();
+        if (string.IsNullOrEmpty(internalContext.NodeName))
         {
-            _serverConfig = serverConfig.Value;
+            internalContext.NodeName = name;
         }
-
-        public void Initialize(
-            ITelemetry telemetry
-        )
+        if (!telemetry.Context.GlobalProperties.ContainsKey("HOST"))
         {
-            var name = $"{_serverConfig.ServerName} ({_serverConfig.Host})";
-            telemetry.Context.Cloud.RoleName = name;
-            telemetry.Context.Cloud.RoleInstance = name;
-
-            var internalContext = telemetry.Context.GetInternalContext();
-            if (string.IsNullOrEmpty(internalContext.NodeName))
-            {
-                internalContext.NodeName = name;
-            }
-            if (!telemetry.Context.GlobalProperties.ContainsKey("HOST"))
-            {
-                telemetry.Context.GlobalProperties.Add(
-                    "HOST",
-                    _serverConfig.Host
-                );
-            }
+            telemetry.Context.GlobalProperties.Add(
+                "HOST",
+                _serverConfig.Host
+            );
         }
     }
 }

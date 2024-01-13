@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
+
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
+using MediatR;
+
+public struct RunActorBehaviorTick : IRequest
 {
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+    public ActorBehaviorTick ActorBehaviorTick { get; }
 
-    using MediatR;
-
-    public struct RunActorBehaviorTick : IRequest
+    public RunActorBehaviorTick(
+        ActorBehaviorTick actorBehaviorTick
+    )
     {
-        public ActorBehaviorTick ActorBehaviorTick { get; }
-
-        public RunActorBehaviorTick(
-            ActorBehaviorTick actorBehaviorTick
-        )
-        {
-            ActorBehaviorTick = actorBehaviorTick;
-        }
+        ActorBehaviorTick = actorBehaviorTick;
     }
 }

@@ -1,50 +1,49 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.System
+﻿namespace EventHorizon.Zone.System.Server.Scripts.System;
+
+using EventHorizon.Zone.System.Server.Scripts.Model;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+
+public class SystemServerScriptMediator : ServerScriptMediator
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using MediatR;
-    using Microsoft.Extensions.DependencyInjection;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public class SystemServerScriptMediator : ServerScriptMediator
+    public SystemServerScriptMediator(IServiceScopeFactory serviceScopeFactory)
     {
-        private readonly IServiceScopeFactory _serviceScopeFactory;
+        _serviceScopeFactory = serviceScopeFactory;
+    }
 
-        public SystemServerScriptMediator(IServiceScopeFactory serviceScopeFactory)
-        {
-            _serviceScopeFactory = serviceScopeFactory;
-        }
+    public async Task Publish<TNotification>(
+        TNotification notification,
+        CancellationToken cancellationToken = default
+    )
+        where TNotification : INotification
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Publish(notification, cancellationToken);
+    }
 
-        public async Task Publish<TNotification>(
-            TNotification notification,
-            CancellationToken cancellationToken = default
-        )
-            where TNotification : INotification
-        {
-            using var scope = _serviceScopeFactory.CreateScope();
-            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-            await mediator.Publish(notification, cancellationToken);
-        }
+    public async Task<TResponse> Send<TResponse>(
+        IRequest<TResponse> request,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        return await mediator.Send(request, cancellationToken);
+    }
 
-        public async Task<TResponse> Send<TResponse>(
-            IRequest<TResponse> request,
-            CancellationToken cancellationToken = default
-        )
-        {
-            using var scope = _serviceScopeFactory.CreateScope();
-            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-            return await mediator.Send(request, cancellationToken);
-        }
-
-        public async Task Send<TRequest>(
-            TRequest request,
-            CancellationToken cancellationToken = default
-        )
-            where TRequest : IRequest
-        {
-            using var scope = _serviceScopeFactory.CreateScope();
-            var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-            await mediator.Send(request, cancellationToken);
-        }
+    public async Task Send<TRequest>(
+        TRequest request,
+        CancellationToken cancellationToken = default
+    )
+        where TRequest : IRequest
+    {
+        using var scope = _serviceScopeFactory.CreateScope();
+        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+        await mediator.Send(request, cancellationToken);
     }
 }

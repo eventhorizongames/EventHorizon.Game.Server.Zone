@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.Core.ServerAction.State
+namespace EventHorizon.Zone.Core.ServerAction.State;
+
+using System.Collections.Generic;
+
+using EventHorizon.Zone.Core.ServerAction.Model;
+
+public interface IServerActionQueue
 {
-    using System.Collections.Generic;
-
-    using EventHorizon.Zone.Core.ServerAction.Model;
-
-    public interface IServerActionQueue
-    {
-        /// <summary>
-        /// Returns and removes based on the take if the Action is a its time to Run.
-        /// </summary>
-        /// <param name="take"></param>
-        /// <returns></returns>
-        IEnumerable<ServerActionEntity> Take(
-            int take
-        );
-        void Push(
-            ServerActionEntity entity
-        );
-    }
+    /// <summary>
+    /// Returns and removes based on the take if the Action is a its time to Run.
+    /// </summary>
+    /// <param name="take"></param>
+    /// <returns></returns>
+    IEnumerable<ServerActionEntity> Take(
+        int take
+    );
+    void Push(
+        ServerActionEntity entity
+    );
 }

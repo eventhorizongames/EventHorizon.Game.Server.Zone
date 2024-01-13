@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Agent.Events.Get
+namespace EventHorizon.Zone.System.Agent.Events.Get;
+
+using EventHorizon.Zone.System.Agent.Model;
+
+using MediatR;
+
+public struct GetAgentEvent : IRequest<AgentEntity>
 {
-    using EventHorizon.Zone.System.Agent.Model;
+    public long EntityId { get; set; }
 
-    using MediatR;
-
-    public struct GetAgentEvent : IRequest<AgentEntity>
+    public GetAgentEvent(
+        long entityId
+    )
     {
-        public long EntityId { get; set; }
-
-        public GetAgentEvent(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }

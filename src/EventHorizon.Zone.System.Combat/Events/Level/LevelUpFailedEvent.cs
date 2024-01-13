@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.System.Combat.Events.Level
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Combat.Events.Level;
 
-    public struct LevelUpFailedEvent
-        : INotification
-    {
-        public long EntityId { get; set; }
-    }
+using MediatR;
+
+public struct LevelUpFailedEvent
+    : INotification
+{
+    public long EntityId { get; set; }
 }

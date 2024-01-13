@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.System.Server.Scripts.Model
+namespace EventHorizon.Zone.System.Server.Scripts.Model;
+
+public interface ServerScriptResponse
 {
-    public interface ServerScriptResponse
-    {
-        bool Success { get; }
-        string Message { get; }
-    }
+    bool Success { get; }
+    string Message { get; }
 }

@@ -1,39 +1,38 @@
-namespace EventHorizon.Zone.Core.Entity.Register
+namespace EventHorizon.Zone.Core.Entity.Register;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Entity.Client;
+using EventHorizon.Zone.Core.Events.Entity.Register;
+using EventHorizon.Zone.Core.Model.Entity.Client;
+
+using MediatR;
+
+public class EntityUnregisteredHandler
+    : INotificationHandler<EntityUnRegisteredEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Entity.Client;
-    using EventHorizon.Zone.Core.Events.Entity.Register;
-    using EventHorizon.Zone.Core.Model.Entity.Client;
-
-    using MediatR;
-
-    public class EntityUnregisteredHandler
-        : INotificationHandler<EntityUnRegisteredEvent>
+    public EntityUnregisteredHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public EntityUnregisteredHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            EntityUnRegisteredEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Publish(
-                ClientActionEntityUnregisteredToAllEvent.Create(
-                    new EntityUnregisteredData
-                    {
-                        EntityId = notification.EntityId,
-                    }
-                )
-            );
-        }
+    public async Task Handle(
+        EntityUnRegisteredEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Publish(
+            ClientActionEntityUnregisteredToAllEvent.Create(
+                new EntityUnregisteredData
+                {
+                    EntityId = notification.EntityId,
+                }
+            )
+        );
     }
 }

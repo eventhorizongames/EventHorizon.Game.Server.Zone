@@ -1,30 +1,29 @@
-namespace EventHorizon.Game.Server.Zone.Player.Move.Stop
+namespace EventHorizon.Game.Server.Zone.Player.Move.Stop;
+
+using System.Collections.Generic;
+
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+public struct StopPlayerEvent : PlayerActionEvent
 {
-    using System.Collections.Generic;
+    public PlayerEntity Player { get; private set; }
 
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    public IDictionary<string, object> Data { get; set; }
 
-    public struct StopPlayerEvent : PlayerActionEvent
+    public PlayerActionEvent SetPlayer(
+        PlayerEntity player
+    )
     {
-        public PlayerEntity Player { get; private set; }
+        Player = player;
+        return this;
+    }
 
-        public IDictionary<string, object> Data { get; set; }
-
-        public PlayerActionEvent SetPlayer(
-            PlayerEntity player
-        )
-        {
-            Player = player;
-            return this;
-        }
-
-        public PlayerActionEvent SetData(
-            IDictionary<string, object> data
-        )
-        {
-            Data = data;
-            return this;
-        }
+    public PlayerActionEvent SetData(
+        IDictionary<string, object> data
+    )
+    {
+        Data = data;
+        return this;
     }
 }

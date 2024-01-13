@@ -1,47 +1,46 @@
-namespace EventHorizon.Zone.Core.Tests.Lifetime.State
+namespace EventHorizon.Zone.Core.Tests.Lifetime.State;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Lifetime.State;
+
+using FluentAssertions;
+
+using Xunit;
+
+public class StandardServerLifetimeStateTests
 {
-    using System.Threading.Tasks;
-
-    using EventHorizon.Zone.Core.Lifetime.State;
-
-    using FluentAssertions;
-
-    using Xunit;
-
-    public class StandardServerLifetimeStateTests
+    [Fact]
+    public void ShouldNotBeStartedWhenFirstCreated()
     {
-        [Fact]
-        public void ShouldNotBeStartedWhenFirstCreated()
-        {
-            // Given
+        // Given
 
-            // When
-            var state = new StandardServerLifetimeState();
-            var actual = state.IsServerStarted();
+        // When
+        var state = new StandardServerLifetimeState();
+        var actual = state.IsServerStarted();
 
-            // Then
-            actual.Should()
-                .BeFalse();
-        }
+        // Then
+        actual.Should()
+            .BeFalse();
+    }
 
-        [Fact]
-        public void ShouldIndicatedTrueWhenSetIsCalledWithTrue()
-        {
-            // Given
-            var expected = true;
+    [Fact]
+    public void ShouldIndicatedTrueWhenSetIsCalledWithTrue()
+    {
+        // Given
+        var expected = true;
 
-            // When
-            var state = new StandardServerLifetimeState();
-            state.SetServerStarted(
+        // When
+        var state = new StandardServerLifetimeState();
+        state.SetServerStarted(
+            expected
+        );
+        var actual = state.IsServerStarted();
+
+        // Then
+        actual.Should()
+            .Be(
                 expected
             );
-            var actual = state.IsServerStarted();
-
-            // Then
-            actual.Should()
-                .Be(
-                    expected
-                );
-        }
     }
 }

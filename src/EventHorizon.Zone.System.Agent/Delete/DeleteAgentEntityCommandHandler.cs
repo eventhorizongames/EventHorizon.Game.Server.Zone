@@ -1,38 +1,37 @@
-﻿namespace EventHorizon.Zone.System.Agent.Delete
+﻿namespace EventHorizon.Zone.System.Agent.Delete;
+
+using EventHorizon.Zone.System.Agent.Events.Delete;
+using EventHorizon.Zone.System.Agent.Events.Register;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class DeleteAgentEntityCommandHandler
+    : IRequestHandler<DeleteAgentEntityCommand, DeleteAgentEntityResponse>
 {
-    using EventHorizon.Zone.System.Agent.Events.Delete;
-    using EventHorizon.Zone.System.Agent.Events.Register;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class DeleteAgentEntityCommandHandler
-        : IRequestHandler<DeleteAgentEntityCommand, DeleteAgentEntityResponse>
+    public DeleteAgentEntityCommandHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public DeleteAgentEntityCommandHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
+    public async Task<DeleteAgentEntityResponse> Handle(
+        DeleteAgentEntityCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new UnRegisterAgent(
+                request.AgentEntityId
+            ),
+            cancellationToken
+        );
 
-        public async Task<DeleteAgentEntityResponse> Handle(
-            DeleteAgentEntityCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new UnRegisterAgent(
-                    request.AgentEntityId
-                ),
-                cancellationToken
-            );
-
-            return new DeleteAgentEntityResponse(true);
-        }
+        return new DeleteAgentEntityResponse(true);
     }
 }

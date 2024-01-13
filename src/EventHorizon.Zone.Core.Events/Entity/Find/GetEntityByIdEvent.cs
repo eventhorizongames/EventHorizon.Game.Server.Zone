@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.Core.Events.Entity.Find
+namespace EventHorizon.Zone.Core.Events.Entity.Find;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct GetEntityByIdEvent : IRequest<IObjectEntity>
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public long EntityId { get; set; }
 
-    using MediatR;
-
-    public struct GetEntityByIdEvent : IRequest<IObjectEntity>
+    public GetEntityByIdEvent(
+        long entityId
+    )
     {
-        public long EntityId { get; set; }
-
-        public GetEntityByIdEvent(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }

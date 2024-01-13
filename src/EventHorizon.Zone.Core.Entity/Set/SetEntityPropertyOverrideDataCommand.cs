@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.Core.Set
+﻿namespace EventHorizon.Zone.Core.Set;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct SetEntityPropertyOverrideDataCommand
+    : IRequest<CommandResult<IObjectEntity>>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.Entity;
+    public IObjectEntity Entity { get; }
 
-    using MediatR;
-
-    public struct SetEntityPropertyOverrideDataCommand
-        : IRequest<CommandResult<IObjectEntity>>
+    public SetEntityPropertyOverrideDataCommand(
+        IObjectEntity entity
+    )
     {
-        public IObjectEntity Entity { get; }
-
-        public SetEntityPropertyOverrideDataCommand(
-            IObjectEntity entity
-        )
-        {
-            Entity = entity;
-        }
+        Entity = entity;
     }
 }

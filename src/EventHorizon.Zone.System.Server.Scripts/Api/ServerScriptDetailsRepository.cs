@@ -1,26 +1,25 @@
-namespace EventHorizon.Zone.System.Server.Scripts.State
+namespace EventHorizon.Zone.System.Server.Scripts.State;
+
+using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+
+using global::System;
+using global::System.Collections.Generic;
+
+public interface ServerScriptDetailsRepository
 {
-    using EventHorizon.Zone.System.Server.Scripts.Model.Details;
+    IEnumerable<ServerScriptDetails> All { get; }
 
-    using global::System;
-    using global::System.Collections.Generic;
+    ServerScriptDetails Find(
+        string id
+    );
+    void Clear();
 
-    public interface ServerScriptDetailsRepository
-    {
-        IEnumerable<ServerScriptDetails> All { get; }
+    void Add(
+        string id,
+        ServerScriptDetails script
+    );
 
-        ServerScriptDetails Find(
-            string id
-        );
-        void Clear();
-
-        void Add(
-            string id,
-            ServerScriptDetails script
-        );
-
-        IEnumerable<ServerScriptDetails> Where(
-            Func<ServerScriptDetails, bool> query
-        );
-    }
+    IEnumerable<ServerScriptDetails> Where(
+        Func<ServerScriptDetails, bool> query
+    );
 }

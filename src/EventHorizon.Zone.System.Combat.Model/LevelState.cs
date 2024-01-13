@@ -1,76 +1,75 @@
-namespace EventHorizon.Zone.System.Combat.Model
+namespace EventHorizon.Zone.System.Combat.Model;
+
+using global::System;
+
+public struct LevelState
 {
-    using global::System;
+    public static readonly string PROPERTY_NAME = "levelState";
 
-    public struct LevelState
+    public long HealthPointsLevel { get; set; }
+    public long ActionPointsLevel { get; set; }
+    public long AttackLevel { get; set; }
+
+    public long Experience { get; set; }
+    public long AllTimeExperience { get; set; }
+
+    public object? this[string index]
     {
-        public static readonly string PROPERTY_NAME = "levelState";
-
-        public long HealthPointsLevel { get; set; }
-        public long ActionPointsLevel { get; set; }
-        public long AttackLevel { get; set; }
-
-        public long Experience { get; set; }
-        public long AllTimeExperience { get; set; }
-
-        public object? this[string index]
+        get
         {
-            get
+            return index switch
             {
-                return index switch
-                {
-                    "healthPointsLevel" => HealthPointsLevel,
-                    "actionPointsLevel" => ActionPointsLevel,
-                    "attackLevel" => AttackLevel,
-                    "experience" => Experience,
-                    "allTimeExperience" => AllTimeExperience,
-                    _ => null,
-                };
+                "healthPointsLevel" => HealthPointsLevel,
+                "actionPointsLevel" => ActionPointsLevel,
+                "attackLevel" => AttackLevel,
+                "experience" => Experience,
+                "allTimeExperience" => AllTimeExperience,
+                _ => null,
+            };
+        }
+        set
+        {
+            if (value is null)
+            {
+                throw new ArgumentNullException(
+                    $"{index} cannot be set to null"
+                );
             }
-            set
+
+            switch (index)
             {
-                if (value is null)
-                {
-                    throw new ArgumentNullException(
-                        $"{index} cannot be set to null"
-                    );
-                }
+                case "healthPointsLevel":
+                    HealthPointsLevel = (long)value;
+                    break;
+                case "actionPointsLevel":
+                    ActionPointsLevel = (long)value;
+                    break;
+                case "attackLevel":
+                    AttackLevel = (long)value;
+                    break;
 
-                switch (index)
-                {
-                    case "healthPointsLevel":
-                        HealthPointsLevel = (long)value;
-                        break;
-                    case "actionPointsLevel":
-                        ActionPointsLevel = (long)value;
-                        break;
-                    case "attackLevel":
-                        AttackLevel = (long)value;
-                        break;
+                case "experience":
+                    Experience = (long)value;
+                    break;
+                case "allTimeExperience":
+                    AllTimeExperience = (long)value;
+                    break;
 
-                    case "experience":
-                        Experience = (long)value;
-                        break;
-                    case "allTimeExperience":
-                        AllTimeExperience = (long)value;
-                        break;
-
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
         }
-
-        public static readonly LevelState NEW = new()
-        {
-            HealthPointsLevel = 1,
-
-            ActionPointsLevel = 1,
-
-            AttackLevel = 1,
-
-            Experience = 0,
-            AllTimeExperience = 3,
-        };
     }
+
+    public static readonly LevelState NEW = new()
+    {
+        HealthPointsLevel = 1,
+
+        ActionPointsLevel = 1,
+
+        AttackLevel = 1,
+
+        Experience = 0,
+        AllTimeExperience = 3,
+    };
 }

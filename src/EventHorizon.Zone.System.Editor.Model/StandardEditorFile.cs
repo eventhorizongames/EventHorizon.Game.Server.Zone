@@ -1,48 +1,47 @@
-namespace EventHorizon.Zone.System.Editor.Model
+namespace EventHorizon.Zone.System.Editor.Model;
+
+
+using global::System.Collections.Generic;
+using global::System.Text;
+
+public class StandardEditorFile
 {
+    public string Id { get; }
+    public string Name { get; }
+    public IList<string> Path { get; }
+    public string Content { get; }
 
-    using global::System.Collections.Generic;
-    using global::System.Text;
-
-    public class StandardEditorFile
+    public StandardEditorFile(
+        string fileName,
+        IList<string> filePath,
+        string fileContent
+    )
     {
-        public string Id { get; }
-        public string Name { get; }
-        public IList<string> Path { get; }
-        public string Content { get; }
+        Id = GenerateId(
+            fileName,
+            filePath
+        );
+        Name = fileName;
+        Path = filePath;
+        Content = fileContent;
+    }
 
-        public StandardEditorFile(
-            string fileName,
-            IList<string> filePath,
-            string fileContent
-        )
+    public static string GenerateId(
+        string name,
+        IList<string> path
+    )
+    {
+        var idStringBuilder = new StringBuilder();
+        foreach (var pathPart in path)
         {
-            Id = GenerateId(
-                fileName,
-                filePath
+            idStringBuilder.Append(
+                pathPart
+            ).Append(
+                '_'
             );
-            Name = fileName;
-            Path = filePath;
-            Content = fileContent;
         }
-
-        public static string GenerateId(
-            string name,
-            IList<string> path
-        )
-        {
-            var idStringBuilder = new StringBuilder();
-            foreach (var pathPart in path)
-            {
-                idStringBuilder.Append(
-                    pathPart
-                ).Append(
-                    '_'
-                );
-            }
-            return idStringBuilder.Append(
-                name
-            ).ToString();
-        }
+        return idStringBuilder.Append(
+            name
+        ).ToString();
     }
 }

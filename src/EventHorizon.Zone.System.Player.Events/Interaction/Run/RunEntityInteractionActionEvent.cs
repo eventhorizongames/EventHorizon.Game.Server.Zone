@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.System.Player.Events.Interaction.Run
+namespace EventHorizon.Zone.System.Player.Events.Interaction.Run;
+
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+
+using global::System.Collections.Generic;
+
+public struct RunEntityInteractionActionEvent
+    : PlayerActionEvent
 {
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+    public PlayerEntity Player { get; private set; }
+    public long InteractionEntityId { get; private set; }
 
-    using global::System.Collections.Generic;
+    public IDictionary<string, object> Data { get; private set; }
 
-    public struct RunEntityInteractionActionEvent
-        : PlayerActionEvent
+    public PlayerActionEvent SetPlayer(
+        PlayerEntity player
+    )
     {
-        public PlayerEntity Player { get; private set; }
-        public long InteractionEntityId { get; private set; }
+        Player = player;
+        return this;
+    }
 
-        public IDictionary<string, object> Data { get; private set; }
-
-        public PlayerActionEvent SetPlayer(
-            PlayerEntity player
-        )
-        {
-            Player = player;
-            return this;
-        }
-
-        public PlayerActionEvent SetData(
-            IDictionary<string, object> data
-        )
-        {
-            InteractionEntityId = data.GetValueOrDefault<long>(
-                "interactionEntityId",
-                -1
-            );
-            Data = data;
-            return this;
-        }
+    public PlayerActionEvent SetData(
+        IDictionary<string, object> data
+    )
+    {
+        InteractionEntityId = data.GetValueOrDefault<long>(
+            "interactionEntityId",
+            -1
+        );
+        Data = data;
+        return this;
     }
 }

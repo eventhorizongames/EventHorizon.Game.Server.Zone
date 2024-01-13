@@ -1,9 +1,8 @@
-namespace EventHorizon.Performance
+namespace EventHorizon.Performance;
+
+public interface PerformanceTrackerFactory
 {
-    public interface PerformanceTrackerFactory
-    {
-        PerformanceTracker Build(
-            string trackerName
-        );
-    }
+    PerformanceTracker Build(
+        string trackerName
+    );
 }

@@ -1,49 +1,48 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Editor.Map
+namespace EventHorizon.Zone.System.Agent.Plugin.Editor.Map;
+
+using EventHorizon.Zone.Core.Events.Map.Create;
+using EventHorizon.Zone.System.Agent.Events.Get;
+using EventHorizon.Zone.System.Agent.Events.Register;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class ReRegisterAgentsOnMapCreatedHandler : INotificationHandler<MapCreatedEvent>
 {
-    using EventHorizon.Zone.Core.Events.Map.Create;
-    using EventHorizon.Zone.System.Agent.Events.Get;
-    using EventHorizon.Zone.System.Agent.Events.Register;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class ReRegisterAgentsOnMapCreatedHandler : INotificationHandler<MapCreatedEvent>
+    public ReRegisterAgentsOnMapCreatedHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ReRegisterAgentsOnMapCreatedHandler(
-            IMediator mediator
-        )
+    public async Task Handle(
+        MapCreatedEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        // UnRegister Only Agents that are not Global
+        var agentList = await _mediator.Send(
+            new GetAgentListEvent(
+                agent => true
+            )
+        );
+        foreach (var agent in agentList)
         {
-            _mediator = mediator;
-        }
-
-        public async Task Handle(
-            MapCreatedEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            // UnRegister Only Agents that are not Global
-            var agentList = await _mediator.Send(
-                new GetAgentListEvent(
-                    agent => true
+            await _mediator.Send(
+                new UnRegisterAgent(
+                    agent.AgentId
                 )
             );
-            foreach (var agent in agentList)
-            {
-                await _mediator.Send(
-                    new UnRegisterAgent(
-                        agent.AgentId
-                    )
-                );
-                await _mediator.Send(
-                    new RegisterAgentEvent(
-                        agent
-                    )
-                );
-            }
+            await _mediator.Send(
+                new RegisterAgentEvent(
+                    agent
+                )
+            );
         }
     }
 }

@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Delete
+﻿namespace EventHorizon.Zone.System.ClientAssets.Events.Delete;
+
+using EventHorizon.Zone.Core.Model.Command;
+
+using MediatR;
+
+public struct DeleteClientAssetCommand
+    : IRequest<StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
+    public string Id { get; }
 
-    using MediatR;
-
-    public struct DeleteClientAssetCommand
-        : IRequest<StandardCommandResult>
+    public DeleteClientAssetCommand(
+        string id
+    )
     {
-        public string Id { get; }
-
-        public DeleteClientAssetCommand(
-            string id
-        )
-        {
-            Id = id;
-        }
+        Id = id;
     }
 }

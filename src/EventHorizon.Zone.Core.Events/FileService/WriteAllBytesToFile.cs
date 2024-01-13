@@ -1,22 +1,21 @@
-﻿namespace EventHorizon.Zone.Core.Events.FileService
+﻿namespace EventHorizon.Zone.Core.Events.FileService;
+
+using System;
+
+using MediatR;
+
+public struct WriteAllBytesToFile
+    : IRequest
 {
-    using System;
+    public string FileFullName { get; }
+    public byte[] Bytes { get; }
 
-    using MediatR;
-
-    public struct WriteAllBytesToFile
-        : IRequest
+    public WriteAllBytesToFile(
+        string fileFullName,
+        byte[] fileContent
+    )
     {
-        public string FileFullName { get; }
-        public byte[] Bytes { get; }
-
-        public WriteAllBytesToFile(
-            string fileFullName,
-            byte[] fileContent
-        )
-        {
-            FileFullName = fileFullName;
-            Bytes = fileContent;
-        }
+        FileFullName = fileFullName;
+        Bytes = fileContent;
     }
 }

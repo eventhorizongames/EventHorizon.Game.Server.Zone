@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct CreateFile : IRequest<bool>
 {
-    using MediatR;
+    public string FileFullName { get; }
 
-    public struct CreateFile : IRequest<bool>
+    public CreateFile(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public CreateFile(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

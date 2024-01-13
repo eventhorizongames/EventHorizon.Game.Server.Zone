@@ -1,43 +1,42 @@
-namespace EventHorizon.Zone.System.Player.PopulateData
+namespace EventHorizon.Zone.System.Player.PopulateData;
+
+using EventHorizon.Zone.Core.Events.Entity.Data;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Model.Player;
+using EventHorizon.Zone.System.Player.Api;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class PopulatePlayerEntityConfigurationHandler
+    : INotificationHandler<PopulateEntityDataEvent>
 {
-    using EventHorizon.Zone.Core.Events.Entity.Data;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.Core.Model.Player;
-    using EventHorizon.Zone.System.Player.Api;
+    private readonly PlayerSettingsCache _cache;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class PopulatePlayerEntityConfigurationHandler
-        : INotificationHandler<PopulateEntityDataEvent>
+    public PopulatePlayerEntityConfigurationHandler(
+        PlayerSettingsCache cache
+    )
     {
-        private readonly PlayerSettingsCache _cache;
+        _cache = cache;
+    }
 
-        public PopulatePlayerEntityConfigurationHandler(
-            PlayerSettingsCache cache
-        )
+    public Task Handle(
+        PopulateEntityDataEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Entity is not PlayerEntity player)
         {
-            _cache = cache;
-        }
-
-        public Task Handle(
-            PopulateEntityDataEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Entity is not PlayerEntity player)
-            {
-                return Task.CompletedTask;
-            }
-
-            player.SetProperty(
-                "playerConfiguration",
-                _cache.PlayerConfiguration
-            );
-
             return Task.CompletedTask;
         }
+
+        player.SetProperty(
+            "playerConfiguration",
+            _cache.PlayerConfiguration
+        );
+
+        return Task.CompletedTask;
     }
 }

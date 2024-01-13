@@ -1,7 +1,6 @@
-namespace EventHorizon.Performance
+namespace EventHorizon.Performance;
+
+public interface PerformanceSettings
 {
-    public interface PerformanceSettings
-    {
-        bool IsEnabled { get; }
-    }
+    bool IsEnabled { get; }
 }

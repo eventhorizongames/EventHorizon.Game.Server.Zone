@@ -1,38 +1,37 @@
-﻿namespace EventHorizon.Zone.Core.Map.Cost
+﻿namespace EventHorizon.Zone.Core.Map.Cost;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map.Cost;
+
+using MediatR;
+
+public class ChangeEdgeCostForNodeHandler
+    : IRequestHandler<ChangeEdgeCostForNode, bool>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Map.Cost;
-
-    using MediatR;
-
-    public class ChangeEdgeCostForNodeHandler
-        : IRequestHandler<ChangeEdgeCostForNode, bool>
+    public ChangeEdgeCostForNodeHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ChangeEdgeCostForNodeHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
+    public async Task<bool> Handle(
+        ChangeEdgeCostForNode request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new UpdateDensityAndCostDetailsForNode(
+                request.Node,
+                1,
+                request.Cost
+            )
+        );
 
-        public async Task<bool> Handle(
-            ChangeEdgeCostForNode request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new UpdateDensityAndCostDetailsForNode(
-                    request.Node,
-                    1,
-                    request.Cost
-                )
-            );
-
-            return true;
-        }
+        return true;
     }
 }

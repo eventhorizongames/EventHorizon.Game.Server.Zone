@@ -1,9 +1,8 @@
-namespace EventHorizon.Performance
+namespace EventHorizon.Performance;
+
+using System;
+
+public interface PerformanceTracker : IDisposable
 {
-    using System;
 
-    public interface PerformanceTracker : IDisposable
-    {
-
-    }
 }

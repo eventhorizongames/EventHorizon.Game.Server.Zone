@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.System.Agent
-{
-    public class PluginStartup
-    {
+namespace EventHorizon.Zone.System.Agent;
 
-    }
+public class PluginStartup
+{
+
 }

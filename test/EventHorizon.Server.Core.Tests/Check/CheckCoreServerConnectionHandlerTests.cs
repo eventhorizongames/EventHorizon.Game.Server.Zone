@@ -1,191 +1,190 @@
-namespace EventHorizon.Server.Core.Tests.Check
+namespace EventHorizon.Server.Core.Tests.Check;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Server.Core.Check;
+using EventHorizon.Server.Core.Events.Check;
+using EventHorizon.Server.Core.Events.Register;
+using EventHorizon.Server.Core.Events.Stop;
+using EventHorizon.Server.Core.State;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
+
+public class CheckCoreServerConnectionHandlerTests
 {
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Server.Core.Check;
-    using EventHorizon.Server.Core.Events.Check;
-    using EventHorizon.Server.Core.Events.Register;
-    using EventHorizon.Server.Core.Events.Stop;
-    using EventHorizon.Server.Core.State;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class CheckCoreServerConnectionHandlerTests
+    [Fact]
+    public async Task ShouldResetCoreCheckStateWhenNotRegisteredWithCoreServer()
     {
-        [Fact]
-        public async Task ShouldResetCoreCheckStateWhenNotRegisteredWithCoreServer()
-        {
-            // Given
+        // Given
 
-            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
+        var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForRegistrationWithCoreServer(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                false
-            );
-
-            // When
-            var handler = new CheckCoreServerConnectionHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverCoreCheckStateMock.Object
-            );
-            await handler.Handle(
-                new CheckCoreServerConnection(),
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForRegistrationWithCoreServer(),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            false
+        );
 
-            // Then
-            serverCoreCheckStateMock.Verify(
-                mock => mock.Reset()
-            );
-        }
+        // When
+        var handler = new CheckCoreServerConnectionHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverCoreCheckStateMock.Object
+        );
+        await handler.Handle(
+            new CheckCoreServerConnection(),
+            CancellationToken.None
+        );
 
-        [Fact]
-        public async Task ShouldPublishRegisterWithCoreServerEventWhenNotRegisteredWithCoreServer()
-        {
-            // Given
-            var expected = new RegisterWithCoreServer();
+        // Then
+        serverCoreCheckStateMock.Verify(
+            mock => mock.Reset()
+        );
+    }
 
-            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
+    [Fact]
+    public async Task ShouldPublishRegisterWithCoreServerEventWhenNotRegisteredWithCoreServer()
+    {
+        // Given
+        var expected = new RegisterWithCoreServer();
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForRegistrationWithCoreServer(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                false
-            );
+        var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
-            // When
-            var handler = new CheckCoreServerConnectionHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverCoreCheckStateMock.Object
-            );
-            await handler.Handle(
-                new CheckCoreServerConnection(),
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForRegistrationWithCoreServer(),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            false
+        );
 
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    expected,
-                    CancellationToken.None
-                )
-            );
-        }
+        // When
+        var handler = new CheckCoreServerConnectionHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverCoreCheckStateMock.Object
+        );
+        await handler.Handle(
+            new CheckCoreServerConnection(),
+            CancellationToken.None
+        );
 
-        [Fact]
-        public async Task ShouldCallCheckWhenCoreServerIsRegistered()
-        {
-            // Given
-            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForRegistrationWithCoreServer(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
-
-            // When
-            var handler = new CheckCoreServerConnectionHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverCoreCheckStateMock.Object
-            );
-            await handler.Handle(
-                new CheckCoreServerConnection(),
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                expected,
                 CancellationToken.None
-            );
+            )
+        );
+    }
 
-            // Then
-            serverCoreCheckStateMock.Verify(
-                mock => mock.Check()
-            );
-        }
+    [Fact]
+    public async Task ShouldCallCheckWhenCoreServerIsRegistered()
+    {
+        // Given
+        var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
 
-        [Theory]
-        [InlineData(3)]
-        [InlineData(4)]
-        [InlineData(5)]
-        public async Task ShouldStopRegisterAndResetWhenChecksDownIsEqualToOrGreaterThanMapRetries(
-            int timesChecked
-        )
-        {
-            // Given
-            var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
-            var mediatorMock = new Mock<IMediator>();
-            var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
-
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new QueryForRegistrationWithCoreServer(),
-                    CancellationToken.None
-                )
-            ).ReturnsAsync(
-                true
-            );
-
-            serverCoreCheckStateMock.Setup(
-                mock => mock.TimesChecked()
-            ).Returns(
-                timesChecked
-            );
-
-            // When
-            var handler = new CheckCoreServerConnectionHandler(
-                loggerMock.Object,
-                mediatorMock.Object,
-                serverCoreCheckStateMock.Object
-            );
-            await handler.Handle(
-                new CheckCoreServerConnection(),
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForRegistrationWithCoreServer(),
                 CancellationToken.None
-            );
+            )
+        ).ReturnsAsync(
+            true
+        );
 
-            // Then
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    new StopCoreServerConnection(),
-                    CancellationToken.None
-                )
-            );
-            mediatorMock.Verify(
-                mock => mock.Publish(
-                    new RegisterWithCoreServer(),
-                    CancellationToken.None
-                )
-            );
-            serverCoreCheckStateMock.Verify(
-                mock => mock.Reset()
-            );
-            serverCoreCheckStateMock.Verify(
-                mock => mock.Check(),
-                Times.Never()
-            );
-        }
+        // When
+        var handler = new CheckCoreServerConnectionHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverCoreCheckStateMock.Object
+        );
+        await handler.Handle(
+            new CheckCoreServerConnection(),
+            CancellationToken.None
+        );
+
+        // Then
+        serverCoreCheckStateMock.Verify(
+            mock => mock.Check()
+        );
+    }
+
+    [Theory]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(5)]
+    public async Task ShouldStopRegisterAndResetWhenChecksDownIsEqualToOrGreaterThanMapRetries(
+        int timesChecked
+    )
+    {
+        // Given
+        var loggerMock = new Mock<ILogger<CheckCoreServerConnectionHandler>>();
+        var mediatorMock = new Mock<IMediator>();
+        var serverCoreCheckStateMock = new Mock<ServerCoreCheckState>();
+
+        mediatorMock.Setup(
+            mock => mock.Send(
+                new QueryForRegistrationWithCoreServer(),
+                CancellationToken.None
+            )
+        ).ReturnsAsync(
+            true
+        );
+
+        serverCoreCheckStateMock.Setup(
+            mock => mock.TimesChecked()
+        ).Returns(
+            timesChecked
+        );
+
+        // When
+        var handler = new CheckCoreServerConnectionHandler(
+            loggerMock.Object,
+            mediatorMock.Object,
+            serverCoreCheckStateMock.Object
+        );
+        await handler.Handle(
+            new CheckCoreServerConnection(),
+            CancellationToken.None
+        );
+
+        // Then
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                new StopCoreServerConnection(),
+                CancellationToken.None
+            )
+        );
+        mediatorMock.Verify(
+            mock => mock.Publish(
+                new RegisterWithCoreServer(),
+                CancellationToken.None
+            )
+        );
+        serverCoreCheckStateMock.Verify(
+            mock => mock.Reset()
+        );
+        serverCoreCheckStateMock.Verify(
+            mock => mock.Check(),
+            Times.Never()
+        );
     }
 }

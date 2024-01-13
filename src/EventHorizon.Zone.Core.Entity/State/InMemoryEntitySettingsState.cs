@@ -1,110 +1,109 @@
-﻿namespace EventHorizon.Zone.Core.Entity.State
+﻿namespace EventHorizon.Zone.Core.Entity.State;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Entity.Api;
+using EventHorizon.Zone.Core.Entity.Model;
+using EventHorizon.Zone.Core.Events.Json;
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public class InMemoryEntitySettingsState
+    : EntitySettingsState
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private int _currentConfigHash = -1;
+    private int _currentDataHash = -1;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Entity.Api;
-    using EventHorizon.Zone.Core.Entity.Model;
-    using EventHorizon.Zone.Core.Events.Json;
-    using EventHorizon.Zone.Core.Model.Entity;
-
-    using MediatR;
-
-    public class InMemoryEntitySettingsState
-        : EntitySettingsState
+    public ObjectEntityConfiguration EntityConfiguration
     {
-        private int _currentConfigHash = -1;
-        private int _currentDataHash = -1;
-        private readonly IMediator _mediator;
+        get;
+        private set;
+    } = new ObjectEntityConfigurationModel();
 
-        public ObjectEntityConfiguration EntityConfiguration
-        {
-            get;
-            private set;
-        } = new ObjectEntityConfigurationModel();
+    public ObjectEntityData EntityData
+    {
+        get;
+        private set;
+    } = new ObjectEntityDataModel();
 
-        public ObjectEntityData EntityData
-        {
-            get;
-            private set;
-        } = new ObjectEntityDataModel();
+    public InMemoryEntitySettingsState(
+        IMediator mediator
+    )
+    {
+        _mediator = mediator;
+    }
 
-        public InMemoryEntitySettingsState(
-            IMediator mediator
-        )
+    public async Task<(bool Updated, ObjectEntityConfiguration OldConfig)> SetConfiguration(
+        ObjectEntityConfiguration entityConfiguration,
+        CancellationToken cancellationToken
+    )
+    {
+        var (Valid, Hash) = await ValidateHash(
+            _currentConfigHash,
+            entityConfiguration,
+            cancellationToken
+        );
+        if (!Valid)
         {
-            _mediator = mediator;
+            return (false, EntityConfiguration);
         }
 
-        public async Task<(bool Updated, ObjectEntityConfiguration OldConfig)> SetConfiguration(
-            ObjectEntityConfiguration entityConfiguration,
-            CancellationToken cancellationToken
-        )
+        _currentConfigHash = Hash;
+        EntityConfiguration = entityConfiguration;
+
+        return (true, EntityConfiguration);
+    }
+
+    public async Task<(bool Updated, ObjectEntityData OldData)> SetData(
+        ObjectEntityData entityData,
+        CancellationToken cancellationToken
+    )
+    {
+        var (Valid, Hash) = await ValidateHash(
+            _currentDataHash,
+            entityData,
+            cancellationToken
+        );
+        if (!Valid)
         {
-            var (Valid, Hash) = await ValidateHash(
-                _currentConfigHash,
-                entityConfiguration,
-                cancellationToken
-            );
-            if (!Valid)
-            {
-                return (false, EntityConfiguration);
-            }
-
-            _currentConfigHash = Hash;
-            EntityConfiguration = entityConfiguration;
-
-            return (true, EntityConfiguration);
+            return (false, EntityData);
         }
 
-        public async Task<(bool Updated, ObjectEntityData OldData)> SetData(
-            ObjectEntityData entityData,
-            CancellationToken cancellationToken
-        )
+        _currentDataHash = Hash;
+        EntityData = entityData;
+
+        return (true, EntityData);
+    }
+
+    private async Task<(bool Valid, int Hash)> ValidateHash(
+        int currentHash,
+        IDictionary<string, object> entityDictionary,
+        CancellationToken cancellationToken
+    )
+    {
+        var serailizeResult = await _mediator.Send(
+            new SerializeToJsonCommand(
+                entityDictionary
+            ),
+            cancellationToken
+        );
+        if (!serailizeResult)
         {
-            var (Valid, Hash) = await ValidateHash(
-                _currentDataHash,
-                entityData,
-                cancellationToken
-            );
-            if (!Valid)
-            {
-                return (false, EntityData);
-            }
-
-            _currentDataHash = Hash;
-            EntityData = entityData;
-
-            return (true, EntityData);
+            return (false, -1);
         }
 
-        private async Task<(bool Valid, int Hash)> ValidateHash(
-            int currentHash,
-            IDictionary<string, object> entityDictionary,
-            CancellationToken cancellationToken
-        )
+        var hash = serailizeResult
+            .Result
+            .Json.GetDeterministicHashCode();
+        if (hash == currentHash)
         {
-            var serailizeResult = await _mediator.Send(
-                new SerializeToJsonCommand(
-                    entityDictionary
-                ),
-                cancellationToken
-            );
-            if (!serailizeResult)
-            {
-                return (false, -1);
-            }
-
-            var hash = serailizeResult
-                .Result
-                .Json.GetDeterministicHashCode();
-            if (hash == currentHash)
-            {
-                return (false, -1);
-            }
-
-            return (true, hash);
+            return (false, -1);
         }
+
+        return (true, hash);
     }
 }

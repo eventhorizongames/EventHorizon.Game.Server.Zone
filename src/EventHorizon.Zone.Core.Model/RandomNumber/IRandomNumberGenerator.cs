@@ -1,8 +1,7 @@
-namespace EventHorizon.Zone.Core.Model.RandomNumber
+namespace EventHorizon.Zone.Core.Model.RandomNumber;
+
+public interface IRandomNumberGenerator
 {
-    public interface IRandomNumberGenerator
-    {
-        int Next(int maxValue);
-        int Next(int minValue, int maxValue);
-    }
+    int Next(int maxValue);
+    int Next(int minValue, int maxValue);
 }

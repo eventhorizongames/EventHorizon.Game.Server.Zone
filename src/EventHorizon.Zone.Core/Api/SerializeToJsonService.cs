@@ -1,9 +1,8 @@
-﻿namespace EventHorizon.Zone.Core.Api
+﻿namespace EventHorizon.Zone.Core.Api;
+
+public interface SerializeToJsonService
 {
-    public interface SerializeToJsonService
-    {
-        string Serialize(
-            object objectToSerialize
-        );
-    }
+    string Serialize(
+        object objectToSerialize
+    );
 }

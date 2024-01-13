@@ -1,43 +1,42 @@
-﻿namespace EventHorizon.Zone.Core.Map.Cost
+﻿namespace EventHorizon.Zone.Core.Map.Cost;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Events.Map.Cost;
+
+using MediatR;
+
+public class ChangeEdgeCostForNodeAtPositionHandler
+    : IRequestHandler<ChangeEdgeCostForNodeAtPosition, bool>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Events.Map.Cost;
-
-    using MediatR;
-
-    public class ChangeEdgeCostForNodeAtPositionHandler
-        : IRequestHandler<ChangeEdgeCostForNodeAtPosition, bool>
+    public ChangeEdgeCostForNodeAtPositionHandler(
+        IMediator mediator
+    )
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public ChangeEdgeCostForNodeAtPositionHandler(
-            IMediator mediator
-        )
-        {
-            _mediator = mediator;
-        }
+    public async Task<bool> Handle(
+        ChangeEdgeCostForNodeAtPosition request,
+        CancellationToken cancellationToken
+    )
+    {
+        await _mediator.Send(
+            new UpdateDensityAndCostDetailsForNode(
+                await _mediator.Send(
+                    new GetMapNodeAtPositionEvent(
+                        request.Position
+                    )
+                ),
+                1,
+                request.Cost
+            )
+        );
 
-        public async Task<bool> Handle(
-            ChangeEdgeCostForNodeAtPosition request,
-            CancellationToken cancellationToken
-        )
-        {
-            await _mediator.Send(
-                new UpdateDensityAndCostDetailsForNode(
-                    await _mediator.Send(
-                        new GetMapNodeAtPositionEvent(
-                            request.Position
-                        )
-                    ),
-                    1,
-                    request.Cost
-                )
-            );
-
-            return true;
-        }
+        return true;
     }
 }

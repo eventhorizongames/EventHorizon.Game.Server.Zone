@@ -1,36 +1,35 @@
-namespace EventHorizon.Zone.System.Admin.Plugin.Command.State
+namespace EventHorizon.Zone.System.Admin.Plugin.Command.State;
+
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+using global::System.Linq;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
+
+public class AdminCommandInMemoryRepository : AdminCommandRepository
 {
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-    using global::System.Linq;
+    private readonly ConcurrentBag<AdminCommandInstance> _map = new();
 
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model;
-
-    public class AdminCommandInMemoryRepository : AdminCommandRepository
+    public void Add(
+        AdminCommandInstance command
+    )
     {
-        private readonly ConcurrentBag<AdminCommandInstance> _map = new();
+        _map.Add(
+            command
+        );
+    }
 
-        public void Add(
-            AdminCommandInstance command
-        )
-        {
-            _map.Add(
-                command
-            );
-        }
+    public void Clear()
+    {
+        while (_map.TryTake(out _)) { }
+    }
 
-        public void Clear()
-        {
-            while (_map.TryTake(out _)) { }
-        }
-
-        public IEnumerable<AdminCommandInstance> Where(
-            string command
-        )
-        {
-            return _map.Where(
-                adminCommand => adminCommand.Command == command
-            );
-        }
+    public IEnumerable<AdminCommandInstance> Where(
+        string command
+    )
+    {
+        return _map.Where(
+            adminCommand => adminCommand.Command == command
+        );
     }
 }

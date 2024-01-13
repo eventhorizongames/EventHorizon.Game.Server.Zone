@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.Agent.Connection
-{
-    using global::System.Threading.Tasks;
+namespace EventHorizon.Zone.System.Agent.Connection;
 
-    public interface IAgentConnectionFactory
-    {
-        Task<IAgentConnection> GetConnection();
-    }
+using global::System.Threading.Tasks;
+
+public interface IAgentConnectionFactory
+{
+    Task<IAgentConnection> GetConnection();
 }

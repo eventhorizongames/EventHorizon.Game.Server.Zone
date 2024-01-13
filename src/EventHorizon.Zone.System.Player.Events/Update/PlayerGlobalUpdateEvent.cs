@@ -1,19 +1,18 @@
-namespace EventHorizon.Zone.System.Player.Events.Update
+namespace EventHorizon.Zone.System.Player.Events.Update;
+
+using EventHorizon.Zone.Core.Model.Player;
+
+using MediatR;
+
+public struct PlayerGlobalUpdateEvent
+    : INotification
 {
-    using EventHorizon.Zone.Core.Model.Player;
+    public PlayerEntity Player { get; }
 
-    using MediatR;
-
-    public struct PlayerGlobalUpdateEvent
-        : INotification
+    public PlayerGlobalUpdateEvent(
+        PlayerEntity player
+    )
     {
-        public PlayerEntity Player { get; }
-
-        public PlayerGlobalUpdateEvent(
-            PlayerEntity player
-        )
-        {
-            Player = player;
-        }
+        Player = player;
     }
 }

@@ -1,72 +1,71 @@
-namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
+namespace EventHorizon.Game.Server.Core.Player.Connection.Testing;
+
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.Core.Model.ServerProperty;
+using EventHorizon.Zone.System.Player.Connection;
+using EventHorizon.Zone.System.Player.Model.Details;
+
+using Microsoft.Extensions.Logging;
+
+public class PlayerTestingConnection
+    : PlayerServerConnection
 {
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
+    readonly IServerProperty _serverProperty;
+    readonly IJsonFileLoader _fileLoader;
 
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.Core.Model.ServerProperty;
-    using EventHorizon.Zone.System.Player.Connection;
-    using EventHorizon.Zone.System.Player.Model.Details;
-
-    using Microsoft.Extensions.Logging;
-
-    public class PlayerTestingConnection
-        : PlayerServerConnection
+    public PlayerTestingConnection(
+        IServerProperty serverProperty,
+        IJsonFileLoader fileLoader
+    )
     {
-        readonly IServerProperty _serverProperty;
-        readonly IJsonFileLoader _fileLoader;
+        _serverProperty = serverProperty;
+        _fileLoader = fileLoader;
+    }
 
-        public PlayerTestingConnection(
-            IServerProperty serverProperty,
-            IJsonFileLoader fileLoader
-        )
+    public void OnAction<T>(string actionName, Action<T> action)
+    {
+    }
+
+    public void OnAction(string actionName, Action action)
+    {
+    }
+
+    public async Task<T?> SendAction<T>(string actionName, object[] args)
+    {
+        if ("GetPlayer".Equals(actionName))
         {
-            _serverProperty = serverProperty;
-            _fileLoader = fileLoader;
+            dynamic playerEntity = await CreateTestEntity((string)args[0]);
+            return playerEntity;
         }
+        return default;
+    }
 
-        public void OnAction<T>(string actionName, Action<T> action)
-        {
-        }
+    public Task SendAction(string actionName, object[] args)
+    {
+        return Task.CompletedTask;
+    }
 
-        public void OnAction(string actionName, Action action)
-        {
-        }
+    private async Task<PlayerDetails> CreateTestEntity(
+        string id
+    )
+    {
+        var player = await _fileLoader.GetFile<PlayerDetails>(
+            Path.Combine(
+                "App_Data",
+                "Testing.Player.json"
+            )
+        );
+        player.Id = id;
+        var locationState = player.Location;
+        locationState.CurrentZone = _serverProperty.Get<string>(
+            ServerPropertyKeys.SERVER_ID
+        ) ?? "home";
+        player.Location = locationState;
 
-        public async Task<T?> SendAction<T>(string actionName, object[] args)
-        {
-            if ("GetPlayer".Equals(actionName))
-            {
-                dynamic playerEntity = await CreateTestEntity((string)args[0]);
-                return playerEntity;
-            }
-            return default;
-        }
-
-        public Task SendAction(string actionName, object[] args)
-        {
-            return Task.CompletedTask;
-        }
-
-        private async Task<PlayerDetails> CreateTestEntity(
-            string id
-        )
-        {
-            var player = await _fileLoader.GetFile<PlayerDetails>(
-                Path.Combine(
-                    "App_Data",
-                    "Testing.Player.json"
-                )
-            );
-            player.Id = id;
-            var locationState = player.Location;
-            locationState.CurrentZone = _serverProperty.Get<string>(
-                ServerPropertyKeys.SERVER_ID
-            ) ?? "home";
-            player.Location = locationState;
-
-            return player;
-        }
+        return player;
     }
 }

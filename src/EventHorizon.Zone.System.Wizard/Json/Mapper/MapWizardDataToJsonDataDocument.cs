@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.System.Wizard.Json.Mapper
+﻿namespace EventHorizon.Zone.System.Wizard.Json.Mapper;
+
+using EventHorizon.Zone.System.Wizard.Json.Model;
+using EventHorizon.Zone.System.Wizard.Model;
+
+using MediatR;
+
+public struct MapWizardDataToJsonDataDocument
+    : IRequest<JsonDataDocument>
 {
-    using EventHorizon.Zone.System.Wizard.Json.Model;
-    using EventHorizon.Zone.System.Wizard.Model;
+    public WizardData WizardData { get; }
 
-    using MediatR;
-
-    public struct MapWizardDataToJsonDataDocument
-        : IRequest<JsonDataDocument>
+    public MapWizardDataToJsonDataDocument(
+        WizardData wizardData
+    )
     {
-        public WizardData WizardData { get; }
-
-        public MapWizardDataToJsonDataDocument(
-            WizardData wizardData
-        )
-        {
-            WizardData = wizardData;
-        }
+        WizardData = wizardData;
     }
 }

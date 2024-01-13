@@ -1,35 +1,34 @@
-namespace EventHorizon.Game.Server.Core.Player.Connection.Testing
+namespace EventHorizon.Game.Server.Core.Player.Connection.Testing;
+
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.Json;
+using EventHorizon.Zone.Core.Model.ServerProperty;
+using EventHorizon.Zone.System.Player.Connection;
+
+public class PlayerTestingConnectionFactory
+    : PlayerServerConnectionFactory
 {
-    using System.Threading.Tasks;
+    readonly IServerProperty _serverProperty;
+    readonly IJsonFileLoader _fileLoader;
 
-    using EventHorizon.Zone.Core.Model.Json;
-    using EventHorizon.Zone.Core.Model.ServerProperty;
-    using EventHorizon.Zone.System.Player.Connection;
-
-    public class PlayerTestingConnectionFactory
-        : PlayerServerConnectionFactory
+    public PlayerTestingConnectionFactory(
+        IServerProperty serverProperty,
+        IJsonFileLoader fileLoader
+    )
     {
-        readonly IServerProperty _serverProperty;
-        readonly IJsonFileLoader _fileLoader;
 
-        public PlayerTestingConnectionFactory(
-            IServerProperty serverProperty,
-            IJsonFileLoader fileLoader
-        )
-        {
+        _serverProperty = serverProperty;
+        _fileLoader = fileLoader;
+    }
 
-            _serverProperty = serverProperty;
-            _fileLoader = fileLoader;
-        }
-
-        public Task<PlayerServerConnection> GetConnection()
-        {
-            return Task.FromResult(
-                new PlayerTestingConnection(
-                    _serverProperty,
-                    _fileLoader
-                ) as PlayerServerConnection
-            );
-        }
+    public Task<PlayerServerConnection> GetConnection()
+    {
+        return Task.FromResult(
+            new PlayerTestingConnection(
+                _serverProperty,
+                _fileLoader
+            ) as PlayerServerConnection
+        );
     }
 }

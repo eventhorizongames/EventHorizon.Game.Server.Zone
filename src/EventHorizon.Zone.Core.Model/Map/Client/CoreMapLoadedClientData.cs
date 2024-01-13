@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.Core.Model.Map.Client
+﻿namespace EventHorizon.Zone.Core.Model.Map.Client;
+
+using EventHorizon.Zone.Core.Model.Client;
+
+public struct CoreMapLoadedClientData : IClientActionData
 {
-    using EventHorizon.Zone.Core.Model.Client;
+    public IMapGraph Map { get; }
+    public IMapMesh MapMesh { get; }
 
-    public struct CoreMapLoadedClientData : IClientActionData
+    public CoreMapLoadedClientData(
+        IMapGraph map,
+        IMapMesh mapMesh
+    )
     {
-        public IMapGraph Map { get; }
-        public IMapMesh MapMesh { get; }
-
-        public CoreMapLoadedClientData(
-            IMapGraph map,
-            IMapMesh mapMesh
-        )
-        {
-            Map = map;
-            MapMesh = mapMesh;
-        }
+        Map = map;
+        MapMesh = mapMesh;
     }
 }

@@ -1,87 +1,86 @@
-namespace EventHorizon.Zone.Core.Tests.ServerProperty
+namespace EventHorizon.Zone.Core.Tests.ServerProperty;
+
+using EventHorizon.Zone.Core.ServerProperty;
+
+using Xunit;
+
+public class InMemoryServerPropertyTests
 {
-    using EventHorizon.Zone.Core.ServerProperty;
-
-    using Xunit;
-
-    public class InMemoryServerPropertyTests
+    [Fact]
+    public void ShouldGetSamePropertyValueWhenPropertyIsAddedByKey()
     {
-        [Fact]
-        public void ShouldGetSamePropertyValueWhenPropertyIsAddedByKey()
-        {
-            // Given
-            var key = "key";
-            var value = "this-is-a-string";
-            var expected = value;
+        // Given
+        var key = "key";
+        var value = "this-is-a-string";
+        var expected = value;
 
-            // When
-            var serverProperty = new InMemoryServerProperty();
-            serverProperty.Set(
-                key,
-                value
-            );
+        // When
+        var serverProperty = new InMemoryServerProperty();
+        serverProperty.Set(
+            key,
+            value
+        );
 
-            var actual = serverProperty.Get<string>(
-                key
-            );
+        var actual = serverProperty.Get<string>(
+            key
+        );
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
 
-        [Fact]
-        public void TestShouldGetDefaultValueWhenNotFound()
-        {
-            // Given
-            var key = "key";
-            var expected = default(string);
+    [Fact]
+    public void TestShouldGetDefaultValueWhenNotFound()
+    {
+        // Given
+        var key = "key";
+        var expected = default(string);
 
-            // When
-            var serverProperty = new InMemoryServerProperty();
+        // When
+        var serverProperty = new InMemoryServerProperty();
 
-            var actual = serverProperty.Get<string>(
-                key
-            );
+        var actual = serverProperty.Get<string>(
+            key
+        );
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
+    }
 
-        [Fact]
-        public void ShouldGetLastPropertyAddedWhenMultiplePropertiesAreAddedAtSameKey()
-        {
-            // Given
-            var key = "key";
-            var firstValue = "this-is-the-first-string";
-            var value = "this-is-the-expected-string";
-            var expected = value;
+    [Fact]
+    public void ShouldGetLastPropertyAddedWhenMultiplePropertiesAreAddedAtSameKey()
+    {
+        // Given
+        var key = "key";
+        var firstValue = "this-is-the-first-string";
+        var value = "this-is-the-expected-string";
+        var expected = value;
 
-            // When
-            var serverProperty = new InMemoryServerProperty();
-            serverProperty.Set(
-                key,
-                firstValue
-            );
-            serverProperty.Set(
-                key,
-                value
-            );
+        // When
+        var serverProperty = new InMemoryServerProperty();
+        serverProperty.Set(
+            key,
+            firstValue
+        );
+        serverProperty.Set(
+            key,
+            value
+        );
 
-            var actual = serverProperty.Get<string>(
-                key
-            );
+        var actual = serverProperty.Get<string>(
+            key
+        );
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual
-            );
-        }
+        // Then
+        Assert.Equal(
+            expected,
+            actual
+        );
     }
 }

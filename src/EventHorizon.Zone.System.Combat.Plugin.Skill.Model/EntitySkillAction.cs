@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.System.Combat.Model
+namespace EventHorizon.Zone.System.Combat.Model;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+public class EntitySkillAction
+    : EntityAction
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public static readonly EntitySkillAction ADD_SKILL = new("Skill.ADD_SKILL");
 
-    public class EntitySkillAction
-        : EntityAction
+    protected EntitySkillAction(
+        string type
+    ) : base(type)
     {
-        public static readonly EntitySkillAction ADD_SKILL = new("Skill.ADD_SKILL");
-
-        protected EntitySkillAction(
-            string type
-        ) : base(type)
-        {
-        }
     }
 }

@@ -1,34 +1,33 @@
-namespace EventHorizon.Zone.Core.Map.Find
+namespace EventHorizon.Zone.Core.Map.Find;
+
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Map;
+using EventHorizon.Zone.Core.Model.Map;
+
+using MediatR;
+
+public class GetMapEdgesOfNodeHandler
+    : IRequestHandler<GetMapEdgesOfNodeEvent, IEnumerable<MapEdge>>
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMapGraph _map;
 
-    using EventHorizon.Zone.Core.Events.Map;
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using MediatR;
-
-    public class GetMapEdgesOfNodeHandler
-        : IRequestHandler<GetMapEdgesOfNodeEvent, IEnumerable<MapEdge>>
+    public GetMapEdgesOfNodeHandler(
+        IMapGraph map
+    )
     {
-        private readonly IMapGraph _map;
+        _map = map;
+    }
 
-        public GetMapEdgesOfNodeHandler(
-            IMapGraph map
-        )
-        {
-            _map = map;
-        }
-
-        public Task<IEnumerable<MapEdge>> Handle(
-            GetMapEdgesOfNodeEvent request,
-            CancellationToken cancellationToken
-        )
-        {
-            return _map.GetEdgesOfNode(
-                request.NodeIndex
-            ).FromResult();
-        }
+    public Task<IEnumerable<MapEdge>> Handle(
+        GetMapEdgesOfNodeEvent request,
+        CancellationToken cancellationToken
+    )
+    {
+        return _map.GetEdgesOfNode(
+            request.NodeIndex
+        ).FromResult();
     }
 }

@@ -1,48 +1,47 @@
-namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.State
+namespace EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.State;
+
+using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+
+using global::System.Collections.Concurrent;
+using global::System.Diagnostics.CodeAnalysis;
+
+public class InMemoryBackgroundTaskWrapperRepository
+    : BackgroundTaskWrapperRepository
 {
-    using EventHorizon.Zone.System.Server.Scripts.Plugin.BackgroundTask.Api;
+    private readonly ConcurrentDictionary<string, BackgroundTaskWrapper> _map = new();
 
-    using global::System.Collections.Concurrent;
-    using global::System.Diagnostics.CodeAnalysis;
-
-    public class InMemoryBackgroundTaskWrapperRepository
-        : BackgroundTaskWrapperRepository
+    public bool Add(
+        string taskId,
+        BackgroundTaskWrapper backgroundTaskWrapper
+    )
     {
-        private readonly ConcurrentDictionary<string, BackgroundTaskWrapper> _map = new();
+        return _map.TryAdd(
+            taskId,
+            backgroundTaskWrapper
+        );
+    }
 
-        public bool Add(
-            string taskId,
-            BackgroundTaskWrapper backgroundTaskWrapper
-        )
-        {
-            return _map.TryAdd(
-                taskId,
-                backgroundTaskWrapper
-            );
-        }
+    public bool TryGet(
+        string taskId,
+        [NotNullWhen(true)]
+        out BackgroundTaskWrapper? backgroundTaskWrapper
+    )
+    {
+        return _map.TryGetValue(
+            taskId,
+            out backgroundTaskWrapper
+        );
+    }
 
-        public bool TryGet(
-            string taskId,
-            [NotNullWhen(true)]
-            out BackgroundTaskWrapper? backgroundTaskWrapper
-        )
-        {
-            return _map.TryGetValue(
-                taskId,
-                out backgroundTaskWrapper
-            );
-        }
-
-        public bool TryRemove(
-            string taskId,
-            [NotNullWhen(true)]
-            out BackgroundTaskWrapper? removedBackgroundTaskWrapper
-        )
-        {
-            return _map.TryRemove(
-                taskId,
-                out removedBackgroundTaskWrapper
-            );
-        }
+    public bool TryRemove(
+        string taskId,
+        [NotNullWhen(true)]
+        out BackgroundTaskWrapper? removedBackgroundTaskWrapper
+    )
+    {
+        return _map.TryRemove(
+            taskId,
+            out removedBackgroundTaskWrapper
+        );
     }
 }

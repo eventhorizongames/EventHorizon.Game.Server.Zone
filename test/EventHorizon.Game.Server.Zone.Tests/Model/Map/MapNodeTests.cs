@@ -1,105 +1,104 @@
-namespace EventHorizon.Game.Server.Zone.Tests.Model.Map
+namespace EventHorizon.Game.Server.Zone.Tests.Model.Map;
+
+using System.Numerics;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Model.Map;
+
+using Xunit;
+
+public class MapNodeTests
 {
-    using System.Numerics;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Zone.Core.Model.Map;
-
-    using Xunit;
-
-    public class MapNodeTests
+    [Fact]
+    public void TestEquals_WhenInputNullShouldReturnFalse()
     {
-        [Fact]
-        public void TestEquals_WhenInputNullShouldReturnFalse()
+        // Given
+        string input = null;
+
+        // When
+        var mapNode = new MapNode(Vector3.Zero);
+
+        var actual = mapNode.Equals(input);
+
+        // Then
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void TestEquals_WhenInputIsNotMapNodeTypeShouldReturnFalse()
+    {
+        // Given
+        string input = "not-map-node";
+
+        // When
+        var mapNode = new MapNode(Vector3.Zero);
+
+        var actual = mapNode.Equals(input);
+
+        // Then
+        Assert.False(actual);
+    }
+
+    [Fact]
+    public void TestEquals_WhenInputIsMapNodeNotSameIdShouldReturnFalse()
+    {
+        // Given
+        var inputId = 123;
+        MapNode input = new(Vector3.Zero)
         {
-            // Given
-            string input = null;
+            Index = inputId
+        };
 
-            // When
-            var mapNode = new MapNode(Vector3.Zero);
-
-            var actual = mapNode.Equals(input);
-
-            // Then
-            Assert.False(actual);
-        }
-
-        [Fact]
-        public void TestEquals_WhenInputIsNotMapNodeTypeShouldReturnFalse()
+        // When
+        var mapNode = new MapNode(Vector3.Zero)
         {
-            // Given
-            string input = "not-map-node";
+            Index = 321
+        };
 
-            // When
-            var mapNode = new MapNode(Vector3.Zero);
+        var actual = mapNode.Equals(input);
 
-            var actual = mapNode.Equals(input);
+        // Then
+        Assert.False(actual);
+    }
 
-            // Then
-            Assert.False(actual);
-        }
-
-        [Fact]
-        public void TestEquals_WhenInputIsMapNodeNotSameIdShouldReturnFalse()
+    [Fact]
+    public void TestEquals_WhenInputIsMapNodeSameIdShouldReturnTrue()
+    {
+        // Given
+        var inputId = 123;
+        MapNode input = new(Vector3.Zero)
         {
-            // Given
-            var inputId = 123;
-            MapNode input = new(Vector3.Zero)
-            {
-                Index = inputId
-            };
+            Index = inputId
+        };
 
-            // When
-            var mapNode = new MapNode(Vector3.Zero)
-            {
-                Index = 321
-            };
-
-            var actual = mapNode.Equals(input);
-
-            // Then
-            Assert.False(actual);
-        }
-
-        [Fact]
-        public void TestEquals_WhenInputIsMapNodeSameIdShouldReturnTrue()
+        // When
+        var mapNode = new MapNode(Vector3.Zero)
         {
-            // Given
-            var inputId = 123;
-            MapNode input = new(Vector3.Zero)
-            {
-                Index = inputId
-            };
+            Index = inputId
+        };
 
-            // When
-            var mapNode = new MapNode(Vector3.Zero)
-            {
-                Index = inputId
-            };
+        var actual = mapNode.Equals(input);
 
-            var actual = mapNode.Equals(input);
+        // Then
+        Assert.True(actual);
+    }
 
-            // Then
-            Assert.True(actual);
-        }
+    [Fact]
+    public void TestGetHashCode_ShouldReturnTheHashCodeOfTheIndex()
+    {
+        // Given
+        var inputIndex = 123;
+        var expected = inputIndex.GetHashCode();
 
-        [Fact]
-        public void TestGetHashCode_ShouldReturnTheHashCodeOfTheIndex()
+        // When
+        var entityAction = new MapNode(Vector3.Zero)
         {
-            // Given
-            var inputIndex = 123;
-            var expected = inputIndex.GetHashCode();
+            Index = inputIndex
+        };
 
-            // When
-            var entityAction = new MapNode(Vector3.Zero)
-            {
-                Index = inputIndex
-            };
+        var actual = entityAction.GetHashCode();
 
-            var actual = entityAction.GetHashCode();
-
-            // Then
-            Assert.Equal(expected, actual);
-        }
+        // Then
+        Assert.Equal(expected, actual);
     }
 }

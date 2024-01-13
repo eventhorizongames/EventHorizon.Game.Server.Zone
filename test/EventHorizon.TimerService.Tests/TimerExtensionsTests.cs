@@ -1,39 +1,38 @@
-namespace EventHorizon.TimerService.Tests.TimerService
+namespace EventHorizon.TimerService.Tests.TimerService;
+
+using EventHorizon.Test.Common.Utils;
+
+using Microsoft.Extensions.Hosting;
+
+using Xunit;
+
+public class TimerExtensionsTests
 {
-    using EventHorizon.Test.Common.Utils;
-
-    using Microsoft.Extensions.Hosting;
-
-    using Xunit;
-
-    public class TimerExtensionsTests
+    [Fact]
+    public void TestAddTimer_ShouldConfigureServiceCollection()
     {
-        [Fact]
-        public void TestAddTimer_ShouldConfigureServiceCollection()
-        {
-            // Given
-            var serviceCollectionMock = new ServiceCollectionMock();
+        // Given
+        var serviceCollectionMock = new ServiceCollectionMock();
 
-            // When
-            TimerExtensions.AddTimer(
-                serviceCollectionMock
-            );
+        // When
+        TimerExtensions.AddTimer(
+            serviceCollectionMock
+        );
 
-            // Then
-            Assert.Collection(
-                serviceCollectionMock,
-                service =>
-                {
-                    Assert.Equal(
-                        typeof(IHostedService),
-                        service.ServiceType
-                    );
-                    Assert.Equal(
-                        typeof(TimerHostedService),
-                        service.ImplementationType
-                    );
-                }
-            );
-        }
+        // Then
+        Assert.Collection(
+            serviceCollectionMock,
+            service =>
+            {
+                Assert.Equal(
+                    typeof(IHostedService),
+                    service.ServiceType
+                );
+                Assert.Equal(
+                    typeof(TimerHostedService),
+                    service.ImplementationType
+                );
+            }
+        );
     }
 }

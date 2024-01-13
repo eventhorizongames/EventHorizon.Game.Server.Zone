@@ -1,61 +1,60 @@
-namespace EventHorizon.Zone.Core.ServerAction.Tests.Add
+namespace EventHorizon.Zone.Core.ServerAction.Tests.Add;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Tests.TestUtils;
+using EventHorizon.Zone.Core.Events.ServerAction;
+using EventHorizon.Zone.Core.ServerAction.Model;
+using EventHorizon.Zone.Core.ServerAction.ServerAction.Add;
+using EventHorizon.Zone.Core.ServerAction.State;
+
+using Moq;
+
+using Xunit;
+
+public class AddServerActionHandlerTests
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using EventHorizon.Tests.TestUtils;
-    using EventHorizon.Zone.Core.Events.ServerAction;
-    using EventHorizon.Zone.Core.ServerAction.Model;
-    using EventHorizon.Zone.Core.ServerAction.ServerAction.Add;
-    using EventHorizon.Zone.Core.ServerAction.State;
-
-    using Moq;
-
-    using Xunit;
-
-    public class AddServerActionHandlerTests
+    [Fact]
+    public async Task TestShouldAddPassedEventToPendingServerAction()
     {
-        [Fact]
-        public async Task TestShouldAddPassedEventToPendingServerAction()
-        {
-            // Given
-            var expectedRunAt = DateTime.Now;
-            var expectedEvent = new TestNotificationEvent();
-            var expectedServerActionEntity = new ServerActionEntity(
-                expectedRunAt,
-                expectedEvent
-            );
+        // Given
+        var expectedRunAt = DateTime.Now;
+        var expectedEvent = new TestNotificationEvent();
+        var expectedServerActionEntity = new ServerActionEntity(
+            expectedRunAt,
+            expectedEvent
+        );
 
-            var inputAddServerActionEvent = new AddServerActionEvent(
-                expectedRunAt,
-                expectedEvent
-            );
+        var inputAddServerActionEvent = new AddServerActionEvent(
+            expectedRunAt,
+            expectedEvent
+        );
 
-            var serverActionQueueMock = new Mock<IServerActionQueue>();
+        var serverActionQueueMock = new Mock<IServerActionQueue>();
 
-            // When
-            var addServerActionHandler = new AddServerActionHandler(
-                serverActionQueueMock.Object
-            );
+        // When
+        var addServerActionHandler = new AddServerActionHandler(
+            serverActionQueueMock.Object
+        );
 
-            await addServerActionHandler.Handle(
-                inputAddServerActionEvent,
-                CancellationToken.None
-            );
+        await addServerActionHandler.Handle(
+            inputAddServerActionEvent,
+            CancellationToken.None
+        );
 
-            // Then
-            serverActionQueueMock.Verify(
-                mock => mock.Push(
-                    It.Is<ServerActionEntity>(
-                        entity => entity.RunAt.Equals(
-                            expectedRunAt
-                        ) && entity.EventToSend.Equals(
-                            expectedEvent
-                        )
+        // Then
+        serverActionQueueMock.Verify(
+            mock => mock.Push(
+                It.Is<ServerActionEntity>(
+                    entity => entity.RunAt.Equals(
+                        expectedRunAt
+                    ) && entity.EventToSend.Equals(
+                        expectedEvent
                     )
                 )
-            );
-        }
+            )
+        );
     }
 }

@@ -1,9 +1,8 @@
-namespace EventHorizon.Tests.TestUtils
+namespace EventHorizon.Tests.TestUtils;
+
+using MediatR;
+
+public struct TestNotificationEvent : INotification
 {
-    using MediatR;
 
-    public struct TestNotificationEvent : INotification
-    {
-
-    }
 }

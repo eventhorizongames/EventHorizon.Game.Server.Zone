@@ -1,60 +1,59 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+
+using global::System.Collections.Concurrent;
+
+public class InMemoryActorBehaviorTickQueue
+    : ActorBehaviorTickQueue
 {
-    using global::System.Collections.Concurrent;
+    private readonly ConcurrentQueue<ActorBehaviorTick> _actionBehaviorTicks = new();
+    private readonly ConcurrentQueue<ActorBehaviorTick> _toRegister = new();
 
-    public class InMemoryActorBehaviorTickQueue
-        : ActorBehaviorTickQueue
+    public bool Dequeue(
+        out ActorBehaviorTick actorBehaviorTick
+    )
     {
-        private readonly ConcurrentQueue<ActorBehaviorTick> _actionBehaviorTicks = new();
-        private readonly ConcurrentQueue<ActorBehaviorTick> _toRegister = new();
+        return _actionBehaviorTicks.TryDequeue(
+            out actorBehaviorTick
+        );
+    }
 
-        public bool Dequeue(
-            out ActorBehaviorTick actorBehaviorTick
-        )
+    public void PrimeQueueWithRegisteredTicks()
+    {
+        while (_toRegister.TryDequeue(
+            out var actorBehaviorTick
+        ))
         {
-            return _actionBehaviorTicks.TryDequeue(
-                out actorBehaviorTick
+            _actionBehaviorTicks.Enqueue(
+                actorBehaviorTick
             );
         }
+    }
 
-        public void PrimeQueueWithRegisteredTicks()
-        {
-            while (_toRegister.TryDequeue(
-                out var actorBehaviorTick
-            ))
-            {
-                _actionBehaviorTicks.Enqueue(
-                    actorBehaviorTick
-                );
-            }
-        }
+    public void Register(
+        string shapeId,
+        long actorId
+    )
+    {
+        _toRegister.Enqueue(
+            new ActorBehaviorTick(
+                shapeId,
+                actorId
+            )
+        );
+    }
 
-        public void Register(
-            string shapeId,
-            long actorId
-        )
-        {
-            _toRegister.Enqueue(
-                new ActorBehaviorTick(
-                    shapeId,
-                    actorId
-                )
-            );
-        }
-
-        public void RegisterFailed(
-            ActorBehaviorTick actorBehaviorTick
-        )
-        {
-            // TODO: This will check the failed count.
-            // If over a threshold, ignore?
-            _toRegister.Enqueue(
-                new ActorBehaviorTick(
-                    actorBehaviorTick.FailedCount + 1,
-                    actorBehaviorTick.ShapeId,
-                    actorBehaviorTick.ActorId
-                )
-            );
-        }
+    public void RegisterFailed(
+        ActorBehaviorTick actorBehaviorTick
+    )
+    {
+        // TODO: This will check the failed count.
+        // If over a threshold, ignore?
+        _toRegister.Enqueue(
+            new ActorBehaviorTick(
+                actorBehaviorTick.FailedCount + 1,
+                actorBehaviorTick.ShapeId,
+                actorBehaviorTick.ActorId
+            )
+        );
     }
 }

@@ -1,38 +1,37 @@
-namespace EventHorizon.Zone.Core.Model.Entity.Movement
+namespace EventHorizon.Zone.Core.Model.Entity.Movement;
+
+public struct MovementState
 {
-    public struct MovementState
+    public static readonly string PROPERTY_NAME = "movementState";
+
+    public float Speed { get; set; }
+
+    public object? this[string index]
     {
-        public static readonly string PROPERTY_NAME = "movementState";
-
-        public float Speed { get; set; }
-
-        public object? this[string index]
+        get
         {
-            get
+            return index switch
             {
-                return index switch
-                {
-                    "speed" => Speed,
-                    _ => null,
-                };
-            }
-            set
+                "speed" => Speed,
+                _ => null,
+            };
+        }
+        set
+        {
+            switch (index)
             {
-                switch (index)
-                {
-                    case "speed":
-                        Speed = (float?)value ?? 1.0f;
-                        break;
+                case "speed":
+                    Speed = (float?)value ?? 1.0f;
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
         }
-
-        public static readonly MovementState NEW = new()
-        {
-            Speed = 1.0f,
-        };
     }
+
+    public static readonly MovementState NEW = new()
+    {
+        Speed = 1.0f,
+    };
 }

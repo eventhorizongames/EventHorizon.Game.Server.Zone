@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Actions
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Actions;
+
+using EventHorizon.Zone.System.Admin.AdminClientAction.Generic;
+using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+
+public static class ServerScriptsSystemReloadedAdminClientActionToAllEvent
 {
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Generic;
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+    public static AdminClientActionGenericToAllEvent Create() => new(
+        "SERVER_SCRIPTS_SYSTEM_RELOADED_CLIENT_ACTION_EVENT",
+        new ServerScriptsSystemReloadedClientActionToAllEventData()
+    );
 
-    public static class ServerScriptsSystemReloadedAdminClientActionToAllEvent
+    private class ServerScriptsSystemReloadedClientActionToAllEventData
+        : IAdminClientActionData
     {
-        public static AdminClientActionGenericToAllEvent Create() => new(
-            "SERVER_SCRIPTS_SYSTEM_RELOADED_CLIENT_ACTION_EVENT",
-            new ServerScriptsSystemReloadedClientActionToAllEventData()
-        );
 
-        private class ServerScriptsSystemReloadedClientActionToAllEventData
-            : IAdminClientActionData
-        {
-
-        }
     }
 }

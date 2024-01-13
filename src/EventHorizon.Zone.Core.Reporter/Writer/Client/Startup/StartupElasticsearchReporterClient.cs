@@ -1,8 +1,7 @@
-﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Startup
-{
-    using MediatR;
+﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client.Startup;
 
-    public struct StartupElasticsearchReporterClient : IRequest
-    {
-    }
+using MediatR;
+
+public struct StartupElasticsearchReporterClient : IRequest
+{
 }

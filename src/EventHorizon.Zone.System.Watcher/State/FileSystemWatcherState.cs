@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.System.Watcher.State
+namespace EventHorizon.Zone.System.Watcher.State;
+
+using EventHorizon.Zone.System.Watcher.Model;
+
+public interface FileSystemWatcherState
 {
-    using EventHorizon.Zone.System.Watcher.Model;
+    void Add(
+        string path,
+        PathWatcher watcher
+    );
 
-    public interface FileSystemWatcherState
-    {
-        void Add(
-            string path,
-            PathWatcher watcher
-        );
+    PathWatcher? Get(
+        string path
+    );
 
-        PathWatcher? Get(
-            string path
-        );
-
-        void Remove(
-            string path
-        );
-    }
+    void Remove(
+        string path
+    );
 }

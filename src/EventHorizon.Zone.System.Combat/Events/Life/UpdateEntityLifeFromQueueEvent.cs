@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.Combat.Events.Life
-{
-    using MediatR;
+namespace EventHorizon.Zone.System.Combat.Events.Life;
 
-    public struct UpdateEntityLifeFromQueueEvent
-        : INotification
-    {
-    }
+using MediatR;
+
+public struct UpdateEntityLifeFromQueueEvent
+    : INotification
+{
 }

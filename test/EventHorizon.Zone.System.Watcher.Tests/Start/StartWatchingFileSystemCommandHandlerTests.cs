@@ -1,253 +1,252 @@
-namespace EventHorizon.Zone.System.Watcher.Tests.Start
+namespace EventHorizon.Zone.System.Watcher.Tests.Start;
+
+using EventHorizon.Zone.System.Watcher.Events.Start;
+using EventHorizon.Zone.System.Watcher.Model;
+using EventHorizon.Zone.System.Watcher.Start;
+using EventHorizon.Zone.System.Watcher.State;
+
+using global::System;
+using global::System.IO;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
+using Moq;
+
+using Xunit;
+
+public class StartWatchingFileSystemCommandHandlerTests
 {
-    using EventHorizon.Zone.System.Watcher.Events.Start;
-    using EventHorizon.Zone.System.Watcher.Model;
-    using EventHorizon.Zone.System.Watcher.Start;
-    using EventHorizon.Zone.System.Watcher.State;
 
-    using global::System;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using Microsoft.Extensions.Logging;
-
-    using Moq;
-
-    using Xunit;
-
-    public class StartWatchingFileSystemCommandHandlerTests
+    [Fact]
+    public async Task TestShouldDisposeOfExistingPathWatcherWhenContainedInState()
     {
+        // Given
+        var path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Start",
+            "FolderToWatch"
+        );
+        var existingPathWatcherMock = new Mock<PathWatcher>();
 
-        [Fact]
-        public async Task TestShouldDisposeOfExistingPathWatcherWhenContainedInState()
-        {
-            // Given
-            var path = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Start",
-                "FolderToWatch"
-            );
-            var existingPathWatcherMock = new Mock<PathWatcher>();
+        var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
+        var reloadStateMock = new Mock<PendingReloadState>();
+        var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
-            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
-            var reloadStateMock = new Mock<PendingReloadState>();
-            var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Get(
+                path
+            )
+        ).Returns(
+            existingPathWatcherMock.Object
+        );
 
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Get(
-                    path
-                )
-            ).Returns(
-                existingPathWatcherMock.Object
-            );
+        // When
+        var handler = new StartWatchingFileSystemCommandHandler(
+            loggerMock.Object,
+            reloadStateMock.Object,
+            fileSystemWatcherStateMock.Object
+        );
+        await handler.Handle(
+            new StartWatchingFileSystemCommand(
+                path
+            ),
+            CancellationToken.None
+        );
 
-            // When
-            var handler = new StartWatchingFileSystemCommandHandler(
-                loggerMock.Object,
-                reloadStateMock.Object,
-                fileSystemWatcherStateMock.Object
-            );
-            await handler.Handle(
-                new StartWatchingFileSystemCommand(
-                    path
-                ),
-                CancellationToken.None
-            );
+        // Then
+        existingPathWatcherMock.Verify(
+            mock => mock.Dispose()
+        );
+    }
 
-            // Then
-            existingPathWatcherMock.Verify(
-                mock => mock.Dispose()
-            );
-        }
+    [Fact]
+    public async Task TestShouldRemovePathWatcherFromState()
+    {
+        // Given
+        var path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Start",
+            "FolderToWatch"
+        );
+        var existingPathWatcherMock = new Mock<PathWatcher>();
 
-        [Fact]
-        public async Task TestShouldRemovePathWatcherFromState()
-        {
-            // Given
-            var path = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Start",
-                "FolderToWatch"
-            );
-            var existingPathWatcherMock = new Mock<PathWatcher>();
+        var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
+        var reloadStateMock = new Mock<PendingReloadState>();
+        var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
-            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
-            var reloadStateMock = new Mock<PendingReloadState>();
-            var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Get(
+                path
+            )
+        ).Returns(
+            existingPathWatcherMock.Object
+        );
 
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Get(
-                    path
-                )
-            ).Returns(
-                existingPathWatcherMock.Object
-            );
+        // When
+        var handler = new StartWatchingFileSystemCommandHandler(
+            loggerMock.Object,
+            reloadStateMock.Object,
+            fileSystemWatcherStateMock.Object
+        );
+        await handler.Handle(
+            new StartWatchingFileSystemCommand(
+                path
+            ),
+            CancellationToken.None
+        );
 
-            // When
-            var handler = new StartWatchingFileSystemCommandHandler(
-                loggerMock.Object,
-                reloadStateMock.Object,
-                fileSystemWatcherStateMock.Object
-            );
-            await handler.Handle(
-                new StartWatchingFileSystemCommand(
-                    path
-                ),
-                CancellationToken.None
-            );
+        // Then
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Remove(
+                path
+            )
+        );
+    }
 
-            // Then
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Remove(
-                    path
-                )
-            );
-        }
+    [Fact]
+    public async Task TestShouldAddStandardPathWatcherWhenCalledWithValidPath()
+    {
+        // Given
+        var path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Start",
+            "FolderToWatch"
+        );
+        var existingPathWatcherMock = new Mock<PathWatcher>();
 
-        [Fact]
-        public async Task TestShouldAddStandardPathWatcherWhenCalledWithValidPath()
-        {
-            // Given
-            var path = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Start",
-                "FolderToWatch"
-            );
-            var existingPathWatcherMock = new Mock<PathWatcher>();
+        var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
+        var reloadStateMock = new Mock<PendingReloadState>();
+        var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
-            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
-            var reloadStateMock = new Mock<PendingReloadState>();
-            var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Get(
+                path
+            )
+        ).Returns(
+            existingPathWatcherMock.Object
+        );
 
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Get(
-                    path
-                )
-            ).Returns(
-                existingPathWatcherMock.Object
-            );
+        // When
+        var handler = new StartWatchingFileSystemCommandHandler(
+            loggerMock.Object,
+            reloadStateMock.Object,
+            fileSystemWatcherStateMock.Object
+        );
+        await handler.Handle(
+            new StartWatchingFileSystemCommand(
+                path
+            ),
+            CancellationToken.None
+        );
 
-            // When
-            var handler = new StartWatchingFileSystemCommandHandler(
-                loggerMock.Object,
-                reloadStateMock.Object,
-                fileSystemWatcherStateMock.Object
-            );
-            await handler.Handle(
-                new StartWatchingFileSystemCommand(
-                    path
-                ),
-                CancellationToken.None
-            );
-
-            // Then
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Add(
-                    path,
-                    It.IsAny<StandardPathWatcher>()
-                )
-            );
-        }
-
-        [Fact]
-        [Trait("WindowsOnly", "True")]
-        // This test will only work on Linux when File System Pooling is enabled.
-        public void TestShouldCreateEventForOnChangeCallbacksWhenFileSystemChangesCreatedOrDeleted()
-        {
-            // Given
-            var path = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Start",
-                "FolderToWatch"
-            );
-            var jsonTestFile = Path.Combine(
+        // Then
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Add(
                 path,
-                "TestFile.json"
-            );
-            var existingPathWatcherMock = new Mock<PathWatcher>();
-            // Cleanup any existing files, file might exist on failed run.
-            File.Delete(
-                jsonTestFile
-            );
+                It.IsAny<StandardPathWatcher>()
+            )
+        );
+    }
 
-            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
-            var reloadStateMock = new Mock<PendingReloadState>();
-            var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
+    [Fact]
+    [Trait("WindowsOnly", "True")]
+    // This test will only work on Linux when File System Pooling is enabled.
+    public void TestShouldCreateEventForOnChangeCallbacksWhenFileSystemChangesCreatedOrDeleted()
+    {
+        // Given
+        var path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Start",
+            "FolderToWatch"
+        );
+        var jsonTestFile = Path.Combine(
+            path,
+            "TestFile.json"
+        );
+        var existingPathWatcherMock = new Mock<PathWatcher>();
+        // Cleanup any existing files, file might exist on failed run.
+        File.Delete(
+            jsonTestFile
+        );
 
-            fileSystemWatcherStateMock.Setup(
-                mock => mock.Get(
-                    path
-                )
-            ).Returns(
-                existingPathWatcherMock.Object
-            );
+        var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
+        var reloadStateMock = new Mock<PendingReloadState>();
+        var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
-            // When
-            var handler = new StartWatchingFileSystemCommandHandler(
-                loggerMock.Object,
-                reloadStateMock.Object,
-                fileSystemWatcherStateMock.Object
-            );
+        fileSystemWatcherStateMock.Setup(
+            mock => mock.Get(
+                path
+            )
+        ).Returns(
+            existingPathWatcherMock.Object
+        );
 
-            using var fileSystemWatcher = handler.CreateWatcherFor(
-                    path
-            );
+        // When
+        var handler = new StartWatchingFileSystemCommandHandler(
+            loggerMock.Object,
+            reloadStateMock.Object,
+            fileSystemWatcherStateMock.Object
+        );
 
-            // Create File (1 - Created)
-            File.WriteAllText(
-                jsonTestFile,
-                "This is test text"
-            );
-            // Change File (2 - Write)
-            File.WriteAllText(
-                jsonTestFile,
-                "This Is new Text"
-            );
-            // Delete File (3 - Deleted)
-            File.Delete(
-                jsonTestFile
-            );
+        using var fileSystemWatcher = handler.CreateWatcherFor(
+                path
+        );
 
-            Thread.Sleep(1);
+        // Create File (1 - Created)
+        File.WriteAllText(
+            jsonTestFile,
+            "This is test text"
+        );
+        // Change File (2 - Write)
+        File.WriteAllText(
+            jsonTestFile,
+            "This Is new Text"
+        );
+        // Delete File (3 - Deleted)
+        File.Delete(
+            jsonTestFile
+        );
 
-            // Then
-            reloadStateMock.Verify(
-                mock => mock.SetToPending(),
-                // Can be Called greater than 3 times based on env used for testing
-                // But should be at least three for the main types of actions done.
-                Times.AtLeast(3)
-            );
-        }
+        Thread.Sleep(1);
 
-        [Fact]
-        public async Task TestShouldNotCauseExceptionWhenAPathWatcherIsNotExisting()
-        {
-            // Given
-            var path = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "Start",
-                "FolderToWatch"
-            );
+        // Then
+        reloadStateMock.Verify(
+            mock => mock.SetToPending(),
+            // Can be Called greater than 3 times based on env used for testing
+            // But should be at least three for the main types of actions done.
+            Times.AtLeast(3)
+        );
+    }
 
-            var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
-            var reloadStateMock = new Mock<PendingReloadState>();
-            var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
+    [Fact]
+    public async Task TestShouldNotCauseExceptionWhenAPathWatcherIsNotExisting()
+    {
+        // Given
+        var path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Start",
+            "FolderToWatch"
+        );
 
-            // When
-            var handler = new StartWatchingFileSystemCommandHandler(
-                loggerMock.Object,
-                reloadStateMock.Object,
-                fileSystemWatcherStateMock.Object
-            );
-            await handler.Handle(
-                new StartWatchingFileSystemCommand(
-                    path
-                ),
-                CancellationToken.None
-            );
+        var loggerMock = new Mock<ILogger<StartWatchingFileSystemCommandHandler>>();
+        var reloadStateMock = new Mock<PendingReloadState>();
+        var fileSystemWatcherStateMock = new Mock<FileSystemWatcherState>();
 
-            // Then
-        }
+        // When
+        var handler = new StartWatchingFileSystemCommandHandler(
+            loggerMock.Object,
+            reloadStateMock.Object,
+            fileSystemWatcherStateMock.Object
+        );
+        await handler.Handle(
+            new StartWatchingFileSystemCommand(
+                path
+            ),
+            CancellationToken.None
+        );
+
+        // Then
     }
 }

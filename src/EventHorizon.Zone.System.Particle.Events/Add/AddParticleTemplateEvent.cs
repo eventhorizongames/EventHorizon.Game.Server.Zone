@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Particle.Events.Add
+namespace EventHorizon.Zone.System.Particle.Events.Add;
+
+using EventHorizon.Zone.System.Particle.Model.Template;
+
+using MediatR;
+
+public struct AddParticleTemplateEvent : INotification
 {
-    using EventHorizon.Zone.System.Particle.Model.Template;
+    public string Id { get; }
+    public ParticleTemplate Template { get; }
 
-    using MediatR;
-
-    public struct AddParticleTemplateEvent : INotification
+    public AddParticleTemplateEvent(
+        string id,
+        ParticleTemplate template
+    )
     {
-        public string Id { get; }
-        public ParticleTemplate Template { get; }
-
-        public AddParticleTemplateEvent(
-            string id,
-            ParticleTemplate template
-        )
-        {
-            Id = id;
-            Template = template;
-        }
+        Id = id;
+        Template = template;
     }
 }

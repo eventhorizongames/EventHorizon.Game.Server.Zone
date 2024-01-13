@@ -1,47 +1,46 @@
-namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData
+namespace EventHorizon.Zone.System.Interaction.Tests.PopulateData;
+
+using global::System.Collections.Concurrent;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using EventHorizon.Plugin.Zone.Interaction.PopulateData;
+using EventHorizon.Zone.Core.Events.Entity.Data;
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.System.Interaction.Model;
+
+using Xunit;
+using FluentAssertions;
+
+public class PopulateEntityDataHandlerTests
 {
-    using global::System.Collections.Concurrent;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using EventHorizon.Plugin.Zone.Interaction.PopulateData;
-    using EventHorizon.Zone.Core.Events.Entity.Data;
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.System.Interaction.Model;
-
-    using Xunit;
-    using FluentAssertions;
-
-    public class PopulateEntityDataHandlerTests
+    [Fact]
+    public async Task TestShouldAddInteractionStateProperty()
     {
-        [Fact]
-        public async Task TestShouldAddInteractionStateProperty()
+        // Given
+        var expected = new InteractionState
         {
-            // Given
-            var expected = new InteractionState
+            Active = true,
+
+            List = null
+        };
+        var data = new ConcurrentDictionary<string, object>();
+        var entity = new DefaultEntity(data);
+
+        // When
+        var handler = new PopulateEntityDataHandler();
+        await handler.Handle(
+            new PopulateEntityDataEvent
             {
-                Active = true,
+                Entity = entity
+            },
+            CancellationToken.None
+        );
+        var actual = entity.GetProperty<InteractionState>(
+            "interactionState"
+        );
 
-                List = null
-            };
-            var data = new ConcurrentDictionary<string, object>();
-            var entity = new DefaultEntity(data);
-
-            // When
-            var handler = new PopulateEntityDataHandler();
-            await handler.Handle(
-                new PopulateEntityDataEvent
-                {
-                    Entity = entity
-                },
-                CancellationToken.None
-            );
-            var actual = entity.GetProperty<InteractionState>(
-                "interactionState"
-            );
-
-            // Then
-            actual.Should().BeEquivalentTo(expected);
-        }
+        // Then
+        actual.Should().BeEquivalentTo(expected);
     }
 }

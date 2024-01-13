@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.System.Player.Connection.Model
+namespace EventHorizon.Zone.System.Player.Connection.Model;
+
+public class PlayerServerConnectionSettings
 {
-    public class PlayerServerConnectionSettings
-    {
-        public string Server { get; set; } = string.Empty;
-    }
+    public string Server { get; set; } = string.Empty;
 }

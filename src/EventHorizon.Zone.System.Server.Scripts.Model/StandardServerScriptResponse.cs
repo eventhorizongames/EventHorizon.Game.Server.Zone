@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Model
-{
-    public class StandardServerScriptResponse
-        : ServerScriptResponse
-    {
-        public bool Success { get; }
-        public string Message { get; }
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Model;
 
-        public StandardServerScriptResponse(
-            bool success,
-            string message
-        )
-        {
-            Success = success;
-            Message = message;
-        }
+public class StandardServerScriptResponse
+    : ServerScriptResponse
+{
+    public bool Success { get; }
+    public string Message { get; }
+
+    public StandardServerScriptResponse(
+        bool success,
+        string message
+    )
+    {
+        Success = success;
+        Message = message;
     }
 }

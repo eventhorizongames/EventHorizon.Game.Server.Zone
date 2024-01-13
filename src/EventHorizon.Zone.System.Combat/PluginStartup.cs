@@ -1,24 +1,23 @@
-namespace EventHorizon.Zone.System.Combat
+namespace EventHorizon.Zone.System.Combat;
+
+using EventHorizon.Zone.System.Combat.Load;
+
+using MediatR;
+
+public class PluginStartup
 {
-    using EventHorizon.Zone.System.Combat.Load;
-
-    using MediatR;
-
-    public class PluginStartup
+    public string[] DependentPluginList()
     {
-        public string[] DependentPluginList()
-        {
-            return new string[0];
-        }
+        return new string[0];
+    }
 
-        public void Startup(IMediator mediator)
-        {
-            mediator.Publish(new LoadCombatSystemEvent());
-        }
+    public void Startup(IMediator mediator)
+    {
+        mediator.Publish(new LoadCombatSystemEvent());
+    }
 
-        public string ValidateStartup()
-        {
-            return "good";
-        }
+    public string ValidateStartup()
+    {
+        return "good";
     }
 }

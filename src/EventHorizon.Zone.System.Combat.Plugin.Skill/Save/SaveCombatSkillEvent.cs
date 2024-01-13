@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Save
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Save;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+using MediatR;
+
+public struct SaveCombatSkillEvent : IRequest<SkillInstance>
 {
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+    public SkillInstance Skill { get; set; }
 
-    using MediatR;
-
-    public struct SaveCombatSkillEvent : IRequest<SkillInstance>
+    public SaveCombatSkillEvent(
+        SkillInstance skill
+    )
     {
-        public SkillInstance Skill { get; set; }
-
-        public SaveCombatSkillEvent(
-            SkillInstance skill
-        )
-        {
-            Skill = skill;
-        }
+        Skill = skill;
     }
 }

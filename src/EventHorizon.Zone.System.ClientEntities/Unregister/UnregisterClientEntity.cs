@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.System.ClientEntities.Unregister
+namespace EventHorizon.Zone.System.ClientEntities.Unregister;
+
+using MediatR;
+
+public class UnregisterClientEntity : IRequest<bool>
 {
-    using MediatR;
+    public string GlobalId { get; }
 
-    public class UnregisterClientEntity : IRequest<bool>
+    public UnregisterClientEntity(
+        string globalId
+    )
     {
-        public string GlobalId { get; }
-
-        public UnregisterClientEntity(
-            string globalId
-        )
-        {
-            GlobalId = globalId;
-        }
+        GlobalId = globalId;
     }
 }

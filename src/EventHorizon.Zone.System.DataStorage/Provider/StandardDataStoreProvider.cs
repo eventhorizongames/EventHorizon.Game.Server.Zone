@@ -1,186 +1,185 @@
-﻿namespace EventHorizon.Zone.System.DataStorage.Provider
+﻿namespace EventHorizon.Zone.System.DataStorage.Provider;
+
+using EventHorizon.Zone.System.DataStorage.Api;
+using EventHorizon.Zone.System.DataStorage.Model;
+
+using global::System;
+using global::System.Collections.Concurrent;
+using global::System.Collections.Generic;
+using global::System.Diagnostics.CodeAnalysis;
+using global::System.Text.Json;
+
+public class StandardDataStoreProvider
+    : DataStore,
+    DataStoreManagement
 {
-    using EventHorizon.Zone.System.DataStorage.Api;
-    using EventHorizon.Zone.System.DataStorage.Model;
+    public const string DATA_STORE_SCHEMA_KEY = "dataStore:Schema";
 
-    using global::System;
-    using global::System.Collections.Concurrent;
-    using global::System.Collections.Generic;
-    using global::System.Diagnostics.CodeAnalysis;
-    using global::System.Text.Json;
+    private readonly ConcurrentDictionary<string, object> _map = new();
 
-    public class StandardDataStoreProvider
-        : DataStore,
-        DataStoreManagement
+    public IDictionary<string, object> Data()
     {
-        public const string DATA_STORE_SCHEMA_KEY = "dataStore:Schema";
+        return _map;
+    }
 
-        private readonly ConcurrentDictionary<string, object> _map = new();
-
-        public IDictionary<string, object> Data()
-        {
-            return _map;
-        }
-
-        public void Set(
-            IDictionary<string, object> data
-        )
-        {
-            foreach (var item in data)
-            {
-                AddOrUpdate(
-                    item.Key,
-                    item.Value
-                );
-            }
-
-            if (!_map.ContainsKey(
-                DATA_STORE_SCHEMA_KEY
-            ))
-            {
-                AddOrUpdate(
-                    DATA_STORE_SCHEMA_KEY,
-                    new DataStoreSchema()
-                );
-            }
-        }
-
-        public void Set(
-            string key,
-            object value
-        )
+    public void Set(
+        IDictionary<string, object> data
+    )
+    {
+        foreach (var item in data)
         {
             AddOrUpdate(
-                key,
-                value
+                item.Key,
+                item.Value
             );
         }
 
-        public void Delete(
-            string key
-        )
+        if (!_map.ContainsKey(
+            DATA_STORE_SCHEMA_KEY
+        ))
         {
-            _map.Remove(
-                key,
-                out _
+            AddOrUpdate(
+                DATA_STORE_SCHEMA_KEY,
+                new DataStoreSchema()
             );
         }
+    }
 
-        public void AddOrUpdate(
-            string key,
-            object value
-        )
-        {
-            _map.AddOrUpdate(
-                key,
-                value,
-                (_, _) => value
-            );
-        }
+    public void Set(
+        string key,
+        object value
+    )
+    {
+        AddOrUpdate(
+            key,
+            value
+        );
+    }
 
-        public bool TryGetValue<T>(
-            string key,
-            [MaybeNullWhen(false)] out T value
-        )
-        {
-            value = default;
+    public void Delete(
+        string key
+    )
+    {
+        _map.Remove(
+            key,
+            out _
+        );
+    }
 
-            if (_map.TryGetValue(
-               key,
-               out var existingValue
-            ))
-            {
-                try
-                {
-                    value = existingValue.To<T>();
-                    if (value != null)
-                    {
-                        return true;
-                    }
-                }
-                catch (InvalidCastException)
-                {
-                    value = TryAndFixCastException<T>(
-                        existingValue
-                    );
-                    if (value == null
-                        || value.Equals(default(T))
-                    )
-                    {
-                        return false;
-                    }
-                    AddOrUpdate(
-                        key,
-                        value
-                    );
-                    return true;
-                }
-            }
+    public void AddOrUpdate(
+        string key,
+        object value
+    )
+    {
+        _map.AddOrUpdate(
+            key,
+            value,
+            (_, _) => value
+        );
+    }
 
-            return false;
-        }
+    public bool TryGetValue<T>(
+        string key,
+        [MaybeNullWhen(false)] out T value
+    )
+    {
+        value = default;
 
-        private static T? TryAndFixCastException<T>(
-            object existingValue
-        )
+        if (_map.TryGetValue(
+           key,
+           out var existingValue
+        ))
         {
             try
             {
-                return JsonSerializer.Deserialize<T>(
-                    JsonSerializer.Serialize(
-                        existingValue
-                    )
+                value = existingValue.To<T>();
+                if (value != null)
+                {
+                    return true;
+                }
+            }
+            catch (InvalidCastException)
+            {
+                value = TryAndFixCastException<T>(
+                    existingValue
                 );
-            }
-            catch (JsonException)
-            {
-                return default;
+                if (value == null
+                    || value.Equals(default(T))
+                )
+                {
+                    return false;
+                }
+                AddOrUpdate(
+                    key,
+                    value
+                );
+                return true;
             }
         }
 
-        public void UpdateSchema(
-            string key,
-            string type
-        )
+        return false;
+    }
+
+    private static T? TryAndFixCastException<T>(
+        object existingValue
+    )
+    {
+        try
         {
-            var metadata = GetCurrentSchema();
-
-            metadata[key] = type;
-
-            AddOrUpdate(
-                DATA_STORE_SCHEMA_KEY,
-                metadata
+            return JsonSerializer.Deserialize<T>(
+                JsonSerializer.Serialize(
+                    existingValue
+                )
             );
         }
-
-        public void DeleteFromSchema(
-            string key
-        )
+        catch (JsonException)
         {
-            var metadata = GetCurrentSchema();
+            return default;
+        }
+    }
 
-            metadata.Remove(
-                key
-            );
+    public void UpdateSchema(
+        string key,
+        string type
+    )
+    {
+        var metadata = GetCurrentSchema();
 
-            AddOrUpdate(
-                DATA_STORE_SCHEMA_KEY,
-                metadata
-            );
+        metadata[key] = type;
+
+        AddOrUpdate(
+            DATA_STORE_SCHEMA_KEY,
+            metadata
+        );
+    }
+
+    public void DeleteFromSchema(
+        string key
+    )
+    {
+        var metadata = GetCurrentSchema();
+
+        metadata.Remove(
+            key
+        );
+
+        AddOrUpdate(
+            DATA_STORE_SCHEMA_KEY,
+            metadata
+        );
+    }
+
+    private DataStoreSchema GetCurrentSchema()
+    {
+        var metadata = new DataStoreSchema();
+        if (TryGetValue<DataStoreSchema>(
+            DATA_STORE_SCHEMA_KEY,
+            out var value
+        ))
+        {
+            metadata = value;
         }
 
-        private DataStoreSchema GetCurrentSchema()
-        {
-            var metadata = new DataStoreSchema();
-            if (TryGetValue<DataStoreSchema>(
-                DATA_STORE_SCHEMA_KEY,
-                out var value
-            ))
-            {
-                metadata = value;
-            }
-
-            return metadata;
-        }
+        return metadata;
     }
 }

@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model
+namespace EventHorizon.Zone.System.Combat.Plugin.Skill.Editor.Model;
+
+using global::System.Collections.Generic;
+
+using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
+
+public struct EditorCombatSkills
 {
-    using global::System.Collections.Generic;
+    public IList<SkillInstance> SkillList { get; }
 
-    using EventHorizon.Zone.System.Combat.Plugin.Skill.Model;
-
-    public struct EditorCombatSkills
+    public EditorCombatSkills(
+        IList<SkillInstance> skillList
+    )
     {
-        public IList<SkillInstance> SkillList { get; }
-
-        public EditorCombatSkills(
-            IList<SkillInstance> skillList
-        )
-        {
-            SkillList = skillList;
-        }
+        SkillList = skillList;
     }
 }

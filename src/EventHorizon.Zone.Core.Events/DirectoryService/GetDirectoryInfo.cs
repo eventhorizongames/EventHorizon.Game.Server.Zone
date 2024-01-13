@@ -1,18 +1,17 @@
-namespace EventHorizon.Zone.Core.Events.DirectoryService
+namespace EventHorizon.Zone.Core.Events.DirectoryService;
+
+using EventHorizon.Zone.Core.Model.DirectoryService;
+
+using MediatR;
+
+public struct GetDirectoryInfo : IRequest<StandardDirectoryInfo>
 {
-    using EventHorizon.Zone.Core.Model.DirectoryService;
+    public string DirectoryFullName { get; }
 
-    using MediatR;
-
-    public struct GetDirectoryInfo : IRequest<StandardDirectoryInfo>
+    public GetDirectoryInfo(
+        string directoryFullName
+    )
     {
-        public string DirectoryFullName { get; }
-
-        public GetDirectoryInfo(
-            string directoryFullName
-        )
-        {
-            DirectoryFullName = directoryFullName;
-        }
+        DirectoryFullName = directoryFullName;
     }
 }

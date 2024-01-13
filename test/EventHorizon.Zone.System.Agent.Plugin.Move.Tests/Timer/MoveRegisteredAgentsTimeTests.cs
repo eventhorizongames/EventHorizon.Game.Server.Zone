@@ -1,38 +1,37 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Timer
+namespace EventHorizon.Zone.System.Agent.Plugin.Move.Tests.Timer;
+
+using EventHorizon.Zone.Core.Events.Lifetime;
+using EventHorizon.Zone.System.Agent.Move.Timer;
+using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
+
+using FluentAssertions;
+
+using Xunit;
+
+public class MoveRegisteredAgentsTimeTests
 {
-    using EventHorizon.Zone.Core.Events.Lifetime;
-    using EventHorizon.Zone.System.Agent.Move.Timer;
-    using EventHorizon.Zone.System.Agent.Plugin.Move.Events;
-
-    using FluentAssertions;
-
-    using Xunit;
-
-    public class MoveRegisteredAgentsTimeTests
+    [Fact]
+    public void TestStart_ShouldPublishMoveRegisteredAgentsEventAfterSetAmountOfTime()
     {
-        [Fact]
-        public void TestStart_ShouldPublishMoveRegisteredAgentsEventAfterSetAmountOfTime()
-        {
-            // Given
-            var expectedPeriod = 50;
-            var expectedTag = "MoveRegisteredAgents";
-            var expectedValidationEvent = new IsServerStarted();
-            var expectedEvent = new MoveRegisteredAgentsEvent();
+        // Given
+        var expectedPeriod = 50;
+        var expectedTag = "MoveRegisteredAgents";
+        var expectedValidationEvent = new IsServerStarted();
+        var expectedEvent = new MoveRegisteredAgentsEvent();
 
-            // When
-            var actual = new MoveRegisteredAgentsTimer();
+        // When
+        var actual = new MoveRegisteredAgentsTimer();
 
-            // Then
-            actual.Period
-                .Should().Be(expectedPeriod);
-            actual.Tag
-                .Should().Be(expectedTag);
-            actual.OnValidationEvent
-                .Should().Be(expectedValidationEvent);
-            actual.OnRunEvent
-                .Should().Be(expectedEvent);
-            actual.LogDetails
-                .Should().BeFalse();
-        }
+        // Then
+        actual.Period
+            .Should().Be(expectedPeriod);
+        actual.Tag
+            .Should().Be(expectedTag);
+        actual.OnValidationEvent
+            .Should().Be(expectedValidationEvent);
+        actual.OnRunEvent
+            .Should().Be(expectedEvent);
+        actual.LogDetails
+            .Should().BeFalse();
     }
 }

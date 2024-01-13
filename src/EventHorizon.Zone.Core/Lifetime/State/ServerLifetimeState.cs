@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.Core.Lifetime.State
+namespace EventHorizon.Zone.Core.Lifetime.State;
+
+public interface ServerLifetimeState
 {
-    public interface ServerLifetimeState
-    {
-        bool IsServerStarted();
-        bool SetServerStarted(
-            bool isServerStarted
-        );
-    }
+    bool IsServerStarted();
+    bool SetServerStarted(
+        bool isServerStarted
+    );
 }

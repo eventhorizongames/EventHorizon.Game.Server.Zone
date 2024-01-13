@@ -1,49 +1,48 @@
-namespace EventHorizon.Zone.System.Admin.ExternalHub.AdminClientAction
+namespace EventHorizon.Zone.System.Admin.ExternalHub.AdminClientAction;
+
+using EventHorizon.Zone.System.Admin.AdminClientAction.Client;
+using EventHorizon.Zone.System.Admin.ExternalHub;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.AspNetCore.SignalR;
+
+public class SendToSingleAdminClientEventHandler
+    : INotificationHandler<SendToSingleAdminClientEvent>
 {
-    using EventHorizon.Zone.System.Admin.AdminClientAction.Client;
-    using EventHorizon.Zone.System.Admin.ExternalHub;
+    private readonly IHubContext<AdminHub> _hubContext;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.AspNetCore.SignalR;
-
-    public class SendToSingleAdminClientEventHandler
-        : INotificationHandler<SendToSingleAdminClientEvent>
+    public SendToSingleAdminClientEventHandler(
+        IHubContext<AdminHub> hubContext
+    )
     {
-        private readonly IHubContext<AdminHub> _hubContext;
+        _hubContext = hubContext;
+    }
 
-        public SendToSingleAdminClientEventHandler(
-            IHubContext<AdminHub> hubContext
-        )
+    public async Task Handle(
+        SendToSingleAdminClientEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrEmpty(
+            notification.ConnectionId
+        ))
         {
-            _hubContext = hubContext;
+            return;
         }
 
-        public async Task Handle(
-            SendToSingleAdminClientEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (string.IsNullOrEmpty(
+        await _hubContext
+            .Clients
+            .Client(
                 notification.ConnectionId
-            ))
-            {
-                return;
-            }
-
-            await _hubContext
-                .Clients
-                .Client(
-                    notification.ConnectionId
-                ).SendAsync(
-                    notification.Method,
-                    notification.Arg1,
-                    notification.Arg2,
-                    cancellationToken: cancellationToken
-                );
-        }
+            ).SendAsync(
+                notification.Method,
+                notification.Arg1,
+                notification.Arg2,
+                cancellationToken: cancellationToken
+            );
     }
 }

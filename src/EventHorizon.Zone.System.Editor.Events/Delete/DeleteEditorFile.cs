@@ -1,23 +1,22 @@
-namespace EventHorizon.Zone.System.Editor.Events.Delete
+namespace EventHorizon.Zone.System.Editor.Events.Delete;
+
+using global::System.Collections.Generic;
+
+using EventHorizon.Zone.System.Editor.Model;
+
+using MediatR;
+
+public class DeleteEditorFile : IRequest<EditorResponse>
 {
-    using global::System.Collections.Generic;
+    public IList<string> FilePath { get; }
+    public string FileName { get; }
 
-    using EventHorizon.Zone.System.Editor.Model;
-
-    using MediatR;
-
-    public class DeleteEditorFile : IRequest<EditorResponse>
+    public DeleteEditorFile(
+        IList<string> path,
+        string fileName
+    )
     {
-        public IList<string> FilePath { get; }
-        public string FileName { get; }
-
-        public DeleteEditorFile(
-            IList<string> path,
-            string fileName
-        )
-        {
-            FilePath = path;
-            FileName = fileName;
-        }
+        FilePath = path;
+        FileName = fileName;
     }
 }

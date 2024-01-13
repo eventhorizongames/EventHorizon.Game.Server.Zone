@@ -1,21 +1,20 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Change;
+
+using EventHorizon.Zone.Core.Model.Entity;
+
+using MediatR;
+
+public struct ChangeActorBehaviorTreeCommand : IRequest<bool>
 {
-    using EventHorizon.Zone.Core.Model.Entity;
+    public IObjectEntity Entity { get; }
+    public string NewBehaviorTreeShapeId { get; }
 
-    using MediatR;
-
-    public struct ChangeActorBehaviorTreeCommand : IRequest<bool>
+    public ChangeActorBehaviorTreeCommand(
+        IObjectEntity entity,
+        string newBehaviorTreeShapeId
+    )
     {
-        public IObjectEntity Entity { get; }
-        public string NewBehaviorTreeShapeId { get; }
-
-        public ChangeActorBehaviorTreeCommand(
-            IObjectEntity entity,
-            string newBehaviorTreeShapeId
-        )
-        {
-            Entity = entity;
-            NewBehaviorTreeShapeId = newBehaviorTreeShapeId;
-        }
+        Entity = entity;
+        NewBehaviorTreeShapeId = newBehaviorTreeShapeId;
     }
 }

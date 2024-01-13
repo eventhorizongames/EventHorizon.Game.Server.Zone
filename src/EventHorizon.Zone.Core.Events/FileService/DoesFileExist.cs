@@ -1,16 +1,15 @@
-namespace EventHorizon.Zone.Core.Events.FileService
+namespace EventHorizon.Zone.Core.Events.FileService;
+
+using MediatR;
+
+public struct DoesFileExist : IRequest<bool>
 {
-    using MediatR;
+    public string FileFullName { get; }
 
-    public struct DoesFileExist : IRequest<bool>
+    public DoesFileExist(
+        string fileFullName
+    )
     {
-        public string FileFullName { get; }
-
-        public DoesFileExist(
-            string fileFullName
-        )
-        {
-            FileFullName = fileFullName;
-        }
+        FileFullName = fileFullName;
     }
 }

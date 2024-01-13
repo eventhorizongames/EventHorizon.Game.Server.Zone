@@ -1,61 +1,60 @@
-namespace EventHorizon.Zone.Core.Model.Player
+namespace EventHorizon.Zone.Core.Model.Player;
+
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+
+using EventHorizon.Zone.Core.Model.Core;
+using EventHorizon.Zone.Core.Model.Entity;
+
+public struct PlayerEntity
+    : IObjectEntity
 {
-    using System.Collections.Concurrent;
-    using System.Collections.Generic;
+    private static PlayerEntity NULL = default;
 
-    using EventHorizon.Zone.Core.Model.Core;
-    using EventHorizon.Zone.Core.Model.Entity;
-
-    public struct PlayerEntity
-        : IObjectEntity
+    public long Id { get; set; }
+    public string PlayerId { get; set; }
+    public string GlobalId
     {
-        private static PlayerEntity NULL = default;
-
-        public long Id { get; set; }
-        public string PlayerId { get; set; }
-        public string GlobalId
+        get
         {
-            get
-            {
-                return PlayerId;
-            }
+            return PlayerId;
         }
-        public string Name { get; set; }
-        public string Locale { get; set; }
-        public EntityType Type { get; set; }
-        public TransformState Transform { get; set; }
-        public IList<string>? TagList { get; set; }
-        public string ConnectionId { get; set; }
+    }
+    public string Name { get; set; }
+    public string Locale { get; set; }
+    public EntityType Type { get; set; }
+    public TransformState Transform { get; set; }
+    public IList<string>? TagList { get; set; }
+    public string ConnectionId { get; set; }
 
-        private ConcurrentDictionary<string, object> _data;
-        private ConcurrentDictionary<string, object> _rawData;
-        public ConcurrentDictionary<string, object> RawData
+    private ConcurrentDictionary<string, object> _data;
+    private ConcurrentDictionary<string, object> _rawData;
+    public ConcurrentDictionary<string, object> RawData
+    {
+        get
         {
-            get
-            {
-                return _rawData ?? new ConcurrentDictionary<string, object>();
-            }
-            set
+            return _rawData ?? new ConcurrentDictionary<string, object>();
+        }
+        set
+        {
+            _data = new ConcurrentDictionary<string, object>();
+            _rawData = value;
+        }
+    }
+    public ConcurrentDictionary<string, object> Data
+    {
+        get
+        {
+            if (_data == null)
             {
                 _data = new ConcurrentDictionary<string, object>();
-                _rawData = value;
             }
+            return _data;
         }
-        public ConcurrentDictionary<string, object> Data
-        {
-            get
-            {
-                if (_data == null)
-                {
-                    _data = new ConcurrentDictionary<string, object>();
-                }
-                return _data;
-            }
-        }
+    }
 
-        public bool IsFound()
-        {
-            return !Equals(NULL);
-        }
+    public bool IsFound()
+    {
+        return !Equals(NULL);
     }
 }

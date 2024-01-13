@@ -1,20 +1,19 @@
-﻿namespace EventHorizon.Zone.Core.Events.SubProcess
+﻿namespace EventHorizon.Zone.Core.Events.SubProcess;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.Core.Model.SubProcess;
+
+using MediatR;
+
+public struct StartSubProcessCommand
+    : IRequest<CommandResult<SubProcessHandle>>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.Core.Model.SubProcess;
+    public string ApplicationFullName { get; }
 
-    using MediatR;
-
-    public struct StartSubProcessCommand
-        : IRequest<CommandResult<SubProcessHandle>>
+    public StartSubProcessCommand(
+        string applicationFullName
+    )
     {
-        public string ApplicationFullName { get; }
-
-        public StartSubProcessCommand(
-            string applicationFullName
-        )
-        {
-            ApplicationFullName = applicationFullName;
-        }
+        ApplicationFullName = applicationFullName;
     }
 }

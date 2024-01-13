@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.Core.Model.Entity
+namespace EventHorizon.Zone.Core.Model.Entity;
+
+public enum EntityType
 {
-    public enum EntityType
-    {
-        OTHER = 0,
-        PLAYER = 1,
-        AGENT = 2,
-    }
+    OTHER = 0,
+    PLAYER = 1,
+    AGENT = 2,
 }

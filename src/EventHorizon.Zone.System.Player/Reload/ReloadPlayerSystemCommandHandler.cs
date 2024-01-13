@@ -1,56 +1,55 @@
-﻿namespace EventHorizon.Zone.System.Player.Reload
+﻿namespace EventHorizon.Zone.System.Player.Reload;
+
+using EventHorizon.Zone.Core.Model.Command;
+using EventHorizon.Zone.System.Player.Api;
+using EventHorizon.Zone.System.Player.Client;
+using EventHorizon.Zone.System.Player.Load;
+using EventHorizon.Zone.System.Player.Model.Client;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class ReloadPlayerSystemCommandHandler
+    : IRequestHandler<ReloadPlayerSystemCommand, StandardCommandResult>
 {
-    using EventHorizon.Zone.Core.Model.Command;
-    using EventHorizon.Zone.System.Player.Api;
-    using EventHorizon.Zone.System.Player.Client;
-    using EventHorizon.Zone.System.Player.Load;
-    using EventHorizon.Zone.System.Player.Model.Client;
+    private readonly IMediator _mediator;
+    private readonly PlayerSettingsCache _cache;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class ReloadPlayerSystemCommandHandler
-        : IRequestHandler<ReloadPlayerSystemCommand, StandardCommandResult>
+    public ReloadPlayerSystemCommandHandler(
+        IMediator mediator,
+        PlayerSettingsCache cache
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly PlayerSettingsCache _cache;
+        _mediator = mediator;
+        _cache = cache;
+    }
 
-        public ReloadPlayerSystemCommandHandler(
-            IMediator mediator,
-            PlayerSettingsCache cache
+    public async Task<StandardCommandResult> Handle(
+        ReloadPlayerSystemCommand request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await _mediator.Send(
+            new LoadPlayerSystemCommand(),
+            cancellationToken
+        );
+
+        if (result
+            && result.WasUpdated
         )
         {
-            _mediator = mediator;
-            _cache = cache;
-        }
-
-        public async Task<StandardCommandResult> Handle(
-            ReloadPlayerSystemCommand request,
-            CancellationToken cancellationToken
-        )
-        {
-            var result = await _mediator.Send(
-                new LoadPlayerSystemCommand(),
+            await _mediator.Publish(
+                ClientActionPlayerSystemReloadedToAllEvent.Create(
+                    new PlayerSystemReloadedEventData(
+                        _cache.PlayerConfiguration
+                    )
+                ),
                 cancellationToken
             );
-
-            if (result
-                && result.WasUpdated
-            )
-            {
-                await _mediator.Publish(
-                    ClientActionPlayerSystemReloadedToAllEvent.Create(
-                        new PlayerSystemReloadedEventData(
-                            _cache.PlayerConfiguration
-                        )
-                    ),
-                    cancellationToken
-                );
-            }
-
-            return new();
         }
+
+        return new();
     }
 }

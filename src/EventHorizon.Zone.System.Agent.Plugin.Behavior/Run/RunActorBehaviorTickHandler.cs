@@ -1,68 +1,67 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run;
+
+using global::System;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
+using global::System.Threading;
+using global::System.Threading.Tasks;
+using MediatR;
+using Microsoft.Extensions.Logging;
+
+public class RunActorBehaviorTickHandler : IRequestHandler<RunActorBehaviorTick>
 {
-    using global::System;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-    using MediatR;
-    using Microsoft.Extensions.Logging;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
+    private readonly BehaviorInterpreterKernel _kernel;
+    private readonly ActorBehaviorTickQueue _queue;
 
-    public class RunActorBehaviorTickHandler : IRequestHandler<RunActorBehaviorTick>
+    public RunActorBehaviorTickHandler(
+        ILogger<RunActorBehaviorTickHandler> logger,
+        IMediator mediator,
+        BehaviorInterpreterKernel kernel,
+        ActorBehaviorTickQueue queue
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
-        private readonly BehaviorInterpreterKernel _kernel;
-        private readonly ActorBehaviorTickQueue _queue;
+        _logger = logger;
+        _mediator = mediator;
+        _kernel = kernel;
+        _queue = queue;
+    }
 
-        public RunActorBehaviorTickHandler(
-            ILogger<RunActorBehaviorTickHandler> logger,
-            IMediator mediator,
-            BehaviorInterpreterKernel kernel,
-            ActorBehaviorTickQueue queue
-        )
+    public async Task Handle(RunActorBehaviorTick request, CancellationToken cancellationToken)
+    {
+        try
         {
-            _logger = logger;
-            _mediator = mediator;
-            _kernel = kernel;
-            _queue = queue;
+            var response = await _mediator.Send(
+                new IsValidActorBehaviorTick(request.ActorBehaviorTick)
+            );
+            if (!response.IsValid)
+            {
+                return;
+            }
+            var actor = response.Actor;
+            var behaviorTreeShape = response.Shape;
+            // Run Kernel Tick against validated Shape and Actor
+            var result = await _kernel.Tick(behaviorTreeShape, actor);
+            await _mediator.Send(
+                new PostProcessActorBehaviorTickResult(
+                    result,
+                    request.ActorBehaviorTick,
+                    actor,
+                    behaviorTreeShape
+                )
+            );
         }
-
-        public async Task Handle(RunActorBehaviorTick request, CancellationToken cancellationToken)
+        catch (Exception ex)
         {
-            try
-            {
-                var response = await _mediator.Send(
-                    new IsValidActorBehaviorTick(request.ActorBehaviorTick)
-                );
-                if (!response.IsValid)
-                {
-                    return;
-                }
-                var actor = response.Actor;
-                var behaviorTreeShape = response.Shape;
-                // Run Kernel Tick against validated Shape and Actor
-                var result = await _kernel.Tick(behaviorTreeShape, actor);
-                await _mediator.Send(
-                    new PostProcessActorBehaviorTickResult(
-                        result,
-                        request.ActorBehaviorTick,
-                        actor,
-                        behaviorTreeShape
-                    )
-                );
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(
-                    ex,
-                    "General Exception Running Kernel Tick \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Report: {@BehaviorRequest}",
-                    request.ActorBehaviorTick.ShapeId,
-                    request.ActorBehaviorTick.ActorId,
-                    request
-                );
-                _queue.RegisterFailed(request.ActorBehaviorTick);
-            }
+            _logger.LogError(
+                ex,
+                "General Exception Running Kernel Tick \n | BehaviorTreeShapeId: {BehaviorTreeShapeId} \n | ActorId: {ActorId} \n | Report: {@BehaviorRequest}",
+                request.ActorBehaviorTick.ShapeId,
+                request.ActorBehaviorTick.ActorId,
+                request
+            );
+            _queue.RegisterFailed(request.ActorBehaviorTick);
         }
     }
 }

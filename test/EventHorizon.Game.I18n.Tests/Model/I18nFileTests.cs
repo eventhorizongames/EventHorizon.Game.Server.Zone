@@ -1,48 +1,47 @@
-namespace EventHorizon.Game.I18n.Tests.Model
+namespace EventHorizon.Game.I18n.Tests.Model;
+
+using System.Collections.Generic;
+
+using EventHorizon.Game.I18n.Model;
+
+using Xunit;
+
+public class I18nFileTests
 {
-    using System.Collections.Generic;
-
-    using EventHorizon.Game.I18n.Model;
-
-    using Xunit;
-
-    public class I18nFileTests
+    [Fact]
+    public void TestWhenLocaleSetShouldReturnedExpectly()
     {
-        [Fact]
-        public void TestWhenLocaleSetShouldReturnedExpectly()
+        // Given
+        var expectedLocale = "en-us";
+
+        // When
+        var actual = new I18nFile
         {
-            // Given
-            var expectedLocale = "en-us";
+            Locale = expectedLocale
+        };
 
-            // When
-            var actual = new I18nFile
-            {
-                Locale = expectedLocale
-            };
+        // Then
+        Assert.Equal(
+            actual.Locale,
+            expectedLocale
+        );
+    }
+    [Fact]
+    public void TestWhenTranslationListSetShouldReturnedExpectly()
+    {
+        // Given
+        var expectedTranslationMap = new Dictionary<string, string>();
 
-            // Then
-            Assert.Equal(
-                actual.Locale,
-                expectedLocale
-            );
-        }
-        [Fact]
-        public void TestWhenTranslationListSetShouldReturnedExpectly()
+        // When
+        var actual = new I18nFile
         {
-            // Given
-            var expectedTranslationMap = new Dictionary<string, string>();
+            TranslationList = expectedTranslationMap
+        };
 
-            // When
-            var actual = new I18nFile
-            {
-                TranslationList = expectedTranslationMap
-            };
-
-            // Then
-            Assert.Equal(
-                actual.TranslationList,
-                expectedTranslationMap
-            );
-        }
+        // Then
+        Assert.Equal(
+            actual.TranslationList,
+            expectedTranslationMap
+        );
     }
 }

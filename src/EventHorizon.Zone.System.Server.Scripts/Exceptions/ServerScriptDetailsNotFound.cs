@@ -1,20 +1,19 @@
-namespace EventHorizon.Zone.System.Server.Scripts.Exceptions
+namespace EventHorizon.Zone.System.Server.Scripts.Exceptions;
+
+using global::System;
+
+public class ServerScriptDetailsNotFound : Exception
 {
-    using global::System;
+    public string ScriptId { get; }
 
-    public class ServerScriptDetailsNotFound : Exception
+    public ServerScriptDetailsNotFound(
+        string scriptId,
+        string message
+    ) : base(
+        message
+    )
     {
-        public string ScriptId { get; }
-
-        public ServerScriptDetailsNotFound(
-            string scriptId,
-            string message
-        ) : base(
-            message
-        )
-        {
-            ScriptId = scriptId;
-        }
-
+        ScriptId = scriptId;
     }
+
 }

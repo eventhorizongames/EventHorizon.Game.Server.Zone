@@ -1,69 +1,68 @@
-﻿namespace EventHorizon.Zone.System.Server.Scripts.Command
+﻿namespace EventHorizon.Zone.System.Server.Scripts.Command;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.Server.Scripts.Actions;
+using EventHorizon.Zone.System.Server.Scripts.Events.Reload;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadServerScriptsSystemAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-    using EventHorizon.Zone.System.Server.Scripts.Actions;
-    using EventHorizon.Zone.System.Server.Scripts.Events.Reload;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadServerScriptsSystemAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadServerScriptsSystemAdminCommandEventHandler(
+        ILogger<ReloadServerScriptsSystemAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadServerScriptsSystemAdminCommandEventHandler(
-            ILogger<ReloadServerScriptsSystemAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadServerScriptsSystemAdminCommandEventHandler)
+        );
 
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadServerScriptsSystemAdminCommandEventHandler)
-            );
+        await _mediator.Send(
+            new ReloadServerScriptsSystemCommand(),
+            cancellationToken
+        );
 
-            await _mediator.Send(
-                new ReloadServerScriptsSystemCommand(),
-                cancellationToken
-            );
+        await _mediator.Send(
+            new RespondToAdminCommand(
+                notification.ConnectionId,
+                new StandardAdminCommandResponse(
+                    notification.Command.Command,
+                    notification.Command.RawCommand,
+                    true,
+                    "server_scripts_system_reloaded"
+                )
+            ),
+            cancellationToken
+        );
 
-            await _mediator.Send(
-                new RespondToAdminCommand(
-                    notification.ConnectionId,
-                    new StandardAdminCommandResponse(
-                        notification.Command.Command,
-                        notification.Command.RawCommand,
-                        true,
-                        "server_scripts_system_reloaded"
-                    )
-                ),
-                cancellationToken
-            );
-
-            await _mediator.Publish(
-                ServerScriptsSystemReloadedAdminClientActionToAllEvent.Create(),
-                cancellationToken
-            );
-        }
+        await _mediator.Publish(
+            ServerScriptsSystemReloadedAdminClientActionToAllEvent.Create(),
+            cancellationToken
+        );
     }
 }

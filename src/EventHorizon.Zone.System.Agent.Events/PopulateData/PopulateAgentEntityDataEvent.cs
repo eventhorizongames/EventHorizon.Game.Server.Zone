@@ -1,11 +1,10 @@
-namespace EventHorizon.Zone.System.Agent.Events.PopulateData
+namespace EventHorizon.Zone.System.Agent.Events.PopulateData;
+
+using EventHorizon.Zone.System.Agent.Model;
+
+using MediatR;
+
+public struct PopulateAgentEntityDataEvent : INotification
 {
-    using EventHorizon.Zone.System.Agent.Model;
-
-    using MediatR;
-
-    public struct PopulateAgentEntityDataEvent : INotification
-    {
-        public AgentEntity Agent { get; set; }
-    }
+    public AgentEntity Agent { get; set; }
 }

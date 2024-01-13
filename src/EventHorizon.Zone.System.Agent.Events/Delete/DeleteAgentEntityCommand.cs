@@ -1,38 +1,37 @@
-﻿namespace EventHorizon.Zone.System.Agent.Events.Delete
+﻿namespace EventHorizon.Zone.System.Agent.Events.Delete;
+
+using MediatR;
+
+public struct DeleteAgentEntityCommand
+    : IRequest<DeleteAgentEntityResponse>
 {
-    using MediatR;
+    public string AgentEntityId { get; }
 
-    public struct DeleteAgentEntityCommand
-        : IRequest<DeleteAgentEntityResponse>
+    public DeleteAgentEntityCommand(
+        string agentEntityId
+    )
     {
-        public string AgentEntityId { get; }
+        AgentEntityId = agentEntityId;
+    }
+}
 
-        public DeleteAgentEntityCommand(
-            string agentEntityId
-        )
-        {
-            AgentEntityId = agentEntityId;
-        }
+public struct DeleteAgentEntityResponse
+{
+    public bool Success { get; }
+    public string ErrorCode { get; }
+
+    public DeleteAgentEntityResponse(
+        bool success
+    ) : this(string.Empty)
+    {
+        Success = success;
     }
 
-    public struct DeleteAgentEntityResponse
+    public DeleteAgentEntityResponse(
+        string errorCode
+    )
     {
-        public bool Success { get; }
-        public string ErrorCode { get; }
-
-        public DeleteAgentEntityResponse(
-            bool success
-        ) : this(string.Empty)
-        {
-            Success = success;
-        }
-
-        public DeleteAgentEntityResponse(
-            string errorCode
-        )
-        {
-            Success = false;
-            ErrorCode = errorCode;
-        }
+        Success = false;
+        ErrorCode = errorCode;
     }
 }

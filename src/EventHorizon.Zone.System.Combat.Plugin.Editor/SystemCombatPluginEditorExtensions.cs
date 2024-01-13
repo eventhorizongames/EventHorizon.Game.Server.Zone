@@ -1,21 +1,20 @@
-namespace EventHorizon.Game.Server.Zone.Core
-{
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.Extensions.DependencyInjection;
+namespace EventHorizon.Game.Server.Zone.Core;
 
-    public static class SystemCombatPluginEditorExtensions
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+public static class SystemCombatPluginEditorExtensions
+{
+    public static IServiceCollection AddSystemCombatPluginEditor(
+        this IServiceCollection services
+    )
     {
-        public static IServiceCollection AddSystemCombatPluginEditor(
-            this IServiceCollection services
-        )
-        {
-            return services;
-        }
-        public static IApplicationBuilder UseSystemCombatPluginEditor(
-            this IApplicationBuilder app
-        )
-        {
-            return app;
-        }
+        return services;
+    }
+    public static IApplicationBuilder UseSystemCombatPluginEditor(
+        this IApplicationBuilder app
+    )
+    {
+        return app;
     }
 }

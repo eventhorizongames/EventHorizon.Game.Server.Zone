@@ -1,66 +1,65 @@
-﻿namespace EventHorizon.Zone.System.Agent.Command
+﻿namespace EventHorizon.Zone.System.Agent.Command;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.Agent.Reload;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadAgentSystemAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-    using EventHorizon.Zone.System.Agent.Reload;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadAgentSystemAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadAgentSystemAdminCommandEventHandler(
+        ILogger<ReloadAgentSystemAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadAgentSystemAdminCommandEventHandler(
-            ILogger<ReloadAgentSystemAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadAgentSystemAdminCommandEventHandler)
+        );
+
+        var result = await _mediator.Send(
+            new ReloadAgentSystemCommand(),
+            cancellationToken
+        );
+
+        if (result.Success)
         {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
-
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadAgentSystemAdminCommandEventHandler)
-            );
-
-            var result = await _mediator.Send(
-                new ReloadAgentSystemCommand(),
+            await _mediator.Send(
+                new RespondToAdminCommand(
+                    notification.ConnectionId,
+                    new StandardAdminCommandResponse(
+                        notification.Command.Command,
+                        notification.Command.RawCommand,
+                        true,
+                        "agent_system_reloaded"
+                    )
+                ),
                 cancellationToken
             );
-
-            if (result.Success)
-            {
-                await _mediator.Send(
-                    new RespondToAdminCommand(
-                        notification.ConnectionId,
-                        new StandardAdminCommandResponse(
-                            notification.Command.Command,
-                            notification.Command.RawCommand,
-                            true,
-                            "agent_system_reloaded"
-                        )
-                    ),
-                    cancellationToken
-                );
-            }
         }
     }
 }

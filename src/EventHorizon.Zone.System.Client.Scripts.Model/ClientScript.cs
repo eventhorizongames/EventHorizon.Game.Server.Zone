@@ -1,64 +1,63 @@
-namespace EventHorizon.Zone.System.Client.Scripts.Model
+namespace EventHorizon.Zone.System.Client.Scripts.Model;
+
+using global::System.IO;
+
+/// <summary>
+/// This is an instance of a Script supplied by the server to the Engine/Client.
+/// </summary>
+public struct ClientScript
 {
-    using global::System.IO;
+    public static ClientScript Create(
+        ClientScriptType scriptType,
+        string path,
+        string fileName,
+        string scriptString
+    ) => new(
+        scriptType,
+        path,
+        fileName,
+        scriptString
+    );
 
-    /// <summary>
-    /// This is an instance of a Script supplied by the server to the Engine/Client.
-    /// </summary>
-    public struct ClientScript
+    public string Name { get; }
+    public ClientScriptType ScriptType { get; }
+    public string ScriptFileName { get; }
+    public string ScriptPath { get; }
+    public string ScriptString { get; }
+
+    private ClientScript(
+        ClientScriptType scriptType,
+        string path,
+        string fileName,
+        string scriptString
+    )
     {
-        public static ClientScript Create(
-            ClientScriptType scriptType,
-            string path,
-            string fileName,
-            string scriptString
-        ) => new(
-            scriptType,
+        Name = fileName;
+        ScriptType = scriptType;
+        ScriptFileName = fileName;
+        ScriptPath = path;
+        ScriptString = scriptString;
+
+        Name = GenerateName(
             path,
-            fileName,
-            scriptString
+            fileName
         );
+    }
 
-        public string Name { get; }
-        public ClientScriptType ScriptType { get; }
-        public string ScriptFileName { get; }
-        public string ScriptPath { get; }
-        public string ScriptString { get; }
-
-        private ClientScript(
-            ClientScriptType scriptType,
-            string path,
-            string fileName,
-            string scriptString
-        )
-        {
-            Name = fileName;
-            ScriptType = scriptType;
-            ScriptFileName = fileName;
-            ScriptPath = path;
-            ScriptString = scriptString;
-
-            Name = GenerateName(
-                path,
-                fileName
-            );
-        }
-
-        private static string GenerateName(
-            string path,
-            string fileName
-        )
-        {
-            return string.Join(
+    private static string GenerateName(
+        string path,
+        string fileName
+    )
+    {
+        return string.Join(
+            "_",
+            string.Join(
                 "_",
-                string.Join(
-                    "_",
-                    path.Split(
-                        Path.DirectorySeparatorChar
-                    )
-                ),
-                fileName
-            );
-        }
+                path.Split(
+                    Path.DirectorySeparatorChar
+                )
+            ),
+            fileName
+        );
     }
 }

@@ -1,43 +1,42 @@
-namespace EventHorizon.Zone.Core.Reporter.Save
+namespace EventHorizon.Zone.Core.Reporter.Save;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Reporter.Model;
+using EventHorizon.Zone.Core.Reporter.Writer;
+
+using MediatR;
+
+public class SavePendingReportItemsEventHandler
+    : INotificationHandler<SavePendingReportItemsEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
+    private readonly ReportRepository _repository;
 
-    using EventHorizon.Zone.Core.Reporter.Model;
-    using EventHorizon.Zone.Core.Reporter.Writer;
-
-    using MediatR;
-
-    public class SavePendingReportItemsEventHandler
-        : INotificationHandler<SavePendingReportItemsEvent>
+    public SavePendingReportItemsEventHandler(
+        IMediator mediator,
+        ReportRepository repository
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly ReportRepository _repository;
+        _mediator = mediator;
+        _repository = repository;
+    }
 
-        public SavePendingReportItemsEventHandler(
-            IMediator mediator,
-            ReportRepository repository
-        )
+    public async Task Handle(
+        SavePendingReportItemsEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        var reports = _repository.TakeAll();
+        foreach (var report in reports)
         {
-            _mediator = mediator;
-            _repository = repository;
-        }
-
-        public async Task Handle(
-            SavePendingReportItemsEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            var reports = _repository.TakeAll();
-            foreach (var report in reports)
-            {
-                await _mediator.Send(
-                    new WriteReport(
-                        report
-                    ),
-                    cancellationToken
-                );
-            }
+            await _mediator.Send(
+                new WriteReport(
+                    report
+                ),
+                cancellationToken
+            );
         }
     }
 }

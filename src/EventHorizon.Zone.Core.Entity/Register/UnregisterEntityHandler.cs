@@ -1,42 +1,41 @@
-namespace EventHorizon.Zone.Core.Entity.Register
+namespace EventHorizon.Zone.Core.Entity.Register;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Zone.Core.Events.Entity.Register;
+using EventHorizon.Zone.Core.Model.Entity.State;
+
+using MediatR;
+
+public class UnregisterEntityHandler
+    : INotificationHandler<UnRegisterEntityEvent>
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly IMediator _mediator;
+    private readonly EntityRepository _entityRepository;
 
-    using EventHorizon.Zone.Core.Events.Entity.Register;
-    using EventHorizon.Zone.Core.Model.Entity.State;
-
-    using MediatR;
-
-    public class UnregisterEntityHandler
-        : INotificationHandler<UnRegisterEntityEvent>
+    public UnregisterEntityHandler(
+        IMediator mediator,
+        EntityRepository entityRepository
+    )
     {
-        private readonly IMediator _mediator;
-        private readonly EntityRepository _entityRepository;
+        _mediator = mediator;
+        _entityRepository = entityRepository;
+    }
 
-        public UnregisterEntityHandler(
-            IMediator mediator,
-            EntityRepository entityRepository
-        )
-        {
-            _mediator = mediator;
-            _entityRepository = entityRepository;
-        }
-
-        public async Task Handle(
-            UnRegisterEntityEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            await _entityRepository.Remove(
-                notification.Entity.Id
-            );
-            await _mediator.Publish(
-                new EntityUnRegisteredEvent
-                {
-                    EntityId = notification.Entity.Id,
-                }
-            );
-        }
+    public async Task Handle(
+        UnRegisterEntityEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        await _entityRepository.Remove(
+            notification.Entity.Id
+        );
+        await _mediator.Publish(
+            new EntityUnRegisteredEvent
+            {
+                EntityId = notification.Entity.Id,
+            }
+        );
     }
 }

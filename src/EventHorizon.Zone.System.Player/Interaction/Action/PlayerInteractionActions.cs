@@ -1,7 +1,6 @@
-namespace EventHorizon.Zone.System.Player.Interaction.Action
+namespace EventHorizon.Zone.System.Player.Interaction.Action;
+
+public class PlayerInteractionActions
 {
-    public class PlayerInteractionActions
-    {
-        public const string INTERACT = "INTERACT";
-    }
+    public const string INTERACT = "INTERACT";
 }

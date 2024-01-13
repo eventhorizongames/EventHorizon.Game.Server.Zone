@@ -1,15 +1,14 @@
-﻿namespace EventHorizon.Zone.Core.Events.Map.Client
-{
-    using EventHorizon.Zone.Core.Events.Client.Generic;
-    using EventHorizon.Zone.Core.Model.Map.Client;
+﻿namespace EventHorizon.Zone.Core.Events.Map.Client;
 
-    public static class ClientActionCoreMapLoadedToAllEvent
-    {
-        public static ClientActionGenericToAllEvent Create(
-            CoreMapLoadedClientData data
-        ) => new(
-            "Core.Map.Created",
-            data
-        );
-    }
+using EventHorizon.Zone.Core.Events.Client.Generic;
+using EventHorizon.Zone.Core.Model.Map.Client;
+
+public static class ClientActionCoreMapLoadedToAllEvent
+{
+    public static ClientActionGenericToAllEvent Create(
+        CoreMapLoadedClientData data
+    ) => new(
+        "Core.Map.Created",
+        data
+    );
 }

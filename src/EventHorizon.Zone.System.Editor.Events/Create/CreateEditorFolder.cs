@@ -1,23 +1,22 @@
-namespace EventHorizon.Zone.System.Editor.Events.Create
+namespace EventHorizon.Zone.System.Editor.Events.Create;
+
+using global::System.Collections.Generic;
+
+using EventHorizon.Zone.System.Editor.Model;
+
+using MediatR;
+
+public struct CreateEditorFolder : IRequest<EditorResponse>
 {
-    using global::System.Collections.Generic;
+    public IList<string> FilePath { get; }
+    public string FolderName { get; }
 
-    using EventHorizon.Zone.System.Editor.Model;
-
-    using MediatR;
-
-    public struct CreateEditorFolder : IRequest<EditorResponse>
+    public CreateEditorFolder(
+        IList<string> path,
+        string folderName
+    )
     {
-        public IList<string> FilePath { get; }
-        public string FolderName { get; }
-
-        public CreateEditorFolder(
-            IList<string> path,
-            string folderName
-        )
-        {
-            FilePath = path;
-            FolderName = folderName;
-        }
+        FilePath = path;
+        FolderName = folderName;
     }
 }

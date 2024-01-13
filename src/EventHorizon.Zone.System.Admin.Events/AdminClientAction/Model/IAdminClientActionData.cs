@@ -1,6 +1,5 @@
-﻿namespace EventHorizon.Zone.System.Admin.AdminClientAction.Model
+﻿namespace EventHorizon.Zone.System.Admin.AdminClientAction.Model;
+
+public interface IAdminClientActionData
 {
-    public interface IAdminClientActionData
-    {
-    }
 }

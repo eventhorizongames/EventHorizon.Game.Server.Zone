@@ -1,42 +1,41 @@
-namespace EventHorizon.Zone.Core.Entity.Search
+namespace EventHorizon.Zone.Core.Entity.Search;
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EventHorizon.Game.Server.Zone.Entity.Model;
+using EventHorizon.Zone.Core.Entity.State;
+using EventHorizon.Zone.Core.Events.Entity.Search;
+
+using MediatR;
+
+public class SearchInAreaWithAllTagsHandler
+    : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
+    private readonly EntitySearchTree _entitySearchTree;
 
-    using EventHorizon.Game.Server.Zone.Entity.Model;
-    using EventHorizon.Zone.Core.Entity.State;
-    using EventHorizon.Zone.Core.Events.Entity.Search;
-
-    using MediatR;
-
-    public class SearchInAreaWithAllTagsHandler
-        : IRequestHandler<SearchInAreaWithAllTagsEvent, IEnumerable<long>>
+    public SearchInAreaWithAllTagsHandler(
+        EntitySearchTree entitySearchTree
+    )
     {
-        private readonly EntitySearchTree _entitySearchTree;
+        _entitySearchTree = entitySearchTree;
+    }
 
-        public SearchInAreaWithAllTagsHandler(
-            EntitySearchTree entitySearchTree
-        )
-        {
-            _entitySearchTree = entitySearchTree;
-        }
-
-        public async Task<IEnumerable<long>> Handle(
-            SearchInAreaWithAllTagsEvent notification,
-            CancellationToken none
-        )
-        {
-            return (
-                await _entitySearchTree.SearchInAreaWithAllTags(
-                    notification.SearchPositionCenter,
-                    notification.SearchRadius,
-                    notification.TagList
-                ) ?? new List<SearchEntity>()
-            ).Select(
-                entity => entity.EntityId
-            );
-        }
+    public async Task<IEnumerable<long>> Handle(
+        SearchInAreaWithAllTagsEvent notification,
+        CancellationToken none
+    )
+    {
+        return (
+            await _entitySearchTree.SearchInAreaWithAllTags(
+                notification.SearchPositionCenter,
+                notification.SearchRadius,
+                notification.TagList
+            ) ?? new List<SearchEntity>()
+        ).Select(
+            entity => entity.EntityId
+        );
     }
 }

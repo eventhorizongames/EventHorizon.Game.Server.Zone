@@ -1,18 +1,17 @@
-﻿namespace EventHorizon.Zone.System.Player.Events.Find
+﻿namespace EventHorizon.Zone.System.Player.Events.Find;
+
+using EventHorizon.Zone.Core.Model.Player;
+
+using MediatR;
+
+public struct FindPlayerByEntityId : IRequest<PlayerEntity>
 {
-    using EventHorizon.Zone.Core.Model.Player;
+    public long EntityId { get; }
 
-    using MediatR;
-
-    public struct FindPlayerByEntityId : IRequest<PlayerEntity>
+    public FindPlayerByEntityId(
+        long entityId
+    )
     {
-        public long EntityId { get; }
-
-        public FindPlayerByEntityId(
-            long entityId
-        )
-        {
-            EntityId = entityId;
-        }
+        EntityId = entityId;
     }
 }

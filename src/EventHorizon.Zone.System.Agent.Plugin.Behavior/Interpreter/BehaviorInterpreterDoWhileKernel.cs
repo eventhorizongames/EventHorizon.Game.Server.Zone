@@ -1,89 +1,88 @@
-namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter
+namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Interpreter;
+
+using EventHorizon.Zone.Core.Model.Entity;
+using EventHorizon.Zone.Core.Reporter.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
+using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+
+using global::System.Threading.Tasks;
+
+public class BehaviorInterpreterDoWhileKernel : BehaviorInterpreterKernel
 {
-    using EventHorizon.Zone.Core.Model.Entity;
-    using EventHorizon.Zone.Core.Reporter.Model;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-    using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
+    readonly BehaviorInterpreterMap _interpreterMap;
+    readonly ReportTracker _reportTracker;
 
-    using global::System.Threading.Tasks;
-
-    public class BehaviorInterpreterDoWhileKernel : BehaviorInterpreterKernel
+    public BehaviorInterpreterDoWhileKernel(
+        BehaviorInterpreterMap interpreterMap,
+        ReportTracker reportTracker
+    )
     {
-        readonly BehaviorInterpreterMap _interpreterMap;
-        readonly ReportTracker _reportTracker;
+        _interpreterMap = interpreterMap;
+        _reportTracker = reportTracker;
+    }
 
-        public BehaviorInterpreterDoWhileKernel(
-            BehaviorInterpreterMap interpreterMap,
-            ReportTracker reportTracker
-        )
+    public async Task<BehaviorTreeState> Tick(
+        ActorBehaviorTreeShape shape,
+        IObjectEntity actor
+    )
+    {
+        var treeState = GetActorState(
+            shape,
+            actor
+        ).Report(
+            "Kernel Tick START",
+            new { shapeId = shape.Id }
+        ).PopActiveNodeFromQueue();
+        do
         {
-            _interpreterMap = interpreterMap;
-            _reportTracker = reportTracker;
-        }
+            // Run the state through the Interperters.
+            treeState = await _interpreterMap.InterperterByType(
+                treeState.ActiveNode.Type
+            ).Run(
+                actor,
+                treeState
+            );
 
-        public async Task<BehaviorTreeState> Tick(
-            ActorBehaviorTreeShape shape,
-            IObjectEntity actor
-        )
-        {
-            var treeState = GetActorState(
-                shape,
-                actor
-            ).Report(
-                "Kernel Tick START",
-                new { shapeId = shape.Id }
-            ).PopActiveNodeFromQueue();
-            do
+            while (treeState.CheckTraversal)
             {
-                // Run the state through the Interperters.
+                treeState = treeState.SetCheckTraversal(
+                    false
+                ).ActivateNode(
+                    treeState.ActiveTraversal.Token
+                );
                 treeState = await _interpreterMap.InterperterByType(
-                    treeState.ActiveNode.Type
+                    treeState.ActiveTraversal.Type
                 ).Run(
                     actor,
                     treeState
                 );
-
-                while (treeState.CheckTraversal)
-                {
-                    treeState = treeState.SetCheckTraversal(
-                        false
-                    ).ActivateNode(
-                        treeState.ActiveTraversal.Token
-                    );
-                    treeState = await _interpreterMap.InterperterByType(
-                        treeState.ActiveTraversal.Type
-                    ).Run(
-                        actor,
-                        treeState
-                    );
-                }
-            } while (treeState.ContainsNext);
-            return treeState.Report(
-                "Kernel Tick ENDING"
-            );
-        }
-
-        private BehaviorTreeState GetActorState(
-            ActorBehaviorTreeShape shape,
-            IObjectEntity actor
-        )
-        {
-            var treeState = actor.GetProperty<BehaviorTreeState>(
-                BehaviorTreeState.PROPERTY_NAME
-            );
-            if (!treeState.IsValid)
-            {
-                treeState = new BehaviorTreeState(
-                    shape
-                );
             }
-            return treeState.SetReportTracker(
-                $"{actor.Id}_{actor.Name}",
-                _reportTracker
-            ).SetShape(
+        } while (treeState.ContainsNext);
+        return treeState.Report(
+            "Kernel Tick ENDING"
+        );
+    }
+
+    private BehaviorTreeState GetActorState(
+        ActorBehaviorTreeShape shape,
+        IObjectEntity actor
+    )
+    {
+        var treeState = actor.GetProperty<BehaviorTreeState>(
+            BehaviorTreeState.PROPERTY_NAME
+        );
+        if (!treeState.IsValid)
+        {
+            treeState = new BehaviorTreeState(
                 shape
             );
         }
+        return treeState.SetReportTracker(
+            $"{actor.Id}_{actor.Name}",
+            _reportTracker
+        ).SetShape(
+            shape
+        );
     }
 }

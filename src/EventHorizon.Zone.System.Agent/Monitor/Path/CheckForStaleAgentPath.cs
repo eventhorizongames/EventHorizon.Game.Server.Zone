@@ -1,9 +1,8 @@
-namespace EventHorizon.Zone.System.Agent.Monitor.Path
+namespace EventHorizon.Zone.System.Agent.Monitor.Path;
+
+using MediatR;
+
+public struct CheckForStaleAgentPath : INotification
 {
-    using MediatR;
 
-    public struct CheckForStaleAgentPath : INotification
-    {
-
-    }
 }

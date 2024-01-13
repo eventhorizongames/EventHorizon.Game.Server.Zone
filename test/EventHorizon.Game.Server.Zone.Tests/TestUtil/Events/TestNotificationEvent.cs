@@ -1,9 +1,8 @@
-namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Events
+namespace EventHorizon.Game.Server.Zone.Tests.TestUtil.Events;
+
+using MediatR;
+
+public struct TestNotificationEvent : INotification
 {
-    using MediatR;
 
-    public struct TestNotificationEvent : INotification
-    {
-
-    }
 }

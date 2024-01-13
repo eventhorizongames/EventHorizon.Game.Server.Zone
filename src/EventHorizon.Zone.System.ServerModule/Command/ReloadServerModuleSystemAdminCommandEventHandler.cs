@@ -1,61 +1,60 @@
-﻿namespace EventHorizon.Zone.System.ServerModule.Command
+﻿namespace EventHorizon.Zone.System.ServerModule.Command;
+
+using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
+using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
+using EventHorizon.Zone.System.ServerModule.Reload;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+using Microsoft.Extensions.Logging;
+
+public class ReloadServerModuleSystemAdminCommandEventHandler
+    : INotificationHandler<AdminCommandEvent>
 {
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Events;
-    using EventHorizon.Zone.System.Admin.Plugin.Command.Model.Standard;
-    using EventHorizon.Zone.System.ServerModule.Reload;
+    private readonly ILogger _logger;
+    private readonly IMediator _mediator;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    using Microsoft.Extensions.Logging;
-
-    public class ReloadServerModuleSystemAdminCommandEventHandler
-        : INotificationHandler<AdminCommandEvent>
+    public ReloadServerModuleSystemAdminCommandEventHandler(
+        ILogger<ReloadServerModuleSystemAdminCommandEventHandler> logger,
+        IMediator mediator
+    )
     {
-        private readonly ILogger _logger;
-        private readonly IMediator _mediator;
+        _logger = logger;
+        _mediator = mediator;
+    }
 
-        public ReloadServerModuleSystemAdminCommandEventHandler(
-            ILogger<ReloadServerModuleSystemAdminCommandEventHandler> logger,
-            IMediator mediator
-        )
+    public async Task Handle(
+        AdminCommandEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        if (notification.Command.Command != "reload-system")
         {
-            _logger = logger;
-            _mediator = mediator;
+            return;
         }
 
-        public async Task Handle(
-            AdminCommandEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            if (notification.Command.Command != "reload-system")
-            {
-                return;
-            }
+        _logger.LogInformation(
+            "reload-system : {CommandHandler}",
+            nameof(ReloadServerModuleSystemAdminCommandEventHandler)
+        );
 
-            _logger.LogInformation(
-                "reload-system : {CommandHandler}",
-                nameof(ReloadServerModuleSystemAdminCommandEventHandler)
-            );
+        await _mediator.Send(
+            new ReloadServerModuleSystem()
+        );
 
-            await _mediator.Send(
-                new ReloadServerModuleSystem()
-            );
-
-            await _mediator.Send(
-                new RespondToAdminCommand(
-                    notification.ConnectionId,
-                    new StandardAdminCommandResponse(
-                        notification.Command.Command,
-                        notification.Command.RawCommand,
-                        true,
-                        "server_module_system_reloaded"
-                    )
+        await _mediator.Send(
+            new RespondToAdminCommand(
+                notification.ConnectionId,
+                new StandardAdminCommandResponse(
+                    notification.Command.Command,
+                    notification.Command.RawCommand,
+                    true,
+                    "server_module_system_reloaded"
                 )
-            );
-        }
+            )
+        );
     }
 }

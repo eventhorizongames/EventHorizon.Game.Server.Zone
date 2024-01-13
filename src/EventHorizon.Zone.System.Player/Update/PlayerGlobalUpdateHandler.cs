@@ -1,38 +1,37 @@
-namespace EventHorizon.Zone.System.Player.Update
+namespace EventHorizon.Zone.System.Player.Update;
+
+using EventHorizon.Zone.System.Player.Connection;
+using EventHorizon.Zone.System.Player.Events.Update;
+using EventHorizon.Zone.System.Player.Mapper;
+
+using global::System.Threading;
+using global::System.Threading.Tasks;
+
+using MediatR;
+
+public class PlayerGlobalUpdateHandler
+    : INotificationHandler<PlayerGlobalUpdateEvent>
 {
-    using EventHorizon.Zone.System.Player.Connection;
-    using EventHorizon.Zone.System.Player.Events.Update;
-    using EventHorizon.Zone.System.Player.Mapper;
+    private readonly PlayerServerConnectionFactory _connectionFactory;
 
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
-    using MediatR;
-
-    public class PlayerGlobalUpdateHandler
-        : INotificationHandler<PlayerGlobalUpdateEvent>
+    public PlayerGlobalUpdateHandler(
+        PlayerServerConnectionFactory connectionFactory
+    )
     {
-        private readonly PlayerServerConnectionFactory _connectionFactory;
+        _connectionFactory = connectionFactory;
+    }
 
-        public PlayerGlobalUpdateHandler(
-            PlayerServerConnectionFactory connectionFactory
-        )
-        {
-            _connectionFactory = connectionFactory;
-        }
-
-        public async Task Handle(
-            PlayerGlobalUpdateEvent notification,
-            CancellationToken cancellationToken
-        )
-        {
-            var connection = await _connectionFactory.GetConnection();
-            await connection.SendAction(
-                "UpdatePlayer",
-                PlayerFromEntityToDetails.Map(
-                    notification.Player
-                )
-            );
-        }
+    public async Task Handle(
+        PlayerGlobalUpdateEvent notification,
+        CancellationToken cancellationToken
+    )
+    {
+        var connection = await _connectionFactory.GetConnection();
+        await connection.SendAction(
+            "UpdatePlayer",
+            PlayerFromEntityToDetails.Map(
+                notification.Player
+            )
+        );
     }
 }

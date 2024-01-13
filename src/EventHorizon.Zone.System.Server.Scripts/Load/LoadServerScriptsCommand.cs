@@ -1,10 +1,9 @@
-namespace EventHorizon.Zone.System.Server.Scripts.Load
+namespace EventHorizon.Zone.System.Server.Scripts.Load;
+
+using MediatR;
+
+public struct LoadServerScriptsCommand
+    : IRequest
 {
-    using MediatR;
 
-    public struct LoadServerScriptsCommand
-        : IRequest
-    {
-
-    }
 }

@@ -1,19 +1,18 @@
-﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client
+﻿namespace EventHorizon.Zone.Core.Reporter.Writer.Client;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+public interface ElasticsearchReporterClientStartup
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    void StartUp();
+}
 
-    public interface ElasticsearchReporterClientStartup
-    {
-        void StartUp();
-    }
-
-    public interface ElasticsearchReporterClient
-    {
-        bool IsConnected { get; }
-        Task<bool> BulkAsync(
-            object[] body,
-            CancellationToken cancellationToken
-        );
-    }
+public interface ElasticsearchReporterClient
+{
+    bool IsConnected { get; }
+    Task<bool> BulkAsync(
+        object[] body,
+        CancellationToken cancellationToken
+    );
 }

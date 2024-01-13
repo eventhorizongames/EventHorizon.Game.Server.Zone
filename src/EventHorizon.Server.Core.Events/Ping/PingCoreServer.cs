@@ -1,9 +1,8 @@
-namespace EventHorizon.Server.Core.Events.Ping
+namespace EventHorizon.Server.Core.Events.Ping;
+
+using MediatR;
+
+public struct PingCoreServer : INotification
 {
-    using MediatR;
 
-    public struct PingCoreServer : INotification
-    {
-
-    }
 }

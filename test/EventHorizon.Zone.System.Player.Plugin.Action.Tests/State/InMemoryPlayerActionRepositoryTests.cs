@@ -1,101 +1,100 @@
-namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State
+namespace EventHorizon.Zone.System.Player.Plugin.Action.Tests.State;
+
+using EventHorizon.Zone.System.Player.Plugin.Action.Model;
+using EventHorizon.Zone.System.Player.Plugin.Action.State;
+
+using Moq;
+
+using Xunit;
+
+using SystemAction = global::System.Action;
+
+public class InMemoryPlayerActionRepositoryTests
 {
-    using EventHorizon.Zone.System.Player.Plugin.Action.Model;
-    using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
-    using Moq;
-
-    using Xunit;
-
-    using SystemAction = global::System.Action;
-
-    public class InMemoryPlayerActionRepositoryTests
+    [Fact]
+    public void TestShouldBeAbleToFindPlayerActionEntityWhenOnActionNameMatches()
     {
-        [Fact]
-        public void TestShouldBeAbleToFindPlayerActionEntityWhenOnActionNameMatches()
-        {
-            // Given
-            var id = 1L;
-            var actionName = "action-name";
-            var actionEventMock = new Mock<PlayerActionEvent>();
-            var expected = new PlayerActionEntity(
-                id,
-                actionName,
-                actionEventMock.Object
-            );
+        // Given
+        var id = 1L;
+        var actionName = "action-name";
+        var actionEventMock = new Mock<PlayerActionEvent>();
+        var expected = new PlayerActionEntity(
+            id,
+            actionName,
+            actionEventMock.Object
+        );
 
-            // When
-            var repository = new InMemoryPlayerActionRepository();
+        // When
+        var repository = new InMemoryPlayerActionRepository();
 
-            Assert.Empty(
-                repository.Where(
-                    actionName
-                )
-            );
-
-            repository.On(
-                new PlayerActionEntity(
-                    id,
-                    actionName,
-                    actionEventMock.Object
-                )
-            );
-            var actual = repository.Where(
+        Assert.Empty(
+            repository.Where(
                 actionName
-            );
+            )
+        );
 
-            // Then
-            Assert.Collection(
-                actual,
-                action => Assert.Equal(expected, action)
-            );
-        }
-
-        [Fact]
-        public void TestShouldThrowHardExceptionWhenAlreadyContainsActionById()
-        {
-            // Given
-            var id = 1L;
-            var expected = id;
-            var expectedMessage = "Please remove Player Action before adding another of the same Player Action Id.";
-            var actionName = "action-name";
-            var actionEventMock = new Mock<PlayerActionEvent>();
-            var input = new PlayerActionEntity(
+        repository.On(
+            new PlayerActionEntity(
                 id,
                 actionName,
                 actionEventMock.Object
-            );
+            )
+        );
+        var actual = repository.Where(
+            actionName
+        );
 
-            // When
-            var repository = new InMemoryPlayerActionRepository();
+        // Then
+        Assert.Collection(
+            actual,
+            action => Assert.Equal(expected, action)
+        );
+    }
 
-            Assert.Empty(
-                repository.Where(
-                    actionName
-                )
-            );
+    [Fact]
+    public void TestShouldThrowHardExceptionWhenAlreadyContainsActionById()
+    {
+        // Given
+        var id = 1L;
+        var expected = id;
+        var expectedMessage = "Please remove Player Action before adding another of the same Player Action Id.";
+        var actionName = "action-name";
+        var actionEventMock = new Mock<PlayerActionEvent>();
+        var input = new PlayerActionEntity(
+            id,
+            actionName,
+            actionEventMock.Object
+        );
 
-            repository.On(
-                input
-            );
+        // When
+        var repository = new InMemoryPlayerActionRepository();
 
-            void action() => repository.On(
-                input
-            );
+        Assert.Empty(
+            repository.Where(
+                actionName
+            )
+        );
 
-            var actual = Record.Exception(
-                action
-            ) as AlreadyContainsPlayerAction;
+        repository.On(
+            input
+        );
 
-            // Then
-            Assert.Equal(
-                expected,
-                actual.ActionId
-            );
-            Assert.Equal(
-                expectedMessage,
-                actual.Message
-            );
-        }
+        void action() => repository.On(
+            input
+        );
+
+        var actual = Record.Exception(
+            action
+        ) as AlreadyContainsPlayerAction;
+
+        // Then
+        Assert.Equal(
+            expected,
+            actual.ActionId
+        );
+        Assert.Equal(
+            expectedMessage,
+            actual.Message
+        );
     }
 }
