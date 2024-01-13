@@ -4,16 +4,12 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Reporter.Model;
     using EventHorizon.Zone.Core.Reporter.Writer.Client;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
-    public class WriteReportToElasticsearchHandler
-        : IRequestHandler<WriteReportToElasticsearch>
+    public class WriteReportToElasticsearchHandler : IRequestHandler<WriteReportToElasticsearch>
     {
         private readonly ILogger _logger;
         private readonly ElasticsearchReporterClient _client;
@@ -27,7 +23,7 @@
             _client = client;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             WriteReportToElasticsearch request,
             CancellationToken cancellationToken
         )
@@ -39,7 +35,7 @@
                     "elasticsearch_is_not_connected",
                     request.Report
                 );
-                return Unit.Value;
+                return;
             }
 
             var report = request.Report;
@@ -56,18 +52,10 @@
                         _id = Guid.NewGuid().ToString(),
                     }
                 };
-                reportItemIndexes[(i * 2) + 1] = new ReportIndexItem(
-                    request.Report,
-                    reportItem
-                );
+                reportItemIndexes[(i * 2) + 1] = new ReportIndexItem(request.Report, reportItem);
             }
 
-            await _client.BulkAsync(
-                reportItemIndexes,
-                cancellationToken
-            );
-
-            return Unit.Value;
+            await _client.BulkAsync(reportItemIndexes, cancellationToken);
         }
     }
 
@@ -79,10 +67,7 @@
         public string Message { get; set; }
         public object? Data { get; set; }
 
-        public ReportIndexItem(
-            Report report,
-            ReportItem reportItem
-        )
+        public ReportIndexItem(Report report, ReportItem reportItem)
         {
             Id = report.Id;
             Timestamp = reportItem.Timestamp;

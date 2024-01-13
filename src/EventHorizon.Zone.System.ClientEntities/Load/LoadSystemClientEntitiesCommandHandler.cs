@@ -8,18 +8,17 @@ using EventHorizon.Zone.System.ClientEntities.Model;
 using EventHorizon.Zone.System.ClientEntities.Query;
 using EventHorizon.Zone.System.ClientEntities.Register;
 using EventHorizon.Zone.System.ClientEntities.Unregister;
-
 using global::System.Collections.Generic;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
 
 /// <summary>
 /// TODO: Load Recursively from root path
 /// This will require update to the Plugin Editor for ClientEntities
 /// </summary>
-public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystemClientEntitiesCommand>
+public class LoadSystemClientEntitiesCommandHandler
+    : IRequestHandler<LoadSystemClientEntitiesCommand>
 {
     private readonly IMediator _mediator;
     private readonly IJsonFileLoader _fileLoader;
@@ -36,7 +35,7 @@ public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystem
         _serverInfo = serverInfo;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         LoadSystemClientEntitiesCommand request,
         CancellationToken cancellationToken
     )
@@ -48,49 +47,31 @@ public class LoadSystemClientEntitiesCommandHandler : IRequestHandler<LoadSystem
         );
         foreach (var entity in existingEntityList)
         {
-            await _mediator.Send(
-                new UnregisterClientEntity(
-                    entity.GlobalId
-                ),
-                cancellationToken
-            );
+            await _mediator.Send(new UnregisterClientEntity(entity.GlobalId), cancellationToken);
         }
 
         // Register ClientEntities from Path
-        foreach (var clientEntityDetails in await GetClientEntitiesFromPath(
-            _serverInfo.ClientEntityPath
-        ))
+        foreach (
+            var clientEntityDetails in await GetClientEntitiesFromPath(_serverInfo.ClientEntityPath)
+        )
         {
             await _mediator.Send(
                 new RegisterClientEntityCommand(
-                    ClientEntityFromDetailsToEntity.Map(
-                        clientEntityDetails
-                    )
+                    ClientEntityFromDetailsToEntity.Map(clientEntityDetails)
                 ),
                 cancellationToken
             );
         }
-        return Unit.Value;
     }
 
-    private async Task<IList<ClientEntityDetails>> GetClientEntitiesFromPath(
-        string path
-    )
+    private async Task<IList<ClientEntityDetails>> GetClientEntitiesFromPath(string path)
     {
         var result = new List<ClientEntityDetails>();
-        foreach (var fileInfo in await _mediator.Send(
-            new GetListOfFilesFromDirectory(
-                path
-            )
-        ))
+        foreach (var fileInfo in await _mediator.Send(new GetListOfFilesFromDirectory(path)))
         {
-            var client = await _fileLoader.GetFile<ClientEntityDetails>(
-                fileInfo.FullName
-            );
+            var client = await _fileLoader.GetFile<ClientEntityDetails>(fileInfo.FullName);
             client.Data[ClientEntityConstants.METADATA_FILE_FULL_NAME] = fileInfo.FullName;
-            result.Add(
-                client
-            );
+            result.Add(client);
         }
         return result;
     }

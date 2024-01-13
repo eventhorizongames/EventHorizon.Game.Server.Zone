@@ -5,12 +5,10 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Model;
-
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
 
     public class LoadClientScriptsSystemCommandHandler
@@ -31,53 +29,38 @@ namespace EventHorizon.Zone.System.Client.Scripts.Load
             _clientScriptRepository = clientScriptRepository;
         }
 
-        public Task<Unit> Handle(
+        public Task Handle(
             LoadClientScriptsSystemCommand request,
             CancellationToken cancellationToken
-        ) => _mediator.Send(
-            new ProcessFilesRecursivelyFromDirectory(
-                _serverInfo.ClientScriptsPath,
-                OnProcessFile,
-                new Dictionary<string, object>
-                {
-                    {
-                        "RootPath",
-                        _serverInfo.ClientScriptsPath
-                    }
-                }
-            ),
-            cancellationToken
-        );
+        ) =>
+            _mediator.Send(
+                new ProcessFilesRecursivelyFromDirectory(
+                    _serverInfo.ClientScriptsPath,
+                    OnProcessFile,
+                    new Dictionary<string, object> { { "RootPath", _serverInfo.ClientScriptsPath } }
+                ),
+                cancellationToken
+            );
 
         private async Task OnProcessFile(
             StandardFileInfo fileInfo,
             IDictionary<string, object> arguments
         )
         {
-            var scriptType = GetScriptType(
-                fileInfo
-            );
+            var scriptType = GetScriptType(fileInfo);
             var rootPath = arguments["RootPath"] as string;
             // Create ClientScript AND Add to Repository
             _clientScriptRepository.Add(
                 ClientScript.Create(
                     scriptType,
-                    rootPath!.MakePathRelative(
-                        fileInfo.DirectoryName
-                    ),
+                    rootPath!.MakePathRelative(fileInfo.DirectoryName),
                     fileInfo.Name,
-                    await _mediator.Send(
-                        new ReadAllTextFromFile(
-                            fileInfo.FullName
-                        )
-                    )
+                    await _mediator.Send(new ReadAllTextFromFile(fileInfo.FullName))
                 )
             );
         }
 
-        private static ClientScriptType GetScriptType(
-            StandardFileInfo fileInfo
-        )
+        private static ClientScriptType GetScriptType(StandardFileInfo fileInfo)
         {
             var scriptType = ClientScriptType.Unknown;
             if (fileInfo.Extension == ".js")

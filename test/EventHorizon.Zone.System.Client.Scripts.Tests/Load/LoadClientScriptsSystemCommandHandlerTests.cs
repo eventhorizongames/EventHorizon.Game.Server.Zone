@@ -1,22 +1,18 @@
 ﻿namespace EventHorizon.Zone.System.Client.Scripts.Tests.Load
 {
+    using global::System;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.System.Client.Scripts.Api;
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model;
-
-    using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
-
     using Moq;
-
     using Xunit;
 
     public class LoadClientScriptsSystemCommandHandlerTests
@@ -33,10 +29,7 @@
             );
 
             var javaScriptFileName = "JavaScript.js";
-            var javaScriptDirectoryFullName = Path.Combine(
-                clientScriptsPath,
-                "Actions"
-            );
+            var javaScriptDirectoryFullName = Path.Combine(clientScriptsPath, "Actions");
             var javaScriptFileFullName = "javascript-file-full-name";
             var javaScriptFileExtension = ".js";
             var javaScriptFileInfo = new StandardFileInfo(
@@ -48,10 +41,7 @@
             var javaScriptFileContent = "// JavaScript Script Comment";
 
             var csharpFileName = "CSharp.csx";
-            var csharpDirectoryFullName = Path.Combine(
-                clientScriptsPath,
-                "Actions"
-            );
+            var csharpDirectoryFullName = Path.Combine(clientScriptsPath, "Actions");
             var csharpFileFullName = "csharp-file-full-name";
             var csharpFileExtension = ".csx";
             var csharpFileInfo = new StandardFileInfo(
@@ -63,10 +53,7 @@
             var csharpFileContent = "// CSharp Script Comment";
 
             var unknownFileName = "Script.unknown";
-            var unknownDirectoryFullName = Path.Combine(
-                clientScriptsPath,
-                "Actions"
-            );
+            var unknownDirectoryFullName = Path.Combine(clientScriptsPath, "Actions");
             var unknownFileFullName = "unknown-file-full-name";
             var unknownFileExtension = ".unknown";
             var unknownFileInfo = new StandardFileInfo(
@@ -81,55 +68,51 @@
             var serverInfoMock = new Mock<ServerInfo>();
             var clientScriptRepositoryMock = new Mock<ClientScriptRepository>();
 
-            serverInfoMock.Setup(
-                mock => mock.ClientScriptsPath
-            ).Returns(
-                clientScriptsPath
-            );
+            serverInfoMock.Setup(mock => mock.ClientScriptsPath).Returns(clientScriptsPath);
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
-                    CancellationToken.None
+            mediatorMock
+                .Setup(
+                    mock =>
+                        mock.Send(
+                            It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
+                            CancellationToken.None
+                        )
                 )
-            ).Callback<IRequest<Unit>, CancellationToken>(
-                (evt, token) =>
-                {
-                    onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
-                    arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
-                }
-            );
+                .Callback<IRequest, CancellationToken>(
+                    (evt, token) =>
+                    {
+                        onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
+                );
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new ReadAllTextFromFile(
-                        javaScriptFileFullName
-                    ),
-                    CancellationToken.None
+            mediatorMock
+                .Setup(
+                    mock =>
+                        mock.Send(
+                            new ReadAllTextFromFile(javaScriptFileFullName),
+                            CancellationToken.None
+                        )
                 )
-            ).ReturnsAsync(
-                javaScriptFileContent
-            );
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new ReadAllTextFromFile(
-                        csharpFileFullName
-                    ),
-                    CancellationToken.None
+                .ReturnsAsync(javaScriptFileContent);
+            mediatorMock
+                .Setup(
+                    mock =>
+                        mock.Send(
+                            new ReadAllTextFromFile(csharpFileFullName),
+                            CancellationToken.None
+                        )
                 )
-            ).ReturnsAsync(
-                csharpFileContent
-            );
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    new ReadAllTextFromFile(
-                        unknownFileFullName
-                    ),
-                    CancellationToken.None
+                .ReturnsAsync(csharpFileContent);
+            mediatorMock
+                .Setup(
+                    mock =>
+                        mock.Send(
+                            new ReadAllTextFromFile(unknownFileFullName),
+                            CancellationToken.None
+                        )
                 )
-            ).ReturnsAsync(
-                unknownFileContent
-            );
+                .ReturnsAsync(unknownFileContent);
 
             // When
             var handler = new LoadClientScriptsSystemCommandHandler(
@@ -138,57 +121,46 @@
                 clientScriptRepositoryMock.Object
             );
 
-            await handler.Handle(
-                new LoadClientScriptsSystemCommand(),
-                CancellationToken.None
-            );
-            Assert.NotNull(
-                onProcessFile
-            );
+            await handler.Handle(new LoadClientScriptsSystemCommand(), CancellationToken.None);
+            Assert.NotNull(onProcessFile);
 
-            await onProcessFile(
-                javaScriptFileInfo,
-                arguments
-            );
-            await onProcessFile(
-                csharpFileInfo,
-                arguments
-            );
-            await onProcessFile(
-                unknownFileInfo,
-                arguments
-            );
+            await onProcessFile(javaScriptFileInfo, arguments);
+            await onProcessFile(csharpFileInfo, arguments);
+            await onProcessFile(unknownFileInfo, arguments);
 
             // Then
             clientScriptRepositoryMock.Verify(
-                mock => mock.Add(
-                    ClientScript.Create(
-                        ClientScriptType.JavaScript,
-                        "Actions",
-                        javaScriptFileName,
-                        javaScriptFileContent
+                mock =>
+                    mock.Add(
+                        ClientScript.Create(
+                            ClientScriptType.JavaScript,
+                            "Actions",
+                            javaScriptFileName,
+                            javaScriptFileContent
+                        )
                     )
-                )
             );
             clientScriptRepositoryMock.Verify(
-                mock => mock.Add(
-                    ClientScript.Create(
-                        ClientScriptType.CSharp,
-                        "Actions",
-                        csharpFileName,
-                        csharpFileContent
+                mock =>
+                    mock.Add(
+                        ClientScript.Create(
+                            ClientScriptType.CSharp,
+                            "Actions",
+                            csharpFileName,
+                            csharpFileContent
+                        )
                     )
-                )
             );
             clientScriptRepositoryMock.Verify(
-                mock => mock.Add(
-                    ClientScript.Create(
-                        ClientScriptType.Unknown,
-                        "Actions",
-                        unknownFileName,
-                        unknownFileContent
+                mock =>
+                    mock.Add(
+                        ClientScript.Create(
+                            ClientScriptType.Unknown,
+                            "Actions",
+                            unknownFileName,
+                            unknownFileContent
+                        )
                     )
-                )
             );
         }
     }

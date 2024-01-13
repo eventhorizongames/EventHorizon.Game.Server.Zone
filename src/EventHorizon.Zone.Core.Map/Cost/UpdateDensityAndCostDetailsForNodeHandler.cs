@@ -4,11 +4,9 @@ namespace EventHorizon.Zone.Core.Map.Cost
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Events.Map;
     using EventHorizon.Zone.Core.Events.Map.Cost;
     using EventHorizon.Zone.Core.Model.Map;
-
     using MediatR;
 
     public class UpdateDensityAndCostDetailsForNodeHandler
@@ -17,16 +15,13 @@ namespace EventHorizon.Zone.Core.Map.Cost
         private readonly IMediator _mediator;
         private readonly IMapGraph _graph;
 
-        public UpdateDensityAndCostDetailsForNodeHandler(
-            IMediator mediator,
-            IMapGraph graph
-        )
+        public UpdateDensityAndCostDetailsForNodeHandler(IMediator mediator, IMapGraph graph)
         {
             _mediator = mediator;
             _graph = graph;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             UpdateDensityAndCostDetailsForNode request,
             CancellationToken cancellationToken
         )
@@ -42,11 +37,7 @@ namespace EventHorizon.Zone.Core.Map.Cost
             }
             node.Info["dense"] = (int)node.Info["dense"] + dense;
             // Lookup edges at node.
-            var edges = await _mediator.Send(
-                new GetMapEdgesOfNodeEvent(
-                    node.Index
-                )
-            );
+            var edges = await _mediator.Send(new GetMapEdgesOfNodeEvent(node.Index));
             IList<MapEdge> updatedEdges = new List<MapEdge>();
             // Change Edges cost based on request.
             for (int i = 0; i < edges.Count(); i++)
@@ -65,7 +56,6 @@ namespace EventHorizon.Zone.Core.Map.Cost
             {
                 _graph.AddEdge(edge);
             }
-            return Unit.Value;
         }
     }
 }

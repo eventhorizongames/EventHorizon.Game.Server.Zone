@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,10 +12,6 @@
     <ItemGroup>
       <EmbeddedResource Include="App_Data\Player\Player.data.json" />
       <EmbeddedResource Include="App_Data\Player\Player.config.json" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="MediatR" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>

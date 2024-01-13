@@ -1,14 +1,11 @@
 namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
 {
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.System.Player.Plugin.Action.Events.Register;
     using EventHorizon.Zone.System.Player.Plugin.Action.Model;
     using EventHorizon.Zone.System.Player.Plugin.Action.State;
-
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class RegisterPlayerActionHandler : IRequestHandler<RegisterPlayerAction>
@@ -25,10 +22,7 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
             _actionRepository = actionRepository;
         }
 
-        public Task<Unit> Handle(
-            RegisterPlayerAction request,
-            CancellationToken cancellationToken
-        )
+        public Task Handle(RegisterPlayerAction request, CancellationToken cancellationToken)
         {
             var entity = new PlayerActionEntity(
                 request.Id,
@@ -37,13 +31,9 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
             );
             try
             {
-                _actionRepository.On(
-                    entity
-                );
+                _actionRepository.On(entity);
             }
-            catch (
-                AlreadyContainsPlayerAction ex
-            )
+            catch (AlreadyContainsPlayerAction ex)
             {
                 _logger.LogError(
                     ex,
@@ -52,7 +42,8 @@ namespace EventHorizon.Zone.System.Player.Plugin.Action.Register
                     request.ActionName
                 );
             }
-            return Unit.Task;
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -322,7 +322,7 @@
                     It.IsAny<UpdateEntityCommand>(),
                     CancellationToken.None
                 )
-            ).Callback<IRequest<Unit>, CancellationToken>(
+            ).Callback<IRequest, CancellationToken>(
                 (request, _) =>
                 {
                     actual = ((UpdateEntityCommand)request).Entity;

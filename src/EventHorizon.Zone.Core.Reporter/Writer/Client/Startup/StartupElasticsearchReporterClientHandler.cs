@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using MediatR;
 
     public class StartupElasticsearchReporterClientHandler
@@ -10,20 +9,19 @@
     {
         private readonly ElasticsearchReporterClientStartup _client;
 
-        public StartupElasticsearchReporterClientHandler(
-            ElasticsearchReporterClientStartup client
-        )
+        public StartupElasticsearchReporterClientHandler(ElasticsearchReporterClientStartup client)
         {
             _client = client;
         }
 
-        public Task<Unit> Handle(
+        public Task Handle(
             StartupElasticsearchReporterClient request,
             CancellationToken cancellationToken
         )
         {
             _client.StartUp();
-            return Unit.Task;
+
+            return Task.CompletedTask;
         }
     }
 }

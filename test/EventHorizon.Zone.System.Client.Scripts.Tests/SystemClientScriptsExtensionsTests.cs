@@ -7,13 +7,9 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
     using EventHorizon.Zone.System.Client.Scripts.Load;
     using EventHorizon.Zone.System.Client.Scripts.Model;
     using EventHorizon.Zone.System.Client.Scripts.State;
-
     using global::System.Threading;
-
     using MediatR;
-
     using Moq;
-
     using Xunit;
 
     public class SystemClientScriptsExtensionsTests
@@ -25,10 +21,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            SystemClientScriptsExtensions.AddSystemClientScripts(
-                serviceCollectionMock,
-                _ => { }
-            );
+            SystemClientScriptsExtensions.AddSystemClientScripts(serviceCollectionMock, _ => { });
 
             // Then
             Assert.Collection(
@@ -45,7 +38,10 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
                 service =>
                 {
                     Assert.Equal(typeof(ClientScriptRepository), service.ServiceType);
-                    Assert.Equal(typeof(ClientScriptInMemoryRepository), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(ClientScriptInMemoryRepository),
+                        service.ImplementationType
+                    );
                 }
             );
         }
@@ -59,11 +55,9 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
 
             var mediatorMock = new Mock<IMediator>();
 
-            applicationBuilderMocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(typeof(IMediator))
-            ).Returns(
-                mediatorMock.Object
-            );
+            applicationBuilderMocks
+                .ServiceProviderMock.Setup(mock => mock.GetService(typeof(IMediator)))
+                .Returns(mediatorMock.Object);
 
             // When
             var actual = SystemClientScriptsExtensions.UseSystemClientScripts(
@@ -71,12 +65,7 @@ namespace EventHorizon.Zone.System.Client.Scripts.Tests
             );
 
             // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
+            mediatorMock.Verify(mock => mock.Send<IRequest>(expected, CancellationToken.None));
         }
     }
 }

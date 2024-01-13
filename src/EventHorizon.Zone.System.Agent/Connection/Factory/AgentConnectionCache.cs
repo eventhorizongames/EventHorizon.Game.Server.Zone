@@ -3,15 +3,12 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
     using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using Microsoft.AspNetCore.Http.Connections.Client;
     using Microsoft.AspNetCore.SignalR.Client;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class AgentConnectionCache
-        : IAgentConnectionCache,
-        IAsyncDisposable
+    public class AgentConnectionCache : IAgentConnectionCache, IAsyncDisposable
     {
         private readonly ILogger _logger;
         private readonly SemaphoreSlim _lock;
@@ -19,9 +16,7 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
         private HubConnection? _connection;
         private string _lastConnectionId = "not-set";
 
-        public AgentConnectionCache(
-            ILogger<AgentConnectionCache> logger
-        )
+        public AgentConnectionCache(ILogger<AgentConnectionCache> logger)
         {
             _logger = logger;
             _lock = new SemaphoreSlim(1, 1);
@@ -71,7 +66,7 @@ namespace EventHorizon.Zone.System.Agent.Connection.Factory
                         _connection.ConnectionId
                     );
                     await _connection.StartAsync();
-                    _lastConnectionId = _connection.ConnectionId;
+                    _lastConnectionId = _connection.ConnectionId ?? "not-set";
                 }
                 catch (Exception ex)
                 {

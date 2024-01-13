@@ -1,11 +1,6 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 {
     using global::System;
-    using global::System.Collections.Generic;
-    using global::System.IO;
-    using global::System.Threading;
-    using global::System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
     using EventHorizon.Zone.Core.Model.Info;
@@ -13,11 +8,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Load;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
+    using global::System.Collections.Generic;
+    using global::System.IO;
+    using global::System.Threading;
+    using global::System.Threading.Tasks;
     using MediatR;
-
     using Moq;
-
     using Xunit;
 
     public class LoadActorBehaviorTreeShapesHandlerTests
@@ -30,18 +26,10 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
 
             Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
             IDictionary<string, object> arguments = null;
-            var serverPath = Path.Combine(
-                "root"
-            );
-            var behaviorsPath = Path.Combine(
-                serverPath,
-                "Behaviors"
-            );
+            var serverPath = Path.Combine("root");
+            var behaviorsPath = Path.Combine(serverPath, "Behaviors");
             var fileName = "BehaviorTreeToLoad.json";
-            var fileFullName = Path.Combine(
-                behaviorsPath,
-                fileName
-            );
+            var fileFullName = Path.Combine(behaviorsPath, fileName);
             var fileExtension = ".exe";
             var fileInfo = new StandardFileInfo(
                 fileName,
@@ -51,10 +39,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             );
             var serializedAgentBehaviorTree = new SerializedAgentBehaviorTree
             {
-                Root = new SerializedBehaviorNode
-                {
-                    NodeList = new List<SerializedBehaviorNode>()
-                }
+                Root = new SerializedBehaviorNode { NodeList = new List<SerializedBehaviorNode>() }
             };
 
             var mediatorMock = new Mock<IMediator>();
@@ -62,32 +47,27 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
             var jsonFileLoaderMock = new Mock<IJsonFileLoader>();
             var actorBehaviorTreeRepositoryMock = new Mock<ActorBehaviorTreeRepository>();
 
-            serverInfoMock.Setup(
-                mock => mock.ServerPath
-            ).Returns(
-                serverPath
-            );
+            serverInfoMock.Setup(mock => mock.ServerPath).Returns(serverPath);
 
-            mediatorMock.Setup(
-                mock => mock.Send(
-                    It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
-                    CancellationToken.None
+            mediatorMock
+                .Setup(
+                    mock =>
+                        mock.Send(
+                            It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
+                            CancellationToken.None
+                        )
                 )
-            ).Callback<IRequest<Unit>, CancellationToken>(
-                (evt, token) =>
-                {
-                    onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
-                    arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
-                }
-            );
+                .Callback<IRequest, CancellationToken>(
+                    (evt, token) =>
+                    {
+                        onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                        arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
+                    }
+                );
 
-            jsonFileLoaderMock.Setup(
-                loader => loader.GetFile<SerializedAgentBehaviorTree>(
-                    It.IsAny<string>()
-                )
-            ).ReturnsAsync(
-                serializedAgentBehaviorTree
-            );
+            jsonFileLoaderMock
+                .Setup(loader => loader.GetFile<SerializedAgentBehaviorTree>(It.IsAny<string>()))
+                .ReturnsAsync(serializedAgentBehaviorTree);
 
             // When
             var loadServerModuleSystemHandler = new LoadActorBehaviorTreeShapesHandler(
@@ -101,21 +81,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Tests.Load
                 new LoadActorBehaviorTreeShapes(),
                 CancellationToken.None
             );
-            Assert.NotNull(
-                onProcessFile
-            );
+            Assert.NotNull(onProcessFile);
 
-            await onProcessFile(
-                fileInfo,
-                arguments
-            );
+            await onProcessFile(fileInfo, arguments);
 
             // Then
             actorBehaviorTreeRepositoryMock.Verify(
-                repository => repository.RegisterTree(
-                    expectedTreeId,
-                    It.IsAny<ActorBehaviorTreeShape>()
-                ),
+                repository =>
+                    repository.RegisterTree(expectedTreeId, It.IsAny<ActorBehaviorTreeShape>()),
                 Times.Once()
             );
         }

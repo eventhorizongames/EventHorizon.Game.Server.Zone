@@ -1,14 +1,11 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 {
+    using global::System;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
-
-    using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class RunActorBehaviorTickHandler : IRequestHandler<RunActorBehaviorTick>
@@ -31,29 +28,21 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             _queue = queue;
         }
 
-        public async Task<Unit> Handle(
-            RunActorBehaviorTick request,
-            CancellationToken cancellationToken
-        )
+        public async Task Handle(RunActorBehaviorTick request, CancellationToken cancellationToken)
         {
             try
             {
                 var response = await _mediator.Send(
-                    new IsValidActorBehaviorTick(
-                        request.ActorBehaviorTick
-                    )
+                    new IsValidActorBehaviorTick(request.ActorBehaviorTick)
                 );
                 if (!response.IsValid)
                 {
-                    return Unit.Value;
+                    return;
                 }
                 var actor = response.Actor;
                 var behaviorTreeShape = response.Shape;
-                // Run Kernel Tick against validated Shape and Actor 
-                var result = await _kernel.Tick(
-                    behaviorTreeShape,
-                    actor
-                );
+                // Run Kernel Tick against validated Shape and Actor
+                var result = await _kernel.Tick(behaviorTreeShape, actor);
                 await _mediator.Send(
                     new PostProcessActorBehaviorTickResult(
                         result,
@@ -72,12 +61,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     request.ActorBehaviorTick.ActorId,
                     request
                 );
-                _queue.RegisterFailed(
-                    request.ActorBehaviorTick
-                );
+                _queue.RegisterFailed(request.ActorBehaviorTick);
             }
-
-            return Unit.Value;
         }
     }
 }

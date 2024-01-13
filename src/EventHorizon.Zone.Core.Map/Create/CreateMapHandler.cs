@@ -3,7 +3,6 @@ namespace EventHorizon.Zone.Core.Map.Create
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Performance;
     using EventHorizon.Zone.Core.Events.Map.Create;
     using EventHorizon.Zone.Core.Events.Map.Generate;
@@ -11,11 +10,9 @@ namespace EventHorizon.Zone.Core.Map.Create
     using EventHorizon.Zone.Core.Map.State;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Model.Json;
-
     using MediatR;
 
-    public class CreateMapHandler
-        : IRequestHandler<CreateMap>
+    public class CreateMapHandler : IRequestHandler<CreateMap>
     {
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
@@ -38,44 +35,29 @@ namespace EventHorizon.Zone.Core.Map.Create
             _performanceTrackerFactory = performanceTrackerFactory;
         }
 
-        public async Task<Unit> Handle(
-            CreateMap request,
-            CancellationToken cancellationToken
-        )
+        public async Task Handle(CreateMap request, CancellationToken cancellationToken)
         {
             // Load in ZoneMapFile
-            using (_performanceTrackerFactory.Build(
-                "Create Map"
-            ))
+            using (_performanceTrackerFactory.Build("Create Map"))
             {
                 var zoneMap = await GetZoneMapDetails();
-                var generatedMapGraph = await _mediator.Send(
-                    new GenerateMapFromDetails(
-                        zoneMap
-                    )
-                );
+                var generatedMapGraph = await _mediator.Send(new GenerateMapFromDetails(zoneMap));
                 _serverMap.SetMap(generatedMapGraph);
                 _serverMap.SetMapDetails(zoneMap);
                 _serverMap.SetMapMesh(zoneMap.Mesh);
             }
             await _mediator.Publish(new MapCreatedEvent());
 
-            return Unit.Value;
         }
 
         private async Task<ZoneMapDetails> GetZoneMapDetails()
         {
-            return await _fileLoader.GetFile<ZoneMapDetails>(
-                GetStateFileName()
-            );
+            return await _fileLoader.GetFile<ZoneMapDetails>(GetStateFileName());
         }
 
         private string GetStateFileName()
         {
-            return Path.Combine(
-                _serverInfo.CoreMapPath,
-                "Map.state.json"
-            );
+            return Path.Combine(_serverInfo.CoreMapPath, "Map.state.json");
         }
     }
 }

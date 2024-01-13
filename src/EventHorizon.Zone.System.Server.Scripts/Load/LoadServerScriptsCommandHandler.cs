@@ -6,16 +6,13 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
     using EventHorizon.Zone.System.Server.Scripts.Model.Details;
     using EventHorizon.Zone.System.Server.Scripts.Set;
     using EventHorizon.Zone.System.Server.Scripts.State;
-
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
 
-    public class LoadServerScriptsCommandHandler
-        : IRequestHandler<LoadServerScriptsCommand>
+    public class LoadServerScriptsCommandHandler : IRequestHandler<LoadServerScriptsCommand>
     {
         private readonly IMediator _mediator;
         private readonly ServerInfo _serverInfo;
@@ -32,7 +29,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
             _detailsRepository = detailsRepository;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             LoadServerScriptsCommand request,
             CancellationToken cancellationToken
         )
@@ -43,10 +40,7 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
                 new ProcessFilesRecursivelyFromDirectory(
                     _serverInfo.ServerScriptsPath,
                     OnProcessFile,
-                    new Dictionary<string, object>
-                    {
-                        ["RootPath"] = _serverInfo.ServerScriptsPath,
-                    }
+                    new Dictionary<string, object> { ["RootPath"] = _serverInfo.ServerScriptsPath, }
                 ),
                 cancellationToken
             );
@@ -55,15 +49,10 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
                 new ProcessFilesRecursivelyFromDirectory(
                     _serverInfo.SystemsPath,
                     OnProcessFile,
-                    new Dictionary<string, object>
-                    {
-                        ["RootPath"] = _serverInfo.SystemsPath,
-                    }
+                    new Dictionary<string, object> { ["RootPath"] = _serverInfo.SystemsPath, }
                 ),
                 cancellationToken
             );
-
-            return Unit.Value;
         }
 
         private async Task OnProcessFile(
@@ -83,14 +72,8 @@ namespace EventHorizon.Zone.System.Server.Scripts.Load
                 new SetServerScriptDetailsCommand(
                     new ServerScriptDetails(
                         fileInfo.Name.Replace(".csx", string.Empty),
-                        rootPath.MakePathRelative(
-                            fileInfo.DirectoryName
-                        ),
-                        await _mediator.Send(
-                            new ReadAllTextFromFile(
-                                fileInfo.FullName
-                            )
-                        )
+                        rootPath.MakePathRelative(fileInfo.DirectoryName),
+                        await _mediator.Send(new ReadAllTextFromFile(fileInfo.FullName))
                     )
                 )
             );

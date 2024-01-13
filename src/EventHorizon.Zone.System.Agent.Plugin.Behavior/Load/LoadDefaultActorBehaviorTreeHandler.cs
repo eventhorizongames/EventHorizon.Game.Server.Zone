@@ -4,15 +4,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
     using EventHorizon.Zone.Core.Model.Json;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Api;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
-
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
 
-    public class LoadDefaultActorBehaviorTreeHandler
-        : IRequestHandler<LoadDefaultActorBehaviorTree>
+    public class LoadDefaultActorBehaviorTreeHandler : IRequestHandler<LoadDefaultActorBehaviorTree>
     {
         private readonly ServerInfo _serverInfo;
         private readonly IJsonFileLoader _fileLoader;
@@ -29,7 +26,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
             _actorBehaviorTreeRepository = actorBehaviorTreeRepository;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             LoadDefaultActorBehaviorTree request,
             CancellationToken cancellationToken
         )
@@ -51,8 +48,6 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Load
                     )
                 )
             );
-
-            return Unit.Value;
         }
     }
 }

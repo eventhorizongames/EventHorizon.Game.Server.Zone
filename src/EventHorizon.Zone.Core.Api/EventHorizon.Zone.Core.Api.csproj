@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<RootNamespace>EventHorizon.Zone.Core</RootNamespace>
 	</PropertyGroup>
 	
 	<ItemGroup>
-		<PackageReference Include="EventHorizon.Observer" Version="0.1.132" />
-		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="EventHorizon.Observer" Version="0.2.45" />
 	</ItemGroup>
 
 </Project>

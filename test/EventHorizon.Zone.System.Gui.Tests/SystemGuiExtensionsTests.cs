@@ -6,13 +6,9 @@ using EventHorizon.Test.Common.Utils;
 using EventHorizon.Zone.System.Gui.Api;
 using EventHorizon.Zone.System.Gui.Load;
 using EventHorizon.Zone.System.Gui.State;
-
 using global::System.Threading;
-
 using MediatR;
-
 using Moq;
-
 using Xunit;
 
 public class SystemGuiExtensionsTests
@@ -24,9 +20,7 @@ public class SystemGuiExtensionsTests
         var serviceCollectionMock = new ServiceCollectionMock();
 
         // When
-        var actual = SystemGuiExtensions.AddSystemGui(
-            serviceCollectionMock
-        );
+        var actual = SystemGuiExtensions.AddSystemGui(serviceCollectionMock);
 
         // Then
         Assert.Collection(
@@ -48,11 +42,9 @@ public class SystemGuiExtensionsTests
 
         var mediatorMock = new Mock<IMediator>();
 
-        applicationBuilderMocks.ServiceProviderMock.Setup(
-            mock => mock.GetService(typeof(IMediator))
-        ).Returns(
-            mediatorMock.Object
-        );
+        applicationBuilderMocks
+            .ServiceProviderMock.Setup(mock => mock.GetService(typeof(IMediator)))
+            .Returns(mediatorMock.Object);
 
         // When
         var actual = SystemGuiExtensions.UseSystemGui(
@@ -60,11 +52,6 @@ public class SystemGuiExtensionsTests
         );
 
         // Then
-        mediatorMock.Verify(
-            mock => mock.Send(
-                expected,
-                CancellationToken.None
-            )
-        );
+        mediatorMock.Verify(mock => mock.Send<IRequest>(expected, It.IsAny<CancellationToken>()));
     }
 }

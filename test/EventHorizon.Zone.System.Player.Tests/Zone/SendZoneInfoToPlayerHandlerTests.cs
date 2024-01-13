@@ -35,7 +35,7 @@ namespace EventHorizon.Zone.System.Player.Tests.Zone
             var mediatorMock = new Mock<IMediator>();
             var playerHubContextMock = new Mock<IHubContext<PlayerHub>>();
             var clientsContextMock = new Mock<IHubClients>();
-            var clientProxyMock = new Mock<IClientProxy>();
+            var clientProxyMock = new Mock<ISingleClientProxy>();
 
             mediatorMock.Setup(
                 mock => mock.Send(

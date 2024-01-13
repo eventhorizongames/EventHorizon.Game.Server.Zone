@@ -37,7 +37,7 @@ public class ApplicationBuilderExtensionsTests
         );
 
         // When
-        Action action = () => ApplicationBuilderExtensions.CreateServiceScope(
+        Action action = () => CustomApplicationBuilderExtensions.CreateServiceScope(
             applicationBuilderMock.Object
         );
 
@@ -85,7 +85,7 @@ public class ApplicationBuilderExtensionsTests
         );
 
         // When
-        Action action = () => ApplicationBuilderExtensions.SendMediatorCommand(
+        Action action = () => CustomApplicationBuilderExtensions.SendMediatorCommand(
             applicationBuilderMock.Object,
             commandMock.Object
         );
@@ -128,7 +128,7 @@ public class ApplicationBuilderExtensionsTests
         );
 
         // When
-        Action action = () => ApplicationBuilderExtensions.SendMediatorCommand(
+        Action action = () => CustomApplicationBuilderExtensions.SendMediatorCommand(
             applicationBuilderMock.Object,
             null
         );
@@ -177,7 +177,7 @@ public class ApplicationBuilderExtensionsTests
         );
 
         // When
-        Action action = () => ApplicationBuilderExtensions.SendMediatorCommand<IRequest<string>, string>(
+        Action action = () => CustomApplicationBuilderExtensions.SendMediatorCommand<IRequest<string>, string>(
             applicationBuilderMock.Object,
             null
         );
@@ -226,7 +226,7 @@ public class ApplicationBuilderExtensionsTests
         );
 
         // When
-        Action action = () => ApplicationBuilderExtensions.SendMediatorCommand<IRequest<string>, string>(
+        Action action = () => CustomApplicationBuilderExtensions.SendMediatorCommand<IRequest<string>, string>(
             applicationBuilderMock.Object,
             null
         );

@@ -2,13 +2,10 @@ namespace EventHorizon.Zone.Core.Tests.FileService
 {
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.FileService;
     using EventHorizon.Zone.Core.Model.FileService;
-
     using Moq;
-
     using Xunit;
 
     public class WriteAllTextToFileHandlerTests
@@ -23,24 +20,14 @@ namespace EventHorizon.Zone.Core.Tests.FileService
             var fileResolverMock = new Mock<FileResolver>();
 
             // When
-            var handler = new WriteAllTextToFileHandler(
-                fileResolverMock.Object
-            );
-            var actual = await handler.Handle(
-                new WriteAllTextToFile(
-                    expectedFileFullName,
-                    expectedText
-                ),
+            var handler = new WriteAllTextToFileHandler(fileResolverMock.Object);
+            await handler.Handle(
+                new WriteAllTextToFile(expectedFileFullName, expectedText),
                 CancellationToken.None
             );
 
             // Then
-            fileResolverMock.Verify(
-                mock => mock.WriteAllText(
-                    expectedFileFullName,
-                    expectedText
-                )
-            );
+            fileResolverMock.Verify(mock => mock.WriteAllText(expectedFileFullName, expectedText));
         }
     }
 }

@@ -5,15 +5,10 @@
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.Load;
     using EventHorizon.Zone.System.Combat.Plugin.Skill.State;
-
     using FluentAssertions;
-
     using global::System.Threading;
-
     using MediatR;
-
     using Moq;
-
     using Xunit;
 
     public class SystemCompbatPluginSkillExtensionsTests
@@ -25,9 +20,7 @@
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            SystemCombatPluginSkillExtensions.AddSystemCombatPluginSkill(
-                serviceCollectionMock
-            );
+            SystemCombatPluginSkillExtensions.AddSystemCombatPluginSkill(serviceCollectionMock);
 
             // Then
             Assert.Collection(
@@ -49,11 +42,9 @@
 
             var mediatorMock = new Mock<IMediator>();
 
-            applicationBuilderMocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(typeof(IMediator))
-            ).Returns(
-                mediatorMock.Object
-            );
+            applicationBuilderMocks
+                .ServiceProviderMock.Setup(mock => mock.GetService(typeof(IMediator)))
+                .Returns(mediatorMock.Object);
 
             // When
             var actual = SystemCombatPluginSkillExtensions.UseSystemCombatPluginSkill(
@@ -73,11 +64,9 @@
 
             var mediatorMock = new Mock<IMediator>();
 
-            applicationBuilderMocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(typeof(IMediator))
-            ).Returns(
-                mediatorMock.Object
-            );
+            applicationBuilderMocks
+                .ServiceProviderMock.Setup(mock => mock.GetService(typeof(IMediator)))
+                .Returns(mediatorMock.Object);
 
             // When
             var actual = SystemCombatPluginSkillExtensions.UseSystemCombatPluginSkill(
@@ -85,12 +74,7 @@
             );
 
             // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
+            mediatorMock.Verify(mock => mock.Send<IRequest>(expected, CancellationToken.None));
         }
     }
 }

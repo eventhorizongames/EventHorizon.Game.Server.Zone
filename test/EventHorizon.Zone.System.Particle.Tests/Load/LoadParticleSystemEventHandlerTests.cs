@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Zone.System.Particle.Tests.Load;
 
+using global::System;
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.FileService;
 using EventHorizon.Zone.Core.Model.Info;
@@ -7,17 +8,12 @@ using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Particle.Events.Add;
 using EventHorizon.Zone.System.Particle.Load;
 using EventHorizon.Zone.System.Particle.Model.Template;
-
-using global::System;
 using global::System.Collections.Generic;
 using global::System.IO;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
-
 using Moq;
-
 using Xunit;
 
 public class LoadParticleSystemEventHandlerTests
@@ -26,29 +22,14 @@ public class LoadParticleSystemEventHandlerTests
     public async Task TestShouldRegisterScriptsFromServerScriptsPath()
     {
         // Given
-        Func<
-            StandardFileInfo,
-            IDictionary<string, object>,
-            Task
-        > onProcessFile = null;
+        Func<StandardFileInfo, IDictionary<string, object>, Task> onProcessFile = null;
         IDictionary<string, object> arguments = null;
-        var clientPath = Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            "client-path"
-        );
-        var clientParticlePath = Path.Combine(
-            clientPath,
-            "Particle"
-        );
+        var clientPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "client-path");
+        var clientParticlePath = Path.Combine(clientPath, "Particle");
         var fileExtension = ".json";
         var particleFileName = "Particle.json";
-        var particleFileFullName = Path.Combine(
-            clientParticlePath,
-            particleFileName
-        );
-        var particleDirectoryFullName = Path.Combine(
-            clientParticlePath
-        );
+        var particleFileFullName = Path.Combine(clientParticlePath, particleFileName);
+        var particleDirectoryFullName = Path.Combine(clientParticlePath);
         var particleFileInfo = new StandardFileInfo(
             particleFileName,
             particleDirectoryFullName,
@@ -58,10 +39,7 @@ public class LoadParticleSystemEventHandlerTests
         var particleFileContent = "particle-file-content";
 
         var particleName = "particle-name";
-        var particleTemplate = new ParticleTemplate
-        {
-            Name = particleName,
-        };
+        var particleTemplate = new ParticleTemplate { Name = particleName, };
 
         var expectedParticleId = "Particle_Particle";
         var expectedParticle = new ParticleTemplate
@@ -74,17 +52,10 @@ public class LoadParticleSystemEventHandlerTests
         var fileLoaderMock = new Mock<IJsonFileLoader>();
         var serverInfoMock = new Mock<ServerInfo>();
 
-        serverInfoMock
-            .Setup(mock => mock.ClientPath)
-            .Returns(clientPath);
+        serverInfoMock.Setup(mock => mock.ClientPath).Returns(clientPath);
 
         fileLoaderMock
-            .Setup(
-                mock =>
-                    mock.GetFile<ParticleTemplate>(
-                        particleFileFullName
-                    )
-            )
+            .Setup(mock => mock.GetFile<ParticleTemplate>(particleFileFullName))
             .ReturnsAsync(particleTemplate);
 
         mediatorMock
@@ -95,29 +66,18 @@ public class LoadParticleSystemEventHandlerTests
                         CancellationToken.None
                     )
             )
-            .Callback<IRequest<Unit>, CancellationToken>(
+            .Callback<IRequest, CancellationToken>(
                 (evt, token) =>
                 {
-                    onProcessFile =
-                        (
-                            (ProcessFilesRecursivelyFromDirectory)evt
-                        ).OnProcessFile;
-                    arguments =
-                        (
-                            (ProcessFilesRecursivelyFromDirectory)evt
-                        ).Arguments;
+                    onProcessFile = ((ProcessFilesRecursivelyFromDirectory)evt).OnProcessFile;
+                    arguments = ((ProcessFilesRecursivelyFromDirectory)evt).Arguments;
                 }
             );
 
         mediatorMock
             .Setup(
                 mock =>
-                    mock.Send(
-                        new ReadAllTextFromFile(
-                            particleFileFullName
-                        ),
-                        CancellationToken.None
-                    )
+                    mock.Send(new ReadAllTextFromFile(particleFileFullName), CancellationToken.None)
             )
             .ReturnsAsync(particleFileContent);
 
@@ -128,10 +88,7 @@ public class LoadParticleSystemEventHandlerTests
             serverInfoMock.Object
         );
 
-        await handler.Handle(
-            new LoadParticleSystemEvent(),
-            CancellationToken.None
-        );
+        await handler.Handle(new LoadParticleSystemEvent(), CancellationToken.None);
         Assert.NotNull(onProcessFile);
 
         await onProcessFile(particleFileInfo, arguments);
@@ -140,10 +97,7 @@ public class LoadParticleSystemEventHandlerTests
         mediatorMock.Verify(
             mock =>
                 mock.Publish(
-                    new AddParticleTemplateEvent(
-                        expectedParticleId,
-                        expectedParticle
-                    ),
+                    new AddParticleTemplateEvent(expectedParticleId, expectedParticle),
                     CancellationToken.None
                 )
         );

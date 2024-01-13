@@ -3,13 +3,10 @@ namespace EventHorizon.Zone.System.Watcher.Start
     using EventHorizon.Zone.System.Watcher.Events.Start;
     using EventHorizon.Zone.System.Watcher.Model;
     using EventHorizon.Zone.System.Watcher.State;
-
     using global::System.IO;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class StartWatchingFileSystemCommandHandler
@@ -30,43 +27,28 @@ namespace EventHorizon.Zone.System.Watcher.Start
             _watcherState = watcherState;
         }
 
-        public Task<Unit> Handle(
+        public Task Handle(
             StartWatchingFileSystemCommand request,
             CancellationToken cancellationToken
         )
         {
             var path = request.Path;
 
-            _watcherState.Get(
-                path
-            )?.Dispose();
-            _watcherState.Remove(
-                path
-            );
+            _watcherState.Get(path)?.Dispose();
+            _watcherState.Remove(path);
 
-            _watcherState.Add(
-                path,
-                new StandardPathWatcher(
-                    path,
-                    CreateWatcherFor(
-                        path
-                    )
-                )
-            );
+            _watcherState.Add(path, new StandardPathWatcher(path, CreateWatcherFor(path)));
 
-            return Unit.Task;
+            return Task.CompletedTask;
         }
 
-        public FileSystemWatcher CreateWatcherFor(
-            string path
-        )
+        public FileSystemWatcher CreateWatcherFor(string path)
         {
             var watcher = new FileSystemWatcher
             {
                 IncludeSubdirectories = true,
-                NotifyFilter = NotifyFilters.LastWrite
-                                 | NotifyFilters.FileName
-                                 | NotifyFilters.DirectoryName,
+                NotifyFilter =
+                    NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName,
                 Path = path
             };
             watcher.Changed += OnChanged;
@@ -79,10 +61,7 @@ namespace EventHorizon.Zone.System.Watcher.Start
             return watcher;
         }
 
-        private void OnChanged(
-            object source,
-            FileSystemEventArgs args
-        )
+        private void OnChanged(object source, FileSystemEventArgs args)
         {
             _logger.LogDebug(
                 "{ChangeType} triggered by {FullPath}",

@@ -6,14 +6,11 @@ namespace EventHorizon.Zone.System.Agent.Move.Queue
     using EventHorizon.Zone.System.Agent.Model;
     using EventHorizon.Zone.System.Agent.Model.Path;
     using EventHorizon.Zone.System.Agent.Model.State;
-
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
 
-    public class QueueAgentToMoveHandler
-        : IRequestHandler<QueueAgentToMove>
+    public class QueueAgentToMoveHandler : IRequestHandler<QueueAgentToMove>
     {
         private readonly IMediator _mediator;
         private readonly IAgentRepository _agentRepository;
@@ -30,36 +27,17 @@ namespace EventHorizon.Zone.System.Agent.Move.Queue
             _moveRepository = moveRepository;
         }
 
-        public async Task<Unit> Handle(
-            QueueAgentToMove request,
-            CancellationToken cancellationToken
-        )
+        public async Task Handle(QueueAgentToMove request, CancellationToken cancellationToken)
         {
-            var agent = await _agentRepository.FindById(
-                request.EntityId
-            );
-            var pathState = agent.GetProperty<PathState>(
-                PathState.PROPERTY_NAME
-            );
+            var agent = await _agentRepository.FindById(request.EntityId);
+            var pathState = agent.GetProperty<PathState>(PathState.PROPERTY_NAME);
             pathState = pathState.SetPath(request.Path);
             pathState.MoveTo = request.MoveTo;
-            agent.SetProperty(
-                PathState.PROPERTY_NAME,
-                pathState
-            );
+            agent.SetProperty(PathState.PROPERTY_NAME, pathState);
 
-            await _mediator.Send(
-                new UpdateEntityCommand(
-                    AgentAction.PATH,
-                    agent
-                )
-            );
+            await _mediator.Send(new UpdateEntityCommand(AgentAction.PATH, agent));
 
-            _moveRepository.Register(
-                agent.Id
-            );
-
-            return Unit.Value;
+            _moveRepository.Register(agent.Id);
         }
     }
 }

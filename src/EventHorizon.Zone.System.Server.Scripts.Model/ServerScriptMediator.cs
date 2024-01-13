@@ -2,7 +2,6 @@
 {
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
 
     public interface ServerScriptMediator
@@ -12,9 +11,13 @@
             CancellationToken cancellationToken = default
         );
 
+        Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = default)
+            where TRequest : IRequest;
+
         Task Publish<TNotification>(
             TNotification notification,
             CancellationToken cancellationToken = default
-        ) where TNotification : INotification;
+        )
+            where TNotification : INotification;
     }
 }

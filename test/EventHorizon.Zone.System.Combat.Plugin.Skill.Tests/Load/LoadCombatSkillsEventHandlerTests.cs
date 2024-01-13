@@ -72,7 +72,7 @@
                     It.IsAny<ProcessFilesRecursivelyFromDirectory>(),
                     CancellationToken.None
                 )
-            ).Callback<IRequest<Unit>, CancellationToken>(
+            ).Callback<IRequest, CancellationToken>(
                 (rawRequest, _) =>
                 {
                     var request = (ProcessFilesRecursivelyFromDirectory)rawRequest;

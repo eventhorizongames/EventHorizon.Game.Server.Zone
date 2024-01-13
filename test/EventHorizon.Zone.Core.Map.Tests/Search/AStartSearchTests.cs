@@ -4,14 +4,11 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
     using System.Diagnostics;
     using System.Linq;
     using System.Numerics;
-
     using EventHorizon.Test.Common.Attributes;
     using EventHorizon.Zone.Core.Map.Model;
     using EventHorizon.Zone.Core.Map.Search;
     using EventHorizon.Zone.Core.Model.Map;
-
     using FluentAssertions;
-
     using Xunit;
 
     public class AStarSearchTests
@@ -31,7 +28,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
                 new Vector3(2, 0, 2),
             };
             var mapGraph = CreateWorldMapGraph(3);
-            // Add walls 
+            // Add walls
             AddWallsToMapGraph(mapGraph, 0, 2);
             AddWallsToMapGraph(mapGraph, 0, 0);
             // Start Node
@@ -39,15 +36,10 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             var toNode = mapGraph.GetClosestNode(new Vector3(4, 0, 4));
 
             // When
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
+            var path = AStarSearch.CreatePath(mapGraph, startNode, toNode);
 
             // Then
-            path.Should()
-                .BeEquivalentTo(expectedPath);
+            path.Should().BeEquivalentTo(expectedPath);
         }
 
         [Fact]
@@ -65,7 +57,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
                 new Vector3(2, 0, 2),
             };
             var mapGraph = CreateWorldMapGraph(3);
-            // Add walls 
+            // Add walls
             AddWallsToMapGraph(mapGraph, 0, 2);
             AddWallsToMapGraph(mapGraph, 0, 0);
             // Start Node
@@ -74,23 +66,16 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
 
             // When
             var algorithm = new AStarSearch();
-            var actual = algorithm.Search(
-                mapGraph,
-                startNode,
-                toNode
-            );
+            var actual = algorithm.Search(mapGraph, startNode, toNode);
 
             // Then
-            actual.Should()
-                .BeEquivalentTo(expectedPath);
+            actual.Should().BeEquivalentTo(expectedPath);
         }
 
         [Theory(DisplayName = "A* Small Graph Path Search Testing ")]
         [Repeat(10)]
         [Trait("Category", "Performance")]
-        public void ShouldReturnExpectedPathWhenWorldContainsWalls_SmallGraph(
-            int iterationNumber
-        )
+        public void ShouldReturnExpectedPathWhenWorldContainsWalls_SmallGraph(int iterationNumber)
         {
             // Given
             var expectedPath = new List<Vector3>
@@ -104,7 +89,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
                 new Vector3(2, 0, 2),
             };
             var mapGraph = CreateWorldMapGraph(3);
-            // Add walls 
+            // Add walls
             AddWallsToMapGraph(mapGraph, 0, 2);
             AddWallsToMapGraph(mapGraph, 0, 0);
             // Start Node
@@ -112,11 +97,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             var toNode = mapGraph.GetClosestNode(new Vector3(4, 0, 4));
 
             // When
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
+            var path = AStarSearch.CreatePath(mapGraph, startNode, toNode);
 
             // Then
             path.Should()
@@ -136,64 +117,60 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             // Given
             var expected = new List<Vector3>
             {
-                new Vector3(-20, 0, -20),
-                new Vector3(-18, 0, -20),
-                new Vector3(-16, 0, -20),
-                new Vector3(-14, 0, -20),
-                new Vector3(-14, 0, -18),
-                new Vector3(-14, 0, -16),
-                new Vector3(-14, 0, -14),
-                new Vector3(-12, 0, -14),
-                new Vector3(-12, 0, -12),
-                new Vector3(-12, 0, -10),
-                new Vector3(-12, 0, -8),
-                new Vector3(-12, 0, -6),
-                new Vector3(-12, 0, -4),
-                new Vector3(-10, 0, -4),
-                new Vector3(-10, 0, -2),
-                new Vector3(-10, 0, 0),
-                new Vector3(-10, 0, 2),
-                new Vector3(-8, 0, 2),
-                new Vector3(-6, 0, 2),
-                new Vector3(-4, 0, 2),
-                new Vector3(-4, 0, 4),
-                new Vector3(-4, 0, 6),
-                new Vector3(-4, 0, 8),
-                new Vector3(-4, 0, 10),
-                new Vector3(-2, 0, 10),
-                new Vector3(0, 0, 10),
-                new Vector3(2, 0, 10),
-                new Vector3(2, 0, 12),
-                new Vector3(4, 0, 12),
-                new Vector3(6, 0, 12),
-                new Vector3(8, 0, 12),
-                new Vector3(10, 0, 12),
-                new Vector3(12, 0, 12),
-                new Vector3(12, 0, 14),
-                new Vector3(12, 0, 16),
-                new Vector3(14, 0, 16),
-                new Vector3(14, 0, 18),
-                new Vector3(16, 0, 18),
-                new Vector3(18, 0, 18),
-                new Vector3(20, 0, 18),
-                new Vector3(20, 0, 20),
+                new(-20, 0, -20), // 0
+                new(-18, 0, -20),
+                new(-18, 0, -18), // new Vector3(-16, 0, -20),
+                new(-18, 0, -16), // new Vector3(-14, 0, -20),
+                new(-16, 0, -16), // new Vector3(-14, 0, -18),
+                new(-14, 0, -16), // 5
+                new(-14, 0, -14),
+                new(-14, 0, -12), // new(-12, 0, -14),
+                new(-12, 0, -12),
+                new(-10, 0, -12), // new(-12, 0, -10),
+                new(-10, 0, -10), // 10 new(-12, 0, -8),
+                new(-8, 0, -10), // new(-12, 0, -6),
+                new(-6, 0, -10), // new(-12, 0, -4),
+                new(-6, 0, -8), // new(-10, 0, -4),
+                new(-6, 0, -6), // new(-10, 0, -2),
+                new(-4, 0, -6), // 15 new(-10, 0, 0),
+                new(-4, 0, -4), // new(-10, 0, 2),
+                new(-4, 0, -2), // new(-8, 0, 2),
+                new(-4, 0, 0), //new(-6, 0, 2),
+                new(-4, 0, 4), //new(-4, 0, 2),
+                new(-4, 0, 2), // 20
+                new(-2, 0, 4),
+                new(0, 0, 4),
+                new(0, 0, 6),
+                new(0, 0, 8),
+                new(2, 0, 8), // 25
+                new(4, 0, 8),
+                new(4, 0, 10),
+                new(6, 0, 10),
+                new(8, 0, 10),
+                new(8, 0, 12), // 30
+                new(8, 0, 14),
+                new(10, 0, 14),
+                new(12, 0, 14),
+                new(12, 0, 16),
+                new(14, 0, 16), // 35
+                new(16, 0, 16),
+                new(16, 0, 18),
+                new(18, 0, 18),
+                new(20, 0, 18),
+                new(20, 0, 20), // 40
             };
             var mapGraph = CreateWorldMapGraph(25);
-            // Add walls 
+            // Add walls
             for (int i = 0; i < 10; i++)
             {
-                AddWallsToMapGraph(mapGraph, -2, i);
+                AddWallsToMapGraph(mapGraph, -2, -i * 2);
             }
             // Start Node
             var startNode = mapGraph.GetClosestNode(new Vector3(-20, 0, -20));
             var toNode = mapGraph.GetClosestNode(new Vector3(20, 0, 20));
 
             // When
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
+            var path = AStarSearch.CreatePath(mapGraph, startNode, toNode);
 
             // Then
             path.Should()
@@ -214,7 +191,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             var expectedPathCount = 100;
             var expectedMaxElapsedTime = 100;
             var mapGraph = CreateWorldMapGraph(100);
-            // Add walls 
+            // Add walls
             for (int i = 0; i < 50; i++)
             {
                 AddWallsToMapGraph(mapGraph, -2, i);
@@ -226,24 +203,18 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             // When
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var path = AStarSearch.CreatePath(
-                mapGraph,
-                startNode,
-                toNode
-            );
+            var path = AStarSearch.CreatePath(mapGraph, startNode, toNode);
             stopwatch.Stop();
 
             // Then
-            path.Count
-                .Should().BeGreaterThan(
+            path.Count.Should()
+                .BeGreaterThan(
                     expectedPathCount,
                     $"Path have a count greater than {expectedPathCount} path, at iteration of {iterationNumber}"
                 );
-            stopwatch.ElapsedMilliseconds
-                .Should().BeLessThan(
-                    expectedMaxElapsedTime,
-                    $"Path should be under ElapsedMilliseconds"
-                );
+            stopwatch
+                .ElapsedMilliseconds.Should()
+                .BeLessThan(expectedMaxElapsedTime, $"Path should be under ElapsedMilliseconds");
         }
 
         [Fact]
@@ -256,11 +227,7 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             var toMapNode = new MapNode(100);
 
             // When
-            var actual = AStarSearch.CreatePath(
-                mapGraph,
-                fromMapNode,
-                toMapNode
-            );
+            var actual = AStarSearch.CreatePath(mapGraph, fromMapNode, toMapNode);
 
             // Then
             actual.Should().BeEmpty();
@@ -306,7 +273,8 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
             var mapGraph = new MapGraph(
                 new Vector3(-(dim * tileDim / 2), 0, -(dim * tileDim / 2)),
                 new Vector3(dim * tileDim, dim * tileDim, dim * tileDim),
-                true);
+                true
+            );
             var width = zoneWidth * tileDimension;
             var height = zoneHeight * tileDimension;
 
@@ -342,41 +310,37 @@ namespace EventHorizon.Zone.Core.Map.Tests.Search
                     var topIndex = GetTopIndex(i, j, zoneHeight);
                     if (topIndex > -1)
                     {
-                        mapGraph.AddEdge(new MapEdge
-                        {
-                            FromIndex = navNodeIndex,
-                            ToIndex = indexMap[topIndex]
-                        });
+                        mapGraph.AddEdge(
+                            new MapEdge { FromIndex = navNodeIndex, ToIndex = indexMap[topIndex] }
+                        );
                     }
                     // Right
                     var rightIndex = GetRightIndex(i, j, zoneWidth);
                     if (rightIndex > -1)
                     {
-                        mapGraph.AddEdge(new MapEdge
-                        {
-                            FromIndex = navNodeIndex,
-                            ToIndex = indexMap[rightIndex]
-                        });
+                        mapGraph.AddEdge(
+                            new MapEdge { FromIndex = navNodeIndex, ToIndex = indexMap[rightIndex] }
+                        );
                     }
                     // Bottom
                     var bottomIndex = GetBottomIndex(i, j, zoneHeight);
                     if (bottomIndex > -1)
                     {
-                        mapGraph.AddEdge(new MapEdge
-                        {
-                            FromIndex = navNodeIndex,
-                            ToIndex = indexMap[bottomIndex]
-                        });
+                        mapGraph.AddEdge(
+                            new MapEdge
+                            {
+                                FromIndex = navNodeIndex,
+                                ToIndex = indexMap[bottomIndex]
+                            }
+                        );
                     }
                     // Left
                     var leftIndex = GetLeftIndex(i, j, zoneWidth);
                     if (leftIndex > -1)
                     {
-                        mapGraph.AddEdge(new MapEdge
-                        {
-                            FromIndex = navNodeIndex,
-                            ToIndex = indexMap[leftIndex]
-                        });
+                        mapGraph.AddEdge(
+                            new MapEdge { FromIndex = navNodeIndex, ToIndex = indexMap[leftIndex] }
+                        );
                     }
 
                     ++currentNodeIndex;

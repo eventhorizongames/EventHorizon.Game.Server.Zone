@@ -4,19 +4,21 @@ namespace EventHorizon.Zone.Core.Map.Model
     using System.Collections.Generic;
     using System.Linq;
     using System.Numerics;
-
     using EventHorizon.Zone.Core.Model.Map;
     using EventHorizon.Zone.Core.Model.Math;
 
-    public class MapGraph
-        : IMapGraph
+    public class MapGraph : IMapGraph
     {
-        private readonly IEnumerable<MapEdge> _emptyImmutableList = new List<MapEdge>().AsReadOnly();
+        private readonly IEnumerable<MapEdge> _emptyImmutableList =
+            new List<MapEdge>().AsReadOnly();
 
         private int _nextNodeIndex;
         private readonly ConcurrentDictionary<MapNode, MapNode> _nodes;
         private readonly ConcurrentDictionary<MapEdge, MapEdge> _edges;
-        private readonly ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>> _nodeFromEdges;
+        private readonly ConcurrentDictionary<
+            int,
+            ConcurrentDictionary<MapEdge, MapEdge>
+        > _nodeFromEdges;
         private readonly bool _isDirectionGraph;
         private readonly Octree<MapNode> _octree;
 
@@ -40,7 +42,8 @@ namespace EventHorizon.Zone.Core.Map.Model
             _isDirectionGraph = isDirectionGraph;
             _nodes = new ConcurrentDictionary<MapNode, MapNode>();
             _edges = new ConcurrentDictionary<MapEdge, MapEdge>();
-            _nodeFromEdges = new ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>>();
+            _nodeFromEdges =
+                new ConcurrentDictionary<int, ConcurrentDictionary<MapEdge, MapEdge>>();
 
             _nextNodeIndex = -1;
 
@@ -54,29 +57,18 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public MapNode GetNode(int index)
         {
-            _nodes.TryGetValue(
-                new MapNode(index),
-                out var mapNode
-            );
+            _nodes.TryGetValue(new MapNode(index), out var mapNode);
             return mapNode;
         }
 
         public IList<MapNode> GetClosestNodes(Vector3 position, float radius)
         {
-            return _octree
-                .FindNearbyPoints(GetClosestNode(position).Position, radius, null);
+            return _octree.FindNearbyPoints(GetClosestNode(position).Position, radius, null);
         }
 
-        public IList<MapNode> GetClosestNodesInDimension(
-            Vector3 position,
-            Vector3 dimensions
-        )
+        public IList<MapNode> GetClosestNodesInDimension(Vector3 position, Vector3 dimensions)
         {
-            return _octree.FindNearbyPoints(
-                position,
-                dimensions,
-                null
-            );
+            return _octree.FindNearbyPoints(position, dimensions, null);
         }
 
         public MapNode GetClosestNode(Vector3 position)
@@ -86,10 +78,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         public MapEdge GetEdge(int from, int to)
         {
-            _edges.TryGetValue(
-                new MapEdge(from, to),
-                out var edge
-            );
+            _edges.TryGetValue(new MapEdge(from, to), out var edge);
             return edge;
         }
 
@@ -102,11 +91,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 
             _nextNodeIndex++;
             node.Index = _nextNodeIndex;
-            _nodes.AddOrUpdate(
-                node,
-                node,
-                (_, _) => node
-            );
+            _nodes.AddOrUpdate(node, node, (_, _) => node);
             _octree.Add(node);
 
             return node;
@@ -115,19 +100,12 @@ namespace EventHorizon.Zone.Core.Map.Model
         public void AddEdge(MapEdge edge)
         {
             // Validate to and from
-            if (!ContainsNode(edge.FromIndex)
-                || !ContainsNode(edge.ToIndex))
+            if (!ContainsNode(edge.FromIndex) || !ContainsNode(edge.ToIndex))
             {
                 return;
             }
-            _edges.AddOrUpdate(
-                edge,
-                edge,
-                (key, current) => edge
-            );
-            AddFromNodeToEdge(
-                edge
-            );
+            _edges.AddOrUpdate(edge, edge, (key, current) => edge);
+            AddFromNodeToEdge(edge);
 
             if (!_isDirectionGraph)
             {
@@ -136,53 +114,29 @@ namespace EventHorizon.Zone.Core.Map.Model
                     ToIndex = edge.FromIndex,
                     FromIndex = edge.ToIndex
                 };
-                _edges.AddOrUpdate(
-                    reversedEdge,
-                    reversedEdge,
-                    (key, current) => reversedEdge
-                );
-                AddFromNodeToEdge(
-                    reversedEdge
-                );
+                _edges.AddOrUpdate(reversedEdge, reversedEdge, (key, current) => reversedEdge);
+                AddFromNodeToEdge(reversedEdge);
             }
         }
 
-        private void AddFromNodeToEdge(
-            MapEdge edge
-        )
+        private void AddFromNodeToEdge(MapEdge edge)
         {
             _nodeFromEdges
-                .GetOrAdd(
-                    edge.FromIndex,
-                    new ConcurrentDictionary<MapEdge, MapEdge>()
-                ).TryAdd(
-                    edge,
-                    edge
-                );
+                .GetOrAdd(edge.FromIndex, new ConcurrentDictionary<MapEdge, MapEdge>())
+                .TryAdd(edge, edge);
         }
 
         public void RemoveEdge(MapEdge edge)
         {
-            _edges.TryRemove(
-                edge,
-                out _
-            );
+            _edges.TryRemove(edge, out _);
             _nodeFromEdges
-                .GetOrAdd(
-                    edge.FromIndex,
-                    new ConcurrentDictionary<MapEdge, MapEdge>()
-                ).TryRemove(
-                    edge,
-                    out _
-                );
+                .GetOrAdd(edge.FromIndex, new ConcurrentDictionary<MapEdge, MapEdge>())
+                .TryRemove(edge, out _);
         }
 
         public IEnumerable<MapEdge> GetEdgesOfNode(int nodeIndex)
         {
-            if (_nodeFromEdges.TryGetValue(
-                nodeIndex,
-                out var edgeList
-            ))
+            if (_nodeFromEdges.TryGetValue(nodeIndex, out var edgeList))
             {
                 return edgeList.Values;
             }
@@ -192,9 +146,7 @@ namespace EventHorizon.Zone.Core.Map.Model
 
         private bool ContainsNode(int index)
         {
-            return _nodes.ContainsKey(
-                new MapNode(index)
-            );
+            return _nodes.ContainsKey(new MapNode(index));
         }
     }
 }

@@ -26,8 +26,8 @@ mkdir $ReportOutputDirectory -ErrorAction SilentlyContinue
 
 ### Fix issue with generated SF key in coverage.lcov files.
 ### They are currently mixing drive cases, C: and c:, so the files are duplicated incorrectly.
-$MainDrive = "C".ToUpper()
-$MainDriveLower = "C".ToLower()
+$MainDrive = "E".ToUpper()
+$MainDriveLower = "E".ToLower()
 $CoverageFiles = Get-ChildItem -Filter "*coverage.lcov*" -Recurse 
 foreach ($CoverageFile in $CoverageFiles) {
     $CoverageFilePath = $CoverageFile.FullName
@@ -36,6 +36,6 @@ foreach ($CoverageFile in $CoverageFiles) {
 }
 
 ### RUn the Merging of LCOV files
-npx lcov-result-merger $ReportFilePattern $ReportOutputFile
+npx lcov-result-merger@4.1.0 $ReportFilePattern $ReportOutputFile
 
 Write-Host "Finished Test Run"

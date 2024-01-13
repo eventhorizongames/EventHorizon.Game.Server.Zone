@@ -3,41 +3,33 @@
 using EventHorizon.Zone.Core.Events.Map.Cost;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.ClientEntities.Model;
-
 using global::System.Numerics;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
 
-public class SetClientEntityNodeDensityHandler
-    : IRequestHandler<SetClientEntityNodeDensity>
+public class SetClientEntityNodeDensityHandler : IRequestHandler<SetClientEntityNodeDensity>
 {
     private readonly IMediator _mediator;
 
-    public SetClientEntityNodeDensityHandler(
-        IMediator mediator
-    )
+    public SetClientEntityNodeDensityHandler(IMediator mediator)
     {
         _mediator = mediator;
     }
 
-    public async Task<Unit> Handle(
+    public async Task Handle(
         SetClientEntityNodeDensity request,
         CancellationToken cancellationToken
     )
     {
         var entity = request.ClientEntity;
         // At position if they are dense, increase cost to get to node
-        if (entity.ContainsProperty(
-            nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
-        ) && entity.GetProperty<bool>(
-            nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense)
-        ))
+        if (
+            entity.ContainsProperty(nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense))
+            && entity.GetProperty<bool>(nameof(ClientEntityMetadataTypes.TYPE_DETAILS.dense))
+        )
         {
-            if (entity.ContainsProperty(
-                nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox)
-            ))
+            if (entity.ContainsProperty(nameof(ClientEntityMetadataTypes.TYPE_DETAILS.densityBox)))
             {
                 await _mediator.Send(
                     new ChangeEdgeCostForNodesAtPositionCommand(
@@ -49,19 +41,15 @@ public class SetClientEntityNodeDensityHandler
                     ),
                     cancellationToken
                 );
-                return Unit.Value;
+                return;
             }
             else
             {
                 await _mediator.Send(
-                    new ChangeEdgeCostForNodeAtPosition(
-                        entity.Transform.Position,
-                        500
-                    ),
+                    new ChangeEdgeCostForNodeAtPosition(entity.Transform.Position, 500),
                     cancellationToken
                 );
             }
         }
-        return Unit.Value;
     }
 }

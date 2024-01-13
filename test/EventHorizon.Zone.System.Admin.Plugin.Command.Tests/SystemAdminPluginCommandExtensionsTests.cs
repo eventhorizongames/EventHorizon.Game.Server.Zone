@@ -5,13 +5,9 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
     using EventHorizon.Test.Common.Utils;
     using EventHorizon.Zone.System.Admin.Plugin.Command.Load;
     using EventHorizon.Zone.System.Admin.Plugin.Command.State;
-
     using global::System.Threading;
-
     using MediatR;
-
     using Moq;
-
     using Xunit;
 
     public class SystemAdminPluginCommandExtensionsTests
@@ -23,9 +19,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
             var serviceCollectionMock = new ServiceCollectionMock();
 
             // When
-            SystemAdminPluginCommandExtensions.AddSystemAdminPluginCommand(
-                serviceCollectionMock
-            );
+            SystemAdminPluginCommandExtensions.AddSystemAdminPluginCommand(serviceCollectionMock);
 
             // Then
             Assert.Collection(
@@ -33,7 +27,10 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
                 service =>
                 {
                     Assert.Equal(typeof(AdminCommandRepository), service.ServiceType);
-                    Assert.Equal(typeof(AdminCommandInMemoryRepository), service.ImplementationType);
+                    Assert.Equal(
+                        typeof(AdminCommandInMemoryRepository),
+                        service.ImplementationType
+                    );
                 }
             );
         }
@@ -47,13 +44,9 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
 
             var mediatorMock = new Mock<IMediator>();
 
-            mocks.ServiceProviderMock.Setup(
-                mock => mock.GetService(
-                    typeof(IMediator)
-                )
-            ).Returns(
-                mediatorMock.Object
-            );
+            mocks
+                .ServiceProviderMock.Setup(mock => mock.GetService(typeof(IMediator)))
+                .Returns(mediatorMock.Object);
 
             // When
             var actual = SystemAdminPluginCommandExtensions.UseSystemAdminPluginCommand(
@@ -61,12 +54,7 @@ namespace EventHorizon.Zone.System.Admin.Plugin.Command.Tests
             );
 
             // Then
-            mediatorMock.Verify(
-                mock => mock.Send(
-                    expected,
-                    CancellationToken.None
-                )
-            );
+            mediatorMock.Verify(mock => mock.Send<IRequest>(expected, CancellationToken.None));
         }
     }
 }

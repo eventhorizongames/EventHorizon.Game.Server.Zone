@@ -5,23 +5,17 @@
     using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Events.DirectoryService;
     using EventHorizon.Zone.Core.Events.FileService;
     using EventHorizon.Zone.Core.Model.Info;
     using EventHorizon.Zone.Core.Reporter.Model;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
-    public class WriteReportToFileHandler
-        : IRequestHandler<WriteReportToFile>
+    public class WriteReportToFileHandler : IRequestHandler<WriteReportToFile>
     {
-        private static readonly JsonSerializerOptions JSON_OPTIONS = new()
-        {
-            WriteIndented = true,
-        };
+        private static readonly JsonSerializerOptions JSON_OPTIONS =
+            new() { WriteIndented = true, };
 
         private readonly ILogger _logger;
         private readonly IMediator _mediator;
@@ -38,59 +32,36 @@
             _serverInfo = serverInfo;
         }
 
-        public async Task<Unit> Handle(
-            WriteReportToFile request,
-            CancellationToken cancellationToken
-        )
+        public async Task Handle(WriteReportToFile request, CancellationToken cancellationToken)
         {
             var report = request.Report;
             var reportingPath = GetReportingPath();
-            var reportFileFullName = Path.Combine(
-                reportingPath,
-                $"Reporting_{report.Id}.log"
-            );
+            var reportFileFullName = Path.Combine(reportingPath, $"Reporting_{report.Id}.log");
             var reportFileText = "";
-            if (!await _mediator.Send(
-                new CreateDirectory(
-                    reportingPath
-                )
-            ))
+            if (!await _mediator.Send(new CreateDirectory(reportingPath)))
             {
                 _logger.LogError(
                     "Failed to create Reporting directory. {ReportingPath} {Report}",
                     reportingPath,
                     report
                 );
-                return Unit.Value;
+                return;
             }
 
             if (!report.ItemList?.Any() ?? true)
             {
-                return Unit.Value;
+                return;
             }
 
             using (var streamWriter = new StringWriter())
             {
-                AppendReportItemList(
-                    report,
-                    streamWriter
-                );
+                AppendReportItemList(report, streamWriter);
                 reportFileText = streamWriter.ToString();
             }
-            await _mediator.Send(
-                new AppendTextToFile(
-                    reportFileFullName,
-                    reportFileText
-                )
-            );
-
-            return Unit.Value;
+            await _mediator.Send(new AppendTextToFile(reportFileFullName, reportFileText));
         }
 
-        private static void AppendReportItemList(
-            Report report,
-            StringWriter writer
-        )
+        private static void AppendReportItemList(Report report, StringWriter writer)
         {
             foreach (var reportItem in report.ItemList)
             {
@@ -101,12 +72,7 @@
 
                 if (reportItem.Data != null)
                 {
-                    writer.WriteLine(
-                        JsonSerializer.Serialize(
-                            reportItem.Data,
-                            JSON_OPTIONS
-                        )
-                    );
+                    writer.WriteLine(JsonSerializer.Serialize(reportItem.Data, JSON_OPTIONS));
                 }
 
                 writer.WriteLine("---");
@@ -117,10 +83,7 @@
 
         private string GetReportingPath()
         {
-            return Path.Combine(
-                _serverInfo.AppDataPath,
-                "Reporting"
-            );
+            return Path.Combine(_serverInfo.AppDataPath, "Reporting");
         }
     }
 }

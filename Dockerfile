@@ -3,7 +3,7 @@
 ## Source setup and Solution Restore
 ## COPY's over all the related files and run a dotnet restore on the solution
 #########################
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS base
 WORKDIR /source
 
 COPY *.sln .
@@ -89,7 +89,7 @@ RUN dotnet publish --no-restore --output /sub-processes/client-scripts/ \
 ## Build the Runtime
 ## This is the main deployment image that can be used to deploy a fully production ready application.
 #########################
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy AS runtime
 ARG BUILD_VERSION=0.0.0
 ENV APPLICATION_VERSION=$BUILD_VERSION
 

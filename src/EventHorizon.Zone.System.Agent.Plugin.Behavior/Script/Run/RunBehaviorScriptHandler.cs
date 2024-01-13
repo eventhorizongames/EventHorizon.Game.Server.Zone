@@ -1,15 +1,12 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
 {
+    using global::System;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Server.Scripts.Events.Run;
-
-    using global::System;
     using global::System.Collections.Generic;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class RunBehaviorScriptHandler
@@ -36,17 +33,12 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
             {
                 if (request.ScriptId == "$DEFAULT$SCRIPT")
                 {
-                    return new BehaviorScriptResponse(
-                        BehaviorNodeStatus.SUCCESS
-                    );
+                    return new BehaviorScriptResponse(BehaviorNodeStatus.SUCCESS);
                 }
                 var result = await _mediator.Send(
                     new RunServerScriptCommand(
                         request.ScriptId,
-                        new Dictionary<string, object>()
-                        {
-                            { "Actor", request.Actor },
-                        }
+                        new Dictionary<string, object>() { { "Actor", request.Actor }, }
                     )
                 );
                 if (result is BehaviorScriptResponse response)
@@ -58,20 +50,16 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Script.Run
                     request.ScriptId,
                     result.Message
                 );
-                return new BehaviorScriptResponse(
-                    BehaviorNodeStatus.FAILED
-                );
+                return new BehaviorScriptResponse(BehaviorNodeStatus.FAILED);
             }
             catch (Exception ex)
             {
                 _logger.LogError(
                     ex,
-                    "Problem Running Behavior Script",
-                    request
+                    "Problem Running Behavior Script. \n | request.ScriptId: {RequestScriptId}",
+                    request.ScriptId
                 );
-                return new BehaviorScriptResponse(
-                    BehaviorNodeStatus.ERROR
-                );
+                return new BehaviorScriptResponse(BehaviorNodeStatus.ERROR);
             }
         }
     }

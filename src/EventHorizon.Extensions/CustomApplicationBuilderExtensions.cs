@@ -2,20 +2,14 @@ namespace Microsoft.AspNetCore.Builder
 {
     using System;
     using System.Threading;
-
     using MediatR;
-
     using Microsoft.Extensions.DependencyInjection;
 
-    public static class ApplicationBuilderExtensions
+    public static class CustomApplicationBuilderExtensions
     {
-        public static IServiceScope CreateServiceScope(
-            this IApplicationBuilder applicationBuilder
-        )
+        public static IServiceScope CreateServiceScope(this IApplicationBuilder applicationBuilder)
         {
-            var factory = applicationBuilder
-                   .ApplicationServices
-                   .GetService<IServiceScopeFactory>();
+            var factory = applicationBuilder.ApplicationServices.GetService<IServiceScopeFactory>();
             if (factory == null)
             {
                 throw new InvalidOperationException(
@@ -36,15 +30,14 @@ namespace Microsoft.AspNetCore.Builder
             ArgumentNullException.ThrowIfNull(command);
             if (mediator == null)
             {
-                throw new InvalidOperationException(
-                    $"{typeof(IMediator)} was not found"
-                );
+                throw new InvalidOperationException($"{typeof(IMediator)} was not found");
             }
 
-            mediator.Send(
-                command,
-                CancellationToken.None
-            ).ConfigureAwait(true).GetAwaiter().GetResult();
+            mediator
+                .Send(command, CancellationToken.None)
+                .ConfigureAwait(true)
+                .GetAwaiter()
+                .GetResult();
 
             return applicationBuilder;
         }
@@ -52,15 +45,14 @@ namespace Microsoft.AspNetCore.Builder
         public static IApplicationBuilder SendMediatorCommand<T, J>(
             this IApplicationBuilder applicationBuilder,
             T command
-        ) where T : IRequest<J>
+        )
+            where T : IRequest<J>
         {
             using var scope = applicationBuilder.CreateServiceScope();
             var mediator = scope.ServiceProvider.GetService<IMediator>();
             if (mediator == null)
             {
-                throw new InvalidOperationException(
-                    $"{typeof(IMediator)} was not found"
-                );
+                throw new InvalidOperationException($"{typeof(IMediator)} was not found");
             }
             else if (command == null)
             {
@@ -70,10 +62,11 @@ namespace Microsoft.AspNetCore.Builder
                 );
             }
 
-            mediator.Send(
-                command,
-                CancellationToken.None
-            ).ConfigureAwait(true).GetAwaiter().GetResult();
+            mediator
+                .Send(command, CancellationToken.None)
+                .ConfigureAwait(true)
+                .GetAwaiter()
+                .GetResult();
 
             return applicationBuilder;
         }

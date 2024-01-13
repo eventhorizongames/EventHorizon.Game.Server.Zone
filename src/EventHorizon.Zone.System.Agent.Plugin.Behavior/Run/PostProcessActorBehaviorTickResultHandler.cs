@@ -1,17 +1,14 @@
 namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
 {
+    using global::System;
     using EventHorizon.Zone.Core.Model.DateTimeService;
     using EventHorizon.Zone.Core.Model.Entity;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.Model;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State;
     using EventHorizon.Zone.System.Agent.Plugin.Behavior.State.Queue;
-
-    using global::System;
     using global::System.Threading;
     using global::System.Threading.Tasks;
-
     using MediatR;
-
     using Microsoft.Extensions.Logging;
 
     public class PostProcessActorBehaviorTickResultHandler
@@ -32,7 +29,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             _queue = queue;
         }
 
-        public Task<Unit> Handle(
+        public Task Handle(
             PostProcessActorBehaviorTickResult request,
             CancellationToken cancellationToken
         )
@@ -50,10 +47,8 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     request.ActorBehaviorTick.ActorId,
                     request
                 );
-                _queue.RegisterFailed(
-                    actorBehaviorTick
-                );
-                return Unit.Task;
+                _queue.RegisterFailed(actorBehaviorTick);
+                return Task.CompletedTask;
             }
             var actorTreeState = actor.GetProperty<BehaviorTreeState>(
                 BehaviorTreeState.PROPERTY_NAME
@@ -62,18 +57,14 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
             {
                 actor = actor.SetProperty(
                     BehaviorTreeState.PROPERTY_NAME,
-                    result.Report(
-                        "SETTING PROPERTY on ACTOR"
-                    )
+                    result.Report("SETTING PROPERTY on ACTOR")
                 );
             }
             else if (behaviorTreeShape.IsValid && actorTreeState.ShapeId == behaviorTreeShape.Id)
             {
                 actor = actor.SetProperty(
                     BehaviorTreeState.PROPERTY_NAME,
-                    result.Report(
-                        "SETTING PROPERTY on ACTOR"
-                    )
+                    result.Report("SETTING PROPERTY on ACTOR")
                 );
             }
             else
@@ -85,9 +76,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     request
                 );
             }
-            var agentBehavior = actor.GetProperty<AgentBehavior>(
-                AgentBehavior.PROPERTY_NAME
-            );
+            var agentBehavior = actor.GetProperty<AgentBehavior>(AgentBehavior.PROPERTY_NAME);
             actor = SetNextTickRequest(
                 actor,
                 agentBehavior,
@@ -95,12 +84,9 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
                     100 // TODO: Get from settings
                 )
             );
-            _queue.Register(
-                result.ShapeId,
-                actor.Id
-            );
+            _queue.Register(result.ShapeId, actor.Id);
 
-            return Unit.Task;
+            return Task.CompletedTask;
         }
 
         private IObjectEntity SetNextTickRequest(
@@ -110,10 +96,7 @@ namespace EventHorizon.Zone.System.Agent.Plugin.Behavior.Run
         )
         {
             agentBehavior.NextTickRequest = nextTickRequest;
-            return actor.SetProperty(
-                AgentBehavior.PROPERTY_NAME,
-                agentBehavior
-            );
+            return actor.SetProperty(AgentBehavior.PROPERTY_NAME, agentBehavior);
         }
     }
 }

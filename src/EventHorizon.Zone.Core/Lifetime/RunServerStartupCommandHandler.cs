@@ -5,64 +5,56 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-
     using EventHorizon.Zone.Core.Events.Lifetime;
-
     using MediatR;
 
-    public class RunServerStartupCommandHandler
-        : IRequestHandler<RunServerStartupCommand>
+    public class RunServerStartupCommandHandler : IRequestHandler<RunServerStartupCommand>
     {
         private readonly IMediator _mediator;
 
-        public RunServerStartupCommandHandler(
-            IMediator mediator
-        )
+        public RunServerStartupCommandHandler(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        public async Task<Unit> Handle(
+        public async Task Handle(
             RunServerStartupCommand request,
             CancellationToken cancellationToken
         )
         {
-            var onServerStartupCommandList = AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(
-                    x =>
+            var onServerStartupCommandList = AppDomain
+                .CurrentDomain.GetAssemblies()
+                .SelectMany(x =>
+                {
+                    try
                     {
-                        try
-                        {
-                            return x.DefinedTypes;
-                        }
-                        catch
-                        {
-                            return Array.Empty<TypeInfo>();
-                        }
+                        return x.DefinedTypes;
                     }
-                ).Where(
-                    type => !type.IsInterface
-                        && typeof(OnServerStartupCommand).IsAssignableFrom(type)
+                    catch
+                    {
+                        return Array.Empty<TypeInfo>();
+                    }
+                })
+                .Where(
+                    type =>
+                        !type.IsInterface && typeof(OnServerStartupCommand).IsAssignableFrom(type)
                 );
 
             foreach (var onServerServerCommand in onServerStartupCommandList)
             {
                 try
                 {
-                    if (Activator.CreateInstance(
-                        onServerServerCommand
-                    ) is not OnServerStartupCommand command)
+                    if (
+                        Activator.CreateInstance(onServerServerCommand)
+                        is not OnServerStartupCommand command
+                    )
                     {
                         throw new SystemException(
                             $"Failed '{onServerServerCommand.Name}' is not a {typeof(OnServerStartupCommand)}"
                         );
                     }
 
-                    var result = await _mediator.Send(
-                        command,
-                        cancellationToken
-                    );
+                    var result = await _mediator.Send(command, cancellationToken);
 
                     if (!result.Success)
                     {
@@ -84,7 +76,6 @@
                 }
             }
 
-            return Unit.Value;
         }
     }
 }
