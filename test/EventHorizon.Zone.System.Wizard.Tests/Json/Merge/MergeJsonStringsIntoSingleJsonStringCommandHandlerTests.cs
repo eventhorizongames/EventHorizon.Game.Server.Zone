@@ -95,7 +95,12 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandlerTests
         // Given
         var sourceJson = "{ \"type\": \"source\", \"nullUpdateProperty\": \"keep-value\" }";
         var updatedJson = "{ \"type\": \"updated\", \"nullUpdateProperty\": null }";
-        var expected = "{\"type\":\"updated\",\"nullUpdateProperty\":\"keep-value\"}";
+        var expected = """
+{
+  "type": "updated",
+  "nullUpdateProperty": "keep-value"
+}
+""";
 
         // When
         var handler = new MergeJsonStringsIntoSingleJsonStringCommandHandler();
@@ -121,7 +126,14 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandlerTests
         // Given
         var sourceJson = "{ \"type\": \"source\", \"object\": { \"sub-type\": \"source\" } }";
         var updatedJson = "{ \"type\": \"updated\", \"object\": { \"sub-type\": \"updated\" } }";
-        var expected = "{\"type\":\"updated\",\"object\":{\"sub-type\":\"updated\"}}";
+        var expected = """
+{
+  "type": "updated",
+  "object": {
+    "sub-type": "updated"
+  }
+}
+""";
 
         // When
         var handler = new MergeJsonStringsIntoSingleJsonStringCommandHandler();
@@ -147,7 +159,15 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandlerTests
         // Given
         var sourceJson = "{ \"type\": \"source\", \"object\": { \"sub-type\": \"source\" }, \"number\": 123 }";
         var updatedJson = "{ \"type\": \"updated\", \"object\": { \"sub-type\": \"updated\" } }";
-        var expected = "{\"type\":\"updated\",\"object\":{\"sub-type\":\"updated\"},\"number\":123}";
+        var expected = """
+{
+  "type": "updated",
+  "object": {
+    "sub-type": "updated"
+  },
+  "number": 123
+}
+""";
 
         // When
         var handler = new MergeJsonStringsIntoSingleJsonStringCommandHandler();
@@ -174,7 +194,16 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandlerTests
         // Given
         var sourceJson = "{ \"type\": \"source\", \"object\": { \"sub-type\": \"source\" }, \"number\": 123 }";
         var updatedJson = "{ \"type\": \"updated\", \"object\": { \"sub-type\": \"updated\" }, \"boolean\": false }";
-        var expected = "{\"type\":\"updated\",\"object\":{\"sub-type\":\"updated\"},\"number\":123,\"boolean\":false}";
+        var expected = """
+{
+  "type": "updated",
+  "object": {
+    "sub-type": "updated"
+  },
+  "number": 123,
+  "boolean": false
+}
+""";
 
         // When
         var handler = new MergeJsonStringsIntoSingleJsonStringCommandHandler();

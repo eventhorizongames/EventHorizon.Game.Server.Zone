@@ -18,8 +18,7 @@ param(
 )
 
 # Base Env Varaiables - Override with .entry-env file
-$serverProject = "./Server/Server.csproj"
-$serverProject = "./Server/Server.csproj"
+$serverProject = "./src/EventHorizon.Game.Server.Zone/EventHorizon.Game.Server.Zone.csproj"
 
 switch ($Command) {
     "clean" {

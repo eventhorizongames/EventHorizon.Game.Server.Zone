@@ -2,8 +2,8 @@
     "playerInput": {
         "movementDelay": 50,
         "stopMovementOnTick": false,
-        "keyInputList": [
-            {
+        "keyInputMap": {
+            "w": {
                 "key": "w",
                 "type": "PlayerMove",
                 "@Comment.pressed": "MoveDirection.Forward",
@@ -11,7 +11,7 @@
                 "@Comment.released": "MoveDirection.Stop",
                 "released": 0
             },
-            {
+            "a": {
                 "key": "a",
                 "type": "PlayerMove",
                 "@Comment.pressed": "MoveDirection.Left",
@@ -19,7 +19,7 @@
                 "@Comment.released": "MoveDirection.Stop",
                 "released": 0
             },
-            {
+            "s": {
                 "key": "s",
                 "type": "PlayerMove",
                 "@Comment.pressed": "MoveDirection.Backwards",
@@ -27,7 +27,7 @@
                 "@Comment.released": "MoveDirection.Stop",
                 "released": 0
             },
-            {
+            "d": {
                 "key": "d",
                 "type": "PlayerMove",
                 "@Comment.pressed": "MoveDirection.Right",
@@ -35,20 +35,20 @@
                 "@Comment.released": "MoveDirection.Stop",
                 "released": 0
             },
-            {
+            "1": {
                 "key": "1",
                 "type": "SetActiveCamera",
                 "camera": "player_universal_camera"
             },
-            {
+            "2": {
                 "key": "2",
                 "type": "SetActiveCamera",
                 "camera": "player_follow_camera"
             },
-            {
+            "f": {
                 "key": "f",
                 "type": "RunInteraction"
             }
-        ]
+        }
     }
 }

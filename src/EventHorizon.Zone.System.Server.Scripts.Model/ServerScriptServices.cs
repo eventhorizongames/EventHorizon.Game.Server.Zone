@@ -5,7 +5,6 @@ using EventHorizon.Zone.Core.Model.DateTimeService;
 using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.RandomNumber;
 using EventHorizon.Zone.System.DataStorage.Model;
-
 using Microsoft.Extensions.Logging;
 
 public interface ServerScriptServices
@@ -17,5 +16,6 @@ public interface ServerScriptServices
     I18nLookup I18n { get; }
     ServerScriptObserverBroker ObserverBroker { get; }
     DataStore DataStore { get; }
+    DataParsers DataParsers { get; }
     ILogger Logger<T>();
 }

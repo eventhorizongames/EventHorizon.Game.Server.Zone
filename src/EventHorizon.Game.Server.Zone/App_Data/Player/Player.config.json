@@ -1,55 +1,61 @@
 {
-    "playerInput": {
-        "movementDelay": 35,
-        "stopMovementOnTick": false,
-        "@KeyInteractionTypes": "PlayerMove | SetActiveCamera | RunInteraction",
-        "keyInputList": [
-            {
-                "key": "w",
-                "type": "PlayerMove",
-                "@Comment.pressed": "MoveDirection.Forward",
-                "pressed": 4,
-                "@Comment.released": "MoveDirection.Stop",
-                "released": 0
-            },
-            {
-                "key": "a",
-                "type": "PlayerMove",
-                "@Comment.pressed": "MoveDirection.Left",
-                "pressed": 1,
-                "@Comment.released": "MoveDirection.Stop",
-                "released": 0
-            },
-            {
-                "key": "s",
-                "type": "PlayerMove",
-                "@Comment.pressed": "MoveDirection.Backwards",
-                "pressed": 3,
-                "@Comment.released": "MoveDirection.Stop",
-                "released": 0
-            },
-            {
-                "key": "d",
-                "type": "PlayerMove",
-                "@Comment.pressed": "MoveDirection.Right",
-                "pressed": 2,
-                "@Comment.released": "MoveDirection.Stop",
-                "released": 0
-            },
-            {
-                "key": "1",
-                "type": "SetActiveCamera",
-                "camera": "player_universal_camera"
-            },
-            {
-                "key": "2",
-                "type": "SetActiveCamera",
-                "camera": "player_follow_camera"
-            },
-            {
-                "key": "f",
-                "type": "RunInteraction"
-            }
-        ]
+  "playerInput": {
+    "movementDelay": 35,
+    "stopMovementOnTick": false,
+    "@KeyInteractionTypes": "PlayerMove | SetActiveCamera | RunInteraction",
+    "keyInputMap": {
+      "w": {
+        "key": "w",
+        "type": "PlayerMove",
+        "@Comment.pressed": "MoveDirection.Forward",
+        "pressed": 4,
+        "@Comment.released": "MoveDirection.Stop",
+        "released": 0
+      },
+      "a": {
+        "key": "a",
+        "type": "PlayerMove",
+        "@Comment.pressed": "MoveDirection.Left",
+        "pressed": 1,
+        "@Comment.released": "MoveDirection.Stop",
+        "released": 0
+      },
+      "s": {
+        "key": "s",
+        "type": "PlayerMove",
+        "@Comment.pressed": "MoveDirection.Backwards",
+        "pressed": 3,
+        "@Comment.released": "MoveDirection.Stop",
+        "released": 0
+      },
+      "d": {
+        "key": "d",
+        "type": "PlayerMove",
+        "@Comment.pressed": "MoveDirection.Right",
+        "pressed": 2,
+        "@Comment.released": "MoveDirection.Stop",
+        "released": 0
+      },
+      "1": {
+        "key": "1",
+        "type": "SetActiveCamera",
+        "camera": "player_universal_camera"
+      },
+      "2": {
+        "key": "2",
+        "type": "SetActiveCamera",
+        "camera": "player_follow_camera"
+      },
+      "f": {
+        "key": "f",
+        "type": "RunInteraction"
+      },
+      "q": {
+        "key": "q",
+        "type": "PlayerMove",
+        "pressed": 0,
+        "released": 0
+      }
     }
+  }
 }

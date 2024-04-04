@@ -9,20 +9,24 @@ public struct JsonDataProperty
     public List<JsonDataProperty> Data { get; set; }
     public string Type { get; }
     public string Value { get; }
+    public bool IncludeName { get; }
 
-    public JsonDataProperty(string name, string type, string value)
+    public JsonDataProperty(string name, string type, string value, bool includeName = true)
     {
         Name = name;
         Type = type;
         Value = value;
-        Data = new List<JsonDataProperty>();
+        Data = [];
+        IncludeName = includeName;
     }
 
-    public void WriteTo(
-        Utf8JsonWriter writer
-    )
+    public void WriteTo(Utf8JsonWriter writer)
     {
-        writer.WritePropertyName(Name);
+        if (IncludeName)
+        {
+            writer.WritePropertyName(Name);
+        }
+
         switch (Type)
         {
             case "String":
@@ -35,15 +39,25 @@ public struct JsonDataProperty
                 writer.WriteBooleanValue(bool.Parse(Value));
                 break;
             case "Object":
+            {
+                writer.WriteStartObject();
+                foreach (var childProperty in Data)
                 {
-                    writer.WriteStartObject();
-                    foreach (var childProperty in Data)
-                    {
-                        childProperty.WriteTo(writer);
-                    }
-                    writer.WriteEndObject();
-                    break;
+                    childProperty.WriteTo(writer);
                 }
+                writer.WriteEndObject();
+                break;
+            }
+            case "InputKeyMap":
+            {
+                writer.WriteStartObject();
+                foreach (var childProperty in Data)
+                {
+                    childProperty.WriteTo(writer);
+                }
+                writer.WriteEndObject();
+                break;
+            }
             default:
                 writer.WriteStringValue(Value);
                 break;

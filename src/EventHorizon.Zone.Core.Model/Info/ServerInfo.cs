@@ -29,6 +29,7 @@ public interface ServerInfo
     string PluginsPath { get; }
     string I18nPath { get; }
     string AdminPath { get; }
+    string PlayerPath { get; }
     string ServerPath { get; }
     string ServerScriptsPath { get; }
     string ClientPath { get; }

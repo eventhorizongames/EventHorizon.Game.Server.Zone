@@ -7,30 +7,18 @@ using global::System.Linq;
 using global::System.Text;
 using global::System.Text.Json;
 
-public struct JsonDataDocument
+public struct JsonDataDocument(IList<JsonDataProperty>? properties)
 {
-    private static readonly IEnumerable<JsonDataProperty> EMPTY_PROPERTY_LIST = Array.Empty<JsonDataProperty>().ToList();
+    public IEnumerable<JsonDataProperty>? Properties { get; } = properties ??= [];
 
-    public IList<JsonDataProperty> Properties { get; }
-
-    public JsonDataDocument(
-        IList<JsonDataProperty> properties
-    )
-    {
-        Properties = properties;
-    }
-
-    public string ToJsonString()
+    public readonly string ToJsonString()
     {
         var outputBuffer = new ArrayBufferWriter<byte>();
-        using (var jsonWriter = new Utf8JsonWriter(
-            outputBuffer
-        ))
+        using (var jsonWriter = new Utf8JsonWriter(outputBuffer))
         {
-
             jsonWriter.WriteStartObject();
 
-            foreach (var jsonProperty in Properties ?? EMPTY_PROPERTY_LIST)
+            foreach (var jsonProperty in Properties ?? [])
             {
                 jsonProperty.WriteTo(jsonWriter);
             }
@@ -38,10 +26,6 @@ public struct JsonDataDocument
             jsonWriter.WriteEndObject();
         }
 
-        return Encoding.UTF8.GetString(
-            outputBuffer.WrittenSpan
-        );
+        return Encoding.UTF8.GetString(outputBuffer.WrittenSpan);
     }
-
 }
-

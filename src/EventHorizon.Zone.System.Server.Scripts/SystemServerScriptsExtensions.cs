@@ -1,14 +1,13 @@
 namespace EventHorizon.Game.Server.Zone;
 
 using System;
-
 using EventHorizon.Observer.Admin.State;
 using EventHorizon.Observer.State;
 using EventHorizon.Zone.System.Server.Scripts.Api;
 using EventHorizon.Zone.System.Server.Scripts.Model;
+using EventHorizon.Zone.System.Server.Scripts.Parsers;
 using EventHorizon.Zone.System.Server.Scripts.State;
 using EventHorizon.Zone.System.Server.Scripts.System;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,6 +38,7 @@ public static class SystemServerScriptsExtensions
             .AddSingleton<ServerScriptDetailsRepository, ServerScriptDetailsInMemoryRepository>()
             .AddSingleton<ServerScriptMediator, SystemServerScriptMediator>()
             .AddSingleton<ServerScriptObserverBroker, SystemServerScriptObserverBroker>()
+            .AddSingleton<DataParsers, StandardDataParsers>()
             .AddTransient<ServerScriptServices, SystemServerScriptServices>()
             .AddSingleton<GenericObserverState>()
             .AddSingleton<ObserverState>(

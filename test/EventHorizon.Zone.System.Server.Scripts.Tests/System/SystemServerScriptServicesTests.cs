@@ -7,13 +7,9 @@ using EventHorizon.Zone.Core.Model.RandomNumber;
 using EventHorizon.Zone.System.DataStorage.Model;
 using EventHorizon.Zone.System.Server.Scripts.Model;
 using EventHorizon.Zone.System.Server.Scripts.System;
-
 using FluentAssertions;
-
 using Microsoft.Extensions.Logging;
-
 using Moq;
-
 using Xunit;
 
 public class SystemServerScriptServicesTests
@@ -29,6 +25,7 @@ public class SystemServerScriptServicesTests
         var i18nMock = new Mock<I18nLookup>();
         var observerBrokerMock = new Mock<ServerScriptObserverBroker>();
         var dataStoreMock = new Mock<DataStore>();
+        var dataParsersMock = new Mock<DataParsers>();
         var loggerFactoryMock = new Mock<ILoggerFactory>();
 
         // When
@@ -40,6 +37,7 @@ public class SystemServerScriptServicesTests
             i18nMock.Object,
             observerBrokerMock.Object,
             dataStoreMock.Object,
+            dataParsersMock.Object,
             loggerFactoryMock.Object
         );
 
@@ -54,6 +52,7 @@ public class SystemServerScriptServicesTests
         scriptServices.DateTime.Should().Be(dateTimeMock.Object);
         scriptServices.I18n.Should().Be(i18nMock.Object);
         scriptServices.DataStore.Should().Be(dataStoreMock.Object);
+        scriptServices.DataParsers.Should().Be(dataParsersMock.Object);
         scriptServices.ObserverBroker.Should().Be(observerBrokerMock.Object);
     }
 }

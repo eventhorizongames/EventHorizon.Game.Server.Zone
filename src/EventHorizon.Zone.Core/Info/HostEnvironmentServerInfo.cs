@@ -19,6 +19,7 @@ public class HostEnvironmentServerInfo
     public string SystemsPath { get; }
     public string SystemBackupPath { get; }
     public string AdminPath { get; }
+    public string PlayerPath { get; }
     public string PluginsPath { get; }
     public string I18nPath { get; }
     public string ClientPath { get; }
@@ -64,6 +65,9 @@ public class HostEnvironmentServerInfo
             hostEnvironment
         );
         ClientEntityPath = GenerateClientEntityPath(
+            hostEnvironment
+        );
+        PlayerPath = GeneratePlayerPath(
             hostEnvironment
         );
         ServerPath = GenerateServerPath(
@@ -195,6 +199,18 @@ public class HostEnvironmentServerInfo
             "Entity"
         );
     }
+
+    private static string GeneratePlayerPath(
+        IHostEnvironment hostEnvironment
+    )
+    {
+        return Path.Combine(
+            hostEnvironment.ContentRootPath,
+            "App_Data",
+            "Player"
+        );
+    }
+    
     private static string GenerateServerPath(
         IHostEnvironment hostEnvironment
     )

@@ -1,13 +1,11 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge;
 
 using EventHorizon.Zone.Core.Model.Command;
-
 using global::System.Buffers;
 using global::System.Text;
 using global::System.Text.Json;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
 
 public class MergeJsonStringsIntoSingleJsonStringCommandHandler
@@ -22,56 +20,41 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandler
     {
         try
         {
-
             var outputBuffer = new ArrayBufferWriter<byte>();
 
-            using var sourceDocument = JsonDocument.Parse(
-                request.SourceJson
-            );
-            using var updateDocument = JsonDocument.Parse(
-                request.UpdatedJson
-            );
-            using (var jsonWriter = new Utf8JsonWriter(
-                outputBuffer
-            ))
+            using var sourceDocument = JsonDocument.Parse(request.SourceJson);
+            using var updateDocument = JsonDocument.Parse(request.UpdatedJson);
+            using (
+                var jsonWriter = new Utf8JsonWriter(
+                    outputBuffer,
+                    new JsonWriterOptions { Indented = true }
+                )
+            )
             {
                 var sourceRoot = sourceDocument.RootElement;
                 var updateRoot = updateDocument.RootElement;
 
                 if (sourceRoot.ValueKind != JsonValueKind.Object)
                 {
-                    return new CommandResult<string>(
-                        INVALID_JSON_ERROR_CODE
-                    ).FromResult();
+                    return new CommandResult<string>(INVALID_JSON_ERROR_CODE).FromResult();
                 }
 
                 if (sourceRoot.ValueKind != updateRoot.ValueKind)
                 {
-                    return new CommandResult<string>(
-                        true,
-                        request.SourceJson
-                    ).FromResult();
+                    return new CommandResult<string>(true, request.SourceJson).FromResult();
                 }
 
-                MergeObjects(
-                    jsonWriter,
-                    sourceRoot,
-                    updateRoot
-                );
+                MergeObjects(jsonWriter, sourceRoot, updateRoot);
             }
 
             return new CommandResult<string>(
                 true,
-                Encoding.UTF8.GetString(
-                    outputBuffer.WrittenSpan
-                )
+                Encoding.UTF8.GetString(outputBuffer.WrittenSpan)
             ).FromResult();
         }
         catch (JsonException)
         {
-            return new CommandResult<string>(
-                INVALID_JSON_ERROR_CODE
-            ).FromResult();
+            return new CommandResult<string>(INVALID_JSON_ERROR_CODE).FromResult();
         }
     }
 
@@ -101,78 +84,51 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandler
             {
                 writablePropertyName = propertyName.LowercaseFirstChar();
 
-                return jsonRoot2.TryGetProperty(
-                    propertyName,
-                    out value
-                ) || jsonRoot2.TryGetProperty(
-                    propertyName.LowercaseFirstChar(),
-                    out value
-                );
+                return jsonRoot2.TryGetProperty(propertyName, out value)
+                    || jsonRoot2.TryGetProperty(propertyName.LowercaseFirstChar(), out value);
             }
 
-            if (TryGetPropertyValue(
-                propertyName,
-                out var newValue,
-                out var writablePropertyName
-            ) && (newValueKind = newValue.ValueKind) != JsonValueKind.Null)
+            if (
+                TryGetPropertyValue(propertyName, out var newValue, out var writablePropertyName)
+                && (newValueKind = newValue.ValueKind) != JsonValueKind.Null
+            )
             {
                 var originalValue = property.Value;
                 var originalValueKind = originalValue.ValueKind;
 
-                writer.WritePropertyName(
-                    writablePropertyName
-                );
+                writer.WritePropertyName(writablePropertyName);
 
-                if (newValueKind == JsonValueKind.Object
+                if (
+                    newValueKind == JsonValueKind.Object
                     && originalValueKind == JsonValueKind.Object
                 )
                 {
-                    MergeObjects(
-                        writer,
-                        originalValue,
-                        newValue
-                    );
+                    MergeObjects(writer, originalValue, newValue);
                     continue;
                 }
 
-                newValue.WriteTo(
-                    writer
-                );
+                newValue.WriteTo(writer);
                 continue;
             }
 
-            property.WriteTo(
-                writer
-            );
+            property.WriteTo(writer);
         }
 
         // Write all the properties of the second document that are unique to it.
         foreach (var property in jsonRoot2.EnumerateObject())
         {
             // Check for the name as is and capitalized.
-            if (DoesNotContainProperty(
-                jsonRoot1,
-                property.Name
-            ))
+            if (DoesNotContainProperty(jsonRoot1, property.Name))
             {
                 // If not found in either forms write property to writer.
-                property.WriteTo(
-                    writer
-                );
+                property.WriteTo(writer);
             }
         }
 
         writer.WriteEndObject();
     }
 
-    private static bool DoesNotContainProperty(
-        JsonElement jsonElement,
-        string propertyName
-    ) => !jsonElement.TryGetProperty(
-        propertyName,
-        out _
-    ) && !jsonElement.TryGetProperty(
-        propertyName.UppercaseFirstChar(),
-        out _
-    );
+    private static bool DoesNotContainProperty(JsonElement jsonElement, string propertyName) =>
+        !jsonElement.TryGetProperty(propertyName, out _)
+        && !jsonElement.TryGetProperty(propertyName.UppercaseFirstChar(), out _);
 }

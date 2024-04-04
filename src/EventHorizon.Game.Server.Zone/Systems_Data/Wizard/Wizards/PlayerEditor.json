@@ -1,0 +1,58 @@
+{
+    "Id": "1b424a53-5a93-43d0-8f53-ed240beb3071",
+    "Name": "[SYSTEM] Player Editor",
+    "Description": "This wizard provides a setup of default player settings.",
+    "FirstStep": "969901d5-cc1f-4238-b32e-cbf4e3ea47bd",
+    "StepList": [
+        {
+            "Id": "969901d5-cc1f-4238-b32e-cbf4e3ea47bd",
+            "Type": "ServerProcess",
+            "Name": "Fill Player Data",
+            "Description": "This fills the current Wizard Data with the Player Config/Data Values",
+            "Details": {
+                "Processor:ScriptId": "Wizard_Scripts_Processor_Player_FillPlayerData",
+                "_Processor:ScriptId": "Wizards_FillPlayerData"
+            },
+            "NextStep": "9d9e2f8e-f9de-428b-8b8b-2ea02a7eca3e"
+        },
+        {
+            "Id": "9d9e2f8e-f9de-428b-8b8b-2ea02a7eca3e",
+            "Type": "FormInput",
+            "Name": "Player Settings",
+            "Description": "Provide the Player Settings.",
+            "Details": {
+                "@PropertyBoolean": "Boolean",
+                "@PropertyDecimal": "Decimal",
+                "@PropertyLong": "Long",
+                "@PropertyString": "String",
+                "@PropertyVector3": "Vector3",
+                "@PropertyComplex": "Complex",
+                "@PropertyAsset": "Asset",
+                "@AssetServerPath": "AssetServerPath",
+                "@AssetServerFile": "AssetServerFile",
+                "@AssetServerFileName": "AssetServerFileName",
+                "@InputKeyMap": "InputKeyMap",
+                "@Array": "Array",
+                "@Select": "Select",
+                "property:playerInput:keyInputMap": "InputKeyMap",
+                "property:playerInput:keyInputMap:label": "Player Key Map",
+                "_property:stringProperty": "String",
+                "_property:stringProperty:label": "TESTING Strings"
+            },
+            "PreviousStep": "969901d5-cc1f-4238-b32e-cbf4e3ea47bd",
+            "NextStep": "06255f1f-0ed0-4662-9e43-4660c2a5b1e3"
+        },
+        {
+            "Id": "06255f1f-0ed0-4662-9e43-4660c2a5b1e3",
+            "Type": "ServerProcess",
+            "Name": "Save Player Settings",
+            "Description": "Saving Player Settings...",
+            "Details": {
+                "DisablePrevious": "true",
+                "Processor:ScriptId": "Wizard_Scripts_Processor_Player_SavePlayerData",
+                "_Processor:ScriptId": "Wizards_SaveMapData"
+            },
+            "PreviousStep": "9d9e2f8e-f9de-428b-8b8b-2ea02a7eca3e"
+        }
+    ]
+}

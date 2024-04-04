@@ -5,25 +5,16 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.Json;
-
 using Newtonsoft.Json.Linq;
 
 public static class DataPropertyExtensions
 {
-    private static readonly JsonSerializerOptions JSON_OPTIONS = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
+    private static readonly JsonSerializerOptions JSON_OPTIONS =
+        new() { PropertyNameCaseInsensitive = true, };
 
-    public static TProperty? GetProperty<TProperty>(
-        this IObjectEntity entity,
-        string prop
-    )
+    public static TProperty? GetProperty<TProperty>(this IObjectEntity entity, string prop)
     {
-        if (entity.Data.TryGetValue(
-            prop,
-            out var value
-        ))
+        if (entity.Data.TryGetValue(prop, out var value))
         {
             return (TProperty)value;
         }
@@ -34,7 +25,8 @@ public static class DataPropertyExtensions
         this TEntity entity,
         string prop,
         TProperty value
-    ) where TEntity : IObjectEntity
+    )
+        where TEntity : IObjectEntity
     {
         if (value is null)
         {
@@ -46,12 +38,8 @@ public static class DataPropertyExtensions
         return entity;
     }
 
-    public static bool ContainsProperty(
-        this IObjectEntity entity,
-        string prop
-    ) => entity.Data.ContainsKey(
-        prop
-    );
+    public static bool ContainsProperty(this IObjectEntity entity, string prop) =>
+        entity.Data.ContainsKey(prop);
 
     /// <summary>
     /// Will populate the Raw Data into the state data of the entity.
@@ -99,16 +87,12 @@ public static class DataPropertyExtensions
         // .NET JSON Type
         else if (rawData[prop] is JsonElement jsonElementProp)
         {
-            value = jsonElementProp.ToObject<TProperty>(
-                JSON_OPTIONS
-            );
+            value = jsonElementProp.ToObject<TProperty>(JSON_OPTIONS);
         }
         // .NET JSON Type
         else if (rawData[prop] is JsonDocument jsonDocumentProp)
         {
-            value = jsonDocumentProp.ToObject<TProperty>(
-                JSON_OPTIONS
-            );
+            value = jsonDocumentProp.ToObject<TProperty>(JSON_OPTIONS);
         }
         else if (rawData[prop] is TProperty rawDataProp)
         {
@@ -130,9 +114,7 @@ public static class DataPropertyExtensions
         return entity.GetProperty<TProperty>(prop);
     }
 
-    public static ConcurrentDictionary<string, object> AllData(
-        this IObjectEntity entity
-    )
+    public static ConcurrentDictionary<string, object> AllData(this IObjectEntity entity)
     {
         var data = new ConcurrentDictionary<string, object>();
         foreach (var prop in entity.RawData)
@@ -149,23 +131,15 @@ public static class DataPropertyExtensions
 
 internal static partial class JsonExtensions
 {
-    internal static T? ToObject<T>(
-        this JsonElement element,
-        JsonSerializerOptions? options = null
-    )
+    internal static T? ToObject<T>(this JsonElement element, JsonSerializerOptions? options = null)
     {
         var bufferWriter = new ArrayBufferWriter<byte>();
-        using (var writer = new Utf8JsonWriter(
-            bufferWriter
-        ))
+        using (var writer = new Utf8JsonWriter(bufferWriter))
         {
             element.WriteTo(writer);
         }
 
-        return JsonSerializer.Deserialize<T>(
-            bufferWriter.WrittenSpan,
-            options
-        );
+        return JsonSerializer.Deserialize<T>(bufferWriter.WrittenSpan, options);
     }
 
     internal static T? ToObject<T>(
@@ -175,13 +149,9 @@ internal static partial class JsonExtensions
     {
         if (document == null)
         {
-            throw new ArgumentNullException(
-                nameof(document)
-            );
+            throw new ArgumentNullException(nameof(document));
         }
 
-        return document.RootElement.ToObject<T>(
-            options
-        );
+        return document.RootElement.ToObject<T>(options);
     }
 }

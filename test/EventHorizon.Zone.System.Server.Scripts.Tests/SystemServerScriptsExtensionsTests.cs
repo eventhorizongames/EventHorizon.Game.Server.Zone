@@ -7,6 +7,7 @@ using EventHorizon.Test.Common;
 using EventHorizon.Test.Common.Utils;
 using EventHorizon.Zone.System.Server.Scripts.Api;
 using EventHorizon.Zone.System.Server.Scripts.Model;
+using EventHorizon.Zone.System.Server.Scripts.Parsers;
 using EventHorizon.Zone.System.Server.Scripts.State;
 using EventHorizon.Zone.System.Server.Scripts.System;
 
@@ -88,6 +89,11 @@ public class SystemServerScriptsExtensionsTests
             {
                 Assert.Equal(typeof(ServerScriptObserverBroker), service.ServiceType);
                 Assert.Equal(typeof(SystemServerScriptObserverBroker), service.ImplementationType);
+            },
+            service =>
+            {
+                Assert.Equal(typeof(DataParsers), service.ServiceType);
+                Assert.Equal(typeof(StandardDataParsers), service.ImplementationType);
             },
             service =>
             {
