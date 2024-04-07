@@ -1,8 +1,6 @@
 {
-    "forceSet": [
-        "movementState",
-        "modelState"
-    ],
+    "@On Player creation it will always set these states to the provided values": "",
+    "forceSet": ["movementState", "modelState"],
     "movementState": {
         "Speed": 1.0
     },
