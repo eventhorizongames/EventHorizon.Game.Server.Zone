@@ -70,8 +70,8 @@ public class MapWizardDataToJsonDataDocumentHandler
             }
             for (var i = 1; i < parentKey.Count(); i++)
             {
-                var newParentProperty = parentProperty.Data.FirstOrDefault(
-                    a => a.Name == parentKey.ElementAt(i)
+                var newParentProperty = parentProperty.Data.FirstOrDefault(a =>
+                    a.Name == parentKey.ElementAt(i)
                 );
                 if (newParentProperty.Name is null)
                 {
@@ -104,23 +104,22 @@ public class MapWizardDataToJsonDataDocumentHandler
         Dictionary<string, string> wizardData
     )
     {
-        var inputKeyMapArray = wizardData.Where(
-            dataItem =>
-                dataItem.Key.StartsWith(
-                    $"{string.Join(PROPERTY_SEPARATOR, splitPropertyKey)}{PROPERTY_SEPARATOR}"
-                )
+        var inputKeyMapArray = wizardData.Where(dataItem =>
+            dataItem.Key.StartsWith(
+                $"{string.Join(PROPERTY_SEPARATOR, splitPropertyKey)}{PROPERTY_SEPARATOR}"
+            )
         );
 
         // Get max length of the InputKeyMap
         // playerInput:keyInputMap:{key}:key
         var indexKeys = inputKeyMapArray
-            .Select(
-                a =>
-                    a.Key.Replace(
+            .Select(a =>
+                a
+                    .Key.Replace(
                         $"{string.Join(PROPERTY_SEPARATOR, splitPropertyKey)}{PROPERTY_SEPARATOR}",
                         string.Empty
                     )
-                        .Split(':')[0]
+                    .Split(':')[0]
             )
             .Distinct();
 
@@ -138,19 +137,18 @@ public class MapWizardDataToJsonDataDocumentHandler
             var keyProperty = new JsonDataProperty(key, "Object", string.Empty);
             // Filter to only; :type, :pressed, :released, :camera
             var keyMapData = inputKeyMapArray
-                .Where(
-                    a =>
-                        a.Key.StartsWith(
-                            $"{string.Join(PROPERTY_SEPARATOR, splitPropertyKey)}{PROPERTY_SEPARATOR}{key}"
-                        )
+                .Where(a =>
+                    a.Key.StartsWith(
+                        $"{string.Join(PROPERTY_SEPARATOR, splitPropertyKey)}{PROPERTY_SEPARATOR}{key}"
+                    )
                 )
-                .Where(
-                    a =>
-                        a.Key.EndsWith(":key")
-                        || a.Key.EndsWith(":type")
-                        || a.Key.EndsWith(":pressed")
-                        || a.Key.EndsWith(":released")
-                        || a.Key.EndsWith(":camera")
+                .Where(a =>
+                    a.Key.EndsWith(":$$deleted$$")
+                    || a.Key.EndsWith(":key")
+                    || a.Key.EndsWith(":type")
+                    || a.Key.EndsWith(":pressed")
+                    || a.Key.EndsWith(":released")
+                    || a.Key.EndsWith(":camera")
                 )
                 .ToDictionary(a => a.Key, a => a.Value);
 
@@ -160,6 +158,10 @@ public class MapWizardDataToJsonDataDocumentHandler
                 if (keyMapItem.Key.EndsWith(":pressed") || keyMapItem.Key.EndsWith(":released"))
                 {
                     type = "Long";
+                }
+                else if (keyMapItem.Key.EndsWith(":$$deleted$$"))
+                {
+                    type = "Boolean";
                 }
 
                 keyProperty.Data.Add(

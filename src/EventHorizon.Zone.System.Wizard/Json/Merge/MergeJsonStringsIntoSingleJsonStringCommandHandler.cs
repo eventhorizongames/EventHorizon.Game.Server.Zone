@@ -1,5 +1,6 @@
 ﻿namespace EventHorizon.Zone.System.Wizard.Json.Merge;
 
+using global::System;
 using EventHorizon.Zone.Core.Model.Command;
 using global::System.Buffers;
 using global::System.Text;
@@ -93,6 +94,12 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandler
                 && (newValueKind = newValue.ValueKind) != JsonValueKind.Null
             )
             {
+                var isDeletedProperty = IsDeletedProperty(newValue);
+                if (isDeletedProperty)
+                {
+                    continue;
+                }
+
                 var originalValue = property.Value;
                 var originalValueKind = originalValue.ValueKind;
 
@@ -117,6 +124,11 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandler
         // Write all the properties of the second document that are unique to it.
         foreach (var property in jsonRoot2.EnumerateObject())
         {
+            if (IsDeletedProperty(property.Value))
+            {
+                continue;
+            }
+
             // Check for the name as is and capitalized.
             if (DoesNotContainProperty(jsonRoot1, property.Name))
             {
@@ -126,6 +138,13 @@ public class MergeJsonStringsIntoSingleJsonStringCommandHandler
         }
 
         writer.WriteEndObject();
+    }
+
+    private static bool IsDeletedProperty(JsonElement newValue)
+    {
+        return newValue.ValueKind == JsonValueKind.Object
+            && newValue.TryGetProperty("$$deleted$$", out var deletedProperty)
+            && deletedProperty.ValueKind == JsonValueKind.True;
     }
 
     private static bool DoesNotContainProperty(JsonElement jsonElement, string propertyName) =>

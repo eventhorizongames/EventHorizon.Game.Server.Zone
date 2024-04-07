@@ -49,12 +49,6 @@
       "f": {
         "key": "f",
         "type": "RunInteraction"
-      },
-      "q": {
-        "key": "q",
-        "type": "PlayerMove",
-        "pressed": 0,
-        "released": 0
       }
     }
   }
