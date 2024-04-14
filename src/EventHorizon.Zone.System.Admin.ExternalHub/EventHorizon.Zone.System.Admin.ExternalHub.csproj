@@ -27,6 +27,9 @@
 
         <ProjectReference Include="..\EventHorizon.Zone.System.Server.Scripts.Events\EventHorizon.Zone.System.Server.Scripts.Events.csproj" />
 
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Events\EventHorizon.Zone.System.Player.Events.csproj" />
+        <ProjectReference Include="..\EventHorizon.Zone.System.Player.Model\EventHorizon.Zone.System.Player.Model.csproj" />
+
         <ProjectReference Include="..\EventHorizon.Zone.System.Wizard.Events\EventHorizon.Zone.System.Wizard.Events.csproj" />
         <ProjectReference Include="..\EventHorizon.Zone.System.Wizard.Model\EventHorizon.Zone.System.Wizard.Model.csproj" />
     </ItemGroup>

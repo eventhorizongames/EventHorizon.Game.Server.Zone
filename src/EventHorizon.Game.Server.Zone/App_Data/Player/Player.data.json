@@ -1,9 +1,7 @@
 {
     "@On Player creation it will always set these states to the provided values": "",
     "forceSet": ["movementState", "modelState"],
-    "movementState": {
-        "Speed": 1.0
-    },
+    "movementState": { "Speed": 1.0 },
     "skillState": {
         "skillMap": {
             "list": [
@@ -23,12 +21,7 @@
         }
     },
     "modelState": {
-        "AnimationList": [],
-        "Mesh": {
-            "Type": "GLTF",
-            "Path": "/Assets/Meshes/",
-            "File": "Default_Mesh.glb",
-            "HeightOffset": -1.2
-        }
+        "scalingDeterminant": 1,
+        "mesh": { "assetId": "DEFAULT_MESH" }
     }
 }

@@ -1,15 +1,11 @@
-﻿namespace EventHorizon.Zone.System.Player.Model;
-
-using EventHorizon.Zone.Core.Model.Entity;
+﻿namespace EventHorizon.Zone.System.Player.Model.Settings;
 
 using global::System;
+using EventHorizon.Zone.Core.Model.Entity;
 using global::System.Collections.Generic;
-
 using Newtonsoft.Json.Linq;
 
-public class PlayerObjectEntityDataModel
-    : Dictionary<string, object>,
-    ObjectEntityData
+public class PlayerObjectEntityDataModel : Dictionary<string, object>, ObjectEntityData
 {
     private IEnumerable<string>? _forceSet;
     public IEnumerable<string> ForceSet
@@ -20,15 +16,12 @@ public class PlayerObjectEntityDataModel
             {
                 return _forceSet;
             }
-            else if (TryGetValue(
-                "forceSet",
-                out var forceSet
-            ) && forceSet is JArray forceSetArray)
+            else if (TryGetValue("forceSet", out var forceSet) && forceSet is JArray forceSetArray)
             {
                 _forceSet = forceSetArray.ToObject<List<string>>();
             }
 
-            return _forceSet ?? Array.Empty<string>();
+            return _forceSet ?? [];
         }
     }
 }

@@ -3,39 +3,21 @@
 using EventHorizon.Zone.Core.Events.Json;
 using EventHorizon.Zone.Core.Model.Entity;
 using EventHorizon.Zone.System.Player.Api;
-using EventHorizon.Zone.System.Player.Model;
-
+using EventHorizon.Zone.System.Player.Model.Settings;
 using global::System.Collections.Generic;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
 
-public class InMemoryPlayerSettingsState
-    : PlayerSettingsState
+public class InMemoryPlayerSettingsState(ISender sender) : PlayerSettingsState
 {
     private int _currentConfigHash = -1;
     private int _currentDataHash = -1;
-    private readonly IMediator _mediator;
 
-    public ObjectEntityConfiguration PlayerConfiguration
-    {
-        get;
-        private set;
-    } = new PlayerObjectEntityConfigurationModel();
+    public ObjectEntityConfiguration PlayerConfiguration { get; private set; } =
+        new PlayerObjectEntityConfigurationModel();
 
-    public ObjectEntityData PlayerData
-    {
-        get;
-        private set;
-    } = new PlayerObjectEntityDataModel();
-
-    public InMemoryPlayerSettingsState(
-        IMediator mediator
-    )
-    {
-        _mediator = mediator;
-    }
+    public ObjectEntityData PlayerData { get; private set; } = new PlayerObjectEntityDataModel();
 
     public async Task<(bool Updated, ObjectEntityConfiguration OldConfig)> SetConfiguration(
         ObjectEntityConfiguration playerConfiguration,
@@ -63,11 +45,7 @@ public class InMemoryPlayerSettingsState
         CancellationToken cancellationToken
     )
     {
-        var (Valid, Hash) = await ValidateHash(
-            _currentDataHash,
-            playerData,
-            cancellationToken
-        );
+        var (Valid, Hash) = await ValidateHash(_currentDataHash, playerData, cancellationToken);
         if (!Valid)
         {
             return (false, PlayerData);
@@ -85,20 +63,16 @@ public class InMemoryPlayerSettingsState
         CancellationToken cancellationToken
     )
     {
-        var serailizeResult = await _mediator.Send(
-            new SerializeToJsonCommand(
-                playerDictionary
-            ),
+        var serializeResult = await sender.Send(
+            new SerializeToJsonCommand(playerDictionary),
             cancellationToken
         );
-        if (!serailizeResult)
+        if (!serializeResult)
         {
             return (false, -1);
         }
 
-        var hash = serailizeResult
-            .Result
-            .Json.GetDeterministicHashCode();
+        var hash = serializeResult.Result.Json.GetDeterministicHashCode();
         if (hash == currentHash)
         {
             return (false, -1);

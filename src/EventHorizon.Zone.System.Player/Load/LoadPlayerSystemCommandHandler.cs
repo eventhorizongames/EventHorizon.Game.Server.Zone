@@ -4,13 +4,12 @@ using EventHorizon.Zone.Core.Model.Info;
 using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.System.Player.Api;
 using EventHorizon.Zone.System.Player.Model;
-
+using EventHorizon.Zone.System.Player.Model.Settings;
 using global::System.Collections.Generic;
 using global::System.IO;
 using global::System.Linq;
 using global::System.Threading;
 using global::System.Threading.Tasks;
-
 using MediatR;
 
 public class LoadPlayerSystemCommandHandler
@@ -41,30 +40,20 @@ public class LoadPlayerSystemCommandHandler
         );
         if (ConfigIsError)
         {
-            return new LoadPlayerSystemResult(
-                ConfigReason
-            );
+            return new LoadPlayerSystemResult(ConfigReason);
         }
 
-        var (DataIsError, DataUpdated, DataReason) = await LoadPlayerData(
-            cancellationToken
-        );
+        var (DataIsError, DataUpdated, DataReason) = await LoadPlayerData(cancellationToken);
         if (DataIsError)
         {
-            return new LoadPlayerSystemResult(
-                DataReason
-            );
+            return new LoadPlayerSystemResult(DataReason);
         }
 
         return new LoadPlayerSystemResult(
             ConfigUpdated || DataUpdated,
-            new List<string>
-            {
-                ConfigReason,
-                DataReason,
-            }.Where(
-                reason => !string.IsNullOrWhiteSpace(reason)
-            ).ToArray()
+            new List<string> { ConfigReason, DataReason, }
+                .Where(reason => !string.IsNullOrWhiteSpace(reason))
+                .ToArray()
         );
     }
 
@@ -78,28 +67,18 @@ public class LoadPlayerSystemCommandHandler
             PlayerSystemConstants.PlayerConfigurationFileName
         );
 
-        var config = await _fileLoader.GetFile<PlayerObjectEntityConfigurationModel>(
-            fileFullName
-        );
+        var config = await _fileLoader.GetFile<PlayerObjectEntityConfigurationModel>(fileFullName);
 
         if (config is null)
         {
             return (true, false, "player_configuration_not_found");
         }
 
-        var (updated, _) = await _state.SetConfiguration(
-            config,
-            cancellationToken
-        );
+        var (updated, _) = await _state.SetConfiguration(config, cancellationToken);
 
-        return (
-            false,
-            updated,
-            updated
-                ? "player_configuration_changed"
-                : string.Empty
-        );
+        return (false, updated, updated ? "player_configuration_changed" : string.Empty);
     }
+
     private async Task<(bool IsError, bool Updated, string Reason)> LoadPlayerData(
         CancellationToken cancellationToken
     )
@@ -110,26 +89,15 @@ public class LoadPlayerSystemCommandHandler
             PlayerSystemConstants.PlayerDataFileName
         );
 
-        var config = await _fileLoader.GetFile<PlayerObjectEntityDataModel>(
-            fileFullName
-        );
+        var config = await _fileLoader.GetFile<PlayerObjectEntityDataModel>(fileFullName);
 
         if (config is null)
         {
             return (true, false, "player_data_not_found");
         }
 
-        var (updated, _) = await _state.SetData(
-            config,
-            cancellationToken
-        );
+        var (updated, _) = await _state.SetData(config, cancellationToken);
 
-        return (
-            false,
-            updated,
-            updated
-                ? "player_data_changed"
-                : string.Empty
-        );
+        return (false, updated, updated ? "player_data_changed" : string.Empty);
     }
 }

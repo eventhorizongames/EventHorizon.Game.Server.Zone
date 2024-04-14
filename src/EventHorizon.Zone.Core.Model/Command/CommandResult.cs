@@ -2,11 +2,7 @@
 
 public static class CommandResultExtensions
 {
-    public static CommandResult<TResult> ToCommandResult<TResult>(
-        this TResult obj
-    ) => new CommandResult<TResult>(
-        obj
-    );
+    public static CommandResult<TResult> ToCommandResult<TResult>(this TResult obj) => new(obj);
 }
 
 public class CommandResult<TResult>
@@ -15,47 +11,30 @@ public class CommandResult<TResult>
     public TResult Result { get; }
     public string ErrorCode { get; }
 
-    public CommandResult(
-        TResult result
-    )
+    public CommandResult(TResult result)
     {
         Success = true;
         Result = result;
         ErrorCode = string.Empty;
     }
 
-    public CommandResult(
-        bool success,
-        TResult result
-    )
+    public CommandResult(bool success, TResult result)
     {
         Success = success;
         Result = result;
         ErrorCode = string.Empty;
     }
 
-    public CommandResult(
-        string errorCode
-    )
+    public CommandResult(string errorCode)
     {
         Success = false;
         Result = default!;
         ErrorCode = errorCode;
     }
 
-    public static implicit operator CommandResult<TResult>(
-        TResult result
-    ) => new(
-        result
-    );
+    public static implicit operator CommandResult<TResult>(TResult result) => new(result);
 
-    public static implicit operator CommandResult<TResult>(
-        string errorCode
-    ) => new(
-        errorCode
-    );
+    public static implicit operator CommandResult<TResult>(string errorCode) => new(errorCode);
 
-    public static implicit operator bool(
-        CommandResult<TResult> result
-    ) => result?.Success ?? false;
+    public static implicit operator bool(CommandResult<TResult> result) => result?.Success ?? false;
 }
