@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 using EventHorizon.Zone.Core.Events.DirectoryService;
 using EventHorizon.Zone.Core.Events.FileService;
 using EventHorizon.Zone.Core.Model.Info;
+using EventHorizon.Zone.Core.Model.Json;
 using EventHorizon.Zone.Core.Reporter.Model;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 public class WriteReportToFileHandler : IRequestHandler<WriteReportToFile>
 {
-    private static readonly JsonSerializerOptions JSON_OPTIONS =
-        new() { WriteIndented = true, };
-
     private readonly ILogger _logger;
     private readonly IMediator _mediator;
     private readonly ServerInfo _serverInfo;
@@ -72,7 +70,9 @@ public class WriteReportToFileHandler : IRequestHandler<WriteReportToFile>
 
             if (reportItem.Data != null)
             {
-                writer.WriteLine(JsonSerializer.Serialize(reportItem.Data, JSON_OPTIONS));
+                writer.WriteLine(
+                    JsonSerializer.Serialize(reportItem.Data, IJsonFileSaver.DEFAULT_JSON_OPTIONS)
+                );
             }
 
             writer.WriteLine("---");

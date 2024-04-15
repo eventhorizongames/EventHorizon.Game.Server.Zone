@@ -1,1 +1,10 @@
-{"CurrentGameState":{"Scores":[]},"dataStore:Schema":{},"Score":108,"ScoreState":{"Score":108}}
+{
+  "CurrentGameState": {
+    "Scores": []
+  },
+  "Score": 108,
+  "dataStore:Schema": {},
+  "ScoreState": {
+    "Score": 108
+  }
+}

@@ -1,27 +1,34 @@
 {
-    "@On Player creation it will always set these states to the provided values": "",
-    "forceSet": ["movementState", "modelState"],
-    "movementState": { "Speed": 1.0 },
-    "skillState": {
-        "skillMap": {
-            "list": [
-                {
-                    "id": "Skills_FireBall.json",
-                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
-                },
-                {
-                    "id": "Skills_MoveTo.json",
-                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
-                },
-                {
-                    "id": "Skills_CaptureTarget.json",
-                    "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
-                }
-            ]
+  "@On Player creation it will always set these states to the provided values": "",
+  "forceSet": [
+    "movementState",
+    "modelState"
+  ],
+  "movementState": {
+    "Speed": 1.0
+  },
+  "skillState": {
+    "skillMap": {
+      "list": [
+        {
+          "id": "Skills_FireBall.json",
+          "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+        },
+        {
+          "id": "Skills_MoveTo.json",
+          "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
+        },
+        {
+          "id": "Skills_CaptureTarget.json",
+          "cooldownFinishes": "2019-01-11T05:12:42.9190019Z"
         }
-    },
-    "modelState": {
-        "scalingDeterminant": 1,
-        "mesh": { "assetId": "DEFAULT_MESH" }
+      ]
     }
+  },
+  "modelState": {
+    "scalingDeterminant": 1,
+    "mesh": {
+      "assetId": "DEFAULT_MESH"
+    }
+  }
 }

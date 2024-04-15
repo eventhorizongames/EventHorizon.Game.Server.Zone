@@ -5,13 +5,11 @@ using System.Buffers;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.Json;
+using EventHorizon.Zone.Core.Model.Json;
 using Newtonsoft.Json.Linq;
 
 public static class DataPropertyExtensions
 {
-    private static readonly JsonSerializerOptions JSON_OPTIONS =
-        new() { PropertyNameCaseInsensitive = true, };
-
     public static TProperty? GetProperty<TProperty>(this IObjectEntity entity, string prop)
     {
         if (entity.Data.TryGetValue(prop, out var value))
@@ -87,12 +85,12 @@ public static class DataPropertyExtensions
         // .NET JSON Type
         else if (rawData[prop] is JsonElement jsonElementProp)
         {
-            value = jsonElementProp.ToObject<TProperty>(JSON_OPTIONS);
+            value = jsonElementProp.ToObject<TProperty>(IJsonFileSaver.DEFAULT_JSON_OPTIONS);
         }
         // .NET JSON Type
         else if (rawData[prop] is JsonDocument jsonDocumentProp)
         {
-            value = jsonDocumentProp.ToObject<TProperty>(JSON_OPTIONS);
+            value = jsonDocumentProp.ToObject<TProperty>(IJsonFileSaver.DEFAULT_JSON_OPTIONS);
         }
         else if (rawData[prop] is TProperty rawDataProp)
         {

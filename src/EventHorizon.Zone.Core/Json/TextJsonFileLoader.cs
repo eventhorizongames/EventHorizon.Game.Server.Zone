@@ -7,9 +7,6 @@ using EventHorizon.Zone.Core.Model.Json;
 
 public class TextJsonFileLoader : IJsonFileLoader
 {
-    private static readonly JsonSerializerOptions JSON_OPTIONS =
-        new() { PropertyNameCaseInsensitive = true, WriteIndented = true, };
-
     private readonly FileResolver _fileResolver;
 
     public TextJsonFileLoader(FileResolver fileResolver)
@@ -24,7 +21,10 @@ public class TextJsonFileLoader : IJsonFileLoader
             return default(T).FromResult();
         }
         return JsonSerializer
-            .Deserialize<T>(_fileResolver.GetFileText(fileFullName), JSON_OPTIONS)
+            .Deserialize<T>(
+                _fileResolver.GetFileText(fileFullName),
+                IJsonFileSaver.DEFAULT_JSON_OPTIONS
+            )
             .FromResult();
     }
 }
