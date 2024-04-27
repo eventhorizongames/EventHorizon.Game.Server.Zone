@@ -3,15 +3,12 @@ namespace EventHorizon.Server.Core.Connection.Internal;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http.Connections.Client;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-public class SystemCoreServerConnectionCache
-    : CoreServerConnectionCache,
-    IAsyncDisposable
+public class SystemCoreServerConnectionCache : CoreServerConnectionCache, IAsyncDisposable
 {
     private readonly ILogger _logger;
     private readonly SemaphoreSlim _lock;
@@ -19,9 +16,7 @@ public class SystemCoreServerConnectionCache
     private HubConnection? _connection;
     private string _lastConnectionId = "not-set";
 
-    public SystemCoreServerConnectionCache(
-        ILogger<SystemCoreServerConnectionCache> logger
-    )
+    public SystemCoreServerConnectionCache(ILogger<SystemCoreServerConnectionCache> logger)
     {
         _logger = logger;
         _lock = new(1, 1);
@@ -58,15 +53,12 @@ public class SystemCoreServerConnectionCache
                 {
                     return _connection;
                 }
-                _logger.LogWarning(
-                    "Creating new Core Server Connection"
-                );
+                _logger.LogWarning("Creating new Core Server Connection");
+
                 _connection = new HubConnectionBuilder()
                     .AddNewtonsoftJsonProtocol()
-                    .WithUrl(
-                        url,
-                        configureHttpConnection
-                    ).WithAutomaticReconnect()
+                    .WithUrl(url, configureHttpConnection)
+                    .WithAutomaticReconnect()
                     .Build();
                 _connection.Closed += (ex) =>
                 {
@@ -84,14 +76,11 @@ public class SystemCoreServerConnectionCache
                     "Created new Core Server Connection of {ConnectionId}",
                     _connection.ConnectionId
                 );
-                _lastConnectionId = _connection.ConnectionId;
+                _lastConnectionId = _connection.ConnectionId ?? "not-set";
             }
             catch (Exception ex)
             {
-                _logger.LogError(
-                    ex,
-                    "Error connecting to Core hub"
-                );
+                _logger.LogError(ex, "Error connecting to Core hub");
                 _connection = null;
                 // TODO: Add publish of Connection Exception Event
                 throw;
