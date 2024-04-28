@@ -1,5 +1,7 @@
 ﻿namespace EventHorizon.Zone.System.Player.Tests.State;
 
+using System;
+using global::System;
 using AutoFixture.Xunit2;
 using EventHorizon.Test.Common.Attributes;
 using EventHorizon.Zone.Core.Events.Json;
@@ -20,11 +22,11 @@ public class InMemoryPlayerSettingsStateTests
     public async Task ShouldSetPlayerConfigurationWhenSetReturnsTrueForUpdated(
         // Given
         ObjectEntityConfigurationTestModel playerConfiguration,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> senderMock,
         InMemoryPlayerSettingsState state
     )
     {
-        mediatorMock
+        senderMock
             .Setup(mock => mock.Send(It.IsAny<SerializeToJsonCommand>(), CancellationToken.None))
             .ReturnsAsync(
                 new CommandResult<SerializeToJsonResult>(new SerializeToJsonResult("{}"))
@@ -48,7 +50,7 @@ public class InMemoryPlayerSettingsStateTests
     public async Task ShouldReturnNotUpdatedAndOldPlayerConfigurationWhenSetIsRanTwiceWithSameConfiguration(
         // Given
         ObjectEntityConfigurationTestModel playerConfiguration,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> mediatorMock,
         InMemoryPlayerSettingsState state
     )
     {
@@ -80,7 +82,7 @@ public class InMemoryPlayerSettingsStateTests
         // Given
         string errorCode,
         ObjectEntityConfigurationTestModel playerConfiguration,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> mediatorMock,
         InMemoryPlayerSettingsState state
     )
     {
@@ -104,7 +106,7 @@ public class InMemoryPlayerSettingsStateTests
     public async Task ShouldSetPlayerDataWhenSetReturnsTrueForUpdated(
         // Given
         ObjectEntityDataTestModel playerData,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> mediatorMock,
         InMemoryPlayerSettingsState state
     )
     {
@@ -129,7 +131,7 @@ public class InMemoryPlayerSettingsStateTests
     public async Task ShouldReturnNotUpdatedAndOldPlayerDataWhenSetIsRanTwiceWithSameData(
         // Given
         ObjectEntityDataTestModel playerData,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> mediatorMock,
         InMemoryPlayerSettingsState state
     )
     {
@@ -158,7 +160,7 @@ public class InMemoryPlayerSettingsStateTests
         // Given
         string errorCode,
         PlayerObjectEntityDataModel playerData,
-        [Frozen] Mock<IMediator> mediatorMock,
+        [Frozen] Mock<ISender> mediatorMock,
         InMemoryPlayerSettingsState state
     )
     {
